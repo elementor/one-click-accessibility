@@ -42,7 +42,7 @@ final class Pojo_A11y_Frontend {
 			return;
 		
 		$toolbar_position = pojo_get_option( 'pojo_a11y_toolbar_position' );
-		if ( empty( $toolbar_position ) || ! in_array( 'right', 'left' ) )
+		if ( empty( $toolbar_position ) || ! in_array( $toolbar_position, array( 'right', 'left' ) ) )
 			$toolbar_position = 'left';
 		
 		?>
