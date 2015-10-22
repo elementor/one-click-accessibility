@@ -37,18 +37,32 @@ a:focus {
 	.pojo-a11y-toolbar-position(left);
 	
 	.pojo-a11y-toolbar-overlay {
-		background: #000;
-		border: 1px #ff6347 solid;
-		color: #fff;
+		background-color: #ffffff;
+		border: 1px #999999 solid;
 		font-size: 17px;
 		padding: 15px 40px;
 		width: @toolbar-width;
+		.pojo-a11y-toolbar-title {
+			font-weight: bold;
+		}
+		ul.pojo-a11y-toolbar-items {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			li.pojo-a11y-toolbar-item {
+				a {
+					color: #333333;
+				}
+			}
+		}
 	}
 
 	.pojo-a11y-toolbar-toggle {
+		background-color: #999999;
 		font-size: 42px;
 		z-index: 15000;
 		a {
+			color: #ffffff;
 			outline: none;
 		}
 	}
