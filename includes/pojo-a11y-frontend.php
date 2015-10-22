@@ -45,7 +45,7 @@ final class Pojo_A11y_Frontend {
 		<div id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-right">
 			<div class="pojo-a11y-toolbar-overlay">
 				<div class="pojo-a11y-toolbar-inner">
-					<p class="pojo-a11y-toolbar-title">Accessibility Title?</p>
+					<p class="pojo-a11y-toolbar-title"><?php _e( 'Accessibility Title', 'pojo-accessibility' ); ?></p>
 					
 					<ul class="pojo-a11y-toolbar-items">
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
