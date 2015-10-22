@@ -41,8 +41,12 @@ final class Pojo_A11y_Frontend {
 		if ( ! $this->is_toolbar_active() )
 			return;
 		
+		$toolbar_position = pojo_get_option( 'pojo_a11y_toolbar_position' );
+		if ( empty( $toolbar_position ) || ! in_array( 'right', 'left' ) )
+			$toolbar_position = 'left';
+		
 		?>
-		<div id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-right">
+		<div id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>">
 			<div class="pojo-a11y-toolbar-overlay">
 				<div class="pojo-a11y-toolbar-inner">
 					<p class="pojo-a11y-toolbar-title"><?php _e( 'Accessibility Title', 'pojo-accessibility' ); ?></p>
