@@ -193,6 +193,7 @@ to change the program that generates them.
 .placebo - we want line-height normal
 anyway - and should validate */
   /* in browsers that do not support @media, this will be overridden by the items below */
+  /* end of @media block */
 }
 body.pojo-a11y-contrast .placebo {
   line-height: normal;
