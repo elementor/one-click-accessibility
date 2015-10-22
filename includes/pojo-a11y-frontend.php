@@ -48,6 +48,7 @@ final class Pojo_A11y_Frontend {
 					<p class="pojo-a11y-toolbar-title"><?php _e( 'Accessibility Title', 'pojo-accessibility' ); ?></p>
 					
 					<ul class="pojo-a11y-toolbar-items">
+						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-resize-font" data-action="minus">
@@ -101,7 +102,7 @@ final class Pojo_A11y_Frontend {
 								</a>
 							</li>
 						<?php endif; ?>
-
+						<?php do_action( 'pojo_a11y_toolbar_after_buttons' ); ?>
 						<li class="pojo-a11y-toolbar-item">
 							<a href="#" class="pojo-a11y-btn-reset">
 								<?php _e( 'Reset', 'pojo-accessibility' ); ?>
