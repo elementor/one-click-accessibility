@@ -54,7 +54,7 @@ final class Pojo_A11y_Frontend {
 		<div id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>">
 			<div class="pojo-a11y-toolbar-overlay">
 				<div class="pojo-a11y-toolbar-inner">
-					<p class="pojo-a11y-toolbar-title"><?php _e( 'Accessibility Title', 'pojo-accessibility' ); ?></p>
+					<p class="pojo-a11y-toolbar-title"><?php echo pojo_get_option( 'pojo_a11y_toolbar_title' ); ?></p>
 					
 					<ul class="pojo-a11y-toolbar-items">
 						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
