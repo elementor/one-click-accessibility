@@ -3,8 +3,9 @@
 
 .font-size-percent (@size) when (@size <= @end-loop) {
 	.font-size-percent(@size + 10);
-	.pojo-a11y-resize-font-@{size} {
-		body&,
+
+	body.pojo-a11y-resize-font-@{size} {
+		&,
 		h1,
 		h2,
 		h3,
