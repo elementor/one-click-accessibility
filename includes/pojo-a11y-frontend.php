@@ -12,10 +12,6 @@ final class Pojo_A11y_Frontend {
 	}
 
 	public function enqueue_scripts() {
-		if ( ! $this->is_toolbar_active() )
-			return;
-		
-		
 		wp_register_script(
 			'pojo-a11y',
 			POJO_A11Y_ASSETS_URL . 'js/app.min.js',
@@ -35,6 +31,14 @@ final class Pojo_A11y_Frontend {
 		
 		wp_enqueue_script( 'pojo-a11y' );
 		wp_enqueue_style( 'pojo-a11y' );
+
+		wp_localize_script(
+			'pojo-a11y',
+			'PojoA11yOptions',
+			array(
+				'remove_link_target' => 'enable' === pojo_get_option( 'pojo_a11y_remove_link_target' ),
+			)
+		);
 	}
 
 	public function wp_footer() {

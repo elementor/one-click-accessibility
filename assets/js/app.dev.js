@@ -1,7 +1,7 @@
 /*!
  * @author: Pojo Team
  */
-/* global jQuery */
+/* global jQuery, PojoA11yOptions */
 
 ( function( $, window, document, undefined ) {
 	'use strict';
@@ -110,10 +110,17 @@
 			} );
 		},
 
+		handleGlobalOptions: function() {
+			if ( PojoA11yOptions.remove_link_target ) {
+				$( 'a[target="_blank"]' ).prop( 'target', '' );
+			}
+		},
+		
 		init: function() {
 			this.cacheElements();
 			this.buildElements();
 			this.bindEvents();
+			this.handleGlobalOptions();
 		}
 	};
 

@@ -122,8 +122,34 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		return $sections;
 	}
 
+	public function section_a11y_settings( $sections ) {
+		$fields = array();
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_remove_link_target',
+			'title' => __( 'Remove target attribute from links', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_SELECT,
+			'options' => array(
+				'enable' => __( 'Enable', 'pojo-accessibility' ),
+				'disable' => __( 'Disable', 'pojo-accessibility' ),
+			),
+			'std' => 'disable',
+		);
+		
+		
+		$sections[] = array(
+			'id' => 'section-a11y-settings',
+			'page' => $this->_page_id,
+			'title' => __( 'Settings:', 'pojo-accessibility' ),
+			'intro' => '',
+			'fields' => $fields,
+		);
+
+		return $sections;
+	}
+
 	public function print_js() {
-		// TODO: Move to other file
+		// TODO: Maybe need to move to other file
 		?>
 		<script>
 			jQuery( document ).ready( function( $ ) {
@@ -151,6 +177,8 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		$this->_page_parent = 'pojo-home';
 
 		add_filter( 'pojo_register_settings_sections', array( &$this, 'section_a11y_toolbar' ), 100 );
+		add_filter( 'pojo_register_settings_sections', array( &$this, 'section_a11y_settings' ), 110 );
+		
 		add_action( 'admin_footer', array( &$this, 'print_js' ) );
 
 		parent::__construct( $priority );
