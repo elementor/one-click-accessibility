@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-22 15:12+0300\n"
+"POT-Creation-Date: 2015-10-22 15:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,35 +17,39 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: includes/pojo-a11y-frontend.php:54
+#: includes/pojo-a11y-frontend.php:48
+msgid "Accessibility Title"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:55
 msgid "A-"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:60
+#: includes/pojo-a11y-frontend.php:61
 msgid "A+"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:68 includes/pojo-a11y-settings.php:43
+#: includes/pojo-a11y-frontend.php:69 includes/pojo-a11y-settings.php:43
 msgid "Grayscale"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:76 includes/pojo-a11y-settings.php:55
+#: includes/pojo-a11y-frontend.php:77 includes/pojo-a11y-settings.php:55
 msgid "High Contrast"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:84 includes/pojo-a11y-settings.php:67
+#: includes/pojo-a11y-frontend.php:85 includes/pojo-a11y-settings.php:67
 msgid "Light Background"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:92 includes/pojo-a11y-settings.php:79
+#: includes/pojo-a11y-frontend.php:93 includes/pojo-a11y-settings.php:79
 msgid "Links Underline"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:100 includes/pojo-a11y-settings.php:91
+#: includes/pojo-a11y-frontend.php:101 includes/pojo-a11y-settings.php:91
 msgid "Font Readable"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:107
+#: includes/pojo-a11y-frontend.php:108
 msgid "Reset"
 msgstr ""
 
