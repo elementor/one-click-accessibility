@@ -51,7 +51,7 @@ final class Pojo_A11y_Frontend {
 			$toolbar_position = 'left';
 		
 		?>
-		<nav id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>">
+		<nav id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
 				<a href="#">
 					<i class="fa fa-wheelchair"></i>
