@@ -12,10 +12,6 @@ final class Pojo_A11y_Frontend {
 	}
 
 	public function enqueue_scripts() {
-		if ( ! $this->is_toolbar_active() )
-			return;
-		
-		
 		wp_register_script(
 			'pojo-a11y',
 			POJO_A11Y_ASSETS_URL . 'js/app.min.js',
@@ -35,6 +31,15 @@ final class Pojo_A11y_Frontend {
 		
 		wp_enqueue_script( 'pojo-a11y' );
 		wp_enqueue_style( 'pojo-a11y' );
+
+		wp_localize_script(
+			'pojo-a11y',
+			'PojoA11yOptions',
+			array(
+				'remove_link_target' => ( 'enable' === pojo_get_option( 'pojo_a11y_remove_link_target' ) ),
+				'add_role_links' => ( 'enable' === pojo_get_option( 'pojo_a11y_add_role_links' ) ),
+			)
+		);
 	}
 
 	public function wp_footer() {
@@ -49,20 +54,20 @@ final class Pojo_A11y_Frontend {
 		<div id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>">
 			<div class="pojo-a11y-toolbar-overlay">
 				<div class="pojo-a11y-toolbar-inner">
-					<p class="pojo-a11y-toolbar-title"><?php _e( 'Accessibility Title', 'pojo-accessibility' ); ?></p>
+					<p class="pojo-a11y-toolbar-title"><?php echo pojo_get_option( 'pojo_a11y_toolbar_title' ); ?></p>
 					
 					<ul class="pojo-a11y-toolbar-items">
 						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-btn-resize-font" data-action="minus">
-									<?php _e( 'A-', 'pojo-accessibility' ); ?>
-								</a>
-							</li>
-
-							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-resize-font" data-action="plus">
 									<?php _e( 'A+', 'pojo-accessibility' ); ?>
+								</a>
+							</li>
+							
+							<li class="pojo-a11y-toolbar-item">
+								<a href="#" class="pojo-a11y-btn-resize-font" data-action="minus">
+									<?php _e( 'A-', 'pojo-accessibility' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
@@ -99,10 +104,10 @@ final class Pojo_A11y_Frontend {
 							</li>
 						<?php endif; ?>
 
-						<?php if ( $this->is_toolbar_button_active( 'font_readable' ) ) : ?>
+						<?php if ( $this->is_toolbar_button_active( 'readable_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-btn-font-readable">
-									<?php _e( 'Font Readable', 'pojo-accessibility' ); ?>
+								<a href="#" class="pojo-a11y-btn-readable-font">
+									<?php _e( 'Readable Font', 'pojo-accessibility' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
