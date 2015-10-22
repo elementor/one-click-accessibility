@@ -1,11 +1,11 @@
-#pojo-a11y-toolbar {
+nav#pojo-a11y-toolbar {
   position: fixed;
   top: 50px;
   display: none;
   font-size: 17px !important;
   z-index: 15000;
 }
-#pojo-a11y-toolbar.pojo-a11y-toolbar-right {
+nav#pojo-a11y-toolbar.pojo-a11y-toolbar-right {
   right: -240px;
   display: block;
   -webkit-transition: right 750ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -13,14 +13,14 @@
   -o-transition: right 750ms cubic-bezier(0.23, 1, 0.32, 1);
   transition: right 750ms cubic-bezier(0.23, 1, 0.32, 1);
 }
-#pojo-a11y-toolbar.pojo-a11y-toolbar-right.pojo-a11y-toolbar-open {
+nav#pojo-a11y-toolbar.pojo-a11y-toolbar-right.pojo-a11y-toolbar-open {
   right: 0;
 }
-#pojo-a11y-toolbar.pojo-a11y-toolbar-right .pojo-a11y-toolbar-overlay,
-#pojo-a11y-toolbar.pojo-a11y-toolbar-right .pojo-a11y-toolbar-toggle {
+nav#pojo-a11y-toolbar.pojo-a11y-toolbar-right .pojo-a11y-toolbar-overlay,
+nav#pojo-a11y-toolbar.pojo-a11y-toolbar-right .pojo-a11y-toolbar-toggle {
   float: right;
 }
-#pojo-a11y-toolbar.pojo-a11y-toolbar-left {
+nav#pojo-a11y-toolbar.pojo-a11y-toolbar-left {
   left: -240px;
   display: block;
   -webkit-transition: left 750ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -28,14 +28,14 @@
   -o-transition: left 750ms cubic-bezier(0.23, 1, 0.32, 1);
   transition: left 750ms cubic-bezier(0.23, 1, 0.32, 1);
 }
-#pojo-a11y-toolbar.pojo-a11y-toolbar-left.pojo-a11y-toolbar-open {
+nav#pojo-a11y-toolbar.pojo-a11y-toolbar-left.pojo-a11y-toolbar-open {
   left: 0;
 }
-#pojo-a11y-toolbar.pojo-a11y-toolbar-left .pojo-a11y-toolbar-overlay,
-#pojo-a11y-toolbar.pojo-a11y-toolbar-left .pojo-a11y-toolbar-toggle {
+nav#pojo-a11y-toolbar.pojo-a11y-toolbar-left .pojo-a11y-toolbar-overlay,
+nav#pojo-a11y-toolbar.pojo-a11y-toolbar-left .pojo-a11y-toolbar-toggle {
   float: left;
 }
-#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay {
+nav#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay {
   background: #000;
   border: 1px #ff6347 solid;
   color: #fff;
@@ -43,11 +43,11 @@
   padding: 15px 40px;
   width: 240px;
 }
-#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle {
+nav#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle {
   font-size: 42px;
   z-index: 15000;
 }
-#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a {
+nav#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a {
   outline: none;
 }
 body.pojo-a11y-resize-font-160,
@@ -57,8 +57,8 @@ body.pojo-a11y-resize-font-160 h3,
 body.pojo-a11y-resize-font-160 h4,
 body.pojo-a11y-resize-font-160 h5,
 body.pojo-a11y-resize-font-160 h6,
-body.pojo-a11y-resize-font-160 p,
-body.pojo-a11y-resize-font-160 li,
+body.pojo-a11y-resize-font-160 p:not(.pojo-a11y-toolbar-title),
+body.pojo-a11y-resize-font-160 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-160 label,
 body.pojo-a11y-resize-font-160 input,
 body.pojo-a11y-resize-font-160 select,
@@ -80,8 +80,8 @@ body.pojo-a11y-resize-font-150 h3,
 body.pojo-a11y-resize-font-150 h4,
 body.pojo-a11y-resize-font-150 h5,
 body.pojo-a11y-resize-font-150 h6,
-body.pojo-a11y-resize-font-150 p,
-body.pojo-a11y-resize-font-150 li,
+body.pojo-a11y-resize-font-150 p:not(.pojo-a11y-toolbar-title),
+body.pojo-a11y-resize-font-150 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-150 label,
 body.pojo-a11y-resize-font-150 input,
 body.pojo-a11y-resize-font-150 select,
@@ -103,8 +103,8 @@ body.pojo-a11y-resize-font-140 h3,
 body.pojo-a11y-resize-font-140 h4,
 body.pojo-a11y-resize-font-140 h5,
 body.pojo-a11y-resize-font-140 h6,
-body.pojo-a11y-resize-font-140 p,
-body.pojo-a11y-resize-font-140 li,
+body.pojo-a11y-resize-font-140 p:not(.pojo-a11y-toolbar-title),
+body.pojo-a11y-resize-font-140 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-140 label,
 body.pojo-a11y-resize-font-140 input,
 body.pojo-a11y-resize-font-140 select,
@@ -126,8 +126,8 @@ body.pojo-a11y-resize-font-130 h3,
 body.pojo-a11y-resize-font-130 h4,
 body.pojo-a11y-resize-font-130 h5,
 body.pojo-a11y-resize-font-130 h6,
-body.pojo-a11y-resize-font-130 p,
-body.pojo-a11y-resize-font-130 li,
+body.pojo-a11y-resize-font-130 p:not(.pojo-a11y-toolbar-title),
+body.pojo-a11y-resize-font-130 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-130 label,
 body.pojo-a11y-resize-font-130 input,
 body.pojo-a11y-resize-font-130 select,
@@ -149,8 +149,8 @@ body.pojo-a11y-resize-font-120 h3,
 body.pojo-a11y-resize-font-120 h4,
 body.pojo-a11y-resize-font-120 h5,
 body.pojo-a11y-resize-font-120 h6,
-body.pojo-a11y-resize-font-120 p,
-body.pojo-a11y-resize-font-120 li,
+body.pojo-a11y-resize-font-120 p:not(.pojo-a11y-toolbar-title),
+body.pojo-a11y-resize-font-120 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-120 label,
 body.pojo-a11y-resize-font-120 input,
 body.pojo-a11y-resize-font-120 select,

@@ -51,7 +51,12 @@ final class Pojo_A11y_Frontend {
 			$toolbar_position = 'left';
 		
 		?>
-		<div id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>">
+		<nav id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>">
+			<div class="pojo-a11y-toolbar-toggle">
+				<a href="#">
+					<i class="fa fa-wheelchair"></i>
+				</a>
+			</div>
 			<div class="pojo-a11y-toolbar-overlay">
 				<div class="pojo-a11y-toolbar-inner">
 					<p class="pojo-a11y-toolbar-title"><?php echo pojo_get_option( 'pojo_a11y_toolbar_title' ); ?></p>
@@ -120,12 +125,7 @@ final class Pojo_A11y_Frontend {
 					</ul>
 				</div>
 			</div>
-			<div class="pojo-a11y-toolbar-toggle">
-				<a href="#">
-					<i class="fa fa-wheelchair"></i>
-				</a>
-			</div>
-		</div>
+		</nav>
 		<?php
 	}
 
