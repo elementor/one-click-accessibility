@@ -55,14 +55,14 @@ final class Pojo_A11y_Frontend {
 						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-btn-resize-font" data-action="minus">
-									<?php _e( 'A-', 'pojo-accessibility' ); ?>
-								</a>
-							</li>
-
-							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-resize-font" data-action="plus">
 									<?php _e( 'A+', 'pojo-accessibility' ); ?>
+								</a>
+							</li>
+							
+							<li class="pojo-a11y-toolbar-item">
+								<a href="#" class="pojo-a11y-btn-resize-font" data-action="minus">
+									<?php _e( 'A-', 'pojo-accessibility' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
