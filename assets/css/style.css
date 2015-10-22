@@ -1,8 +1,8 @@
-/*! pojo-accessibility - v1.0.0 - 22-10-2015 */
 #pojo-a11y-toolbar {
   position: fixed;
   top: 50px;
   display: none;
+  font-size: 17px !important;
   z-index: 15000;
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-right {
@@ -39,6 +39,7 @@
   background: #000;
   border: 1px #ff6347 solid;
   color: #fff;
+  font-size: 17px;
   padding: 15px 40px;
   width: 240px;
 }
@@ -189,7 +190,6 @@ to change the program that generates them.
 .placebo - we want line-height normal
 anyway - and should validate */
   /* in browsers that do not support @media, this will be overridden by the items below */
-  /* end of @media block */
 }
 body.pojo-a11y-contrast .placebo {
   line-height: normal;
