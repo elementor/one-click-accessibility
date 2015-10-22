@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the pojo-accessibility package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: pojo-accessibility 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-22 15:12+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: includes/pojo-a11y-frontend.php:54
+msgid "A-"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:60
+msgid "A+"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:68 includes/pojo-a11y-settings.php:43
+msgid "Grayscale"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:76 includes/pojo-a11y-settings.php:55
+msgid "High Contrast"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:84 includes/pojo-a11y-settings.php:67
+msgid "Light Background"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:92 includes/pojo-a11y-settings.php:79
+msgid "Links Underline"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:100 includes/pojo-a11y-settings.php:91
+msgid "Font Readable"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:107
+msgid "Reset"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:18
+msgid "Toolbar"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:21 includes/pojo-a11y-settings.php:35
+#: includes/pojo-a11y-settings.php:47 includes/pojo-a11y-settings.php:59
+#: includes/pojo-a11y-settings.php:71 includes/pojo-a11y-settings.php:83
+#: includes/pojo-a11y-settings.php:95
+msgid "Enable"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:22 includes/pojo-a11y-settings.php:36
+#: includes/pojo-a11y-settings.php:48 includes/pojo-a11y-settings.php:60
+#: includes/pojo-a11y-settings.php:72 includes/pojo-a11y-settings.php:84
+#: includes/pojo-a11y-settings.php:96
+msgid "Disable"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:31
+msgid "Resize Font"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:104
+msgid "Toolbar Setting:"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:135
+msgid "Accessibility Settings"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:136
+msgid "Accessibility"
+msgstr ""
+
+#: pojo-accessibility.php:48 pojo-accessibility.php:59
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: pojo-accessibility.php:78
+#, php-format
+msgid ""
+"<a href=\"%s\" target=\"_blank\">Pojo Framework</a> is not active. Please "
+"activate any theme by Pojo before you are using \"Pojo News Ticker\" plugin."
+msgstr ""

@@ -1,0 +1,32 @@
+@start-loop: 120;
+@end-loop: 160;
+
+.font-size-percent (@size) when (@size <= @end-loop) {
+	.font-size-percent(@size + 10);
+	.pojo-a11y-resize-font-@{size} {
+		body&,
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		p,
+		li,
+		label,
+		input,
+		select,
+		textarea,
+		legend,
+		code,
+		pre,
+		dd,
+		dt,
+		span,
+		blockquote {
+			@value: ~'@{size}%';
+			font-size: @value !important;
+			line-height: 1.4;
+		}
+	}
+}

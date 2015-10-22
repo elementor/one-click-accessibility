@@ -1,0 +1,49 @@
+@toolbar-width: 240px;
+
+.pojo-a11y-toolbar-position(@direction) {
+	&.pojo-a11y-toolbar-@{direction} {
+		@{direction}: -@toolbar-width;
+
+		display: block;
+		
+		-webkit-transition: @direction 750ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
+		-moz-transition: @direction 750ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
+		-o-transition: @direction 750ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
+		transition: @direction 750ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
+
+		&.pojo-a11y-toolbar-open {
+			@{direction}: 0;
+		}
+
+		.pojo-a11y-toolbar-overlay,
+		.pojo-a11y-toolbar-toggle {
+			float: @direction;
+		}
+	}
+}
+
+#pojo-a11y-toolbar {
+	position: fixed;
+	top: 50px;
+	display: none;
+	z-index: 15000;
+
+	.pojo-a11y-toolbar-position(right);
+	.pojo-a11y-toolbar-position(left);
+	
+	.pojo-a11y-toolbar-overlay {
+		background: #000;
+		border: 1px #ff6347 solid;
+		color: #fff;
+		padding: 15px 40px;
+		width: @toolbar-width;
+	}
+
+	.pojo-a11y-toolbar-toggle {
+		font-size: 42px;
+		z-index: 15000;
+		a {
+			outline: none;
+		}
+	}
+}

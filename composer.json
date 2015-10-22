@@ -1,0 +1,15 @@
+{
+	"name": "pojome/pojo-accessibility",
+	"description": "pojo accessibility",
+	"minimum-stability": "dev",
+	"license": "gpl2",
+	"authors": [
+		{
+			"name": "Yakir Sitbon",
+			"email": "yakir@pojo.me"
+		}
+	],
+	"require": {
+		"phpunit/phpunit": "4.8.8"
+	}
+}
