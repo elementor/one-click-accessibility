@@ -1,3 +1,6 @@
+a:focus {
+  border: 2px solid red;
+}
 #pojo-a11y-toolbar {
   position: fixed;
   top: 50px;
