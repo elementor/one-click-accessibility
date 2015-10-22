@@ -100,8 +100,8 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		);
 
 		$fields[] = array(
-			'id' => 'pojo_a11y_toolbar_button_font_readable',
-			'title' => __( 'Font Readable', 'pojo-accessibility' ),
+			'id' => 'pojo_a11y_toolbar_button_readable_font',
+			'title' => __( 'Readable Font', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
 			'class' => $toolbarButtonClasses,
 			'options' => array(

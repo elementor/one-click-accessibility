@@ -99,10 +99,10 @@ final class Pojo_A11y_Frontend {
 							</li>
 						<?php endif; ?>
 
-						<?php if ( $this->is_toolbar_button_active( 'font_readable' ) ) : ?>
+						<?php if ( $this->is_toolbar_button_active( 'readable_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-btn-font-readable">
-									<?php _e( 'Font Readable', 'pojo-accessibility' ); ?>
+								<a href="#" class="pojo-a11y-btn-readable-font">
+									<?php _e( 'Readable Font', 'pojo-accessibility' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>

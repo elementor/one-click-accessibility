@@ -92,17 +92,17 @@
 				$( this ).toggleClass( 'active' );
 			} );
 
-			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-font-readable' ).on( 'click', function( event ) {
+			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-readable-font' ).on( 'click', function( event ) {
 				event.preventDefault();
 
-				$self.cache.$body.toggleClass( 'pojo-a11y-font-readable' );
+				$self.cache.$body.toggleClass( 'pojo-a11y-readable-font' );
 				$( this ).toggleClass( 'active' );
 			} );
 
 			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-reset' ).on( 'click', function( event ) {
 				event.preventDefault();
 
-				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-font-readable' );
+				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-readable-font' );
 
 				var MIN_SIZE = 120;
 				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
