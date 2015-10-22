@@ -111,8 +111,12 @@
 		},
 
 		handleGlobalOptions: function() {
-			if ( PojoA11yOptions.remove_link_target ) {
-				$( 'a[target="_blank"]' ).prop( 'target', '' );
+			if ( '1' === PojoA11yOptions.remove_link_target ) {
+				$( 'a[target="_blank"]' ).attr( 'target', '' );
+			}
+			
+			if ( '1' === PojoA11yOptions.add_role_links ) {
+				$( 'a' ).attr( 'role', 'link' );
 			}
 		},
 		

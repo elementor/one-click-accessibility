@@ -36,7 +36,8 @@ final class Pojo_A11y_Frontend {
 			'pojo-a11y',
 			'PojoA11yOptions',
 			array(
-				'remove_link_target' => 'enable' === pojo_get_option( 'pojo_a11y_remove_link_target' ),
+				'remove_link_target' => ( 'enable' === pojo_get_option( 'pojo_a11y_remove_link_target' ) ),
+				'add_role_links' => ( 'enable' === pojo_get_option( 'pojo_a11y_add_role_links' ) ),
 			)
 		);
 	}

@@ -135,7 +135,17 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			),
 			'std' => 'disable',
 		);
-		
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_add_role_links',
+			'title' => __( 'Add landmark roles to all links', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_SELECT,
+			'options' => array(
+				'enable' => __( 'Enable', 'pojo-accessibility' ),
+				'disable' => __( 'Disable', 'pojo-accessibility' ),
+			),
+			'std' => 'disable',
+		);
 		
 		$sections[] = array(
 			'id' => 'section-a11y-settings',
