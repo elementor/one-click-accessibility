@@ -4,13 +4,14 @@ a:focus {
 }
 #pojo-a11y-toolbar {
   position: fixed;
-  top: 50px;
+  top: 100px;
   display: none;
-  font-size: 17px !important;
-  z-index: 15000;
+  font-size: 16px !important;
+  line-height: 1.4;
+  z-index: 9998;
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-right {
-  right: -240px;
+  right: -180px;
   display: block;
   -webkit-transition: right 750ms cubic-bezier(0.23, 1, 0.32, 1);
   -moz-transition: right 750ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -25,7 +26,7 @@ a:focus {
   float: left;
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-left {
-  left: -240px;
+  left: -180px;
   display: block;
   -webkit-transition: left 750ms cubic-bezier(0.23, 1, 0.32, 1);
   -moz-transition: left 750ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -41,28 +42,39 @@ a:focus {
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay {
   background-color: #ffffff;
-  border: 1px #999999 solid;
-  font-size: 17px;
-  padding: 15px 40px;
-  width: 240px;
+  border: 1px #becedb solid;
+  font-size: 100%;
+  width: 180px;
 }
-#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay .pojo-a11y-toolbar-title {
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay p.pojo-a11y-toolbar-title {
+  display: block;
+  line-height: 2;
   font-weight: bold;
+  padding: 10px 15px 0;
+  margin: 0;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 10px 0;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a {
+  display: block;
+  padding: 10px 15px;
+  font-size: 80%;
+  line-height: 1;
   color: #333333;
 }
-#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle {
-  background-color: #999999;
-  font-size: 42px;
-  z-index: 15000;
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a:focus {
+  background-color: #becedb;
+  font-weight: bold;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a {
+  display: inline-block;
+  background-color: #becedb;
+  font-size: 200%;
+  line-height: 1;
+  padding: 10px;
   color: #ffffff;
   outline: none;
 }
@@ -1710,7 +1722,6 @@ body.pojo-a11y-resize-font-160 dt,
 body.pojo-a11y-resize-font-160 span,
 body.pojo-a11y-resize-font-160 blockquote {
   font-size: 160% !important;
-  line-height: 1.4;
 }
 body.pojo-a11y-resize-font-150,
 body.pojo-a11y-resize-font-150 h1,
@@ -1733,7 +1744,6 @@ body.pojo-a11y-resize-font-150 dt,
 body.pojo-a11y-resize-font-150 span,
 body.pojo-a11y-resize-font-150 blockquote {
   font-size: 150% !important;
-  line-height: 1.4;
 }
 body.pojo-a11y-resize-font-140,
 body.pojo-a11y-resize-font-140 h1,
@@ -1756,7 +1766,6 @@ body.pojo-a11y-resize-font-140 dt,
 body.pojo-a11y-resize-font-140 span,
 body.pojo-a11y-resize-font-140 blockquote {
   font-size: 140% !important;
-  line-height: 1.4;
 }
 body.pojo-a11y-resize-font-130,
 body.pojo-a11y-resize-font-130 h1,
@@ -1779,7 +1788,6 @@ body.pojo-a11y-resize-font-130 dt,
 body.pojo-a11y-resize-font-130 span,
 body.pojo-a11y-resize-font-130 blockquote {
   font-size: 130% !important;
-  line-height: 1.4;
 }
 body.pojo-a11y-resize-font-120,
 body.pojo-a11y-resize-font-120 h1,
@@ -1802,7 +1810,6 @@ body.pojo-a11y-resize-font-120 dt,
 body.pojo-a11y-resize-font-120 span,
 body.pojo-a11y-resize-font-120 blockquote {
   font-size: 120% !important;
-  line-height: 1.4;
 }
 body.pojo-a11y-links-underline a {
   text-decoration: underline !important;
