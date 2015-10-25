@@ -46,7 +46,7 @@
 				event.preventDefault();
 
 				var MAX_SIZE = 160,
-					MIN_SIZE = 120,
+					MIN_SIZE = 100,
 					action = $( this ).data( 'action' ),
 					oldFontSize = $self.currentFontSize;
 
@@ -110,7 +110,7 @@
 
 				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-readable-font' );
 
-				var MIN_SIZE = 120;
+				var MIN_SIZE = 100;
 				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
 				$self.currentFontSize = MIN_SIZE;
 			} );

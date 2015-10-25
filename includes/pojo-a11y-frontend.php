@@ -11,6 +11,10 @@ final class Pojo_A11y_Frontend {
 		return 'disable' !== pojo_get_option( "pojo_a11y_toolbar_button_{$button_type}" );
 	}
 
+	public function get_toolbar_button_title( $button_type ) {
+		return pojo_get_option( "pojo_a11y_toolbar_button_{$button_type}_title" );
+	}
+
 	public function enqueue_scripts() {
 		wp_register_script(
 			'pojo-a11y',
@@ -80,7 +84,7 @@ final class Pojo_A11y_Frontend {
 						<?php if ( $this->is_toolbar_button_active( 'grayscale' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-background-group" data-action="grayscale">
-									<?php _e( 'Grayscale', 'pojo-accessibility' ); ?>
+									<?php echo $this->get_toolbar_button_title( 'grayscale' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
@@ -88,7 +92,7 @@ final class Pojo_A11y_Frontend {
 						<?php if ( $this->is_toolbar_button_active( 'contrast' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-background-group" data-action="contrast">
-									<?php _e( 'High Contrast', 'pojo-accessibility' ); ?>
+									<?php echo $this->get_toolbar_button_title( 'contrast' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
@@ -96,7 +100,7 @@ final class Pojo_A11y_Frontend {
 						<?php if ( $this->is_toolbar_button_active( 'light_bg' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-background-group" data-action="light-bg">
-									<?php _e( 'Light Background', 'pojo-accessibility' ); ?>
+									<?php echo $this->get_toolbar_button_title( 'light_bg' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
@@ -104,7 +108,7 @@ final class Pojo_A11y_Frontend {
 						<?php if ( $this->is_toolbar_button_active( 'links_underline' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-links-underline">
-									<?php _e( 'Links Underline', 'pojo-accessibility' ); ?>
+									<?php echo $this->get_toolbar_button_title( 'links_underline' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
@@ -112,7 +116,7 @@ final class Pojo_A11y_Frontend {
 						<?php if ( $this->is_toolbar_button_active( 'readable_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-readable-font">
-									<?php _e( 'Readable Font', 'pojo-accessibility' ); ?>
+									<?php echo $this->get_toolbar_button_title( 'readable_font' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>

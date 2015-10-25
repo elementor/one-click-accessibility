@@ -1,4 +1,3 @@
-/*! pojo-accessibility - v1.0.0 - 25-10-2015 */
 a:focus {
   border: 2px solid red;
 }
@@ -179,6 +178,52 @@ body.pojo-a11y-resize-font-120 dt,
 body.pojo-a11y-resize-font-120 span,
 body.pojo-a11y-resize-font-120 blockquote {
   font-size: 120% !important;
+  line-height: 1.4;
+}
+body.pojo-a11y-resize-font-110,
+body.pojo-a11y-resize-font-110 h1,
+body.pojo-a11y-resize-font-110 h2,
+body.pojo-a11y-resize-font-110 h3,
+body.pojo-a11y-resize-font-110 h4,
+body.pojo-a11y-resize-font-110 h5,
+body.pojo-a11y-resize-font-110 h6,
+body.pojo-a11y-resize-font-110 p:not(.pojo-a11y-toolbar-title),
+body.pojo-a11y-resize-font-110 li:not(.pojo-a11y-toolbar-item),
+body.pojo-a11y-resize-font-110 label,
+body.pojo-a11y-resize-font-110 input,
+body.pojo-a11y-resize-font-110 select,
+body.pojo-a11y-resize-font-110 textarea,
+body.pojo-a11y-resize-font-110 legend,
+body.pojo-a11y-resize-font-110 code,
+body.pojo-a11y-resize-font-110 pre,
+body.pojo-a11y-resize-font-110 dd,
+body.pojo-a11y-resize-font-110 dt,
+body.pojo-a11y-resize-font-110 span,
+body.pojo-a11y-resize-font-110 blockquote {
+  font-size: 110% !important;
+  line-height: 1.4;
+}
+body.pojo-a11y-resize-font-100,
+body.pojo-a11y-resize-font-100 h1,
+body.pojo-a11y-resize-font-100 h2,
+body.pojo-a11y-resize-font-100 h3,
+body.pojo-a11y-resize-font-100 h4,
+body.pojo-a11y-resize-font-100 h5,
+body.pojo-a11y-resize-font-100 h6,
+body.pojo-a11y-resize-font-100 p:not(.pojo-a11y-toolbar-title),
+body.pojo-a11y-resize-font-100 li:not(.pojo-a11y-toolbar-item),
+body.pojo-a11y-resize-font-100 label,
+body.pojo-a11y-resize-font-100 input,
+body.pojo-a11y-resize-font-100 select,
+body.pojo-a11y-resize-font-100 textarea,
+body.pojo-a11y-resize-font-100 legend,
+body.pojo-a11y-resize-font-100 code,
+body.pojo-a11y-resize-font-100 pre,
+body.pojo-a11y-resize-font-100 dd,
+body.pojo-a11y-resize-font-100 dt,
+body.pojo-a11y-resize-font-100 span,
+body.pojo-a11y-resize-font-100 blockquote {
+  font-size: 100% !important;
   line-height: 1.4;
 }
 body.pojo-a11y-grayscale {
