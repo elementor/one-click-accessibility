@@ -45,7 +45,7 @@
 			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-resize-font' ).on( 'click', function( event ) {
 				event.preventDefault();
 
-				var MAX_SIZE = 160,
+				var MAX_SIZE = 200,
 					MIN_SIZE = 120,
 					action = $( this ).data( 'action' ),
 					oldFontSize = $self.currentFontSize;
@@ -110,7 +110,7 @@
 
 				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-readable-font' );
 
-				var MIN_SIZE = 100;
+				var MIN_SIZE = 120;
 				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
 				$self.currentFontSize = MIN_SIZE;
 			} );
