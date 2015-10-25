@@ -79,7 +79,7 @@ final class Pojo_A11y_Frontend {
 
 						<?php if ( $this->is_toolbar_button_active( 'grayscale' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-btn-grayscale">
+								<a href="#" class="pojo-a11y-btn-background-group" data-action="grayscale">
 									<?php _e( 'Grayscale', 'pojo-accessibility' ); ?>
 								</a>
 							</li>
@@ -87,7 +87,7 @@ final class Pojo_A11y_Frontend {
 
 						<?php if ( $this->is_toolbar_button_active( 'contrast' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-btn-contrast">
+								<a href="#" class="pojo-a11y-btn-background-group" data-action="contrast">
 									<?php _e( 'High Contrast', 'pojo-accessibility' ); ?>
 								</a>
 							</li>
@@ -95,7 +95,7 @@ final class Pojo_A11y_Frontend {
 
 						<?php if ( $this->is_toolbar_button_active( 'light_bg' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-btn-light-bg">
+								<a href="#" class="pojo-a11y-btn-background-group" data-action="light-bg">
 									<?php _e( 'Light Background', 'pojo-accessibility' ); ?>
 								</a>
 							</li>

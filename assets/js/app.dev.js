@@ -15,6 +15,7 @@
 		cacheElements: function() {
 			this.cache.$toolbar = $( '#pojo-a11y-toolbar' );
 			this.cache.$btnToolbarToggle = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-toggle > a' );
+			this.cache.$btnBackgrounGroup = this.cache.$toolbar.find( 'a.pojo-a11y-btn-background-group' );
 			this.cache.$body = $( 'body' );
 		},
 
@@ -64,25 +65,30 @@
 				}
 			} );
 
-			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-grayscale' ).on( 'click', function( event ) {
+			$self.cache.$btnBackgrounGroup.on( 'click', function( event ) {
 				event.preventDefault();
-
-				$self.cache.$body.toggleClass( 'pojo-a11y-grayscale' );
-				$( this ).toggleClass( 'active' );
-			} );
-
-			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-contrast' ).on( 'click', function( event ) {
-				event.preventDefault();
-
-				$self.cache.$body.toggleClass( 'pojo-a11y-contrast' );
-				$( this ).toggleClass( 'active' );
-			} );
-
-			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-light-bg' ).on( 'click', function( event ) {
-				event.preventDefault();
-
-				$self.cache.$body.toggleClass( 'pojo-a11y-light-background' );
-				$( this ).toggleClass( 'active' );
+				
+				var currentAction = $( this ).data( 'action' ),
+					isButtonActive = $( this ).hasClass( 'active' ),
+					bodyClasses = {
+						'grayscale': 'pojo-a11y-grayscale',
+						'contrast': 'pojo-a11y-contrast',
+						'light-bg': 'pojo-a11y-light-background'
+					};
+				
+				$.each( bodyClasses, function( action, bodyClass ) {
+					if ( currentAction === action && ! isButtonActive ) {
+						$self.cache.$body.addClass( bodyClass );
+					} else {
+						$self.cache.$body.removeClass( bodyClass );
+					}
+				} );
+				
+				$self.cache.$btnBackgrounGroup.removeClass( 'active' );
+				
+				if ( ! isButtonActive ) {
+					$( this ).addClass( 'active' );
+				}
 			} );
 
 			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-links-underline' ).on( 'click', function( event ) {
