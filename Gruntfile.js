@@ -94,7 +94,8 @@ module.exports = function( grunt ) {
 				files: {
 					src: [
 						'assets/js/app.min.js',
-						'assets/css/style.css'
+						'assets/css/style.css',
+						'assets/css/style.min.css'
 					]
 				}
 			}
@@ -124,10 +125,19 @@ module.exports = function( grunt ) {
 		less: {
 			dist: {
 				options: {
-					cleancss: true
+					//cleancss: true
 				},
 				files: {
 					'assets/css/style.css': 'assets/less/style.less'
+				}
+			},
+			
+			mincss: {
+				options: {
+					compress: true
+				},
+				files: {
+					'assets/css/style.min.css': 'assets/less/style.less'
 				}
 			}
 		},

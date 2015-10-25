@@ -28,7 +28,7 @@ final class Pojo_A11y_Frontend {
 
 		wp_register_style(
 			'pojo-a11y',
-			POJO_A11Y_ASSETS_URL . 'css/style.css',
+			POJO_A11Y_ASSETS_URL . 'css/style.min.css',
 			array(),
 			'1.0.0'
 		);
