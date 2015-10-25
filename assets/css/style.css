@@ -1,3 +1,4 @@
+/*! pojo-accessibility - v1.0.0 - 25-10-2015 */
 a:focus {
   border: 2px solid red;
 }
@@ -21,7 +22,7 @@ a:focus {
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-right .pojo-a11y-toolbar-overlay,
 #pojo-a11y-toolbar.pojo-a11y-toolbar-right .pojo-a11y-toolbar-toggle {
-  float: right;
+  float: left;
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-left {
   left: -240px;
@@ -36,7 +37,7 @@ a:focus {
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-left .pojo-a11y-toolbar-overlay,
 #pojo-a11y-toolbar.pojo-a11y-toolbar-left .pojo-a11y-toolbar-toggle {
-  float: left;
+  float: right;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay {
   background-color: #ffffff;

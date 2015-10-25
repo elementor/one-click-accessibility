@@ -19,9 +19,18 @@ a:focus {
 			@{direction}: 0;
 		}
 
-		.pojo-a11y-toolbar-overlay,
-		.pojo-a11y-toolbar-toggle {
-			float: @direction;
+		& when (@direction = left) {
+			.pojo-a11y-toolbar-overlay,
+			.pojo-a11y-toolbar-toggle {
+				float: right;
+			}
+		}
+
+		& when (@direction = right) {
+			.pojo-a11y-toolbar-overlay,
+			.pojo-a11y-toolbar-toggle {
+				float: left;
+			}
 		}
 	}
 }
