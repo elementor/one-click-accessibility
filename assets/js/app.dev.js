@@ -46,7 +46,7 @@
 				event.preventDefault();
 
 				var MAX_SIZE = 160,
-					MIN_SIZE = 100,
+					MIN_SIZE = 120,
 					action = $( this ).data( 'action' ),
 					oldFontSize = $self.currentFontSize;
 
