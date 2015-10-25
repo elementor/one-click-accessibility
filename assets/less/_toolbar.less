@@ -1,4 +1,4 @@
-@toolbar-width: 240px;
+@toolbar-width: 180px;
 
 a:focus {
 	border: 2px solid red;
@@ -37,10 +37,11 @@ a:focus {
 
 #pojo-a11y-toolbar {
 	position: fixed;
-	top: 50px;
+	top: 100px;
 	display: none;
-	font-size: 17px !important;
-	z-index: 15000;
+	font-size: 16px !important;
+	line-height: 1.4;
+	z-index: 9998;
 
 	.pojo-a11y-toolbar-position(right);
 	.pojo-a11y-toolbar-position(left);
@@ -48,11 +49,14 @@ a:focus {
 	.pojo-a11y-toolbar-overlay {
 		background-color: #ffffff;
 		border: 1px #999999 solid;
-		font-size: 17px;
-		padding: 15px 40px;
+		font-size: 100%;
 		width: @toolbar-width;
-		.pojo-a11y-toolbar-title {
+		p.pojo-a11y-toolbar-title {
+			display: block;
+			line-height: 2;
 			font-weight: bold;
+			padding: 10px 15px;
+			margin: 0;
 		}
 		ul.pojo-a11y-toolbar-items {
 			list-style: none;
@@ -60,6 +64,10 @@ a:focus {
 			padding: 0;
 			li.pojo-a11y-toolbar-item {
 				a {
+					display: block;
+					padding: 10px 15px;
+					font-size: 80%;
+					line-height: 1;
 					color: #333333;
 				}
 			}
@@ -67,10 +75,12 @@ a:focus {
 	}
 
 	.pojo-a11y-toolbar-toggle {
-		background-color: #999999;
-		font-size: 42px;
-		z-index: 15000;
 		a {
+			display: inline-block;
+			background-color: #999999;
+			font-size: 200%;
+			line-height: 1;
+			padding: 10px;
 			color: #ffffff;
 			outline: none;
 		}
