@@ -41,7 +41,7 @@ a:focus {
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay {
   background-color: #ffffff;
-  border: 1px #999999 solid;
+  border: 1px #becedb solid;
   font-size: 100%;
   width: 180px;
 }
@@ -49,13 +49,13 @@ a:focus {
   display: block;
   line-height: 2;
   font-weight: bold;
-  padding: 10px 15px;
+  padding: 10px 15px 0;
   margin: 0;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 10px 0;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a {
   display: block;
@@ -64,9 +64,13 @@ a:focus {
   line-height: 1;
   color: #333333;
 }
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a:focus {
+  background-color: #becedb;
+  font-weight: bold;
+}
 #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a {
   display: inline-block;
-  background-color: #999999;
+  background-color: #becedb;
   font-size: 200%;
   line-height: 1;
   padding: 10px;
