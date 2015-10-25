@@ -54,29 +54,32 @@ final class Pojo_A11y_Frontend {
 		if ( empty( $toolbar_position ) || ! in_array( $toolbar_position, array( 'right', 'left' ) ) )
 			$toolbar_position = 'left';
 		
+		$toolbar_title = pojo_get_option( 'pojo_a11y_toolbar_title' );
+		
 		?>
 		<nav id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
-				<a href="#">
+				<a href="#" title="<?php echo esc_attr( $toolbar_title ); ?>">
+					<span class="sr-only"><?php echo $toolbar_title; ?></span>
 					<i class="fa fa-wheelchair"></i>
 				</a>
 			</div>
 			<div class="pojo-a11y-toolbar-overlay">
 				<div class="pojo-a11y-toolbar-inner">
-					<p class="pojo-a11y-toolbar-title"><?php echo pojo_get_option( 'pojo_a11y_toolbar_title' ); ?></p>
+					<p class="pojo-a11y-toolbar-title"><?php echo $toolbar_title; ?></p>
 					
 					<ul class="pojo-a11y-toolbar-items">
 						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-resize-font" data-action="plus">
-									<?php _e( 'A+', 'pojo-accessibility' ); ?>
+									<?php echo $this->get_toolbar_button_title( 'resize_font_add' ); ?>
 								</a>
 							</li>
 							
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-btn-resize-font" data-action="minus">
-									<?php _e( 'A-', 'pojo-accessibility' ); ?>
+									<?php echo $this->get_toolbar_button_title( 'resize_font_less' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>

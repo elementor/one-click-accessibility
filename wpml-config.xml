@@ -1,6 +1,8 @@
 <wpml-config>
 	<admin-texts>
 		<key name="pojo_a11y_toolbar_title" />
+		<key name="pojo_a11y_toolbar_button_resize_font_add_title" />
+		<key name="pojo_a11y_toolbar_button_resize_font_less_title" />
 		<key name="pojo_a11y_toolbar_button_grayscale_title" />
 		<key name="pojo_a11y_toolbar_button_contrast_title" />
 		<key name="pojo_a11y_toolbar_button_light_bg_title" />
