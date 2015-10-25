@@ -1,35 +1,12 @@
 @import "_mixing";
 @import "_toolbar";
+@import "_background";
 
 .font-size-percent(@start-loop);
-
-body.pojo-a11y-grayscale {
-	filter: grayscale(100%);
-	-webkit-filter: grayscale(100%);
-	-webkit-filter: grayscale(1);
-	-moz-filter: grayscale(100%);
-	-ms-filter: grayscale(100%);
-	-o-filter: grayscale(100%);
-	filter: gray;
-}
-
-body.pojo-a11y-contrast {
-	@import "_contrast";
-	
-}
-
-body.pojo-a11y-light-background {
-	&,
-	* {
-		background: none !important;
-		color: #000;
-	}
-}
 
 body.pojo-a11y-links-underline a {
 	text-decoration: underline !important;
 }
-
 
 body.pojo-a11y-readable-font {
 	&,
