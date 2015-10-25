@@ -18,7 +18,13 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'Toolbar', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
 			'options' => array(
-				'enable' => __( 'Enable', 'pojo-accessibility' ),
+				'enable' => __( 'Show on all devices', 'pojo' ),
+				'visible-desktop' => __( 'Visible Desktop', 'pojo' ),
+				'visible-tablet' => __( 'Visible Tablet', 'pojo' ),
+				'visible-phone' => __( 'Visible Phone', 'pojo' ),
+				'hidden-desktop' => __( 'Hidden Desktop', 'pojo' ),
+				'hidden-tablet' => __( 'Hidden Tablet', 'pojo' ),
+				'hidden-phone' => __( 'Hidden Phone', 'pojo' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			),
 			'std' => 'enable',
@@ -230,7 +236,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 					$a11yToolbarButtons = $( 'tr.pojo-a11y-toolbar-button' );
 				
 				$a11yToolbarOption.on( 'change', function() {
-					if ( 'enable' === $( this ).val() ) {
+					if ( 'disable' !== $( this ).val() ) {
 						$a11yToolbarButtons.fadeIn( 'fast' );
 					} else {
 						$a11yToolbarButtons.hide();

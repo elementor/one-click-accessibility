@@ -55,9 +55,17 @@ final class Pojo_A11y_Frontend {
 			$toolbar_position = 'left';
 		
 		$toolbar_title = pojo_get_option( 'pojo_a11y_toolbar_title' );
+		$toolbar_visibility = pojo_get_option( 'pojo_a11y_toolbar' );
+		
+		$wrapper_classes = array(
+			'pojo-a11y-toolbar-' . $toolbar_position,
+		);
+		
+		if ( 'enable' !== $toolbar_visibility )
+			$wrapper_classes[] = 'pojo-' . $toolbar_visibility;
 		
 		?>
-		<nav id="pojo-a11y-toolbar" class="pojo-a11y-toolbar-<?php echo $toolbar_position; ?>" role="navigation">
+		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
 				<a href="#" title="<?php echo esc_attr( $toolbar_title ); ?>">
 					<span class="sr-only"><?php echo $toolbar_title; ?></span>
