@@ -246,6 +246,9 @@ module.exports = function( grunt ) {
 					'!vendor/**',
 					'!Gruntfile.js',
 					'!package.json',
+					'!npm-debug.log',
+					'!composer.json',
+					'!composer.lock',
 					'!.gitignore',
 					'!.gitmodules',
 					'!*~'
