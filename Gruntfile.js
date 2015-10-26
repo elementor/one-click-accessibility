@@ -222,6 +222,7 @@ module.exports = function( grunt ) {
 		wp_readme_to_markdown: {
 			github: {
 				options: {
+					travisUrlRepo: 'https://travis-ci.org/pojome/pojo-accessibility',
 					gruntDependencyStatusUrl: 'https://david-dm.org/pojome/pojo-accessibility'
 				},
 				files: {

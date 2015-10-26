@@ -1,18 +1,16 @@
-# Pojo Accessibility #
-[![Build Status](https://travis-ci.org/pojome/pojo-accessibility.svg?branch=master)](https://travis-ci.org/pojome/pojo-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
-
-**Contributors:** pojo.me, KingYes, ariel.k  
-**Tags:** Pojo, Accessibility, A11y  
-**Requires at least:** 4.1  
-**Tested up to:** 4.3.1  
-**Stable tag:** 0.85  
-**License:** GPLv2 or later  
+=== Pojo Accessibility ===
+Contributors: pojo.me, KingYes, ariel.k
+Tags: Pojo, Accessibility, A11y
+Requires at least: 4.1
+Tested up to: 4.3.1
+Stable tag: 0.85
+License: GPLv2 or later
 
 This plugin implements the accessibility features for the Pojo Themes.
 
-## Description ##
+== Description ==
 
-**Please Note:** This plugin is for [Pojo Framework][1] users only.  
+Please Note: This plugin is for [Pojo Framework][1] users only.
 
 This plugin implements the accessibility features for the Pojo Themes.
 
@@ -23,7 +21,7 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
  [1]: http://pojo.me/?utm_source=wp-repo&utm_medium=link&utm_campaign=a11y
  [2]: https://github.com/pojome/pojo-accessibility
 
-## Installation ##
+== Installation ==
 
 **Automatic Installation**
 
@@ -41,7 +39,7 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 1. Drag and drop the widget and set it
 1. Enjoy!
 
-## Changelog ##
+== Changelog ==
 
-### 0.85 ###
+= 0.85 =
 * Initial Public Beta Release!

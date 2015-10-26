@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 0.85\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 15:45+0200\n"
+"POT-Creation-Date: 2015-10-26 17:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: includes/pojo-a11y-frontend.php:143
+#: includes/pojo-a11y-frontend.php:150
 msgid "Reset"
 msgstr ""
 
@@ -57,7 +57,7 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:90 includes/pojo-a11y-settings.php:110
 #: includes/pojo-a11y-settings.php:130 includes/pojo-a11y-settings.php:150
 #: includes/pojo-a11y-settings.php:170 includes/pojo-a11y-settings.php:190
-#: includes/pojo-a11y-settings.php:223 includes/pojo-a11y-settings.php:234
+#: includes/pojo-a11y-settings.php:271 includes/pojo-a11y-settings.php:282
 msgid "Disable"
 msgstr ""
 
@@ -88,8 +88,8 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:61 includes/pojo-a11y-settings.php:89
 #: includes/pojo-a11y-settings.php:109 includes/pojo-a11y-settings.php:129
 #: includes/pojo-a11y-settings.php:149 includes/pojo-a11y-settings.php:169
-#: includes/pojo-a11y-settings.php:189 includes/pojo-a11y-settings.php:222
-#: includes/pojo-a11y-settings.php:233
+#: includes/pojo-a11y-settings.php:189 includes/pojo-a11y-settings.php:270
+#: includes/pojo-a11y-settings.php:281
 msgid "Enable"
 msgstr ""
 
@@ -157,27 +157,63 @@ msgstr ""
 msgid "Readable Font Title"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:206
+#: includes/pojo-a11y-settings.php:205
+msgid "Sitemap Title"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:208
+msgid "Sitemap"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:213
+msgid "Sitemap Link"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:221
+msgid "Help Title"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:224
+msgid "Help"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:229
+msgid "Help Link"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:237
+msgid "Feedback Title"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:240
+msgid "Feedback"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:245
+msgid "Feedback Link"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:254
 msgid "Toolbar Setting:"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:219
+#: includes/pojo-a11y-settings.php:267
 msgid "Remove target attribute from links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:230
+#: includes/pojo-a11y-settings.php:278
 msgid "Add landmark roles to all links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:242
+#: includes/pojo-a11y-settings.php:290
 msgid "Settings:"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:273
+#: includes/pojo-a11y-settings.php:321
 msgid "Accessibility Settings"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:274
+#: includes/pojo-a11y-settings.php:322
 msgid "Accessibility"
 msgstr ""
 
