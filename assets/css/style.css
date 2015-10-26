@@ -77,7 +77,7 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-right: 5px;
+  padding-right: 6px;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-resize-plus:before {
   content: '\f00e';
@@ -91,6 +91,9 @@
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-hi-contrast:before {
   content: '\f042';
 }
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-negative-contrast:before {
+  content: '\f06e';
+}
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-light-bg:before {
   content: '\f0eb';
 }
@@ -102,6 +105,12 @@
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-link-sitemap:before {
   content: '\f0e8';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-link-feedback:before {
+  content: '\f075';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-link-help:before {
+  content: '\f059';
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items.pojo-a11y-links {
   border-top: 1px solid #becedb;
@@ -116,7 +125,7 @@
   outline: none;
 }
 body.rtl #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a:before {
-  padding-left: 5px;
+  padding-left: 6px;
   padding-right: 0;
 }
 body.pojo-a11y-grayscale {
