@@ -61,8 +61,12 @@
 				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + oldFontSize );
 
 				if ( 120 !== $self.currentFontSize ) {
+					$self.cache.$toolbar.find( 'a.pojo-a11y-btn-resize-plus' ).addClass( 'active' );
 					$self.cache.$body.addClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
+				} else {
+					$self.cache.$toolbar.find( 'a.pojo-a11y-btn-resize-plus' ).removeClass( 'active' );
 				}
+				
 			} );
 
 			$self.cache.$btnBackgrounGroup.on( 'click', function( event ) {
@@ -111,7 +115,7 @@
 
 				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-high-contrast pojo-a11y-negative-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-readable-font' );
 				$self.cache.$toolbar.find( 'a' ).removeClass( 'active' );
-
+				
 				var MIN_SIZE = 120;
 				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
 				$self.currentFontSize = MIN_SIZE;
