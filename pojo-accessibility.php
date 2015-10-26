@@ -78,14 +78,24 @@ final class Pojo_Accessibility {
 		echo '<div class="error"><p>' . sprintf( __( '<a href="%s" target="_blank">Pojo Framework</a> is not active. Please activate any theme by Pojo before you are using "Pojo News Ticker" plugin.', 'pojo-accessibility' ), 'http://pojo.me/' ) . '</p></div>';
 	}
 
+	public function print_update_error() {
+		echo '<div class="error"><p>' . sprintf( __( 'Your <a href="%s" target="_blank">Pojo Framework</a> isn\'t updated, please upgrade.', 'pojo-accessibility' ), 'http://pojo.me/' ) . '</p></div>';
+	}
+
 	public function bootstrap() {
 		// This plugin for Pojo Themes..
 		if ( ! class_exists( 'Pojo_Core' ) ) {
 			add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
 			return;
 		}
+
+		if ( version_compare( '1.5.4', Pojo_Core::instance()->get_version(), '>' ) ) {
+			add_action( 'admin_notices', array( &$this, 'print_update_error' ) );
+			return;
+		}
 		
 		include( 'includes/pojo-a11y-frontend.php' );
+		
 		
 		$this->frontend = new Pojo_A11y_Frontend();
 
