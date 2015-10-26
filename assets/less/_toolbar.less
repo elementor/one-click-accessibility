@@ -86,7 +86,7 @@ a:focus {
 						text-rendering: auto;
 						-webkit-font-smoothing: antialiased;
 						-moz-osx-font-smoothing: grayscale;
-						padding-right: 5px;
+						padding-right: 6px;
 					}
 					&.pojo-a11y-btn-resize-plus {
 						&:before {
@@ -108,6 +108,11 @@ a:focus {
 							content: '\f042';
 						}
 					}
+					&.pojo-a11y-btn-negative-contrast {
+						&:before {
+							content: '\f06e';
+						}
+					}
 					&.pojo-a11y-btn-light-bg {
 						&:before {
 							content: '\f0eb';
@@ -123,10 +128,19 @@ a:focus {
 							content: '\f031';
 						}
 					}
-
 					&.pojo-a11y-link-sitemap {
 						&:before {
 							content: '\f0e8';
+						}
+					}
+					&.pojo-a11y-link-feedback {
+						&:before {
+							content: '\f075';
+						}
+					}
+					&.pojo-a11y-link-help {
+						&:before {
+							content: '\f059';
 						}
 					}
 				}
@@ -157,7 +171,7 @@ body.rtl {
 				li.pojo-a11y-toolbar-item {
 					a {
 						&:before {
-							padding-left: 5px;
+							padding-left: 6px;
 							padding-right: 0;
 						}
 					}

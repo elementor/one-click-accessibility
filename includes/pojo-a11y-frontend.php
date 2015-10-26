@@ -110,7 +110,7 @@ final class Pojo_A11y_Frontend {
 
 						<li class="pojo-a11y-toolbar-item">
 							<a href="#" class="pojo-a11y-btn-background-group pojo-a11y-btn-negative-contrast" data-action="negative-contrast">
-								<?php echo $this->get_toolbar_button_title( 'negative_contrast' ); ?>
+								Negative
 							</a>
 						</li>
 
