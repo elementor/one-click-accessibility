@@ -40,6 +40,7 @@
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay {
   border: 1px solid;
   font-size: 100%;
+  width: 180px;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay p.pojo-a11y-toolbar-title {
   display: block;
