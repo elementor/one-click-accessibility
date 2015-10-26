@@ -3,7 +3,7 @@ Contributors: pojo.me, KingYes, ariel.k
 Tags: Pojo, Accessibility, A11y
 Requires at least: 4.1
 Tested up to: 4.3.1
-Stable tag: 0.85
+Stable tag: 0.9
 License: GPLv2 or later
 
 This plugin implements the accessibility features for the Pojo Themes.
@@ -41,5 +41,5 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 == Changelog ==
 
-= 0.85 =
+= 0.9 =
 * Initial Public Beta Release!
