@@ -250,6 +250,7 @@ module.exports = function( grunt ) {
 					'!npm-debug.log',
 					'!composer.json',
 					'!composer.lock',
+					'!assets/less/**',
 					'!.gitignore',
 					'!.gitmodules',
 					'!*~'
