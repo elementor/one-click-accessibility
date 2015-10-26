@@ -30,13 +30,13 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'std' => 'enable',
 		);
 
-		$toolbarOptionsClasses = 'pojo-a11y-toolbar-button';
+		$toolbar_options_classes = 'pojo-a11y-toolbar-button';
 
 		$fields[] = array(
 			'id' => 'pojo_a11y_toolbar_title',
 			'title' => __( 'Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'std' => __( 'Accessibility Title', 'pojo-accessibility' ),
 		);
 		
@@ -44,7 +44,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_position',
 			'title' => __( 'Position', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'options' => array(
 				'left' => __( 'Left', 'pojo-accessibility' ),
 				'right' => __( 'Right', 'pojo-accessibility' ),
@@ -56,7 +56,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_resize_font',
 			'title' => __( 'Resize Font', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -68,7 +68,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_resize_font_add_title',
 			'title' => __( 'A+', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Increase text', 'pojo-accessibility' ),
 		);
 
@@ -76,7 +76,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_resize_font_less_title',
 			'title' => __( 'A-', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Decrease text', 'pojo-accessibility' ),
 		);
 
@@ -84,7 +84,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_grayscale',
 			'title' => __( 'Grayscale', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -96,7 +96,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_grayscale_title',
 			'title' => __( 'Grayscale Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Grayscale', 'pojo-accessibility' ),
 		);
 
@@ -104,7 +104,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_high_contrast',
 			'title' => __( 'High Contrast', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -116,7 +116,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_high_contrast_title',
 			'title' => __( 'High Contrast Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'High Contrast', 'pojo-accessibility' ),
 		);
 
@@ -124,7 +124,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_negative_contrast',
 			'title' => __( 'Negative Contrast', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -136,7 +136,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_negative_contrast_title',
 			'title' => __( 'Negative Contrast Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Negative Contrast', 'pojo-accessibility' ),
 		);
 
@@ -144,7 +144,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_light_bg',
 			'title' => __( 'Light Background', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -156,7 +156,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_light_bg_title',
 			'title' => __( 'Light Background Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Light Background', 'pojo-accessibility' ),
 		);
 
@@ -164,7 +164,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_links_underline',
 			'title' => __( 'Links Underline', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -176,7 +176,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_links_underline_title',
 			'title' => __( 'Links Underline Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Links Underline', 'pojo-accessibility' ),
 		);
 
@@ -184,7 +184,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_readable_font',
 			'title' => __( 'Readable Font', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbarOptionsClasses,
+			'class' => $toolbar_options_classes,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -196,7 +196,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_readable_font_title',
 			'title' => __( 'Readable Font Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Readable Font', 'pojo-accessibility' ),
 		);
 
