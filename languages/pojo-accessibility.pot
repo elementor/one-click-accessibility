@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 18:06+0200\n"
+"POT-Creation-Date: 2015-10-26 19:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: includes/pojo-a11y-customizer.php:11
-msgid "Scroll Up"
+msgid "Background Toolbar"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:20
+msgid "Color Toolbar"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:29
+msgid "Toggle Button Background"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:36
+msgid "Toggle Button Color"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:45
+msgid "Background Active"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:54
+msgid "Color Active"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:63 includes/pojo-a11y-settings.php:322
+msgid "Accessibility"
 msgstr ""
 
 #: includes/pojo-a11y-frontend.php:150
@@ -217,24 +241,21 @@ msgstr ""
 msgid "Accessibility Settings"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:322
-msgid "Accessibility"
-msgstr ""
-
-#: pojo-accessibility.php:48 pojo-accessibility.php:59
+#: pojo-accessibility.php:53 pojo-accessibility.php:64
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: pojo-accessibility.php:78
+#: pojo-accessibility.php:83
 #, php-format
 msgid ""
-"<a href=\"%s\" target=\"_blank\">Pojo Framework</a> is not active. Please "
-"activate any theme by Pojo before you are using \"Pojo News Ticker\" plugin."
+"<a href=\"%s\" target=\"_blank\">Pojo Theme</a> is not active. Please "
+"activate any theme by Pojo.me before you are using \"Pojo Accessibility\" "
+"plugin."
 msgstr ""
 
-#: pojo-accessibility.php:82
+#: pojo-accessibility.php:87
 #, php-format
 msgid ""
-"Your <a href=\"%s\" target=\"_blank\">Pojo Framework</a> isn't updated, "
-"please upgrade."
+"The Pojo Accessibility is not supported by this version of %s. Please <a "
+"href=\"%s\">upgrade the theme to its latest version</a>."
 msgstr ""
