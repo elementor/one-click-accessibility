@@ -212,6 +212,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_sitemap_link',
 			'title' => __( 'Sitemap Link', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
+			'placeholder' => 'http://your-domain.com/sitemap',
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => '',
 		);
@@ -228,6 +229,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_help_link',
 			'title' => __( 'Help Link', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
+			'placeholder' => 'http://your-domain.com/help',
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => '',
 		);
@@ -244,6 +246,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_feedback_link',
 			'title' => __( 'Feedback Link', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
+			'placeholder' => 'http://your-domain.com/feedback',
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => '',
 		);
@@ -270,7 +273,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			),
-			'std' => 'disable',
+			'std' => 'enable',
 		);
 
 		$fields[] = array(
@@ -281,7 +284,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			),
-			'std' => 'disable',
+			'std' => 'enable',
 		);
 		
 		$sections[] = array(
