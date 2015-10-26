@@ -65,6 +65,46 @@
   background-color: #becedb;
   font-weight: bold;
 }
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a:before {
+  content: '\f0e2';
+  font-family: FontAwesome;
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  font-size: inherit;
+  line-height: 1;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-right: 5px;
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-resize-plus:before {
+  content: '\f00e';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-resize-minus:before {
+  content: '\f010';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-grayscale:before {
+  content: '\f02a';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-hi-contrast:before {
+  content: '\f042';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-light-bg:before {
+  content: '\f0eb';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-links-underline:before {
+  content: '\f0c1';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-readable-font:before {
+  content: '\f031';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-link-sitemap:before {
+  content: '\f0e8';
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items.pojo-a11y-links {
+  border-top: 1px solid #becedb;
+}
 #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a {
   display: inline-block;
   background-color: #becedb;
@@ -73,6 +113,10 @@
   padding: 10px;
   color: #ffffff;
   outline: none;
+}
+body.rtl #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a:before {
+  padding-left: 5px;
+  padding-right: 0;
 }
 body.pojo-a11y-grayscale {
   filter: grayscale(100%);
@@ -1536,6 +1580,175 @@ body.pojo-a11y-contrast .placebo {
   body.pojo-a11y-contrast :focus {
     outline: thin dotted;
   }
+}
+body.pojo-a11y-negative-contrast,
+body.pojo-a11y-negative-contrast * {
+  background: #000 !important;
+  color: #ffffff !important;
+}
+body.pojo-a11y-negative-contrast a,
+body.pojo-a11y-negative-contrast * a,
+body.pojo-a11y-negative-contrast b,
+body.pojo-a11y-negative-contrast * b,
+body.pojo-a11y-negative-contrast blockquote,
+body.pojo-a11y-negative-contrast * blockquote,
+body.pojo-a11y-negative-contrast button,
+body.pojo-a11y-negative-contrast * button,
+body.pojo-a11y-negative-contrast canvas,
+body.pojo-a11y-negative-contrast * canvas,
+body.pojo-a11y-negative-contrast caption,
+body.pojo-a11y-negative-contrast * caption,
+body.pojo-a11y-negative-contrast center,
+body.pojo-a11y-negative-contrast * center,
+body.pojo-a11y-negative-contrast cite,
+body.pojo-a11y-negative-contrast * cite,
+body.pojo-a11y-negative-contrast code,
+body.pojo-a11y-negative-contrast * code,
+body.pojo-a11y-negative-contrast col,
+body.pojo-a11y-negative-contrast * col,
+body.pojo-a11y-negative-contrast colgroup,
+body.pojo-a11y-negative-contrast * colgroup,
+body.pojo-a11y-negative-contrast dd,
+body.pojo-a11y-negative-contrast * dd,
+body.pojo-a11y-negative-contrast details,
+body.pojo-a11y-negative-contrast * details,
+body.pojo-a11y-negative-contrast dfn,
+body.pojo-a11y-negative-contrast * dfn,
+body.pojo-a11y-negative-contrast dir,
+body.pojo-a11y-negative-contrast * dir,
+body.pojo-a11y-negative-contrast div,
+body.pojo-a11y-negative-contrast * div,
+body.pojo-a11y-negative-contrast dl,
+body.pojo-a11y-negative-contrast * dl,
+body.pojo-a11y-negative-contrast dt,
+body.pojo-a11y-negative-contrast * dt,
+body.pojo-a11y-negative-contrast em,
+body.pojo-a11y-negative-contrast * em,
+body.pojo-a11y-negative-contrast embed,
+body.pojo-a11y-negative-contrast * embed,
+body.pojo-a11y-negative-contrast fieldset,
+body.pojo-a11y-negative-contrast * fieldset,
+body.pojo-a11y-negative-contrast figcaption,
+body.pojo-a11y-negative-contrast * figcaption,
+body.pojo-a11y-negative-contrast figure,
+body.pojo-a11y-negative-contrast * figure,
+body.pojo-a11y-negative-contrast font,
+body.pojo-a11y-negative-contrast * font,
+body.pojo-a11y-negative-contrast footer,
+body.pojo-a11y-negative-contrast * footer,
+body.pojo-a11y-negative-contrast form,
+body.pojo-a11y-negative-contrast * form,
+body.pojo-a11y-negative-contrast header,
+body.pojo-a11y-negative-contrast * header,
+body.pojo-a11y-negative-contrast i,
+body.pojo-a11y-negative-contrast * i,
+body.pojo-a11y-negative-contrast iframe,
+body.pojo-a11y-negative-contrast * iframe,
+body.pojo-a11y-negative-contrast img,
+body.pojo-a11y-negative-contrast * img,
+body.pojo-a11y-negative-contrast input,
+body.pojo-a11y-negative-contrast * input,
+body.pojo-a11y-negative-contrast kbd,
+body.pojo-a11y-negative-contrast * kbd,
+body.pojo-a11y-negative-contrast label,
+body.pojo-a11y-negative-contrast * label,
+body.pojo-a11y-negative-contrast legend,
+body.pojo-a11y-negative-contrast * legend,
+body.pojo-a11y-negative-contrast li,
+body.pojo-a11y-negative-contrast * li,
+body.pojo-a11y-negative-contrast mark,
+body.pojo-a11y-negative-contrast * mark,
+body.pojo-a11y-negative-contrast menu,
+body.pojo-a11y-negative-contrast * menu,
+body.pojo-a11y-negative-contrast meter,
+body.pojo-a11y-negative-contrast * meter,
+body.pojo-a11y-negative-contrast nav,
+body.pojo-a11y-negative-contrast * nav,
+body.pojo-a11y-negative-contrast nobr,
+body.pojo-a11y-negative-contrast * nobr,
+body.pojo-a11y-negative-contrast object,
+body.pojo-a11y-negative-contrast * object,
+body.pojo-a11y-negative-contrast ol,
+body.pojo-a11y-negative-contrast * ol,
+body.pojo-a11y-negative-contrast option,
+body.pojo-a11y-negative-contrast * option,
+body.pojo-a11y-negative-contrast pre,
+body.pojo-a11y-negative-contrast * pre,
+body.pojo-a11y-negative-contrast progress,
+body.pojo-a11y-negative-contrast * progress,
+body.pojo-a11y-negative-contrast q,
+body.pojo-a11y-negative-contrast * q,
+body.pojo-a11y-negative-contrast s,
+body.pojo-a11y-negative-contrast * s,
+body.pojo-a11y-negative-contrast section,
+body.pojo-a11y-negative-contrast * section,
+body.pojo-a11y-negative-contrast select,
+body.pojo-a11y-negative-contrast * select,
+body.pojo-a11y-negative-contrast small,
+body.pojo-a11y-negative-contrast * small,
+body.pojo-a11y-negative-contrast span,
+body.pojo-a11y-negative-contrast * span,
+body.pojo-a11y-negative-contrast strike,
+body.pojo-a11y-negative-contrast * strike,
+body.pojo-a11y-negative-contrast strong,
+body.pojo-a11y-negative-contrast * strong,
+body.pojo-a11y-negative-contrast sub,
+body.pojo-a11y-negative-contrast * sub,
+body.pojo-a11y-negative-contrast summary,
+body.pojo-a11y-negative-contrast * summary,
+body.pojo-a11y-negative-contrast sup,
+body.pojo-a11y-negative-contrast * sup,
+body.pojo-a11y-negative-contrast table,
+body.pojo-a11y-negative-contrast * table,
+body.pojo-a11y-negative-contrast td,
+body.pojo-a11y-negative-contrast * td,
+body.pojo-a11y-negative-contrast textarea,
+body.pojo-a11y-negative-contrast * textarea,
+body.pojo-a11y-negative-contrast th,
+body.pojo-a11y-negative-contrast * th,
+body.pojo-a11y-negative-contrast time,
+body.pojo-a11y-negative-contrast * time,
+body.pojo-a11y-negative-contrast tr,
+body.pojo-a11y-negative-contrast * tr,
+body.pojo-a11y-negative-contrast tt,
+body.pojo-a11y-negative-contrast * tt,
+body.pojo-a11y-negative-contrast u,
+body.pojo-a11y-negative-contrast * u,
+body.pojo-a11y-negative-contrast ul,
+body.pojo-a11y-negative-contrast * ul,
+body.pojo-a11y-negative-contrast var,
+body.pojo-a11y-negative-contrast * var,
+body.pojo-a11y-negative-contrast a span,
+body.pojo-a11y-negative-contrast * a span,
+body.pojo-a11y-negative-contrast strong,
+body.pojo-a11y-negative-contrast * strong {
+  color: yellow !important;
+}
+body.pojo-a11y-negative-contrast button,
+body.pojo-a11y-negative-contrast * button,
+body.pojo-a11y-negative-contrast input,
+body.pojo-a11y-negative-contrast * input,
+body.pojo-a11y-negative-contrast textarea,
+body.pojo-a11y-negative-contrast * textarea,
+body.pojo-a11y-negative-contrast select,
+body.pojo-a11y-negative-contrast * select,
+body.pojo-a11y-negative-contrast table,
+body.pojo-a11y-negative-contrast * table,
+body.pojo-a11y-negative-contrast td,
+body.pojo-a11y-negative-contrast * td,
+body.pojo-a11y-negative-contrast textarea,
+body.pojo-a11y-negative-contrast * textarea,
+body.pojo-a11y-negative-contrast th,
+body.pojo-a11y-negative-contrast * th,
+body.pojo-a11y-negative-contrast tr,
+body.pojo-a11y-negative-contrast * tr,
+body.pojo-a11y-negative-contrast tt,
+body.pojo-a11y-negative-contrast * tt {
+  border: 1px solid #ffffff !important;
+}
+body.pojo-a11y-negative-contrast:focus,
+body.pojo-a11y-negative-contrast *:focus {
+  border: 1px solid yellow !important;
 }
 body.pojo-a11y-light-background,
 body.pojo-a11y-light-background *:not(.pojo-a11y-toolbar-overlay):not(.pojo-a11y-toolbar-toggle-link) {

@@ -75,7 +75,64 @@ a:focus {
 						background-color: @toolbar-bg-dark;
 						font-weight: bold;
 					}
+					&:before {
+						content: '\f0e2';
+						font-family: FontAwesome;
+						display: inline-block;
+						font-style: normal;
+						font-weight: normal;
+						font-size: inherit;
+						line-height: 1;
+						text-rendering: auto;
+						-webkit-font-smoothing: antialiased;
+						-moz-osx-font-smoothing: grayscale;
+						padding-right: 5px;
+					}
+					&.pojo-a11y-btn-resize-plus {
+						&:before {
+							content: '\f00e';
+						}
+					}
+					&.pojo-a11y-btn-resize-minus {
+						&:before {
+							content: '\f010';
+						}
+					}
+					&.pojo-a11y-btn-grayscale {
+						&:before {
+							content: '\f02a';
+						}
+					}
+					&.pojo-a11y-btn-hi-contrast {
+						&:before {
+							content: '\f042';
+						}
+					}
+					&.pojo-a11y-btn-light-bg {
+						&:before {
+							content: '\f0eb';
+						}
+					}
+					&.pojo-a11y-btn-links-underline {
+						&:before {
+							content: '\f0c1';
+						}
+					}
+					&.pojo-a11y-btn-readable-font {
+						&:before {
+							content: '\f031';
+						}
+					}
+
+					&.pojo-a11y-link-sitemap {
+						&:before {
+							content: '\f0e8';
+						}
+					}
 				}
+			}
+			&.pojo-a11y-links {
+				border-top: 1px solid @toolbar-bg-dark;
 			}
 		}
 	}
@@ -89,6 +146,23 @@ a:focus {
 			padding: 10px;
 			color: #ffffff;
 			outline: none;
+		}
+	}
+}
+
+body.rtl {
+	#pojo-a11y-toolbar {
+		.pojo-a11y-toolbar-overlay {
+			ul.pojo-a11y-toolbar-items {
+				li.pojo-a11y-toolbar-item {
+					a {
+						&:before {
+							padding-left: 5px;
+							padding-right: 0;
+						}
+					}
+				}
+			}
 		}
 	}
 }
