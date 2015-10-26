@@ -102,7 +102,7 @@ final class Pojo_Accessibility {
 		include( 'includes/pojo-a11y-frontend.php' );
 		include( 'includes/pojo-a11y-customizer.php' );
 		
-		$this->frontend = new Pojo_A11y_Frontend();
+		$this->frontend   = new Pojo_A11y_Frontend();
 		$this->customizer = new Pojo_A11y_Customizer();
 
 		add_action( 'pojo_framework_base_settings_included', array( &$this, 'include_settings' ) );
