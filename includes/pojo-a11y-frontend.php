@@ -102,14 +102,14 @@ final class Pojo_A11y_Frontend {
 
 						<?php if ( $this->is_toolbar_button_active( 'contrast' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-btn-background-group pojo-a11y-btn-hi-contrast" data-action="contrast">
-									<?php echo $this->get_toolbar_button_title( 'contrast' ); ?>
+								<a href="#" class="pojo-a11y-btn-background-group pojo-a11y-btn-high-contrast" data-action="high_contrast">
+									<?php echo $this->get_toolbar_button_title( 'high_contrast' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
 
 						<li class="pojo-a11y-toolbar-item">
-							<a href="#" class="pojo-a11y-btn-background-group pojo-a11y-btn-negative-contrast" data-action="negative-contrast">
+							<a href="#" class="pojo-a11y-btn-background-group pojo-a11y-btn-negative-contrast" data-action="negative_contrast">
 								<?php echo $this->get_toolbar_button_title( 'negative_contrast' ); ?>
 							</a>
 						</li>

@@ -69,7 +69,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'A+', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
-			'std' => __( 'A+', 'pojo-accessibility' ),
+			'std' => __( 'Increase text', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
@@ -77,7 +77,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'A-', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
-			'std' => __( 'A-', 'pojo-accessibility' ),
+			'std' => __( 'Decrease text', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
@@ -101,7 +101,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		);
 
 		$fields[] = array(
-			'id' => 'pojo_a11y_toolbar_button_contrast',
+			'id' => 'pojo_a11y_toolbar_button_high_contrast',
 			'title' => __( 'High Contrast', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
 			'class' => $toolbarOptionsClasses,
@@ -113,11 +113,31 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		);
 
 		$fields[] = array(
-			'id' => 'pojo_a11y_toolbar_button_contrast_title',
+			'id' => 'pojo_a11y_toolbar_button_high_contrast_title',
 			'title' => __( 'High Contrast Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
 			'std' => __( 'High Contrast', 'pojo-accessibility' ),
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_negative_contrast',
+			'title' => __( 'Negative Contrast', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_SELECT,
+			'class' => $toolbarOptionsClasses,
+			'options' => array(
+				'enable' => __( 'Enable', 'pojo-accessibility' ),
+				'disable' => __( 'Disable', 'pojo-accessibility' ),
+			),
+			'std' => 'enable',
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_negative_contrast_title',
+			'title' => __( 'Negative Contrast Title', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbarOptionsClasses . ' pojo-settings-child-row',
+			'std' => __( 'Negative Contrast', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(

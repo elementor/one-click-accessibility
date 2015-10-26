@@ -72,7 +72,8 @@
 					isButtonActive = $( this ).hasClass( 'active' ),
 					bodyClasses = {
 						'grayscale': 'pojo-a11y-grayscale',
-						'contrast': 'pojo-a11y-contrast',
+						'high_contrast': 'pojo-a11y-high-contrast',
+						'negative_contrast': 'pojo-a11y-negative-contrast',
 						'light-bg': 'pojo-a11y-light-background'
 					};
 				
@@ -108,7 +109,8 @@
 			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-reset' ).on( 'click', function( event ) {
 				event.preventDefault();
 
-				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-readable-font' );
+				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-high-contrast pojo-a11y-negative-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-readable-font' );
+				$self.cache.$toolbar.find( 'a' ).removeClass( 'active' );
 
 				var MIN_SIZE = 120;
 				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
