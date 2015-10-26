@@ -43,16 +43,14 @@ a:focus {
 	display: none;
 	font-size: 16px !important;
 	line-height: 1.4;
-	z-index: 9998;
+	z-index: 9999;
 
 	.pojo-a11y-toolbar-position(right);
 	.pojo-a11y-toolbar-position(left);
 	
 	.pojo-a11y-toolbar-overlay {
-		background-color: #ffffff;
-		border: 1px @toolbar-bg-dark solid;
+		border: 1px solid;
 		font-size: 100%;
-		width: @toolbar-width;
 		p.pojo-a11y-toolbar-title {
 			display: block;
 			line-height: 2;
@@ -70,9 +68,7 @@ a:focus {
 					padding: 10px 15px;
 					font-size: 80%;
 					line-height: 1;
-					color: @toolbar-color-dark;
 					&.active {
-						background-color: @toolbar-bg-dark;
 						font-weight: bold;
 					}
 					&:before {
@@ -145,20 +141,15 @@ a:focus {
 					}
 				}
 			}
-			&.pojo-a11y-links {
-				border-top: 1px solid @toolbar-bg-dark;
-			}
 		}
 	}
 
 	.pojo-a11y-toolbar-toggle {
 		a {
 			display: inline-block;
-			background-color: @toolbar-bg-dark;
 			font-size: 200%;
 			line-height: 1;
 			padding: 10px;
-			color: #ffffff;
 			outline: none;
 		}
 	}
