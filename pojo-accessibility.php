@@ -5,7 +5,7 @@ Plugin URI: http://pojo.me/
 Description: This plugin implements the accessibility tools for themes by Pojo Framework
 Author: Pojo Team
 Author URI: http://pojo.me/
-Version: 1.0.0
+Version: 0.85
 Text Domain: pojo-accessibility
 Domain Path: /languages/
 */

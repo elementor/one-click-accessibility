@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: pojo-accessibility 1.0.0\n"
+"Project-Id-Version: pojo-accessibility 0.85\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 14:26+0200\n"
+"POT-Creation-Date: 2015-10-26 15:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,8 +56,8 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:28 includes/pojo-a11y-settings.php:62
 #: includes/pojo-a11y-settings.php:90 includes/pojo-a11y-settings.php:110
 #: includes/pojo-a11y-settings.php:130 includes/pojo-a11y-settings.php:150
-#: includes/pojo-a11y-settings.php:170 includes/pojo-a11y-settings.php:203
-#: includes/pojo-a11y-settings.php:214
+#: includes/pojo-a11y-settings.php:170 includes/pojo-a11y-settings.php:190
+#: includes/pojo-a11y-settings.php:223 includes/pojo-a11y-settings.php:234
 msgid "Disable"
 msgstr ""
 
@@ -88,16 +88,25 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:61 includes/pojo-a11y-settings.php:89
 #: includes/pojo-a11y-settings.php:109 includes/pojo-a11y-settings.php:129
 #: includes/pojo-a11y-settings.php:149 includes/pojo-a11y-settings.php:169
-#: includes/pojo-a11y-settings.php:202 includes/pojo-a11y-settings.php:213
+#: includes/pojo-a11y-settings.php:189 includes/pojo-a11y-settings.php:222
+#: includes/pojo-a11y-settings.php:233
 msgid "Enable"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:69 includes/pojo-a11y-settings.php:72
+#: includes/pojo-a11y-settings.php:69
 msgid "A+"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:77 includes/pojo-a11y-settings.php:80
+#: includes/pojo-a11y-settings.php:72
+msgid "Increase text"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:77
 msgid "A-"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:80
+msgid "Decrease text"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:85 includes/pojo-a11y-settings.php:100
@@ -117,50 +126,58 @@ msgid "High Contrast Title"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:125 includes/pojo-a11y-settings.php:140
-msgid "Light Background"
+msgid "Negative Contrast"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:137
-msgid "Light Background Title"
+msgid "Negative Contrast Title"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:145 includes/pojo-a11y-settings.php:160
-msgid "Links Underline"
+msgid "Light Background"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:157
-msgid "Links Underline Title"
+msgid "Light Background Title"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:165 includes/pojo-a11y-settings.php:180
-msgid "Readable Font"
+msgid "Links Underline"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:177
+msgid "Links Underline Title"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:185 includes/pojo-a11y-settings.php:200
+msgid "Readable Font"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:197
 msgid "Readable Font Title"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:186
+#: includes/pojo-a11y-settings.php:206
 msgid "Toolbar Setting:"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:199
+#: includes/pojo-a11y-settings.php:219
 msgid "Remove target attribute from links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:210
+#: includes/pojo-a11y-settings.php:230
 msgid "Add landmark roles to all links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:222
+#: includes/pojo-a11y-settings.php:242
 msgid "Settings:"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:253
+#: includes/pojo-a11y-settings.php:273
 msgid "Accessibility Settings"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:254
+#: includes/pojo-a11y-settings.php:274
 msgid "Accessibility"
 msgstr ""
 
