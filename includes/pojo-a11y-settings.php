@@ -200,6 +200,54 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'std' => __( 'Readable Font', 'pojo-accessibility' ),
 		);
 
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_sitemap_title',
+			'title' => __( 'Sitemap Title', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
+			'std' => __( 'Sitemap', 'pojo-accessibility' ),
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_sitemap_link',
+			'title' => __( 'Sitemap Link', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
+			'std' => '',
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_help_title',
+			'title' => __( 'Help Title', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
+			'std' => __( 'Help', 'pojo-accessibility' ),
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_help_link',
+			'title' => __( 'Help Link', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
+			'std' => '',
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_feedback_title',
+			'title' => __( 'Feedback Title', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
+			'std' => __( 'Feedback', 'pojo-accessibility' ),
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_toolbar_button_feedback_link',
+			'title' => __( 'Feedback Link', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
+			'std' => '',
+		);
+
 		$sections[] = array(
 			'id' => 'section-a11y-toolbar',
 			'page' => $this->_page_id,

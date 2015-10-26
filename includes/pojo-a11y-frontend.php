@@ -64,6 +64,13 @@ final class Pojo_A11y_Frontend {
 		if ( 'enable' !== $toolbar_visibility )
 			$wrapper_classes[] = 'pojo-' . $toolbar_visibility;
 		
+		
+		$sitemap_link = pojo_get_option( 'pojo_a11y_toolbar_button_sitemap_link' );
+		$help_link = pojo_get_option( 'pojo_a11y_toolbar_button_help_link' );
+		$feedback_link = pojo_get_option( 'pojo_a11y_toolbar_button_feedback_link' );
+		
+		$has_custom_links = ( ! empty( $sitemap_link ) || ! empty( $help_link ) || ! empty( $feedback_link ) );
+		
 		?>
 		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
@@ -144,23 +151,27 @@ final class Pojo_A11y_Frontend {
 							</a>
 						</li>
 					</ul>
+					<?php if ( $has_custom_links ) : ?>
 					<ul class="pojo-a11y-toolbar-items pojo-a11y-links">
+						<?php if ( ! empty( $sitemap_link ) ) : ?>
 						<li class="pojo-a11y-toolbar-item">
-							<a href="#" class="pojo-a11y-link-sitemap">
-								Sitemap
+							<a href="<?php echo esc_attr( $sitemap_link ); ?>" class="pojo-a11y-link-sitemap">
+								<?php echo $this->get_toolbar_button_title( 'sitemap' ); ?>
+							</a>
+						</li>
+						<?php endif; ?>
+						<li class="pojo-a11y-toolbar-item">
+							<a href="<?php echo esc_attr( $help_link ); ?>" class="pojo-a11y-link-help">
+								<?php echo $this->get_toolbar_button_title( 'help' ); ?>
 							</a>
 						</li>
 						<li class="pojo-a11y-toolbar-item">
-							<a href="#" class="pojo-a11y-link-help">
-								Help
-							</a>
-						</li>
-						<li class="pojo-a11y-toolbar-item">
-							<a href="#" class="pojo-a11y-link-feedback">
-								Feedback
+							<a href="<?php echo esc_attr( $feedback_link ); ?>" class="pojo-a11y-link-feedback">
+								<?php echo $this->get_toolbar_button_title( 'feedback' ); ?>
 							</a>
 						</li>
 					</ul>
+					<?php endif; ?>
 				</div>
 			</div>
 		</nav>
