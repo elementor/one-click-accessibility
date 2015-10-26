@@ -37,7 +37,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'class' => $toolbar_options_classes,
-			'std' => __( 'Accessibility Title', 'pojo-accessibility' ),
+			'std' => __( 'Accessibility Tools', 'pojo-accessibility' ),
 		);
 		
 		$fields[] = array(
