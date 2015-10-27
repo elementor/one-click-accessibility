@@ -41,6 +41,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 == Changelog ==
 
+= 0.9.3 =
+* Fixes some bugs
+
 = 0.9.2 =
 * Added Hebrew translate
 * Move Position setting to Customizer
