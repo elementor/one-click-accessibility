@@ -192,6 +192,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_sitemap_title',
 			'title' => __( 'Sitemap Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes,
 			'std' => __( 'Sitemap', 'pojo-accessibility' ),
 		);
 
@@ -208,6 +209,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_help_title',
 			'title' => __( 'Help Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes,
 			'std' => __( 'Help', 'pojo-accessibility' ),
 		);
 
@@ -224,6 +226,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_feedback_title',
 			'title' => __( 'Feedback Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
+			'class' => $toolbar_options_classes,
 			'std' => __( 'Feedback', 'pojo-accessibility' ),
 		);
 
