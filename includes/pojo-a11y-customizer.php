@@ -8,7 +8,7 @@ class Pojo_A11y_Customizer {
 
 		$fields[] = array(
 			'id' => 'a11y_bg_toolbar',
-			'title' => __( 'Background Toolbar', 'pojo' ),
+			'title' => __( 'Background Toolbar', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_COLOR,
 			'std' => '#ffffff',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay',
@@ -17,7 +17,7 @@ class Pojo_A11y_Customizer {
 
 		$fields[] = array(
 			'id' => 'a11y_color_toolbar',
-			'title' => __( 'Color Toolbar', 'pojo' ),
+			'title' => __( 'Color Toolbar', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_COLOR,
 			'std' => '#333333',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a, #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay p.pojo-a11y-toolbar-title',
@@ -26,14 +26,14 @@ class Pojo_A11y_Customizer {
 
 		$fields[] = array(
 			'id' => 'a11y_toggle_button_bg_color',
-			'title' => __( 'Toggle Button Background', 'pojo' ),
+			'title' => __( 'Toggle Button Background', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_COLOR,
 			'std' => '#4054b2',
 		);
 		
 		$fields[] = array(
 			'id' => 'a11y_toggle_button_color',
-			'title' => __( 'Toggle Button Color', 'pojo' ),
+			'title' => __( 'Toggle Button Color', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_COLOR,
 			'std' => '#ffffff',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a',
@@ -42,7 +42,7 @@ class Pojo_A11y_Customizer {
 		
 		$fields[] = array(
 			'id' => 'a11y_bg_active',
-			'title' => __( 'Background Active', 'pojo' ),
+			'title' => __( 'Background Active', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_COLOR,
 			'std' => '#4054b2',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.active',
@@ -51,7 +51,7 @@ class Pojo_A11y_Customizer {
 		
 		$fields[] = array(
 			'id' => 'a11y_color_active',
-			'title' => __( 'Color Active', 'pojo' ),
+			'title' => __( 'Color Active', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_COLOR,
 			'std' => '#ffffff',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.active',

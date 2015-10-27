@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 18:06+0200\n"
+"POT-Creation-Date: 2015-10-26 20:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: includes/pojo-a11y-customizer.php:11
-msgid "Scroll Up"
+msgid "Background Toolbar"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:20
+msgid "Color Toolbar"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:29
+msgid "Toggle Button Background"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:36
+msgid "Toggle Button Color"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:45
+msgid "Background Active"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:54
+msgid "Color Active"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:63 includes/pojo-a11y-settings.php:325
+msgid "Accessibility"
 msgstr ""
 
 #: includes/pojo-a11y-frontend.php:150
@@ -61,7 +85,7 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:90 includes/pojo-a11y-settings.php:110
 #: includes/pojo-a11y-settings.php:130 includes/pojo-a11y-settings.php:150
 #: includes/pojo-a11y-settings.php:170 includes/pojo-a11y-settings.php:190
-#: includes/pojo-a11y-settings.php:271 includes/pojo-a11y-settings.php:282
+#: includes/pojo-a11y-settings.php:274 includes/pojo-a11y-settings.php:285
 msgid "Disable"
 msgstr ""
 
@@ -70,7 +94,7 @@ msgid "Title"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:40
-msgid "Accessibility Title"
+msgid "Accessibility Tools"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:45
@@ -92,8 +116,8 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:61 includes/pojo-a11y-settings.php:89
 #: includes/pojo-a11y-settings.php:109 includes/pojo-a11y-settings.php:129
 #: includes/pojo-a11y-settings.php:149 includes/pojo-a11y-settings.php:169
-#: includes/pojo-a11y-settings.php:189 includes/pojo-a11y-settings.php:270
-#: includes/pojo-a11y-settings.php:281
+#: includes/pojo-a11y-settings.php:189 includes/pojo-a11y-settings.php:273
+#: includes/pojo-a11y-settings.php:284
 msgid "Enable"
 msgstr ""
 
@@ -173,68 +197,65 @@ msgstr ""
 msgid "Sitemap Link"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:221
+#: includes/pojo-a11y-settings.php:222
 msgid "Help Title"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:224
+#: includes/pojo-a11y-settings.php:225
 msgid "Help"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:229
+#: includes/pojo-a11y-settings.php:230
 msgid "Help Link"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:237
+#: includes/pojo-a11y-settings.php:239
 msgid "Feedback Title"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:240
+#: includes/pojo-a11y-settings.php:242
 msgid "Feedback"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:245
+#: includes/pojo-a11y-settings.php:247
 msgid "Feedback Link"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:254
+#: includes/pojo-a11y-settings.php:257
 msgid "Toolbar Setting:"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:267
+#: includes/pojo-a11y-settings.php:270
 msgid "Remove target attribute from links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:278
+#: includes/pojo-a11y-settings.php:281
 msgid "Add landmark roles to all links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:290
+#: includes/pojo-a11y-settings.php:293
 msgid "Settings:"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:321
+#: includes/pojo-a11y-settings.php:324
 msgid "Accessibility Settings"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:322
-msgid "Accessibility"
-msgstr ""
-
-#: pojo-accessibility.php:48 pojo-accessibility.php:59
+#: pojo-accessibility.php:53 pojo-accessibility.php:64
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: pojo-accessibility.php:78
+#: pojo-accessibility.php:83
 #, php-format
 msgid ""
-"<a href=\"%s\" target=\"_blank\">Pojo Framework</a> is not active. Please "
-"activate any theme by Pojo before you are using \"Pojo News Ticker\" plugin."
+"<a href=\"%s\" target=\"_blank\">Pojo Theme</a> is not active. Please "
+"activate any theme by Pojo.me before you are using \"Pojo Accessibility\" "
+"plugin."
 msgstr ""
 
-#: pojo-accessibility.php:82
+#: pojo-accessibility.php:87
 #, php-format
 msgid ""
-"Your <a href=\"%s\" target=\"_blank\">Pojo Framework</a> isn't updated, "
-"please upgrade."
+"The Pojo Accessibility is not supported by this version of %s. Please <a "
+"href=\"%s\">upgrade the theme to its latest version</a>."
 msgstr ""
