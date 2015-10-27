@@ -23,16 +23,13 @@ body.pojo-a11y-negative-contrast {
 		button, input, textarea, select, table, td, textarea, th, tr, tt {
 			border: 1px solid #ffffff !important;
 		}
-		&:focus {
-			border: 1px solid yellow !important;
-		}
 	}
 }
 
 body.pojo-a11y-light-background {
 	&,
-	*:not(.pojo-a11y-toolbar-overlay):not(.pojo-a11y-toolbar-toggle-link) {
-		background: none !important;
+	*:not(.pojo-a11y-toolbar-overlay):not(.pojo-a11y-toolbar-link){
+		background: #fff !important;
 		color: #000;
 	}
 }

@@ -15,7 +15,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 
 		$fields[] = array(
 			'id' => 'pojo_a11y_toolbar',
-			'title' => __( 'Toolbar', 'pojo-accessibility' ),
+			'title' => __( 'Display Toolbar', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
 			'options' => array(
 				'enable' => __( 'Show on all devices', 'pojo-accessibility' ),
@@ -54,15 +54,15 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 
 		$fields[] = array(
 			'id' => 'pojo_a11y_toolbar_button_resize_font_add_title',
-			'title' => __( 'A+', 'pojo-accessibility' ),
+			'title' => __( 'Increase Text', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
+			'class' => $toolbar_options_classes . ' pojo-settings-child-row no-border',
 			'std' => __( 'Increase text', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
 			'id' => 'pojo_a11y_toolbar_button_resize_font_less_title',
-			'title' => __( 'A-', 'pojo-accessibility' ),
+			'title' => __( 'Decrease Text', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Decrease text', 'pojo-accessibility' ),
@@ -192,7 +192,6 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_sitemap_title',
 			'title' => __( 'Sitemap Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Sitemap', 'pojo-accessibility' ),
 		);
 
@@ -209,7 +208,6 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_help_title',
 			'title' => __( 'Help Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Help', 'pojo-accessibility' ),
 		);
 
@@ -226,7 +224,6 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_button_feedback_title',
 			'title' => __( 'Feedback Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
-			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => __( 'Feedback', 'pojo-accessibility' ),
 		);
 
