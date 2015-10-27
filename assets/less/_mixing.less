@@ -6,12 +6,6 @@
 
 	body.pojo-a11y-resize-font-@{size} {
 		&,
-		h1,
-		h2,
-		h3,
-		h4,
-		h5,
-		h6,
 		p:not(.pojo-a11y-toolbar-title),
 		li:not(.pojo-a11y-toolbar-item),
 		label,
@@ -27,6 +21,20 @@
 		blockquote {
 			@value: ~'@{size}%';
 			font-size: @value !important;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			&,
+			& span {
+				@heading-size: @size * 1.33;
+				@value: ~'@{heading-size}%';
+				font-size: @value !important;
+			}
 		}
 	}
 }

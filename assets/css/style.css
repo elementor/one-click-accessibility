@@ -1760,12 +1760,6 @@ body.pojo-a11y-light-background *:not(.pojo-a11y-toolbar-overlay):not(.pojo-a11y
   color: #000;
 }
 body.pojo-a11y-resize-font-200,
-body.pojo-a11y-resize-font-200 h1,
-body.pojo-a11y-resize-font-200 h2,
-body.pojo-a11y-resize-font-200 h3,
-body.pojo-a11y-resize-font-200 h4,
-body.pojo-a11y-resize-font-200 h5,
-body.pojo-a11y-resize-font-200 h6,
 body.pojo-a11y-resize-font-200 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-200 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-200 label,
@@ -1781,13 +1775,21 @@ body.pojo-a11y-resize-font-200 span,
 body.pojo-a11y-resize-font-200 blockquote {
   font-size: 200% !important;
 }
+body.pojo-a11y-resize-font-200 h1,
+body.pojo-a11y-resize-font-200 h2,
+body.pojo-a11y-resize-font-200 h3,
+body.pojo-a11y-resize-font-200 h4,
+body.pojo-a11y-resize-font-200 h5,
+body.pojo-a11y-resize-font-200 h6,
+body.pojo-a11y-resize-font-200 h1 span,
+body.pojo-a11y-resize-font-200 h2 span,
+body.pojo-a11y-resize-font-200 h3 span,
+body.pojo-a11y-resize-font-200 h4 span,
+body.pojo-a11y-resize-font-200 h5 span,
+body.pojo-a11y-resize-font-200 h6 span {
+  font-size: 266% !important;
+}
 body.pojo-a11y-resize-font-190,
-body.pojo-a11y-resize-font-190 h1,
-body.pojo-a11y-resize-font-190 h2,
-body.pojo-a11y-resize-font-190 h3,
-body.pojo-a11y-resize-font-190 h4,
-body.pojo-a11y-resize-font-190 h5,
-body.pojo-a11y-resize-font-190 h6,
 body.pojo-a11y-resize-font-190 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-190 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-190 label,
@@ -1803,13 +1805,21 @@ body.pojo-a11y-resize-font-190 span,
 body.pojo-a11y-resize-font-190 blockquote {
   font-size: 190% !important;
 }
+body.pojo-a11y-resize-font-190 h1,
+body.pojo-a11y-resize-font-190 h2,
+body.pojo-a11y-resize-font-190 h3,
+body.pojo-a11y-resize-font-190 h4,
+body.pojo-a11y-resize-font-190 h5,
+body.pojo-a11y-resize-font-190 h6,
+body.pojo-a11y-resize-font-190 h1 span,
+body.pojo-a11y-resize-font-190 h2 span,
+body.pojo-a11y-resize-font-190 h3 span,
+body.pojo-a11y-resize-font-190 h4 span,
+body.pojo-a11y-resize-font-190 h5 span,
+body.pojo-a11y-resize-font-190 h6 span {
+  font-size: 252.70000000000002% !important;
+}
 body.pojo-a11y-resize-font-180,
-body.pojo-a11y-resize-font-180 h1,
-body.pojo-a11y-resize-font-180 h2,
-body.pojo-a11y-resize-font-180 h3,
-body.pojo-a11y-resize-font-180 h4,
-body.pojo-a11y-resize-font-180 h5,
-body.pojo-a11y-resize-font-180 h6,
 body.pojo-a11y-resize-font-180 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-180 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-180 label,
@@ -1825,13 +1835,21 @@ body.pojo-a11y-resize-font-180 span,
 body.pojo-a11y-resize-font-180 blockquote {
   font-size: 180% !important;
 }
+body.pojo-a11y-resize-font-180 h1,
+body.pojo-a11y-resize-font-180 h2,
+body.pojo-a11y-resize-font-180 h3,
+body.pojo-a11y-resize-font-180 h4,
+body.pojo-a11y-resize-font-180 h5,
+body.pojo-a11y-resize-font-180 h6,
+body.pojo-a11y-resize-font-180 h1 span,
+body.pojo-a11y-resize-font-180 h2 span,
+body.pojo-a11y-resize-font-180 h3 span,
+body.pojo-a11y-resize-font-180 h4 span,
+body.pojo-a11y-resize-font-180 h5 span,
+body.pojo-a11y-resize-font-180 h6 span {
+  font-size: 239.4% !important;
+}
 body.pojo-a11y-resize-font-170,
-body.pojo-a11y-resize-font-170 h1,
-body.pojo-a11y-resize-font-170 h2,
-body.pojo-a11y-resize-font-170 h3,
-body.pojo-a11y-resize-font-170 h4,
-body.pojo-a11y-resize-font-170 h5,
-body.pojo-a11y-resize-font-170 h6,
 body.pojo-a11y-resize-font-170 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-170 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-170 label,
@@ -1847,13 +1865,21 @@ body.pojo-a11y-resize-font-170 span,
 body.pojo-a11y-resize-font-170 blockquote {
   font-size: 170% !important;
 }
+body.pojo-a11y-resize-font-170 h1,
+body.pojo-a11y-resize-font-170 h2,
+body.pojo-a11y-resize-font-170 h3,
+body.pojo-a11y-resize-font-170 h4,
+body.pojo-a11y-resize-font-170 h5,
+body.pojo-a11y-resize-font-170 h6,
+body.pojo-a11y-resize-font-170 h1 span,
+body.pojo-a11y-resize-font-170 h2 span,
+body.pojo-a11y-resize-font-170 h3 span,
+body.pojo-a11y-resize-font-170 h4 span,
+body.pojo-a11y-resize-font-170 h5 span,
+body.pojo-a11y-resize-font-170 h6 span {
+  font-size: 226.10000000000002% !important;
+}
 body.pojo-a11y-resize-font-160,
-body.pojo-a11y-resize-font-160 h1,
-body.pojo-a11y-resize-font-160 h2,
-body.pojo-a11y-resize-font-160 h3,
-body.pojo-a11y-resize-font-160 h4,
-body.pojo-a11y-resize-font-160 h5,
-body.pojo-a11y-resize-font-160 h6,
 body.pojo-a11y-resize-font-160 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-160 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-160 label,
@@ -1869,13 +1895,21 @@ body.pojo-a11y-resize-font-160 span,
 body.pojo-a11y-resize-font-160 blockquote {
   font-size: 160% !important;
 }
+body.pojo-a11y-resize-font-160 h1,
+body.pojo-a11y-resize-font-160 h2,
+body.pojo-a11y-resize-font-160 h3,
+body.pojo-a11y-resize-font-160 h4,
+body.pojo-a11y-resize-font-160 h5,
+body.pojo-a11y-resize-font-160 h6,
+body.pojo-a11y-resize-font-160 h1 span,
+body.pojo-a11y-resize-font-160 h2 span,
+body.pojo-a11y-resize-font-160 h3 span,
+body.pojo-a11y-resize-font-160 h4 span,
+body.pojo-a11y-resize-font-160 h5 span,
+body.pojo-a11y-resize-font-160 h6 span {
+  font-size: 212.8% !important;
+}
 body.pojo-a11y-resize-font-150,
-body.pojo-a11y-resize-font-150 h1,
-body.pojo-a11y-resize-font-150 h2,
-body.pojo-a11y-resize-font-150 h3,
-body.pojo-a11y-resize-font-150 h4,
-body.pojo-a11y-resize-font-150 h5,
-body.pojo-a11y-resize-font-150 h6,
 body.pojo-a11y-resize-font-150 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-150 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-150 label,
@@ -1891,13 +1925,21 @@ body.pojo-a11y-resize-font-150 span,
 body.pojo-a11y-resize-font-150 blockquote {
   font-size: 150% !important;
 }
+body.pojo-a11y-resize-font-150 h1,
+body.pojo-a11y-resize-font-150 h2,
+body.pojo-a11y-resize-font-150 h3,
+body.pojo-a11y-resize-font-150 h4,
+body.pojo-a11y-resize-font-150 h5,
+body.pojo-a11y-resize-font-150 h6,
+body.pojo-a11y-resize-font-150 h1 span,
+body.pojo-a11y-resize-font-150 h2 span,
+body.pojo-a11y-resize-font-150 h3 span,
+body.pojo-a11y-resize-font-150 h4 span,
+body.pojo-a11y-resize-font-150 h5 span,
+body.pojo-a11y-resize-font-150 h6 span {
+  font-size: 199.5% !important;
+}
 body.pojo-a11y-resize-font-140,
-body.pojo-a11y-resize-font-140 h1,
-body.pojo-a11y-resize-font-140 h2,
-body.pojo-a11y-resize-font-140 h3,
-body.pojo-a11y-resize-font-140 h4,
-body.pojo-a11y-resize-font-140 h5,
-body.pojo-a11y-resize-font-140 h6,
 body.pojo-a11y-resize-font-140 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-140 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-140 label,
@@ -1913,13 +1955,21 @@ body.pojo-a11y-resize-font-140 span,
 body.pojo-a11y-resize-font-140 blockquote {
   font-size: 140% !important;
 }
+body.pojo-a11y-resize-font-140 h1,
+body.pojo-a11y-resize-font-140 h2,
+body.pojo-a11y-resize-font-140 h3,
+body.pojo-a11y-resize-font-140 h4,
+body.pojo-a11y-resize-font-140 h5,
+body.pojo-a11y-resize-font-140 h6,
+body.pojo-a11y-resize-font-140 h1 span,
+body.pojo-a11y-resize-font-140 h2 span,
+body.pojo-a11y-resize-font-140 h3 span,
+body.pojo-a11y-resize-font-140 h4 span,
+body.pojo-a11y-resize-font-140 h5 span,
+body.pojo-a11y-resize-font-140 h6 span {
+  font-size: 186.20000000000002% !important;
+}
 body.pojo-a11y-resize-font-130,
-body.pojo-a11y-resize-font-130 h1,
-body.pojo-a11y-resize-font-130 h2,
-body.pojo-a11y-resize-font-130 h3,
-body.pojo-a11y-resize-font-130 h4,
-body.pojo-a11y-resize-font-130 h5,
-body.pojo-a11y-resize-font-130 h6,
 body.pojo-a11y-resize-font-130 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-130 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-130 label,
@@ -1935,13 +1985,21 @@ body.pojo-a11y-resize-font-130 span,
 body.pojo-a11y-resize-font-130 blockquote {
   font-size: 130% !important;
 }
+body.pojo-a11y-resize-font-130 h1,
+body.pojo-a11y-resize-font-130 h2,
+body.pojo-a11y-resize-font-130 h3,
+body.pojo-a11y-resize-font-130 h4,
+body.pojo-a11y-resize-font-130 h5,
+body.pojo-a11y-resize-font-130 h6,
+body.pojo-a11y-resize-font-130 h1 span,
+body.pojo-a11y-resize-font-130 h2 span,
+body.pojo-a11y-resize-font-130 h3 span,
+body.pojo-a11y-resize-font-130 h4 span,
+body.pojo-a11y-resize-font-130 h5 span,
+body.pojo-a11y-resize-font-130 h6 span {
+  font-size: 172.9% !important;
+}
 body.pojo-a11y-resize-font-120,
-body.pojo-a11y-resize-font-120 h1,
-body.pojo-a11y-resize-font-120 h2,
-body.pojo-a11y-resize-font-120 h3,
-body.pojo-a11y-resize-font-120 h4,
-body.pojo-a11y-resize-font-120 h5,
-body.pojo-a11y-resize-font-120 h6,
 body.pojo-a11y-resize-font-120 p:not(.pojo-a11y-toolbar-title),
 body.pojo-a11y-resize-font-120 li:not(.pojo-a11y-toolbar-item),
 body.pojo-a11y-resize-font-120 label,
@@ -1956,6 +2014,20 @@ body.pojo-a11y-resize-font-120 dt,
 body.pojo-a11y-resize-font-120 span,
 body.pojo-a11y-resize-font-120 blockquote {
   font-size: 120% !important;
+}
+body.pojo-a11y-resize-font-120 h1,
+body.pojo-a11y-resize-font-120 h2,
+body.pojo-a11y-resize-font-120 h3,
+body.pojo-a11y-resize-font-120 h4,
+body.pojo-a11y-resize-font-120 h5,
+body.pojo-a11y-resize-font-120 h6,
+body.pojo-a11y-resize-font-120 h1 span,
+body.pojo-a11y-resize-font-120 h2 span,
+body.pojo-a11y-resize-font-120 h3 span,
+body.pojo-a11y-resize-font-120 h4 span,
+body.pojo-a11y-resize-font-120 h5 span,
+body.pojo-a11y-resize-font-120 h6 span {
+  font-size: 159.60000000000002% !important;
 }
 body.pojo-a11y-links-underline a[onclick],
 body.pojo-a11y-links-underline a[onclick] abbr,
