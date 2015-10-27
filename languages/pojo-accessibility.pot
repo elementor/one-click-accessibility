@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: pojo-accessibility 0.9\n"
+"Project-Id-Version: pojo-accessibility 0.9.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-27 09:11+0200\n"
+"POT-Creation-Date: 2015-10-27 13:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,7 @@ msgid "Reset"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:18
-msgid "Toolbar"
+msgid "Display Toolbar"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:21
@@ -122,7 +122,7 @@ msgid "Enable"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:57
-msgid "A+"
+msgid "Increase Text"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:60
@@ -130,7 +130,7 @@ msgid "Increase text"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:65
-msgid "A-"
+msgid "Decrease Text"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:68
