@@ -50,7 +50,7 @@ final class Pojo_A11y_Frontend {
 		if ( ! $this->is_toolbar_active() )
 			return;
 		
-		$toolbar_position = pojo_get_option( 'pojo_a11y_toolbar_position' );
+		$toolbar_position = get_theme_mod( 'a11y_toolbar_position' );
 		if ( empty( $toolbar_position ) || ! in_array( $toolbar_position, array( 'right', 'left' ) ) )
 			$toolbar_position = 'left';
 		

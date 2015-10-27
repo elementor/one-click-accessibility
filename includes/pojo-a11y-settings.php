@@ -41,18 +41,6 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		);
 		
 		$fields[] = array(
-			'id' => 'pojo_a11y_toolbar_position',
-			'title' => __( 'Position', 'pojo-accessibility' ),
-			'type' => Pojo_Settings::FIELD_SELECT,
-			'class' => $toolbar_options_classes,
-			'options' => array(
-				'left' => __( 'Left', 'pojo-accessibility' ),
-				'right' => __( 'Right', 'pojo-accessibility' ),
-			),
-			'std' => is_rtl() ? 'right' : 'left',
-		);
-		
-		$fields[] = array(
 			'id' => 'pojo_a11y_toolbar_button_resize_font',
 			'title' => __( 'Resize Font', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,

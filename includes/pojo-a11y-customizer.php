@@ -7,6 +7,17 @@ class Pojo_A11y_Customizer {
 		$fields = array();
 
 		$fields[] = array(
+			'id' => 'a11y_toolbar_position',
+			'title' => __( 'Position', 'pojo-accessibility' ),
+			'type' => Pojo_Theme_Customize::FIELD_SELECT,
+			'choices' => array(
+				'left' => __( 'Left', 'pojo-accessibility' ),
+				'right' => __( 'Right', 'pojo-accessibility' ),
+			),
+			'std' => is_rtl() ? 'right' : 'left',
+		);
+
+		$fields[] = array(
 			'id' => 'a11y_bg_toolbar',
 			'title' => __( 'Background Toolbar', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_COLOR,
