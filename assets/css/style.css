@@ -66,14 +66,16 @@
   content: '\f0e2';
   font-family: FontAwesome;
   display: inline-block;
+  width: 1.4em;
+  padding-right: 6px;
   font-style: normal;
   font-weight: normal;
   font-size: inherit;
   line-height: 1;
+  text-align: center;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-right: 6px;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-resize-plus:before {
   content: '\f00e';
@@ -84,7 +86,7 @@
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-grayscale:before {
   content: '\f02a';
 }
-#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-hi-contrast:before {
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-high-contrast:before {
   content: '\f042';
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.pojo-a11y-btn-negative-contrast:before {
