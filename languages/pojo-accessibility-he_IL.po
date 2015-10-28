@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pojo-accessibility 0.9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-27 09:04+0200\n"
-"PO-Revision-Date: 2015-10-27 09:05+0200\n"
+"PO-Revision-Date: 2015-10-28 13:08+0200\n"
 "Language-Team: Pojo.me team <team@pojo.me>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: includes/pojo-a11y-customizer.php:11
 msgid "Background Toolbar"
-msgstr ""
+msgstr "רקע סרגל נגישות"
 
 #: includes/pojo-a11y-customizer.php:20
 msgid "Color Toolbar"
-msgstr ""
+msgstr "צבע סרגל נגישות"
 
 #: includes/pojo-a11y-customizer.php:29
 msgid "Toggle Button Background"
@@ -52,35 +52,35 @@ msgstr "איפוס"
 
 #: includes/pojo-a11y-settings.php:18
 msgid "Toolbar"
-msgstr ""
+msgstr "סרגל נגישות"
 
 #: includes/pojo-a11y-settings.php:21
 msgid "Show on all devices"
-msgstr ""
+msgstr "הצג בכל מצב"
 
 #: includes/pojo-a11y-settings.php:22
 msgid "Visible Desktop"
-msgstr ""
+msgstr "להציג בדסקטופ"
 
 #: includes/pojo-a11y-settings.php:23
 msgid "Visible Tablet"
-msgstr ""
+msgstr "להציג בדסקטופ"
 
 #: includes/pojo-a11y-settings.php:24
 msgid "Visible Phone"
-msgstr ""
+msgstr "להציג במובייל"
 
 #: includes/pojo-a11y-settings.php:25
 msgid "Hidden Desktop"
-msgstr ""
+msgstr "להסתיר בדסקטופ"
 
 #: includes/pojo-a11y-settings.php:26
 msgid "Hidden Tablet"
-msgstr ""
+msgstr "להסתיר בדסקטופ"
 
 #: includes/pojo-a11y-settings.php:27
 msgid "Hidden Phone"
-msgstr ""
+msgstr "להסתיר במובייל"
 
 #: includes/pojo-a11y-settings.php:28 includes/pojo-a11y-settings.php:62
 #: includes/pojo-a11y-settings.php:90 includes/pojo-a11y-settings.php:110
@@ -88,31 +88,31 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:170 includes/pojo-a11y-settings.php:190
 #: includes/pojo-a11y-settings.php:274 includes/pojo-a11y-settings.php:285
 msgid "Disable"
-msgstr ""
+msgstr "לכבות"
 
 #: includes/pojo-a11y-settings.php:37
 msgid "Title"
-msgstr ""
+msgstr "כותרת"
 
 #: includes/pojo-a11y-settings.php:40
 msgid "Accessibility Tools"
-msgstr ""
+msgstr "כלי נגישות"
 
 #: includes/pojo-a11y-settings.php:45
 msgid "Position"
-msgstr ""
+msgstr "מיקום"
 
 #: includes/pojo-a11y-settings.php:49
 msgid "Left"
-msgstr ""
+msgstr "שמאל"
 
 #: includes/pojo-a11y-settings.php:50
 msgid "Right"
-msgstr ""
+msgstr "ימין"
 
 #: includes/pojo-a11y-settings.php:57
 msgid "Resize Font"
-msgstr ""
+msgstr "שינוי גודל פונט"
 
 #: includes/pojo-a11y-settings.php:61 includes/pojo-a11y-settings.php:89
 #: includes/pojo-a11y-settings.php:109 includes/pojo-a11y-settings.php:129
@@ -120,7 +120,7 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:189 includes/pojo-a11y-settings.php:273
 #: includes/pojo-a11y-settings.php:284
 msgid "Enable"
-msgstr ""
+msgstr "לאפשר"
 
 #: includes/pojo-a11y-settings.php:69
 msgid "A+"
@@ -140,99 +140,99 @@ msgstr ""
 
 #: includes/pojo-a11y-settings.php:85 includes/pojo-a11y-settings.php:100
 msgid "Grayscale"
-msgstr ""
+msgstr "גווני אפור"
 
 #: includes/pojo-a11y-settings.php:97
 msgid "Grayscale Title"
-msgstr ""
+msgstr "כותרת גווני אפור"
 
 #: includes/pojo-a11y-settings.php:105 includes/pojo-a11y-settings.php:120
 msgid "High Contrast"
-msgstr ""
+msgstr "ניגודיות גבוהה"
 
 #: includes/pojo-a11y-settings.php:117
 msgid "High Contrast Title"
-msgstr ""
+msgstr "כותרת ניגודיות גבוהה"
 
 #: includes/pojo-a11y-settings.php:125 includes/pojo-a11y-settings.php:140
 msgid "Negative Contrast"
-msgstr ""
+msgstr "ניגודיות הפוכה"
 
 #: includes/pojo-a11y-settings.php:137
 msgid "Negative Contrast Title"
-msgstr ""
+msgstr "כותרת ניגודיות הפוכה"
 
 #: includes/pojo-a11y-settings.php:145 includes/pojo-a11y-settings.php:160
 msgid "Light Background"
-msgstr ""
+msgstr "רקע בהיר"
 
 #: includes/pojo-a11y-settings.php:157
 msgid "Light Background Title"
-msgstr ""
+msgstr "כותרת רקע בהיר"
 
 #: includes/pojo-a11y-settings.php:165 includes/pojo-a11y-settings.php:180
 msgid "Links Underline"
-msgstr ""
+msgstr "הדגשת קישורים"
 
 #: includes/pojo-a11y-settings.php:177
 msgid "Links Underline Title"
-msgstr ""
+msgstr "כותרת הדגשת קישורים"
 
 #: includes/pojo-a11y-settings.php:185 includes/pojo-a11y-settings.php:200
 msgid "Readable Font"
-msgstr ""
+msgstr "פונט קריא"
 
 #: includes/pojo-a11y-settings.php:197
 msgid "Readable Font Title"
-msgstr ""
+msgstr "כותרת פונט קריא"
 
 #: includes/pojo-a11y-settings.php:205
 msgid "Sitemap Title"
-msgstr ""
+msgstr "כותרת מפת אתר"
 
 #: includes/pojo-a11y-settings.php:208
 msgid "Sitemap"
-msgstr ""
+msgstr "מפת אתר"
 
 #: includes/pojo-a11y-settings.php:213
 msgid "Sitemap Link"
-msgstr ""
+msgstr "קישור מפת אתר"
 
 #: includes/pojo-a11y-settings.php:222
 msgid "Help Title"
-msgstr ""
+msgstr "כותרת עזרה"
 
 #: includes/pojo-a11y-settings.php:225
 msgid "Help"
-msgstr ""
+msgstr "עזרה"
 
 #: includes/pojo-a11y-settings.php:230
 msgid "Help Link"
-msgstr ""
+msgstr "קישור עזרה"
 
 #: includes/pojo-a11y-settings.php:239
 msgid "Feedback Title"
-msgstr ""
+msgstr "כותרת משוב"
 
 #: includes/pojo-a11y-settings.php:242
 msgid "Feedback"
-msgstr ""
+msgstr "משוב"
 
 #: includes/pojo-a11y-settings.php:247
 msgid "Feedback Link"
-msgstr ""
+msgstr "קישור משוב"
 
 #: includes/pojo-a11y-settings.php:257
 msgid "Toolbar Setting:"
-msgstr ""
+msgstr "הגדרות סרגל נגישות"
 
 #: includes/pojo-a11y-settings.php:270
 msgid "Remove target attribute from links"
-msgstr ""
+msgstr "הסרת תכונת יעד מקישורים"
 
 #: includes/pojo-a11y-settings.php:281
 msgid "Add landmark roles to all links"
-msgstr ""
+msgstr "להוסיף ציון תפקיד דרך לכל הקישורים"
 
 #: includes/pojo-a11y-settings.php:293
 msgid "Settings:"
@@ -249,14 +249,13 @@ msgstr ""
 #: pojo-accessibility.php:83
 #, php-format
 msgid ""
-"<a href=\"%s\" target=\"_blank\">Pojo Theme</a> is not active. Please "
-"activate any theme by Pojo.me before you are using \"Pojo Accessibility\" "
-"plugin."
+"<a href=\"%s\" target=\"_blank\">Pojo Theme</a> is not active. Please activate "
+"any theme by Pojo.me before you are using \"Pojo Accessibility\" plugin."
 msgstr ""
 
 #: pojo-accessibility.php:87
 #, php-format
 msgid ""
-"The Pojo Accessibility is not supported by this version of %s. Please <a "
-"href=\"%s\">upgrade the theme to its latest version</a>."
+"The Pojo Accessibility is not supported by this version of %s. Please <a href=\"%s"
+"\">upgrade the theme to its latest version</a>."
 msgstr ""

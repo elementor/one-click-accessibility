@@ -36,6 +36,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_toolbar_title',
 			'title' => __( 'Title', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
+			'desc' => __( 'Title top of the toolbar (recommended).', 'pojo-accessibility' ),
 			'class' => $toolbar_options_classes,
 			'std' => __( 'Accessibility Tools', 'pojo-accessibility' ),
 		);
@@ -201,6 +202,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'Sitemap Link', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'placeholder' => 'http://your-domain.com/sitemap',
+			'desc' => __( 'Link for sitemap page in your website. Leave blank to disable.', 'pojo-accessibility' ),
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => '',
 		);
@@ -218,6 +220,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'Help Link', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'placeholder' => 'http://your-domain.com/help',
+			'desc' => __( 'Link for help page in your website. Leave blank to disable.', 'pojo-accessibility' ),
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => '',
 		);
@@ -235,6 +238,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'Feedback Link', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'placeholder' => 'http://your-domain.com/feedback',
+			'desc' => __( 'Link for feedback page in your website. Leave blank to disable.', 'pojo-accessibility' ),
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std' => '',
 		);

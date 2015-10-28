@@ -8,7 +8,7 @@ class Pojo_A11y_Customizer {
 
 		$fields[] = array(
 			'id' => 'a11y_toolbar_position',
-			'title' => __( 'Position', 'pojo-accessibility' ),
+			'title' => __( 'Position Toolbar', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_SELECT,
 			'choices' => array(
 				'left' => __( 'Left', 'pojo-accessibility' ),
