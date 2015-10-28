@@ -254,6 +254,17 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		$fields = array();
 
 		$fields[] = array(
+			'id' => 'pojo_a11y_skip_to_content_link',
+			'title' => __( 'Skip to Content link', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_SELECT,
+			'options' => array(
+				'enable' => __( 'Enable', 'pojo-accessibility' ),
+				'disable' => __( 'Disable', 'pojo-accessibility' ),
+			),
+			'std' => 'enable',
+		);
+
+		$fields[] = array(
 			'id' => 'pojo_a11y_remove_link_target',
 			'title' => __( 'Remove target attribute from links', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,

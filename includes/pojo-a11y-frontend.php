@@ -46,7 +46,17 @@ final class Pojo_A11y_Frontend {
 		);
 	}
 
-	public function wp_footer() {
+	public function print_skip_to_content_link() {
+		$skip_to_content_link = pojo_get_option( 'pojo_a11y_skip_to_content_link' );
+		if ( 'disable' === $skip_to_content_link )
+			return;
+		
+		?>
+		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content sr-only" href="#content"><?php _e( 'Skip to content', 'pojo-accessibility' ); ?></a>
+		<?php
+	}
+
+	public function print_toolbar() {
 		if ( ! $this->is_toolbar_active() )
 			return;
 		
@@ -180,7 +190,9 @@ final class Pojo_A11y_Frontend {
 
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
-		add_action( 'wp_footer', array( &$this, 'wp_footer' ) );
+		
+		add_action( 'wp_footer', array( &$this, 'print_skip_to_content_link' ), 20 );
+		add_action( 'wp_footer', array( &$this, 'print_toolbar' ), 30 );
 	}
 	
 }

@@ -16,17 +16,14 @@
 			this.cache.$toolbar = $( '#pojo-a11y-toolbar' );
 			this.cache.$btnToolbarToggle = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-toggle > a' );
 			this.cache.$btnBackgrounGroup = this.cache.$toolbar.find( 'a.pojo-a11y-btn-background-group' );
-			this.cache.$skipToContent = $( 'a.pojo-skip-content' );
+			this.cache.$skipToContent = $( '#pojo-a11y-skip-content' );
 			this.cache.$body = $( 'body' );
 		},
 
 		buildElements: function() {
-			// Move the toolbar to top
-			if ( this.cache.$skipToContent.length ) {
-				this.cache.$skipToContent.after( this.cache.$toolbar );
-			} else {
-				this.cache.$body.prepend( this.cache.$toolbar );
-			}
+			// Move the `toolbar/skip to content` to top
+			this.cache.$body.prepend( this.cache.$toolbar );
+			this.cache.$body.prepend( this.cache.$skipToContent );
 		},
 
 		bindEvents: function() {
