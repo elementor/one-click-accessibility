@@ -22,7 +22,7 @@ final class Pojo_A11y_Frontend {
 			array(
 				'jquery',
 			),
-			'0.9.4',
+			'0.9.5',
 			true
 		);
 
@@ -30,7 +30,7 @@ final class Pojo_A11y_Frontend {
 			'pojo-a11y',
 			POJO_A11Y_ASSETS_URL . 'css/style.min.css',
 			array(),
-			'0.9.4'
+			'0.9.5'
 		);
 		
 		wp_enqueue_script( 'pojo-a11y' );
