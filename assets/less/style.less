@@ -4,22 +4,15 @@
 
 .font-size-percent(@start-loop);
 
-//Links Underline
+// Links Underline
 body.pojo-a11y-links-underline {
 	@import "_underline";
 }
 
-//Readable Font
+// Readable Font
 body.pojo-a11y-readable-font {
 	&,
 	*:not(i):not(span) {
 		font-family: Verdana, Arial, Helvetica, sans-serif !important;
 	}
-}
-
-//Focus Tab
-:focus {
-	outline-style: solid !important;
-	outline-width: 1px !important;
-	outline-color: #F00 !important;
 }

@@ -69,6 +69,49 @@ class Pojo_A11y_Customizer {
 			'change_type' => 'color',
 		);
 
+		$fields[] = array(
+			'id' => 'a11y_focus_outline_style',
+			'title' => __( 'Focus Outline Style', 'pojo-accessibility' ),
+			'type' => Pojo_Theme_Customize::FIELD_SELECT,
+			'choices' => array(
+				'solid' => __( 'Solid', 'pojo-accessibility' ),
+				'dotted' => __( 'Dotted', 'pojo-accessibility' ),
+				'dashed' => __( 'Dashed', 'pojo-accessibility' ),
+				'double' => __( 'Double', 'pojo-accessibility' ),
+				'groove' => __( 'Groove', 'pojo-accessibility' ),
+				'ridge' => __( 'Ridge', 'pojo-accessibility' ),
+				'outset' => __( 'Outset', 'pojo-accessibility' ),
+				'initial' => __( 'Initial', 'pojo-accessibility' ),
+			),
+			'std' => 'solid',
+		);
+
+		$fields[] = array(
+			'id' => 'a11y_focus_outline_width',
+			'title' => __( 'Focus Outline Width', 'pojo-accessibility' ),
+			'type' => Pojo_Theme_Customize::FIELD_SELECT,
+			'choices' => array(
+				'1px' => '1px',
+				'2px' => '2px',
+				'3px' => '3px',
+				'4px' => '4px',
+				'5px' => '5px',
+				'6px' => '6px',
+				'7px' => '7px',
+				'8px' => '8px',
+				'9px' => '9px',
+				'10px' => '10px',
+			),
+			'std' => '1px',
+		);
+
+		$fields[] = array(
+			'id' => 'a11y_focus_outline_color',
+			'title' => __( 'Focus Outline Color', 'pojo-accessibility' ),
+			'type' => Pojo_Theme_Customize::FIELD_COLOR,
+			'std' => '#FF0000',
+		);
+		
 		$sections[] = array(
 			'id' => 'accessibility',
 			'title' => __( 'Accessibility', 'pojo-accessibility' ),
@@ -84,6 +127,21 @@ class Pojo_A11y_Customizer {
 		if ( ! empty( $bg_color ) ) {
 			$css_code->add_value( '#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a', 'background-color', $bg_color );
 			$css_code->add_value( '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay, #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items.pojo-a11y-links', 'border-color', $bg_color );
+		}
+		
+		$outline_style = get_theme_mod( 'a11y_focus_outline_style', 'solid' );
+		if ( ! empty( $outline_style ) ) {
+			$css_code->add_value( 'body.pojo-a11y-focusable a:focus', 'outline-style', $outline_style . ' !important' );
+		}
+		
+		$outline_width = get_theme_mod( 'a11y_focus_outline_width', '1px' );
+		if ( ! empty( $outline_width ) ) {
+			$css_code->add_value( 'body.pojo-a11y-focusable a:focus', 'outline-width', $outline_width . ' !important' );
+		}
+		
+		$outline_color = get_theme_mod( 'a11y_focus_outline_color', '#FF0000' );
+		if ( ! empty( $outline_color ) ) {
+			$css_code->add_value( 'body.pojo-a11y-focusable a:focus', 'outline-color', $outline_color . ' !important' );
 		}
 	}
 	

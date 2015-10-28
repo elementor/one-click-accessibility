@@ -20,7 +20,7 @@ final class Pojo_A11y_Frontend {
 			'pojo-a11y',
 			POJO_A11Y_ASSETS_URL . 'js/app.min.js',
 			array(
-				'jquery'
+				'jquery',
 			),
 			'0.9.4',
 			true
@@ -40,6 +40,7 @@ final class Pojo_A11y_Frontend {
 			'pojo-a11y',
 			'PojoA11yOptions',
 			array(
+				'focusable' => ( 'enable' === pojo_get_option( 'pojo_a11y_focusable' ) ),
 				'remove_link_target' => ( 'enable' === pojo_get_option( 'pojo_a11y_remove_link_target' ) ),
 				'add_role_links' => ( 'enable' === pojo_get_option( 'pojo_a11y_add_role_links' ) ),
 			)

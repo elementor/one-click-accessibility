@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 0.9.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 13:37+0200\n"
+"POT-Creation-Date: 2015-10-28 14:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,15 +53,59 @@ msgstr ""
 msgid "Color Active"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:74 includes/pojo-a11y-settings.php:328
+#: includes/pojo-a11y-customizer.php:74
+msgid "Focus Outline Style"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:77
+msgid "Solid"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:78
+msgid "Dotted"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:79
+msgid "Dashed"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:80
+msgid "Double"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:81
+msgid "Groove"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:82
+msgid "Ridge"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:83
+msgid "Outset"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:84
+msgid "Initial"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:91
+msgid "Focus Outline Width"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:110
+msgid "Focus Outline Color"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:117 includes/pojo-a11y-settings.php:340
 msgid "Accessibility"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:55
+#: includes/pojo-a11y-frontend.php:56
 msgid "Skip to content"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:160
+#: includes/pojo-a11y-frontend.php:161
 msgid "Reset"
 msgstr ""
 
@@ -101,8 +145,8 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:79 includes/pojo-a11y-settings.php:99
 #: includes/pojo-a11y-settings.php:119 includes/pojo-a11y-settings.php:139
 #: includes/pojo-a11y-settings.php:159 includes/pojo-a11y-settings.php:179
-#: includes/pojo-a11y-settings.php:266 includes/pojo-a11y-settings.php:277
-#: includes/pojo-a11y-settings.php:288
+#: includes/pojo-a11y-settings.php:267 includes/pojo-a11y-settings.php:278
+#: includes/pojo-a11y-settings.php:289 includes/pojo-a11y-settings.php:300
 msgid "Disable"
 msgstr ""
 
@@ -125,8 +169,9 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:50 includes/pojo-a11y-settings.php:78
 #: includes/pojo-a11y-settings.php:98 includes/pojo-a11y-settings.php:118
 #: includes/pojo-a11y-settings.php:138 includes/pojo-a11y-settings.php:158
-#: includes/pojo-a11y-settings.php:178 includes/pojo-a11y-settings.php:265
-#: includes/pojo-a11y-settings.php:276 includes/pojo-a11y-settings.php:287
+#: includes/pojo-a11y-settings.php:178 includes/pojo-a11y-settings.php:266
+#: includes/pojo-a11y-settings.php:277 includes/pojo-a11y-settings.php:288
+#: includes/pojo-a11y-settings.php:299
 msgid "Enable"
 msgstr ""
 
@@ -239,22 +284,30 @@ msgid "Toolbar Settings"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:262
+msgid "Add Outline Focus"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:264
+msgid "Add outline to elements on keyboard focus"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:274
 msgid "Skip to Content link"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:273
+#: includes/pojo-a11y-settings.php:285
 msgid "Remove target attribute from links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:284
+#: includes/pojo-a11y-settings.php:296
 msgid "Add landmark roles to all links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:296
+#: includes/pojo-a11y-settings.php:308
 msgid "General Settings"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:327
+#: includes/pojo-a11y-settings.php:339
 msgid "Accessibility Settings"
 msgstr ""
 

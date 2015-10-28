@@ -258,6 +258,18 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		$fields = array();
 
 		$fields[] = array(
+			'id' => 'pojo_a11y_focusable',
+			'title' => __( 'Add Outline Focus', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_SELECT,
+			'desc' => __( 'Add outline to elements on keyboard focus', 'pojo-accessibility' ),
+			'options' => array(
+				'enable' => __( 'Enable', 'pojo-accessibility' ),
+				'disable' => __( 'Disable', 'pojo-accessibility' ),
+			),
+			'std' => 'enable',
+		);
+
+		$fields[] = array(
 			'id' => 'pojo_a11y_skip_to_content_link',
 			'title' => __( 'Skip to Content link', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,

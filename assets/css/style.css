@@ -1521,8 +1521,3 @@ body.pojo-a11y-readable-font,
 body.pojo-a11y-readable-font *:not(i):not(span) {
   font-family: Verdana, Arial, Helvetica, sans-serif !important;
 }
-:focus {
-  outline-style: solid !important;
-  outline-width: 1px !important;
-  outline-color: #F00 !important;
-}

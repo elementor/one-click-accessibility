@@ -125,6 +125,10 @@
 		},
 
 		handleGlobalOptions: function() {
+			if ( '1' === PojoA11yOptions.focusable ) {
+				this.cache.$body.addClass( 'pojo-a11y-focusable' );
+			}
+			
 			if ( '1' === PojoA11yOptions.remove_link_target ) {
 				$( 'a[target="_blank"]' ).attr( 'target', '' );
 			}
