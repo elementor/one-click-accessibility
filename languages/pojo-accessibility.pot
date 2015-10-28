@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 0.9.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 14:29+0200\n"
+"POT-Creation-Date: 2015-10-28 14:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Focus Outline Color"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:117 includes/pojo-a11y-settings.php:340
+#: includes/pojo-a11y-customizer.php:117 includes/pojo-a11y-settings.php:353
 msgid "Accessibility"
 msgstr ""
 
@@ -307,7 +307,18 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:339
+#: includes/pojo-a11y-settings.php:321
+msgid "Style Settings"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:322
+#, php-format
+msgid ""
+"For style settings of accessibility tools go to > Customize > <a href=\"%s"
+"\">Accessibility</a>."
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:352
 msgid "Accessibility Settings"
 msgstr ""
 

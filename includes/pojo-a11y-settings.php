@@ -313,6 +313,19 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		return $sections;
 	}
 
+	public function section_a11y_style( $sections = array() ) {
+
+		$sections[] = array(
+			'id' => 'section-a11y-styles',
+			'page' => $this->_page_id,
+			'title' => __( 'Style Settings', 'pojo-accessibility' ),
+			'intro' => sprintf( __( 'For style settings of accessibility tools go to > Customize > <a href="%s">Accessibility</a>.', 'pojo-accessibility' ), admin_url( 'customize.php?autofocus[control]=a11y_toolbar_position' ) ),
+			'fields' => array(),
+		);
+
+		return $sections;
+	}
+
 	public function print_js() {
 		// TODO: Maybe need to move to other file
 		?>
@@ -343,6 +356,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 
 		add_filter( 'pojo_register_settings_sections', array( &$this, 'section_a11y_toolbar' ), 100 );
 		add_filter( 'pojo_register_settings_sections', array( &$this, 'section_a11y_settings' ), 110 );
+		add_filter( 'pojo_register_settings_sections', array( &$this, 'section_a11y_style' ), 120 );
 		
 		add_action( 'admin_footer', array( &$this, 'print_js' ) );
 
