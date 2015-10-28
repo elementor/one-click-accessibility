@@ -242,7 +242,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		$sections[] = array(
 			'id' => 'section-a11y-toolbar',
 			'page' => $this->_page_id,
-			'title' => __( 'Toolbar Setting:', 'pojo-accessibility' ),
+			'title' => __( 'Toolbar Settings', 'pojo-accessibility' ),
 			'intro' => '',
 			'fields' => $fields,
 		);
@@ -289,7 +289,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		$sections[] = array(
 			'id' => 'section-a11y-settings',
 			'page' => $this->_page_id,
-			'title' => __( 'Settings:', 'pojo-accessibility' ),
+			'title' => __( 'General Settings', 'pojo-accessibility' ),
 			'intro' => '',
 			'fields' => $fields,
 		);
