@@ -53,7 +53,7 @@ final class Pojo_A11y_Frontend {
 			return;
 		
 		?>
-		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content sr-only" tabindex="1" href="#content"><?php _e( 'Skip to content', 'pojo-accessibility' ); ?></a>
+		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content sr-only sr-only-focusable" tabindex="1" href="#content"><?php _e( 'Skip to content', 'pojo-accessibility' ); ?></a>
 		<?php
 	}
 

@@ -185,3 +185,24 @@ body.rtl {
 		}
 	}
 }
+
+// Responsive
+@media (max-height: 600px) {
+	#pojo-a11y-toolbar {
+		top: 50px;
+		.pojo-a11y-toolbar-overlay {
+			p.pojo-a11y-toolbar-title {
+				padding: 7px 12px 0;
+			}
+			ul.pojo-a11y-toolbar-items {
+				padding: 7px 0;
+				li.pojo-a11y-toolbar-item {
+					a {
+						display: block;
+						padding: 7px 12px;
+					}
+				}
+			}
+		}
+	}
+}
