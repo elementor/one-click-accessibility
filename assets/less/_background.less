@@ -1,3 +1,4 @@
+//Grayscale
 body.pojo-a11y-grayscale {
 	filter: grayscale(100%);
 	-webkit-filter: grayscale(100%);
@@ -8,10 +9,12 @@ body.pojo-a11y-grayscale {
 	filter: gray;
 }
 
+//High Contrast
 body.pojo-a11y-high-contrast {
 	@import "_high-contrast";
 }
 
+//Negative Contrast
 body.pojo-a11y-negative-contrast {
 	&,
 	* {
@@ -26,6 +29,7 @@ body.pojo-a11y-negative-contrast {
 	}
 }
 
+//Light Background
 body.pojo-a11y-light-background {
 	&,
 	*:not(.pojo-a11y-toolbar-overlay):not(.pojo-a11y-toolbar-link){
