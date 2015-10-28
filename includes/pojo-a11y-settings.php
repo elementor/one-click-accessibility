@@ -57,7 +57,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'Increase Text', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row no-border',
-			'std' => __( 'Increase text', 'pojo-accessibility' ),
+			'std' => __( 'Increase Text', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
@@ -65,7 +65,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'Decrease Text', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
-			'std' => __( 'Decrease text', 'pojo-accessibility' ),
+			'std' => __( 'Decrease Text', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
