@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 0.9.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 15:04+0200\n"
+"POT-Creation-Date: 2015-10-29 17:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,6 +103,10 @@ msgstr ""
 
 #: includes/pojo-a11y-frontend.php:56
 msgid "Skip to content"
+msgstr ""
+
+#: includes/pojo-a11y-frontend.php:89
+msgid "Open toolbar"
 msgstr ""
 
 #: includes/pojo-a11y-frontend.php:161
