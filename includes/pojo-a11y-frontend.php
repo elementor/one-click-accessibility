@@ -86,7 +86,7 @@ final class Pojo_A11y_Frontend {
 		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
 				<a class="pojo-a11y-toolbar-link pojo-a11y-toolbar-toggle-link" href="#" title="<?php echo esc_attr( $toolbar_title ); ?>">
-					<span class="sr-only"><?php echo $toolbar_title; ?></span>
+					<span class="sr-only"><?php _e( 'Open toolbar', 'pojo-accessibility' ); ?></span>
 					<i class="fa fa-wheelchair"></i>
 				</a>
 			</div>
@@ -98,13 +98,13 @@ final class Pojo_A11y_Frontend {
 						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus" data-action="plus">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus" data-action="plus" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'resize_font_add' ); ?>
 								</a>
 							</li>
 							
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-minus" data-action="minus">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-minus" data-action="minus" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'resize_font_less' ); ?>
 								</a>
 							</li>
@@ -112,7 +112,7 @@ final class Pojo_A11y_Frontend {
 
 						<?php if ( $this->is_toolbar_button_active( 'grayscale' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-grayscale" data-action="grayscale">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-grayscale" data-action="grayscale" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'grayscale' ); ?>
 								</a>
 							</li>
@@ -120,21 +120,21 @@ final class Pojo_A11y_Frontend {
 
 						<?php if ( $this->is_toolbar_button_active( 'contrast' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-high-contrast" data-action="high_contrast">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-high-contrast" data-action="high_contrast" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'high_contrast' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
 
 						<li class="pojo-a11y-toolbar-item">
-							<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-negative-contrast" data-action="negative_contrast">
+							<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-negative-contrast" data-action="negative_contrast" tabindex="-1">
 								<?php echo $this->get_toolbar_button_title( 'negative_contrast' ); ?>
 							</a>
 						</li>
 
 						<?php if ( $this->is_toolbar_button_active( 'light_bg' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-light-bg" data-action="light-bg">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-light-bg" data-action="light-bg" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'light_bg' ); ?>
 								</a>
 							</li>
@@ -142,7 +142,7 @@ final class Pojo_A11y_Frontend {
 
 						<?php if ( $this->is_toolbar_button_active( 'links_underline' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-links-underline">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-links-underline" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'links_underline' ); ?>
 								</a>
 							</li>
@@ -150,14 +150,14 @@ final class Pojo_A11y_Frontend {
 
 						<?php if ( $this->is_toolbar_button_active( 'readable_font' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
-								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-readable-font">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-readable-font" tabindex="-1">
 									<?php echo $this->get_toolbar_button_title( 'readable_font' ); ?>
 								</a>
 							</li>
 						<?php endif; ?>
 						<?php do_action( 'pojo_a11y_toolbar_after_buttons' ); ?>
 						<li class="pojo-a11y-toolbar-item">
-							<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-reset">
+							<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-reset" tabindex="-1">
 								<?php _e( 'Reset', 'pojo-accessibility' ); ?>
 							</a>
 						</li>
@@ -166,18 +166,18 @@ final class Pojo_A11y_Frontend {
 					<ul class="pojo-a11y-toolbar-items pojo-a11y-links">
 						<?php if ( ! empty( $sitemap_link ) ) : ?>
 						<li class="pojo-a11y-toolbar-item">
-							<a href="<?php echo esc_attr( $sitemap_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-sitemap">
+							<a href="<?php echo esc_attr( $sitemap_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-sitemap" tabindex="-1">
 								<?php echo $this->get_toolbar_button_title( 'sitemap' ); ?>
 							</a>
 						</li>
 						<?php endif; ?>
 						<li class="pojo-a11y-toolbar-item">
-							<a href="<?php echo esc_attr( $help_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-help">
+							<a href="<?php echo esc_attr( $help_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-help" tabindex="-1">
 								<?php echo $this->get_toolbar_button_title( 'help' ); ?>
 							</a>
 						</li>
 						<li class="pojo-a11y-toolbar-item">
-							<a href="<?php echo esc_attr( $feedback_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-feedback">
+							<a href="<?php echo esc_attr( $feedback_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-feedback" tabindex="-1">
 								<?php echo $this->get_toolbar_button_title( 'feedback' ); ?>
 							</a>
 						</li>

@@ -14,6 +14,7 @@
 
 		cacheElements: function() {
 			this.cache.$toolbar = $( '#pojo-a11y-toolbar' );
+			this.cache.$toolbarLinks = this.cache.$toolbar.find( 'a.pojo-a11y-toolbar-link' );
 			this.cache.$btnToolbarToggle = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-toggle > a' );
 			this.cache.$btnBackgrounGroup = this.cache.$toolbar.find( 'a.pojo-a11y-btn-background-group' );
 			this.cache.$skipToContent = $( '#pojo-a11y-skip-content' );
@@ -33,6 +34,12 @@
 				event.preventDefault();
 				
 				$self.cache.$toolbar.toggleClass( 'pojo-a11y-toolbar-open' );
+				
+				if ( $self.cache.$toolbar.hasClass( 'pojo-a11y-toolbar-open' ) ) {
+					$self.cache.$toolbarLinks.attr( 'tabindex', '0' );
+				} else {
+					$self.cache.$toolbarLinks.attr( 'tabindex', '-1' );
+				}
 			} );
 			
 			
@@ -116,7 +123,7 @@
 				event.preventDefault();
 
 				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-high-contrast pojo-a11y-negative-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-readable-font' );
-				$self.cache.$toolbar.find( 'a' ).removeClass( 'active' );
+				$self.cache.$toolbarLinks.removeClass( 'active' );
 				
 				var MIN_SIZE = 120;
 				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
