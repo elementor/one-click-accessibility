@@ -251,6 +251,7 @@ module.exports = function( grunt ) {
 					'!composer.json',
 					'!composer.lock',
 					'!assets/less/**',
+					'!wp-assets/**',
 					'!.gitignore',
 					'!.gitmodules',
 					'!*~'
@@ -272,7 +273,8 @@ module.exports = function( grunt ) {
 				options: {
 					plugin_slug: '<%= pkg.slug %>',
 					svn_user: 'KingYes',
-					build_dir: 'build/'
+					build_dir: 'build/',
+					assets_dir: 'wp-assets/'
 				}
 			}
 		},

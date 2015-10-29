@@ -2,10 +2,10 @@
 [![Build Status](https://travis-ci.org/pojome/pojo-accessibility.svg?branch=master)](https://travis-ci.org/pojome/pojo-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 **Contributors:** pojo.me, KingYes, ariel.k  
-**Tags:** Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility,
+**Tags:** Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility  
 **Requires at least:** 4.1  
 **Tested up to:** 4.3.1  
-**Stable tag:** 0.9.4  
+**Stable tag:** 1.0.0  
 **License:** GPLv2 or later  
 
 This plugin implements the accessibility features for the Pojo WordPress Themes.
@@ -16,9 +16,10 @@ This plugin implements the accessibility features for the Pojo WordPress Themes.
 
 This plugin implements the accessibility features for the Pojo Themes. While most accessibility issues can't be addressed without directly changing your content, Pojo Accessibility adds a number of helpful accessibility features with a minimum amount of setup or expert knowledge.
 
-**Accessibility Toolbar:**
+<strong>Accessibility Toolbar:</strong>
 
 Add a toolbar toggling that allows you to choose many options:
+
 * Resize font (increase/decrease)
 * Grayscale
 * Negative Contrast
@@ -28,7 +29,8 @@ Add a toolbar toggling that allows you to choose many options:
 * Readable Font
 * Link to Sitemap/Feedback/Help pages
 
-**Accessibility Features:**
+<strong>Accessibility Features:</strong>
+
 * Enable skip to content
 * Add outline focus for focusable elements
 * Remove the target attribute from links
@@ -62,27 +64,19 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 1. Enjoy!
 
 
-### Screenshots ###
+## Screenshots ##
 
-1. Accessibility Toolbar
-2. Accessibility Settings
-3. Accessibility Customizer
+### 1. Accessibility Toolbar ###
+![Accessibility Toolbar](http://s.wordpress.org/extend/plugins/pojo-accessibility/screenshot-1.png)
 
-## Description ##
+### 2. Accessibility Settings ###
+![Accessibility Settings](http://s.wordpress.org/extend/plugins/pojo-accessibility/screenshot-2.png)
 
-### 0.9.4 ###
-* Added skip to content link
+### 3. Accessibility Customizer ###
+![Accessibility Customizer](http://s.wordpress.org/extend/plugins/pojo-accessibility/screenshot-3.png)
 
-### 0.9.3 ###
-* Fixes some bugs
 
-### 0.9.2 ###
-* Added Hebrew translate
-* Move Position setting to Customizer
-* Fixes some bugs
+## Changelog ##
 
-### 0.9.1 ###
-* Fixed toolbar wrapper size
-
-### 0.9 ###
-* Initial Public Beta Release!
+### 1.0.0 ###
+* Initial Public Release!
