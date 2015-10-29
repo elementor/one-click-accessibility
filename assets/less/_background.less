@@ -17,7 +17,7 @@ body.pojo-a11y-high-contrast {
 //Negative Contrast
 body.pojo-a11y-negative-contrast {
 	&,
-	* {
+	*:not(#pojo-a11y-toolbar) {
 		background: #000 !important;
 		color: #ffffff !important;
 		a,b, blockquote, button, canvas, caption, center, cite, code,col, colgroup, dd, details, dfn, dir, div, dl, dt, em, embed,fieldset, figcaption, figure, font, footer, form, header, i, iframe, img, input, kbd, label, legend, li, mark, menu, meter, nav, nobr, object, ol, option, pre, progress, q, s, section, select, small, span, strike,strong, sub, summary, sup, table, td, textarea, th, time, tr, tt, u,ul, var, a span, strong {
@@ -32,8 +32,8 @@ body.pojo-a11y-negative-contrast {
 //Light Background
 body.pojo-a11y-light-background {
 	&,
-	*:not(.pojo-a11y-toolbar-overlay):not(.pojo-a11y-toolbar-link){
+	*:not(#pojo-a11y-toolbar):not(.pojo-a11y-toolbar-link){
 		background: #fff !important;
-		color: #000;
+		color: #000 !important;
 	}
 }
