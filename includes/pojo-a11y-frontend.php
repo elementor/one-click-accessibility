@@ -85,7 +85,7 @@ final class Pojo_A11y_Frontend {
 		?>
 		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
-				<a class="pojo-a11y-toolbar-link pojo-a11y-toolbar-toggle-link" href="#" title="<?php echo esc_attr( $toolbar_title ); ?>">
+				<a class="pojo-a11y-toolbar-link pojo-a11y-toolbar-toggle-link" href="javascript:void(0);" title="<?php echo esc_attr( $toolbar_title ); ?>">
 					<span class="sr-only"><?php _e( 'Open toolbar', 'pojo-accessibility' ); ?></span>
 					<i class="fa fa-wheelchair"></i>
 				</a>
