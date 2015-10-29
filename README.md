@@ -17,6 +17,7 @@ This plugin implements the accessibility features for the Pojo WordPress Themes.
 This plugin implements the accessibility features for the Pojo Themes. While most accessibility issues can't be addressed without directly changing your content, Pojo Accessibility adds a number of helpful accessibility features with a minimum amount of setup or expert knowledge.
 
 **Accessibility Toolbar:**
+
 Add a toolbar toggling that allows you to choose many options:
 * Resize font (increase/decrease)
 * Grayscale
