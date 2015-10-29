@@ -14,7 +14,7 @@
 
 		cacheElements: function() {
 			this.cache.$toolbar = $( '#pojo-a11y-toolbar' );
-			this.cache.$toolbarLinks = this.cache.$toolbar.find( 'a.pojo-a11y-toolbar-link' );
+			this.cache.$toolbarLinks = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-overlay a.pojo-a11y-toolbar-link' );
 			this.cache.$btnToolbarToggle = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-toggle > a' );
 			this.cache.$btnBackgrounGroup = this.cache.$toolbar.find( 'a.pojo-a11y-btn-background-group' );
 			this.cache.$skipToContent = $( '#pojo-a11y-skip-content' );
@@ -40,8 +40,14 @@
 				} else {
 					$self.cache.$toolbarLinks.attr( 'tabindex', '-1' );
 				}
-			} );
-			
+			} )
+
+				.on( 'focus', function( event ) {
+					event.preventDefault();
+
+					$self.cache.$toolbar.addClass( 'pojo-a11y-toolbar-open' );
+					$self.cache.$toolbarLinks.attr( 'tabindex', '0' );
+				} );
 			
 			$self.bindToolbarButtons();
 		},
