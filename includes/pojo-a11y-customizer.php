@@ -18,6 +18,20 @@ class Pojo_A11y_Customizer {
 		);
 
 		$fields[] = array(
+			'id' => 'a11y_toolbar_distance_top',
+			'title' => __( 'Distance from Top', 'pojo-accessibility' ),
+			'type' => Pojo_Theme_Customize::FIELD_TEXT,
+			'std' => '100px',
+		);
+
+		$fields[] = array(
+			'id' => 'a11y_toolbar_distance_top_mobile',
+			'title' => __( 'Distance from Top Mobile', 'pojo-accessibility' ),
+			'type' => Pojo_Theme_Customize::FIELD_TEXT,
+			'std' => '50px',
+		);
+
+		$fields[] = array(
 			'id' => 'a11y_bg_toolbar',
 			'title' => __( 'Background Toolbar', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_COLOR,
@@ -142,6 +156,16 @@ class Pojo_A11y_Customizer {
 		$outline_color = get_theme_mod( 'a11y_focus_outline_color', '#FF0000' );
 		if ( ! empty( $outline_color ) ) {
 			$css_code->add_value( 'body.pojo-a11y-focusable a:focus', 'outline-color', $outline_color . ' !important' );
+		}
+		
+		$distance_top = get_theme_mod( 'a11y_toolbar_distance_top', '100px' );
+		if ( ! empty( $distance_top ) ) {
+			$css_code->add_value( '#pojo-a11y-toolbar', 'top', $distance_top . ' !important' );
+		}
+		
+		$distance_top_mobile = get_theme_mod( 'a11y_toolbar_distance_top_mobile', '50px' );
+		if ( ! empty( $distance_top_mobile ) ) {
+			$css_code->add_data( "@media (max-height: 600px) { #pojo-a11y-toolbar { top: {$distance_top_mobile} !important } }" );
 		}
 	}
 	

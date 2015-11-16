@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-29 18:40+0200\n"
+"POT-Creation-Date: 2015-11-16 21:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,74 +30,82 @@ msgid "Right"
 msgstr ""
 
 #: includes/pojo-a11y-customizer.php:22
+msgid "Distance from Top"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:29
+msgid "Distance from Top Mobile"
+msgstr ""
+
+#: includes/pojo-a11y-customizer.php:36
 msgid "Background Toolbar"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:31
+#: includes/pojo-a11y-customizer.php:45
 msgid "Color Toolbar"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:40
+#: includes/pojo-a11y-customizer.php:54
 msgid "Toggle Button Background"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:47
+#: includes/pojo-a11y-customizer.php:61
 msgid "Toggle Button Color"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:56
+#: includes/pojo-a11y-customizer.php:70
 msgid "Background Active"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:65
+#: includes/pojo-a11y-customizer.php:79
 msgid "Color Active"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:74
+#: includes/pojo-a11y-customizer.php:88
 msgid "Focus Outline Style"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:77
+#: includes/pojo-a11y-customizer.php:91
 msgid "Solid"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:78
+#: includes/pojo-a11y-customizer.php:92
 msgid "Dotted"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:79
+#: includes/pojo-a11y-customizer.php:93
 msgid "Dashed"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:80
+#: includes/pojo-a11y-customizer.php:94
 msgid "Double"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:81
+#: includes/pojo-a11y-customizer.php:95
 msgid "Groove"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:82
+#: includes/pojo-a11y-customizer.php:96
 msgid "Ridge"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:83
+#: includes/pojo-a11y-customizer.php:97
 msgid "Outset"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:84
+#: includes/pojo-a11y-customizer.php:98
 msgid "Initial"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:91
+#: includes/pojo-a11y-customizer.php:105
 msgid "Focus Outline Width"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:110
+#: includes/pojo-a11y-customizer.php:124
 msgid "Focus Outline Color"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:117 includes/pojo-a11y-settings.php:353
+#: includes/pojo-a11y-customizer.php:131 includes/pojo-a11y-settings.php:353
 msgid "Accessibility"
 msgstr ""
 

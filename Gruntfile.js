@@ -107,6 +107,7 @@ module.exports = function( grunt ) {
 			},
 			all: [
 				'Gruntfile.js',
+				'assets/js/skip-link-focus-fix.js',
 				'assets/js/app.dev.js'
 			]
 		},
@@ -116,6 +117,7 @@ module.exports = function( grunt ) {
 			dist: {
 				files: {
 					'assets/js/app.min.js': [
+						'assets/js/skip-link-focus-fix.js',
 						'assets/js/app.dev.js'
 					]
 				}
