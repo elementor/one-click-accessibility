@@ -19,14 +19,14 @@ class Pojo_A11y_Customizer {
 
 		$fields[] = array(
 			'id' => 'a11y_toolbar_distance_top',
-			'title' => __( 'Distance from Top', 'pojo-accessibility' ),
+			'title' => __( 'Distance from Top (Desktop)', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_TEXT,
 			'std' => '100px',
 		);
 
 		$fields[] = array(
 			'id' => 'a11y_toolbar_distance_top_mobile',
-			'title' => __( 'Distance from Top Mobile', 'pojo-accessibility' ),
+			'title' => __( 'Distance from Top (Mobile)', 'pojo-accessibility' ),
 			'type' => Pojo_Theme_Customize::FIELD_TEXT,
 			'std' => '50px',
 		);
