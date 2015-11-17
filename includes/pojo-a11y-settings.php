@@ -266,7 +266,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			),
-			'std' => 'enable',
+			'std' => 'disable',
 		);
 
 		$fields[] = array(
@@ -284,11 +284,12 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'id' => 'pojo_a11y_remove_link_target',
 			'title' => __( 'Remove target attribute from links', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
+			'desc' => __( 'This option will reset all your target links to open in the same window or tab.', 'pojo-accessibility' ),
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			),
-			'std' => 'enable',
+			'std' => 'disable',
 		);
 
 		$fields[] = array(
