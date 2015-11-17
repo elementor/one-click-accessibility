@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 16:14+0200\n"
-"PO-Revision-Date: 2015-10-28 16:32+0200\n"
+"POT-Creation-Date: 2015-11-17 13:46+0200\n"
+"PO-Revision-Date: 2015-11-17 13:47+0200\n"
 "Last-Translator: Ariel Klikstein <a@arielk.net>\n"
 "Language-Team: Pojo.me team <team@pojo.me>\n"
 "Language: he_IL\n"
@@ -31,80 +31,92 @@ msgid "Right"
 msgstr "ימין"
 
 #: includes/pojo-a11y-customizer.php:22
+msgid "Distance from Top (Desktop)"
+msgstr "מרחק מלמעלה (דסקטופ)"
+
+#: includes/pojo-a11y-customizer.php:29
+msgid "Distance from Top (Mobile)"
+msgstr "מרחק מלמעלה (מובייל)"
+
+#: includes/pojo-a11y-customizer.php:36
 msgid "Background Toolbar"
 msgstr "רקע סרגל נגישות"
 
-#: includes/pojo-a11y-customizer.php:31
+#: includes/pojo-a11y-customizer.php:45
 msgid "Color Toolbar"
 msgstr "צבע סרגל נגישות"
 
-#: includes/pojo-a11y-customizer.php:40
+#: includes/pojo-a11y-customizer.php:54
 msgid "Toggle Button Background"
 msgstr "רקע כפתור פתיחה"
 
-#: includes/pojo-a11y-customizer.php:47
+#: includes/pojo-a11y-customizer.php:61
 msgid "Toggle Button Color"
 msgstr "צבע כפתור פתיחה"
 
-#: includes/pojo-a11y-customizer.php:56
+#: includes/pojo-a11y-customizer.php:70
 msgid "Background Active"
 msgstr "רקע פעיל"
 
-#: includes/pojo-a11y-customizer.php:65
+#: includes/pojo-a11y-customizer.php:79
 msgid "Color Active"
 msgstr "צבע פעיל"
 
-#: includes/pojo-a11y-customizer.php:74
+#: includes/pojo-a11y-customizer.php:88
 msgid "Focus Outline Style"
 msgstr "סגנון קו פוקוס"
 
-#: includes/pojo-a11y-customizer.php:77
+#: includes/pojo-a11y-customizer.php:91
 msgid "Solid"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:78
+#: includes/pojo-a11y-customizer.php:92
 msgid "Dotted"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:79
+#: includes/pojo-a11y-customizer.php:93
 msgid "Dashed"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:80
+#: includes/pojo-a11y-customizer.php:94
 msgid "Double"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:81
+#: includes/pojo-a11y-customizer.php:95
 msgid "Groove"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:82
+#: includes/pojo-a11y-customizer.php:96
 msgid "Ridge"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:83
+#: includes/pojo-a11y-customizer.php:97
 msgid "Outset"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:84
+#: includes/pojo-a11y-customizer.php:98
 msgid "Initial"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:91
+#: includes/pojo-a11y-customizer.php:105
 msgid "Focus Outline Width"
 msgstr "רוחב קו פוקוס"
 
-#: includes/pojo-a11y-customizer.php:110
+#: includes/pojo-a11y-customizer.php:124
 msgid "Focus Outline Color"
 msgstr "צבע קו פוקוס"
 
-#: includes/pojo-a11y-customizer.php:117 includes/pojo-a11y-settings.php:353
+#: includes/pojo-a11y-customizer.php:131 includes/pojo-a11y-settings.php:354
 msgid "Accessibility"
 msgstr "נגישות"
 
 #: includes/pojo-a11y-frontend.php:56
 msgid "Skip to content"
 msgstr "דלג לתוכן"
+
+#: includes/pojo-a11y-frontend.php:89
+msgid "Open toolbar"
+msgstr "פתח סרגל נגישות"
 
 #: includes/pojo-a11y-frontend.php:161
 msgid "Reset"
@@ -147,7 +159,7 @@ msgstr "להסתיר במובייל"
 #: includes/pojo-a11y-settings.php:119 includes/pojo-a11y-settings.php:139
 #: includes/pojo-a11y-settings.php:159 includes/pojo-a11y-settings.php:179
 #: includes/pojo-a11y-settings.php:267 includes/pojo-a11y-settings.php:278
-#: includes/pojo-a11y-settings.php:289 includes/pojo-a11y-settings.php:300
+#: includes/pojo-a11y-settings.php:290 includes/pojo-a11y-settings.php:301
 msgid "Disable"
 msgstr "לכבות"
 
@@ -171,8 +183,8 @@ msgstr "שינוי גודל פונט"
 #: includes/pojo-a11y-settings.php:98 includes/pojo-a11y-settings.php:118
 #: includes/pojo-a11y-settings.php:138 includes/pojo-a11y-settings.php:158
 #: includes/pojo-a11y-settings.php:178 includes/pojo-a11y-settings.php:266
-#: includes/pojo-a11y-settings.php:277 includes/pojo-a11y-settings.php:288
-#: includes/pojo-a11y-settings.php:299
+#: includes/pojo-a11y-settings.php:277 includes/pojo-a11y-settings.php:289
+#: includes/pojo-a11y-settings.php:300
 msgid "Enable"
 msgstr "לאפשר"
 
@@ -300,19 +312,24 @@ msgstr "קישור דילוג אל התוכן"
 msgid "Remove target attribute from links"
 msgstr "הסרת תכונת יעד מקישורים"
 
-#: includes/pojo-a11y-settings.php:296
+#: includes/pojo-a11y-settings.php:287
+msgid ""
+"This option will reset all your target links to open in the same window or tab."
+msgstr "אפשרות זו מאפסת את פתיחת כל הקישורים באתר באותו חלון או לשונית."
+
+#: includes/pojo-a11y-settings.php:297
 msgid "Add landmark roles to all links"
 msgstr "להוסיף ציון תפקיד דרך לכל הקישורים"
 
-#: includes/pojo-a11y-settings.php:308
+#: includes/pojo-a11y-settings.php:309
 msgid "General Settings"
 msgstr "הגדרות כלליות"
 
-#: includes/pojo-a11y-settings.php:321
+#: includes/pojo-a11y-settings.php:322
 msgid "Style Settings"
 msgstr "הגדרות סגנון"
 
-#: includes/pojo-a11y-settings.php:322
+#: includes/pojo-a11y-settings.php:323
 #, php-format
 msgid ""
 "For style settings of accessibility tools go to > Customize > <a href=\"%s"
@@ -321,7 +338,7 @@ msgstr ""
 "להגדרות סגנון של כלי הנגישות יש לעבור אל > התאמה אישית > <a href=\"%s\">נגישות</"
 "a>."
 
-#: includes/pojo-a11y-settings.php:352
+#: includes/pojo-a11y-settings.php:353
 msgid "Accessibility Settings"
 msgstr "הגדרות נגישות"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 1.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-16 21:18+0200\n"
+"POT-Creation-Date: 2015-11-17 13:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,11 +30,11 @@ msgid "Right"
 msgstr ""
 
 #: includes/pojo-a11y-customizer.php:22
-msgid "Distance from Top"
+msgid "Distance from Top (Desktop)"
 msgstr ""
 
 #: includes/pojo-a11y-customizer.php:29
-msgid "Distance from Top Mobile"
+msgid "Distance from Top (Mobile)"
 msgstr ""
 
 #: includes/pojo-a11y-customizer.php:36
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Focus Outline Color"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:131 includes/pojo-a11y-settings.php:353
+#: includes/pojo-a11y-customizer.php:131 includes/pojo-a11y-settings.php:354
 msgid "Accessibility"
 msgstr ""
 
@@ -158,7 +158,7 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:119 includes/pojo-a11y-settings.php:139
 #: includes/pojo-a11y-settings.php:159 includes/pojo-a11y-settings.php:179
 #: includes/pojo-a11y-settings.php:267 includes/pojo-a11y-settings.php:278
-#: includes/pojo-a11y-settings.php:289 includes/pojo-a11y-settings.php:300
+#: includes/pojo-a11y-settings.php:290 includes/pojo-a11y-settings.php:301
 msgid "Disable"
 msgstr ""
 
@@ -182,8 +182,8 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:98 includes/pojo-a11y-settings.php:118
 #: includes/pojo-a11y-settings.php:138 includes/pojo-a11y-settings.php:158
 #: includes/pojo-a11y-settings.php:178 includes/pojo-a11y-settings.php:266
-#: includes/pojo-a11y-settings.php:277 includes/pojo-a11y-settings.php:288
-#: includes/pojo-a11y-settings.php:299
+#: includes/pojo-a11y-settings.php:277 includes/pojo-a11y-settings.php:289
+#: includes/pojo-a11y-settings.php:300
 msgid "Enable"
 msgstr ""
 
@@ -311,26 +311,32 @@ msgstr ""
 msgid "Remove target attribute from links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:296
+#: includes/pojo-a11y-settings.php:287
+msgid ""
+"This option will reset all your target links to open in the same window or "
+"tab."
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:297
 msgid "Add landmark roles to all links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:308
+#: includes/pojo-a11y-settings.php:309
 msgid "General Settings"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:321
+#: includes/pojo-a11y-settings.php:322
 msgid "Style Settings"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:322
+#: includes/pojo-a11y-settings.php:323
 #, php-format
 msgid ""
 "For style settings of accessibility tools go to > Customize > <a href=\"%s"
 "\">Accessibility</a>."
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:352
+#: includes/pojo-a11y-settings.php:353
 msgid "Accessibility Settings"
 msgstr ""
 
