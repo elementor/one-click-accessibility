@@ -70,6 +70,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 == Changelog ==
 
+= 1.0.2 =
+* Tweak! - Fixed hebrew translate
+
 = 1.0.1 =
 * New! - Added distance from top toolbar, in Desktop/Mobile devices
 * Fixed! - Skip to content in Chrome
