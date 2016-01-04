@@ -78,6 +78,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 ## Changelog ##
 
+### 1.0.3 ###
+* Fixed! - Issue with slidebar in Resize text
+
 ### 1.0.2 ###
 * Tweak! - Fixed hebrew translate
 

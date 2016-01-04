@@ -82,6 +82,7 @@
 					$self.cache.$toolbar.find( 'a.pojo-a11y-btn-resize-plus' ).removeClass( 'active' );
 				}
 				
+				$self.cache.$window.trigger( 'resize' );
 			} );
 
 			$self.cache.$btnBackgrounGroup.on( 'click', function( event ) {
