@@ -10,7 +10,10 @@
 		<key name="pojo_a11y_toolbar_button_links_underline_title" />
 		<key name="pojo_a11y_toolbar_button_readable_font_title" />
 		<key name="pojo_a11y_toolbar_button_sitemap_title" />
+		<key name="pojo_a11y_toolbar_button_sitemap_link" />
 		<key name="pojo_a11y_toolbar_button_help_title" />
+		<key name="pojo_a11y_toolbar_button_help_link" />
 		<key name="pojo_a11y_toolbar_button_feedback_title" />
+		<key name="pojo_a11y_toolbar_button_feedback_link" />
 	</admin-texts>
 </wpml-config>
