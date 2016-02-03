@@ -302,9 +302,37 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			),
 			'std' => 'enable',
 		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_save',
+			'title' => __( 'Remember user choices', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_SELECT,
+			'options' => array(
+				'enable' => __( 'Enable', 'pojo-accessibility' ),
+				'disable' => __( 'Disable', 'pojo-accessibility' ),
+			),
+			'std' => 'enable',
+		);
+
+		$fields[] = array(
+			'id' => 'pojo_a11y_save_expiration',
+			'title' => __( 'Remember user for', 'pojo-accessibility' ),
+			'type' => Pojo_Settings::FIELD_SELECT,
+			'options' => array(
+				1 => __( '1 Hour', 'pojo-accessibility' ),
+				6 => __( '6 Hours', 'pojo-accessibility' ),
+				12 => __( '12 Hours', 'pojo-accessibility' ),
+				24 => __( '1 Day', 'pojo-accessibility' ),
+				48 => __( '2 Days', 'pojo-accessibility' ),
+				72 => __( '3 Days', 'pojo-accessibility' ),
+				168 => __( '1 Week', 'pojo-accessibility' ),
+				720 => __( '1 Month', 'pojo-accessibility' ),
+			),
+			'std' => 12,
+		);
 		
 		$sections[] = array(
-			'id' => 'section-a11y-settings',
+			'id' => 'section-a11y-save',
 			'page' => $this->_page_id,
 			'title' => __( 'General Settings', 'pojo-accessibility' ),
 			'intro' => '',

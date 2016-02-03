@@ -27,7 +27,7 @@
 			bodyClassPrefix: 'pojo-a11y-',
 			bodyFontClassPrefix: 'pojo-a11y-resize-font-',
 			storageKey: 'pojo-a11y',
-			expires: 43200000 // 12 hours
+			expires: PojoA11yOptions.save_expiration ? PojoA11yOptions.save_expiration * 36e5 /* hours to ms */ : 43200000 // 12 hours
 		},
 
 		variables: {
@@ -193,6 +193,9 @@
 		},
 
 		saveToLocalStorage: function() {
+			if ( '1' !== PojoA11yOptions.enable_save ) {
+				return;
+			}
 
 			if( ! this.variables.expires){
 				this.variables.expires =  (new Date()).getTime() + this.settings.expires;
@@ -210,6 +213,10 @@
 		},
 
 		setFromLocalStorage: function() {
+			if ( '1' !== PojoA11yOptions.enable_save ) {
+				return;
+			}
+
 			var localData = JSON.parse( localStorage.getItem( this.settings.storageKey ) );
 
 			if ( ! localData ) {
