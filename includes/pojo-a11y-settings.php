@@ -344,7 +344,6 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 	}
 
 	public function section_a11y_style( $sections = array() ) {
-
 		$sections[] = array(
 			'id' => 'section-a11y-styles',
 			'page' => $this->_page_id,
