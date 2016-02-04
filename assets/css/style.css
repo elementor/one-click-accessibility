@@ -1385,7 +1385,7 @@ body.pojo-a11y-resize-font-120 h6 span {
   font-size: 159.60000000000002% !important;
 }
 body.pojo-a11y-links-underline {
-  /*
+  /* Temporarily checking selectors
 a[onclick] , a[onclick] abbr, a[onclick] acronym, a[onclick] b,
 a[onclick] basefont, a[onclick] big, a[onclick] br, a[onclick] code,
 a[onclick] div, a[onclick] em, a[onclick] font, a[onclick] h1,
