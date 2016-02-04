@@ -71,7 +71,7 @@
 		bindToolbarButtons: function() {
 			var self = this;
 
-			this.cache.$toolbarLinks.on( 'click', function( event ) {
+			self.cache.$toolbarLinks.on( 'click', function( event ) {
 				event.preventDefault();
 
 				var $this = $( this ),
@@ -80,7 +80,7 @@
 					deactivate = false;
 
 				if ( 'reset' === action ) {
-					Pojo_Accessibility_App.reset();
+					self.reset();
 					return;
 				}
 
