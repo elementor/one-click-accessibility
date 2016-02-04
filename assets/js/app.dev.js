@@ -16,10 +16,26 @@
 			this.cache.$toolbar = $( '#pojo-a11y-toolbar' );
 			this.cache.$toolbarLinks = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-overlay a.pojo-a11y-toolbar-link' );
 			this.cache.$btnToolbarToggle = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-toggle > a' );
-			this.cache.$btnBackgrounGroup = this.cache.$toolbar.find( 'a.pojo-a11y-btn-background-group' );
 			this.cache.$skipToContent = $( '#pojo-a11y-skip-content' );
 			this.cache.$body = $( 'body' );
 		},
+
+		settings: {
+			minFontSize: 120,
+			maxFontSize: 200,
+			buttonsClassPrefix: 'pojo-a11y-btn-',
+			bodyClassPrefix: 'pojo-a11y-',
+			bodyFontClassPrefix: 'pojo-a11y-resize-font-',
+			storageKey: 'pojo-a11y',
+			expires: PojoA11yOptions.save_expiration ? PojoA11yOptions.save_expiration * 36e5 /* hours to ms */ : 43200000 // 12 hours
+		},
+
+		variables: {
+			currentFontSize: 120,
+			currentSchema: null
+		},
+
+		activeActions: {},
 
 		buildElements: function() {
 			// Move the `toolbar/skip to content` to top
@@ -51,91 +67,183 @@
 			
 			$self.bindToolbarButtons();
 		},
-		
+
 		bindToolbarButtons: function() {
-			var $self = this;
+			var self = this;
 
-			$self.currentFontSize = 120;
-
-			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-resize-font' ).on( 'click', function( event ) {
+			self.cache.$toolbarLinks.on( 'click', function( event ) {
 				event.preventDefault();
 
-				var MAX_SIZE = 200,
-					MIN_SIZE = 120,
-					action = $( this ).data( 'action' ),
-					oldFontSize = $self.currentFontSize;
+				var $this = $( this ),
+					action = $this.data( 'action' ),
+					actionGroup = $this.data( 'action-group' ),
+					deactivate = false;
 
-				if ( 'plus' === action && MAX_SIZE > oldFontSize ) {
-					$self.currentFontSize += 10;
+				if ( 'reset' === action ) {
+					self.reset();
+					return;
 				}
 
-				if ( 'minus' === action && MIN_SIZE < oldFontSize ) {
-					$self.currentFontSize -= 10;
+				if ( -1 !== [ 'toggle', 'schema' ].indexOf( actionGroup ) ) {
+					deactivate = $this.hasClass( 'active' );
 				}
 
-				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + oldFontSize );
+				self.activateButton( action, deactivate );
+			} );
+		},
 
-				if ( 120 !== $self.currentFontSize ) {
-					$self.cache.$toolbar.find( 'a.pojo-a11y-btn-resize-plus' ).addClass( 'active' );
-					$self.cache.$body.addClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
+		activateButton: function( action, deactivate ) {
+			var $button = this.getButtonByAction( action ),
+				actionGroup = $button.data( 'action-group' );
+
+			this.activeActions[ action ] = ! deactivate;
+
+			this.actions[ actionGroup ].call( this, action, deactivate );
+
+			this.saveToLocalStorage();
+		},
+
+		getActiveButtons: function() {
+			return this.cache.$toolbarLinks.filter( '.active' );
+		},
+
+		getButtonByAction: function( action ) {
+			return this.cache.$toolbarLinks.filter( '.' + this.settings.buttonsClassPrefix + action );
+		},
+
+		actions: {
+			toggle: function( action, deactivate ) {
+				var $button = this.getButtonByAction( action ),
+					fn = deactivate ? 'removeClass' : 'addClass';
+
+				if ( deactivate ) {
+					$button.removeClass( 'active' );
 				} else {
-					$self.cache.$toolbar.find( 'a.pojo-a11y-btn-resize-plus' ).removeClass( 'active' );
+					$button.addClass( 'active' );
 				}
-				
-				$self.cache.$window.trigger( 'resize' );
-			} );
 
-			$self.cache.$btnBackgrounGroup.on( 'click', function( event ) {
-				event.preventDefault();
-				
-				var currentAction = $( this ).data( 'action' ),
-					isButtonActive = $( this ).hasClass( 'active' ),
-					bodyClasses = {
-						'grayscale': 'pojo-a11y-grayscale',
-						'high_contrast': 'pojo-a11y-high-contrast',
-						'negative_contrast': 'pojo-a11y-negative-contrast',
-						'light-bg': 'pojo-a11y-light-background'
-					};
-				
-				$.each( bodyClasses, function( action, bodyClass ) {
-					if ( currentAction === action && ! isButtonActive ) {
-						$self.cache.$body.addClass( bodyClass );
-					} else {
-						$self.cache.$body.removeClass( bodyClass );
-					}
-				} );
-				
-				$self.cache.$btnBackgrounGroup.removeClass( 'active' );
-				
-				if ( ! isButtonActive ) {
-					$( this ).addClass( 'active' );
+				this.cache.$body[ fn ]( this.settings.bodyClassPrefix + action );
+			},
+			resize: function( action, deactivate ) {
+				var oldFontSize = this.variables.currentFontSize;
+
+				if ( 'resize-plus' === action && this.settings.maxFontSize > oldFontSize ) {
+					this.variables.currentFontSize += 10;
 				}
-			} );
 
-			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-links-underline' ).on( 'click', function( event ) {
-				event.preventDefault();
+				if ( 'resize-minus' === action && this.settings.minFontSize < oldFontSize ) {
+					this.variables.currentFontSize -= 10;
+				}
 
-				$self.cache.$body.toggleClass( 'pojo-a11y-links-underline' );
-				$( this ).toggleClass( 'active' );
-			} );
+				if ( deactivate ) {
+					this.variables.currentFontSize = this.settings.minFontSize;
+				}
 
-			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-readable-font' ).on( 'click', function( event ) {
-				event.preventDefault();
+				this.cache.$body.removeClass( this.settings.bodyFontClassPrefix + oldFontSize );
 
-				$self.cache.$body.toggleClass( 'pojo-a11y-readable-font' );
-				$( this ).toggleClass( 'active' );
-			} );
+				var isPlusActive = 120 < this.variables.currentFontSize,
+					plusButtonAction = isPlusActive ? 'addClass' : 'removeClass';
 
-			$self.cache.$toolbar.find( 'a.pojo-a11y-btn-reset' ).on( 'click', function( event ) {
-				event.preventDefault();
+				this.getButtonByAction( 'resize-plus' )[ plusButtonAction ]( 'active' );
 
-				$self.cache.$body.removeClass( 'pojo-a11y-grayscale pojo-a11y-high-contrast pojo-a11y-negative-contrast pojo-a11y-light-background pojo-a11y-links-underline pojo-a11y-readable-font' );
-				$self.cache.$toolbarLinks.removeClass( 'active' );
-				
-				var MIN_SIZE = 120;
-				$self.cache.$body.removeClass( 'pojo-a11y-resize-font-' + $self.currentFontSize );
-				$self.currentFontSize = MIN_SIZE;
-			} );
+				if ( isPlusActive ) {
+					this.cache.$body.addClass( this.settings.bodyFontClassPrefix + this.variables.currentFontSize );
+				}
+
+				this.activeActions[ 'resize-minus' ] = false;
+
+				this.activeActions[ 'resize-plus' ] = isPlusActive;
+
+				this.cache.$window.trigger( 'resize' );
+			},
+			schema: function( action, deactivate ) {
+				var currentSchema = this.variables.currentSchema;
+
+				if ( currentSchema ) {
+					this.cache.$body.removeClass( this.settings.bodyClassPrefix + currentSchema );
+
+					this.getButtonByAction( currentSchema ).removeClass( 'active' );
+
+					this.activeActions[ currentSchema ] = false;
+
+					this.saveToLocalStorage();
+				}
+
+				if ( deactivate ) {
+					this.variables.currentSchema = null;
+					return;
+				}
+
+				currentSchema = this.variables.currentSchema = action;
+
+				this.cache.$body.addClass( this.settings.bodyClassPrefix + currentSchema );
+
+				this.getButtonByAction( currentSchema ).addClass( 'active' );
+			}
+		},
+
+		reset: function() {
+			for ( var action in this.activeActions ) {
+				if ( this.activeActions.hasOwnProperty( action ) && this.activeActions[ action ] ) {
+					this.activateButton( action, true );
+				}
+			}
+
+			localStorage.removeItem( this.settings.storageKey );
+		},
+
+		saveToLocalStorage: function() {
+			if ( '1' !== PojoA11yOptions.enable_save ) {
+				return;
+			}
+
+			if( ! this.variables.expires){
+				this.variables.expires =  (new Date()).getTime() + this.settings.expires;
+			}
+
+			var data = {
+				actions: this.activeActions,
+				variables: {
+					currentFontSize: this.variables.currentFontSize,
+					expires: this.variables.expires
+				}
+			};
+
+			localStorage.setItem( this.settings.storageKey, JSON.stringify( data ) );
+		},
+
+		setFromLocalStorage: function() {
+			if ( '1' !== PojoA11yOptions.enable_save ) {
+				return;
+			}
+
+			var localData = JSON.parse( localStorage.getItem( this.settings.storageKey ) );
+
+			if ( ! localData ) {
+				return;
+			}
+
+			var currentDate = new Date(),
+				expires = localData.variables.expires;
+
+			if ( currentDate > expires ) {
+				localStorage.removeItem( this.settings.storageKey );
+				return;
+			}
+
+			var actions = localData.actions;
+
+			if ( localData.variables.currentFontSize > 120 ) {
+				localData.variables.currentFontSize -= 10;
+			}
+
+			$.extend( this.variables, localData.variables );
+
+			for ( var action in actions ) {
+				if ( actions.hasOwnProperty( action ) && actions[ action ] ) {
+					this.activateButton( action, false );
+				}
+			}
 		},
 
 		handleGlobalOptions: function() {
@@ -162,6 +270,7 @@
 
 	$( document ).ready( function( $ ) {
 		Pojo_Accessibility_App.init();
+		Pojo_Accessibility_App.setFromLocalStorage();
 	} );
 
 }( jQuery, window, document ) );
