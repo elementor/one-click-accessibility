@@ -70,6 +70,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 == Changelog ==
 
+= 1.1.0 =
+* New! - Remember toolbar options
+
 = 1.0.3 =
 * Fixed! - Issue with slidebar in Resize text
 * Tweak! - Added more string fields for WPML/Polylang plugins
