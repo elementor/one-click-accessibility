@@ -84,7 +84,7 @@
 					return;
 				}
 
-				if ( [ 'toggle', 'schema' ].indexOf( actionGroup ) + 1 ) {
+				if ( -1 !== [ 'toggle', 'schema' ].indexOf( actionGroup ) ) {
 					deactivate = $this.hasClass( 'active' );
 				}
 
