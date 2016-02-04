@@ -332,7 +332,7 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 		);
 		
 		$sections[] = array(
-			'id' => 'section-a11y-save',
+			'id' => 'section-a11y-settings',
 			'page' => $this->_page_id,
 			'title' => __( 'General Settings', 'pojo-accessibility' ),
 			'intro' => '',
