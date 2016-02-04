@@ -305,7 +305,8 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 
 		$fields[] = array(
 			'id' => 'pojo_a11y_save',
-			'title' => __( 'Remember user choices', 'pojo-accessibility' ),
+			'title' => __( 'Sitewide Accessibility', 'pojo-accessibility' ),
+			'desc' => __( 'Consistent accessibility throughout your site visit. Site remembers you and stays accessible', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
