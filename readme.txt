@@ -2,7 +2,7 @@
 Contributors: pojo.me, KingYes, ariel.k
 Tags: Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility
 Requires at least: 4.1
-Tested up to: 4.3.1
+Tested up to: 4.4.2
 Stable tag: 1.1.0
 License: GPLv2 or later
 
@@ -69,6 +69,10 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 3. Accessibility Customizer
 
 == Changelog ==
+
+= 1.1.1 =
+* Tweak! - Added more hebrew strings translate 
+* Tested up to WordPress v4.4
 
 = 1.1.0 =
 * New! - Remember toolbar options
