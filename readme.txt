@@ -70,6 +70,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 == Changelog ==
 
+= 1.1.2 =
+* Fixed! - Triggering blur after focus to avoid auto-focus by browser on tab reactivated
+
 = 1.1.1 =
 * Tweak! - Added more hebrew strings translate 
 * Tested up to WordPress v4.4
