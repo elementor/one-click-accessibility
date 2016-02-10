@@ -5,7 +5,7 @@
 **Tags:** Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility  
 **Requires at least:** 4.1  
 **Tested up to:** 4.4.2  
-**Stable tag:** 1.1.1  
+**Stable tag:** 1.1.2  
 **License:** GPLv2 or later  
 
 This plugin implements the accessibility features for the Pojo WordPress Themes.
