@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the pojo-accessibility package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: pojo-accessibility 1.0.3\n"
+"Project-Id-Version: pojo-accessibility 1.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-27 16:41+0200\n"
+"POT-Creation-Date: 2016-02-08 16:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,19 +105,19 @@ msgstr ""
 msgid "Focus Outline Color"
 msgstr ""
 
-#: includes/pojo-a11y-customizer.php:131 includes/pojo-a11y-settings.php:354
+#: includes/pojo-a11y-customizer.php:131 includes/pojo-a11y-settings.php:382
 msgid "Accessibility"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:56
+#: includes/pojo-a11y-frontend.php:58
 msgid "Skip to content"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:89
+#: includes/pojo-a11y-frontend.php:91
 msgid "Open toolbar"
 msgstr ""
 
-#: includes/pojo-a11y-frontend.php:161
+#: includes/pojo-a11y-frontend.php:163
 msgid "Reset"
 msgstr ""
 
@@ -159,6 +159,7 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:159 includes/pojo-a11y-settings.php:179
 #: includes/pojo-a11y-settings.php:267 includes/pojo-a11y-settings.php:278
 #: includes/pojo-a11y-settings.php:290 includes/pojo-a11y-settings.php:301
+#: includes/pojo-a11y-settings.php:313
 msgid "Disable"
 msgstr ""
 
@@ -183,7 +184,7 @@ msgstr ""
 #: includes/pojo-a11y-settings.php:138 includes/pojo-a11y-settings.php:158
 #: includes/pojo-a11y-settings.php:178 includes/pojo-a11y-settings.php:266
 #: includes/pojo-a11y-settings.php:277 includes/pojo-a11y-settings.php:289
-#: includes/pojo-a11y-settings.php:300
+#: includes/pojo-a11y-settings.php:300 includes/pojo-a11y-settings.php:312
 msgid "Enable"
 msgstr ""
 
@@ -321,22 +322,68 @@ msgstr ""
 msgid "Add landmark roles to all links"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:309
-msgid "General Settings"
+#: includes/pojo-a11y-settings.php:308
+msgid "Sitewide Accessibility"
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:322
-msgid "Style Settings"
+#: includes/pojo-a11y-settings.php:309
+msgid ""
+"Consistent accessibility throughout your site visit. Site remembers you and "
+"stays accessible"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:320
+msgid "Remember user for"
 msgstr ""
 
 #: includes/pojo-a11y-settings.php:323
+msgid "1 Hour"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:324
+msgid "6 Hours"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:325
+msgid "12 Hours"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:326
+msgid "1 Day"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:327
+msgid "2 Days"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:328
+msgid "3 Days"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:329
+msgid "1 Week"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:330
+msgid "1 Month"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:338
+msgid "General Settings"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:350
+msgid "Style Settings"
+msgstr ""
+
+#: includes/pojo-a11y-settings.php:351
 #, php-format
 msgid ""
 "For style settings of accessibility tools go to > Customize > <a href=\"%s"
 "\">Accessibility</a>."
 msgstr ""
 
-#: includes/pojo-a11y-settings.php:353
+#: includes/pojo-a11y-settings.php:381
 msgid "Accessibility Settings"
 msgstr ""
 

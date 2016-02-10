@@ -320,16 +320,16 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 			'title' => __( 'Remember user for', 'pojo-accessibility' ),
 			'type' => Pojo_Settings::FIELD_SELECT,
 			'options' => array(
-				1 => __( '1 Hour', 'pojo-accessibility' ),
-				6 => __( '6 Hours', 'pojo-accessibility' ),
-				12 => __( '12 Hours', 'pojo-accessibility' ),
-				24 => __( '1 Day', 'pojo-accessibility' ),
-				48 => __( '2 Days', 'pojo-accessibility' ),
-				72 => __( '3 Days', 'pojo-accessibility' ),
-				168 => __( '1 Week', 'pojo-accessibility' ),
-				720 => __( '1 Month', 'pojo-accessibility' ),
+				'1' => __( '1 Hour', 'pojo-accessibility' ),
+				'6' => __( '6 Hours', 'pojo-accessibility' ),
+				'12' => __( '12 Hours', 'pojo-accessibility' ),
+				'24' => __( '1 Day', 'pojo-accessibility' ),
+				'48' => __( '2 Days', 'pojo-accessibility' ),
+				'72' => __( '3 Days', 'pojo-accessibility' ),
+				'168' => __( '1 Week', 'pojo-accessibility' ),
+				'720' => __( '1 Month', 'pojo-accessibility' ),
 			),
-			'std' => 12,
+			'std' => '12',
 		);
 		
 		$sections[] = array(
@@ -344,7 +344,6 @@ class Pojo_A11y_Settings extends Pojo_Settings_Page_Base {
 	}
 
 	public function section_a11y_style( $sections = array() ) {
-
 		$sections[] = array(
 			'id' => 'section-a11y-styles',
 			'page' => $this->_page_id,

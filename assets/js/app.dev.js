@@ -153,9 +153,7 @@
 				}
 
 				this.activeActions[ 'resize-minus' ] = false;
-
 				this.activeActions[ 'resize-plus' ] = isPlusActive;
-
 				this.cache.$window.trigger( 'resize' );
 			},
 			schema: function( action, deactivate ) {
@@ -163,11 +161,9 @@
 
 				if ( currentSchema ) {
 					this.cache.$body.removeClass( this.settings.bodyClassPrefix + currentSchema );
-
 					this.getButtonByAction( currentSchema ).removeClass( 'active' );
-
 					this.activeActions[ currentSchema ] = false;
-
+					
 					this.saveToLocalStorage();
 				}
 
@@ -177,9 +173,7 @@
 				}
 
 				currentSchema = this.variables.currentSchema = action;
-
 				this.cache.$body.addClass( this.settings.bodyClassPrefix + currentSchema );
-
 				this.getButtonByAction( currentSchema ).addClass( 'active' );
 			}
 		},
@@ -199,8 +193,8 @@
 				return;
 			}
 
-			if( ! this.variables.expires){
-				this.variables.expires =  (new Date()).getTime() + this.settings.expires;
+			if ( ! this.variables.expires ) {
+				this.variables.expires = ( new Date() ).getTime() + this.settings.expires;
 			}
 
 			var data = {
@@ -220,7 +214,6 @@
 			}
 
 			var localData = JSON.parse( localStorage.getItem( this.settings.storageKey ) );
-
 			if ( ! localData ) {
 				return;
 			}

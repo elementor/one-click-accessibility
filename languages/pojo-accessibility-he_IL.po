@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pojo-accessibility 0.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-17 13:46+0200\n"
-"PO-Revision-Date: 2015-12-07 20:45+0200\n"
+"POT-Creation-Date: 2016-02-08 16:11+0200\n"
+"PO-Revision-Date: 2016-02-08 16:17+0200\n"
 "Last-Translator: Ariel Klikstein <a@arielk.net>\n"
 "Language-Team: Pojo.me team <team@pojo.me>\n"
 "Language: he_IL\n"
@@ -106,19 +106,19 @@ msgstr "רוחב קו פוקוס"
 msgid "Focus Outline Color"
 msgstr "צבע קו פוקוס"
 
-#: includes/pojo-a11y-customizer.php:131 includes/pojo-a11y-settings.php:354
+#: includes/pojo-a11y-customizer.php:131 includes/pojo-a11y-settings.php:382
 msgid "Accessibility"
 msgstr "נגישות"
 
-#: includes/pojo-a11y-frontend.php:56
+#: includes/pojo-a11y-frontend.php:58
 msgid "Skip to content"
 msgstr "דלג לתוכן"
 
-#: includes/pojo-a11y-frontend.php:89
+#: includes/pojo-a11y-frontend.php:91
 msgid "Open toolbar"
 msgstr "פתח סרגל נגישות"
 
-#: includes/pojo-a11y-frontend.php:161
+#: includes/pojo-a11y-frontend.php:163
 msgid "Reset"
 msgstr "איפוס"
 
@@ -160,6 +160,7 @@ msgstr "להסתיר במובייל"
 #: includes/pojo-a11y-settings.php:159 includes/pojo-a11y-settings.php:179
 #: includes/pojo-a11y-settings.php:267 includes/pojo-a11y-settings.php:278
 #: includes/pojo-a11y-settings.php:290 includes/pojo-a11y-settings.php:301
+#: includes/pojo-a11y-settings.php:313
 msgid "Disable"
 msgstr "לכבות"
 
@@ -184,7 +185,7 @@ msgstr "שינוי גודל פונט"
 #: includes/pojo-a11y-settings.php:138 includes/pojo-a11y-settings.php:158
 #: includes/pojo-a11y-settings.php:178 includes/pojo-a11y-settings.php:266
 #: includes/pojo-a11y-settings.php:277 includes/pojo-a11y-settings.php:289
-#: includes/pojo-a11y-settings.php:300
+#: includes/pojo-a11y-settings.php:300 includes/pojo-a11y-settings.php:312
 msgid "Enable"
 msgstr "לאפשר"
 
@@ -314,31 +315,78 @@ msgstr "הסרת תכונת יעד מקישורים"
 
 #: includes/pojo-a11y-settings.php:287
 msgid ""
-"This option will reset all your target links to open in the same window or tab."
+"This option will reset all your target links to open in the same window or "
+"tab."
 msgstr "אפשרות זו מאפסת את פתיחת כל הקישורים באתר באותו חלון או לשונית."
 
 #: includes/pojo-a11y-settings.php:297
 msgid "Add landmark roles to all links"
 msgstr "להוסיף ציון תפקיד דרך לכל הקישורים"
 
+#: includes/pojo-a11y-settings.php:308
+msgid "Sitewide Accessibility"
+msgstr "נגישות לכלל האתר"
+
 #: includes/pojo-a11y-settings.php:309
+msgid ""
+"Consistent accessibility throughout your site visit. Site remembers you and "
+"stays accessible"
+msgstr "לאורך כל ביקור המשתמש באתר הסרגל נגישות זוכר את הבחירה שלו ונשאר נגיש"
+
+#: includes/pojo-a11y-settings.php:320
+msgid "Remember user for"
+msgstr "שמור בחירת נגישות למשך"
+
+#: includes/pojo-a11y-settings.php:323
+msgid "1 Hour"
+msgstr "1 שעה"
+
+#: includes/pojo-a11y-settings.php:324
+msgid "6 Hours"
+msgstr "6 שעות"
+
+#: includes/pojo-a11y-settings.php:325
+msgid "12 Hours"
+msgstr "12 שעות"
+
+#: includes/pojo-a11y-settings.php:326
+msgid "1 Day"
+msgstr "יום"
+
+#: includes/pojo-a11y-settings.php:327
+msgid "2 Days"
+msgstr "יומיים"
+
+#: includes/pojo-a11y-settings.php:328
+msgid "3 Days"
+msgstr "3 ימים"
+
+#: includes/pojo-a11y-settings.php:329
+msgid "1 Week"
+msgstr "שבוע"
+
+#: includes/pojo-a11y-settings.php:330
+msgid "1 Month"
+msgstr "חודש"
+
+#: includes/pojo-a11y-settings.php:338
 msgid "General Settings"
 msgstr "הגדרות כלליות"
 
-#: includes/pojo-a11y-settings.php:322
+#: includes/pojo-a11y-settings.php:350
 msgid "Style Settings"
 msgstr "הגדרות סגנון"
 
-#: includes/pojo-a11y-settings.php:323
+#: includes/pojo-a11y-settings.php:351
 #, php-format
 msgid ""
 "For style settings of accessibility tools go to > Customize > <a href=\"%s"
 "\">Accessibility</a>."
 msgstr ""
-"להגדרות סגנון של כלי הנגישות יש לעבור אל > התאמה אישית > <a href=\"%s\">נגישות</"
-"a>."
+"להגדרות סגנון של כלי הנגישות יש לעבור אל > התאמה אישית > <a href=\"%s"
+"\">נגישות</a>."
 
-#: includes/pojo-a11y-settings.php:353
+#: includes/pojo-a11y-settings.php:381
 msgid "Accessibility Settings"
 msgstr "הגדרות נגישות"
 
@@ -349,20 +397,21 @@ msgstr ""
 #: pojo-accessibility.php:83
 #, php-format
 msgid ""
-"<a href=\"%s\" target=\"_blank\">Pojo Theme</a> is not active. Please activate "
-"any theme by Pojo.me before you are using \"Pojo Accessibility\" plugin."
+"<a href=\"%s\" target=\"_blank\">Pojo Theme</a> is not active. Please "
+"activate any theme by Pojo.me before you are using \"Pojo Accessibility\" "
+"plugin."
 msgstr ""
-"<a href=\"%s\" target=\"_blank\">תבנית של Pojo.me</a> אינה פעילה. אנא הפעל תבנית "
-"כלשהי של pojo,me כדי להשתמש בתוסף \"Pojo Accessibility\"."
+"<a href=\"%s\" target=\"_blank\">תבנית של Pojo.me</a> אינה פעילה. אנא הפעל "
+"תבנית כלשהי של pojo,me כדי להשתמש בתוסף \"Pojo Accessibility\"."
 
 #: pojo-accessibility.php:87
 #, php-format
 msgid ""
-"The Pojo Accessibility is not supported by this version of %s. Please <a href=\"%s"
-"\">upgrade the theme to its latest version</a>."
+"The Pojo Accessibility is not supported by this version of %s. Please <a "
+"href=\"%s\">upgrade the theme to its latest version</a>."
 msgstr ""
-"תוסף הנגישות אינו נתמך בגרסה זו של ערכת העיצוב %s. יש <a href=\"%s\">לשדרג את "
-"ערכת העיצוב לגרסה האחרונה</a>."
+"תוסף הנגישות אינו נתמך בגרסה זו של ערכת העיצוב %s. יש <a href=\"%s\">לשדרג "
+"את ערכת העיצוב לגרסה האחרונה</a>."
 
 #~ msgid "Toolbar"
 #~ msgstr "סרגל נגישות"
