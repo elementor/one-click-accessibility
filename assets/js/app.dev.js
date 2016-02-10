@@ -63,6 +63,8 @@
 
 					$self.cache.$toolbar.addClass( 'pojo-a11y-toolbar-open' );
 					$self.cache.$toolbarLinks.attr( 'tabindex', '0' );
+
+					$self.cache.$btnToolbarToggle.trigger( 'blur' );
 				} );
 			
 			$self.bindToolbarButtons();
