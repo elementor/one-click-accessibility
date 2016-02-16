@@ -46,7 +46,7 @@
 		bindEvents: function() {
 			var $self = this;
 
-			$self.cache.$btnToolbarToggle.on( 'click', function( event ) {
+			$self.cache.$btnToolbarToggle.on( 'mousedown', function( event ) {
 				event.preventDefault();
 				
 				$self.cache.$toolbar.toggleClass( 'pojo-a11y-toolbar-open' );
