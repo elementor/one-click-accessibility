@@ -59,7 +59,9 @@
 			} );
 
 			$( document ).on( 'keyup', function( event ) {
-				if ( 9 !== event.which || ! $self.cache.$btnToolbarToggle.is( ':focus' ) ) {
+				var TAB_KEY = 9;
+				
+				if ( TAB_KEY !== event.which || ! $self.cache.$btnToolbarToggle.is( ':focus' ) ) {
 					return;
 				}
 				$self.cache.$toolbar.addClass( 'pojo-a11y-toolbar-open' );
@@ -85,7 +87,7 @@
 					return;
 				}
 
-				if ( - 1 !== [ 'toggle', 'schema' ].indexOf( actionGroup ) ) {
+				if ( -1 !== [ 'toggle', 'schema' ].indexOf( actionGroup ) ) {
 					deactivate = $this.hasClass( 'active' );
 				}
 
