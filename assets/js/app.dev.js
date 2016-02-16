@@ -46,27 +46,26 @@
 		bindEvents: function() {
 			var $self = this;
 
-			$self.cache.$btnToolbarToggle.on( 'mousedown', function( event ) {
+			$self.cache.$btnToolbarToggle.on( 'click', function( event ) {
 				event.preventDefault();
-				
+
 				$self.cache.$toolbar.toggleClass( 'pojo-a11y-toolbar-open' );
-				
+
 				if ( $self.cache.$toolbar.hasClass( 'pojo-a11y-toolbar-open' ) ) {
 					$self.cache.$toolbarLinks.attr( 'tabindex', '0' );
 				} else {
 					$self.cache.$toolbarLinks.attr( 'tabindex', '-1' );
 				}
-			} )
+			} );
 
-				.on( 'focus', function( event ) {
-					event.preventDefault();
+			$( document ).on( 'keyup', function( event ) {
+				if ( 9 !== event.which || ! $self.cache.$btnToolbarToggle.is( ':focus' ) ) {
+					return;
+				}
+				$self.cache.$toolbar.addClass( 'pojo-a11y-toolbar-open' );
+				$self.cache.$toolbarLinks.attr( 'tabindex', '0' );
+			} );
 
-					$self.cache.$toolbar.addClass( 'pojo-a11y-toolbar-open' );
-					$self.cache.$toolbarLinks.attr( 'tabindex', '0' );
-
-					$self.cache.$btnToolbarToggle.trigger( 'blur' );
-				} );
-			
 			$self.bindToolbarButtons();
 		},
 
@@ -86,7 +85,7 @@
 					return;
 				}
 
-				if ( -1 !== [ 'toggle', 'schema' ].indexOf( actionGroup ) ) {
+				if ( - 1 !== [ 'toggle', 'schema' ].indexOf( actionGroup ) ) {
 					deactivate = $this.hasClass( 'active' );
 				}
 
@@ -163,7 +162,7 @@
 					this.cache.$body.removeClass( this.settings.bodyClassPrefix + currentSchema );
 					this.getButtonByAction( currentSchema ).removeClass( 'active' );
 					this.activeActions[ currentSchema ] = false;
-					
+
 					this.saveToLocalStorage();
 				}
 
@@ -245,16 +244,16 @@
 			if ( '1' === PojoA11yOptions.focusable ) {
 				this.cache.$body.addClass( 'pojo-a11y-focusable' );
 			}
-			
+
 			if ( '1' === PojoA11yOptions.remove_link_target ) {
 				$( 'a[target="_blank"]' ).attr( 'target', '' );
 			}
-			
+
 			if ( '1' === PojoA11yOptions.add_role_links ) {
 				$( 'a' ).attr( 'role', 'link' );
 			}
 		},
-		
+
 		init: function() {
 			this.cacheElements();
 			this.buildElements();
