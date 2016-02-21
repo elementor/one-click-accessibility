@@ -78,6 +78,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 ## Changelog ##
 
+### 1.1.3 ###
+* Tweak! - Resolve the focus issues by another way
+
 ### 1.1.2 ###
 * Fixed! - Triggering blur after focus to avoid auto-focus by browser on tab reactivated
 
