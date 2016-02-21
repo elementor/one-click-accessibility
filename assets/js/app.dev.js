@@ -14,7 +14,7 @@
 
 		cacheElements: function() {
 			this.cache.$toolbar = $( '#pojo-a11y-toolbar' );
-			this.cache.$toolbarLinks = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-overlay a.pojo-a11y-toolbar-link' );
+			this.cache.$toolbarLinks = this.cache.$toolbar.find( '.pojo-a11y-tools a.pojo-a11y-toolbar-link' );
 			this.cache.$btnToolbarToggle = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-toggle > a' );
 			this.cache.$skipToContent = $( '#pojo-a11y-skip-content' );
 			this.cache.$body = $( 'body' );
