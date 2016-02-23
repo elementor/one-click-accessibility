@@ -14,7 +14,8 @@
 
 		cacheElements: function() {
 			this.cache.$toolbar = $( '#pojo-a11y-toolbar' );
-			this.cache.$toolbarLinks = this.cache.$toolbar.find( '.pojo-a11y-tools a.pojo-a11y-toolbar-link' );
+			this.cache.$toolbarLinks = this.cache.$toolbar.find( 'a.pojo-a11y-toolbar-link' );
+			this.cache.$toolbarToolsLinks = this.cache.$toolbar.find( '.pojo-a11y-tools a.pojo-a11y-toolbar-link' );
 			this.cache.$btnToolbarToggle = this.cache.$toolbar.find( 'div.pojo-a11y-toolbar-toggle > a' );
 			this.cache.$skipToContent = $( '#pojo-a11y-skip-content' );
 			this.cache.$body = $( 'body' );
@@ -74,7 +75,7 @@
 		bindToolbarButtons: function() {
 			var self = this;
 
-			self.cache.$toolbarLinks.on( 'click', function( event ) {
+			self.cache.$toolbarToolsLinks.on( 'click', function( event ) {
 				event.preventDefault();
 
 				var $this = $( this ),
@@ -107,11 +108,11 @@
 		},
 
 		getActiveButtons: function() {
-			return this.cache.$toolbarLinks.filter( '.active' );
+			return this.cache.$toolbarToolsLinks.filter( '.active' );
 		},
 
 		getButtonByAction: function( action ) {
-			return this.cache.$toolbarLinks.filter( '.' + this.settings.buttonsClassPrefix + action );
+			return this.cache.$toolbarToolsLinks.filter( '.' + this.settings.buttonsClassPrefix + action );
 		},
 
 		actions: {
