@@ -1,5 +1,5 @@
 === Pojo Accessibility ===
-Contributors: pojo.me, KingYes, ariel.k
+Contributors: pojo.me, KingYes, ariel.k, jzaltzberg
 Tags: Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility
 Requires at least: 4.1
 Tested up to: 4.4.2
