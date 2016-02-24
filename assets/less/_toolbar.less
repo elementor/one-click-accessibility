@@ -3,8 +3,6 @@
 .pojo-a11y-toolbar-position(@direction) {
 	&.pojo-a11y-toolbar-@{direction} {
 		@{direction}: -@toolbar-width;
-
-		display: block;
 		
 		-webkit-transition: @direction 750ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
 		-moz-transition: @direction 750ms cubic-bezier(0.230, 1.000, 0.320, 1.000);
@@ -16,16 +14,14 @@
 		}
 
 		& when (@direction = left) {
-			.pojo-a11y-toolbar-overlay,
 			.pojo-a11y-toolbar-toggle {
-				float: right;
+				left: 180px;
 			}
 		}
 
 		& when (@direction = right) {
-			.pojo-a11y-toolbar-overlay,
 			.pojo-a11y-toolbar-toggle {
-				float: left;
+				right: 180px;
 			}
 		}
 	}
@@ -33,7 +29,6 @@
 
 #pojo-a11y-toolbar {
 	position: fixed;
-	display: none;
 	font-size: 16px !important;
 	line-height: 1.4;
 	z-index: 9999;
@@ -50,6 +45,8 @@
 	}
 
 	.pojo-a11y-toolbar-toggle {
+		position: absolute;
+
 		a {
 			display: inline-block;
 			font-size: 200%;
