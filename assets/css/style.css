@@ -1,14 +1,11 @@
-/*! pojo-accessibility - v1.1.4 - 23-02-2016 */
 #pojo-a11y-toolbar {
   position: fixed;
-  display: none;
   font-size: 16px !important;
   line-height: 1.4;
   z-index: 9999;
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-right {
   right: -180px;
-  display: block;
   -webkit-transition: right 750ms cubic-bezier(0.23, 1, 0.32, 1);
   -moz-transition: right 750ms cubic-bezier(0.23, 1, 0.32, 1);
   -o-transition: right 750ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -17,13 +14,11 @@
 #pojo-a11y-toolbar.pojo-a11y-toolbar-right.pojo-a11y-toolbar-open {
   right: 0;
 }
-#pojo-a11y-toolbar.pojo-a11y-toolbar-right .pojo-a11y-toolbar-overlay,
 #pojo-a11y-toolbar.pojo-a11y-toolbar-right .pojo-a11y-toolbar-toggle {
-  float: left;
+  right: 180px;
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-left {
   left: -180px;
-  display: block;
   -webkit-transition: left 750ms cubic-bezier(0.23, 1, 0.32, 1);
   -moz-transition: left 750ms cubic-bezier(0.23, 1, 0.32, 1);
   -o-transition: left 750ms cubic-bezier(0.23, 1, 0.32, 1);
@@ -32,14 +27,16 @@
 #pojo-a11y-toolbar.pojo-a11y-toolbar-left.pojo-a11y-toolbar-open {
   left: 0;
 }
-#pojo-a11y-toolbar.pojo-a11y-toolbar-left .pojo-a11y-toolbar-overlay,
 #pojo-a11y-toolbar.pojo-a11y-toolbar-left .pojo-a11y-toolbar-toggle {
-  float: right;
+  left: 180px;
 }
 #pojo-a11y-toolbar.pojo-a11y-toolbar-open .pojo-a11y-toolbar-toggle,
 #pojo-a11y-toolbar.pojo-a11y-toolbar-open .pojo-a11y-toolbar-overlay {
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle {
+  position: absolute;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a {
   display: inline-block;
