@@ -70,6 +70,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 == Changelog ==
 
+= 1.1.5 =
+* Tweak! - Fix minor style issue
+
 = 1.1.4 =
 * Fixed! - tabindex on custom links issue
 

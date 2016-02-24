@@ -1,7 +1,7 @@
 # Pojo Accessibility #
 [![Build Status](https://travis-ci.org/pojome/pojo-accessibility.svg?branch=master)](https://travis-ci.org/pojome/pojo-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-**Contributors:** pojo.me, KingYes, ariel.k, jzaltzberg
+**Contributors:** pojo.me, KingYes, ariel.k, jzaltzberg  
 **Tags:** Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility  
 **Requires at least:** 4.1  
 **Tested up to:** 4.4.2  
@@ -77,6 +77,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 
 ## Changelog ##
+
+### 1.1.5 ###
+* Tweak! - Fix minor style issue
 
 ### 1.1.4 ###
 * Fixed! - tabindex on custom links issue
