@@ -1,4 +1,4 @@
-/*! pojo-accessibility - v1.1.5 - 24-02-2016 */
+/*! pojo-accessibility - v1.1.5 - 16-03-2016 */
 #pojo-a11y-toolbar {
   position: fixed;
   font-size: 16px !important;
@@ -133,7 +133,7 @@ body.rtl #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-item
   padding-left: 6px;
   padding-right: 0;
 }
-@media (max-height: 600px) {
+@media (max-width: 767px) {
   #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay p.pojo-a11y-toolbar-title {
     padding: 7px 12px 0;
   }
