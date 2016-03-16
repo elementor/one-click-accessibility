@@ -165,7 +165,7 @@ class Pojo_A11y_Customizer {
 		
 		$distance_top_mobile = get_theme_mod( 'a11y_toolbar_distance_top_mobile', '50px' );
 		if ( ! empty( $distance_top_mobile ) ) {
-			$css_code->add_data( "@media (max-height: 600px) { #pojo-a11y-toolbar { top: {$distance_top_mobile} !important } }" );
+			$css_code->add_data( "@media (max-width: 767px) { #pojo-a11y-toolbar { top: {$distance_top_mobile} !important } }" );
 		}
 	}
 	
