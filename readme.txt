@@ -70,35 +70,35 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 == Changelog ==
 
-= 1.1.5 =
+= 1.1.5 - 09/03/2016 =
 * Tweak! - Fix minor style issue
 
-= 1.1.4 =
+= 1.1.4 - 23/02/2016 =
 * Fixed! - tabindex on custom links issue
 
-= 1.1.3 =
+= 1.1.3 - 21/02/2016 =
 * Tweak! - Resolve the focus issues by another way
 
-= 1.1.2 =
+= 1.1.2 - 10/02/2016 =
 * Fixed! - Triggering blur after focus to avoid auto-focus by browser on tab reactivated
 
-= 1.1.1 =
+= 1.1.1 - 08/02/2016 =
 * Tweak! - Added more hebrew strings translate 
 * Tested up to WordPress v4.4
 
-= 1.1.0 =
+= 1.1.0 - 07/02/2016 =
 * New! - Remember toolbar options
 
-= 1.0.3 =
+= 1.0.3 - 27/01/2016 =
 * Fixed! - Issue with slidebar in Resize text
 * Tweak! - Added more string fields for WPML/Polylang plugins
 
-= 1.0.2 =
+= 1.0.2 - 08/12/2015 =
 * Tweak! - Fixed hebrew translate
 
-= 1.0.1 =
+= 1.0.1 - 17/11/2015 =
 * New! - Added distance from top toolbar, in Desktop/Mobile devices
 * Fixed! - Skip to content in Chrome
 
-= 1.0.0 =
+= 1.0.0 - 29/10/2015 =
 * Initial Public Release!
