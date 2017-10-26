@@ -70,6 +70,9 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 == Changelog ==
 
+= 1.1.6 - 26/10/2017 =
+* Fix! - Border with RGBA is hidden in high contrast mode
+
 = 1.1.5 - 09/03/2016 =
 * Tweak! - Fix minor style issue
 

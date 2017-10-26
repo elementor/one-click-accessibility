@@ -303,7 +303,7 @@ module.exports = function( grunt ) {
 		'styles',
 		'usebanner',
 		'wp_readme_to_markdown',
-		'phpunit'
+		//'phpunit'
 	] );
 
 	grunt.registerTask( 'build', [
