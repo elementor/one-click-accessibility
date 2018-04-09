@@ -35,6 +35,11 @@ final class Pojo_Accessibility {
 	 */
 	public $customizer;
 
+	/**
+	 * @var Pojo_A11y_Settings
+	 */
+	public $settings;
+
 	public function load_textdomain() {
 		load_plugin_textdomain( 'pojo-accessibility', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
@@ -74,38 +79,15 @@ final class Pojo_Accessibility {
 		return self::$_instance;
 	}
 
-	public function include_settings() {
-		include( 'includes/pojo-a11y-settings.php' );
-		new Pojo_A11y_Settings( 110 );
-	}
-
-	public function admin_notices() {
-		echo '<div class="error"><p>' . sprintf( __( '<a href="%s" target="_blank">Pojo Theme</a> is not active. Please activate any theme by Pojo.me before you are using "Pojo Accessibility" plugin.', 'pojo-accessibility' ), 'http://pojo.me/' ) . '</p></div>';
-	}
-
-	public function print_update_error() {
-		echo '<div class="error"><p>' . sprintf( __( 'The Pojo Accessibility is not supported by this version of %s. Please <a href="%s">upgrade the theme to its latest version</a>.', 'pojo-accessibility' ), Pojo_Core::instance()->licenses->updater->theme_name, admin_url( 'update-core.php' ) ) . '</p></div>';
-	}
-
 	public function bootstrap() {
-		// This plugin for Pojo Themes..
-		if ( ! class_exists( 'Pojo_Core' ) ) {
-			add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
-			return;
-		}
 
-		if ( version_compare( '1.5.4', Pojo_Core::instance()->get_version(), '>' ) ) {
-			add_action( 'admin_notices', array( &$this, 'print_update_error' ) );
-			return;
-		}
-		
 		include( 'includes/pojo-a11y-frontend.php' );
 		include( 'includes/pojo-a11y-customizer.php' );
-		
+		include( 'includes/pojo-a11y-settings.php' );
+
 		$this->frontend   = new Pojo_A11y_Frontend();
 		$this->customizer = new Pojo_A11y_Customizer();
-
-		add_action( 'pojo_framework_base_settings_included', array( &$this, 'include_settings' ) );
+		$this->settings = new Pojo_A11y_Settings( 110 );
 	}
 
 	private function __construct() {
