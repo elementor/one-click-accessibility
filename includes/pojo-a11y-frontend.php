@@ -40,11 +40,11 @@ final class Pojo_A11y_Frontend {
 			'pojo-a11y',
 			'PojoA11yOptions',
 			array(
-				'focusable' => ( 'enable' === pojo_get_option( 'pojo_a11y_focusable' ) ),
-				'remove_link_target' => ( 'enable' === pojo_get_option( 'pojo_a11y_remove_link_target' ) ),
-				'add_role_links' => ( 'enable' === pojo_get_option( 'pojo_a11y_add_role_links' ) ),
-				'enable_save' => ( 'enable' === pojo_get_option( 'pojo_a11y_save' ) ),
-				'save_expiration' => pojo_get_option( 'pojo_a11y_save_expiration' ),
+				'focusable' => ( 'enable' === get_option( 'pojo_a11y_focusable' ) ),
+				'remove_link_target' => ( 'enable' === get_option( 'pojo_a11y_remove_link_target' ) ),
+				'add_role_links' => ( 'enable' === get_option( 'pojo_a11y_add_role_links' ) ),
+				'enable_save' => ( 'enable' === get_option( 'pojo_a11y_save' ) ),
+				'save_expiration' => get_option( 'pojo_a11y_save_expiration' ),
 			)
 		);
 	}
