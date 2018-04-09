@@ -225,6 +225,10 @@ class Pojo_A11y_Customizer {
 		$this->css_rules[ $selector ][] = $rule . ': ' . $value . ';';
 	}
 
+	private function add_css_code( $code ) {
+		$this->css_code .= "\n" . $code;
+	}
+
 	public function print_css_code() {
 		$this->get_custom_css_code();
 
