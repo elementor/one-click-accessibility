@@ -554,10 +554,10 @@ class Pojo_A11y_Settings {
 	}
 
 	public function admin_print_styles() {
-		wp_enqueue_style( 'pojo-accessibility-ui', POJO_A11Y_ASSETS_URL . 'admin/css/admin-ui.css' );
+		wp_enqueue_style( 'pojo-accessibility-ui', POJO_A11Y_ASSETS_URL . 'css/admin/admin-ui.css' );
 
 		if ( is_rtl() ) {
-			wp_enqueue_style( 'pojo-accessibility-ui-rtl', POJO_A11Y_ASSETS_URL . 'admin-ui/css/rtl.css' );
+			wp_enqueue_style( 'pojo-accessibility-ui-rtl', POJO_A11Y_ASSETS_URL . 'css/admin/rtl.css' );
 		}
 	}
 
