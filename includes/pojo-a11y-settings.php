@@ -7,22 +7,8 @@ class Pojo_A11y_Settings {
 
 	const PAGE_ID = 'pojo-a11y';
 	const FIELD_TEXT     = 'text';
-	const FIELD_URL     = 'url';
-	const FIELD_TEXTAREA = 'textarea';
 	const FIELD_SELECT   = 'select';
-	const FIELD_CHECKBOX = 'checkbox';
-	const FIELD_RADIO    = 'radio';
-
 	const FIELD_CHECKBOX_LIST = 'checkbox_list';
-
-	const FIELD_IMAGE = 'image';
-	const FIELD_RADIO_IMAGE = 'radio_image';
-
-	const FIELD_SELECT_PAGES         = 'select_pages';
-	const FIELD_SELECT_LANGUAGES     = 'select_languages';
-	const FIELD_SELECT_START_OF_WEEK = 'select_start_of_week';
-
-	const FIELD_COLOR = 'color';
 
 	protected $_fields = array();
 
@@ -523,21 +509,20 @@ class Pojo_A11y_Settings {
 
 	public function display_settings_page() {
 		?>
-        <div class="wrap">
+		<div class="wrap">
 
-            <div id="icon-themes" class="icon32"></div>
-            <h2><?php echo $this->_page_title; ?></h2>
+			<h2><?php echo $this->_page_title; ?></h2>
 			<?php settings_errors( self::PAGE_ID ); ?>
-            <form method="post" action="options.php">
+			<form method="post" action="options.php">
 				<?php
 				settings_fields( self::PAGE_ID );
 				do_settings_sections( self::PAGE_ID );
 
 				submit_button();
 				?>
-            </form>
+			</form>
 
-        </div><!-- /.wrap -->
+		</div><!-- /.wrap -->
 		<?php
 	}
 
@@ -552,19 +537,13 @@ class Pojo_A11y_Settings {
 		);
 	}
 
-	public function __construct( $priority = 10 ) {
+	public function __construct() {
 		$this->_page_title = __( 'Accessibility Settings', 'pojo-accessibility' );
 		$this->_page_menu_title = __( 'Accessibility', 'pojo-accessibility' );
-
-		if ( class_exists( 'Pojo_Core' ) ) {
-			$this->_menu_parent = 'pojo-home';
-		} else {
-			$this->_menu_parent = 'themes.php';
-		}
+		$this->_menu_parent = 'themes.php';
 
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 20 );
 		add_action( 'admin_init', array( &$this, 'admin_init' ), 20 );
 		add_action( 'admin_footer', array( &$this, 'print_js' ) );
 	}
-	
 }

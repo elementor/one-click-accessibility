@@ -87,7 +87,7 @@ final class Pojo_Accessibility {
 
 		$this->frontend   = new Pojo_A11y_Frontend();
 		$this->customizer = new Pojo_A11y_Customizer();
-		$this->settings = new Pojo_A11y_Settings( 110 );
+		$this->settings = new Pojo_A11y_Settings();
 	}
 
 	private function __construct() {
