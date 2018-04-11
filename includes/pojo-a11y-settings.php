@@ -550,15 +550,6 @@ class Pojo_A11y_Settings {
 			'pojo-a11y',
 			array( &$this, 'display_settings_page' )
 		);
-		add_action( "admin_print_styles-{$this->menu_slug}", array( $this, 'admin_print_styles' ) );
-	}
-
-	public function admin_print_styles() {
-		wp_enqueue_style( 'pojo-accessibility-ui', POJO_A11Y_ASSETS_URL . 'css/admin/admin-ui.css' );
-
-		if ( is_rtl() ) {
-			wp_enqueue_style( 'pojo-accessibility-ui-rtl', POJO_A11Y_ASSETS_URL . 'css/admin/rtl.css' );
-		}
 	}
 
 	public function __construct( $priority = 10 ) {
