@@ -146,7 +146,6 @@ class Pojo_A11y_Customizer {
 			) );
 			switch ( $field['type'] ) {
 				case 'color':
-					/** @noinspection PhpParamsInspection */
 					$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $field['id'], array(
 						'label'    => $field['title'],
 						'section'  => 'accessibility',
