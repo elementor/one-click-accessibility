@@ -4,15 +4,15 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 final class Pojo_A11y_Frontend {
 
 	public function is_toolbar_active() {
-		return 'disable' !== pojo_get_option( 'pojo_a11y_toolbar' );
+		return 'disable' !== get_option( 'pojo_a11y_toolbar' );
 	}
 
 	public function is_toolbar_button_active( $button_type ) {
-		return 'disable' !== pojo_get_option( "pojo_a11y_toolbar_button_{$button_type}" );
+		return 'disable' !== get_option( "pojo_a11y_toolbar_button_{$button_type}" );
 	}
 
 	public function get_toolbar_button_title( $button_type ) {
-		return pojo_get_option( "pojo_a11y_toolbar_button_{$button_type}_title" );
+		return get_option( "pojo_a11y_toolbar_button_{$button_type}_title" );
 	}
 
 	public function enqueue_scripts() {
@@ -32,7 +32,7 @@ final class Pojo_A11y_Frontend {
 			array(),
 			'1.0.0'
 		);
-		
+
 		wp_enqueue_script( 'pojo-a11y' );
 		wp_enqueue_style( 'pojo-a11y' );
 
@@ -40,50 +40,52 @@ final class Pojo_A11y_Frontend {
 			'pojo-a11y',
 			'PojoA11yOptions',
 			array(
-				'focusable' => ( 'enable' === pojo_get_option( 'pojo_a11y_focusable' ) ),
-				'remove_link_target' => ( 'enable' === pojo_get_option( 'pojo_a11y_remove_link_target' ) ),
-				'add_role_links' => ( 'enable' === pojo_get_option( 'pojo_a11y_add_role_links' ) ),
-				'enable_save' => ( 'enable' === pojo_get_option( 'pojo_a11y_save' ) ),
-				'save_expiration' => pojo_get_option( 'pojo_a11y_save_expiration'),
+				'focusable' => ( 'enable' === get_option( 'pojo_a11y_focusable' ) ),
+				'remove_link_target' => ( 'enable' === get_option( 'pojo_a11y_remove_link_target' ) ),
+				'add_role_links' => ( 'enable' === get_option( 'pojo_a11y_add_role_links' ) ),
+				'enable_save' => ( 'enable' === get_option( 'pojo_a11y_save' ) ),
+				'save_expiration' => get_option( 'pojo_a11y_save_expiration' ),
 			)
 		);
 	}
 
 	public function print_skip_to_content_link() {
-		$skip_to_content_link = pojo_get_option( 'pojo_a11y_skip_to_content_link' );
-		if ( 'disable' === $skip_to_content_link )
+		$skip_to_content_link = get_option( 'pojo_a11y_skip_to_content_link' );
+		if ( 'disable' === $skip_to_content_link ) {
 			return;
-		
+		}
 		?>
 		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#content"><?php _e( 'Skip to content', 'pojo-accessibility' ); ?></a>
 		<?php
 	}
 
 	public function print_toolbar() {
-		if ( ! $this->is_toolbar_active() )
+		if ( ! $this->is_toolbar_active() ) {
 			return;
-		
+		}
+
 		$toolbar_position = get_theme_mod( 'a11y_toolbar_position' );
-		if ( empty( $toolbar_position ) || ! in_array( $toolbar_position, array( 'right', 'left' ) ) )
+		if ( empty( $toolbar_position ) || ! in_array( $toolbar_position, array( 'right', 'left' ) ) ) {
 			$toolbar_position = 'left';
-		
-		$toolbar_title = pojo_get_option( 'pojo_a11y_toolbar_title' );
-		$toolbar_visibility = pojo_get_option( 'pojo_a11y_toolbar' );
-		
+		}
+
+		$toolbar_title = get_option( 'pojo_a11y_toolbar_title' );
+		$toolbar_visibility = get_option( 'pojo_a11y_toolbar' );
+
 		$wrapper_classes = array(
 			'pojo-a11y-toolbar-' . $toolbar_position,
 		);
-		
-		if ( 'enable' !== $toolbar_visibility )
+
+		if ( 'enable' !== $toolbar_visibility ) {
 			$wrapper_classes[] = 'pojo-' . $toolbar_visibility;
-		
-		
-		$sitemap_link = pojo_get_option( 'pojo_a11y_toolbar_button_sitemap_link' );
-		$help_link = pojo_get_option( 'pojo_a11y_toolbar_button_help_link' );
-		$feedback_link = pojo_get_option( 'pojo_a11y_toolbar_button_feedback_link' );
-		
+		}
+
+		$sitemap_link = get_option( 'pojo_a11y_toolbar_button_sitemap_link' );
+		$help_link = get_option( 'pojo_a11y_toolbar_button_help_link' );
+		$feedback_link = get_option( 'pojo_a11y_toolbar_button_feedback_link' );
+
 		$has_custom_links = ( ! empty( $sitemap_link ) || ! empty( $help_link ) || ! empty( $feedback_link ) );
-		
+
 		?>
 		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
