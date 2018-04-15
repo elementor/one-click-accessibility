@@ -16,7 +16,7 @@ define( 'POJO_A11Y_BASE', plugin_basename( POJO_A11Y__FILE__ ) );
 define( 'POJO_A11Y_URL', plugins_url( '/', POJO_A11Y__FILE__ ) );
 define( 'POJO_A11Y_ASSETS_PATH', plugin_dir_path( POJO_A11Y__FILE__ ) . 'assets/' );
 define( 'POJO_A11Y_ASSETS_URL', POJO_A11Y_URL . 'assets/' );
-define( 'POJO_A11Y_CUSTOMIZER_OPTIONS', 'POJO_A11Y_CUSTOMIZER_OPTIONS' );
+define( 'POJO_A11Y_CUSTOMIZER_OPTIONS', 'pojo_a11y_customizer_options' );
 
 final class Pojo_Accessibility {
 
