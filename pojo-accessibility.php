@@ -92,17 +92,18 @@ final class Pojo_Accessibility {
 	}
 
 	public function backwards_compatibility() {
-		if ( false === get_option( POJO_A11Y_CUSTOMIZER_OPTIONS, false ) ) {
+		if ( false !== get_option( POJO_A11Y_CUSTOMIZER_OPTIONS, false ) ) {
 			$customizer_fields = $this->customizer->get_customizer_fields();
-			$defaults = array();
+			$options = array();
+			$mods = get_theme_mods();
 			foreach ( $customizer_fields as $field ) {
-				$theme_mod = get_theme_mod( $field['id'], false );
-				if ( false === $theme_mod ) {
-					$defaults[ $field['id'] ] = $field['std'];
+				if ( isset( $mods[ $field['id'] ] ) ) {
+					$options[ $field['id'] ] = $mods[ $field['id'] ];
+				} else {
+					$options[ $field['id'] ] = $field['std'];
 				}
-				$defaults[ $field['id'] ] = $theme_mod;
 			}
-			update_option( POJO_A11Y_CUSTOMIZER_OPTIONS, $defaults );
+			update_option( POJO_A11Y_CUSTOMIZER_OPTIONS, $options );
 		}
 	}
 
