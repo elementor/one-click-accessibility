@@ -64,7 +64,9 @@ final class Pojo_A11y_Frontend {
 			return;
 		}
 
-		$toolbar_position = get_theme_mod( 'a11y_toolbar_position' );
+		$cutomizer_options = get_option( POJO_A11Y_CUSTOMIZER_OPTIONS );
+
+		$toolbar_position = $cutomizer_options['a11y_toolbar_position'];
 		if ( empty( $toolbar_position ) || ! in_array( $toolbar_position, array( 'right', 'left' ) ) ) {
 			$toolbar_position = 'left';
 		}
@@ -195,9 +197,9 @@ final class Pojo_A11y_Frontend {
 
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
-		
+
 		add_action( 'wp_footer', array( &$this, 'print_skip_to_content_link' ), 20 );
 		add_action( 'wp_footer', array( &$this, 'print_toolbar' ), 30 );
 	}
-	
+
 }

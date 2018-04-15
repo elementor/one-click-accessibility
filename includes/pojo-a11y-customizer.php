@@ -6,7 +6,7 @@ class Pojo_A11y_Customizer {
 	private $css_rules = array();
 	private $css_code = '';
 
-	private function get_customizer_fields() {
+	public function get_customizer_fields() {
 		$fields = array();
 
 		$fields[] = array(
@@ -141,15 +141,17 @@ class Pojo_A11y_Customizer {
 		) );
 
 		foreach ( $fields as $field ) {
-			$wp_customize->add_setting( $field['id'], array(
+			$customizer_id = POJO_A11Y_CUSTOMIZER_OPTIONS . '[' . $field['id'] . ']';
+			$wp_customize->add_setting( $customizer_id, array(
 				'default' => $field['std'] ? $field['std'] : null,
+				'type' => 'option',
 			) );
 			switch ( $field['type'] ) {
 				case 'color':
 					$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, $field['id'], array(
 						'label'    => $field['title'],
 						'section'  => 'accessibility',
-						'settings' => $field['id'],
+						'settings' => $customizer_id,
 					) ) );
 					break;
 				case 'select':
@@ -157,7 +159,7 @@ class Pojo_A11y_Customizer {
 					$wp_customize->add_control( $field['id'], array(
 						'label'    => $field['title'],
 						'section'  => 'accessibility',
-						'settings' => $field['id'],
+						'settings' => $customizer_id,
 						'type'     => $field['type'],
 						'choices'  => isset( $field['choices'] ) ? $field['choices'] : null,
 					) );
@@ -167,33 +169,34 @@ class Pojo_A11y_Customizer {
 	}
 
 	public function get_custom_css_code() {
-		$bg_color = get_theme_mod( 'a11y_toggle_button_bg_color', '#4054b2' );
+		$options = $this->get_customizer_options();
+		$bg_color = $options['a11y_toggle_button_bg_color']; // get_theme_mod( 'a11y_toggle_button_bg_color', '#4054b2' );
 		if ( ! empty( $bg_color ) ) {
 			$this->add_css_rule( '#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a', 'background-color', $bg_color );
 			$this->add_css_rule( '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay, #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items.pojo-a11y-links', 'border-color', $bg_color );
 		}
 
-		$outline_style = get_theme_mod( 'a11y_focus_outline_style', 'solid' );
+		$outline_style = $options['a11y_focus_outline_style']; //get_theme_mod( 'a11y_focus_outline_style', 'solid' );
 		if ( ! empty( $outline_style ) ) {
 			$this->add_css_rule( 'body.pojo-a11y-focusable a:focus', 'outline-style', $outline_style . ' !important' );
 		}
 
-		$outline_width = get_theme_mod( 'a11y_focus_outline_width', '1px' );
+		$outline_width = $options['a11y_focus_outline_width']; // get_theme_mod( 'a11y_focus_outline_width', '1px' );
 		if ( ! empty( $outline_width ) ) {
 			$this->add_css_rule( 'body.pojo-a11y-focusable a:focus', 'outline-width', $outline_width . ' !important' );
 		}
 
-		$outline_color = get_theme_mod( 'a11y_focus_outline_color', '#FF0000' );
+		$outline_color = $options['a11y_focus_outline_color']; //get_theme_mod( 'a11y_focus_outline_color', '#FF0000' );
 		if ( ! empty( $outline_color ) ) {
 			$this->add_css_rule( 'body.pojo-a11y-focusable a:focus', 'outline-color', $outline_color . ' !important' );
 		}
 
-		$distance_top = get_theme_mod( 'a11y_toolbar_distance_top', '100px' );
+		$distance_top = $options['a11y_toolbar_distance_top']; //get_theme_mod( 'a11y_toolbar_distance_top', '100px' );
 		if ( ! empty( $distance_top ) ) {
 			$this->add_css_rule( '#pojo-a11y-toolbar', 'top', $distance_top . ' !important' );
 		}
 
-		$distance_top_mobile = get_theme_mod( 'a11y_toolbar_distance_top_mobile', '50px' );
+		$distance_top_mobile = $options['a11y_toolbar_distance_top_mobile']; // get_theme_mod( 'a11y_toolbar_distance_top_mobile', '50px' );
 		if ( ! empty( $distance_top_mobile ) ) {
 			$this->add_css_code( "@media (max-width: 767px) { #pojo-a11y-toolbar { top: {$distance_top_mobile} !important; } }" );
 		}
@@ -204,10 +207,12 @@ class Pojo_A11y_Customizer {
 				continue;
 			}
 
-			$option = get_theme_mod( $field['id'], $field['std'] );
-			if ( empty( $option ) ) {
-				continue;
-			}
+//			$option = get_theme_mod( $field['id'], $field['std'] );
+//			if ( empty( $option ) ) {
+//				continue;
+//			}
+
+			$option = $options[ $field['id'] ];
 
 			if ( 'color' === $field['change_type'] ) {
 				$this->add_css_rule( $field['selector'], 'color', $option );
@@ -215,6 +220,14 @@ class Pojo_A11y_Customizer {
 				$this->add_css_rule( $field['selector'], 'background-color', $option );
 			}
 		}
+	}
+
+	private function get_customizer_options() {
+		static $options = false;
+		if ( false === $options ) {
+			$options = get_option( POJO_A11Y_CUSTOMIZER_OPTIONS );
+		}
+		return $options;
 	}
 
 	private function add_css_rule( $selector, $rule, $value ) {
