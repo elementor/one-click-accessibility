@@ -92,7 +92,7 @@ final class Pojo_Accessibility {
 	}
 
 	public function backwards_compatibility() {
-		if ( false !== get_option( POJO_A11Y_CUSTOMIZER_OPTIONS, false ) ) {
+		if ( false === get_option( POJO_A11Y_CUSTOMIZER_OPTIONS, false ) ) {
 			$customizer_fields = $this->customizer->get_customizer_fields();
 			$options = array();
 			$mods = get_theme_mods();
