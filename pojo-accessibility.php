@@ -16,6 +16,7 @@ define( 'POJO_A11Y_BASE', plugin_basename( POJO_A11Y__FILE__ ) );
 define( 'POJO_A11Y_URL', plugins_url( '/', POJO_A11Y__FILE__ ) );
 define( 'POJO_A11Y_ASSETS_PATH', plugin_dir_path( POJO_A11Y__FILE__ ) . 'assets/' );
 define( 'POJO_A11Y_ASSETS_URL', POJO_A11Y_URL . 'assets/' );
+define( 'POJO_A11Y_CUSTOMIZER_OPTIONS', 'pojo_a11y_customizer_options' );
 
 final class Pojo_Accessibility {
 
@@ -90,8 +91,25 @@ final class Pojo_Accessibility {
 		$this->settings = new Pojo_A11y_Settings();
 	}
 
+	public function backwards_compatibility() {
+		if ( false === get_option( POJO_A11Y_CUSTOMIZER_OPTIONS, false ) ) {
+			$customizer_fields = $this->customizer->get_customizer_fields();
+			$options = array();
+			$mods = get_theme_mods();
+			foreach ( $customizer_fields as $field ) {
+				if ( isset( $mods[ $field['id'] ] ) ) {
+					$options[ $field['id'] ] = $mods[ $field['id'] ];
+				} else {
+					$options[ $field['id'] ] = $field['std'];
+				}
+			}
+			update_option( POJO_A11Y_CUSTOMIZER_OPTIONS, $options );
+		}
+	}
+
 	private function __construct() {
 		add_action( 'init', array( &$this, 'bootstrap' ) );
+		add_action( 'admin_init', array( &$this, 'backwards_compatibility' ) );
 		add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) );
 	}
 
