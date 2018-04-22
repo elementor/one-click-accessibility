@@ -6,6 +6,8 @@ class Pojo_A11y_Settings {
 	public $menu_slug = null;
 
 	const PAGE_ID = 'pojo-a11y';
+	const SETTINGS_PAGE = 'toplevel_page_pojo-a11y';
+	const TOOLBAR_PAGE = 'accessibility_page_pojo-a11y-toolbar';
 	const FIELD_TEXT     = 'text';
 	const FIELD_SELECT   = 'select';
 	const FIELD_CHECKBOX_LIST = 'checkbox_list';
@@ -258,10 +260,18 @@ class Pojo_A11y_Settings {
 
 		$sections[] = array(
 			'id' => 'section-a11y-toolbar',
-			'page' => self::PAGE_ID,
+			'page' => self::TOOLBAR_PAGE,
 			'title' => __( 'Toolbar Settings', 'pojo-accessibility' ),
 			'intro' => '',
 			'fields' => $fields,
+		);
+
+		$sections[] = array(
+			'id' => 'section-a11y-styles',
+			'page' => self::TOOLBAR_PAGE,
+			'title' => __( 'Style Settings', 'pojo-accessibility' ),
+			'intro' => sprintf( __( 'For style settings of accessibility tools go to > Customize > <a href="%s">Accessibility</a>.', 'pojo-accessibility' ), admin_url( 'customize.php?autofocus[control]=a11y_toolbar_position' ) ),
+			'fields' => array(),
 		);
 
 		return $sections;
@@ -347,18 +357,10 @@ class Pojo_A11y_Settings {
 
 		$sections[] = array(
 			'id' => 'section-a11y-settings',
-			'page' => self::PAGE_ID,
+			'page' => self::SETTINGS_PAGE,
 			'title' => __( 'General Settings', 'pojo-accessibility' ),
 			'intro' => '',
 			'fields' => $fields,
-		);
-
-		$sections[] = array(
-			'id' => 'section-a11y-styles',
-			'page' => self::PAGE_ID,
-			'title' => __( 'Style Settings', 'pojo-accessibility' ),
-			'intro' => sprintf( __( 'For style settings of accessibility tools go to > Customize > <a href="%s">Accessibility</a>.', 'pojo-accessibility' ), admin_url( 'customize.php?autofocus[control]=a11y_toolbar_position' ) ),
-			'fields' => array(),
 		);
 
 		return $sections;
@@ -389,7 +391,8 @@ class Pojo_A11y_Settings {
 		$sections  = array();
 		$sections = $this->section_a11y_toolbar( $sections );
 		$sections = $this->section_a11y_settings( $sections );
-		return $sections;
+		$this->_sections = $sections;
+		return $this->_sections;
 	}
 
 	public function add_settings_section( $args = array() ) {
@@ -398,11 +401,16 @@ class Pojo_A11y_Settings {
 			'title' => '',
 		) );
 
-		if ( empty( $this->_sections[ $args['id'] ]['intro'] ) ) {
-			return;
+		foreach ( $this->_sections as $section ) {
+			if ( $args['id'] !== $section['id'] ) {
+				continue;
+			}
+			if ( empty( $section['intro'] ) ) {
+				return;
+			}
+			printf( '<p>%s</p>', $section['intro'] );
+			break;
 		}
-
-		printf( '<p>%s</p>', $this->_sections[ $args['id'] ]['intro'] );
 	}
 
 	public function add_settings_field( $args = array() ) {
@@ -508,15 +516,15 @@ class Pojo_A11y_Settings {
 	}
 
 	public function display_settings_page() {
+		$screen = get_current_screen();
 		?>
 		<div class="wrap">
-
 			<h2><?php echo $this->_page_title; ?></h2>
-			<?php settings_errors( self::PAGE_ID ); ?>
+			<?php settings_errors( $screen->id ); ?>
 			<form method="post" action="options.php">
 				<?php
-				settings_fields( self::PAGE_ID );
-				do_settings_sections( self::PAGE_ID );
+				settings_fields( $screen->id );
+				do_settings_sections( $screen->id );
 
 				submit_button();
 				?>
@@ -527,18 +535,41 @@ class Pojo_A11y_Settings {
 	}
 
 	public function admin_menu() {
-		$this->menu_slug = add_submenu_page(
-			$this->_menu_parent,
-			__( 'Accessibility Settings', 'pojo-accessibility' ),
+		$this->menu_slug = add_menu_page(
 			__( 'Accessibility', 'pojo-accessibility' ),
+			__( 'Accessibility', 'pojo-accessibility' ),
+			'manage_options',
+			'pojo-a11y',
+			array( &$this, 'display_settings_page' ),
+			'dashicons-universal-access-alt'
+		);
+		add_submenu_page(
+			'pojo-a11y',
+			__( 'Accessibility Settings', 'pojo-accessibility' ),
+			__( 'Settings', 'pojo-accessibility' ),
 			'manage_options',
 			'pojo-a11y',
 			array( &$this, 'display_settings_page' )
 		);
+		add_submenu_page(
+			'pojo-a11y',
+			__( 'Accessibility Toolbar', 'pojo-accessibility' ),
+			__( 'Toolbar', 'pojo-accessibility' ),
+			'manage_options',
+			'pojo-a11y-toolbar',
+			array( &$this, 'display_settings_page' )
+		);
+		add_submenu_page(
+			'pojo-a11y',
+			__( 'Customize', 'pojo-accessibility' ),
+			__( 'Customize', 'pojo-accessibility' ),
+			'manage_options',
+			'/customize.php?autofocus[section]=accessibility'
+		);
 	}
 
 	public function __construct() {
-		$this->_page_title = __( 'Accessibility Settings', 'pojo-accessibility' );
+		$this->_page_title = __( 'Accessibility', 'pojo-accessibility' );
 		$this->_page_menu_title = __( 'Accessibility', 'pojo-accessibility' );
 		$this->_menu_parent = 'themes.php';
 
