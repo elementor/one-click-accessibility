@@ -270,7 +270,7 @@ class Pojo_A11y_Settings {
 			'id' => 'section-a11y-styles',
 			'page' => self::TOOLBAR_PAGE,
 			'title' => __( 'Style Settings', 'pojo-accessibility' ),
-			'intro' => sprintf( __( 'For style settings of accessibility tools go to > Customize > <a href="%s">Accessibility</a>.', 'pojo-accessibility' ), admin_url( 'customize.php?autofocus[control]=a11y_toolbar_position' ) ),
+			'intro' => sprintf( __( 'For style settings of accessibility tools go to > Customize > <a href="%s">Accessibility</a>.', 'pojo-accessibility' ), $this->get_admin_url( 'customizer' ) ),
 			'fields' => array(),
 		);
 
@@ -568,6 +568,34 @@ class Pojo_A11y_Settings {
 		);
 	}
 
+	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
+		if ( POJO_A11Y_BASE === $plugin_file ) {
+			$row_meta = [
+				'settings' => '<a href="' . $this->get_admin_url( 'general' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility settings', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Settings', 'pojo-accessibility' ) . '</a>',
+				'toolbar' => '<a href="' . $this->get_admin_url( 'toolbar' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility Toolbar Settings', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Toolbar', 'pojo-accessibility' ) . '</a>',
+				'customizer' => '<a href="' . $this->get_admin_url( 'customizer' ) . '" aria-label="' . esc_attr( __( 'Customize Toolbar', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Customize', 'pojo-accessibility' ) . '</a>',
+			];
+
+			$plugin_meta = array_merge( $plugin_meta, $row_meta );
+		}
+
+		return $plugin_meta;
+	}
+
+	private function get_admin_url( $type ) {
+		switch ( $type ) {
+			case 'customizer':
+				return admin_url( 'customize.php?autofocus[section]=accessibility' );
+				break;
+			case 'general':
+				return admin_url( 'admin.php?page=pojo-a11y' );
+				break;
+			case 'toolbar':
+				return admin_url( 'admin.php?page=pojo-a11y-toolbar' );
+				break;
+		}
+	}
+
 	public function __construct() {
 		$this->_page_title = __( 'Accessibility', 'pojo-accessibility' );
 		$this->_page_menu_title = __( 'Accessibility', 'pojo-accessibility' );
@@ -576,5 +604,6 @@ class Pojo_A11y_Settings {
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 20 );
 		add_action( 'admin_init', array( &$this, 'admin_init' ), 20 );
 		add_action( 'admin_footer', array( &$this, 'print_js' ) );
+		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
 	}
 }
