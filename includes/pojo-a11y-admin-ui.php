@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 class Pojo_A11y_AdminUI {
 
 	private function _is_elementor_installed() {
-		$file_path = 'elementor/elementor.php123';
+		$file_path = 'elementor/elementor.php';
 		$installed_plugins = get_plugins();
 		return isset( $installed_plugins[ $file_path ] );
 	}
