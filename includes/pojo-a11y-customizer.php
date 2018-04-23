@@ -10,6 +10,17 @@ class Pojo_A11y_Customizer {
 		$fields = array();
 
 		$fields[] = array(
+			'id' => 'a11y_toolbar_icon',
+			'title' => __( 'Toolbar Icon', 'pojo-accessibility' ),
+			'type' => 'select',
+			'choices' => array(
+				'wheelchair' => __( 'Wheelchair', 'pojo-accessibility' ),
+				'accessibility' => __( 'Accessibility', 'pojo-accessibility' ),
+			),
+			'std' => 'wheelchair',
+		);
+
+		$fields[] = array(
 			'id' => 'a11y_toolbar_position',
 			'title' => __( 'Position Toolbar', 'pojo-accessibility' ),
 			'type' => 'select',
