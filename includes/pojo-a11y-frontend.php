@@ -55,7 +55,7 @@ final class Pojo_A11y_Frontend {
 			return;
 		}
 		?>
-		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#content"><?php _e( 'Skip to content', 'pojo-accessibility' ); ?></a>
+		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#content"><?php esc_html_e( 'Skip to content', 'pojo-accessibility' ); ?></a>
 		<?php
 	}
 
@@ -92,8 +92,10 @@ final class Pojo_A11y_Frontend {
 		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
 				<a class="pojo-a11y-toolbar-link pojo-a11y-toolbar-toggle-link" href="javascript:void(0);" title="<?php echo esc_attr( $toolbar_title ); ?>">
-					<span class="sr-only"><?php _e( 'Open toolbar', 'pojo-accessibility' ); ?></span>
-					<i class="fa fa-wheelchair"></i>
+					<span class="sr-only"><?php esc_html_e( 'Open toolbar', 'pojo-accessibility' ); ?></span>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor" width="1em">
+						<path d="M50 8.1c23.2 0 41.9 18.8 41.9 41.9 0 23.2-18.8 41.9-41.9 41.9C26.8 91.9 8.1 73.2 8.1 50S26.8 8.1 50 8.1M50 0C22.4 0 0 22.4 0 50s22.4 50 50 50 50-22.4 50-50S77.6 0 50 0zm0 11.3c-21.4 0-38.7 17.3-38.7 38.7S28.6 88.7 50 88.7 88.7 71.4 88.7 50 71.4 11.3 50 11.3zm0 8.9c4 0 7.3 3.2 7.3 7.3S54 34.7 50 34.7s-7.3-3.2-7.3-7.3 3.3-7.2 7.3-7.2zm23.7 19.7c-5.8 1.4-11.2 2.6-16.6 3.2.2 20.4 2.5 24.8 5 31.4.7 1.9-.2 4-2.1 4.7-1.9.7-4-.2-4.7-2.1-1.8-4.5-3.4-8.2-4.5-15.8h-2c-1 7.6-2.7 11.3-4.5 15.8-.7 1.9-2.8 2.8-4.7 2.1-1.9-.7-2.8-2.8-2.1-4.7 2.6-6.6 4.9-11 5-31.4-5.4-.6-10.8-1.8-16.6-3.2-1.7-.4-2.8-2.1-2.4-3.9.4-1.7 2.1-2.8 3.9-2.4 19.5 4.6 25.1 4.6 44.5 0 1.7-.4 3.5.7 3.9 2.4.7 1.8-.3 3.5-2.1 3.9z"/>
+					</svg>
 				</a>
 			</div>
 			<div class="pojo-a11y-toolbar-overlay">
@@ -164,7 +166,7 @@ final class Pojo_A11y_Frontend {
 						<?php do_action( 'pojo_a11y_toolbar_after_buttons' ); ?>
 						<li class="pojo-a11y-toolbar-item">
 							<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-reset" data-action="reset" tabindex="-1">
-								<?php _e( 'Reset', 'pojo-accessibility' ); ?>
+								<?php esc_html_e( 'Reset', 'pojo-accessibility' ); ?>
 							</a>
 						</li>
 					</ul>
