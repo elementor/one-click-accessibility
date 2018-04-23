@@ -41,6 +41,11 @@ final class Pojo_Accessibility {
 	 */
 	public $settings;
 
+	/**
+	 * @var Pojo_A11y_AdminUI
+	 */
+	public $admin_ui;
+
 	public function load_textdomain() {
 		load_plugin_textdomain( 'pojo-accessibility', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	}
@@ -85,10 +90,12 @@ final class Pojo_Accessibility {
 		include( 'includes/pojo-a11y-frontend.php' );
 		include( 'includes/pojo-a11y-customizer.php' );
 		include( 'includes/pojo-a11y-settings.php' );
+		include( 'includes/pojo-a11y-admin-ui.php' );
 
 		$this->frontend   = new Pojo_A11y_Frontend();
 		$this->customizer = new Pojo_A11y_Customizer();
 		$this->settings = new Pojo_A11y_Settings();
+		$this->admin_ui = new Pojo_A11y_AdminUI();
 	}
 
 	public function backwards_compatibility() {
