@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class Pojo_A11y_AdminUI {
 
+	const SETTINGS_SLUG = 'toplevel_page_pojo-a11y';
+	const TOOLBAR_SLUG = 'toplevel_page_pojo-a11y-toolbar';
 	private function _is_elementor_installed() {
 		$file_path = 'elementor/elementor.php';
 		$installed_plugins = get_plugins();
@@ -22,7 +24,7 @@ class Pojo_A11y_AdminUI {
 			return;
 		}
 
-		if ( ! in_array( get_current_screen()->id, array( 'toplevel_page_pojo-a11y', 'toplevel_page_pojo-a11y-toolbar', 'dashboard', 'plugins', 'plugins-network' ) ) ) {
+		if ( ! in_array( get_current_screen()->id, array( self::SETTINGS_SLUG, self::TOOLBAR_SLUG, 'dashboard', 'plugins', 'plugins-network' ) ) ) {
 			return;
 		}
 		add_action( 'admin_footer', array( &$this, 'print_js' ) );
@@ -112,7 +114,7 @@ class Pojo_A11y_AdminUI {
 				</div>
 
 				<div class="a11y-notice-content">
-					<h3><?php esc_html_e( 'Do You Like XXXX Accesibility? You\'ll Love Elementor!', 'pojo-accessibility' ); ?></h3>
+					<h3><?php esc_html_e( 'Do You Like Better Accessibility? You\'ll Love Elementor!', 'pojo-accessibility' ); ?></h3>
 					<p><?php esc_html_e( 'Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design. The most advanced frontend drag & drop page builder.', 'pojo-accessibility' ); ?>
 						<a href="https://go.elementor.com/learn/" target="_blank"><?php esc_html_e( 'Learn more about Elementor', 'pojo-accessibility' ); ?></a>.</p>
 				</div>
@@ -138,8 +140,23 @@ class Pojo_A11y_AdminUI {
 		<?php
 	}
 
+	public function admin_footer_text( $footer_text ) {
+		$current_screen = get_current_screen();
+		if ( in_array( $current_screen->id, array( self::SETTINGS_SLUG, self::TOOLBAR_SLUG ) ) ) {
+			$footer_text = sprintf(
+				/* translators: 1: Better Accessibility, 2: Link to plugin review */
+				__( 'Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!', 'pojo-accessibility' ),
+				'<strong>' . __( 'Better Accessibility', 'elementor' ) . '</strong>',
+				'<a href="https://wordpress.org/support/plugin/pojo-accessibility/reviews/?filter=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+			);
+		}
+
+		return $footer_text;
+	}
+
 	public function __construct() {
 		add_action( 'admin_notices', array( &$this, 'admin_notices' ) );
 		add_action( 'wp_ajax_a11y_install_elementor_set_admin_notice_viewed', array( &$this, 'ajax_a11y_install_elementor_set_admin_notice_viewed' ) );
+		add_filter( 'admin_footer_text', [ $this, 'admin_footer_text' ] );
 	}
 }
