@@ -2,7 +2,8 @@
 Contributors: pojo.me, KingYes, ariel.k, jzaltzberg
 Tags: Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility
 Requires at least: 4.1
-Tested up to: 4.4.2
+Tested up to: 4.9
+Requires PHP: 5.4
 Stable tag: 1.1.6
 License: GPLv2 or later
 
@@ -10,11 +11,12 @@ This plugin implements the accessibility features for the Pojo WordPress Themes.
 
 == Description ==
 
-**Please Note:** This plugin is for [Pojo Framework][1] users only.
+**Please Note:** This plugin is for [Pojo Framework](http://pojo.me/?utm_source=wp-repo&utm_medium=link&utm_campaign=a11y) users only.
 
 This plugin implements the accessibility features for the Pojo Themes. While most accessibility issues can't be addressed without directly changing your content, Pojo Accessibility adds a number of helpful accessibility features with a minimum amount of setup or expert knowledge.
 
-<strong>Accessibility Toolbar:</strong>
+**Accessibility Toolbar:**
+
 
 Add a toolbar toggling that allows you to choose many options:
 
@@ -27,7 +29,7 @@ Add a toolbar toggling that allows you to choose many options:
 * Readable Font
 * Link to Sitemap/Feedback/Help pages
 
-<strong>Accessibility Features:</strong>
+**Accessibility Features:**
 
 * Enable skip to content
 * Add outline focus for focusable elements
@@ -37,11 +39,7 @@ Add a toolbar toggling that allows you to choose many options:
 
 **Contributions:**
 
-Would you like to contribute to Pojo Accessibility? You are more than welcome to submit your requests on the [GitHub repo][2]. Also, if you have any notes about the code, please open a ticket on this issue tracker.
-
-[1]: http://pojo.me/?utm_source=wp-repo&utm_medium=link&utm_campaign=a11y
-[2]: https://github.com/pojome/pojo-accessibility
-
+Would you like to contribute to Pojo Accessibility? You are more than welcome to submit your requests on the [GitHub repo](https://github.com/pojome/pojo-accessibility). Also, if you have any notes about the code, please open a ticket on this issue tracker.
 
 == Installation ==
 
@@ -60,7 +58,6 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 1. Go to the Builder tab in the Pages or Widgets menu
 1. Drag and drop the widget and set it
 1. Enjoy!
-
 
 == Screenshots ==
 
