@@ -597,8 +597,8 @@ class Pojo_A11y_Settings {
 	}
 
 	public function __construct() {
-		$this->_page_title = __( 'Better Accessibility', 'pojo-accessibility' );
-		$this->_page_menu_title = __( 'Better Accessibility', 'pojo-accessibility' );
+		$this->_page_title = __( 'One Click Accessibility', 'pojo-accessibility' );
+		$this->_page_menu_title = __( 'One Click Accessibility', 'pojo-accessibility' );
 		$this->_menu_parent = 'themes.php';
 
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 20 );

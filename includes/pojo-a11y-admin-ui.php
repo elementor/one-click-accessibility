@@ -114,9 +114,9 @@ class Pojo_A11y_AdminUI {
 				</div>
 
 				<div class="a11y-notice-content">
-					<h3><?php esc_html_e( 'Do You Like Better Accessibility? You\'ll Love Elementor!', 'pojo-accessibility' ); ?></h3>
+					<h3><?php esc_html_e( 'Do You Like One Click Accessibility? You\'ll Love Elementor!', 'pojo-accessibility' ); ?></h3>
 					<p><?php esc_html_e( 'Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design. The most advanced frontend drag & drop page builder.', 'pojo-accessibility' ); ?>
-						<a href="https://go.elementor.com/learn/" target="_blank"><?php esc_html_e( 'Learn more about Elementor', 'pojo-accessibility' ); ?></a>.</p>
+						<a href="https://elementor.com/?utm_source=accessibility&utm_medium=wp-dash&utm_campaign=notice" target="_blank"><?php esc_html_e( 'Learn more about Elementor', 'pojo-accessibility' ); ?></a>.</p>
 				</div>
 
 				<div class="a11y-install-now">
@@ -144,9 +144,9 @@ class Pojo_A11y_AdminUI {
 		$current_screen = get_current_screen();
 		if ( in_array( $current_screen->id, array( self::SETTINGS_SLUG, self::TOOLBAR_SLUG ) ) ) {
 			$footer_text = sprintf(
-				/* translators: 1: Better Accessibility, 2: Link to plugin review */
+				/* translators: 1: One Click Accessibility, 2: Link to plugin review */
 				__( 'Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!', 'pojo-accessibility' ),
-				'<strong>' . __( 'Better Accessibility', 'elementor' ) . '</strong>',
+				'<strong>' . __( 'One Click Accessibility', 'elementor' ) . '</strong>',
 				'<a href="https://wordpress.org/support/plugin/pojo-accessibility/reviews/?filter=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
 			);
 		}
