@@ -1,10 +1,11 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class Pojo_A11y_AdminUI {
+class Pojo_A11y_Admin_UI {
 
 	const SETTINGS_SLUG = 'toplevel_page_pojo-a11y';
 	const TOOLBAR_SLUG = 'toplevel_page_pojo-a11y-toolbar';
+
 	private function _is_elementor_installed() {
 		$file_path = 'elementor/elementor.php';
 		$installed_plugins = get_plugins();

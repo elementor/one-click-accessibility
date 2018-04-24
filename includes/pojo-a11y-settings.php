@@ -568,18 +568,16 @@ class Pojo_A11y_Settings {
 		);
 	}
 
-	public function plugin_row_meta( $plugin_meta, $plugin_file ) {
+	public function plugin_action_links( $links, $plugin_file ) {
 		if ( POJO_A11Y_BASE === $plugin_file ) {
-			$row_meta = [
-				'settings' => '<a href="' . $this->get_admin_url( 'general' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility settings', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Settings', 'pojo-accessibility' ) . '</a>',
-				'toolbar' => '<a href="' . $this->get_admin_url( 'toolbar' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility Toolbar Settings', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Toolbar', 'pojo-accessibility' ) . '</a>',
-				'customizer' => '<a href="' . $this->get_admin_url( 'customizer' ) . '" aria-label="' . esc_attr( __( 'Customize Toolbar', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Customize', 'pojo-accessibility' ) . '</a>',
-			];
-
-			$plugin_meta = array_merge( $plugin_meta, $row_meta );
+			$settings = '<a href="' . $this->get_admin_url( 'general' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility settings', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Settings', 'pojo-accessibility' ) . '</a>';
+			$toolbar = '<a href="' . $this->get_admin_url( 'toolbar' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility Toolbar Settings', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Toolbar', 'pojo-accessibility' ) . '</a>';
+			$customizer = '<a href="' . $this->get_admin_url( 'customizer' ) . '" aria-label="' . esc_attr( __( 'Customize Toolbar', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Customize', 'pojo-accessibility' ) . '</a>';
+			array_unshift( $links, $customizer );
+			array_unshift( $links, $toolbar );
+			array_unshift( $links, $settings );
 		}
-
-		return $plugin_meta;
+		return $links;
 	}
 
 	private function get_admin_url( $type ) {
@@ -604,6 +602,6 @@ class Pojo_A11y_Settings {
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ), 20 );
 		add_action( 'admin_init', array( &$this, 'admin_init' ), 20 );
 		add_action( 'admin_footer', array( &$this, 'print_js' ) );
-		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
+		add_filter( 'plugin_action_links_' . POJO_A11Y_BASE, [ $this, 'plugin_action_links' ], 10, 2 );
 	}
 }

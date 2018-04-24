@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Pojo Accessibility
+Plugin Name: One Click Accessibility
 Plugin URI: http://pojo.me/
 Description: This plugin implements the accessibility tools for themes by Pojo Framework
 Author: Pojo Team
@@ -95,7 +95,7 @@ final class Pojo_Accessibility {
 		$this->frontend   = new Pojo_A11y_Frontend();
 		$this->customizer = new Pojo_A11y_Customizer();
 		$this->settings = new Pojo_A11y_Settings();
-		$this->admin_ui = new Pojo_A11y_AdminUI();
+		$this->admin_ui = new Pojo_A11y_Admin_UI();
 	}
 
 	public function backwards_compatibility() {
