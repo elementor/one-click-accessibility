@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: One Click Accessibility
-Plugin URI: http://pojo.me/
+Plugin URI: https://wpaccessibility.io/
 Description: This plugin implements the accessibility tools for themes by Pojo Framework
 Author: Pojo Team
-Author URI: http://pojo.me/
+Author URI: https://wpaccessibility.io/
 Version: 1.1.6
 Text Domain: pojo-accessibility
 Domain Path: /languages/
