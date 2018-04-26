@@ -3,8 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 class Pojo_A11y_Admin_UI {
 
-	const SETTINGS_SLUG = 'toplevel_page_pojo-a11y';
-	const TOOLBAR_SLUG = 'toplevel_page_pojo-a11y-toolbar';
+	const SETTINGS_SLUG = 'toplevel_page_accessibility-settings';
+	const TOOLBAR_SLUG = 'accessibility_page_accessibility-toolbar';
 
 	private function _is_elementor_installed() {
 		$file_path = 'elementor/elementor.php';

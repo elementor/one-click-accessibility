@@ -6,8 +6,8 @@ class Pojo_A11y_Settings {
 	public $menu_slug = null;
 
 	const PAGE_ID = 'pojo-a11y';
-	const SETTINGS_PAGE = 'toplevel_page_pojo-a11y';
-	const TOOLBAR_PAGE = 'accessibility_page_pojo-a11y-toolbar';
+	const SETTINGS_PAGE = 'toplevel_page_accessibility-settings';
+	const TOOLBAR_PAGE = 'accessibility_page_accessibility-toolbar';
 	const FIELD_TEXT     = 'text';
 	const FIELD_SELECT   = 'select';
 	const FIELD_CHECKBOX_LIST = 'checkbox_list';
@@ -539,28 +539,28 @@ class Pojo_A11y_Settings {
 			__( 'Accessibility', 'pojo-accessibility' ),
 			__( 'Accessibility', 'pojo-accessibility' ),
 			'manage_options',
-			'pojo-a11y',
+			'accessibility-settings',
 			array( &$this, 'display_settings_page' ),
 			'dashicons-universal-access-alt'
 		);
 		add_submenu_page(
-			'pojo-a11y',
+			'accessibility-settings',
 			__( 'Accessibility Settings', 'pojo-accessibility' ),
 			__( 'Settings', 'pojo-accessibility' ),
 			'manage_options',
-			'pojo-a11y',
+			'accessibility-settings',
 			array( &$this, 'display_settings_page' )
 		);
 		add_submenu_page(
-			'pojo-a11y',
+			'accessibility-settings',
 			__( 'Accessibility Toolbar', 'pojo-accessibility' ),
 			__( 'Toolbar', 'pojo-accessibility' ),
 			'manage_options',
-			'pojo-a11y-toolbar',
+			'accessibility-toolbar',
 			array( &$this, 'display_settings_page' )
 		);
 		add_submenu_page(
-			'pojo-a11y',
+			'accessibility-settings',
 			__( 'Customize', 'pojo-accessibility' ),
 			__( 'Customize', 'pojo-accessibility' ),
 			'manage_options',
@@ -586,10 +586,10 @@ class Pojo_A11y_Settings {
 				return admin_url( 'customize.php?autofocus[section]=accessibility' );
 				break;
 			case 'general':
-				return admin_url( 'admin.php?page=pojo-a11y' );
+				return admin_url( 'admin.php?page=accessibility-settings' );
 				break;
 			case 'toolbar':
-				return admin_url( 'admin.php?page=pojo-a11y-toolbar' );
+				return admin_url( 'admin.php?page=accessibility-toolbar' );
 				break;
 		}
 	}
