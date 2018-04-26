@@ -1,24 +1,26 @@
 # Pojo Accessibility #
 [![Build Status](https://travis-ci.org/pojome/pojo-accessibility.svg?branch=master)](https://travis-ci.org/pojome/pojo-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![WordPress](https://img.shields.io/wordpress/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/r/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/dt/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
 
-**Contributors:** pojo.me, KingYes, ariel.k, jzaltzberg  
+**Contributors:** ppojo.me, KingYes, ariel.k, jzaltzberg, bainternet
 **Tags:** Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility  
 **Requires at least:** 4.1  
 **Tested up to:** 4.4.2  
-**Stable tag:** 1.1.6  
+**Stable tag:** 2
 **License:** GPLv2 or later  
 
-This plugin implements the accessibility features for the Pojo WordPress Themes.
+The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
 
 ## Description ##
 
-**Please Note:** This plugin is for [Pojo Framework][1] users only.
+The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
 
-This plugin implements the accessibility features for the Pojo Themes. While most accessibility issues can't be addressed without directly changing your content, Pojo Accessibility adds a number of helpful accessibility features with a minimum amount of setup or expert knowledge.
+**Please Note:** One Click Accessibility was initially developed for the Pojo framework, and now has been made compatible for any WordPress theme
+
+While most accessibility issues can’t be addressed without directly changing your content, One Click Accessibility adds a number of helpful accessibility features with the minimum amount of setup and without the need for expert knowledge.
 
 <strong>Accessibility Toolbar:</strong>
 
-Add a toolbar toggling that allows you to choose many options:
+Add a toolbar toggling hat allows you to set:
 
 * Resize font (increase/decrease)
 * Grayscale
@@ -39,7 +41,7 @@ Add a toolbar toggling that allows you to choose many options:
 
 **Contributions:**
 
-Would you like to contribute to Pojo Accessibility? You are more than welcome to submit your requests on the [GitHub repo][2]. Also, if you have any notes about the code, please open a ticket on this issue tracker.
+Would you like to contribute to One Click Accessibility? You are more than welcome to submit your requests on the [GitHub repo][2]. Also, if you have any notes about the code, please open a ticket on this issue tracker.
 
 [1]: http://pojo.me/?utm_source=wp-repo&utm_medium=link&utm_campaign=a11y
 [2]: https://github.com/pojome/pojo-accessibility
@@ -51,16 +53,12 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 1. Install using the WordPress built-in Plugin installer > Add New
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Go to the Builder tab in the Pages or Widgets menu
-1. Drag and drop the widget and set it
 1. Enjoy!
 
 **Manual Installation**
 
 1. Extract the zip file and just drop the contents in the <code>wp-content/plugins/</code> directory of your WordPress installation
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Go to the Builder tab in the Pages or Widgets menu
-1. Drag and drop the widget and set it
 1. Enjoy!
 
 
@@ -78,38 +76,45 @@ Would you like to contribute to Pojo Accessibility? You are more than welcome to
 
 ## Changelog ##
 
-### 1.1.6 - 26/10/2017 ###
+### 2.0.0 - 2018-04-26 ###
+* Renamed plugin to One Click Accessibility
+* Added an option to select an Icon
+* Removed Font-awesome dependency
+* Removed Pojo Framework dependency
+* Split Settings Panel to Settings and Toolbar
+
+### 1.1.6 - 2017-10-26 ###
 * Fix! - Border with RGBA is hidden in high contrast mode
 
-### 1.1.5 - 09/03/2016 ###
+### 1.1.5 - 2016-03-09 ###
 * Tweak! - Fix minor style issue
 
-### 1.1.4 - 23/02/2016 ###
+### 1.1.4 - 2016-02-23 ###
 * Fixed! - tabindex on custom links issue
 
-### 1.1.3 - 21/02/2016 ###
+### 1.1.3 - 2016-02-21 ###
 * Tweak! - Resolve the focus issues by another way
 
-### 1.1.2 - 10/02/2016 ###
+### 1.1.2 - 2016-02-10 ###
 * Fixed! - Triggering blur after focus to avoid auto-focus by browser on tab reactivated
 
-### 1.1.1 - 08/02/2016 ###
+### 1.1.1 - 2016-02-08 ###
 * Tweak! - Added more hebrew strings translate 
 * Tested up to WordPress v4.4
 
-### 1.1.0 - 07/02/2016 ###
+### 1.1.0 - 2016-02-07 ###
 * New! - Remember toolbar options
 
-### 1.0.3 - 27/01/2016 ###
+### 1.0.3 - 2016-01-27 ###
 * Fixed! - Issue with slidebar in Resize text
 * Tweak! - Added more string fields for WPML/Polylang plugins
 
-### 1.0.2 - 08/12/2015 ###
+### 1.0.2 - 2015-12-08 ###
 * Tweak! - Fixed hebrew translate
 
-### 1.0.1 - 17/11/2015 ###
+### 1.0.1 - 2015-11-17 ###
 * New! - Added distance from top toolbar, in Desktop/Mobile devices
 * Fixed! - Skip to content in Chrome
 
-### 1.0.0 - 29/10/2015 ###
+### 1.0.0 - 2015-10-29 ###
 * Initial Public Release!
