@@ -47,7 +47,7 @@ final class Pojo_Accessibility {
 	public $admin_ui;
 
 	public function load_textdomain() {
-		load_plugin_textdomain( 'pojo-accessibility', false, basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'pojo-accessibility' );
 	}
 
 	/**

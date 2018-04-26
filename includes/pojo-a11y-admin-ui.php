@@ -147,7 +147,7 @@ class Pojo_A11y_Admin_UI {
 			$footer_text = sprintf(
 				/* translators: 1: One Click Accessibility, 2: Link to plugin review */
 				__( 'Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!', 'pojo-accessibility' ),
-				'<strong>' . __( 'One Click Accessibility', 'elementor' ) . '</strong>',
+				'<strong>' . __( 'One Click Accessibility', 'pojo-accessibility' ) . '</strong>',
 				'<a href="https://wordpress.org/support/plugin/pojo-accessibility/reviews/?filter=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
 			);
 		}
