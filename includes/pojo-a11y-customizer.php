@@ -18,49 +18,55 @@ class Pojo_A11y_Customizer {
 				'accessibility' => __( 'Accessibility', 'pojo-accessibility' ),
 			),
 			'std' => 'wheelchair',
+			'description' => __( 'Set Toolbar Icon', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
 			'id' => 'a11y_toolbar_position',
-			'title' => __( 'Position Toolbar', 'pojo-accessibility' ),
+			'title' => __( 'Toolbar Position', 'pojo-accessibility' ),
 			'type' => 'select',
 			'choices' => array(
 				'left' => __( 'Left', 'pojo-accessibility' ),
 				'right' => __( 'Right', 'pojo-accessibility' ),
 			),
 			'std' => is_rtl() ? 'right' : 'left',
+			'description' => __( 'Set Toolbar Position', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
 			'id' => 'a11y_toolbar_distance_top',
-			'title' => __( 'Distance from Top (Desktop)', 'pojo-accessibility' ),
+			'title' => __( 'Offset from Top (Desktop)', 'pojo-accessibility' ),
 			'type' => 'text',
 			'std' => '100px',
+			'description' => __( 'Set Toolbar top offset (Desktop)', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
 			'id' => 'a11y_toolbar_distance_top_mobile',
-			'title' => __( 'Distance from Top (Mobile)', 'pojo-accessibility' ),
+			'title' => __( 'Offset from Top (Mobile)', 'pojo-accessibility' ),
 			'type' => 'text',
 			'std' => '50px',
+			'description' => __( 'Set Toolbar top offset (Mobile)', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
 			'id' => 'a11y_bg_toolbar',
-			'title' => __( 'Background Toolbar', 'pojo-accessibility' ),
+			'title' => __( 'Toolbar Background', 'pojo-accessibility' ),
 			'type' => 'color',
 			'std' => '#ffffff',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay',
 			'change_type' => 'bg_color',
+			'description' => __( 'Set Toolbar background color', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
 			'id' => 'a11y_color_toolbar',
-			'title' => __( 'Color Toolbar', 'pojo-accessibility' ),
+			'title' => __( 'Toolbar Color', 'pojo-accessibility' ),
 			'type' => 'color',
 			'std' => '#333333',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a, #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay p.pojo-a11y-toolbar-title',
 			'change_type' => 'color',
+			'description' => __( 'Set Toolbar text color', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
@@ -68,6 +74,7 @@ class Pojo_A11y_Customizer {
 			'title' => __( 'Toggle Button Background', 'pojo-accessibility' ),
 			'type' => 'color',
 			'std' => '#4054b2',
+			'description' => __( 'Set Toolbar toggle button background color', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
@@ -77,24 +84,27 @@ class Pojo_A11y_Customizer {
 			'std' => '#ffffff',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a',
 			'change_type' => 'color',
+			'description' => __( 'Set Toolbar toggle button icon color', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
 			'id' => 'a11y_bg_active',
-			'title' => __( 'Background Active', 'pojo-accessibility' ),
+			'title' => __( 'Active Background', 'pojo-accessibility' ),
 			'type' => 'color',
 			'std' => '#4054b2',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.active',
 			'change_type' => 'bg_color',
+			'description' => __( 'Set Toolbar active background color', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
 			'id' => 'a11y_color_active',
-			'title' => __( 'Color Active', 'pojo-accessibility' ),
+			'title' => __( 'Active Color', 'pojo-accessibility' ),
 			'type' => 'color',
 			'std' => '#ffffff',
 			'selector' => '#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a.active',
 			'change_type' => 'color',
+			'description' => __( 'Set Toolbar active text color', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
@@ -112,6 +122,7 @@ class Pojo_A11y_Customizer {
 				'initial' => __( 'Initial', 'pojo-accessibility' ),
 			),
 			'std' => 'solid',
+			'description' => __( 'Set Focus outline style', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
@@ -131,6 +142,7 @@ class Pojo_A11y_Customizer {
 				'10px' => '10px',
 			),
 			'std' => '1px',
+			'description' => __( 'Set Focus outline width', 'pojo-accessibility' ),
 		);
 
 		$fields[] = array(
@@ -138,6 +150,7 @@ class Pojo_A11y_Customizer {
 			'title' => __( 'Focus Outline Color', 'pojo-accessibility' ),
 			'type' => 'color',
 			'std' => '#FF0000',
+			'description' => __( 'Set Focus outline color', 'pojo-accessibility' ),
 		);
 
 		return $fields;
@@ -146,9 +159,15 @@ class Pojo_A11y_Customizer {
 	public function customize_a11y( $wp_customize ) {
 		$fields = $this->get_customizer_fields();
 
+		$section_description = '<p>' . __( 'Use the control below to customize the appearance and layout of the Accessibility Toolbar', 'pojo-accessibility' ) . '</p><p>' .
+			sprintf( __( 'Additional Toolbar settings can be configured at the %s page.', 'pojo-accessibility' ),
+				'<a href="' . admin_url( 'admin.php?page=accessibility-toolbar' ) . '" target="blank">' . __( 'Accessibility Toolbar', 'pojo-accessibility' ) . '</a>'
+			) . '</p>';
+
 		$wp_customize->add_section( 'accessibility', array(
 			'title' => __( 'Accessibility', 'pojo-accessibility' ),
 			'priority'   => 30,
+			'description' => $section_description,
 		) );
 
 		foreach ( $fields as $field ) {
@@ -163,6 +182,7 @@ class Pojo_A11y_Customizer {
 						'label'    => $field['title'],
 						'section'  => 'accessibility',
 						'settings' => $customizer_id,
+						'description' => isset( $field['description'] ) ? $field['description'] : null,
 					) ) );
 					break;
 				case 'select':
@@ -173,6 +193,7 @@ class Pojo_A11y_Customizer {
 						'settings' => $customizer_id,
 						'type'     => $field['type'],
 						'choices'  => isset( $field['choices'] ) ? $field['choices'] : null,
+						'description' => isset( $field['description'] ) ? $field['description'] : null,
 					) );
 					break;
 			}
@@ -217,11 +238,6 @@ class Pojo_A11y_Customizer {
 			if ( empty( $field['selector'] ) || empty( $field['change_type'] ) ) {
 				continue;
 			}
-
-//			$option = get_theme_mod( $field['id'], $field['std'] );
-//			if ( empty( $option ) ) {
-//				continue;
-//			}
 
 			$option = $options[ $field['id'] ];
 

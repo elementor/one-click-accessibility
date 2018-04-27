@@ -2,10 +2,10 @@
 /*
 Plugin Name: One Click Accessibility
 Plugin URI: https://wpaccessibility.io/
-Description: This plugin implements the accessibility tools for themes by Pojo Framework
+Description: The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
 Author: Pojo Team
 Author URI: https://wpaccessibility.io/
-Version: 1.1.6
+Version: 2.0.0
 Text Domain: pojo-accessibility
 Domain Path: /languages/
 */
@@ -47,7 +47,7 @@ final class Pojo_Accessibility {
 	public $admin_ui;
 
 	public function load_textdomain() {
-		load_plugin_textdomain( 'pojo-accessibility', false, basename( dirname( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( 'pojo-accessibility' );
 	}
 
 	/**
