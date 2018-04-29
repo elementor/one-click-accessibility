@@ -1,5 +1,5 @@
 # One Click Accessibility #
-[![Build Status](https://travis-ci.org/pojome/pojo-accessibility.svg?branch=master)](https://travis-ci.org/pojome/pojo-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![WordPress](https://img.shields.io/wordpress/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/r/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/dt/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
+[![Build Status](https://travis-ci.org/pojome/one-click-accessibility.svg?branch=master)](https://travis-ci.org/pojome/one-click-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![WordPress](https://img.shields.io/wordpress/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/r/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/dt/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
 
 **Contributors:** pojo.me, KingYes, ariel.k, jzaltzberg, bainternet  
 **Tags:** Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility  
@@ -43,7 +43,7 @@ Add a toolbar toggling hat allows you to set:
 
 **Contributions:**
 
-Would you like to contribute to One Click Accessibility? You are more than welcome to submit your requests on the [GitHub repo](https://github.com/pojome/pojo-accessibility). Also, if you have any notes about the code, please open a ticket on this issue tracker.
+Would you like to contribute to One Click Accessibility? You are more than welcome to submit your requests on the [GitHub repo](https://github.com/pojome/one-click-accessibility/). Also, if you have any notes about the code, please open a ticket on this issue tracker.
 
 ## Installation ##
 
@@ -51,24 +51,26 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 1. Install using the WordPress built-in Plugin installer > Add New
 1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Go to the plugin page (under Dashboard > Accessibility)
 1. Enjoy!
 
 **Manual Installation**
 
 1. Extract the zip file and just drop the contents in the <code>wp-content/plugins/</code> directory of your WordPress installation
 1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Go to the plugin page (under Dashboard > Accessibility)
 1. Enjoy!
 
 ## Screenshots ##
 
 ### 1. Accessibility Toolbar ###
-![Accessibility Toolbar](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-1.png)
+![Accessibility Toolbar](https://ps.w.org/pojo-accessibility/trunk/screenshot-1.png)
 
 ### 2. Accessibility Settings ###
-![Accessibility Settings](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-2.png)
+![Accessibility Settings](https://ps.w.org/pojo-accessibility/trunk/screenshot-2.png)
 
 ### 3. Accessibility Customizer ###
-![Accessibility Customizer](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-3.png)
+![Accessibility Customizer](https://ps.w.org/pojo-accessibility/trunk/screenshot-3.png)
 
 
 ## Changelog ##
