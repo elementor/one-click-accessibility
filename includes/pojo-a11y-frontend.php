@@ -6,7 +6,11 @@ final class Pojo_A11y_Frontend {
 	public $svg_icons = null;
 
 	public function is_toolbar_active() {
-		return 'disable' !== get_option( 'pojo_a11y_toolbar' );
+		$is_active = 'disable' !== get_option( 'pojo_a11y_toolbar' );
+
+		$is_active = apply_filters( 'pojo_a11y_frontend_is_toolbar_active', $is_active );
+
+		return $is_active;
 	}
 
 	public function is_toolbar_button_active( $button_type ) {

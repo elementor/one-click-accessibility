@@ -42,7 +42,7 @@ final class Pojo_Accessibility {
 	public $settings;
 
 	/**
-	 * @var Pojo_A11y_AdminUI
+	 * @var Pojo_A11y_Admin_UI
 	 */
 	public $admin_ui;
 
@@ -86,11 +86,10 @@ final class Pojo_Accessibility {
 	}
 
 	public function bootstrap() {
-
-		include( 'includes/pojo-a11y-frontend.php' );
-		include( 'includes/pojo-a11y-customizer.php' );
-		include( 'includes/pojo-a11y-settings.php' );
-		include( 'includes/pojo-a11y-admin-ui.php' );
+		require( 'includes/pojo-a11y-frontend.php' );
+		require( 'includes/pojo-a11y-customizer.php' );
+		require( 'includes/pojo-a11y-settings.php' );
+		require( 'includes/pojo-a11y-admin-ui.php' );
 
 		$this->frontend   = new Pojo_A11y_Frontend();
 		$this->customizer = new Pojo_A11y_Customizer();
@@ -114,10 +113,18 @@ final class Pojo_Accessibility {
 		}
 	}
 
+	public function add_elementor_support() {
+		require( 'includes/pojo-a11y-elementor.php' );
+
+		new Pojo_A11y_Elementor();
+	}
+
 	private function __construct() {
 		add_action( 'init', array( &$this, 'bootstrap' ) );
 		add_action( 'admin_init', array( &$this, 'backwards_compatibility' ) );
 		add_action( 'plugins_loaded', array( &$this, 'load_textdomain' ) );
+
+		add_action( 'elementor/init', array( $this, 'add_elementor_support' ) );
 	}
 
 }
