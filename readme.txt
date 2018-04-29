@@ -41,7 +41,7 @@ Add a toolbar toggling hat allows you to set:
 
 **Contributions:**
 
-Would you like to contribute to One Click Accessibility? You are more than welcome to submit your requests on the [GitHub repo](https://github.com/pojome/pojo-accessibility). Also, if you have any notes about the code, please open a ticket on this issue tracker.
+Would you like to contribute to One Click Accessibility? You are more than welcome to submit your requests on the [GitHub repo](https://github.com/pojome/one-click-accessibility/). Also, if you have any notes about the code, please open a ticket on this issue tracker.
 
 == Installation ==
 
@@ -49,12 +49,14 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 1. Install using the WordPress built-in Plugin installer > Add New
 1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Go to the plugin page (under Dashboard > Accessibility)
 1. Enjoy!
 
 **Manual Installation**
 
 1. Extract the zip file and just drop the contents in the <code>wp-content/plugins/</code> directory of your WordPress installation
 1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Go to the plugin page (under Dashboard > Accessibility)
 1. Enjoy!
 
 == Screenshots ==
