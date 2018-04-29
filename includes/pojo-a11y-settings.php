@@ -18,6 +18,7 @@ class Pojo_A11y_Settings {
 	protected $_defaults = array();
 	protected $_pages    = array();
 
+
 	/**
 	 * Setup Toolbar fields
 	 *
@@ -570,8 +571,8 @@ class Pojo_A11y_Settings {
 
 	public function plugin_action_links( $links, $plugin_file ) {
 		if ( POJO_A11Y_BASE === $plugin_file ) {
-			$settings = '<a href="' . $this->get_admin_url( 'general' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility settings', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Settings', 'pojo-accessibility' ) . '</a>';
-			$toolbar = '<a href="' . $this->get_admin_url( 'toolbar' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility Toolbar Settings', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Toolbar', 'pojo-accessibility' ) . '</a>';
+			$settings = '<a href="' . $this->get_admin_url( 'general' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility settings', 'pojo-accessibility' ) ) . '">' . __( 'Settings', 'pojo-accessibility' ) . '</a>';
+			$toolbar = '<a href="' . $this->get_admin_url( 'toolbar' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility Toolbar Settings', 'pojo-accessibility' ) ) . '">' . __( 'Toolbar', 'pojo-accessibility' ) . '</a>';
 			$customizer = '<a href="' . $this->get_admin_url( 'customizer' ) . '" aria-label="' . esc_attr( __( 'Customize Toolbar', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Customize', 'pojo-accessibility' ) . '</a>';
 			array_unshift( $links, $customizer );
 			array_unshift( $links, $toolbar );
@@ -592,6 +593,28 @@ class Pojo_A11y_Settings {
 				return admin_url( 'admin.php?page=accessibility-toolbar' );
 				break;
 		}
+	}
+
+	private function get_default_values() {
+		if ( empty( $this->_defaults ) ) {
+			if ( empty( $this->_sections ) ) {
+				$this->get_settings_sections();
+			}
+			$defaults = array();
+			foreach ( $this->_sections as $section ) {
+				foreach ( $section['fields'] as $field ) {
+					$defaults[ $field['id'] ] = isset( $field['std'] ) ? $field['std'] : '';
+				}
+			}
+			$this->_defaults = $defaults;
+		}
+	}
+
+	public function get_default_title_text( $option ) {
+		$this->get_default_values();
+		$default = isset( $this->_defaults[ $option ] ) ? $this->_defaults[ $option ] : '';
+
+		return get_option( $option, $default );
 	}
 
 	public function __construct() {

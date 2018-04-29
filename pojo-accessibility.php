@@ -24,7 +24,7 @@ final class Pojo_Accessibility {
 	 * @var Pojo_Accessibility The one true Pojo_Accessibility
 	 * @since 1.0.0
 	 */
-	private static $_instance = null;
+	public static $_instance = null;
 
 	/**
 	 * @var Pojo_A11y_Frontend
