@@ -18,7 +18,7 @@ final class Pojo_A11y_Frontend {
 	}
 
 	public function get_toolbar_button_title( $button_type ) {
-		$title = Pojo_Accessibility::$_instance->settings->get_default_title_text( "pojo_a11y_toolbar_button_{$button_type}_title" );
+		$title = Pojo_Accessibility::$instance->settings->get_default_title_text( "pojo_a11y_toolbar_button_{$button_type}_title" );
 		return $this->get_toolbar_svg( $button_type ) . $title;
 	}
 

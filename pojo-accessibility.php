@@ -24,7 +24,7 @@ final class Pojo_Accessibility {
 	 * @var Pojo_Accessibility The one true Pojo_Accessibility
 	 * @since 1.0.0
 	 */
-	public static $_instance = null;
+	public static $instance = null;
 
 	/**
 	 * @var Pojo_A11y_Frontend
@@ -79,10 +79,10 @@ final class Pojo_Accessibility {
 	 * @return Pojo_Accessibility
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	public function bootstrap() {
