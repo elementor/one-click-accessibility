@@ -3,7 +3,7 @@
 Plugin Name: One Click Accessibility
 Plugin URI: https://wpaccessibility.io/
 Description: The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
-Author: Pojo Team
+Author: One Click Accessibility
 Author URI: https://wpaccessibility.io/
 Version: 2.0.0
 Text Domain: pojo-accessibility
