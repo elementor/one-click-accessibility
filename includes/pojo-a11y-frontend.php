@@ -19,7 +19,7 @@ final class Pojo_A11y_Frontend {
 
 	public function get_toolbar_button_title( $button_type ) {
 		$title = Pojo_Accessibility::$instance->settings->get_default_title_text( "pojo_a11y_toolbar_button_{$button_type}_title" );
-		return $this->get_toolbar_svg( $button_type ) . $title;
+		return '<span class="pojo-a11y-toolbar-icon">' . $this->get_toolbar_svg( $button_type ) . '</span><span class="pojo-a11y-toolbar-text">' . $title . '</span>';
 	}
 
 	public function enqueue_scripts() {
@@ -177,8 +177,9 @@ final class Pojo_A11y_Frontend {
 						<?php do_action( 'pojo_a11y_toolbar_after_buttons' ); ?>
 						<li class="pojo-a11y-toolbar-item">
 							<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-reset" data-action="reset" tabindex="-1">
-								<?php echo $this->get_toolbar_svg( 'reset' ); ?>
-								<?php esc_html_e( 'Reset', 'pojo-accessibility' ); ?>
+								<span class="pojo-a11y-toolbar-icon"><?php echo $this->get_toolbar_svg( 'reset' ); ?></span>
+                                <span class="pojo-a11y-toolbar-text"><?php esc_html_e( 'Reset', 'pojo-accessibility' ); ?>
+</span>
 							</a>
 						</li>
 					</ul>

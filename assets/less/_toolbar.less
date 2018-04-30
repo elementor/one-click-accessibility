@@ -1,6 +1,7 @@
 @toolbar-width: 180px;
 //Toolbar
 .pojo-a11y-toolbar-position(@direction) {
+
 	&.pojo-a11y-toolbar-@{direction} {
 		@{direction}: -@toolbar-width;
 		
@@ -50,10 +51,11 @@
 		a {
 			display: inline-block;
 			font-size: 200%;
-			line-height: 1;
+			line-height: 0;
 			padding: 10px;
 			-webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
 			box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+
 			&:hover,
 			&:focus {
 				-webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
@@ -66,6 +68,7 @@
 		border: 1px solid;
 		font-size: 100%;
 		width: @toolbar-width;
+
 		p.pojo-a11y-toolbar-title {
 			display: block;
 			line-height: 2;
@@ -73,26 +76,44 @@
 			padding: 10px 15px 0;
 			margin: 0;
 		}
+
 		ul.pojo-a11y-toolbar-items {
 			list-style: none;
 			margin: 0;
 			padding: 10px 0;
+
 			&.pojo-a11y-links {
 				border-top: 1px solid;
 			}
+
 			li.pojo-a11y-toolbar-item {
+
 				a {
 					display: block;
 					padding: 10px 15px;
 					font-size: 80%;
 					line-height: 1;
+
 					&.active {
 						font-weight: bold;
 					}
+
 					svg {
 						padding-right: 6px;
-						font-size: 1.4em;
-					}
+                        display: inline-block;
+                        width: 1em;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: inherit;
+                        line-height: 1;
+                        text-align: center;
+                        text-rendering: auto;
+                        vertical-align: middle;
+                    }
+
+                    .pojo-a11y-toolbar-text {
+                        vertical-align: middle;
+                    }
 				}
 			}
 		}
@@ -100,11 +121,17 @@
 }
 
 body.rtl {
+
 	#pojo-a11y-toolbar {
+
 		.pojo-a11y-toolbar-overlay {
+
 			ul.pojo-a11y-toolbar-items {
+
 				li.pojo-a11y-toolbar-item {
+
 					a {
+
 						svg {
 							padding-left: 6px;
 							padding-right: 0;
@@ -118,14 +145,20 @@ body.rtl {
 
 // Responsive
 @media (max-width: 767px) {
+
 	#pojo-a11y-toolbar {
+
 		.pojo-a11y-toolbar-overlay {
+
 			p.pojo-a11y-toolbar-title {
 				padding: 7px 12px 0;
 			}
+
 			ul.pojo-a11y-toolbar-items {
 				padding: 7px 0;
+
 				li.pojo-a11y-toolbar-item {
+
 					a {
 						display: block;
 						padding: 7px 12px;
