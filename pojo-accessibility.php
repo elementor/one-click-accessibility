@@ -3,7 +3,7 @@
 Plugin Name: One Click Accessibility
 Plugin URI: https://wpaccessibility.io/
 Description: The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
-Author: Pojo Team
+Author: One Click Accessibility
 Author URI: https://wpaccessibility.io/
 Version: 2.0.0
 Text Domain: pojo-accessibility
@@ -24,7 +24,7 @@ final class Pojo_Accessibility {
 	 * @var Pojo_Accessibility The one true Pojo_Accessibility
 	 * @since 1.0.0
 	 */
-	private static $_instance = null;
+	public static $instance = null;
 
 	/**
 	 * @var Pojo_A11y_Frontend
@@ -79,10 +79,10 @@ final class Pojo_Accessibility {
 	 * @return Pojo_Accessibility
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	public function bootstrap() {
