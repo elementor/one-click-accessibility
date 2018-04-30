@@ -571,9 +571,9 @@ class Pojo_A11y_Settings {
 
 	public function plugin_action_links( $links, $plugin_file ) {
 		if ( POJO_A11Y_BASE === $plugin_file ) {
-			$settings = '<a href="' . $this->get_admin_url( 'general' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility settings', 'pojo-accessibility' ) ) . '">' . __( 'Settings', 'pojo-accessibility' ) . '</a>';
-			$toolbar = '<a href="' . $this->get_admin_url( 'toolbar' ) . '" aria-label="' . esc_attr( __( 'Set Accessibility Toolbar Settings', 'pojo-accessibility' ) ) . '">' . __( 'Toolbar', 'pojo-accessibility' ) . '</a>';
-			$customizer = '<a href="' . $this->get_admin_url( 'customizer' ) . '" aria-label="' . esc_attr( __( 'Customize Toolbar', 'pojo-accessibility' ) ) . '" target="_blank">' . __( 'Customize', 'pojo-accessibility' ) . '</a>';
+			$settings = '<a href="' . $this->get_admin_url( 'general' ) . '" aria-label="' . esc_attr__( 'Set Accessibility settings', 'pojo-accessibility' ) . '">' . __( 'Settings', 'pojo-accessibility' ) . '</a>';
+			$toolbar = '<a href="' . $this->get_admin_url( 'toolbar' ) . '" aria-label="' . esc_attr__( 'Set Accessibility Toolbar Settings', 'pojo-accessibility' ) . '">' . __( 'Toolbar', 'pojo-accessibility' ) . '</a>';
+			$customizer = '<a href="' . $this->get_admin_url( 'customizer' ) . '" aria-label="' . esc_attr__( 'Customize Toolbar', 'pojo-accessibility' ) . '" target="_blank">' . __( 'Customize', 'pojo-accessibility' ) . '</a>';
 			array_unshift( $links, $customizer );
 			array_unshift( $links, $toolbar );
 			array_unshift( $links, $settings );
