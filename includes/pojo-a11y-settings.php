@@ -285,7 +285,7 @@ class Pojo_A11y_Settings {
 			'id' => 'pojo_a11y_focusable',
 			'title' => __( 'Add Outline Focus', 'pojo-accessibility' ),
 			'type' => self::FIELD_SELECT,
-			'desc' => __( 'Add outline to elements on keyboard focus', 'pojo-accessibility' ),
+			'desc' => __( 'Add outline to elements on keyboard focus.', 'pojo-accessibility' ),
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -297,6 +297,7 @@ class Pojo_A11y_Settings {
 			'id' => 'pojo_a11y_skip_to_content_link',
 			'title' => __( 'Skip to Content link', 'pojo-accessibility' ),
 			'type' => self::FIELD_SELECT,
+			'desc' => __( 'Add skip to content link when using keyboard.', 'pojo-accessibility' ),
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
@@ -320,7 +321,8 @@ class Pojo_A11y_Settings {
 			'id' => 'pojo_a11y_add_role_links',
 			'title' => __( 'Add landmark roles to all links', 'pojo-accessibility' ),
 			'type' => self::FIELD_SELECT,
-			'options' => array(
+			'desc' => __( 'This option will add <code>role="link"</code> to all links on the page.', 'pojo-accessibility' ),
+            'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			),
@@ -330,7 +332,7 @@ class Pojo_A11y_Settings {
 		$fields[] = array(
 			'id' => 'pojo_a11y_save',
 			'title' => __( 'Sitewide Accessibility', 'pojo-accessibility' ),
-			'desc' => __( 'Consistent accessibility throughout your site visit. Site remembers you and stays accessible', 'pojo-accessibility' ),
+			'desc' => __( 'Consistent accessibility throughout your site visit. Site remembers you and stays accessible.', 'pojo-accessibility' ),
 			'type' => self::FIELD_SELECT,
 			'options' => array(
 				'enable' => __( 'Enable', 'pojo-accessibility' ),
@@ -343,6 +345,7 @@ class Pojo_A11y_Settings {
 			'id' => 'pojo_a11y_save_expiration',
 			'title' => __( 'Remember user for', 'pojo-accessibility' ),
 			'type' => self::FIELD_SELECT,
+			'desc' => __( 'Define how long your toolbar settings will be remembered', 'pojo-accessibility' ),
 			'options' => array(
 				'1' => __( '1 Hour', 'pojo-accessibility' ),
 				'6' => __( '6 Hours', 'pojo-accessibility' ),
