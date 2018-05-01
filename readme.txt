@@ -62,8 +62,9 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 == Screenshots ==
 
 1. Accessibility Toolbar
-2. Accessibility Settings
-3. Accessibility Customizer
+2. Grayscale Mode
+3. Negative Contrast Mode
+4. Accessibility Customizer
 
 == Changelog ==
 
