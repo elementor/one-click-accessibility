@@ -1,4 +1,3 @@
-/*! pojo-accessibility - v1.1.6 - 29-04-2018 */
 #pojo-a11y-toolbar {
   position: fixed;
   font-size: 16px !important;
@@ -42,7 +41,7 @@
 #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a {
   display: inline-block;
   font-size: 200%;
-  line-height: 1;
+  line-height: 0;
   padding: 10px;
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
@@ -83,7 +82,18 @@
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a svg {
   padding-right: 6px;
-  font-size: 1.4em;
+  display: inline-block;
+  width: 1em;
+  font-style: normal;
+  font-weight: normal;
+  font-size: inherit;
+  line-height: 1;
+  text-align: center;
+  text-rendering: auto;
+  vertical-align: middle;
+}
+#pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a .pojo-a11y-toolbar-text {
+  vertical-align: middle;
 }
 body.rtl #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a svg {
   padding-left: 6px;
@@ -1441,7 +1451,7 @@ body.rtl .pojo-skip-link:focus {
   right: 50px;
   left: auto;
 }
-.sr-only {
+.pojo-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1450,4 +1460,9 @@ body.rtl .pojo-skip-link:focus {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+*,
+::before,
+::after {
+  box-sizing: border-box;
 }
