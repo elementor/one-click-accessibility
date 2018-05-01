@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/pojome/one-click-accessibility.svg?branch=master)](https://travis-ci.org/pojome/one-click-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![WordPress](https://img.shields.io/wordpress/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/r/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/dt/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
 
 **Contributors:** pojo.me, KingYes, ariel.k, jzaltzberg, bainternet  
-**Tags:** Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility  
+**Tags:** Accessibility, A11y, Toolbar, Tools, wcag, accessible  
 **Requires at least:** 4.1  
 **Tested up to:** 4.9  
 **Requires PHP:** 5.4  
@@ -21,7 +21,6 @@ While most accessibility issues can’t be addressed without directly changing y
 
 **Accessibility Toolbar:**
 
-
 Add a toolbar toggling hat allows you to set:
 
 * Resize font (increase/decrease)
@@ -31,7 +30,7 @@ Add a toolbar toggling hat allows you to set:
 * Light Background
 * Links Underline
 * Readable Font
-* Link to Sitemap/Feedback/Help pages
+* Link to Sitemap / Feedback / Help pages
 
 **Accessibility Features:**
 
@@ -63,24 +62,28 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 ## Screenshots ##
 
-### 1. Accessibility Toolbar ###
-![Accessibility Toolbar](https://ps.w.org/pojo-accessibility/trunk/screenshot-1.png)
+### 1. Accessibility Customizer ###
+![Accessibility Customizer](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-1.png)
 
-### 2. Accessibility Settings ###
-![Accessibility Settings](https://ps.w.org/pojo-accessibility/trunk/screenshot-2.png)
+### 2. Accessibility Toolbar ###
+![Accessibility Toolbar](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-2.png)
 
-### 3. Accessibility Customizer ###
-![Accessibility Customizer](https://ps.w.org/pojo-accessibility/trunk/screenshot-3.png)
+### 3. Grayscale Mode ###
+![Grayscale Mode](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-3.png)
+
+### 4. Negative Contrast Mode ###
+![Negative Contrast Mode](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-4.png)
 
 
 ## Changelog ##
 
-### 2.0.0 - 2018-04-26 ###
-* Renamed plugin to One Click Accessibility
-* Added an option to select an Icon
-* Removed Font-awesome dependency
-* Removed Pojo Framework dependency
-* Split Settings Panel to Settings and Toolbar
+### 2.0.0 - 2018-05-01 ###
+* Tweak! - Renamed plugin to One Click Accessibility
+* Tweak! - Added an option to select an toolbar icon
+* Tweak! - Split Settings Panel to Settings and Toolbar
+* Tweak! - Removed FontAwesome dependency
+* Tweak! - Removed Bootstrap dependency
+* Tweak! - Removed Pojo Framework dependency
 
 ### 1.1.6 - 2017-10-26 ###
 * Fix! - Border with RGBA is hidden in high contrast mode
