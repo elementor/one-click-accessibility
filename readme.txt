@@ -67,6 +67,10 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 == Changelog ==
 
+= 2.0.1 - 2018-05-02 =
+* Fix! - Increased icon size in the toolbar
+* Tweak! - Restored `sr-only` class for smooth update
+
 = 2.0.0 - 2018-05-01 =
 * Tweak! - Renamed plugin to One Click Accessibility
 * Tweak! - Added an option to select an toolbar icon
