@@ -1,6 +1,6 @@
 === One Click Accessibility ===
 Contributors: pojo.me, KingYes, ariel.k, jzaltzberg, bainternet
-Tags: Pojo, Accessibility, A11y, Toolbar, Tools, WordPress Accessibility
+Tags: Accessibility, A11y, Toolbar, Tools, wcag, accessible
 Requires at least: 4.1
 Tested up to: 4.9
 Requires PHP: 5.4
@@ -19,7 +19,6 @@ While most accessibility issues can’t be addressed without directly changing y
 
 **Accessibility Toolbar:**
 
-
 Add a toolbar toggling hat allows you to set:
 
 * Resize font (increase/decrease)
@@ -29,7 +28,7 @@ Add a toolbar toggling hat allows you to set:
 * Light Background
 * Links Underline
 * Readable Font
-* Link to Sitemap/Feedback/Help pages
+* Link to Sitemap / Feedback / Help pages
 
 **Accessibility Features:**
 
@@ -61,10 +60,10 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 == Screenshots ==
 
-1. Accessibility Toolbar
-2. Grayscale Mode
-3. Negative Contrast Mode
-4. Accessibility Customizer
+1. Accessibility Customizer
+2. Accessibility Toolbar
+3. Grayscale Mode
+4. Negative Contrast Mode
 
 == Changelog ==
 
@@ -72,7 +71,7 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 * Tweak! - Renamed plugin to One Click Accessibility
 * Tweak! - Added an option to select an toolbar icon
 * Tweak! - Split Settings Panel to Settings and Toolbar
-* Tweak! - Removed Font-awesome dependency
+* Tweak! - Removed FontAwesome dependency
 * Tweak! - Removed Bootstrap dependency
 * Tweak! - Removed Pojo Framework dependency
 

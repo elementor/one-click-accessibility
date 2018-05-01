@@ -1461,3 +1461,8 @@ body.rtl .pojo-skip-link:focus {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}

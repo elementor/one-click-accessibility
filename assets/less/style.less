@@ -21,6 +21,7 @@ body.pojo-a11y-readable-font {
 .pojo-skip-link {
 	position: absolute;
 	top: -1000em;
+
 	&:focus {
 		left: 50px;
 		top: 50px;
@@ -58,4 +59,8 @@ body.rtl {
 	overflow: hidden;
 	clip: rect(0,0,0,0);
 	border: 0;
+}
+
+*, ::before, ::after {
+    box-sizing: border-box;
 }
