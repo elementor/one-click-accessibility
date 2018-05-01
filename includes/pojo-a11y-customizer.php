@@ -15,6 +15,7 @@ class Pojo_A11y_Customizer {
 			'type' => 'select',
 			'choices' => array(
 				'wheelchair' => __( 'Wheelchair', 'pojo-accessibility' ),
+				'one-click' => __( 'One Click', 'pojo-accessibility' ),
 				'accessibility' => __( 'Accessibility', 'pojo-accessibility' ),
 			),
 			'std' => 'wheelchair',

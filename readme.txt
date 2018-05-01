@@ -67,12 +67,13 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 == Changelog ==
 
-= 2.0.0 - 2018-04-26 =
-* Renamed plugin to One Click Accessibility
-* Added an option to select an Icon
-* Removed Font-awesome dependency
-* Removed Pojo Framework dependency
-* Split Settings Panel to Settings and Toolbar
+= 2.0.0 - 2018-05-01 =
+* Tweak! - Renamed plugin to One Click Accessibility
+* Tweak! - Added an option to select an toolbar icon
+* Tweak! - Split Settings Panel to Settings and Toolbar
+* Tweak! - Removed Font-awesome dependency
+* Tweak! - Removed Bootstrap dependency
+* Tweak! - Removed Pojo Framework dependency
 
 = 1.1.6 - 2017-10-26 =
 * Fix! - Border with RGBA is hidden in high contrast mode
