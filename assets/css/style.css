@@ -1,4 +1,4 @@
-/*! pojo-accessibility - v2.0.0 - 01-05-2018 */
+/*! pojo-accessibility - v2.0.0 - 02-05-2018 */
 #pojo-a11y-toolbar {
   position: fixed;
   font-size: 16px !important;
@@ -84,7 +84,7 @@
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a svg {
   padding-right: 6px;
   display: inline-block;
-  width: 1em;
+  width: 1.5em;
   font-style: normal;
   font-weight: normal;
   font-size: inherit;
