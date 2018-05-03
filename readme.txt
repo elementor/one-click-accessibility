@@ -67,7 +67,7 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 == Changelog ==
 
-= 2.0.1 - 2018-05-03 =
+= 2.0.2 - 2018-05-03 =
 * Fix! - Added default settings for toolbar title
 * Fix! - Print CSS rules before code to fix responsive issues
 * Fix! - Added visibility CSS to fix dependency issues
