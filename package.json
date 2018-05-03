@@ -3,7 +3,7 @@
 	"slug": "pojo-accessibility",
 	"homepage": "http://pojo.me/",
 	"description": "",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"devDependencies": {
 		"grunt": "~1.0.2",
 		"grunt-checktextdomain": "~1.0.1",
