@@ -1,0 +1,36 @@
+//Media Queries
+
+//Desktops
+.pojo-a11y-visible-phone { display: none !important; }
+.pojo-a11y-visible-tablet { display: none !important; }
+.pojo-a11y-hidden-phone { }
+.pojo-a11y-hidden-tablet { }
+.pojo-a11y-hidden-desktop { display: none !important; }
+.pojo-a11y-visible-desktop { display: inherit !important; }
+
+//Tablets & small desktops only
+@media (min-width: 768px) and (max-width: 1024px) {
+  .pojo-a11y-hidden-desktop { display: inherit !important; }
+  .pojo-a11y-visible-desktop { display: none !important ; }
+  .pojo-a11y-visible-tablet { display: inherit !important; }
+  .pojo-a11y-hidden-tablet { display: none !important; }
+}
+
+//Phones only
+@media (max-width: 767px) {
+  .pojo-a11y-hidden-desktop { display: inherit !important; }
+  .pojo-a11y-visible-desktop { display: none !important; }
+  .pojo-a11y-visible-phone { display: inherit !important; } /* Use inherit to restore previous behavior */
+  .pojo-a11y-hidden-phone { display: none !important; }
+}
+
+.pojo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}

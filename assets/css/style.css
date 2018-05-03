@@ -1,4 +1,3 @@
-/*! pojo-accessibility - v2.0.1 - 02-05-2018 */
 #pojo-a11y-toolbar {
   position: fixed;
   font-size: 16px !important;
@@ -1452,6 +1451,52 @@ body.rtl .pojo-skip-link:focus {
   right: 50px;
   left: auto;
 }
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+.pojo-a11y-visible-phone {
+  display: none !important;
+}
+.pojo-a11y-visible-tablet {
+  display: none !important;
+}
+.pojo-a11y-hidden-desktop {
+  display: none !important;
+}
+.pojo-a11y-visible-desktop {
+  display: inherit !important;
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .pojo-a11y-hidden-desktop {
+    display: inherit !important;
+  }
+  .pojo-a11y-visible-desktop {
+    display: none !important ;
+  }
+  .pojo-a11y-visible-tablet {
+    display: inherit !important;
+  }
+  .pojo-a11y-hidden-tablet {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  .pojo-a11y-hidden-desktop {
+    display: inherit !important;
+  }
+  .pojo-a11y-visible-desktop {
+    display: none !important;
+  }
+  .pojo-a11y-visible-phone {
+    display: inherit !important;
+  }
+  /* Use inherit to restore previous behavior */
+  .pojo-a11y-hidden-phone {
+    display: none !important;
+  }
+}
 .pojo-sr-only {
   position: absolute;
   width: 1px;
@@ -1461,9 +1506,4 @@ body.rtl .pojo-skip-link:focus {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
-}
-*,
-::before,
-::after {
-  box-sizing: border-box;
 }
