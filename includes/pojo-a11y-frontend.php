@@ -79,7 +79,7 @@ final class Pojo_A11y_Frontend {
 			$toolbar_position = 'left';
 		}
 
-		$toolbar_title = get_option( 'pojo_a11y_toolbar_title' );
+		$toolbar_title = Pojo_Accessibility::$instance->settings->get_default_title_text( 'pojo_a11y_toolbar_title' );
 		$toolbar_visibility = get_option( 'pojo_a11y_toolbar' );
 
 		$wrapper_classes = array(
@@ -87,7 +87,7 @@ final class Pojo_A11y_Frontend {
 		);
 
 		if ( 'enable' !== $toolbar_visibility ) {
-			$wrapper_classes[] = 'pojo-' . $toolbar_visibility;
+			$wrapper_classes[] = 'pojo-a11y-' . $toolbar_visibility;
 		}
 
 		$sitemap_link = get_option( 'pojo_a11y_toolbar_button_sitemap_link' );
