@@ -275,7 +275,6 @@ class Pojo_A11y_Customizer {
 		foreach ( $this->css_rules as $selector => $css_rules ) {
 			$css .= "\n" . $selector . '{ ' . implode( "\t", $css_rules ) . '}';
 		}
-		echo '<!--- pojo accessibility custom  css --->' . "\n";
 		echo '<style type="text/css">' . $css . $this->css_code . '</style>';
 	}
 
