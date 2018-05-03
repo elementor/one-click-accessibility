@@ -189,7 +189,7 @@ module.exports = function( grunt ) {
 		wp_readme_to_markdown: {
 			github: {
 				options: {
-					screenshot_url: 'https://ps.w.org/pojo-accessibility/trunk/{screenshot}.png',
+					screenshot_url: 'assets/{screenshot}.png',
 					wordpressPluginSlug: 'pojo-accessibility',
 					travisUrlRepo: 'https://travis-ci.org/pojome/one-click-accessibility',
 					gruntDependencyStatusUrl: 'https://david-dm.org/pojome/pojo-accessibility'

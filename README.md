@@ -1,7 +1,7 @@
-# One Click Accessibility #
-[![Build Status](https://travis-ci.org/pojome/one-click-accessibility.svg?branch=master)](https://travis-ci.org/pojome/one-click-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![WordPress](https://img.shields.io/wordpress/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/r/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/dt/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
+# One Click Accessibility [![Build Status](https://travis-ci.org/pojome/one-click-accessibility.svg?branch=master)](https://travis-ci.org/pojome/one-click-accessibility) [![Dependency Status](https://david-dm.org/pojome/pojo-accessibility/dev-status.svg)](https://david-dm.org/pojome/pojo-accessibility#info=devDependencies) [![WordPress](https://img.shields.io/wordpress/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/r/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/v/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![WordPress](https://img.shields.io/wordpress/plugin/dt/pojo-accessibility.svg?style=flat-square)](https://wordpress.org/plugins/pojo-accessibility/) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.svg)](http://gruntjs.com/)
 
-**Contributors:** pojo.me, KingYes, ariel.k, jzaltzberg, bainternet  
+
+**Contributors:** [pojo.me](https://profiles.wordpress.org/pojo.me), [KingYes](https://profiles.wordpress.org/KingYes), [ariel.k](https://profiles.wordpress.org/ariel.k), [jzaltzberg](https://profiles.wordpress.org/jzaltzberg), [bainternet](https://profiles.wordpress.org/bainternet)  
 **Tags:** Accessibility, A11y, Toolbar, Tools, wcag, accessible  
 **Requires at least:** 4.1  
 **Tested up to:** 4.9  
@@ -62,18 +62,10 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 ## Screenshots ##
 
-### 1. Accessibility Customizer ###
-![Accessibility Customizer](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-1.png)
-
-### 2. Accessibility Toolbar ###
-![Accessibility Toolbar](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-2.png)
-
-### 3. Grayscale Mode ###
-![Grayscale Mode](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-3.png)
-
-### 4. Negative Contrast Mode ###
-![Negative Contrast Mode](http://s.wordpress.org/extend/plugins/one-click-accessibility/screenshot-4.png)
-
+1. Accessibility Customizer
+2. Accessibility Toolbar
+3. Grayscale Mode
+4. Negative Contrast Mode
 
 ## Changelog ##
 
