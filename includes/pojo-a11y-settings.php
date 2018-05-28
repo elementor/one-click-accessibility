@@ -521,14 +521,18 @@ class Pojo_A11y_Settings {
 
 	public function display_settings_page() {
 		$screen = get_current_screen();
+		$screen_id = $screen->id;
+		if ( false !== strpos( $screen_id, 'toolbar' ) ) {
+			$screen_id = self::TOOLBAR_PAGE;
+		}
 		?>
 		<div class="wrap">
 			<h2><?php echo $this->_page_title; ?></h2>
-			<?php settings_errors( $screen->id ); ?>
+			<?php settings_errors( $screen_id ); ?>
 			<form method="post" action="options.php">
 				<?php
-				settings_fields( $screen->id );
-				do_settings_sections( $screen->id );
+				settings_fields( $screen_id );
+				do_settings_sections( $screen_id );
 
 				submit_button();
 				?>

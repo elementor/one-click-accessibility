@@ -178,8 +178,7 @@ final class Pojo_A11y_Frontend {
 						<li class="pojo-a11y-toolbar-item">
 							<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-reset" data-action="reset" tabindex="-1">
 								<span class="pojo-a11y-toolbar-icon"><?php echo $this->get_toolbar_svg( 'reset' ); ?></span>
-                                <span class="pojo-a11y-toolbar-text"><?php esc_html_e( 'Reset', 'pojo-accessibility' ); ?>
-</span>
+								<span class="pojo-a11y-toolbar-text"><?php esc_html_e( 'Reset', 'pojo-accessibility' ); ?></span>
 							</a>
 						</li>
 					</ul>
@@ -192,16 +191,20 @@ final class Pojo_A11y_Frontend {
 							</a>
 						</li>
 						<?php endif; ?>
+						<?php if ( ! empty( $help_link ) ) : ?>
 						<li class="pojo-a11y-toolbar-item">
 							<a href="<?php echo esc_attr( $help_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-help" tabindex="-1">
 								<?php echo $this->get_toolbar_button_title( 'help' ); ?>
 							</a>
 						</li>
+						<?php endif; ?>
+						<?php if ( ! empty( $feedback_link ) ) : ?>
 						<li class="pojo-a11y-toolbar-item">
 							<a href="<?php echo esc_attr( $feedback_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-feedback" tabindex="-1">
 								<?php echo $this->get_toolbar_button_title( 'feedback' ); ?>
 							</a>
 						</li>
+						<?php endif; ?>
 					</ul>
 					<?php endif; ?>
 				</div>
