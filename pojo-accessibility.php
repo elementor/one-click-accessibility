@@ -5,7 +5,7 @@ Plugin URI: https://wpaccessibility.io/?utm_source=wp-plugins&utm_campaign=plugi
 Description: The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
 Author: One Click Accessibility
 Author URI: https://wpaccessibility.io/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
-Version: 2.0.2
+Version: 2.0.3
 Text Domain: pojo-accessibility
 Domain Path: /languages/
 */
