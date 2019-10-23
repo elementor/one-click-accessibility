@@ -2,7 +2,7 @@
 Contributors: pojo.me, KingYes, ariel.k, jzaltzberg, bainternet
 Tags: Accessibility, A11y, Toolbar, Tools, wcag, accessible
 Requires at least: 4.1
-Tested up to: 5.2
+Tested up to: 5.3
 Requires PHP: 5.4
 Stable tag: 2.0.3
 License: GPLv2 or later
