@@ -275,7 +275,14 @@ class Pojo_A11y_Customizer {
 		foreach ( $this->css_rules as $selector => $css_rules ) {
 			$css .= "\n" . $selector . '{ ' . implode( "\t", $css_rules ) . '}';
 		}
-		echo '<style type="text/css">' . $css . $this->css_code . '</style>';
+
+		$type_attr = '';
+
+		if ( function_exists( 'is_admin' ) && ! is_admin() && function_exists( 'current_theme_supports' ) && ! current_theme_supports( 'html5', 'style' ) ) {
+			$type_attr = " type='text/css'";
+		}
+
+		echo '<style ' . $type_attr . '>' . $css . $this->css_code . '</style>';
 	}
 
 	public function __construct() {
