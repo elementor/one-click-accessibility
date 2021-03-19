@@ -101,7 +101,7 @@ final class Pojo_A11y_Frontend {
 		?>
 		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
 			<div class="pojo-a11y-toolbar-toggle">
-				<a class="pojo-a11y-toolbar-link pojo-a11y-toolbar-toggle-link" href="javascript:void(0);" title="<?php echo esc_attr( $toolbar_title ); ?>">
+				<a class="pojo-a11y-toolbar-link pojo-a11y-toolbar-toggle-link" href="javascript:void(0);" title="<?php echo esc_attr( $toolbar_title ); ?>" role="button">
 					<span class="pojo-sr-only sr-only"><?php esc_html_e( 'Open toolbar', 'pojo-accessibility' ); ?></span>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="currentColor" width="1em">
 						<?php echo $this->get_svg_icon( $icon ); ?>
