@@ -14,11 +14,11 @@ class Pojo_A11y_Customizer {
 			'title' => __( 'Toolbar Icon', 'pojo-accessibility' ),
 			'type' => 'select',
 			'choices' => array(
-				'wheelchair' => __( 'Wheelchair', 'pojo-accessibility' ),
 				'one-click' => __( 'One Click', 'pojo-accessibility' ),
+				'wheelchair' => __( 'Wheelchair', 'pojo-accessibility' ),
 				'accessibility' => __( 'Accessibility', 'pojo-accessibility' ),
 			),
-			'std' => 'wheelchair',
+			'std' => 'one-click',
 			'description' => __( 'Set Toolbar Icon', 'pojo-accessibility' ),
 		);
 

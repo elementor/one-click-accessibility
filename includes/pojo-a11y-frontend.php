@@ -96,7 +96,7 @@ final class Pojo_A11y_Frontend {
 
 		$has_custom_links = ( ! empty( $sitemap_link ) || ! empty( $help_link ) || ! empty( $feedback_link ) );
 
-		$icon = isset( $customizer_options['a11y_toolbar_icon'] ) ? $customizer_options['a11y_toolbar_icon'] : 'wheelchair';
+		$icon = isset( $customizer_options['a11y_toolbar_icon'] ) ? $customizer_options['a11y_toolbar_icon'] : 'one-click';
 
 		?>
 		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
