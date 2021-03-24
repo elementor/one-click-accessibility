@@ -62,8 +62,10 @@ final class Pojo_A11y_Frontend {
 			return;
 		}
 
+		$element_id = get_option( 'pojo_a11y_skip_to_content_link_element_id', 'content' );
+
 		?>
-		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#content"><?php esc_html_e( 'Skip to content', 'pojo-accessibility' ); ?></a>
+		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#<?php echo esc_html( $element_id ); ?>"><?php esc_html_e( 'Skip to content', 'pojo-accessibility' ); ?></a>
 		<?php
 	}
 
@@ -96,7 +98,7 @@ final class Pojo_A11y_Frontend {
 
 		$has_custom_links = ( ! empty( $sitemap_link ) || ! empty( $help_link ) || ! empty( $feedback_link ) );
 
-		$icon = isset( $customizer_options['a11y_toolbar_icon'] ) ? $customizer_options['a11y_toolbar_icon'] : 'wheelchair';
+		$icon = isset( $customizer_options['a11y_toolbar_icon'] ) ? $customizer_options['a11y_toolbar_icon'] : 'one-click';
 
 		?>
 		<nav id="pojo-a11y-toolbar" class="<?php echo esc_attr( implode( ' ', $wrapper_classes ) ); ?>" role="navigation">
@@ -136,7 +138,7 @@ final class Pojo_A11y_Frontend {
 							</li>
 						<?php endif; ?>
 
-						<?php if ( $this->is_toolbar_button_active( 'contrast' ) ) : ?>
+						<?php if ( $this->is_toolbar_button_active( 'high_contrast' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-high-contrast" data-action="high-contrast" data-action-group="schema" tabindex="-1" role="button">
 									<?php echo $this->get_toolbar_button_title( 'high_contrast' ); ?>
@@ -144,12 +146,14 @@ final class Pojo_A11y_Frontend {
 							</li>
 						<?php endif; ?>
 
-						<li class="pojo-a11y-toolbar-item">
-							<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-negative-contrast" data-action="negative-contrast" data-action-group="schema" tabindex="-1" role="button">
+						<?php if ( $this->is_toolbar_button_active( 'negative_contrast' ) ) : ?>
+							<li class="pojo-a11y-toolbar-item">
+								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-negative-contrast" data-action="negative-contrast" data-action-group="schema" tabindex="-1" role="button">
 
-								<?php echo $this->get_toolbar_button_title( 'negative_contrast' ); ?>
-							</a>
-						</li>
+									<?php echo $this->get_toolbar_button_title( 'negative_contrast' ); ?>
+								</a>
+							</li>
+						<?php endif; ?>
 
 						<?php if ( $this->is_toolbar_button_active( 'light_bg' ) ) : ?>
 							<li class="pojo-a11y-toolbar-item">
