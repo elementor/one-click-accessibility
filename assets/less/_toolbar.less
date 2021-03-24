@@ -37,14 +37,6 @@
 	.pojo-a11y-toolbar-position(right);
 	.pojo-a11y-toolbar-position(left);
 
-	&.pojo-a11y-toolbar-open {
-		.pojo-a11y-toolbar-toggle,
-		.pojo-a11y-toolbar-overlay {
-			-webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-			box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
-		}
-	}
-
 	.pojo-a11y-toolbar-toggle {
 		position: absolute;
 
@@ -62,6 +54,10 @@
 				box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
 			}
 		}
+
+		svg {
+			max-width: inherit; //Compatibility for Twenty Twenty theme `svg {max-width:100%;}`
+		}
 	}
 	
 	.pojo-a11y-toolbar-overlay {
@@ -75,6 +71,15 @@
 			font-weight: bold;
 			padding: 10px 15px 0;
 			margin: 0;
+		}
+
+		&.pojo-a11y-toolbar-open {
+
+			.pojo-a11y-toolbar-toggle a,
+			.pojo-a11y-toolbar-overlay {
+				-webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+				box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+			}
 		}
 
 		ul.pojo-a11y-toolbar-items {
