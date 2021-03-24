@@ -62,8 +62,10 @@ final class Pojo_A11y_Frontend {
 			return;
 		}
 
+		$element_id = get_option( 'pojo_a11y_skip_to_content_link_element_id', 'content' );
+
 		?>
-		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#content"><?php esc_html_e( 'Skip to content', 'pojo-accessibility' ); ?></a>
+		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#<?php echo esc_html( $element_id ); ?>"><?php esc_html_e( 'Skip to content', 'pojo-accessibility' ); ?></a>
 		<?php
 	}
 
