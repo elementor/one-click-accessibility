@@ -4,7 +4,7 @@ Tags: Accessibility, A11y, Toolbar, Tools, wcag, accessible
 Requires at least: 4.1
 Tested up to: 6.1
 Requires PHP: 5.4
-Stable tag: 2.0.3
+Stable tag: 2.1.0
 License: GPLv2 or later
 
 The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
