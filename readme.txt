@@ -7,13 +7,11 @@ Requires PHP: 5.4
 Stable tag: 2.0.3
 License: GPLv2 or later
 
-The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
+The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
 
 == Description ==
 
-The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
-
-**Please Note:** One Click Accessibility was initially developed for the Pojo framework, and now has been made compatible for any WordPress theme
+The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
 
 While most accessibility issues can’t be addressed without directly changing your content, One Click Accessibility adds a number of helpful accessibility features with the minimum amount of setup and without the need for expert knowledge.
 
