@@ -306,6 +306,14 @@ class Pojo_A11y_Settings {
 		);
 
 		$fields[] = array(
+			'id' => 'pojo_a11y_skip_to_content_link_element_id',
+			'title' => __( 'Skip to Content Element ID', 'pojo-accessibility' ),
+			'placeholder' => 'content',
+			'type' => self::FIELD_TEXT,
+			'std' => 'content',
+		);
+
+		$fields[] = array(
 			'id' => 'pojo_a11y_remove_link_target',
 			'title' => __( 'Remove target attribute from links', 'pojo-accessibility' ),
 			'type' => self::FIELD_SELECT,
