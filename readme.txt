@@ -7,13 +7,11 @@ Requires PHP: 5.4
 Stable tag: 2.0.3
 License: GPLv2 or later
 
-The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
+The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
 
 == Description ==
 
-The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible.
-
-**Please Note:** One Click Accessibility was initially developed for the Pojo framework, and now has been made compatible for any WordPress theme
+The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
 
 While most accessibility issues can’t be addressed without directly changing your content, One Click Accessibility adds a number of helpful accessibility features with the minimum amount of setup and without the need for expert knowledge.
 
@@ -66,6 +64,15 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 4. Negative Contrast Mode
 
 == Changelog ==
+
+= 2.0.4 - 2022-12-18 =
+* Tweak: Added title for all SVG icons ([#30](https://github.com/pojome/one-click-accessibility/issues/30))
+* Tweak: Added custom element ID for "Skip Content" link ([#35](https://github.com/pojome/one-click-accessibility/issues/35)), ([#36](https://github.com/pojome/one-click-accessibility/issues/36))
+* Tweak: Add `role="button"` to the toggle ([#57](https://github.com/pojome/one-click-accessibility/pull/57))
+* Tweak: Changed the default icon to "One Click"
+* Fix: Remove extra quote ([Topic](https://wordpress.org/support/topic/bug-317/))
+* Fix: High Contrast and Negative Contrast still appear after disabled from the settings ([#39](https://github.com/pojome/one-click-accessibility/issues/39))
+* Fix: Added compatibility with Twenty Twenty theme
 
 = 2.0.3 - 2018-05-28 =
 * Fix: Toolbar settings panel empty in non-English sites

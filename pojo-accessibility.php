@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: One Click Accessibility - WordPress Accessibility Toolbar
+Plugin Name: One Click Accessibility
 Plugin URI: https://wpaccessibility.io/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
-Description: The One Click Accessibility plugin is the fastest plugin to help you make your website more accessible by adding an accessibility toolbar.
+Description: The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
 Author: One Click Accessibility
 Author URI: https://wpaccessibility.io/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
 Version: 2.0.3
