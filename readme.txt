@@ -72,7 +72,7 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 * Tweak: Added custom element ID for "Skip Content" link ([#35](https://github.com/pojome/one-click-accessibility/issues/35)), ([#36](https://github.com/pojome/one-click-accessibility/issues/36))
 * Tweak: Add `role="button"` to the toggle ([#57](https://github.com/pojome/one-click-accessibility/pull/57))
 * Tweak: Changed the default icon to "One Click"
-* Fix: Remove extra quote (Topic)[https://wordpress.org/support/topic/bug-317/]
+* Fix: Remove extra quote ([Topic](https://wordpress.org/support/topic/bug-317/))
 * Fix: High Contrast and Negative Contrast still appear after disabled from the settings ([#39](https://github.com/pojome/one-click-accessibility/issues/39))
 * Fix: Added compatibility with Twenty Twenty theme
 
