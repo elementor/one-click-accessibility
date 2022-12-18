@@ -67,6 +67,15 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 == Changelog ==
 
+= 2.0.4 - 2022-12-18 =
+* Tweak: Added title for all SVG icons ([#30](https://github.com/pojome/one-click-accessibility/issues/30))
+* Tweak: Added custom element ID for "Skip Content" link ([#35](https://github.com/pojome/one-click-accessibility/issues/35)), ([#36](https://github.com/pojome/one-click-accessibility/issues/36))
+* Tweak: Add `role="button"` to the toggle ([#57](https://github.com/pojome/one-click-accessibility/pull/57))
+* Tweak: Changed the default icon to "One Click"
+* Fix: Remove extra quote (Topic)[https://wordpress.org/support/topic/bug-317/]
+* Fix: High Contrast and Negative Contrast still appear after disabled from the settings ([#39](https://github.com/pojome/one-click-accessibility/issues/39))
+* Fix: Added compatibility with Twenty Twenty theme
+
 = 2.0.3 - 2018-05-28 =
 * Fix: Toolbar settings panel empty in non-English sites
 * Fix: Avoid showing Help & Feedback links if not defined ([#27](https://github.com/pojome/one-click-accessibility/pull/27))
