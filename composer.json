@@ -9,7 +9,7 @@
 			"email": "yakir@pojo.me"
 		}
 	],
-	"require": {
+	"require-dev": {
 		"phpunit/phpunit": "4.8.8"
 	}
 }
