@@ -1,6 +1,7 @@
 {
 	"name": "pojome/pojo-accessibility",
 	"description": "pojo accessibility",
+	"type": "wordpress-plugin",
 	"minimum-stability": "dev",
 	"license": "gpl2",
 	"authors": [
