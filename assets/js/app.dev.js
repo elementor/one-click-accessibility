@@ -23,7 +23,7 @@
 
 		settings: {
 			minFontSize: 120,
-			maxFontSize: 200,
+			maxFontSize: PojoA11yOptions.maximum_zoom_level,
 			buttonsClassPrefix: 'pojo-a11y-btn-',
 			bodyClassPrefix: 'pojo-a11y-',
 			bodyFontClassPrefix: 'pojo-a11y-resize-font-',
