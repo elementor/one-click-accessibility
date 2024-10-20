@@ -1,23 +1,27 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class Pojo_A11y_Admin_UI {
+namespace EA11y\Modules\Legacy\Components;
+
+use EA11y\Classes\Utils;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
+/**
+ * Class Admin
+ */
+class Admin {
 
 	const SETTINGS_SLUG = 'toplevel_page_accessibility-settings';
 	const TOOLBAR_SLUG = 'accessibility_page_accessibility-toolbar';
-
-	private function _is_elementor_installed() {
-		$file_path = 'elementor/elementor.php';
-		$installed_plugins = get_plugins();
-		return isset( $installed_plugins[ $file_path ] );
-	}
 
 	public function ajax_a11y_install_elementor_set_admin_notice_viewed() {
 		update_user_meta( get_current_user_id(), '_a11y_elementor_install_notice', 'true' );
 	}
 
 	public function admin_notices() {
-		if ( ! current_user_can( 'install_plugins' ) || $this->_is_elementor_installed() ) {
+		if ( ! current_user_can( 'install_plugins' ) || Utils::is_elementor_installed() ) {
 			return;
 		}
 
@@ -152,7 +156,7 @@ class Pojo_A11y_Admin_UI {
 		$current_screen = get_current_screen();
 		if ( in_array( $current_screen->id, array( self::SETTINGS_SLUG, self::TOOLBAR_SLUG ) ) ) {
 			$footer_text = sprintf(
-				/* translators: 1: One Click Accessibility, 2: Link to plugin review */
+			/* translators: 1: One Click Accessibility, 2: Link to plugin review */
 				__( 'Enjoyed %1$s? Please leave us a %2$s rating. We really appreciate your support!', 'pojo-accessibility' ),
 				'<strong>' . __( 'One Click Accessibility', 'pojo-accessibility' ) . '</strong>',
 				'<a href="https://wordpress.org/support/plugin/pojo-accessibility/reviews/?filter=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
