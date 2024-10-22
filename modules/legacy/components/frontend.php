@@ -1,8 +1,18 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-final class Pojo_A11y_Frontend {
+namespace EA11y\Modules\Legacy\Components;
 
+use EA11y\Modules\Legacy\Module;
+use EA11y\Plugin;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
+/**
+ * Class Frontend
+ */
+class Frontend {
 	public $svg_icons = null;
 
 	public function is_toolbar_active() {
@@ -13,30 +23,32 @@ final class Pojo_A11y_Frontend {
 		return $is_active;
 	}
 
-	public function is_toolbar_button_active( $button_type ) {
+	public function is_toolbar_button_active( $button_type ): bool {
 		return 'disable' !== get_option( "pojo_a11y_toolbar_button_{$button_type}" );
 	}
 
 	public function get_toolbar_button_title( $button_type ) {
-		$title = Pojo_Accessibility::$instance->settings->get_default_title_text( "pojo_a11y_toolbar_button_{$button_type}_title" );
+		/**
+		 * @var Settings $settings
+		 */
+		$settings = Module::get_settings();
+		$title = $settings->get_default_title_text( "pojo_a11y_toolbar_button_{$button_type}_title" );
 		return '<span class="pojo-a11y-toolbar-icon">' . $this->get_toolbar_svg( $button_type, $title ) . '</span><span class="pojo-a11y-toolbar-text">' . $title . '</span>';
 	}
 
 	public function enqueue_scripts() {
 		wp_register_script(
 			'pojo-a11y',
-			POJO_A11Y_ASSETS_URL . 'js/app.min.js',
-			array(
-				'jquery',
-			),
+			EA11Y_URL . 'modules/legacy/js/app.min.js',
+			[ 'jquery' ],
 			'1.0.0',
 			true
 		);
 
 		wp_register_style(
 			'pojo-a11y',
-			POJO_A11Y_ASSETS_URL . 'css/style.min.css',
-			array(),
+			EA11Y_URL . 'modules/legacy/assets/css/style.min.css',
+			[],
 			'1.0.0'
 		);
 
@@ -46,13 +58,13 @@ final class Pojo_A11y_Frontend {
 		wp_localize_script(
 			'pojo-a11y',
 			'PojoA11yOptions',
-			array(
+			[
 				'focusable' => ( 'enable' === get_option( 'pojo_a11y_focusable' ) ),
 				'remove_link_target' => ( 'enable' === get_option( 'pojo_a11y_remove_link_target' ) ),
 				'add_role_links' => ( 'enable' === get_option( 'pojo_a11y_add_role_links' ) ),
 				'enable_save' => ( 'enable' === get_option( 'pojo_a11y_save' ) ),
 				'save_expiration' => get_option( 'pojo_a11y_save_expiration' ),
-			)
+			]
 		);
 	}
 
@@ -77,16 +89,16 @@ final class Pojo_A11y_Frontend {
 		$customizer_options = get_option( POJO_A11Y_CUSTOMIZER_OPTIONS );
 
 		$toolbar_position = $customizer_options['a11y_toolbar_position'];
-		if ( empty( $toolbar_position ) || ! in_array( $toolbar_position, array( 'right', 'left' ) ) ) {
+		if ( empty( $toolbar_position ) || ! in_array( $toolbar_position, [ 'right', 'left' ] ) ) {
 			$toolbar_position = 'left';
 		}
-
-		$toolbar_title = Pojo_Accessibility::$instance->settings->get_default_title_text( 'pojo_a11y_toolbar_title' );
+		$settings = Module::get_settings();
+		$toolbar_title = $settings->get_default_title_text( 'pojo_a11y_toolbar_title' );
 		$toolbar_visibility = get_option( 'pojo_a11y_toolbar' );
 
-		$wrapper_classes = array(
+		$wrapper_classes = [
 			'pojo-a11y-toolbar-' . $toolbar_position,
-		);
+		];
 
 		if ( 'enable' !== $toolbar_visibility ) {
 			$wrapper_classes[] = 'pojo-a11y-' . $toolbar_visibility;
@@ -114,7 +126,7 @@ final class Pojo_A11y_Frontend {
 			<div class="pojo-a11y-toolbar-overlay">
 				<div class="pojo-a11y-toolbar-inner">
 					<p class="pojo-a11y-toolbar-title"><?php echo $toolbar_title; ?></p>
-					
+
 					<ul class="pojo-a11y-toolbar-items pojo-a11y-tools">
 						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
@@ -123,7 +135,7 @@ final class Pojo_A11y_Frontend {
 									<?php echo $this->get_toolbar_button_title( 'resize_font_add' ); ?>
 								</a>
 							</li>
-							
+
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-minus" data-action="resize-minus" data-action-group="resize" tabindex="-1" role="button">
 									<?php echo $this->get_toolbar_button_title( 'resize_font_less' ); ?>
@@ -188,29 +200,29 @@ final class Pojo_A11y_Frontend {
 						</li>
 					</ul>
 					<?php if ( $has_custom_links ) : ?>
-					<ul class="pojo-a11y-toolbar-items pojo-a11y-links">
-						<?php if ( ! empty( $sitemap_link ) ) : ?>
-						<li class="pojo-a11y-toolbar-item">
-							<a href="<?php echo esc_attr( $sitemap_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-sitemap" tabindex="-1" role="button">
-								<?php echo $this->get_toolbar_button_title( 'sitemap' ); ?>
-							</a>
-						</li>
-						<?php endif; ?>
-						<?php if ( ! empty( $help_link ) ) : ?>
-						<li class="pojo-a11y-toolbar-item">
-							<a href="<?php echo esc_attr( $help_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-help" tabindex="-1" role="button">
-								<?php echo $this->get_toolbar_button_title( 'help' ); ?>
-							</a>
-						</li>
-						<?php endif; ?>
-						<?php if ( ! empty( $feedback_link ) ) : ?>
-						<li class="pojo-a11y-toolbar-item">
-							<a href="<?php echo esc_attr( $feedback_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-feedback" tabindex="-1" role="button">
-								<?php echo $this->get_toolbar_button_title( 'feedback' ); ?>
-							</a>
-						</li>
-						<?php endif; ?>
-					</ul>
+						<ul class="pojo-a11y-toolbar-items pojo-a11y-links">
+							<?php if ( ! empty( $sitemap_link ) ) : ?>
+								<li class="pojo-a11y-toolbar-item">
+									<a href="<?php echo esc_attr( $sitemap_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-sitemap" tabindex="-1" role="button">
+										<?php echo $this->get_toolbar_button_title( 'sitemap' ); ?>
+									</a>
+								</li>
+							<?php endif; ?>
+							<?php if ( ! empty( $help_link ) ) : ?>
+								<li class="pojo-a11y-toolbar-item">
+									<a href="<?php echo esc_attr( $help_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-help" tabindex="-1" role="button">
+										<?php echo $this->get_toolbar_button_title( 'help' ); ?>
+									</a>
+								</li>
+							<?php endif; ?>
+							<?php if ( ! empty( $feedback_link ) ) : ?>
+								<li class="pojo-a11y-toolbar-item">
+									<a href="<?php echo esc_attr( $feedback_link ); ?>" class="pojo-a11y-toolbar-link pojo-a11y-link-feedback" tabindex="-1" role="button">
+										<?php echo $this->get_toolbar_button_title( 'feedback' ); ?>
+									</a>
+								</li>
+							<?php endif; ?>
+						</ul>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -219,7 +231,7 @@ final class Pojo_A11y_Frontend {
 	}
 
 	private function get_toolbar_svg( $icon, $icon_title = '' ) {
-		$icons = array(
+		$icons = [
 			'resize_font_add'   => '<path fill="currentColor" d="M256 200v16c0 4.25-3.75 8-8 8h-56v56c0 4.25-3.75 8-8 8h-16c-4.25 0-8-3.75-8-8v-56h-56c-4.25 0-8-3.75-8-8v-16c0-4.25 3.75-8 8-8h56v-56c0-4.25 3.75-8 8-8h16c4.25 0 8 3.75 8 8v56h56c4.25 0 8 3.75 8 8zM288 208c0-61.75-50.25-112-112-112s-112 50.25-112 112 50.25 112 112 112 112-50.25 112-112zM416 416c0 17.75-14.25 32-32 32-8.5 0-16.75-3.5-22.5-9.5l-85.75-85.5c-29.25 20.25-64.25 31-99.75 31-97.25 0-176-78.75-176-176s78.75-176 176-176 176 78.75 176 176c0 35.5-10.75 70.5-31 99.75l85.75 85.75c5.75 5.75 9.25 14 9.25 22.5z"></path>',
 			'resize_font_less'  => '<path fill="currentColor" d="M256 200v16c0 4.25-3.75 8-8 8h-144c-4.25 0-8-3.75-8-8v-16c0-4.25 3.75-8 8-8h144c4.25 0 8 3.75 8 8zM288 208c0-61.75-50.25-112-112-112s-112 50.25-112 112 50.25 112 112 112 112-50.25 112-112zM416 416c0 17.75-14.25 32-32 32-8.5 0-16.75-3.5-22.5-9.5l-85.75-85.5c-29.25 20.25-64.25 31-99.75 31-97.25 0-176-78.75-176-176s78.75-176 176-176 176 78.75 176 176c0 35.5-10.75 70.5-31 99.75l85.75 85.75c5.75 5.75 9.25 14 9.25 22.5z"></path>',
 			'grayscale'         => '<path fill="currentColor" d="M15.75 384h-15.75v-352h15.75v352zM31.5 383.75h-8v-351.75h8v351.75zM55 383.75h-7.75v-351.75h7.75v351.75zM94.25 383.75h-7.75v-351.75h7.75v351.75zM133.5 383.75h-15.5v-351.75h15.5v351.75zM165 383.75h-7.75v-351.75h7.75v351.75zM180.75 383.75h-7.75v-351.75h7.75v351.75zM196.5 383.75h-7.75v-351.75h7.75v351.75zM235.75 383.75h-15.75v-351.75h15.75v351.75zM275 383.75h-15.75v-351.75h15.75v351.75zM306.5 383.75h-15.75v-351.75h15.75v351.75zM338 383.75h-15.75v-351.75h15.75v351.75zM361.5 383.75h-15.75v-351.75h15.75v351.75zM408.75 383.75h-23.5v-351.75h23.5v351.75zM424.5 383.75h-8v-351.75h8v351.75zM448 384h-15.75v-352h15.75v352z"></path>',
@@ -232,7 +244,7 @@ final class Pojo_A11y_Frontend {
 			'sitemap' => '<path fill="currentColor" d="M448 312v80c0 13.25-10.75 24-24 24h-80c-13.25 0-24-10.75-24-24v-80c0-13.25 10.75-24 24-24h24v-48h-128v48h24c13.25 0 24 10.75 24 24v80c0 13.25-10.75 24-24 24h-80c-13.25 0-24-10.75-24-24v-80c0-13.25 10.75-24 24-24h24v-48h-128v48h24c13.25 0 24 10.75 24 24v80c0 13.25-10.75 24-24 24h-80c-13.25 0-24-10.75-24-24v-80c0-13.25 10.75-24 24-24h24v-48c0-17.5 14.5-32 32-32h128v-48h-24c-13.25 0-24-10.75-24-24v-80c0-13.25 10.75-24 24-24h80c13.25 0 24 10.75 24 24v80c0 13.25-10.75 24-24 24h-24v48h128c17.5 0 32 14.5 32 32v48h24c13.25 0 24 10.75 24 24z"></path>',
 			'help' => '<path fill="currentColor" d="M224 344v-48c0-4.5-3.5-8-8-8h-48c-4.5 0-8 3.5-8 8v48c0 4.5 3.5 8 8 8h48c4.5 0 8-3.5 8-8zM288 176c0-45.75-48-80-91-80-40.75 0-71.25 17.5-92.75 53.25-2.25 3.5-1.25 8 2 10.5l33 25c1.25 1 3 1.5 4.75 1.5 2.25 0 4.75-1 6.25-3 11.75-15 16.75-19.5 21.5-23 4.25-3 12.5-6 21.5-6 16 0 30.75 10.25 30.75 21.25 0 13-6.75 19.5-22 26.5-17.75 8-42 28.75-42 53v9c0 4.5 3.5 8 8 8h48c4.5 0 8-3.5 8-8v0c0-5.75 7.25-18 19-24.75 19-10.75 45-25.25 45-63.25zM384 224c0 106-86 192-192 192s-192-86-192-192 86-192 192-192 192 86 192 192z"></path>',
 			'feedback' => '<path fill="currentColor" d="M448 224c0 88.5-100.25 160-224 160-12.25 0-24.5-0.75-36.25-2-32.75 29-71.75 49.5-115 60.5-9 2.5-18.75 4.25-28.5 5.5-5.5 0.5-10.75-3.5-12-9.5v-0.25c-1.25-6.25 3-10 6.75-14.5 15.75-17.75 33.75-32.75 45.5-74.5-51.5-29.25-84.5-74.5-84.5-125.25 0-88.25 100.25-160 224-160s224 71.5 224 160z"></path>',
-		);
+		];
 
 		if ( isset( $icons[ $icon ] ) ) {
 			$icon_title_html = '';
@@ -248,11 +260,11 @@ final class Pojo_A11y_Frontend {
 
 	private function get_svg_icon( $icon ) {
 		if ( null === $this->svg_icons ) {
-			$this->svg_icons = array(
+			$this->svg_icons = [
 				'wheelchair' => '<g><path d="M60.4,78.9c-2.2,4.1-5.3,7.4-9.2,9.8c-4,2.4-8.3,3.6-13,3.6c-6.9,0-12.8-2.4-17.7-7.3c-4.9-4.9-7.3-10.8-7.3-17.7c0-5,1.4-9.5,4.1-13.7c2.7-4.2,6.4-7.2,10.9-9.2l-0.9-7.3c-6.3,2.3-11.4,6.2-15.3,11.8C7.9,54.4,6,60.6,6,67.3c0,5.8,1.4,11.2,4.3,16.1s6.8,8.8,11.7,11.7c4.9,2.9,10.3,4.3,16.1,4.3c7,0,13.3-2.1,18.9-6.2c5.7-4.1,9.6-9.5,11.7-16.2l-5.7-11.4C63.5,70.4,62.5,74.8,60.4,78.9z"/><path d="M93.8,71.3l-11.1,5.5L70,51.4c-0.6-1.3-1.7-2-3.2-2H41.3l-0.9-7.2h22.7v-7.2H39.6L37.5,19c2.5,0.3,4.8-0.5,6.7-2.3c1.9-1.8,2.9-4,2.9-6.6c0-2.5-0.9-4.6-2.6-6.3c-1.8-1.8-3.9-2.6-6.3-2.6c-2,0-3.8,0.6-5.4,1.8c-1.6,1.2-2.7,2.7-3.2,4.6c-0.3,1-0.4,1.8-0.3,2.3l5.4,43.5c0.1,0.9,0.5,1.6,1.2,2.3c0.7,0.6,1.5,0.9,2.4,0.9h26.4l13.4,26.7c0.6,1.3,1.7,2,3.2,2c0.6,0,1.1-0.1,1.6-0.4L97,77.7L93.8,71.3z"/></g>',
 				'one-click' => '<path d="M50 .8c5.7 0 10.4 4.7 10.4 10.4S55.7 21.6 50 21.6s-10.4-4.7-10.4-10.4S44.3.8 50 .8zM92.2 32l-21.9 2.3c-2.6.3-4.6 2.5-4.6 5.2V94c0 2.9-2.3 5.2-5.2 5.2H60c-2.7 0-4.9-2.1-5.2-4.7l-2.2-24.7c-.1-1.5-1.4-2.5-2.8-2.4-1.3.1-2.2 1.1-2.4 2.4l-2.2 24.7c-.2 2.7-2.5 4.7-5.2 4.7h-.5c-2.9 0-5.2-2.3-5.2-5.2V39.4c0-2.7-2-4.9-4.6-5.2L7.8 32c-2.6-.3-4.6-2.5-4.6-5.2v-.5c0-2.6 2.1-4.7 4.7-4.7h.5c19.3 1.8 33.2 2.8 41.7 2.8s22.4-.9 41.7-2.8c2.6-.2 4.9 1.6 5.2 4.3v1c-.1 2.6-2.1 4.8-4.8 5.1z"/>',
 				'accessibility' => '<path d="M50 8.1c23.2 0 41.9 18.8 41.9 41.9 0 23.2-18.8 41.9-41.9 41.9C26.8 91.9 8.1 73.2 8.1 50S26.8 8.1 50 8.1M50 0C22.4 0 0 22.4 0 50s22.4 50 50 50 50-22.4 50-50S77.6 0 50 0zm0 11.3c-21.4 0-38.7 17.3-38.7 38.7S28.6 88.7 50 88.7 88.7 71.4 88.7 50 71.4 11.3 50 11.3zm0 8.9c4 0 7.3 3.2 7.3 7.3S54 34.7 50 34.7s-7.3-3.2-7.3-7.3 3.3-7.2 7.3-7.2zm23.7 19.7c-5.8 1.4-11.2 2.6-16.6 3.2.2 20.4 2.5 24.8 5 31.4.7 1.9-.2 4-2.1 4.7-1.9.7-4-.2-4.7-2.1-1.8-4.5-3.4-8.2-4.5-15.8h-2c-1 7.6-2.7 11.3-4.5 15.8-.7 1.9-2.8 2.8-4.7 2.1-1.9-.7-2.8-2.8-2.1-4.7 2.6-6.6 4.9-11 5-31.4-5.4-.6-10.8-1.8-16.6-3.2-1.7-.4-2.8-2.1-2.4-3.9.4-1.7 2.1-2.8 3.9-2.4 19.5 4.6 25.1 4.6 44.5 0 1.7-.4 3.5.7 3.9 2.4.7 1.8-.3 3.5-2.1 3.9z"/>',
-			);
+			];
 		}
 
 		if ( isset( $this->svg_icons[ $icon ] ) ) {
@@ -263,10 +275,8 @@ final class Pojo_A11y_Frontend {
 	}
 
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
-
-		add_action( 'wp_footer', array( &$this, 'print_skip_to_content_link' ), 20 );
-		add_action( 'wp_footer', array( &$this, 'print_toolbar' ), 30 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'wp_footer', [ $this, 'print_skip_to_content_link' ], 20 );
+		add_action( 'wp_footer', [ $this, 'print_toolbar' ], 30 );
 	}
-
 }
