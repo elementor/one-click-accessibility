@@ -39,7 +39,7 @@ class Frontend {
 	public function enqueue_scripts() {
 		wp_register_script(
 			'pojo-a11y',
-			EA11Y_ASSETS_URL . 'js/app.min.js',
+			EA11Y_URL . 'modules/legacy/js/app.min.js',
 			[ 'jquery' ],
 			'1.0.0',
 			true
@@ -47,7 +47,7 @@ class Frontend {
 
 		wp_register_style(
 			'pojo-a11y',
-			EA11Y_ASSETS_URL . 'css/style.min.css',
+			EA11Y_URL . 'modules/legacy/assets/css/style.min.css',
 			[],
 			'1.0.0'
 		);
