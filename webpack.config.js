@@ -15,6 +15,7 @@ module.exports = {
 	entry: entryPoints,
 	output: {
 		...defaultConfig.output,
+		filename: '[name]/[name].js',
 		path: path.resolve( process.cwd(), 'assets/build' ),
 	},
 };
