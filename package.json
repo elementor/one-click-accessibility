@@ -5,10 +5,8 @@
 	"description": "",
 	"version": "2.1.0",
 	"scripts": {
-		"build": "npm run build:admin",
-		"build:admin": "wp-scripts build assets/src/settings/js/admin.js --output-path=assets/build/admin",
-		"start": "npm run start:admin",
-		"start:admin": "wp-scripts start assets/src/settings/js/admin.js --output-path=assets/build/admin",
+		"build": "wp-scripts build",
+		"start": "wp-scripts start",
 		"format": "wp-scripts format",
 		"lint:js": "wp-scripts lint-js",
 		"prepare": "husky install",
