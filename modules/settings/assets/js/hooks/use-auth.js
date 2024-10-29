@@ -1,13 +1,12 @@
 import API from '../api';
 import { UPGRADE_LINK } from '../constants';
-import { usePluginSettingsContext } from '../context/plugin-settings-context';
 
 const useAuth = () => {
 	const { subscriptionId } = 123;
 
 	const redirectToConnect = async () => {
 		const link = await getConnectLink();
-
+		
 		window.open( link, '_self' ).focus();
 	};
 
