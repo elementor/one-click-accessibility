@@ -1,8 +1,15 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-final class Pojo_A11y_Elementor {
+namespace EA11y\Modules\Legacy\Components;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
+/**
+ * Class Elementor
+ */
+class Elementor {
 	public function is_toolbar_active( $is_active ) {
 		if ( \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
 			$is_active = false;
