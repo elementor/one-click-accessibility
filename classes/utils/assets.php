@@ -92,8 +92,6 @@ class Assets {
 	 */
 	private static function get_assets_path( string $asset_name, string $asset_type, string $suffix = '' ) : string {
 		return \EA11Y_ASSETS_URL . '/build/' . $asset_name . $suffix . '.' . $asset_type;
-		//TODO: Check if we need this
-		//return \SITE_MAILER_ASSETS_URL . $asset_type . '/' . ( '' === $suffix ? 'dev/' : '' ) . $asset_name . $suffix . '.' . $asset_type;
 	}
 
 	/**
