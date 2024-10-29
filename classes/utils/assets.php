@@ -2,6 +2,10 @@
 
 namespace EA11y\Classes\Utils;
 
+use const EA11Y_ASSETS_PATH;
+use const EA11Y_ASSETS_URL;
+use const EA11Y_VERSION;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -56,7 +60,7 @@ class Assets {
 	 * @return string
 	 */
 	private static function get_assets_version( string $version = '' ) : string {
-		return empty( $version ) ? \SITE_MAILER_VERSION : $version;
+		return empty( $version ) ? EA11Y_VERSION : $version;
 	}
 
 	/**
@@ -91,9 +95,7 @@ class Assets {
 	 * @return string
 	 */
 	private static function get_assets_path( string $asset_name, string $asset_type, string $suffix = '' ) : string {
-		return \SITE_MAILER_ASSETS_URL . '/build/' . $asset_name . $suffix . '.' . $asset_type;
-		//TODO: Check if we need this
-		//return \SITE_MAILER_ASSETS_URL . $asset_type . '/' . ( '' === $suffix ? 'dev/' : '' ) . $asset_name . $suffix . '.' . $asset_type;
+		return EA11Y_ASSETS_URL . '/build/' . $asset_name . $suffix . '.' . $asset_type;
 	}
 
 	/**
@@ -103,8 +105,8 @@ class Assets {
 	 * @param bool $with_css
 	 */
 	public static function enqueue_app_assets( string $handle = '', bool $with_css = true ) : void {
-		$dir = \SITE_MAILER_ASSETS_PATH . 'build/';
-		$url = \SITE_MAILER_ASSETS_URL . 'build/';
+		$dir = EA11Y_ASSETS_PATH . 'build/';
+		$url = EA11Y_ASSETS_URL . 'build/';
 
 		$script_asset_path = $dir . $handle . '.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {
@@ -131,7 +133,7 @@ class Assets {
 		}
 		// enqueue css
 		$css_file_name = 'style-' . $handle . '.css';
-		$css_version = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? filemtime( $dir . $css_file_name ) : \SITE_MAILER_VERSION;
+		$css_version = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? filemtime( $dir . $css_file_name ) : EA11Y_VERSION;
 		wp_enqueue_style(
 			$handle,
 			$url . $css_file_name,

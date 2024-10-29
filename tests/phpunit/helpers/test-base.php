@@ -1,5 +1,5 @@
 <?php
-namespace SiteMailer\Tests\Helpers;
+namespace EA11y\Tests\Helpers;
 
 use \Eunit\Cases\Unit_Test;
 
