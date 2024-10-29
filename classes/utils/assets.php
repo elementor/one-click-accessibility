@@ -101,8 +101,8 @@ class Assets {
 	 * @param bool $with_css
 	 */
 	public static function enqueue_app_assets( string $handle = '', bool $with_css = true ) : void {
-		$dir = \EA11Y_ASSETS_PATH . 'build/' . $handle . '/';
-		$url = \EA11Y_ASSETS_URL . 'build/' . $handle . '/';
+		$dir = \EA11Y_ASSETS_PATH . 'build/';
+		$url = \EA11Y_ASSETS_URL . 'build/';
 
 		$script_asset_path = $dir . $handle . '.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {
