@@ -4,20 +4,11 @@ import Grid from '@elementor/ui/Grid';
 import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
 import { __ } from '@wordpress/i18n';
-import API from '../../api';
-import useModal from '../../hooks/use-modal';
+import { useAuth, useModal } from '../../hooks';
 
 function ConnectModal() {
 	const { isOpen } = useModal();
-
-	const redirectToConnect = async () => {
-		const link = await getConnectLink();
-		window.open( link, '_self' ).focus();
-	};
-
-	const getConnectLink = async () => {
-		return API.initConnect();
-	};
+	const { redirectToConnect } = useAuth();
 
 	return (
 		<Modal open={ isOpen }>

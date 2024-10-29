@@ -6,7 +6,7 @@ const useAuth = () => {
 
 	const redirectToConnect = async () => {
 		const link = await getConnectLink();
-		
+
 		window.open( link, '_self' ).focus();
 	};
 
