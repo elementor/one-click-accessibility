@@ -4,6 +4,7 @@ namespace EA11y\Modules\Settings;
 
 use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
+use EA11y\Modules\Connect\Module as Connect;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -54,10 +55,9 @@ class Module extends Module_Base {
 			self::SETTING_BASE_SLUG,
 			__( 'Accessibility Settings', 'pojo-accessibility' ),
 			__( 'Settings', 'pojo-accessibility' ),
-			self::SETTING_CAPABILITY,	
+			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-
 		);
 	}
 
@@ -85,10 +85,28 @@ class Module extends Module_Base {
 		);
 	}
 
+	public static function routes_list() : array {
+		return [
+			'Get_Settings',
+		];
+	}
+
+	/**
+	 * Get all plugin settings data
+	 * @return array
+	 */
+	public static function get_plugin_settings(): array {
+
+		return [
+			'isConnected' => Connect::is_connected(),
+		];
+	}
+
 	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
+		$this->register_routes();
 		$this->register_components();
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 		add_action( 'in_admin_header', [ $this, 'render_top_bar' ] );
