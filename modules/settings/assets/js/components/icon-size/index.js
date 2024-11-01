@@ -13,12 +13,12 @@ const IconSize = ( props ) => {
 	];
 	return (
 		<FormControl>
-			<FormLabel id="demo-radio-buttons-group-label" color="secondary">{ __( 'Size', 'pojo-accessibility' ) }</FormLabel>
+			<FormLabel id="icon-size-radio-buttons-group-label" color="secondary">{ __( 'Size', 'pojo-accessibility' ) }</FormLabel>
 			<RadioGroup
 				{ ...props }
-				aria-labelledby="demo-radio-buttons-group-label"
+				aria-labelledby="icon-size-radio-buttons-group-label"
 				defaultValue="small"
-				name="radio-buttons-group"
+				name="icon-size-radio-buttons-group"
 				row={ true }
 			>
 				{ options.map( ( option ) => (
