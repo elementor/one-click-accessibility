@@ -1,4 +1,3 @@
-import Avatar from '@elementor/ui/Avatar';
 import FormControl from '@elementor/ui/FormControl';
 import FormLabel from '@elementor/ui/FormLabel';
 import Paper from '@elementor/ui/Paper';
@@ -7,34 +6,16 @@ import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-
-// Example SVG icon components (replace these with your actual SVG icons)
-const SmallIcon = () => <svg width="32"
-	height="32"
-	viewBox="0 0 24 24"><circle cx="12"
-		cy="12"
-		r="10" /></svg>;
-const MediumIcon = () => <svg width="44"
-	height="44"
-	viewBox="0 0 24 24"><rect x="4"
-		y="4"
-		width="16"
-		height="16" /></svg>;
-const LargeIcon = () => <svg width="64"
-	height="64"
-	viewBox="0 0 24 24"><polygon points="12,2 2,22 22,22" /></svg>;
-const ExtraLargeIcon = () => <svg width="88"
-	height="88"
-	viewBox="0 0 24 24"><path d="M5,3 L19,21" /></svg>;
+import { AccessibilityControlsIcon, AccessibilityEyeIcon, AccessibilityPersonIcon, AccessibilityTextIcon } from '../../icons';
 
 const IconSelect = ( props ) => {
 	const [ selectedValue, setSelectedValue ] = useState( 'small' );
 
 	const options = [
-		{ value: 'small', icon: <SmallIcon />, label: __( 'Small (32px)', 'pojo-accessibility' ) },
-		{ value: 'medium', icon: <MediumIcon />, label: __( 'Medium (44px)', 'pojo-accessibility' ) },
-		{ value: 'large', icon: <LargeIcon />, label: __( 'Large (64px)', 'pojo-accessibility' ) },
-		{ value: 'extraLarge', icon: <ExtraLargeIcon />, label: __( 'Extra Large (88px)', 'pojo-accessibility' ) },
+		{ value: 'person', icon: <AccessibilityPersonIcon />, label: __( 'Small (32px)', 'pojo-accessibility' ) },
+		{ value: 'eye', icon: <AccessibilityEyeIcon />, label: __( 'Medium (44px)', 'pojo-accessibility' ) },
+		{ value: 'text', icon: <AccessibilityTextIcon />, label: __( 'Large (64px)', 'pojo-accessibility' ) },
+		{ value: 'controls', icon: <AccessibilityControlsIcon />, label: __( 'Extra Large (88px)', 'pojo-accessibility' ) },
 	];
 
 	return (
@@ -73,10 +54,7 @@ const IconSelect = ( props ) => {
 							borderWidth: selectedValue === option.value ? 1 : 1,
 							cursor: 'pointer',
 						} }
-					>
-						<Avatar>
-							{ option.icon }
-						</Avatar>
+					>{ option.icon }
 						<Radio value={ option.value } sx={ { opacity: 0, position: 'absolute' } } />
 					</Paper>
 				) ) }
