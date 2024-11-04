@@ -9,19 +9,20 @@ import { __ } from '@wordpress/i18n';
 import { AccessibilityControlsIcon, AccessibilityEyeIcon, AccessibilityPersonIcon, AccessibilityTextIcon } from '../../icons';
 
 const IconSelect = ( props ) => {
-	const [ selectedValue, setSelectedValue ] = useState( 'small' );
+	const [ selectedValue, setSelectedValue ] = useState( 'person' );
+	const optionStyle = { color: 'info.main', fontSize: 44 };
 
 	const options = [
-		{ value: 'person', icon: <AccessibilityPersonIcon />, label: __( 'Small (32px)', 'pojo-accessibility' ) },
-		{ value: 'eye', icon: <AccessibilityEyeIcon />, label: __( 'Medium (44px)', 'pojo-accessibility' ) },
-		{ value: 'text', icon: <AccessibilityTextIcon />, label: __( 'Large (64px)', 'pojo-accessibility' ) },
-		{ value: 'controls', icon: <AccessibilityControlsIcon />, label: __( 'Extra Large (88px)', 'pojo-accessibility' ) },
+		{ value: 'person', icon: <AccessibilityPersonIcon sx={ optionStyle } />, label: __( 'Accessibility Person Icon', 'pojo-accessibility' ) },
+		{ value: 'eye', icon: <AccessibilityEyeIcon sx={ optionStyle } />, label: __( 'Accessibility Eye Icon', 'pojo-accessibility' ) },
+		{ value: 'text', icon: <AccessibilityTextIcon sx={ optionStyle } />, label: __( 'Accessibility Text Badge Icon', 'pojo-accessibility' ) },
+		{ value: 'controls', icon: <AccessibilityControlsIcon sx={ optionStyle } />, label: __( 'Accessibility Controls Slider Icon', 'pojo-accessibility' ) },
 	];
 
 	return (
 		<FormControl>
 			<FormLabel id="icon-select-radio-buttons-group-label" color="secondary">
-				<Typography variant="subtitle2">
+				<Typography variant="subtitle2" marginBottom={ 1 }>
 					{ __( 'Icon', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
@@ -31,8 +32,8 @@ const IconSelect = ( props ) => {
 				name="icon-select-radio-buttons-group"
 				value={ selectedValue }
 				sx={ {
-					display: 'grid',
-					gridTemplateColumns: 'repeat(2, 1fr)',
+					display: 'flex',
+					flexDirection: 'row',
 					gap: 2,
 				} }
 			>
@@ -47,11 +48,13 @@ const IconSelect = ( props ) => {
 							display: 'flex',
 							flexDirection: 'column',
 							alignItems: 'center',
+							justifyContent: 'center',
 							gap: 1.5,
 							p: 2,
-							minWidth: 120,
-							borderColor: selectedValue === option.value ? 'blue' : 'grey.300',
-							borderWidth: selectedValue === option.value ? 1 : 1,
+							minWidth: 100,
+							minHeight: 100,
+							borderColor: selectedValue === option.value ? 'info.main' : 'divider',
+							borderWidth: selectedValue === option.value ? 2 : 1,
 							cursor: 'pointer',
 						} }
 					>{ option.icon }
