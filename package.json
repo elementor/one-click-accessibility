@@ -40,6 +40,7 @@
 		"@wordpress/element": "^6.10.0",
 		"@wordpress/i18n": "^5.10.0",
 		"@wordpress/url": "^4.10.0",
-		"husky": "^9.1.6"
+		"husky": "^9.1.6",
+		"react-colorful": "^5.6.1"
 	}
 }
