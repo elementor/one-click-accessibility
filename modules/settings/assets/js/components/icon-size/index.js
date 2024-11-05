@@ -48,6 +48,7 @@ const IconSize = ( props ) => {
 							flexDirection: 'column',
 							alignItems: 'center',
 							justifyContent: 'center',
+							flexGrow: 1,
 							gap: 1.5,
 							p: 2,
 							minWidth: 100,

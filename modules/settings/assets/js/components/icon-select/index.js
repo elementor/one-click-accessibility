@@ -47,6 +47,7 @@ const IconSelect = ( props ) => {
 							boxShadow: 'sm',
 							display: 'flex',
 							flexDirection: 'column',
+							flexGrow: 1,
 							alignItems: 'center',
 							justifyContent: 'center',
 							gap: 1.5,
