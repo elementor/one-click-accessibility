@@ -3,7 +3,7 @@ import { addQueryArgs } from '@wordpress/url';
 import APIError from './exceptions/APIError';
 
 const wpV2Prefix = '/wp/v2';
-const v1Prefix = '/site-mailer/v1';
+const v1Prefix = '/ea11y/v1';
 
 class API {
 	static async request( { path, data, method = 'POST' } ) {
