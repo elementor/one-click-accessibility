@@ -1,6 +1,8 @@
 'use strict';
 
 const fs = require( "fs" );
+const MAIN_FILE_NAME = 'pojo-accessibility.php';
+const VERSION_CONSTANT = 'EA11Y_VERSION';
 
 const { VERSION } = process.env;
  if ( ! VERSION ) {
@@ -39,17 +41,17 @@ const run = async () => {
 			]
 		);
 
-		// update version in image-optimization.php
-		await replaceInFileWithArray( './image-optimization.php',
+		// update version in MAIN_FILE_NAME
+		await replaceInFileWithArray( `./${MAIN_FILE_NAME}`,
 			[
 				{
 					from:  /\* Version: (.*)/m,
 					to: `* Version: ${ VERSION }`,
 				},
 				{
-					from:  /define\( \'IMAGE_OPTIMIZER_VERSION\', \'(.*)\' \)\;/m,
-					to: `define( 'IMAGE_OPTIMIZER_VERSION', '${ VERSION }' );`,
-				},
+					from:  new RegExp(`define\\( '${VERSION_CONSTANT}', '(.*)' \\);`, 'm' ),
+					to: `define( '${VERSION_CONSTANT}', '${VERSION}' );`,
+				}
 			]
 		);
 

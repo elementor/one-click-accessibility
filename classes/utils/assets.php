@@ -2,6 +2,10 @@
 
 namespace EA11y\Classes\Utils;
 
+use const EA11Y_ASSETS_PATH;
+use const EA11Y_ASSETS_URL;
+use const EA11Y_VERSION;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
