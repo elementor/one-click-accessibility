@@ -3,11 +3,11 @@ const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 
 // add your entry points here
 const entryPoints = {
-	// admin: path.resolve(
-	// 	process.cwd(),
-	// 	'assets/dev/js',
-	// 	'admin.js',
-	// ),
+	admin: path.resolve(
+		process.cwd(),
+		'modules/settings/assets/js',
+		'admin.js',
+	),
 };
 
 module.exports = {

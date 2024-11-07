@@ -17,6 +17,7 @@ final class Manager {
 	public static function get_module_list(): array {
 		return [
 			'Legacy',
+			'Settings'
 		];
 	}
 
