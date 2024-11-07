@@ -3,7 +3,7 @@ import { addQueryArgs } from '@wordpress/url';
 import APIError from './exceptions/APIError';
 
 const wpV2Prefix = '/wp/v2';
-const v1Prefix = '/site-mailer/v1';
+const v1Prefix = '/ea11y/v1';
 
 class API {
 	static async request( { path, data, method = 'POST' } ) {
@@ -38,7 +38,7 @@ class API {
 
 	static async initConnect( context = 'new' ) {
 		const data = {
-			wp_rest: window?.siteMailerSettingsData?.wpRestNonce,
+			wp_rest: window?.ea11ySettingsData?.wpRestNonce,
 		};
 
 		if ( 'update' === context ) {
@@ -57,7 +57,7 @@ class API {
 			method: 'POST',
 			path: `${ v1Prefix }/connect/deactivate_and_disconnect`,
 			data: {
-				wp_rest: window?.siteMailerSettingsData?.wpRestNonce,
+				wp_rest: window?.ea11ySettingsData?.wpRestNonce,
 				clear_session: true,
 			},
 		} );
@@ -68,7 +68,7 @@ class API {
 			method: 'POST',
 			path: `${ v1Prefix }/connect/deactivate_and_disconnect`,
 			data: {
-				wp_rest: window?.siteMailerSettingsData?.wpRestNonce,
+				wp_rest: window?.ea11ySettingsData?.wpRestNonce,
 			},
 		} );
 	}
@@ -78,7 +78,7 @@ class API {
 			method: 'POST',
 			path: `${ v1Prefix }/connect/deactivate`,
 			data: {
-				wp_rest: window?.siteMailerSettingsData?.wpRestNonce,
+				wp_rest: window?.ea11ySettingsData?.wpRestNonce,
 			},
 		} );
 	}
@@ -88,7 +88,7 @@ class API {
 			method: 'POST',
 			path: `${ v1Prefix }/connect/disconnect`,
 			data: {
-				wp_rest: window?.siteMailerSettingsData?.wpRestNonce,
+				wp_rest: window?.ea11ySettingsData?.wpRestNonce,
 			},
 		} );
 	}
@@ -98,7 +98,7 @@ class API {
 			method: 'POST',
 			path: `${ v1Prefix }/connect/reconnect`,
 			data: {
-				wp_rest: window?.siteMailerSettingsData?.wpRestNonce,
+				wp_rest: window?.ea11ySettingsData?.wpRestNonce,
 			},
 		} );
 	}

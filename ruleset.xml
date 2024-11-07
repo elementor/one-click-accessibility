@@ -4,7 +4,7 @@
 
 	<arg name="parallel" value="8" />
 
-	<config name="text_domain" value="site-mailer" />
+	<config name="text_domain" value="pojo-accessibility" />
 
 	<exclude-pattern>vendor/</exclude-pattern>
 	<exclude-pattern>tmp/</exclude-pattern>
