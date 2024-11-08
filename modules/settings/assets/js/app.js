@@ -6,9 +6,7 @@ import { usePluginSettingsContext } from './contexts/plugin-settings-context';
 import { useSettings } from './hooks';
 
 const App = () => {
-	const {
-		isConnected,
-	} = usePluginSettingsContext();
+	const { isConnected } = usePluginSettingsContext();
 	const {
 		notificationMessage,
 		notificationType,

@@ -19,7 +19,7 @@ export const PluginSettingsProvider = ( { children } ) => {
 			setPluginSettings( settings );
 			setLoaded( true );
 		} ).catch( () => {
-			error( __( 'An error occurred.', 'site-mailer' ) );
+			error( __( 'An error occurred.', 'pojo-accessibility' ) );
 			setLoaded( true );
 		} );
 	}, [] );

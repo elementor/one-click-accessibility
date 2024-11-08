@@ -34,7 +34,7 @@ function ConnectModal() {
 				<Typography variant="subtitle1"
 					marginTop={ 5 }
 					marginBottom={ 3 }>
-					{ __( 'Connect plugin on your site!', 'site-mailer' ) }
+					{ __( 'Connect plugin on your site!', 'pojo-accessibility' ) }
 				</Typography>
 				<Button variant="contained"
 					color="secondary"

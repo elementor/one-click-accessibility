@@ -205,7 +205,7 @@ class Service {
 
 		$jwks_url = Utils::get_jwks_url();
 		if ( ! $jwks_url ) {
-			return __( 'Missing JWKS URL', 'site-mailer' );
+			return __( 'Missing JWKS URL', 'pojo-accessibility' );
 		}
 
 		if ( ! $jwks ) {
@@ -214,9 +214,9 @@ class Service {
 			]);
 		}
 		if ( ! class_exists( 'JWT' ) ) {
-			require_once SITE_MAILER_PATH . 'vendor/autoload.php';
+			require_once EA11Y_PATH . 'vendor/autoload.php';
 			if ( ! class_exists( 'JWT' ) ) {
-				return __( 'JWT class not found', 'site-mailer' );
+				return __( 'JWT class not found', 'pojo-accessibility' );
 			}
 		}
 

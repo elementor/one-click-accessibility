@@ -40,7 +40,7 @@ class Authorize extends Route_Base {
 
 		if ( Connect::is_connected() && Utils::is_valid_home_url() ) {
 			return $this->respond_error_json( [
-				'message' => esc_html__( 'You are already connected', 'site-mailer' ),
+				'message' => esc_html__( 'You are already connected', 'pojo-accessibility' ),
 				'code' => 'forbidden',
 			] );
 		}
@@ -57,7 +57,7 @@ class Authorize extends Route_Base {
 					Service::update_redirect_uri();
 				} else {
 					return $this->respond_error_json( [
-						'message' => esc_html__( 'Connected domain mismatch', 'site-mailer' ),
+						'message' => esc_html__( 'Connected domain mismatch', 'pojo-accessibility' ),
 						'code'    => 'forbidden',
 					] );
 				}
@@ -65,7 +65,7 @@ class Authorize extends Route_Base {
 
 			$authorize_url = Utils::get_authorize_url( $client_id );
 
-			$authorize_url = apply_filters( 'site_mailer_connect_authorize_url', $authorize_url );
+			$authorize_url = apply_filters( 'ea11y_connect_authorize_url', $authorize_url );
 
 			return $this->respond_success_json( $authorize_url );
 		} catch ( Throwable $t ) {
