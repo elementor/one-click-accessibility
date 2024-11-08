@@ -102,7 +102,7 @@ class Utils {
 	 * @return string
 	 */
 	public static function get_base_url(): string {
-		return apply_filters( 'site_mailer_connect_get_base_url', Config::BASE_URL );
+		return apply_filters( 'ea11y_connect_get_base_url', Config::BASE_URL );
 	}
 
 	/**

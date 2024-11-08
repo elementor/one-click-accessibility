@@ -78,7 +78,7 @@ class Module extends Module_Base {
 	public function __construct() {
 		$this->register_components();
 		$this->register_routes();
-		add_filter( 'site_mailer_connect_authorize_url', [ $this, 'authorize_url' ] );
+		add_filter( 'ea11y_connect_authorize_url', [ $this, 'authorize_url' ] );
 	}
 }
 
