@@ -10,46 +10,17 @@ export function useSettings() {
 }
 
 const SettingsProvider = ( { children } ) => {
-	// Notification
-	const [ showNotification, setShowNotification ] = useState( false );
-	const [ notificationMessage, setNotificationMessage ] = useState( '' );
-	const [ notificationType, setNotificationType ] = useState( '' );
-
+	const [ test, setTest ] = useState( 'Test' );
 	return (
 		<SettingsContext.Provider
 			value={ {
-				showNotification,
-				setShowNotification,
-				notificationMessage,
-				setNotificationMessage,
-				notificationType,
-				setNotificationType,
+				test,
+				setTest,
 			} }
 		>
 			{ children }
 		</SettingsContext.Provider>
 	);
-};
-
-export const useToastNotification = () => {
-	const { setNotificationMessage, setNotificationType, setShowNotification } = useContext( SettingsContext );
-
-	const error = ( message ) => {
-		setNotificationMessage( message );
-		setNotificationType( 'error' );
-		setShowNotification( true );
-	};
-
-	const success = ( message ) => {
-		setNotificationMessage( message );
-		setNotificationType( 'success' );
-		setShowNotification( true );
-	};
-
-	return {
-		success,
-		error,
-	};
 };
 
 export default SettingsProvider;

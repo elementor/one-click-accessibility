@@ -3,7 +3,7 @@ import { StrictMode, Fragment, createRoot } from '@wordpress/element';
 import App from './app';
 import AdminTopBar from './components/admin-top-bar';
 import { PluginSettingsProvider } from './contexts/plugin-settings-context';
-import { SettingsProvider } from './hooks';
+import { SettingsProvider, NotificationsProvider } from './hooks';
 
 const rootNode = document.getElementById( 'ea11y-app' );
 const topBarNode = document.getElementById( 'ea11y-app-top-bar' );
@@ -23,10 +23,12 @@ topBar.render(
 
 root.render(
 	<AppWrapper>
-		<SettingsProvider>
-			<PluginSettingsProvider>
-				<App />
-			</PluginSettingsProvider>
-		</SettingsProvider>
+		<NotificationsProvider>
+			<SettingsProvider>
+				<PluginSettingsProvider>
+					<App />
+				</PluginSettingsProvider>
+			</SettingsProvider>
+		</NotificationsProvider>
 	</AppWrapper>,
 );

@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../api';
-import { useToastNotification } from '../hooks/use-settings';
+import { useToastNotification } from '../hooks';
 
 const PluginSettingsContext = createContext( {} );
 
