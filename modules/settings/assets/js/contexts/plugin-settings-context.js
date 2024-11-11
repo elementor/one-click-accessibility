@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../api';
-import { useToastNotification } from '../hooks/use-settings';
+import { useToastNotification } from '../hooks';
 
 const PluginSettingsContext = createContext( {} );
 
@@ -19,7 +19,7 @@ export const PluginSettingsProvider = ( { children } ) => {
 			setPluginSettings( settings );
 			setLoaded( true );
 		} ).catch( () => {
-			error( __( 'An error occurred.', 'site-mailer' ) );
+			error( __( 'An error occurred.', 'pojo-accessibility' ) );
 			setLoaded( true );
 		} );
 	}, [] );

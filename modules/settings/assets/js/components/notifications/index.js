@@ -1,6 +1,6 @@
 import Alert from '@elementor/ui/Alert';
 import Snackbar from '@elementor/ui/Snackbar';
-import { useSettings } from '../../hooks';
+import { useNotificationSettings } from '../../hooks';
 
 const Notifications = ( { type, message } ) => {
 	const {
@@ -8,7 +8,7 @@ const Notifications = ( { type, message } ) => {
 		setShowNotification,
 		setNotificationMessage,
 		setNotificationType,
-	} = useSettings();
+	} = useNotificationSettings();
 
 	const closeNotification = () => {
 		setShowNotification( ! showNotification );
@@ -24,7 +24,9 @@ const Notifications = ( { type, message } ) => {
 			anchorOrigin={ { vertical: 'bottom', horizontal: 'right' } }
 			sx={ { zIndex: 99999 } }
 		>
-			<Alert onClose={ () => setShowNotification( ! showNotification ) } severity={ type } variant="filled" >
+			<Alert onClose={ () => setShowNotification( ! showNotification ) }
+				severity={ type }
+				variant="filled" >
 				{ message }
 			</Alert>
 		</Snackbar>

@@ -1,8 +1,13 @@
 <?php
 
-namespace EA11y\modules\connect\rest;
+namespace EA11y\Modules\Connect\Rest;
 
-use EA11y\Modules\Connect\Classes\{Data, Route_Base, Service, Utils};
+use EA11y\Modules\Connect\Classes\{
+	Data, 
+	Route_Base, 
+	Service, 
+	Utils
+};
 use Throwable;
 use WP_REST_Request;
 
@@ -36,14 +41,14 @@ class Switch_Domain extends Route_Base {
 
 			if ( ! $client_id ) {
 				return $this->respond_error_json( [
-					'message' => __( 'Client ID not found', 'site-mailer' ),
+					'message' => __( 'Client ID not found', 'pojo-accessibility' ),
 					'code' => 'ignore_error',
 				] );
 			}
 
 			Service::update_redirect_uri();
 
-			return $this->respond_success_json( [ 'message' => __( 'Domain updated!', 'site-mailer' ) ] );
+			return $this->respond_success_json( [ 'message' => __( 'Domain updated!', 'pojo-accessibility' ) ] );
 		} catch ( Throwable $t ) {
 			return $this->respond_error_json( [
 				'message' => $t->getMessage(),
