@@ -9,7 +9,7 @@ export function useSettings() {
 	return useContext( SettingsContext );
 }
 
-const SettingsProvider = ( { children } ) => {
+export const SettingsProvider = ( { children } ) => {
 	const [ test, setTest ] = useState( 'Test' );
 	return (
 		<SettingsContext.Provider
@@ -22,5 +22,3 @@ const SettingsProvider = ( { children } ) => {
 		</SettingsContext.Provider>
 	);
 };
-
-export default SettingsProvider;

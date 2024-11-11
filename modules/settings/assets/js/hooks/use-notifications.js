@@ -51,5 +51,3 @@ export const useToastNotification = () => {
 		error,
 	};
 };
-
-export default NotificationsProvider;
