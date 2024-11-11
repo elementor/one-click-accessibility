@@ -1,7 +1,7 @@
 import API from '../api';
 import { UPGRADE_LINK } from '../constants';
 
-const useAuth = () => {
+export const useAuth = () => {
 	const { subscriptionId } = 123;
 
 	const redirectToConnect = async () => {
@@ -28,5 +28,3 @@ const useAuth = () => {
 		getUpgradeLink,
 	};
 };
-
-export default useAuth;

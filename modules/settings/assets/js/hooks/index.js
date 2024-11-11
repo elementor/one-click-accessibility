@@ -1,2 +1,2 @@
-export { default as useAuth } from './use-auth';
-export { default as useModal } from './use-modal';
+export { useAuth } from './use-auth';
+export { useModal } from './use-modal';
