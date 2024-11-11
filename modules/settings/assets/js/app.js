@@ -2,7 +2,7 @@ import '../css/style.css';
 import DirectionProvider from '@elementor/ui/DirectionProvider';
 import { ThemeProvider } from '@elementor/ui/styles';
 import { ConnectModal, Notifications } from './components';
-import { usePluginSettingsContext } from './contexts/plugin-settings-context';
+import { usePluginSettingsContext } from './contexts/plugin-settings';
 import { useNotificationSettings } from './hooks';
 
 const App = () => {
