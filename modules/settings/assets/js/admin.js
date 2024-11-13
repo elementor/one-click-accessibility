@@ -15,12 +15,6 @@ const AppWrapper = Boolean( isDevelopment ) ? StrictMode : Fragment;
 const root = createRoot( rootNode );
 const topBar = createRoot( topBarNode );
 
-topBar.render(
-	<ThemeProvider colorScheme="light">
-		<AdminTopBar />
-	</ThemeProvider>,
-);
-
 root.render(
 	<AppWrapper>
 		<NotificationsProvider>
