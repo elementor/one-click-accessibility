@@ -2,6 +2,8 @@ import { ThemeProvider } from '@elementor/ui/styles';
 import { StrictMode, Fragment, createRoot } from '@wordpress/element';
 import App from './app';
 import AdminTopBar from './components/admin-top-bar';
+import { PluginSettingsProvider } from './contexts/plugin-settings';
+import { SettingsProvider, NotificationsProvider } from './hooks';
 
 const rootNode = document.getElementById( 'ea11y-app' );
 const topBarNode = document.getElementById( 'ea11y-app-top-bar' );
@@ -21,6 +23,12 @@ topBar.render(
 
 root.render(
 	<AppWrapper>
-		<App />
+		<NotificationsProvider>
+			<SettingsProvider>
+				<PluginSettingsProvider>
+					<App />
+				</PluginSettingsProvider>
+			</SettingsProvider>
+		</NotificationsProvider>
 	</AppWrapper>,
 );

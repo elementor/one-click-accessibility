@@ -1,5 +1,6 @@
 import API from '../api';
 import { UPGRADE_LINK } from '../constants';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 
 export const useAuth = () => {
 	const { subscriptionId } = 123;

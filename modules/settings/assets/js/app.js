@@ -1,13 +1,22 @@
 import '../css/style.css';
 import DirectionProvider from '@elementor/ui/DirectionProvider';
 import { ThemeProvider } from '@elementor/ui/styles';
-import { ConnectModal } from './components';
+import { ConnectModal, Notifications } from './components';
+import { usePluginSettingsContext } from './contexts/plugin-settings';
+import { useNotificationSettings } from './hooks';
 
 const App = () => {
+	const { isConnected } = usePluginSettingsContext();
+	const {
+		notificationMessage,
+		notificationType,
+	} = useNotificationSettings();
+
 	return (
-		<DirectionProvider rtl={ false /* Add RTL detection in settings */ }>
+		<DirectionProvider rtl={ false /* TODO:Add RTL detection in settings */ }>
 			<ThemeProvider colorScheme="light">
-				<ConnectModal />
+				{ ! isConnected && <ConnectModal /> }
+				<Notifications message={ notificationMessage } type={ notificationType } />
 			</ThemeProvider>
 		</DirectionProvider>
 	);

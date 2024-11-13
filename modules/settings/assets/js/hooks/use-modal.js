@@ -18,4 +18,3 @@ export const useModal = ( defaultIsOpen = true ) => {
 		close,
 	};
 };
-
