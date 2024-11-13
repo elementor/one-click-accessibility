@@ -89,10 +89,6 @@ jobs:
           wget -q -O /usr/local/bin/phpunit "https://phar.phpunit.de/phpunit-${{ matrix.phpunit }}.phar"
           chmod +x /usr/local/bin/phpunit
 
-      - name: Oauth Composer authentication
-        run:
-          composer config -g github-oauth.github.com ${{ secrets.DEVOPS_TOKEN }}
-
       - name: Install dependencies
         uses: ramsey/composer-install@v3
 

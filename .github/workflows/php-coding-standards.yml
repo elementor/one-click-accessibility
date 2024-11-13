@@ -39,9 +39,6 @@ jobs:
           phpcs -i
           composer --version
 
-      - name: Oauth Composer authentication
-        run: composer config -g github-oauth.github.com ${{ secrets.DEVOPS_TOKEN }}
-
       - name: Install dependencies
         uses: ramsey/composer-install@v3
 

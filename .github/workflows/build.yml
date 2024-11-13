@@ -32,10 +32,6 @@ jobs:
         env:
           fail-fast: 'true'
 
-      - name: OAuth Composer Authentication
-        run:
-          composer config -g github-oauth.github.com ${{ secrets.DEVOPS_TOKEN }}
-
       - name: Install Composer dependencies cache
         uses: ramsey/composer-install@v3
 
