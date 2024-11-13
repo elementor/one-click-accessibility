@@ -8,3 +8,4 @@ libraries/**
 coverage/**
 assets/build/**
 tests/**
+modules/legacy/assets/**

@@ -7,7 +7,6 @@ vendor/
 composer.lock
 npm-debug.log
 .DS_Store
-package-lock.json
 bin/.env
 */node_modules
 !assets/dev/*
