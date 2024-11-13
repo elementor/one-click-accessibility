@@ -6,13 +6,19 @@ import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
 import { __ } from '@wordpress/i18n';
 import { HELP_LINK } from '../../constants';
-import ElementorLogo from '../../icons/elementor-logo';
+import { ElementorLogo } from '../../icons';
 
 const AdminTopBar = () => {
 	return (
-		<AppBar position="static" elevation={ 6 } sx={ { boxShadow: '0px 3px 16px 0px rgba(35, 38, 42, 0.20)' } } >
-			<Toolbar direction="row" sx={ { alignItems: 'center', backgroundColor: 'background.default', gap: '10px' } } padding={ 2 }>
-				<Grid container={ true } alignItems="center" gap={ 1 }>
+		<AppBar position="static"
+			elevation={ 6 }
+			sx={ { boxShadow: '0px 3px 16px 0px rgba(35, 38, 42, 0.20)' } } >
+			<Toolbar direction="row"
+				sx={ { alignItems: 'center', backgroundColor: 'background.default', gap: '10px' } }
+				padding={ 2 }>
+				<Grid container={ true }
+					alignItems="center"
+					gap={ 1 }>
 					<ElementorLogo size="large" />
 					<Typography color="text.primary">
 						{ __( 'Accessibility', 'pojo-accessibility' ) }
