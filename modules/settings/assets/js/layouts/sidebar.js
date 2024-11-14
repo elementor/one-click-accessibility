@@ -1,5 +1,6 @@
 import { ChevronDownIcon, PagesIcon, UserIcon } from '@elementor/icons';
 import AppBar from '@elementor/ui/AppBar';
+import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import Drawer from '@elementor/ui/Drawer';
 import IconButton from '@elementor/ui/IconButton';
@@ -8,33 +9,35 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
-import Popover from '@elementor/ui/Popover';
+import Menu from '@elementor/ui/Menu';
+import MenuItem from '@elementor/ui/MenuItem';
 import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
-import { styled } from '@elementor/ui/styles';
-import { useState, useRef } from '@wordpress/element';
+import { usePopupState, bindTrigger, bindMenu } from '@elementor/ui/usePopupState';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { ElementorLogo, SquareRoundedChevronsLeft, WidgetIcon } from '../icons';
+import { CreditCardIcon, ElementorLogo, SquareRoundedChevronsLeft, UserArrowIcon, WidgetIcon } from '../icons';
 
 export const Sidebar = () => {
 	const [ showWidgetMenu, setShowWidgetMenu ] = useState( true );
 	const [ openDrawer, setOpenDrawer ] = useState( true );
-	const [ openMyAccountMenu, setOpenMyAccountMenu ] = useState( false );
-	const anchorEl = useRef( null );
 
-	const StyledDrawer = styled( Drawer )
-	` & .MuiDrawer-paper {
-		position: static;
-    	min-width: 90px;
-    	max-width: 260px;
-    	width: ${ openDrawer ? '100%' : '0' }px;
-    	transition: all 0.3s;
-		height: 600px;
-}`;
+	const accountMenuState = usePopupState( { variant: 'popover', popupId: 'demoMenu' } );
 
 	return (
-		<StyledDrawer variant="permanent"
+		<Drawer variant="permanent"
 			open={ openDrawer }
+			PaperProps={ {
+				sx: {
+					position: 'relative',
+					minWidth: '90px',
+					maxWidth: '260px',
+					width: openDrawer ? '100%' : '0',
+					transition: 'all 0.3s',
+					height: '100%',
+					justifyContent: 'space-between',
+				},
+			} }
 		>
 			<Box>
 				<AppBar position="static" color="transparent" >
@@ -91,36 +94,55 @@ export const Sidebar = () => {
 						</ListItemButton>
 					</ListItem>
 				</List>
-				<List sx={ { position: 'absolute', bottom: 0 } } ref={ anchorEl } >
-					<ListItem>
-						<ListItemButton onClick={ () => setOpenMyAccountMenu( ! openMyAccountMenu ) }>
-							<ListItemIcon>
-								<UserIcon />
-							</ListItemIcon>
-							<ListItemText primary="My Account"
-								hidden={ ! openDrawer } />
-							<ListItemIcon>
-								<ChevronDownIcon sx={ { rotate: '180deg', display: ! openDrawer ? 'none' : 'inherit' } } />
-							</ListItemIcon>
-						</ListItemButton>
-						<Popover
-							open={ openMyAccountMenu }
-							anchorOrigin={ {
-								vertical: 'bottom',
-								horizontal: 'left',
-							} }
-							transformOrigin={ {
-								vertical: 'top',
-								horizontal: 'left',
-							} }
-							anchorEl={ anchorEl.current }
-							hideBackdrop={ true }
-							anchorReference="anchorEl">
-							Testing
-						</Popover>
-					</ListItem>
-				</List>
 			</Box>
-		</StyledDrawer>
+			<List>
+				<ListItemButton { ...bindTrigger( accountMenuState ) }>
+					<ListItemIcon>
+						<UserIcon sx={ { color: 'common.black' } } />
+					</ListItemIcon>
+					<ListItemText primary="My Account" />
+					<ListItemIcon sx={ { display: ! openDrawer ? 'none' : 'default' } }>
+						<ChevronDownIcon />
+					</ListItemIcon>
+				</ListItemButton>
+			</List>
+			<Menu
+				{ ...bindMenu( accountMenuState ) }
+				anchorOrigin={ {
+					vertical: 'top',
+					horizontal: 'center',
+				} }
+				transformOrigin={ {
+					vertical: 'bottom',
+					horizontal: 'center',
+				} }
+				PaperProps={ { sx: {
+					backgroundColor: 'text.primary',
+				},
+				} }
+			>
+				<MenuItem onClick={ accountMenuState.close } sx={ { gap: 1, width: '225px' } }>
+					<Avatar>JB</Avatar>
+					<Box display="flex"
+						flexDirection="column"
+						gap={ 0 }>
+						<Typography variant="subtitle2" color="common.white">Jack Baueuer</Typography>
+						<Typography variant="caption" color="common.white">jack@bauer.com</Typography>
+					</Box>
+				</MenuItem>
+				<MenuItem onClick={ accountMenuState.close }>
+					<UserArrowIcon sx={ { color: 'common.white' } } />
+					<Typography color="common.white" marginLeft={ 1 }>
+						{ __( 'Switch account', 'pojo-accessibility' ) }
+					</Typography>
+				</MenuItem>
+				<MenuItem onClick={ accountMenuState.close }>
+					<CreditCardIcon sx={ { color: 'common.white' } } />
+					<Typography color="common.white" marginLeft={ 1 }>
+						{ __( 'Billing', 'pojo-accessibility' ) }
+					</Typography>
+				</MenuItem>
+			</Menu>
+		</Drawer>
 	);
 };

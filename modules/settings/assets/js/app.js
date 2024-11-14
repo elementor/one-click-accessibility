@@ -20,9 +20,10 @@ const App = () => {
 			<ThemeProvider colorScheme="light">
 				{ ! isConnected && <ConnectModal /> }
 				<Grid display="flex"
-					flexDirection="row">
+					flexDirection="row"
+					height="100%">
 					<Sidebar />
-					<Container>Page Content</Container>
+					<Container>Page</Container>
 				</Grid>
 				<Notifications message={ notificationMessage } type={ notificationType } />
 			</ThemeProvider>
