@@ -23,6 +23,7 @@ function ConnectModal() {
 					left: '50%',
 					transform: 'translate(-50%, -50%)',
 					width: 600,
+					maxWidth: '95%',
 					height: 400,
 					bgcolor: 'background.paper',
 					boxShadow: 24,
@@ -37,9 +38,11 @@ function ConnectModal() {
 					{ __( 'Connect plugin on your site!', 'pojo-accessibility' ) }
 				</Typography>
 				<Button variant="contained"
-					color="secondary"
+					color="info"
 					size="large"
-					onClick={ redirectToConnect }>{ __( 'Connect', 'pojo-accessibility' ) }</Button>
+					onClick={ redirectToConnect }>
+					{ __( 'Connect', 'pojo-accessibility' ) }
+				</Button>
 			</Grid>
 		</Modal>
 	);
