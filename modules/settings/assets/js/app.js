@@ -18,7 +18,7 @@ const App = () => {
 	return (
 		<DirectionProvider rtl={ false /* TODO:Add RTL detection in settings */ }>
 			<ThemeProvider colorScheme="light">
-				{ isConnected && <ConnectModal /> }
+				{ ! isConnected && <ConnectModal /> }
 				<Grid display="flex"
 					flexDirection="row">
 					<Sidebar />

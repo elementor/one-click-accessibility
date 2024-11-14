@@ -11,25 +11,28 @@ import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
 import Paper from '@elementor/ui/Paper';
+import Popover from '@elementor/ui/Popover';
 import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { useState } from '@wordpress/element';
+import { useState, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { ElementorLogo, SquareRoundedChevronsLeft } from '../icons';
+import { ElementorLogo, SquareRoundedChevronsLeft, WidgetIcon } from '../icons';
 
 export const Sidebar = () => {
 	const [ showWidgetMenu, setShowWidgetMenu ] = useState( true );
 	const [ openDrawer, setOpenDrawer ] = useState( true );
+	const [ openMyAccountMenu, setOpenMyAccountMenu ] = useState( false );
+	const anchorEl = useRef( null );
 
 	const StyledDrawer = styled( Drawer )
 	` & .MuiDrawer-paper {
-    margin-left: 160px;
-    margin-top: 30px;
-    min-width: 80px;
-    max-width: 260px;
-    width: ${ openDrawer ? '100%' : '0' }px;
-    transition: all 0.3s;
+		position: static;
+    	min-width: 90px;
+    	max-width: 260px;
+    	width: ${ openDrawer ? '100%' : '0' }px;
+    	transition: all 0.3s;
+		height: 600px;
 }`;
 
 	return (
@@ -38,7 +41,7 @@ export const Sidebar = () => {
 		>
 			<Box>
 				<AppBar position="static" color="transparent" >
-					<Toolbar disableGutters>
+					<Toolbar disableGutters sx={ { justifyContent: 'space-between' } } >
 						<Box display="flex"
 							alignItems="center"
 							justifyContent="center"
@@ -57,13 +60,13 @@ export const Sidebar = () => {
 				</AppBar>
 				<List>
 					<ListItem disableGutters>
-						<ListItemButton onClick={ () => setShowWidgetMenu( ! showWidgetMenu ) }>
+						<ListItemButton onClick={ () => setShowWidgetMenu( ! showWidgetMenu ) } sx={ { justifyContent: 'center' } } >
 							<ListItemIcon>
-								<CheckedCircleIcon />
+								<WidgetIcon />
 							</ListItemIcon>
 							<ListItemText primary="Widget" hidden={ ! openDrawer } />
-							<ListItemIcon>
-								<ChevronDownIcon />
+							<ListItemIcon sx={ { display: ! openDrawer ? 'none' : 'default' } }>
+								<ChevronDownIcon sx={ { rotate: showWidgetMenu ? '180deg' : '0' } } />
 							</ListItemIcon>
 						</ListItemButton>
 					</ListItem>
@@ -83,25 +86,41 @@ export const Sidebar = () => {
 							</>
 						) }
 					<ListItem disableGutters>
-						<ListItemButton >
+						<ListItemButton sx={ { justifyContent: 'center' } }>
 							<ListItemIcon>
-								<PagesIcon />
+								<PagesIcon sx={ { color: 'common.black' } } />
 							</ListItemIcon>
 							<ListItemText primary="Accessibility Statement" hidden={ ! openDrawer } />
 						</ListItemButton>
 					</ListItem>
 				</List>
-				<List sx={ { position: 'absolute', bottom: 0 } }>
+				<List sx={ { position: 'absolute', bottom: 0 } } ref={ anchorEl } >
 					<ListItem>
-						<ListItemButton>
+						<ListItemButton onClick={ () => setOpenMyAccountMenu( ! openMyAccountMenu ) }>
 							<ListItemIcon>
 								<UserIcon />
 							</ListItemIcon>
-							<ListItemText primary="My Account" hidden={ ! openDrawer } />
+							<ListItemText primary="My Account"
+								hidden={ ! openDrawer } />
 							<ListItemIcon>
-								<ChevronDownIcon />
+								<ChevronDownIcon sx={ { rotate: '180deg', display: ! openDrawer ? 'none' : 'inherit' } } />
 							</ListItemIcon>
 						</ListItemButton>
+						<Popover
+							open={ openMyAccountMenu }
+							anchorOrigin={ {
+								vertical: 'bottom',
+								horizontal: 'left',
+							} }
+							transformOrigin={ {
+								vertical: 'top',
+								horizontal: 'left',
+							} }
+							anchorEl={ anchorEl.current }
+							hideBackdrop={ true }
+							anchorReference="anchorEl">
+							Testing
+						</Popover>
 					</ListItem>
 				</List>
 			</Box>
