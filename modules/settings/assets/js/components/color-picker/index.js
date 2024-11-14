@@ -27,7 +27,7 @@ const ColorPicker = () => {
 					color={ color }
 					onChange={ setColor }
 					defaultValue="#fff"
-					className="custom-color-picker"
+					className="widget-settings-color-picker"
 				/>
 				<Grid marginTop={ 2 } display="flex">
 					<Box padding={ 2 }

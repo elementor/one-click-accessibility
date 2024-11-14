@@ -1,29 +1,29 @@
 .widget-settings-color-picker.react-colorful {
    min-width: 460px;
   }
-.custom-color-picker .react-colorful__saturation {
+.widget-settings-color-picker .react-colorful__saturation {
 border-radius: 0;
 border-bottom: none;
 }
-  
-.custom-color-picker .react-colorful__hue {
+
+.widget-settings-color-picker .react-colorful__hue {
 order: 0;
 }
-  
-.custom-color-picker .react-colorful__hue,
-.custom-color-picker .react-colorful__alpha {
+
+.widget-settings-color-picker .react-colorful__hue,
+.widget-settings-color-picker .react-colorful__alpha {
 height: 14px;
 border-radius: 100px;
 margin-top: 10px;
 }
 
-.custom-color-picker .react-colorful__pointer {
+.widget-settings-color-picker .react-colorful__pointer {
 width: 18px;
 height: 18px;
 }
-  
-.custom-color-picker .react-colorful__hue-pointer,
-.custom-color-picker .react-colorful__alpha-pointer {
+
+.widget-settings-color-picker .react-colorful__hue-pointer,
+.widget-settings-color-picker .react-colorful__alpha-pointer {
 width: 18px;
 height: 18px;
 }
