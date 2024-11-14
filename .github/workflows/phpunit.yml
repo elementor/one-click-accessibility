@@ -51,7 +51,7 @@ jobs:
           MYSQL_DATABASE: wordpress_test
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Matrix variables
         id: matrix
@@ -76,7 +76,7 @@ jobs:
           fi
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@a36e1e52ff4a1c9e9c9be31551ee4712a6cb6bd0 # 2.27.1
+        uses: shivammathur/setup-php@v2
         with:
           coverage: ${{ steps.coverage.outputs.coverage }}
           ini-values: ${{ steps.coverage.outputs.ini }}
@@ -89,12 +89,8 @@ jobs:
           wget -q -O /usr/local/bin/phpunit "https://phar.phpunit.de/phpunit-${{ matrix.phpunit }}.phar"
           chmod +x /usr/local/bin/phpunit
 
-      - name: Oauth Composer authentication
-        run:
-          composer config -g github-oauth.github.com ${{ secrets.DEVOPS_TOKEN }}
-
       - name: Install dependencies
-        uses: ramsey/composer-install@83af392bf5f031813d25e6fe4cd626cdba9a2df6 # 2.2.0
+        uses: ramsey/composer-install@v3
 
       #- name: Install Node.js
        # uses: actions/setup-node@v2
@@ -108,7 +104,7 @@ jobs:
       #  run: npm run build
 
       - name: Set up WordPress and WordPress Test Library
-        uses: sjinks/setup-wordpress-test-library@dd7f8144e892b042e034d713b734f7a19446abe1 # 2.0.1
+        uses: sjinks/setup-wordpress-test-library@master
         with:
           version: ${{ matrix.wp }}
 
@@ -137,10 +133,3 @@ jobs:
             OPTIONS="$OPTIONS --coverage-clover=clover.xml"
           fi
           phpunit --order-by=random ${OPTIONS}
-
-      - name: Upload coverage report
-        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
-        with:
-          files: clover.xml
-          flags: unittests
-        if: ${{ steps.coverage.outputs.coverage != 'none' }}

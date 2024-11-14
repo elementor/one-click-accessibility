@@ -38,9 +38,11 @@ function ConnectModal() {
 					{ __( 'Connect plugin on your site!', 'pojo-accessibility' ) }
 				</Typography>
 				<Button variant="contained"
-					color="secondary"
+					color="info"
 					size="large"
-					onClick={ redirectToConnect }>{ __( 'Connect', 'pojo-accessibility' ) }</Button>
+					onClick={ redirectToConnect }>
+					{ __( 'Connect', 'pojo-accessibility' ) }
+				</Button>
 			</Grid>
 		</Modal>
 	);

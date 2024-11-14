@@ -1,16 +1,13 @@
-import { CheckedCircleIcon, ChevronDownIcon, PagesIcon, UserIcon } from '@elementor/icons';
+import { ChevronDownIcon, PagesIcon, UserIcon } from '@elementor/icons';
 import AppBar from '@elementor/ui/AppBar';
 import Box from '@elementor/ui/Box';
-import Container from '@elementor/ui/Container';
 import Drawer from '@elementor/ui/Drawer';
-import Grid from '@elementor/ui/Grid';
 import IconButton from '@elementor/ui/IconButton';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
-import Paper from '@elementor/ui/Paper';
 import Popover from '@elementor/ui/Popover';
 import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
