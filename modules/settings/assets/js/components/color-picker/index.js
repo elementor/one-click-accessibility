@@ -4,12 +4,12 @@ import FormLabel from '@elementor/ui/FormLabel';
 import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
-import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import './style.css';
+import { useSettings } from '../../hooks';
 
 const ColorPicker = () => {
-	const [ color, setColor ] = useState( '#2563eb' );
+	const { widgetIconColor, setWidgetIconColor } = useSettings();
 
 	return (
 		<FormControl>
@@ -24,18 +24,18 @@ const ColorPicker = () => {
 				borderRadius={ 1 }
 			>
 				<HexColorPicker
-					color={ color }
-					onChange={ setColor }
+					color={ widgetIconColor }
+					onChange={ setWidgetIconColor }
 					defaultValue="#fff"
 					className="widget-settings-color-picker"
 				/>
 				<Grid marginTop={ 2 } display="flex">
 					<Box padding={ 2 }
-						sx={ { backgroundColor: color } }
+						sx={ { backgroundColor: widgetIconColor } }
 						borderRadius={ 1 }
 						marginRight={ 1 }></Box>
-					<HexColorInput color={ color }
-						onChange={ setColor }
+					<HexColorInput color={ widgetIconColor }
+						onChange={ setWidgetIconColor }
 						style={ {
 							width: '100%',
 							border: '1px solid rgba(0, 0, 0, 0.12)',

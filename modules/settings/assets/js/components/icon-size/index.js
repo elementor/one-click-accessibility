@@ -4,32 +4,32 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
-import { useState } from '@wordpress/element';
+import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { AccessibilityEyeIcon, AccessibilityPersonIcon, AccessibilityTextIcon } from '../../icons';
+import { getOptionByValue } from '../../helpers/accessibility-options';
+import { useSettings } from '../../hooks';
 
 const IconSize = ( props ) => {
-	const [ selectedValue, setSelectedValue ] = useState( 'medium' );
-	const optionStyle = { color: 'info.main', fontSize: 44 };
+	const { widgetIcon, widgetIconSize, setWidgetIconSize } = useSettings();
+	const icon = getOptionByValue( widgetIcon );
 
 	const options = [
-		{ value: 'small', icon: <AccessibilityPersonIcon sx={ optionStyle } />, label: __( 'Accessibility Person Icon', 'pojo-accessibility' ) },
-		{ value: 'medium', icon: <AccessibilityEyeIcon sx={ optionStyle } />, label: __( 'Accessibility Eye Icon', 'pojo-accessibility' ) },
-		{ value: 'large', icon: <AccessibilityTextIcon sx={ optionStyle } />, label: __( 'Accessibility Text Badge Icon', 'pojo-accessibility' ) },
+		{ value: 'small', fontSize: 36 },
+		{ value: 'medium', fontSize: 44 },
+		{ value: 'large', fontSize: 64 },
 	];
-
 	return (
 		<FormControl>
-			<FormLabel id="icon-select-radio-buttons-group-label" color="secondary">
+			<FormLabel id="icon-size-radio-buttons-group-label" color="secondary">
 				<Typography variant="subtitle2" marginBottom={ 1 }>
 					{ __( 'Size', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
 			<RadioGroup
 				{ ...props }
-				aria-labelledby="icon-select-radio-buttons-group-label"
-				name="icon-select-radio-buttons-group"
-				value={ selectedValue }
+				aria-labelledby="icon-size-radio-buttons-group-label"
+				name="icon-size-radio-buttons-group"
+				value={ widgetIconSize }
 				sx={ {
 					display: 'flex',
 					flexDirection: 'row',
@@ -40,7 +40,7 @@ const IconSize = ( props ) => {
 					<Paper
 						key={ option.value }
 						variant="outlined"
-						onClick={ () => setSelectedValue( option.value ) }
+						onClick={ () => setWidgetIconSize( option.value ) }
 						sx={ {
 							borderRadius: 'md',
 							boxShadow: 'sm',
@@ -53,11 +53,11 @@ const IconSize = ( props ) => {
 							p: 2,
 							minWidth: 100,
 							minHeight: 100,
-							borderColor: selectedValue === option.value ? 'info.main' : 'divider',
-							borderWidth: selectedValue === option.value ? 2 : 1,
+							borderColor: widgetIconSize === option.value ? 'info.main' : 'divider',
+							borderWidth: widgetIconSize === option.value ? 2 : 1,
 							cursor: 'pointer',
 						} }
-					>{ option.icon }
+					>{ icon?.icon && cloneElement( icon.icon, { sx: { color: 'info.main', fontSize: option.fontSize } } ) }
 						<Radio value={ option.value } sx={ { opacity: 0, position: 'absolute' } } />
 					</Paper>
 				) ) }

@@ -4,20 +4,12 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
-import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { AccessibilityControlsIcon, AccessibilityEyeIcon, AccessibilityPersonIcon, AccessibilityTextIcon } from '../../icons';
+import options from '../../helpers/accessibility-options';
+import { useSettings } from '../../hooks';
 
 const IconSelect = ( props ) => {
-	const [ selectedValue, setSelectedValue ] = useState( 'person' );
-	const optionStyle = { color: 'info.main', fontSize: 44 };
-
-	const options = [
-		{ value: 'person', icon: <AccessibilityPersonIcon sx={ optionStyle } />, label: __( 'Accessibility Person Icon', 'pojo-accessibility' ) },
-		{ value: 'eye', icon: <AccessibilityEyeIcon sx={ optionStyle } />, label: __( 'Accessibility Eye Icon', 'pojo-accessibility' ) },
-		{ value: 'text', icon: <AccessibilityTextIcon sx={ optionStyle } />, label: __( 'Accessibility Text Badge Icon', 'pojo-accessibility' ) },
-		{ value: 'controls', icon: <AccessibilityControlsIcon sx={ optionStyle } />, label: __( 'Accessibility Controls Slider Icon', 'pojo-accessibility' ) },
-	];
+	const { widgetIcon, setWidgetIcon } = useSettings();
 
 	return (
 		<FormControl>
@@ -30,10 +22,11 @@ const IconSelect = ( props ) => {
 				{ ...props }
 				aria-labelledby="icon-select-radio-buttons-group-label"
 				name="icon-select-radio-buttons-group"
-				value={ selectedValue }
+				value={ widgetIcon }
 				sx={ {
 					display: 'flex',
 					flexDirection: 'row',
+					flexWrap: 'nowrap',
 					gap: 2,
 				} }
 			>
@@ -41,7 +34,7 @@ const IconSelect = ( props ) => {
 					<Paper
 						key={ option.value }
 						variant="outlined"
-						onClick={ () => setSelectedValue( option.value ) }
+						onClick={ () => setWidgetIcon( option.value ) }
 						sx={ {
 							borderRadius: 'md',
 							boxShadow: 'sm',
@@ -54,8 +47,8 @@ const IconSelect = ( props ) => {
 							p: 2,
 							minWidth: 100,
 							minHeight: 100,
-							borderColor: selectedValue === option.value ? 'info.main' : 'divider',
-							borderWidth: selectedValue === option.value ? 2 : 1,
+							borderColor: widgetIcon === option.value ? 'info.main' : 'divider',
+							borderWidth: widgetIcon === option.value ? 2 : 1,
 							cursor: 'pointer',
 						} }
 					>{ option.icon }
