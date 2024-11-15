@@ -27,9 +27,15 @@ const App = () => {
 					flexDirection="row"
 					height="100%">
 					<Sidebar />
-					<Box width="100%">
+					<Box width="100%"
+						display="flex"
+						flexDirection="column"
+						justifyContent="space-between"
+					>
 						<AdminTopBar />
-						{ selectedChild ? selectedChild.page : selectedParent?.page }
+						<Box p={ 1 } height="100%">
+							{ selectedChild ? selectedChild.page : selectedParent?.page }
+						</Box>
 						<BottomBar />
 					</Box>
 				</Grid>
