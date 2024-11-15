@@ -6,7 +6,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { AlignmentMatrixControl, PositionControl } from '../components';
 
-const PositionSettingsDesktop = () => {
+export const PositionSettingsDesktop = () => {
 	const [ hiddenOnDesktop, setHiddenOnDesktop ] = useState( false );
 	const [ disableExactPosition, setDisableExactPosition ] = useState( true );
 	return (
@@ -35,5 +35,3 @@ const PositionSettingsDesktop = () => {
 		</>
 	);
 };
-
-export default PositionSettingsDesktop;

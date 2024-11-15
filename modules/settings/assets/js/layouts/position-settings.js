@@ -8,14 +8,14 @@ import Typography from '@elementor/ui/Typography';
 import useTabs from '@elementor/ui/useTabs';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { PositionSettingsDesktop } from '../layouts';
+import { PositionSettingsDesktop, PositionSettingsMobile } from '../layouts';
 
 const TABS = {
 	one: 'one',
 	two: 'two',
 };
 
-const PositionSettings = ( props ) => {
+export const PositionSettings = ( props ) => {
 	const [ currentTab, setCurrentTab ] = useState( TABS.one );
 	const { getTabProps } = useTabs( currentTab );
 
@@ -62,10 +62,9 @@ const PositionSettings = ( props ) => {
 				</TabPanel>
 			) : (
 				<TabPanel >
+					<PositionSettingsMobile />
 				</TabPanel>
 			) }
 		</Grid>
 	);
 };
-
-export default PositionSettings;

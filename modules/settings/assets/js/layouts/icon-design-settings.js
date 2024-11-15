@@ -4,7 +4,7 @@ import Typography from '@elementor/ui/Typography';
 import { __ } from '@wordpress/i18n';
 import { ColorPicker, IconSelect, IconSize } from '../components';
 
-const IconDesignSettings = ( props ) => {
+export const IconDesignSettings = ( props ) => {
 	return (
 		<Grid padding={ 2 }
 			border={ 1 }
@@ -30,5 +30,3 @@ const IconDesignSettings = ( props ) => {
 		</Grid>
 	);
 };
-
-export default IconDesignSettings;
