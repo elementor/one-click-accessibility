@@ -3,7 +3,7 @@ import Box from '@elementor/ui/Box';
 import DirectionProvider from '@elementor/ui/DirectionProvider';
 import Grid from '@elementor/ui/Grid';
 import { ThemeProvider } from '@elementor/ui/styles';
-import { ConnectModal, Notifications, MenuItems } from './components';
+import { ConnectModal, Notifications, MenuItems, AdminTopBar, BottomBar } from './components';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import { useNotificationSettings, useSettings } from './hooks';
 import { Sidebar } from './layouts/sidebar';
@@ -27,8 +27,10 @@ const App = () => {
 					flexDirection="row"
 					height="100%">
 					<Sidebar />
-					<Box>
+					<Box width="100%">
+						<AdminTopBar />
 						{ selectedChild ? selectedChild.page : selectedParent?.page }
+						<BottomBar />
 					</Box>
 				</Grid>
 				<Notifications message={ notificationMessage } type={ notificationType } />
