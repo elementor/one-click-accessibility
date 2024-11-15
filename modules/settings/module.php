@@ -108,7 +108,7 @@ class Module extends Module_Base {
 		$this->register_routes();
 		$this->register_components();
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
-		add_action( 'in_admin_header', [ $this, 'render_top_bar' ] );
+		//add_action( 'in_admin_header', [ $this, 'render_top_bar' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 }

@@ -1,6 +1,6 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-const ElementorLogo = ( { size } ) => {
+export const ElementorLogo = ( { size } ) => {
 	return (
 		<SvgIcon viewBox="0 0 24 24" fontSize={ size }>
 			<g clipPath="url(#a)">
@@ -18,5 +18,3 @@ const ElementorLogo = ( { size } ) => {
 		</SvgIcon>
 	);
 };
-
-export default ElementorLogo;
