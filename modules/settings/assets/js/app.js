@@ -33,7 +33,9 @@ const App = () => {
 						justifyContent="space-between"
 					>
 						<AdminTopBar />
-						<Box p={ 1 } height="100%">
+						<Box p={ 1 }
+							height="100%"
+							overflow="scroll">
 							{ selectedChild ? selectedChild.page : selectedParent?.page }
 						</Box>
 						<BottomBar />
