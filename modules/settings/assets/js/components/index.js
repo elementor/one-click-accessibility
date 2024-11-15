@@ -4,3 +4,5 @@ export { default as MyAccountMenu } from './my-account-menu';
 export { SidebarAppBar } from './sidebar-app-bar';
 export { SidebarMenu } from './sidebar-menu';
 export { MenuItems } from '../components/sidebar-menu/menu';
+export { AdminTopBar } from './admin-top-bar';
+export { BottomBar } from './bottom-bar';
