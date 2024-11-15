@@ -14,7 +14,7 @@ export const AdminTopBar = () => {
 					alignItems: 'center',
 					backgroundColor: 'background.default',
 					gap: '10px',
-					borderBottom: '1px solid rgba(0, 0, 0, 0.12)\n',
+					borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
 				} }
 				padding={ 2 }>
 				<Link color="secondary"
