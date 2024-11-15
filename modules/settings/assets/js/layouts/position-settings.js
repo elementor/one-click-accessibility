@@ -15,7 +15,7 @@ const TABS = {
 	two: 'two',
 };
 
-const PositionSettings = () => {
+const PositionSettings = ( props ) => {
 	const [ currentTab, setCurrentTab ] = useState( TABS.one );
 	const { getTabProps } = useTabs( currentTab );
 
@@ -26,7 +26,8 @@ const PositionSettings = () => {
 	return (
 		<Grid padding={ 2 }
 			border={ 1 }
-			borderColor="divider">
+			borderColor="divider"
+			{ ...props }>
 			<Box marginBottom={ 2 }>
 				<Typography variant="subtitle1">{ __( 'Position', 'pojo-accessibility' ) }</Typography>
 				<Typography variant="body2">{ __( 'Set where the widget appears on your site. This applies to all pages.', 'pojo-accessibility' ) }</Typography>

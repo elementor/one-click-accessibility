@@ -4,11 +4,12 @@ import Typography from '@elementor/ui/Typography';
 import { __ } from '@wordpress/i18n';
 import { ColorPicker, IconSelect, IconSize } from '../components';
 
-const IconDesignSettings = () => {
+const IconDesignSettings = ( props ) => {
 	return (
 		<Grid padding={ 2 }
 			border={ 1 }
-			borderColor="divider">
+			borderColor="divider"
+			{ ...props }>
 			<Box marginBottom={ 2 }>
 				<Typography variant="subtitle1">{ __( 'Design', 'pojo-accessibility' ) }</Typography>
 				<Typography variant="body2">{ __( 'Customize the design of the button that visitors use to open the widget.', 'pojo-accessibility' ) }</Typography>
