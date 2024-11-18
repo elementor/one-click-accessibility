@@ -52,6 +52,7 @@ final class Pojo_A11y_Frontend {
 				'add_role_links' => ( 'enable' === get_option( 'pojo_a11y_add_role_links' ) ),
 				'enable_save' => ( 'enable' === get_option( 'pojo_a11y_save' ) ),
 				'save_expiration' => get_option( 'pojo_a11y_save_expiration' ),
+				'maximum_zoom_level' => get_option( 'pojo_a11y_maximum_zoom_level' ),
 			)
 		);
 	}
