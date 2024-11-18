@@ -17,6 +17,7 @@ class Pojo_A11y_Customizer {
 				'one-click' => __( 'One Click', 'pojo-accessibility' ),
 				'wheelchair' => __( 'Wheelchair', 'pojo-accessibility' ),
 				'accessibility' => __( 'Accessibility', 'pojo-accessibility' ),
+				'eye' => __( 'Eye', 'pojo-accessibility' ),
 			),
 			'std' => 'one-click',
 			'description' => __( 'Set Toolbar Icon', 'pojo-accessibility' ),
