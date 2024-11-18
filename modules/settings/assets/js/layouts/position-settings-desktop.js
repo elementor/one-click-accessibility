@@ -2,33 +2,41 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { AlignmentMatrixControl, PositionControl } from '../components';
+import { useIconPosition } from '../hooks';
 
 export const PositionSettingsDesktop = () => {
-	const [ hiddenOnDesktop, setHiddenOnDesktop ] = useState( false );
-	const [ disableExactPosition, setDisableExactPosition ] = useState( true );
+	const { iconPosition, updateIconPosition } = useIconPosition();
+
+	const toggleVisibility = ( device ) => {
+		updateIconPosition( device, 'hidden', ! iconPosition[ device ].hidden );
+	};
+
+	const toggleExactPosition = ( device ) => {
+		updateIconPosition( device, 'exactPosition', ! iconPosition[ device ].exactPosition );
+	};
+
 	return (
 		<>
 			<FormControlLabel label={ <Typography variant="subtitle2">{ __( 'Hide on desktop', 'pojo-accessibility' ) }</Typography> }
 				labelPlacement="start"
 				control={ <Switch color="info" /> }
 				sx={ { marginLeft: 0, marginBottom: 3 } }
-				onChange={ () => setHiddenOnDesktop( ! hiddenOnDesktop ) } />
-			{ ! hiddenOnDesktop &&
+				onChange={ () => toggleVisibility( 'desktop' ) } />
+			{ ! iconPosition.desktop.hidden &&
 				<Box display="grid"
 					gridTemplateColumns="repeat(2,1fr)"
 					gap={ 3 }>
-					<AlignmentMatrixControl />
+					<AlignmentMatrixControl mode="desktop" />
 					<Box>
 						<FormControlLabel label={ <Typography variant="subtitle2">{ __( 'Exact position', 'pojo-accessibility' ) }</Typography> }
 							labelPlacement="start"
 							control={ <Switch color="info" /> }
 							sx={ { marginLeft: 0 } }
-							onChange={ () => setDisableExactPosition( ! disableExactPosition ) } />
-						<PositionControl type="horizontal" disabled={ disableExactPosition } />
-						<PositionControl type="vertical" disabled={ disableExactPosition } />
+							onChange={ () => toggleExactPosition( 'desktop' ) } />
+						<PositionControl type="horizontal" disabled={ ! iconPosition?.enableExactPosition } />
+						<PositionControl type="vertical" disabled={ ! iconPosition?.enableExactPosition } />
 					</Box>
 				</Box>
 			}

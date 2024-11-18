@@ -20,7 +20,7 @@ export const PositionSettingsMobile = () => {
 				<Box display="grid"
 					gridTemplateColumns="repeat(2,1fr)"
 					gap={ 3 }>
-					<AlignmentMatrixControl />
+					<AlignmentMatrixControl mode="mobile" />
 					<Box>
 						<FormControlLabel label={ <Typography variant="subtitle2">{ __( 'Exact position', 'pojo-accessibility' ) }</Typography> }
 							labelPlacement="start"
