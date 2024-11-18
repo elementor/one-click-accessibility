@@ -17,6 +17,47 @@ export const SettingsProvider = ( { children } ) => {
 	const [ widgetIcon, setWidgetIcon ] = useState( 'person' );
 	const [ widgetIconSize, setWidgetIconSize ] = useState( 'medium' );
 	const [ widgetIconColor, setWidgetIconColor ] = useState( '#000' );
+
+	// Icon Position
+	const [ iconPosition, setIconPosition ] =
+		useState(
+			{
+				desktop: {
+					hidden: false,
+					enableExactPosition: false,
+					exactPosition: {
+						horizontal: {
+							direction: 'left',
+							value: 10,
+							unit: 'px',
+						},
+						vertical: {
+							direction: 'top',
+							value: 10,
+							unit: 'px',
+						},
+					},
+					position: 'top-left',
+				},
+				mobile: {
+					hidden: false,
+					enableExactPosition: false,
+					exactPosition: {
+						horizontal: {
+							direction: 'left',
+							value: 10,
+							unit: 'px',
+						},
+						vertical: {
+							direction: 'top',
+							value: 10,
+							unit: 'px',
+						},
+					},
+				},
+				position: 'top-left',
+			},
+		);
 	return (
 		<SettingsContext.Provider
 			value={ {
@@ -30,6 +71,8 @@ export const SettingsProvider = ( { children } ) => {
 				setWidgetIconSize,
 				widgetIconColor,
 				setWidgetIconColor,
+				iconPosition,
+				setIconPosition,
 			} }
 		>
 			{ children }
