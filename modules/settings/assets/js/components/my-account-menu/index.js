@@ -18,7 +18,7 @@ import {
 
 const MyAccountMenu = () => {
 	const { openSidebar } = useSettings();
-	const accountMenuState = usePopupState( { variant: 'popover', popupId: 'demoMenu' } );
+	const accountMenuState = usePopupState( { variant: 'popover', popupId: 'myAccountMenu' } );
 	return (
 		<>
 			<List>
@@ -26,7 +26,7 @@ const MyAccountMenu = () => {
 					<ListItemIcon>
 						<UserIcon sx={ { color: 'common.black' } } />
 					</ListItemIcon>
-					<ListItemText primary="My Account" hidden={ ! openSidebar } />
+					<ListItemText primary={ __( 'My Account', 'pojo-accessibility' ) } hidden={ ! openSidebar } />
 					<ListItemIcon sx={ { display: ! openSidebar ? 'none' : 'default' } }>
 						<ChevronDownIcon />
 					</ListItemIcon>
