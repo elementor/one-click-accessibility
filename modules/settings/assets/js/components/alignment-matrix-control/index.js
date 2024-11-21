@@ -24,6 +24,9 @@ const AlignmentMatrixControl = ( { mode } ) => {
 		] : [] ),
 		{ value: 'top-right', label: __( 'Top Right', 'pojo-accessibility' ) },
 		{ value: 'center-left', label: __( 'Center Left', 'pojo-accessibility' ) },
+		...( mode === 'desktop' ? [
+			{ value: 'empty' },
+		] : [] ),
 		{ value: 'center-right', label: __( 'Center Right', 'pojo-accessibility' ) },
 		{ value: 'bottom-left', label: __( 'Bottom Left', 'pojo-accessibility' ) },
 		...( mode === 'desktop' ? [
@@ -43,7 +46,7 @@ const AlignmentMatrixControl = ( { mode } ) => {
 				justifyContent="center"
 				padding={ 2 }
 				width="100%"
-				sx={ { backgroundColor: 'divider' } }
+				sx={ { backgroundColor: '#EFF5FE' } }
 			>
 				<RadioGroup
 					aria-labelledby="alignment-matrix-control"
@@ -60,14 +63,19 @@ const AlignmentMatrixControl = ( { mode } ) => {
 						borderColor: 'secondary.main',
 						borderRadius: 1,
 						width: mode === 'desktop' ? '300px' : '100px',
+						backgroundColor: '#F3F3F4',
 					} }
 				>
 					{ options.map( ( option ) =>
-						<Tooltip title={ option.label } key={ option.value }>
-							<FormControlLabel sx={ { margin: 0, gridColumn: option.value === 'center-left' ? 'span 2' : 'span 1' } }
-								value={ option.value }
-								control={ <Radio color="secondary" /> } />
-						</Tooltip>,
+						'empty' === option.value ? <Box key={ option.value }></Box>
+							: <Tooltip title={ option.label } key={ option.value }>
+								<FormControlLabel sx={
+									{
+										justifyContent: 'center',
+										margin: 0,
+									}
+								} value={ option.value } control={ <Radio color="secondary" /> } />
+							</Tooltip>,
 					) }
 				</RadioGroup>
 			</Box>
