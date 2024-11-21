@@ -2,6 +2,7 @@ import Box from '@elementor/ui/Box';
 import FormControl from '@elementor/ui/FormControl';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import FormLabel from '@elementor/ui/FormLabel';
+import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Tooltip from '@elementor/ui/Tooltip';
@@ -42,43 +43,45 @@ const AlignmentMatrixControl = ( { mode } ) => {
 					{ __( 'Default Position', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
-			<Box display="flex"
-				justifyContent="center"
-				padding={ 2 }
-				width="100%"
-				sx={ { backgroundColor: '#EFF5FE' } }
-			>
-				<RadioGroup
-					aria-labelledby="alignment-matrix-control"
-					value={ iconPosition[ mode ].position }
-					onChange={ handleChange }
-					name="alignment-matrix-control"
-					sx={ {
-						display: 'grid',
-						gridTemplateColumns: mode === 'desktop' ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)',
-						gap: 1,
-						alignItems: 'center',
-						borderWidth: 5,
-						borderStyle: 'solid',
-						borderColor: 'secondary.main',
-						borderRadius: 1,
-						width: mode === 'desktop' ? '300px' : '100px',
-						backgroundColor: '#F3F3F4',
-					} }
+			<Paper color="info" elevation={ 0 }>
+				<Box display="flex"
+					justifyContent="center"
+					padding={ 2 }
+					width="100%"
 				>
-					{ options.map( ( option ) =>
-						'empty' === option.value ? <Box key={ option.value }></Box>
-							: <Tooltip title={ option.label } key={ option.value }>
-								<FormControlLabel sx={
-									{
-										justifyContent: 'center',
-										margin: 0,
-									}
-								} value={ option.value } control={ <Radio color="secondary" /> } />
-							</Tooltip>,
-					) }
-				</RadioGroup>
-			</Box>
+					<Paper color="secondary">
+						<RadioGroup
+							aria-labelledby="alignment-matrix-control"
+							value={ iconPosition[ mode ].position }
+							onChange={ handleChange }
+							name="alignment-matrix-control"
+							sx={ {
+								display: 'grid',
+								gridTemplateColumns: mode === 'desktop' ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)',
+								gap: 1,
+								alignItems: 'center',
+								borderWidth: 5,
+								borderStyle: 'solid',
+								borderColor: 'secondary.main',
+								borderRadius: 1,
+								width: mode === 'desktop' ? '300px' : '100px',
+							} }
+						>
+							{ options.map( ( option ) =>
+								'empty' === option.value ? <Box key={ option.value }></Box>
+									: <Tooltip title={ option.label } key={ option.value }>
+										<FormControlLabel sx={
+											{
+												justifyContent: 'center',
+												margin: 0,
+											}
+										} value={ option.value } control={ <Radio color="secondary" /> } />
+									</Tooltip>,
+							) }
+						</RadioGroup>
+					</Paper>
+				</Box>
+			</Paper>
 		</FormControl>
 	);
 };
