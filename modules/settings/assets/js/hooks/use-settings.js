@@ -27,12 +27,12 @@ export const SettingsProvider = ( { children } ) => {
 					enableExactPosition: false,
 					exactPosition: {
 						horizontal: {
-							direction: 'left',
+							direction: 'to-left',
 							value: 10,
 							unit: 'px',
 						},
 						vertical: {
-							direction: 'top',
+							direction: 'higher',
 							value: 10,
 							unit: 'px',
 						},
@@ -44,18 +44,18 @@ export const SettingsProvider = ( { children } ) => {
 					enableExactPosition: false,
 					exactPosition: {
 						horizontal: {
-							direction: 'left',
+							direction: 'to-right',
 							value: 10,
 							unit: 'px',
 						},
 						vertical: {
-							direction: 'top',
+							direction: 'lower',
 							value: 10,
 							unit: 'px',
 						},
 					},
+					position: 'top-left',
 				},
-				position: 'top-left',
 			},
 		);
 	return (

@@ -14,7 +14,7 @@ export const PositionSettingsDesktop = () => {
 	};
 
 	const toggleExactPosition = ( device ) => {
-		updateIconPosition( device, 'exactPosition', ! iconPosition[ device ].exactPosition );
+		updateIconPosition( device, 'enableExactPosition', ! iconPosition[ device ].enableExactPosition );
 	};
 
 	return (
@@ -35,8 +35,12 @@ export const PositionSettingsDesktop = () => {
 							control={ <Switch color="info" /> }
 							sx={ { marginLeft: 0 } }
 							onChange={ () => toggleExactPosition( 'desktop' ) } />
-						<PositionControl type="horizontal" disabled={ ! iconPosition?.enableExactPosition } />
-						<PositionControl type="vertical" disabled={ ! iconPosition?.enableExactPosition } />
+						<PositionControl type="horizontal"
+							mode="desktop"
+							disabled={ ! iconPosition.desktop?.enableExactPosition } />
+						<PositionControl type="vertical"
+							mode="desktop"
+							disabled={ ! iconPosition.desktop?.enableExactPosition } />
 					</Box>
 				</Box>
 			}
