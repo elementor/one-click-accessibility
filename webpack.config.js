@@ -17,4 +17,11 @@ module.exports = {
 		...defaultConfig.output,
 		path: path.resolve( process.cwd(), 'assets/build' ),
 	},
+	resolve: {
+		alias: {
+			'@ea11y/hooks': path.resolve( __dirname, 'modules/settings/assets/js/hooks/' ),
+			'@ea11y/components': path.resolve( __dirname, 'modules/settings/assets/js/components/' ),
+		},
+		extensions: [ '.js', '.jsx' ],
+	},
 };
