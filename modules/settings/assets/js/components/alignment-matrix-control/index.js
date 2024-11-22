@@ -39,14 +39,16 @@ const AlignmentMatrixControl = ( { mode } ) => {
 	return (
 		<FormControl>
 			<FormLabel id="alignment-matrix-control" color="secondary">
-				<Typography variant="subtitle2" marginBottom={ 1 }>
+				<Typography variant="subtitle2"
+					marginBottom={ 3 }
+					color="text.primary">
 					{ __( 'Default Position', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
 			<Paper color="info" elevation={ 0 }>
 				<Box display="flex"
 					justifyContent="center"
-					padding={ 2 }
+					padding={ 4 }
 					width="100%"
 				>
 					<Paper color="secondary">
@@ -59,23 +61,21 @@ const AlignmentMatrixControl = ( { mode } ) => {
 								display: 'grid',
 								gridTemplateColumns: mode === 'desktop' ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)',
 								gap: 1,
+								columnGap: mode === 'desktop' ? 6 : 1,
 								alignItems: 'center',
 								borderWidth: 5,
 								borderStyle: 'solid',
 								borderColor: 'secondary.main',
 								borderRadius: 1,
-								width: mode === 'desktop' ? '300px' : '100px',
+								minWidth: mode === 'desktop' ? 'auto' : '100px',
 							} }
 						>
 							{ options.map( ( option ) =>
 								'empty' === option.value ? <Box key={ option.value }></Box>
 									: <Tooltip title={ option.label } key={ option.value }>
-										<FormControlLabel sx={
-											{
-												justifyContent: 'center',
-												margin: 0,
-											}
-										} value={ option.value } control={ <Radio color="secondary" /> } />
+										<FormControlLabel sx={ { justifyContent: 'center', margin: 0 } }
+											value={ option.value }
+											control={ <Radio color="secondary" /> } />
 									</Tooltip>,
 							) }
 						</RadioGroup>

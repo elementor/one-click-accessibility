@@ -4,17 +4,19 @@ import FormLabel from '@elementor/ui/FormLabel';
 import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
+import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 import './style.css';
-import { useSettings } from '../../hooks';
 
 const ColorPicker = () => {
 	const { widgetIconColor, setWidgetIconColor } = useSettings();
 
 	return (
-		<FormControl>
+		<FormControl fullWidth>
 			<FormLabel id="color-picker-label" color="secondary">
-				<Typography variant="subtitle2" marginBottom={ 1 }>
+				<Typography variant="subtitle2"
+					marginBottom={ 1 }
+					color="text.primary">
 					{ __( 'Color', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
@@ -26,7 +28,6 @@ const ColorPicker = () => {
 				<HexColorPicker
 					color={ widgetIconColor }
 					onChange={ setWidgetIconColor }
-					defaultValue="#fff"
 					className="widget-settings-color-picker"
 				/>
 				<Grid marginTop={ 2 } display="flex">

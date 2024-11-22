@@ -4,12 +4,13 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
+import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import options from '../../helpers/accessibility-options';
 import { useSettings } from '../../hooks';
 
 const IconSelect = ( props ) => {
-	const { widgetIcon, setWidgetIcon } = useSettings();
+	const { widgetIcon, setWidgetIcon, widgetIconColor } = useSettings();
 
 	return (
 		<FormControl>
@@ -30,7 +31,7 @@ const IconSelect = ( props ) => {
 					gap: 2,
 				} }
 			>
-				{ options.map( ( option ) => (
+				{ options().map( ( option ) => (
 					<Paper
 						key={ option.value }
 						variant="outlined"
@@ -51,7 +52,7 @@ const IconSelect = ( props ) => {
 							borderWidth: widgetIcon === option.value ? 2 : 1,
 							cursor: 'pointer',
 						} }
-					>{ option.icon }
+					>{ option.icon && cloneElement( option.icon, { sx: { color: widgetIconColor, fontSize: 44 } } ) }
 						<Radio value={ option.value } sx={ { opacity: 0, position: 'absolute' } } />
 					</Paper>
 				) ) }

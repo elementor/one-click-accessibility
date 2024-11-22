@@ -32,10 +32,10 @@ export const PositionSettings = ( props ) => {
 				<Typography variant="subtitle1">{ __( 'Position', 'pojo-accessibility' ) }</Typography>
 				<Typography variant="body2">{ __( 'Set where the widget appears on your site. This applies to all pages.', 'pojo-accessibility' ) }</Typography>
 			</Box>
-			<Box>
+			<Box padding={ 2 }>
 				<Tabs
 					value={ currentTab }
-					sx={ { borderBottom: 'none' } }
+					sx={ { borderBottom: 'none', height: '65px' } }
 					indicatorColor="secondary"
 					textColor="secondary"
 				>

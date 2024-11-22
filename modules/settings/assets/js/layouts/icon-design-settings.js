@@ -16,7 +16,8 @@ export const IconDesignSettings = ( props ) => {
 			</Box>
 			<Grid gridTemplateColumns="repeat(2, 1fr)"
 				display="grid"
-				gap={ 8 }>
+				gap={ 5 }
+				padding={ 2 }>
 				<Box display="flex"
 					flexDirection="column"
 					gap={ 5 }>

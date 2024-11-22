@@ -10,13 +10,13 @@ import { getOptionByValue } from '../../helpers/accessibility-options';
 import { useSettings } from '../../hooks';
 
 const IconSize = ( props ) => {
-	const { widgetIcon, widgetIconSize, setWidgetIconSize } = useSettings();
+	const { widgetIcon, widgetIconSize, setWidgetIconSize, widgetIconColor } = useSettings();
 	const icon = getOptionByValue( widgetIcon );
 
 	const options = [
-		{ value: 'small', fontSize: 36 },
-		{ value: 'medium', fontSize: 44 },
 		{ value: 'large', fontSize: 64 },
+		{ value: 'medium', fontSize: 44 },
+		{ value: 'small', fontSize: 36 },
 	];
 	return (
 		<FormControl>
@@ -57,7 +57,7 @@ const IconSize = ( props ) => {
 							borderWidth: widgetIconSize === option.value ? 2 : 1,
 							cursor: 'pointer',
 						} }
-					>{ icon?.icon && cloneElement( icon.icon, { sx: { color: 'info.main', fontSize: option.fontSize } } ) }
+					>{ icon?.icon && cloneElement( icon.icon, { sx: { color: widgetIconColor, fontSize: option.fontSize } } ) }
 						<Radio value={ option.value } sx={ { opacity: 0, position: 'absolute' } } />
 					</Paper>
 				) ) }
