@@ -1,6 +1,6 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-export const CreditCardIcon = ( props, { size } ) => {
+const CreditCardIcon = ( props, { size } ) => {
 	return (
 		<SvgIcon viewBox="0 0 20 20"
 			fontSize={ size }
@@ -12,3 +12,5 @@ export const CreditCardIcon = ( props, { size } ) => {
 		</SvgIcon>
 	);
 };
+
+export default CreditCardIcon;

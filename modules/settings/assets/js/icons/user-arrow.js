@@ -1,6 +1,6 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-export const UserArrowIcon = ( props, { size } ) => {
+const UserArrowIcon = ( props, { size } ) => {
 	return (
 		<SvgIcon viewBox="0 0 20 20"
 			fontSize={ size }
@@ -17,3 +17,5 @@ export const UserArrowIcon = ( props, { size } ) => {
 		</SvgIcon>
 	);
 };
+
+export default UserArrowIcon;

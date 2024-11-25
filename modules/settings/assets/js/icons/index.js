@@ -1,9 +1,8 @@
-export { ElementorLogo } from './elementor-logo';
-export { SquareRoundedChevronsLeft } from './square-rounded-chevrons-left';
-export { WidgetIcon } from './widget';
-export { UserArrowIcon } from './user-arrow';
-export { CreditCardIcon } from './credit-card';
 export { default as ElementorLogo } from './elementor-logo';
+export { default as SquareRoundedChevronsLeft } from './square-rounded-chevrons-left';
+export { default as WidgetIcon } from './widget';
+export { default as UserArrowIcon } from './user-arrow';
+export { default as CreditCardIcon } from './credit-card';
 export { default as AccessibilityPersonIcon } from './accessibility-person';
 export { default as AccessibilityEyeIcon } from './accessibility-eye';
 export { default as AccessibilityTextIcon } from './accessibility-text';

@@ -1,6 +1,6 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-export const WidgetIcon = ( { size } ) => {
+const WidgetIcon = ( { size } ) => {
 	return (
 		<SvgIcon viewBox="0 0 20 20" fontSize={ size }>
 			<g id="widget">
@@ -28,3 +28,5 @@ export const WidgetIcon = ( { size } ) => {
 		</SvgIcon>
 	);
 };
+
+export default WidgetIcon;
