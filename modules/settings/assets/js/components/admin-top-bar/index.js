@@ -6,25 +6,25 @@ import { __ } from '@wordpress/i18n';
 import { HELP_LINK } from '../../constants';
 
 export const AdminTopBar = () => {
+	const toolBarStyle = {
+		justifyContent: 'end',
+		alignItems: 'center',
+		backgroundColor: 'background.default',
+		gap: '10px',
+		borderBottom: '1px solid rgba(0, 0, 0, 0.12)' };
 	return (
 		<AppBar position="static">
 			<Toolbar direction="row"
-				sx={ {
-					justifyContent: 'end',
-					alignItems: 'center',
-					backgroundColor: 'background.default',
-					gap: '10px',
-					borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-				} }
+				sx={ toolBarStyle }
 				padding={ 2 }>
-				<Grid container={ true }
-					alignItems="center"
-					gap={ 1 }>
-					<ElementorLogo size="large" />
-					<Typography color="text.primary">
-						{ __( 'Accessibility', 'pojo-accessibility' ) }
-					</Typography>
-				</Grid>
+				<Link color="secondary"
+					underline="hover"
+					href={ HELP_LINK }
+					target="_blank"
+					sx={ { display: 'inline-flex', alignItems: 'center', gap: 1 } }
+					aria-label={ __( 'Help', 'pojo-accessibility' ) }>
+					<HelpIcon />
+				</Link>
 			</Toolbar>
 		</AppBar>
 	);
