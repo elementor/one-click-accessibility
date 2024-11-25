@@ -1,6 +1,6 @@
 import { PagesIcon } from '@elementor/icons';
+import { WidgetIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
-import { WidgetIcon } from '../../icons';
 import { AccessibilityStatement, Menu, IconSettings } from '../../pages';
 
 export const MenuItems = {

@@ -4,8 +4,8 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
+import { useSettings } from '@ea11y/hooks';
 import { useState } from '@wordpress/element';
-import { useSettings } from '../../hooks';
 import { MenuItems } from './menu';
 
 const SidebarMenu = () => {

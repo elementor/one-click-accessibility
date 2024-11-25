@@ -1,7 +1,7 @@
+import { SettingsProvider, NotificationsProvider } from '@ea11y/hooks';
 import { StrictMode, Fragment, createRoot } from '@wordpress/element';
 import App from './app';
 import { PluginSettingsProvider } from './contexts/plugin-settings';
-import { SettingsProvider, NotificationsProvider } from './hooks';
 
 const rootNode = document.getElementById( 'ea11y-app' );
 

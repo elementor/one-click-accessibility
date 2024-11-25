@@ -3,8 +3,8 @@ import Button from '@elementor/ui/Button';
 import Grid from '@elementor/ui/Grid';
 import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
+import { useAuth, useModal } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
-import { useAuth, useModal } from '../../hooks';
 
 function ConnectModal() {
 	const { isOpen } = useModal();

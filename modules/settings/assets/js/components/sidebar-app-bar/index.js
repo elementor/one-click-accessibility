@@ -3,12 +3,9 @@ import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
+import { useSettings } from '@ea11y/hooks';
+import { ElementorLogo, SquareRoundedChevronsLeft } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
-import { useSettings } from '../../hooks';
-import {
-	ElementorLogo,
-	SquareRoundedChevronsLeft,
-} from '../../icons';
 
 const SidebarAppBar = () => {
 	const { openSidebar, setOpenSidebar } = useSettings();

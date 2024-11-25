@@ -2,9 +2,9 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
+import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { AlignmentMatrixControl, PositionControl } from '../components';
 
 const PositionSettingsDesktop = () => {
 	const [ hiddenOnDesktop, setHiddenOnDesktop ] = useState( false );

@@ -9,12 +9,12 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import Typography from '@elementor/ui/Typography';
 import { bindMenu, bindTrigger, usePopupState } from '@elementor/ui/usePopupState';
-import { __ } from '@wordpress/i18n';
-import { useSettings } from '../../hooks';
+import { useSettings } from '@ea11y/hooks';
 import {
 	CreditCardIcon,
 	UserArrowIcon,
-} from '../../icons';
+} from '@ea11y/icons';
+import { __ } from '@wordpress/i18n';
 
 const MyAccountMenu = () => {
 	const { openSidebar } = useSettings();
