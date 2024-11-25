@@ -10,7 +10,7 @@ import {
 	SquareRoundedChevronsLeft,
 } from '../../icons';
 
-export const SidebarAppBar = () => {
+const SidebarAppBar = () => {
 	const { openSidebar, setOpenSidebar } = useSettings();
 
 	return ( <AppBar position="static" color="transparent" >
@@ -32,3 +32,5 @@ export const SidebarAppBar = () => {
 		</Toolbar>
 	</AppBar> );
 };
+
+export default SidebarAppBar;

@@ -8,7 +8,7 @@ import { useState } from '@wordpress/element';
 import { useSettings } from '../../hooks';
 import { MenuItems } from './menu';
 
-export const SidebarMenu = () => {
+const SidebarMenu = () => {
 	const { openSidebar, selectedMenu, setSelectedMenu } = useSettings();
 	const [ expandedItems, setExpandedItems ] = useState( {} );
 
@@ -64,3 +64,5 @@ export const SidebarMenu = () => {
 		) ) }
 	</List> );
 };
+
+export default SidebarMenu;
