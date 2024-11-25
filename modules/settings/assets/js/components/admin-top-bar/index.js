@@ -17,14 +17,14 @@ export const AdminTopBar = () => {
 					borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
 				} }
 				padding={ 2 }>
-				<Link color="secondary"
-					underline="hover"
-					href={ HELP_LINK }
-					target="_blank"
-					sx={ { display: 'inline-flex', alignItems: 'center', gap: 1 } }
-					aria-label={ __( 'Help', 'pojo-accessibility' ) }>
-					<HelpIcon />
-				</Link>
+				<Grid container={ true }
+					alignItems="center"
+					gap={ 1 }>
+					<ElementorLogo size="large" />
+					<Typography color="text.primary">
+						{ __( 'Accessibility', 'pojo-accessibility' ) }
+					</Typography>
+				</Grid>
 			</Toolbar>
 		</AppBar>
 	);
