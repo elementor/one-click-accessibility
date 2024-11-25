@@ -2,9 +2,9 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
+import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
+import { useIconPosition } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
-import { AlignmentMatrixControl, PositionControl } from '../components';
-import { useIconPosition } from '../hooks';
 
 export const PositionSettingsMobile = () => {
 	const { iconPosition, updateIconPosition } = useIconPosition();

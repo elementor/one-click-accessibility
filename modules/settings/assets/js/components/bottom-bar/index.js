@@ -2,7 +2,7 @@ import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import { __ } from '@wordpress/i18n';
 
-export const BottomBar = () => {
+const BottomBar = () => {
 	return (
 		<Box display="flex"
 			justifyContent="end"
@@ -15,3 +15,5 @@ export const BottomBar = () => {
 		</Box>
 	);
 };
+
+export default BottomBar;

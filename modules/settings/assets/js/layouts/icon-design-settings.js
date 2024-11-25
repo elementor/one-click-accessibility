@@ -1,8 +1,8 @@
 import Box from '@elementor/ui/Box';
 import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
+import { ColorPicker, IconSelect, IconSize } from '@ea11y/components';
 import { __ } from '@wordpress/i18n';
-import { ColorPicker, IconSelect, IconSize } from '../components';
 
 export const IconDesignSettings = ( props ) => {
 	return (

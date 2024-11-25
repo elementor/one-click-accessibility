@@ -7,8 +7,8 @@ import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
+import { useIconPosition } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
-import { useIconPosition } from '../../hooks';
 
 const AlignmentMatrixControl = ( { mode } ) => {
 	const { iconPosition, updateIconPosition } = useIconPosition();

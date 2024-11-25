@@ -7,9 +7,9 @@ import Select from '@elementor/ui/Select';
 import TextField from '@elementor/ui/TextField';
 import { styled } from '@elementor/ui/styles';
 import { usePopupState, bindTrigger, bindMenu } from '@elementor/ui/usePopupState';
+import { useIconPosition } from '@ea11y/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { useIconPosition } from '../../hooks';
 
 const units = [ 'PX', 'REM', 'EM' ];
 

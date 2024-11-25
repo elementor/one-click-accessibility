@@ -4,10 +4,10 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
+import { useSettings } from '@ea11y/hooks';
 import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { getOptionByValue } from '../../helpers/accessibility-options';
-import { useSettings } from '../../hooks';
 
 const IconSize = ( props ) => {
 	const { widgetIcon, widgetIconSize, setWidgetIconSize, widgetIconColor } = useSettings();

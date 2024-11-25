@@ -3,14 +3,14 @@ import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
+import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
-import { useSettings } from '../../hooks';
 import {
 	ElementorLogo,
 	SquareRoundedChevronsLeft,
 } from '../../icons';
 
-export const SidebarAppBar = () => {
+const SidebarAppBar = () => {
 	const { openSidebar, setOpenSidebar } = useSettings();
 
 	return ( <AppBar position="static" color="transparent" >
@@ -32,3 +32,5 @@ export const SidebarAppBar = () => {
 		</Toolbar>
 	</AppBar> );
 };
+
+export default SidebarAppBar;

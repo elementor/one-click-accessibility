@@ -4,9 +4,9 @@ import Container from '@elementor/ui/Container';
 import DirectionProvider from '@elementor/ui/DirectionProvider';
 import Grid from '@elementor/ui/Grid';
 import { ThemeProvider } from '@elementor/ui/styles';
-import { ConnectModal, Notifications, MenuItems, AdminTopBar, BottomBar } from './components';
+import { ConnectModal, Notifications, MenuItems, AdminTopBar, BottomBar } from '@ea11y/components';
+import { useNotificationSettings, useSettings } from '@ea11y/hooks';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
-import { useNotificationSettings, useSettings } from './hooks';
 import { Sidebar } from './layouts/sidebar';
 
 const App = () => {

@@ -9,8 +9,8 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import Typography from '@elementor/ui/Typography';
 import { bindMenu, bindTrigger, usePopupState } from '@elementor/ui/usePopupState';
+import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
-import { useSettings } from '../../hooks';
 import {
 	CreditCardIcon,
 	UserArrowIcon,

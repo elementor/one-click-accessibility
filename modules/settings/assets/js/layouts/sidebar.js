@@ -1,7 +1,7 @@
 import Box from '@elementor/ui/Box';
 import Drawer from '@elementor/ui/Drawer';
-import { MyAccountMenu, SidebarAppBar, SidebarMenu } from '../components';
-import { useSettings } from '../hooks';
+import { MyAccountMenu, SidebarAppBar, SidebarMenu } from '@ea11y/components';
+import { useSettings } from '@ea11y/hooks';
 
 export const Sidebar = () => {
 	const { openSidebar } = useSettings();

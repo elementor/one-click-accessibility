@@ -1,5 +1,5 @@
+import { useSettings } from '@ea11y/hooks';
 import { useCallback } from '@wordpress/element';
-import { useSettings } from '../hooks';
 
 export const useIconPosition = () => {
 	const { iconPosition, setIconPosition } = useSettings();
