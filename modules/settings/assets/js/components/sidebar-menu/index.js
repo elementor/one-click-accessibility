@@ -10,7 +10,7 @@ import { MenuItems } from './menu';
 
 const SidebarMenu = () => {
 	const { openSidebar, selectedMenu, setSelectedMenu } = useSettings();
-	const [ expandedItems, setExpandedItems ] = useState( {} );
+	const [ expandedItems, setExpandedItems ] = useState( { widget: true } );
 
 	const handleSelectedMenu = ( parentKey, childKey ) => {
 		if ( childKey ) {
