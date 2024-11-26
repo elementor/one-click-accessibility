@@ -46,7 +46,7 @@ const IconSelect = ( props ) => {
 							justifyContent: 'center',
 							gap: 1.5,
 							p: 2,
-							minWidth: 100,
+							minWidth: 10,
 							minHeight: 100,
 							borderColor: widgetIcon === option.value ? 'info.main' : 'divider',
 							borderWidth: widgetIcon === option.value ? 2 : 1,

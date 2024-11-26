@@ -51,7 +51,7 @@ const IconSize = ( props ) => {
 							flexGrow: 1,
 							gap: 1.5,
 							p: 2,
-							minWidth: 100,
+							minWidth: 10,
 							minHeight: 100,
 							borderColor: widgetIconSize === option.value ? 'info.main' : 'divider',
 							borderWidth: widgetIconSize === option.value ? 2 : 1,
