@@ -24,7 +24,8 @@ const PositionSettings = () => {
 	};
 
 	return (
-		<Grid padding={ 2 }
+		<Grid
+			padding={ 2 }
 			border={ 1 }
 			borderColor="divider">
 			<Box marginBottom={ 2 }>

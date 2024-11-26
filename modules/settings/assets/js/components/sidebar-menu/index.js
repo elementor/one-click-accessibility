@@ -47,10 +47,12 @@ const SidebarMenu = () => {
 				{ item.children && expandedItems[ key ] && (
 					<List component="div" disablePadding>
 						{ Object.entries( item.children ).map( ( [ childKey, child ] ) => (
-							<ListItem key={ childKey }
+							<ListItem
+								key={ childKey }
 								sx={ { py: 0 } }
 								hidden={ ! openSidebar }>
-								<ListItemButton sx={ { py: 0 } }
+								<ListItemButton
+									sx={ { py: 0 } }
 									hidden={ ! openSidebar }
 									selected={ childKey === selectedMenu.child && openSidebar }
 									onClick={ () => handleSelectedMenu( key, childKey ) }>

@@ -69,7 +69,8 @@ const IconSelect = ( props ) => {
 							cursor: 'pointer',
 						} }
 					>{ option.icon }
-						<Radio value={ option.value }
+						<Radio
+							value={ option.value }
 							sx={ {
 								opacity: 0, position: 'absolute',
 							} } />

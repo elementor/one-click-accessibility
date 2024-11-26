@@ -24,7 +24,8 @@ const Notifications = ( { type, message } ) => {
 			anchorOrigin={ { vertical: 'bottom', horizontal: 'right' } }
 			sx={ { zIndex: 99999 } }
 		>
-			<Alert onClose={ () => setShowNotification( ! showNotification ) }
+			<Alert
+				onClose={ () => setShowNotification( ! showNotification ) }
 				severity={ type }
 				variant="filled" >
 				{ message }

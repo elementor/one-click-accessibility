@@ -12,12 +12,14 @@ const SidebarAppBar = () => {
 
 	return ( <AppBar position="static" color="transparent" >
 		<Toolbar disableGutters sx={ { justifyContent: 'space-between' } } >
-			<Box display="flex"
+			<Box
+				display="flex"
 				alignItems="center"
 				justifyContent="center"
 				p={ 1 }>
 				<ElementorLogo />
-				<Typography variant="h6"
+				<Typography
+					variant="h6"
 					marginLeft={ 1 }
 					display={ ! openSidebar ? 'none' : 'inherit' }>
 					{ __( 'Accessibility', 'pojo-accessibility' ) }

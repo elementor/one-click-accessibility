@@ -18,7 +18,8 @@ const ColorPicker = () => {
 					{ __( 'Color', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
-			<Grid padding={ 1 }
+			<Grid
+				padding={ 1 }
 				border={ 1 }
 				borderColor="divider"
 				borderRadius={ 1 }
@@ -30,11 +31,13 @@ const ColorPicker = () => {
 					className="widget-settings-color-picker"
 				/>
 				<Grid marginTop={ 2 } display="flex">
-					<Box padding={ 2 }
+					<Box
+						padding={ 2 }
 						sx={ { backgroundColor: color } }
 						borderRadius={ 1 }
 						marginRight={ 1 }></Box>
-					<HexColorInput color={ color }
+					<HexColorInput
+						color={ color }
 						onChange={ setColor }
 						style={ {
 							width: '100%',

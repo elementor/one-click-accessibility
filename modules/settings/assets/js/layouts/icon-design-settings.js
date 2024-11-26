@@ -6,17 +6,20 @@ import { __ } from '@wordpress/i18n';
 
 const IconDesignSettings = () => {
 	return (
-		<Grid padding={ 2 }
+		<Grid
+			padding={ 2 }
 			border={ 1 }
 			borderColor="divider">
 			<Box marginBottom={ 2 }>
 				<Typography variant="subtitle1">{ __( 'Design', 'pojo-accessibility' ) }</Typography>
 				<Typography variant="body2">{ __( 'Customize the design of the button that visitors use to open the widget.', 'pojo-accessibility' ) }</Typography>
 			</Box>
-			<Grid gridTemplateColumns="repeat(2, 1fr)"
+			<Grid
+				gridTemplateColumns="repeat(2, 1fr)"
 				display="grid"
 				gap={ 8 }>
-				<Box display="flex"
+				<Box
+					display="flex"
 					flexDirection="column"
 					gap={ 5 }>
 					<IconSelect />

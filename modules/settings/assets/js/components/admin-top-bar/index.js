@@ -14,10 +14,12 @@ export const AdminTopBar = () => {
 		borderBottom: '1px solid rgba(0, 0, 0, 0.12)' };
 	return (
 		<AppBar position="static">
-			<Toolbar direction="row"
+			<Toolbar
+				direction="row"
 				sx={ toolBarStyle }
 				padding={ 2 }>
-				<Link color="secondary"
+				<Link
+					color="secondary"
 					underline="hover"
 					href={ HELP_LINK }
 					target="_blank"

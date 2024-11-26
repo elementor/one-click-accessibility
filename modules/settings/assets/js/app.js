@@ -23,11 +23,13 @@ const App = () => {
 		<DirectionProvider rtl={ false /* TODO:Add RTL detection in settings */ }>
 			<ThemeProvider colorScheme="light">
 				{ ! isConnected && <ConnectModal /> }
-				<Grid display="flex"
+				<Grid
+					display="flex"
 					flexDirection="row"
 					height="100%">
 					<Sidebar />
-					<Box width="100%"
+					<Box
+						width="100%"
 						display="flex"
 						flexDirection="column"
 						justifyContent="space-between"

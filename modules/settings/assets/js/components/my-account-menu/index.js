@@ -49,7 +49,8 @@ const MyAccountMenu = () => {
 			>
 				<MenuItem onClick={ accountMenuState.close } sx={ { gap: 1, width: '225px' } }>
 					<Avatar>JB</Avatar>
-					<Box display="flex"
+					<Box
+						display="flex"
 						flexDirection="column"
 						gap={ 0 }>
 						<Typography variant="subtitle2" color="common.white">Jack Baueuer</Typography>

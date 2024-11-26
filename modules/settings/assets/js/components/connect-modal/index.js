@@ -12,7 +12,8 @@ function ConnectModal() {
 
 	return (
 		<Modal open={ isOpen }>
-			<Grid container
+			<Grid
+				container
 				gap={ 2 }
 				direction="column"
 				justifyContent="start"
@@ -32,12 +33,14 @@ function ConnectModal() {
 					borderRadius: '4px',
 				} }>
 				<Box component="div" sx={ { background: '#000', width: '100%', height: '200px' } }></Box>
-				<Typography variant="subtitle1"
+				<Typography
+					variant="subtitle1"
 					marginTop={ 5 }
 					marginBottom={ 3 }>
 					{ __( 'Connect plugin on your site!', 'pojo-accessibility' ) }
 				</Typography>
-				<Button variant="contained"
+				<Button
+					variant="contained"
 					color="info"
 					size="large"
 					onClick={ redirectToConnect }>
