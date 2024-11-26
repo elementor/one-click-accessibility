@@ -190,7 +190,7 @@ abstract class Module_Base {
 	 * @access public
 	 * @return Module[]
 	 */
-	public function get_components() {
+	public function get_components(): array {
 		return $this->components;
 	}
 

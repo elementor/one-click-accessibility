@@ -3,7 +3,8 @@
     "plugin:react/recommended",
     "plugin:@wordpress/eslint-plugin/recommended-with-formatting",
     "plugin:import/recommended",
-    "plugin:jsx-a11y/strict"
+    "plugin:jsx-a11y/strict",
+    "plugin:prettier/recommended"
   ],
   "plugins": [
     "babel",
@@ -26,7 +27,6 @@
   "rules": {
     "no-console": "off",
     "react-hooks/exhaustive-deps": "off",
-    "react/jsx-max-props-per-line": [1, { "maximum": { "single": 2, "multi": 1 } }],
     "strict": [ "error", "global" ],
     "curly": "warn",
     "import/order": [

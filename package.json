@@ -25,11 +25,14 @@
 		"@wordpress/eslint-plugin": "^21.3.0",
 		"@wordpress/scripts": "^30.3.0",
 		"eslint": "^8.57.1",
+		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-babel": "^5.3.1",
 		"eslint-plugin-import": "^2.31.0",
 		"eslint-plugin-jsx-a11y": "^6.10.1",
+		"eslint-plugin-prettier": "^5.2.1",
 		"eslint-plugin-react": "^7.37.1",
-		"husky": "^9.1.6"
+		"husky": "^9.1.6",
+		"prettier": "^3.4.1"
 	},
 	"dependencies": {
 		"@elementor/icons": "^1.17.0",
@@ -42,7 +45,7 @@
 		"@wordpress/i18n": "^5.10.0",
 		"@wordpress/url": "^4.10.0",
 		"husky": "^9.1.6",
-		"react-colorful": "^5.6.1",
-		"prop-types": "^15.8.1"
+		"prop-types": "^15.8.1",
+		"react-colorful": "^5.6.1"
 	}
 }

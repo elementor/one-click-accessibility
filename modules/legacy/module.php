@@ -21,7 +21,7 @@ class Module extends Module_Base {
 			'Frontend',
 			'Customizer',
 			'Settings',
-			'Admin'
+			'Admin',
 		];
 	}
 
@@ -30,7 +30,7 @@ class Module extends Module_Base {
 			/**
 			 * @var Customizer $customizer
 			 */
-			$customizer = $this->get_components( 'Customizer' );
+			$customizer = $this->get_components()['Customizer'];
 			$customizer_fields = $customizer->get_customizer_fields();
 			$options = [];
 			$mods = get_theme_mods();
