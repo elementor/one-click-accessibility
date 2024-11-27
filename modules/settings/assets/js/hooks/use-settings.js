@@ -10,12 +10,15 @@ export function useSettings() {
 }
 
 export const SettingsProvider = ( { children } ) => {
-	const [ test, setTest ] = useState( 'Test' );
+	const [ openSidebar, setOpenSidebar ] = useState( true );
+	const [ selectedMenu, setSelectedMenu ] = useState( { parent: 'widget', child: 'iconSettings' } );
 	return (
 		<SettingsContext.Provider
 			value={ {
-				test,
-				setTest,
+				openSidebar,
+				setOpenSidebar,
+				selectedMenu,
+				setSelectedMenu,
 			} }
 		>
 			{ children }

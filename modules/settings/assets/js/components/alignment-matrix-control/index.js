@@ -31,7 +31,8 @@ const AlignmentMatrixControl = () => {
 					{ __( 'Default Position', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
-			<Box display="flex"
+			<Box
+				display="flex"
 				justifyContent="center"
 				padding={ 2 }
 				width="100%"
@@ -53,7 +54,8 @@ const AlignmentMatrixControl = () => {
 						width: '100px',
 					} }
 				>
-					{ options.map( ( option, i ) => <FormControlLabel sx={ { margin: 0 } }
+					{ options.map( ( option, i ) => <FormControlLabel
+						sx={ { margin: 0 } }
 						key={ i }
 						value={ option.value }
 						control={ <Radio color="secondary" /> } /> ) }

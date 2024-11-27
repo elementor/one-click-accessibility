@@ -4,9 +4,9 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
+import { AccessibilityEyeIcon, AccessibilityPersonIcon, AccessibilityTextIcon } from '@ea11y/icons';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { AccessibilityEyeIcon, AccessibilityPersonIcon, AccessibilityTextIcon } from '../../icons';
 
 const IconSize = ( props ) => {
 	const [ selectedValue, setSelectedValue ] = useState( 'medium' );

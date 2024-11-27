@@ -1,31 +1,25 @@
 import HelpIcon from '@elementor/icons/HelpIcon';
 import AppBar from '@elementor/ui/AppBar';
-import Grid from '@elementor/ui/Grid';
 import Link from '@elementor/ui/Link';
 import Toolbar from '@elementor/ui/Toolbar';
-import Typography from '@elementor/ui/Typography';
 import { __ } from '@wordpress/i18n';
 import { HELP_LINK } from '../../constants';
-import ElementorLogo from '../../icons/elementor-logo';
 
-const AdminTopBar = () => {
+export const AdminTopBar = () => {
+	const toolBarStyle = {
+		justifyContent: 'end',
+		alignItems: 'center',
+		backgroundColor: 'background.default',
+		gap: '10px',
+		borderBottom: '1px solid rgba(0, 0, 0, 0.12)' };
 	return (
-		<AppBar position="static"
-			elevation={ 6 }
-			sx={ { boxShadow: '0px 3px 16px 0px rgba(35, 38, 42, 0.20)' } } >
-			<Toolbar direction="row"
-				sx={ { alignItems: 'center', backgroundColor: 'background.default', gap: '10px' } }
+		<AppBar position="static">
+			<Toolbar
+				direction="row"
+				sx={ toolBarStyle }
 				padding={ 2 }>
-				<Grid container={ true }
-					alignItems="center"
-					gap={ 1 }>
-					<ElementorLogo size="large" />
-					<Typography color="text.primary">
-						{ __( 'Accessibility', 'pojo-accessibility' ) }
-					</Typography>
-				</Grid>
-
-				<Link color="secondary"
+				<Link
+					color="secondary"
 					underline="hover"
 					href={ HELP_LINK }
 					target="_blank"
@@ -37,5 +31,3 @@ const AdminTopBar = () => {
 		</AppBar>
 	);
 };
-
-export default AdminTopBar;

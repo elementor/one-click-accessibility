@@ -55,7 +55,8 @@ const PositionControl = ( { type, disabled }, props ) => {
 	const handlePositionChange = ( event ) => setPosition( event.target.value );
 
 	return (
-		<Box display="flex"
+		<Box
+			display="flex"
 			gap={ 1 }
 			marginTop={ 2 }>
 			<StyledTextField

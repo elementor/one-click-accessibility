@@ -1,5 +1,11 @@
 export { default as ConnectModal } from './connect-modal';
 export { default as Notifications } from './notifications';
+export { default as MyAccountMenu } from './my-account-menu';
+export { default as SidebarAppBar } from './sidebar-app-bar';
+export { default as SidebarMenu } from './sidebar-menu';
+export { MenuItems } from '../components/sidebar-menu/menu';
+export { AdminTopBar } from './admin-top-bar';
+export { BottomBar } from './bottom-bar';
 export { default as IconSize } from './icon-size';
 export { default as IconSelect } from './icon-select';
 export { default as ColorPicker } from './color-picker';

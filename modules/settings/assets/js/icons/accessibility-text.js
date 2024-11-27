@@ -9,19 +9,22 @@ function AccessibilityTextIcon( props ) {
 			sx={ { marginRight: 1 } }
 			{ ...props }
 		>
-			<rect x="0.5"
+			<rect
+				x="0.5"
 				y="0.5"
 				width="233"
 				height="139"
 				rx="3.5"
 				stroke="black"
 				strokeOpacity="0.12" />
-			<rect x="55"
+			<rect
+				x="55"
 				y="38"
 				width="124"
 				height="64"
 				rx="4" />
-			<rect x="62.5"
+			<rect
+				x="62.5"
 				y="45.5"
 				width="109"
 				height="49"

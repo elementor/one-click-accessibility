@@ -1,25 +1,15 @@
-import { ThemeProvider } from '@elementor/ui/styles';
+import { SettingsProvider, NotificationsProvider } from '@ea11y/hooks';
 import { StrictMode, Fragment, createRoot } from '@wordpress/element';
 import App from './app';
-import AdminTopBar from './components/admin-top-bar';
 import { PluginSettingsProvider } from './contexts/plugin-settings';
-import { SettingsProvider, NotificationsProvider } from './hooks';
 
 const rootNode = document.getElementById( 'ea11y-app' );
-const topBarNode = document.getElementById( 'ea11y-app-top-bar' );
 
 // Can't use the settings hook in the global scope so accessing directly
 const isDevelopment = window?.ea11ySettingsData?.isDevelopment;
 const AppWrapper = Boolean( isDevelopment ) ? StrictMode : Fragment;
 
 const root = createRoot( rootNode );
-const topBar = createRoot( topBarNode );
-
-topBar.render(
-	<ThemeProvider colorScheme="light">
-		<AdminTopBar />
-	</ThemeProvider>,
-);
 
 root.render(
 	<AppWrapper>
