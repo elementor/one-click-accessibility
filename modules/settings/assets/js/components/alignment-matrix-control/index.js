@@ -9,40 +9,41 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const AlignmentMatrixControl = () => {
-	const [ selectedValue, setSelectedValue ] = useState( 'center-right' );
+	const [selectedValue, setSelectedValue] = useState('center-right');
 
-	const handleChange = ( event ) => {
-		setSelectedValue( event.target.value );
+	const handleChange = (event) => {
+		setSelectedValue(event.target.value);
 	};
 
 	const options = [
-		{ value: 'top-left', label: __( 'Top Left', 'pojo-accessibility' ) },
-		{ value: 'top-right', label: __( 'Top Right', 'pojo-accessibility' ) },
-		{ value: 'center-left', label: __( 'Center Left', 'pojo-accessibility' ) },
-		{ value: 'center-right', label: __( 'Center Right', 'pojo-accessibility' ) },
-		{ value: 'bottom-left', label: __( 'Bottom Left', 'pojo-accessibility' ) },
-		{ value: 'bottom-right', label: __( 'Bottom Right', 'pojo-accessibility' ) },
+		{ value: 'top-left', label: __('Top Left', 'pojo-accessibility') },
+		{ value: 'top-right', label: __('Top Right', 'pojo-accessibility') },
+		{ value: 'center-left', label: __('Center Left', 'pojo-accessibility') },
+		{ value: 'center-right', label: __('Center Right', 'pojo-accessibility') },
+		{ value: 'bottom-left', label: __('Bottom Left', 'pojo-accessibility') },
+		{ value: 'bottom-right', label: __('Bottom Right', 'pojo-accessibility') },
 	];
 
 	return (
 		<FormControl>
 			<FormLabel id="alignment-matrix-control" color="secondary">
-				<Typography variant="subtitle2" marginBottom={ 1 }>
-					{ __( 'Default Position', 'pojo-accessibility' ) }
+				<Typography variant="subtitle2" marginBottom={1}>
+					{__('Default Position', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
-			<Box display="flex"
+			<Box
+				display="flex"
 				justifyContent="center"
-				padding={ 2 }
+				padding={2}
 				width="100%"
-				sx={ { backgroundColor: 'divider' } }
+				sx={{ backgroundColor: 'divider' }}
 			>
 				<RadioGroup
 					aria-labelledby="alignment-matrix-control"
-					value={ selectedValue }
-					onChange={ handleChange }
+					value={selectedValue}
+					onChange={handleChange}
 					name="alignment-matrix-control"
-					sx={ {
+					sx={{
 						display: 'grid',
 						gridTemplateColumns: 'repeat(2, 1fr)',
 						gap: 1,
@@ -51,12 +52,16 @@ const AlignmentMatrixControl = () => {
 						borderColor: 'secondary.main',
 						borderRadius: 1,
 						width: '100px',
-					} }
+					}}
 				>
-					{ options.map( ( option, i ) => <FormControlLabel sx={ { margin: 0 } }
-						key={ i }
-						value={ option.value }
-						control={ <Radio color="secondary" /> } /> ) }
+					{options.map((option, i) => (
+						<FormControlLabel
+							sx={{ margin: 0 }}
+							key={i}
+							value={option.value}
+							control={<Radio color="secondary" />}
+						/>
+					))}
 				</RadioGroup>
 			</Box>
 		</FormControl>

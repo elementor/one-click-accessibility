@@ -9,39 +9,39 @@ import { __ } from '@wordpress/i18n';
 import './style.css';
 
 const ColorPicker = () => {
-	const [ color, setColor ] = useState( '#2563eb' );
+	const [color, setColor] = useState('#2563eb');
 
 	return (
 		<FormControl>
 			<FormLabel id="color-picker-label" color="secondary">
-				<Typography variant="subtitle2" marginBottom={ 1 }>
-					{ __( 'Color', 'pojo-accessibility' ) }
+				<Typography variant="subtitle2" marginBottom={1}>
+					{__('Color', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
-			<Grid padding={ 1 }
-				border={ 1 }
-				borderColor="divider"
-				borderRadius={ 1 }
-			>
+			<Grid padding={1} border={1} borderColor="divider" borderRadius={1}>
 				<HexColorPicker
-					color={ color }
-					onChange={ setColor }
+					color={color}
+					onChange={setColor}
 					defaultValue="#fff"
 					className="widget-settings-color-picker"
 				/>
-				<Grid marginTop={ 2 } display="flex">
-					<Box padding={ 2 }
-						sx={ { backgroundColor: color } }
-						borderRadius={ 1 }
-						marginRight={ 1 }></Box>
-					<HexColorInput color={ color }
-						onChange={ setColor }
-						style={ {
+				<Grid marginTop={2} display="flex">
+					<Box
+						padding={2}
+						sx={{ backgroundColor: color }}
+						borderRadius={1}
+						marginRight={1}
+					></Box>
+					<HexColorInput
+						color={color}
+						onChange={setColor}
+						style={{
 							width: '100%',
 							border: '1px solid rgba(0, 0, 0, 0.12)',
 							borderRadius: '3px',
 							paddingLeft: '10px',
-						} } />
+						}}
+					/>
 				</Grid>
 			</Grid>
 		</FormControl>
