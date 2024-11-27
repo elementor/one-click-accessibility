@@ -1,5 +1,6 @@
 import '../css/style.css';
 import Box from '@elementor/ui/Box';
+import Container from '@elementor/ui/Container';
 import DirectionProvider from '@elementor/ui/DirectionProvider';
 import Grid from '@elementor/ui/Grid';
 import { ThemeProvider } from '@elementor/ui/styles';
@@ -33,11 +34,12 @@ const App = () => {
 						justifyContent="space-between"
 					>
 						<AdminTopBar />
-						<Grid p={ 1 }
-							overflow="scroll"
-							height="100%">
+						<Container
+							p={ 1 }
+							sx={ { overflow: 'auto', maxHeight: '100%' } }
+						>
 							{ selectedChild ? selectedChild.page : selectedParent?.page }
-						</Grid>
+						</Container>
 						<BottomBar />
 					</Box>
 				</Grid>
