@@ -4,13 +4,13 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
-import { useSettings } from '@ea11y/hooks';
+import { useIconDesign } from '@ea11y/hooks';
 import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import options from '../../helpers/accessibility-options';
 
 const IconSelect = ( props ) => {
-	const { widgetIcon, setWidgetIcon, widgetIconColor } = useSettings();
+	const { iconDesign, updateIconDesign } = useIconDesign();
 
 	return (
 		<FormControl>
@@ -23,7 +23,7 @@ const IconSelect = ( props ) => {
 				{ ...props }
 				aria-labelledby="icon-select-radio-buttons-group-label"
 				name="icon-select-radio-buttons-group"
-				value={ widgetIcon }
+				value={ iconDesign.icon }
 				sx={ {
 					display: 'flex',
 					flexDirection: 'row',
@@ -35,7 +35,7 @@ const IconSelect = ( props ) => {
 					<Paper
 						key={ option.value }
 						variant="outlined"
-						onClick={ () => setWidgetIcon( option.value ) }
+						onClick={ () => updateIconDesign( { icon: option.value } ) }
 						sx={ {
 							borderRadius: 'md',
 							boxShadow: 'sm',
@@ -48,11 +48,11 @@ const IconSelect = ( props ) => {
 							p: 2,
 							minWidth: 10,
 							minHeight: 100,
-							borderColor: widgetIcon === option.value ? 'info.main' : 'divider',
-							borderWidth: widgetIcon === option.value ? 2 : 1,
+							borderColor: iconDesign.icon === option.value ? 'info.main' : 'divider',
+							borderWidth: iconDesign.icon === option.value ? 2 : 1,
 							cursor: 'pointer',
 						} }
-					>{ option.icon && cloneElement( option.icon, { sx: { color: widgetIconColor, fontSize: 44 } } ) }
+					>{ option.icon && cloneElement( option.icon, { sx: { color: iconDesign.color, fontSize: 44 } } ) }
 						<Radio value={ option.value } sx={ { opacity: 0, position: 'absolute' } } />
 					</Paper>
 				) ) }

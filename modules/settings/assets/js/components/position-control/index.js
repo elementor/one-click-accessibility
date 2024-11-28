@@ -78,7 +78,8 @@ const PositionControl = ( { type, disabled, mode } ) => {
 		);
 	};
 	return (
-		<Box display="flex"
+		<Box
+			display="flex"
 			gap={ 1 }
 			marginTop={ 2 }>
 			<StyledTextField

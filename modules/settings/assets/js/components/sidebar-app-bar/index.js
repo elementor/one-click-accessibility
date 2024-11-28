@@ -4,23 +4,22 @@ import IconButton from '@elementor/ui/IconButton';
 import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
 import { useSettings } from '@ea11y/hooks';
+import { ElementorLogo, SquareRoundedChevronsLeft } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
-import {
-	ElementorLogo,
-	SquareRoundedChevronsLeft,
-} from '../../icons';
 
 const SidebarAppBar = () => {
 	const { openSidebar, setOpenSidebar } = useSettings();
 
 	return ( <AppBar position="static" color="transparent" >
 		<Toolbar disableGutters sx={ { justifyContent: 'space-between' } } >
-			<Box display="flex"
+			<Box
+				display="flex"
 				alignItems="center"
 				justifyContent="center"
 				p={ 1 }>
 				<ElementorLogo />
-				<Typography variant="h6"
+				<Typography
+					variant="h6"
 					marginLeft={ 1 }
 					display={ ! openSidebar ? 'none' : 'inherit' }>
 					{ __( 'Accessibility', 'pojo-accessibility' ) }

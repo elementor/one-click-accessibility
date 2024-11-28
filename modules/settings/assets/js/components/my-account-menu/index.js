@@ -10,15 +10,15 @@ import MenuItem from '@elementor/ui/MenuItem';
 import Typography from '@elementor/ui/Typography';
 import { bindMenu, bindTrigger, usePopupState } from '@elementor/ui/usePopupState';
 import { useSettings } from '@ea11y/hooks';
-import { __ } from '@wordpress/i18n';
 import {
 	CreditCardIcon,
 	UserArrowIcon,
-} from '../../icons';
+} from '@ea11y/icons';
+import { __ } from '@wordpress/i18n';
 
 const MyAccountMenu = () => {
 	const { openSidebar } = useSettings();
-	const accountMenuState = usePopupState( { variant: 'popover', popupId: 'demoMenu' } );
+	const accountMenuState = usePopupState( { variant: 'popover', popupId: 'myAccountMenu' } );
 	return (
 		<>
 			<List>
@@ -26,7 +26,7 @@ const MyAccountMenu = () => {
 					<ListItemIcon>
 						<UserIcon sx={ { color: 'common.black' } } />
 					</ListItemIcon>
-					<ListItemText primary="My Account" hidden={ ! openSidebar } />
+					<ListItemText primary={ __( 'My Account', 'pojo-accessibility' ) } hidden={ ! openSidebar } />
 					<ListItemIcon sx={ { display: ! openSidebar ? 'none' : 'default' } }>
 						<ChevronDownIcon />
 					</ListItemIcon>
@@ -49,7 +49,8 @@ const MyAccountMenu = () => {
 			>
 				<MenuItem onClick={ accountMenuState.close } sx={ { gap: 1, width: '225px' } }>
 					<Avatar>JB</Avatar>
-					<Box display="flex"
+					<Box
+						display="flex"
 						flexDirection="column"
 						gap={ 0 }>
 						<Typography variant="subtitle2" color="common.white">Jack Baueuer</Typography>

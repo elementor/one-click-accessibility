@@ -39,14 +39,16 @@ const AlignmentMatrixControl = ( { mode } ) => {
 	return (
 		<FormControl>
 			<FormLabel id="alignment-matrix-control" color="secondary">
-				<Typography variant="subtitle2"
+				<Typography
+					variant="subtitle2"
 					marginBottom={ 3 }
 					color="text.primary">
 					{ __( 'Default Position', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
 			<Paper color="info" elevation={ 0 }>
-				<Box display="flex"
+				<Box
+					display="flex"
 					justifyContent="center"
 					padding={ 4 }
 					width="100%"
@@ -73,7 +75,8 @@ const AlignmentMatrixControl = ( { mode } ) => {
 							{ options.map( ( option ) =>
 								'empty' === option.value ? <Box key={ option.value }></Box>
 									: <Tooltip title={ option.label } key={ option.value }>
-										<FormControlLabel sx={ { justifyContent: 'center', margin: 0 } }
+										<FormControlLabel
+											sx={ { justifyContent: 'center', margin: 0 } }
 											value={ option.value }
 											control={ <Radio color="secondary" /> } />
 									</Tooltip>,

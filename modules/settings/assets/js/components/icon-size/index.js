@@ -4,14 +4,14 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
-import { useSettings } from '@ea11y/hooks';
+import { useIconDesign } from '@ea11y/hooks';
 import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { getOptionByValue } from '../../helpers/accessibility-options';
 
 const IconSize = ( props ) => {
-	const { widgetIcon, widgetIconSize, setWidgetIconSize, widgetIconColor } = useSettings();
-	const icon = getOptionByValue( widgetIcon );
+	const { iconDesign, updateIconDesign } = useIconDesign();
+	const icon = getOptionByValue( iconDesign.icon );
 
 	const options = [
 		{ value: 'large', fontSize: 64 },
@@ -29,7 +29,7 @@ const IconSize = ( props ) => {
 				{ ...props }
 				aria-labelledby="icon-size-radio-buttons-group-label"
 				name="icon-size-radio-buttons-group"
-				value={ widgetIconSize }
+				value={ iconDesign.size }
 				sx={ {
 					display: 'flex',
 					flexDirection: 'row',
@@ -40,7 +40,7 @@ const IconSize = ( props ) => {
 					<Paper
 						key={ option.value }
 						variant="outlined"
-						onClick={ () => setWidgetIconSize( option.value ) }
+						onClick={ () => updateIconDesign( { size: option.value } ) }
 						sx={ {
 							borderRadius: 'md',
 							boxShadow: 'sm',
@@ -53,11 +53,11 @@ const IconSize = ( props ) => {
 							p: 2,
 							minWidth: 10,
 							minHeight: 100,
-							borderColor: widgetIconSize === option.value ? 'info.main' : 'divider',
-							borderWidth: widgetIconSize === option.value ? 2 : 1,
+							borderColor: iconDesign.size === option.value ? 'info.main' : 'divider',
+							borderWidth: iconDesign.size === option.value ? 2 : 1,
 							cursor: 'pointer',
 						} }
-					>{ icon?.icon && cloneElement( icon.icon, { sx: { color: widgetIconColor, fontSize: option.fontSize } } ) }
+					>{ icon?.icon && cloneElement( icon.icon, { sx: { color: iconDesign.color, fontSize: option.fontSize } } ) }
 						<Radio value={ option.value } sx={ { opacity: 0, position: 'absolute' } } />
 					</Paper>
 				) ) }

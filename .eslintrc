@@ -27,6 +27,7 @@
     "no-console": "off",
     "react-hooks/exhaustive-deps": "off",
     "react/jsx-max-props-per-line": [1, { "maximum": { "single": 2, "multi": 1 } }],
+    "react/jsx-first-prop-new-line": ["error", "multiline"],
     "strict": [ "error", "global" ],
     "curly": "warn",
     "import/order": [
@@ -47,7 +48,10 @@
           "caseInsensitive": false
         }
       }
-    ]
+    ],
+    "import/newline-after-import": ["error", {
+      "count": 1
+    }]
   },
   "settings": {
     "import/resolver": {

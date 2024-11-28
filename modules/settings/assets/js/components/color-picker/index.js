@@ -4,39 +4,43 @@ import FormLabel from '@elementor/ui/FormLabel';
 import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
-import { useSettings } from '@ea11y/hooks';
+import { useIconDesign } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 import './style.css';
 
 const ColorPicker = () => {
-	const { widgetIconColor, setWidgetIconColor } = useSettings();
+	const { iconDesign, updateIconDesign } = useIconDesign();
 
 	return (
 		<FormControl fullWidth>
 			<FormLabel id="color-picker-label" color="secondary">
-				<Typography variant="subtitle2"
+				<Typography
+					variant="subtitle2"
 					marginBottom={ 1 }
 					color="text.primary">
 					{ __( 'Color', 'pojo-accessibility' ) }
 				</Typography>
 			</FormLabel>
-			<Grid padding={ 1 }
+			<Grid
+				padding={ 1 }
 				border={ 1 }
 				borderColor="divider"
 				borderRadius={ 1 }
 			>
 				<HexColorPicker
-					color={ widgetIconColor }
-					onChange={ setWidgetIconColor }
+					color={ iconDesign.color }
+					onChange={ ( value ) => updateIconDesign( { color: value } ) }
 					className="widget-settings-color-picker"
 				/>
 				<Grid marginTop={ 2 } display="flex">
-					<Box padding={ 2 }
-						sx={ { backgroundColor: widgetIconColor } }
+					<Box
+						padding={ 2 }
+						sx={ { backgroundColor: iconDesign.color } }
 						borderRadius={ 1 }
 						marginRight={ 1 }></Box>
-					<HexColorInput color={ widgetIconColor }
-						onChange={ setWidgetIconColor }
+					<HexColorInput
+						color={ iconDesign.color }
+						onChange={ ( value ) => updateIconDesign( { color: value } ) }
 						style={ {
 							width: '100%',
 							border: '1px solid rgba(0, 0, 0, 0.12)',

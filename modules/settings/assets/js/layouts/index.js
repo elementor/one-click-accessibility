@@ -1,4 +1,4 @@
-export { IconDesignSettings } from './icon-design-settings';
-export { PositionSettings } from './position-settings';
-export { PositionSettingsDesktop } from './position-settings-desktop';
-export { PositionSettingsMobile } from './position-settings-mobile';
+export { default as IconDesignSettings } from './icon-design-settings';
+export { default as PositionSettings } from './position-settings';
+export { default as PositionSettingsDesktop } from './position-settings-desktop';
+export { default as PositionSettingsMobile } from './position-settings-mobile';

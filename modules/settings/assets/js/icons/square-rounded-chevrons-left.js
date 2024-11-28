@@ -1,8 +1,9 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-export const SquareRoundedChevronsLeft = ( props, { size } ) => {
+const SquareRoundedChevronsLeft = ( props, { size } ) => {
 	return (
-		<SvgIcon viewBox="0 0 24 24"
+		<SvgIcon
+			viewBox="0 0 24 24"
 			fontSize={ size }
 			sx={ { ...props.sx } }
 			{ ...props }>
@@ -13,3 +14,5 @@ export const SquareRoundedChevronsLeft = ( props, { size } ) => {
 		</SvgIcon>
 	);
 };
+
+export default SquareRoundedChevronsLeft;

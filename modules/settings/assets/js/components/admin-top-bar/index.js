@@ -6,18 +6,20 @@ import { __ } from '@wordpress/i18n';
 import { HELP_LINK } from '../../constants';
 
 const AdminTopBar = () => {
+	const toolBarStyle = {
+		justifyContent: 'end',
+		alignItems: 'center',
+		backgroundColor: 'background.default',
+		gap: '10px',
+		borderBottom: '1px solid rgba(0, 0, 0, 0.12)' };
 	return (
 		<AppBar position="static">
-			<Toolbar direction="row"
-				sx={ {
-					justifyContent: 'end',
-					alignItems: 'center',
-					backgroundColor: 'background.default',
-					gap: '10px',
-					borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-				} }
+			<Toolbar
+				direction="row"
+				sx={ toolBarStyle }
 				padding={ 2 }>
-				<Link color="secondary"
+				<Link
+					color="secondary"
 					underline="hover"
 					href={ HELP_LINK }
 					target="_blank"

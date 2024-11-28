@@ -1,3 +1,3 @@
-export { AccessibilityStatement } from './accessibility-statement';
-export { IconSettings } from './icon-settings';
-export { Menu } from './menu';
+export { default as AccessibilityStatement } from './accessibility-statement';
+export { default as IconSettings } from './icon-settings';
+export { default as Menu } from './menu';

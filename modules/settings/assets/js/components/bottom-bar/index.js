@@ -4,7 +4,8 @@ import { __ } from '@wordpress/i18n';
 
 const BottomBar = () => {
 	return (
-		<Box display="flex"
+		<Box
+			display="flex"
 			justifyContent="end"
 			p={ 2 }
 			width="100%"

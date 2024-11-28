@@ -17,6 +17,11 @@ export const SettingsProvider = ( { children } ) => {
 	const [ widgetIcon, setWidgetIcon ] = useState( 'person' );
 	const [ widgetIconSize, setWidgetIconSize ] = useState( 'medium' );
 	const [ widgetIconColor, setWidgetIconColor ] = useState( '#2563eb' );
+	const [ iconDesign, setIconDesign ] = useState( {
+		icon: 'person',
+		size: 'medium',
+		color: '#2563eb',
+	} );
 
 	// Icon Position
 	const [ iconPosition, setIconPosition ] =
@@ -73,6 +78,8 @@ export const SettingsProvider = ( { children } ) => {
 				setWidgetIconColor,
 				iconPosition,
 				setIconPosition,
+				iconDesign,
+				setIconDesign,
 			} }
 		>
 			{ children }

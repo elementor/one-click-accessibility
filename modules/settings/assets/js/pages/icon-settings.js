@@ -2,14 +2,17 @@ import Typography from '@elementor/ui/Typography';
 import { __ } from '@wordpress/i18n';
 import { IconDesignSettings, PositionSettings } from '../layouts';
 
-export const IconSettings = () => {
+const IconSettings = () => {
 	return (
 		<>
-			<Typography variant="h4"
+			<Typography
+				variant="h4"
 				fontWeight="400"
 				marginBottom={ 4 }>{ __( 'Icon Settings', 'pojo-accessibility' ) }</Typography>
-			<IconDesignSettings marginBottom={ 3 } />
+			<IconDesignSettings marginBottom={ 4 } />
 			<PositionSettings />
 		</>
 	);
 };
+
+export default IconSettings;

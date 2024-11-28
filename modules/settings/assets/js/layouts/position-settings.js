@@ -6,9 +6,9 @@ import TabPanel from '@elementor/ui/TabPanel';
 import Tabs from '@elementor/ui/Tabs';
 import Typography from '@elementor/ui/Typography';
 import useTabs from '@elementor/ui/useTabs';
+import { PositionSettingsDesktop, PositionSettingsMobile } from '@ea11y/layouts';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { PositionSettingsDesktop, PositionSettingsMobile } from '../layouts';
 
 const TABS = {
 	one: 'one',
@@ -24,7 +24,8 @@ export const PositionSettings = ( props ) => {
 	};
 
 	return (
-		<Grid padding={ 2 }
+		<Grid
+			padding={ 2 }
 			border={ 1 }
 			borderColor="divider"
 			{ ...props }>
@@ -68,3 +69,5 @@ export const PositionSettings = ( props ) => {
 		</Grid>
 	);
 };
+
+export default PositionSettings;

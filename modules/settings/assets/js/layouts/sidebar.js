@@ -7,7 +7,8 @@ export const Sidebar = () => {
 	const { openSidebar } = useSettings();
 
 	return (
-		<Drawer variant="permanent"
+		<Drawer
+			variant="permanent"
 			open={ openSidebar }
 			PaperProps={ {
 				sx: {
