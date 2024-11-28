@@ -11,20 +11,19 @@ export const AdminTopBar = () => {
 		alignItems: 'center',
 		backgroundColor: 'background.default',
 		gap: '10px',
-		borderBottom: '1px solid rgba(0, 0, 0, 0.12)' };
+		borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+	};
 	return (
 		<AppBar position="static">
-			<Toolbar
-				direction="row"
-				sx={ toolBarStyle }
-				padding={ 2 }>
+			<Toolbar direction="row" sx={toolBarStyle} padding={2}>
 				<Link
 					color="secondary"
 					underline="hover"
-					href={ HELP_LINK }
+					href={HELP_LINK}
 					target="_blank"
-					sx={ { display: 'inline-flex', alignItems: 'center', gap: 1 } }
-					aria-label={ __( 'Help', 'pojo-accessibility' ) }>
+					sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
+					aria-label={__('Help', 'pojo-accessibility')}
+				>
 					<HelpIcon />
 				</Link>
 			</Toolbar>

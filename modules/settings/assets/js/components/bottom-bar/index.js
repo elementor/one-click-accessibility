@@ -7,11 +7,12 @@ export const BottomBar = () => {
 		<Box
 			display="flex"
 			justifyContent="end"
-			p={ 2 }
+			p={2}
 			width="100%"
-			borderTop="1px solid rgba(0, 0, 0, 0.12)">
+			borderTop="1px solid rgba(0, 0, 0, 0.12)"
+		>
 			<Button variant="contained" color="info">
-				{ __( 'Save Changes', 'pojo-accessibility' ) }
+				{__('Save Changes', 'pojo-accessibility')}
 			</Button>
 		</Box>
 	);

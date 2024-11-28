@@ -1,8 +1,8 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-const WidgetIcon = ( { size } ) => {
+const WidgetIcon = ({ size }) => {
 	return (
-		<SvgIcon viewBox="0 0 20 20" fontSize={ size }>
+		<SvgIcon viewBox="0 0 20 20" fontSize={size}>
 			<g id="widget">
 				<path
 					id="Vector"
@@ -11,14 +11,16 @@ const WidgetIcon = ( { size } ) => {
 					stroke="black"
 					strokeWidth="1.5"
 					strokeLinecap="round"
-					strokeLinejoin="round" />
+					strokeLinejoin="round"
+				/>
 				<path
 					id="Vector_2"
 					d="M8.33333 13.75L10 11.25M10 11.25L11.6667 13.75M10 11.25V9.58333M10 9.58333L12.5 8.75M10 9.58333L7.5 8.75"
 					stroke="black"
 					strokeWidth="1.5"
 					strokeLinecap="round"
-					strokeLinejoin="round" />
+					strokeLinejoin="round"
+				/>
 				<path
 					id="Vector_3"
 					d="M9.9987 6.66683C10.2288 6.66683 10.4154 6.48028 10.4154 6.25016C10.4154 6.02004 10.2288 5.8335 9.9987 5.8335C9.76858 5.8335 9.58203 6.02004 9.58203 6.25016C9.58203 6.48028 9.76858 6.66683 9.9987 6.66683Z"
@@ -26,7 +28,8 @@ const WidgetIcon = ( { size } ) => {
 					stroke="black"
 					strokeWidth="1.5"
 					strokeLinecap="round"
-					strokeLinejoin="round" />
+					strokeLinejoin="round"
+				/>
 			</g>
 		</SvgIcon>
 	);
