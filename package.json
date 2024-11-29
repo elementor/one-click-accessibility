@@ -9,6 +9,7 @@
 		"start": "wp-scripts start",
 		"format": "wp-scripts format",
 		"lint:js": "wp-scripts lint-js",
+		"lint:js:fix": "wp-scripts lint-js --fix",
 		"prepare": "husky install",
 		"local:start": "wp-env start",
 		"local:stop": "wp-env stop",
@@ -26,11 +27,14 @@
 		"@wordpress/scripts": "^30.3.0",
 		"eslint": "^8.57.1",
 		"eslint-import-resolver-webpack": "^0.13.9",
+		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-babel": "^5.3.1",
 		"eslint-plugin-import": "^2.31.0",
 		"eslint-plugin-jsx-a11y": "^6.10.1",
+		"eslint-plugin-prettier": "^5.2.1",
 		"eslint-plugin-react": "^7.37.1",
-		"husky": "^9.1.6"
+		"husky": "^9.1.6",
+		"prettier": "^3.4.1"
 	},
 	"dependencies": {
 		"@elementor/icons": "^1.17.0",

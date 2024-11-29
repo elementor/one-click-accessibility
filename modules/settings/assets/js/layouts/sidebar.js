@@ -9,8 +9,8 @@ export const Sidebar = () => {
 	return (
 		<Drawer
 			variant="permanent"
-			open={ openSidebar }
-			PaperProps={ {
+			open={openSidebar}
+			PaperProps={{
 				sx: {
 					position: 'relative',
 					minWidth: '90px',
@@ -20,13 +20,13 @@ export const Sidebar = () => {
 					height: '100%',
 					justifyContent: 'space-between',
 				},
-			} }
+			}}
 		>
 			<Box>
 				<SidebarAppBar />
 				<SidebarMenu />
 			</Box>
-			<MyAccountMenu drawerState={ openSidebar } />
+			<MyAccountMenu drawerState={openSidebar} />
 		</Drawer>
 	);
 };

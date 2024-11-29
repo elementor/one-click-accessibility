@@ -9,34 +9,34 @@ import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import options from '../../helpers/accessibility-options';
 
-const IconSelect = ( props ) => {
+const IconSelect = (props) => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 
 	return (
 		<FormControl>
 			<FormLabel id="icon-select-radio-buttons-group-label" color="secondary">
-				<Typography variant="subtitle2" marginBottom={ 1 }>
-					{ __( 'Icon', 'pojo-accessibility' ) }
+				<Typography variant="subtitle2" marginBottom={1}>
+					{__('Icon', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
 			<RadioGroup
-				{ ...props }
+				{...props}
 				aria-labelledby="icon-select-radio-buttons-group-label"
 				name="icon-select-radio-buttons-group"
-				value={ iconDesign.icon }
-				sx={ {
+				value={iconDesign.icon}
+				sx={{
 					display: 'flex',
 					flexDirection: 'row',
 					flexWrap: 'nowrap',
 					gap: 2,
-				} }
+				}}
 			>
-				{ options().map( ( option ) => (
+				{options().map((option) => (
 					<Paper
-						key={ option.value }
+						key={option.value}
 						variant="outlined"
-						onClick={ () => updateIconDesign( { icon: option.value } ) }
-						sx={ {
+						onClick={() => updateIconDesign({ icon: option.value })}
+						sx={{
 							borderRadius: 'md',
 							boxShadow: 'sm',
 							display: 'flex',
@@ -48,14 +48,22 @@ const IconSelect = ( props ) => {
 							p: 2,
 							minWidth: 10,
 							minHeight: 100,
-							borderColor: iconDesign.icon === option.value ? 'info.main' : 'divider',
+							borderColor:
+								iconDesign.icon === option.value ? 'info.main' : 'divider',
 							borderWidth: iconDesign.icon === option.value ? 2 : 1,
 							cursor: 'pointer',
-						} }
-					>{ option.icon && cloneElement( option.icon, { sx: { color: iconDesign.color, fontSize: 44 } } ) }
-						<Radio value={ option.value } sx={ { opacity: 0, position: 'absolute' } } />
+						}}
+					>
+						{option.icon &&
+							cloneElement(option.icon, {
+								sx: { color: iconDesign.color, fontSize: 44 },
+							})}
+						<Radio
+							value={option.value}
+							sx={{ opacity: 0, position: 'absolute' }}
+						/>
 					</Paper>
-				) ) }
+				))}
 			</RadioGroup>
 		</FormControl>
 	);

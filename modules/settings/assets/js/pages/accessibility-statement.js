@@ -1,5 +1,5 @@
 const AccessibilityStatement = () => {
-	return ( <h1>AccessibilityStatement</h1> );
+	return <h1>AccessibilityStatement</h1>;
 };
 
 export default AccessibilityStatement;

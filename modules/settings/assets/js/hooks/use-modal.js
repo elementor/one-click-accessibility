@@ -1,14 +1,14 @@
 import { useState } from '@wordpress/element';
 
-export const useModal = ( defaultIsOpen = true ) => {
-	const [ isOpen, setIsOpen ] = useState( defaultIsOpen );
+export const useModal = (defaultIsOpen = true) => {
+	const [isOpen, setIsOpen] = useState(defaultIsOpen);
 
 	const open = () => {
-		setIsOpen( true );
+		setIsOpen(true);
 	};
 
 	const close = () => {
-		setIsOpen( false );
+		setIsOpen(false);
 	};
 
 	return {

@@ -7,7 +7,7 @@ export const useAuth = () => {
 	const redirectToConnect = async () => {
 		const link = await getConnectLink();
 
-		window.open( link, '_self' ).focus();
+		window.open(link, '_self').focus();
 	};
 
 	const getConnectLink = async () => {
@@ -15,9 +15,9 @@ export const useAuth = () => {
 	};
 
 	const getUpgradeLink = () => {
-		const url = new URL( UPGRADE_LINK );
+		const url = new URL(UPGRADE_LINK);
 
-		url.searchParams.append( 'subscription_id', subscriptionId );
+		url.searchParams.append('subscription_id', subscriptionId);
 
 		return url.toString();
 	};

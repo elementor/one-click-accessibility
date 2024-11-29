@@ -9,9 +9,9 @@ import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { getOptionByValue } from '../../helpers/accessibility-options';
 
-const IconSize = ( props ) => {
+const IconSize = (props) => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
-	const icon = getOptionByValue( iconDesign.icon );
+	const icon = getOptionByValue(iconDesign.icon);
 
 	const options = [
 		{ value: 'large', fontSize: 64 },
@@ -21,27 +21,27 @@ const IconSize = ( props ) => {
 	return (
 		<FormControl>
 			<FormLabel id="icon-size-radio-buttons-group-label" color="secondary">
-				<Typography variant="subtitle2" marginBottom={ 1 }>
-					{ __( 'Size', 'pojo-accessibility' ) }
+				<Typography variant="subtitle2" marginBottom={1}>
+					{__('Size', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
 			<RadioGroup
-				{ ...props }
+				{...props}
 				aria-labelledby="icon-size-radio-buttons-group-label"
 				name="icon-size-radio-buttons-group"
-				value={ iconDesign.size }
-				sx={ {
+				value={iconDesign.size}
+				sx={{
 					display: 'flex',
 					flexDirection: 'row',
 					gap: 2,
-				} }
+				}}
 			>
-				{ options.map( ( option ) => (
+				{options.map((option) => (
 					<Paper
-						key={ option.value }
+						key={option.value}
 						variant="outlined"
-						onClick={ () => updateIconDesign( { size: option.value } ) }
-						sx={ {
+						onClick={() => updateIconDesign({ size: option.value })}
+						sx={{
 							borderRadius: 'md',
 							boxShadow: 'sm',
 							display: 'flex',
@@ -53,14 +53,22 @@ const IconSize = ( props ) => {
 							p: 2,
 							minWidth: 10,
 							minHeight: 100,
-							borderColor: iconDesign.size === option.value ? 'info.main' : 'divider',
+							borderColor:
+								iconDesign.size === option.value ? 'info.main' : 'divider',
 							borderWidth: iconDesign.size === option.value ? 2 : 1,
 							cursor: 'pointer',
-						} }
-					>{ icon?.icon && cloneElement( icon.icon, { sx: { color: iconDesign.color, fontSize: option.fontSize } } ) }
-						<Radio value={ option.value } sx={ { opacity: 0, position: 'absolute' } } />
+						}}
+					>
+						{icon?.icon &&
+							cloneElement(icon.icon, {
+								sx: { color: iconDesign.color, fontSize: option.fontSize },
+							})}
+						<Radio
+							value={option.value}
+							sx={{ opacity: 0, position: 'absolute' }}
+						/>
 					</Paper>
-				) ) }
+				))}
 			</RadioGroup>
 		</FormControl>
 	);
