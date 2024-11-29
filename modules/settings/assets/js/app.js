@@ -1,6 +1,5 @@
 import '../css/style.css';
 import Box from '@elementor/ui/Box';
-import Container from '@elementor/ui/Container';
 import DirectionProvider from '@elementor/ui/DirectionProvider';
 import Grid from '@elementor/ui/Grid';
 import { ThemeProvider } from '@elementor/ui/styles';
@@ -9,7 +8,6 @@ import {
 	Notifications,
 	MenuItems,
 	AdminTopBar,
-	BottomBar,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
@@ -43,13 +41,7 @@ const App = () => {
 						justifyContent="space-between"
 					>
 						<AdminTopBar />
-						<Container
-							p={1}
-							sx={{ overflow: 'auto', maxHeight: '100%', padding: 4 }}
-						>
-							{selectedChild ? selectedChild.page : selectedParent?.page}
-						</Container>
-						<BottomBar />
+						{selectedChild ? selectedChild.page : selectedParent?.page}
 					</Box>
 				</Grid>
 				<Notifications message={notificationMessage} type={notificationType} />
