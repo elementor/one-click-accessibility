@@ -20,16 +20,6 @@ class Module extends Module_Base {
 		return 'settings';
 	}
 
-	public function render_top_bar() {
-		if ( 'toplevel_page_accessibility-settings-2' !== get_current_screen()->id ) {
-			return;
-		}
-
-		?>
-		<div id="ea11y-app-top-bar"></div>
-		<?php
-	}
-
 	public function render_app() {
 		?>
 		<!-- The hack required to wrap WP notifications -->
@@ -41,7 +31,7 @@ class Module extends Module_Base {
 		<?php
 	}
 
-	public function register_page() {
+	public function register_page() : void {
 		add_menu_page(
 			__( 'Accessibility New', 'pojo-accessibility' ), //TODO: Change this later
 			__( 'Accessibility New', 'pojo-accessibility' ),
@@ -64,7 +54,7 @@ class Module extends Module_Base {
 	/**
 	 * Enqueue Scripts and Styles
 	 */
-	public function enqueue_scripts( $hook ) {
+	public function enqueue_scripts( $hook ) : void {
 		if ( 'toplevel_page_accessibility-settings-2' !== $hook ) {
 			return;
 		}
@@ -101,6 +91,39 @@ class Module extends Module_Base {
 			'isConnected' => Connect::is_connected(),
 		];
 	}
+
+	/**
+	 * Register settings.
+	 *
+	 * Register settings for the plugin.
+	 *
+	 * @return void
+	 * @throws Throwable
+	 */
+	public function register_settings(): void {
+		$settings = [
+			'widget_icon_settings' => [
+				'type' => 'object',
+                'show_in_rest' => [
+                        'schema' => [
+                                'type' => 'object',
+                                'additionalProperties' => true
+                        ],
+                ]
+			],
+			'close_post_connect_modal' => [
+				'type' => 'boolean',
+			],
+		];
+
+		foreach ( $settings as $setting => $args ) {
+			if ( ! isset( $args['show_in_rest'] ) ) {
+				$args['show_in_rest'] = true;
+			}
+			register_setting( 'options', self::SETTING_PREFIX . $setting, $args );
+		}
+	}
+
 	/**
 	 * Module constructor.
 	 */
@@ -108,7 +131,7 @@ class Module extends Module_Base {
 		$this->register_routes();
 		$this->register_components();
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
-		//add_action( 'in_admin_header', [ $this, 'render_top_bar' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
 	}
 }
