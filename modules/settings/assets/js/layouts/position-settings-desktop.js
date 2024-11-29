@@ -41,6 +41,7 @@ const PositionSettingsDesktop = () => {
 				control={<Switch color="info" size="small" />}
 				sx={{ marginLeft: 2, marginBottom: 3 }}
 				onChange={() => toggleVisibility('desktop')}
+				checked={iconPosition.desktop.hidden}
 			/>
 			{!iconPosition.desktop.hidden && (
 				<Box
@@ -58,6 +59,7 @@ const PositionSettingsDesktop = () => {
 							control={<Switch color="info" size="small" />}
 							sx={{ marginLeft: 0 }}
 							onChange={() => toggleExactPosition('desktop')}
+							checked={iconPosition.desktop?.enableExactPosition}
 						/>
 						<PositionControl
 							type="horizontal"

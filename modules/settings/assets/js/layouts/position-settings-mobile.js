@@ -41,6 +41,7 @@ const PositionSettingsMobile = () => {
 				control={<Switch color="info" size="small" />}
 				sx={{ marginLeft: 2, marginBottom: 3 }}
 				onChange={() => toggleVisibility('mobile')}
+				checked={iconPosition.mobile.hidden}
 			/>
 			{!iconPosition.mobile.hidden && (
 				<Box
@@ -57,6 +58,7 @@ const PositionSettingsMobile = () => {
 							control={<Switch color="info" size="small" />}
 							sx={{ marginLeft: 0 }}
 							onChange={() => toggleExactPosition('mobile')}
+							checked={iconPosition.mobile?.enableExactPosition}
 						/>
 						<PositionControl
 							type="horizontal"
