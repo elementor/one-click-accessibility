@@ -8,3 +8,4 @@ export { NotificationsProvider } from './use-notifications';
 export { useNotificationSettings } from './use-notifications';
 export { useIconPosition } from './use-icon-positioon';
 export { useIconDesign } from './use-icon-design';
+export { useSavedSettings } from './use-saved-settings';

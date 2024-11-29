@@ -11,7 +11,11 @@ import {
 	AdminTopBar,
 	BottomBar,
 } from '@ea11y/components';
-import { useNotificationSettings, useSettings } from '@ea11y/hooks';
+import {
+	useNotificationSettings,
+	useSettings,
+	useSavedSettings,
+} from '@ea11y/hooks';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import { Sidebar } from './layouts/sidebar';
 
@@ -19,6 +23,7 @@ const App = () => {
 	const { isConnected } = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
+	useSavedSettings();
 
 	// Accessing the selected menu item
 	const selectedParent = MenuItems[selectedMenu.parent];
