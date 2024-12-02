@@ -31,7 +31,7 @@ const IconSelect = (props) => {
 					gap: 2,
 				}}
 			>
-				{options().map((option) => (
+				{options.map((option) => (
 					<Paper
 						key={option.value}
 						variant="outlined"
