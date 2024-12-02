@@ -9,13 +9,13 @@ const BottomBar = () => {
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 
-	const saveSettings = () => {
+	const saveSettings = async () => {
 		if (
 			selectedMenu.parent === 'widget' &&
 			selectedMenu.child === 'iconSettings'
 		) {
 			try {
-				save({
+				await save({
 					a11y_widget_icon_settings: {
 						style: iconDesign,
 						position: iconPosition,
