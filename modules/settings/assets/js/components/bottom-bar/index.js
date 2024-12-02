@@ -4,7 +4,8 @@ import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 
 const BottomBar = () => {
-	const { selectedMenu, iconDesign, iconPosition } = useSettings();
+	const { selectedMenu, iconDesign, iconPosition, hasChanges, setHasChanges } =
+		useSettings();
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 
@@ -21,6 +22,7 @@ const BottomBar = () => {
 					},
 				}).then(() => {
 					success('Settings saved!');
+					setHasChanges(false);
 				});
 			} catch (e) {
 				error('Failed to save settings!');
@@ -36,7 +38,12 @@ const BottomBar = () => {
 			width="100%"
 			borderTop="1px solid rgba(0, 0, 0, 0.12)"
 		>
-			<Button variant="contained" color="info" onClick={saveSettings}>
+			<Button
+				variant="contained"
+				color="info"
+				onClick={saveSettings}
+				disabled={!hasChanges}
+			>
 				{__('Save Changes', 'pojo-accessibility')}
 			</Button>
 		</Box>

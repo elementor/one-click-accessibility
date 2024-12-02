@@ -2,7 +2,7 @@ import { useSettings } from '@ea11y/hooks';
 import { useCallback } from '@wordpress/element';
 
 export const useIconPosition = () => {
-	const { iconPosition, setIconPosition } = useSettings();
+	const { iconPosition, setIconPosition, setHasChanges } = useSettings();
 
 	const updateIconPosition = useCallback(
 		(device, key, value) => {
@@ -13,6 +13,7 @@ export const useIconPosition = () => {
 					[key]: value,
 				},
 			}));
+			setHasChanges(true);
 		},
 		[setIconPosition],
 	);
@@ -32,6 +33,7 @@ export const useIconPosition = () => {
 				},
 			},
 		}));
+		setHasChanges(true);
 	};
 
 	return { iconPosition, updateIconPosition, updateExactPosition };

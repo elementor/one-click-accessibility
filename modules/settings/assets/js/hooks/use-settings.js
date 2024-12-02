@@ -63,6 +63,8 @@ export const SettingsProvider = ({ children }) => {
 			position: 'top-left',
 		},
 	});
+
+	const [hasChanges, setHasChanges] = useState(false);
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -80,6 +82,8 @@ export const SettingsProvider = ({ children }) => {
 				setIconPosition,
 				iconDesign,
 				setIconDesign,
+				hasChanges,
+				setHasChanges,
 			}}
 		>
 			{children}
