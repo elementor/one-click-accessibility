@@ -3,7 +3,7 @@ import Drawer from '@elementor/ui/Drawer';
 import { MyAccountMenu, SidebarAppBar, SidebarMenu } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 
-export const Sidebar = () => {
+const Sidebar = () => {
 	const { openSidebar } = useSettings();
 
 	return (
@@ -30,3 +30,5 @@ export const Sidebar = () => {
 		</Drawer>
 	);
 };
+
+export default Sidebar;
