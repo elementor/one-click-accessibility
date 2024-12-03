@@ -21,7 +21,10 @@ const App = () => {
 	const { isConnected } = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
-	useSavedSettings();
+        useSavedSettings();
+        const { isConnected } = usePluginSettingsContext();
+	const { notificationMessage, notificationType } = useNotificationSettings();
+	const { selectedMenu } = useSettings();
 
 	// Accessing the selected menu item
 	const selectedParent = MenuItems[selectedMenu.parent];
