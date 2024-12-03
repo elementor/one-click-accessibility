@@ -18,11 +18,8 @@ import { usePluginSettingsContext } from './contexts/plugin-settings';
 import { Sidebar } from './layouts/sidebar';
 
 const App = () => {
+	useSavedSettings();
 	const { isConnected } = usePluginSettingsContext();
-	const { notificationMessage, notificationType } = useNotificationSettings();
-	const { selectedMenu } = useSettings();
-        useSavedSettings();
-        const { isConnected } = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
 
