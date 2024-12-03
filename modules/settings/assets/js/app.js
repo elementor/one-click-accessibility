@@ -38,7 +38,7 @@ const App = () => {
 						width="100%"
 						display="flex"
 						flexDirection="column"
-						justifyContent="space-between"
+						justifyContent="start"
 					>
 						<AdminTopBar />
 						{selectedChild ? selectedChild.page : selectedParent?.page}

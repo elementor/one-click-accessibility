@@ -38,6 +38,7 @@ export const SettingsProvider = ({ children }) => {
 
 	// Track settings changes to enable/disable Save Changes button
 	const [hasChanges, setHasChanges] = useState(false);
+	const [hideMinimumOptionAlert, setHideMinimumOptionAlert] = useState(false);
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -49,6 +50,8 @@ export const SettingsProvider = ({ children }) => {
 				setWidgetMenuSettings,
 				hasChanges,
 				setHasChanges,
+				hideMinimumOptionAlert,
+				setHideMinimumOptionAlert,
 			}}
 		>
 			{children}

@@ -115,6 +115,9 @@ class Module extends Module_Base {
 			'close_post_connect_modal' => [
 				'type' => 'boolean',
 			],
+            'hide_minimum_active_options_alert' => [
+                    'type' => 'boolean',
+            ]
 		];
 
 		foreach ( $settings as $setting => $args ) {

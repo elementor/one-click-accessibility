@@ -4,7 +4,7 @@ import { useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 
 export const useSavedSettings = () => {
-	const { setWidgetMenuSettings } = useSettings();
+	const { setWidgetMenuSettings, setHideMinimumOptionAlert } = useSettings();
 
 	const result = useSelect((select) => {
 		return {
@@ -20,6 +20,12 @@ export const useSavedSettings = () => {
 		if (result.hasFinishedResolution) {
 			if (result?.data?.a11y_widget_menu_settings) {
 				setWidgetMenuSettings(result.data.a11y_widget_menu_settings);
+			}
+
+			if (result?.data?.a11y_hide_minimum_active_options_alert) {
+				setHideMinimumOptionAlert(
+					result.data.a11y_hide_minimum_active_options_alert,
+				);
 			}
 		}
 	}, [result.hasFinishedResolution]);
