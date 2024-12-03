@@ -99,7 +99,9 @@ const MenuSettings = () => {
 					{__('At least two option must remain active', 'pojo-accessibility')}
 				</Alert>
 			)}
-			<CardContent sx={{ height: '50vh', overflow: 'auto' }}>
+			<CardContent
+				sx={{ height: '50vh', overflow: 'auto', marginBottom: '100px' }}
+			>
 				<List>
 					{Object.entries(MENU_SETTINGS).map(([parentKey, parentItem]) => {
 						return (
@@ -150,7 +152,14 @@ const MenuSettings = () => {
 					})}
 				</List>
 			</CardContent>
-			<CardActions>
+			<CardActions
+				sx={{
+					position: 'absolute',
+					bottom: 0,
+					width: '100%',
+					background: 'white',
+				}}
+			>
 				<BottomBar />
 			</CardActions>
 		</Card>
