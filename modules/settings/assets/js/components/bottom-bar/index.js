@@ -23,7 +23,14 @@ const BottomBar = () => {
 				}).then(() => {
 					success('Settings saved!');
 					setHasChanges(false);
+        await save({
+					a11y_widget_icon_settings: {
+						style: iconDesign,
+						position: iconPosition,
+					},
 				});
+	success('Settings saved!');
+	setHasChanges(false);
 			} catch (e) {
 				error('Failed to save settings!');
 			}
