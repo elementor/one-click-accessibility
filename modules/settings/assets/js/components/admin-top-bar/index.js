@@ -5,7 +5,7 @@ import Toolbar from '@elementor/ui/Toolbar';
 import { __ } from '@wordpress/i18n';
 import { HELP_LINK } from '../../constants';
 
-export const AdminTopBar = () => {
+const AdminTopBar = () => {
 	const toolBarStyle = {
 		justifyContent: 'end',
 		alignItems: 'center',
@@ -30,3 +30,5 @@ export const AdminTopBar = () => {
 		</AppBar>
 	);
 };
+
+export default AdminTopBar;

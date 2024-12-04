@@ -4,9 +4,9 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
+import { MenuItems } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
-import { useState } from '@wordpress/element';
-import { MenuItems } from './menu';
+import { useState, Fragment } from '@wordpress/element';
 
 const SidebarMenu = () => {
 	const { openSidebar, selectedMenu, setSelectedMenu } = useSettings();
@@ -29,8 +29,8 @@ const SidebarMenu = () => {
 	return (
 		<List>
 			{Object.entries(MenuItems).map(([key, item]) => (
-				<>
-					<ListItem key={key} disableGutters>
+				<Fragment key={item.key}>
+					<ListItem disableGutters>
 						<ListItemButton
 							onClick={() =>
 								item.children ? handleToggleItem(key) : handleSelectedMenu(key)
@@ -70,7 +70,7 @@ const SidebarMenu = () => {
 							))}
 						</List>
 					)}
-				</>
+				</Fragment>
 			))}
 		</List>
 	);

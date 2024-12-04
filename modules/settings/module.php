@@ -90,6 +90,7 @@ class Module extends Module_Base {
 
 		return [
 			'isConnected' => Connect::is_connected(),
+			'isRTL' => is_rtl(),
 		];
 	}
 
@@ -104,6 +105,15 @@ class Module extends Module_Base {
 	public function register_settings(): void {
 		$settings = [
 			'widget_menu_settings' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true
+					],
+				]
+			],
+			'widget_icon_settings' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [

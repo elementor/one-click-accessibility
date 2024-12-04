@@ -11,6 +11,7 @@ import {
 	bindTrigger,
 	bindMenu,
 } from '@elementor/ui/usePopupState';
+import { useIconPosition } from '@ea11y/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -43,28 +44,49 @@ const StyledTextField = styled(TextField)(() => ({
 	},
 }));
 
-const PositionControl = ({ type, disabled }, props) => {
+const PositionControl = ({ type, disabled, mode }) => {
+	const { iconPosition, updateExactPosition } = useIconPosition();
 	const [unitsIndex, setUnitsIndex] = useState(0);
 	const popupState = usePopupState({
 		variant: 'popover',
-		popupId: 'textfield-inner-selection',
+		popupId: 'position-settings',
 	});
 
 	const handleMenuItemClick = (index) => {
 		setUnitsIndex(index);
+		updateExactPosition(
+			mode,
+			type,
+			iconPosition[mode].exactPosition[type].direction,
+			iconPosition[mode].exactPosition[type].value,
+			units[index],
+		);
 		popupState.close();
 	};
-
-	const [position, setPosition] = useState(10);
-	const handlePositionChange = (event) => setPosition(event.target.value);
-
+	const handlePositionChange = (event) => {
+		updateExactPosition(
+			mode,
+			type,
+			iconPosition[mode].exactPosition[type].direction,
+			event.target.value,
+			iconPosition[mode].exactPosition[type].unit,
+		);
+	};
+	const handlePositionDirection = (event) => {
+		updateExactPosition(
+			mode,
+			type,
+			event.target.value,
+			iconPosition[mode].exactPosition[type].value,
+			iconPosition[mode].exactPosition[type].unit,
+		);
+	};
 	return (
 		<Box display="flex" gap={1} marginTop={2}>
 			<StyledTextField
-				{...props}
 				size="medium"
 				disabled={disabled}
-				value={position}
+				value={iconPosition[mode]?.exactPosition?.[type].value}
 				onChange={handlePositionChange}
 				InputProps={{
 					endAdornment: (
@@ -74,10 +96,10 @@ const PositionControl = ({ type, disabled }, props) => {
 								color="inherit"
 								sx={{ font: 'inherit', minWidth: 'initial' }}
 								{...bindTrigger(popupState)}
+								disabled={disabled}
 							>
 								{units[unitsIndex]}
 							</Button>
-
 							<Menu MenuListProps={{ dense: true }} {...bindMenu(popupState)}>
 								{units.map((unit, index) => (
 									<MenuItem
@@ -93,15 +115,10 @@ const PositionControl = ({ type, disabled }, props) => {
 				}}
 			/>
 			<Select
-				{...props}
 				fullWidth
-				labelId="input-select-label"
+				onChange={handlePositionDirection}
 				disabled={disabled}
-				defaultValue={
-					'horizontal' === type
-						? horizontalOptions[0].value
-						: verticalOptions[0].value
-				}
+				value={iconPosition[mode]?.exactPosition?.[type].direction}
 				MenuProps={{
 					MenuListProps: {
 						sx: {

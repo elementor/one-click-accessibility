@@ -3,9 +3,15 @@ import Button from '@elementor/ui/Button';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 
-export const BottomBar = () => {
-	const { selectedMenu, widgetMenuSettings, hasChanges, setHasChanges } =
-		useSettings();
+const BottomBar = () => {
+	const {
+		selectedMenu,
+		widgetMenuSettings,
+		iconDesign,
+		iconPosition,
+		hasChanges,
+		setHasChanges,
+	} = useSettings();
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 
@@ -15,6 +21,23 @@ export const BottomBar = () => {
 				await save({
 					a11y_widget_menu_settings: widgetMenuSettings,
 				});
+				success('Settings saved!');
+				setHasChanges(false);
+			} catch (e) {
+				error('Failed to save settings!');
+			}
+		} else if (
+			selectedMenu.parent === 'widget' &&
+			selectedMenu.child === 'iconSettings'
+		) {
+			try {
+				await save({
+					a11y_widget_icon_settings: {
+						style: iconDesign,
+						position: iconPosition,
+					},
+				});
+
 				success('Settings saved!');
 				setHasChanges(false);
 			} catch (e) {
@@ -41,3 +64,5 @@ export const BottomBar = () => {
 		</Box>
 	);
 };
+
+export default BottomBar;

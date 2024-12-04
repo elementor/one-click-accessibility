@@ -4,9 +4,9 @@ import Typography from '@elementor/ui/Typography';
 import { ColorPicker, IconSelect, IconSize } from '@ea11y/components';
 import { __ } from '@wordpress/i18n';
 
-const IconDesignSettings = () => {
+const IconDesignSettings = (props) => {
 	return (
-		<Grid padding={2} border={1} borderColor="divider">
+		<Grid padding={2} border={1} borderColor="divider" {...props}>
 			<Box marginBottom={2}>
 				<Typography variant="subtitle1">
 					{__('Design', 'pojo-accessibility')}
@@ -18,7 +18,7 @@ const IconDesignSettings = () => {
 					)}
 				</Typography>
 			</Box>
-			<Grid gridTemplateColumns="repeat(2, 1fr)" display="grid" gap={8}>
+			<Grid gridTemplateColumns="repeat(2, 1fr)" display="grid" gap={8} p={2}>
 				<Box display="flex" flexDirection="column" gap={5}>
 					<IconSelect />
 					<IconSize />

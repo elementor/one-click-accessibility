@@ -1,5 +1,5 @@
 .widget-settings-color-picker.react-colorful {
-   min-width: 460px;
+   width: 100%;
   }
 .widget-settings-color-picker .react-colorful__saturation {
 border-radius: 0;
