@@ -10,16 +10,6 @@
     "babel",
     "react"
   ],
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["node_modules"]
-      },
-      "webpack": {
-        "config": "webpack.config.js"
-      }
-    }
-  },
   "env": {
     "browser": true,
     "node": true,
@@ -61,6 +51,16 @@
     "import/newline-after-import": ["error", {
       "count": 1
     }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["node_modules"]
+      },
+      "webpack": {
+        "config": "webpack.config.js"
+      }
+    }
   },
   "parser": "@babel/eslint-parser"
 }

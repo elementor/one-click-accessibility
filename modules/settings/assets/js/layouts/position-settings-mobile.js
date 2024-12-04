@@ -6,7 +6,7 @@ import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 
-const PositionSettingsDesktop = () => {
+const PositionSettingsMobile = () => {
 	const { iconPosition, updateIconPosition } = useIconPosition();
 
 	const toggleVisibility = (device) => {
@@ -21,9 +21,9 @@ const PositionSettingsDesktop = () => {
 		);
 	};
 
-	const hideOnDesktopLabel = (
-		<Typography variant="subtitle2" marginRight={2} color="text.primary">
-			{__('Hide on desktop', 'pojo-accessibility')}
+	const hideOnMobileLabel = (
+		<Typography variant="subtitle2" color="text.primary" marginRight={2}>
+			{__('Hide on mobile', 'pojo-accessibility')}
 		</Typography>
 	);
 
@@ -36,40 +36,39 @@ const PositionSettingsDesktop = () => {
 	return (
 		<>
 			<FormControlLabel
-				label={hideOnDesktopLabel}
+				label={hideOnMobileLabel}
 				labelPlacement="start"
 				control={<Switch color="info" size="small" />}
 				sx={{ marginLeft: 2, marginBottom: 3 }}
-				onChange={() => toggleVisibility('desktop')}
-				checked={iconPosition.desktop.hidden}
+				onChange={() => toggleVisibility('mobile')}
+				checked={iconPosition.mobile.hidden}
 			/>
-			{!iconPosition.desktop.hidden && (
+			{!iconPosition.mobile.hidden && (
 				<Box
 					display="grid"
 					gridTemplateColumns="repeat(2,1fr)"
-					justifyContent="space-evenly"
-					padding={2}
 					gap={5}
+					padding={2}
 				>
-					<AlignmentMatrixControl mode="desktop" />
+					<AlignmentMatrixControl mode="mobile" />
 					<Box>
 						<FormControlLabel
 							label={exactPositionLabel}
 							labelPlacement="start"
 							control={<Switch color="info" size="small" />}
 							sx={{ marginLeft: 0 }}
-							onChange={() => toggleExactPosition('desktop')}
-							checked={iconPosition.desktop?.enableExactPosition}
+							onChange={() => toggleExactPosition('mobile')}
+							checked={iconPosition.mobile?.enableExactPosition}
 						/>
 						<PositionControl
 							type="horizontal"
-							mode="desktop"
-							disabled={!iconPosition.desktop?.enableExactPosition}
+							mode="mobile"
+							disabled={!iconPosition.mobile?.enableExactPosition}
 						/>
 						<PositionControl
 							type="vertical"
-							mode="desktop"
-							disabled={!iconPosition.desktop?.enableExactPosition}
+							mode="mobile"
+							disabled={!iconPosition.mobile?.enableExactPosition}
 						/>
 					</Box>
 				</Box>
@@ -78,4 +77,4 @@ const PositionSettingsDesktop = () => {
 	);
 };
 
-export default PositionSettingsDesktop;
+export default PositionSettingsMobile;

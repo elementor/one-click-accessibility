@@ -1,3 +1,4 @@
+import { useToastNotification } from '@ea11y/hooks';
 import {
 	createContext,
 	useCallback,
@@ -7,7 +8,6 @@ import {
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../api';
-import { useToastNotification } from '../hooks';
 
 const PluginSettingsContext = createContext({});
 

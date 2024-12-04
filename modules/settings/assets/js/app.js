@@ -8,13 +8,17 @@ import {
 	Notifications,
 	MenuItems,
 	AdminTopBar,
-	BottomBar,
 } from '@ea11y/components';
-import { useNotificationSettings, useSettings } from '@ea11y/hooks';
+import {
+	useNotificationSettings,
+	useSettings,
+	useSavedSettings,
+} from '@ea11y/hooks';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import { Sidebar } from './layouts/sidebar';
 
 const App = () => {
+	useSavedSettings();
 	const { isConnected } = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
@@ -37,10 +41,7 @@ const App = () => {
 						justifyContent="space-between"
 					>
 						<AdminTopBar />
-						<Box p={1} height="100%">
-							{selectedChild ? selectedChild.page : selectedParent?.page}
-						</Box>
-						<BottomBar />
+						{selectedChild ? selectedChild.page : selectedParent?.page}
 					</Box>
 				</Grid>
 				<Notifications message={notificationMessage} type={notificationType} />

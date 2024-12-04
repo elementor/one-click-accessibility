@@ -6,7 +6,10 @@ import TabPanel from '@elementor/ui/TabPanel';
 import Tabs from '@elementor/ui/Tabs';
 import Typography from '@elementor/ui/Typography';
 import useTabs from '@elementor/ui/useTabs';
-import { PositionSettingsDesktop } from '@ea11y/layouts';
+import {
+	PositionSettingsDesktop,
+	PositionSettingsMobile,
+} from '@ea11y/layouts';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -15,7 +18,7 @@ const TABS = {
 	two: 'two',
 };
 
-const PositionSettings = () => {
+export const PositionSettings = (props) => {
 	const [currentTab, setCurrentTab] = useState(TABS.one);
 	const { getTabProps } = useTabs(currentTab);
 
@@ -24,7 +27,7 @@ const PositionSettings = () => {
 	};
 
 	return (
-		<Grid padding={2} border={1} borderColor="divider">
+		<Grid padding={2} border={1} borderColor="divider" {...props}>
 			<Box marginBottom={2}>
 				<Typography variant="subtitle1">
 					{__('Position', 'pojo-accessibility')}
@@ -36,10 +39,10 @@ const PositionSettings = () => {
 					)}
 				</Typography>
 			</Box>
-			<Box>
+			<Box padding={2}>
 				<Tabs
 					value={currentTab}
-					sx={{ borderBottom: 'none' }}
+					sx={{ borderBottom: 'none', height: '65px' }}
 					indicatorColor="secondary"
 					textColor="secondary"
 				>
@@ -65,7 +68,9 @@ const PositionSettings = () => {
 					<PositionSettingsDesktop />
 				</TabPanel>
 			) : (
-				<TabPanel></TabPanel>
+				<TabPanel>
+					<PositionSettingsMobile />
+				</TabPanel>
 			)}
 		</Grid>
 	);

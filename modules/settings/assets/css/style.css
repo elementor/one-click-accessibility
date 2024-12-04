@@ -15,7 +15,7 @@ html:not([dir='rtl']) #ea11y-app {
 html[dir='rtl'] #ea11y-app {
 	margin-right: -20px;
     background: white;
-	height: calc(100vh - 32px);
+	height: calc( 100vh - 32px );
 }
 
 #ea11y-app * {

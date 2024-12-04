@@ -15,6 +15,56 @@ export const SettingsProvider = ({ children }) => {
 		parent: 'widget',
 		child: 'iconSettings',
 	});
+
+	// Icon Design
+	const [widgetIcon, setWidgetIcon] = useState('person');
+	const [widgetIconSize, setWidgetIconSize] = useState('medium');
+	const [widgetIconColor, setWidgetIconColor] = useState('#2563eb');
+	const [iconDesign, setIconDesign] = useState({
+		icon: 'person',
+		size: 'medium',
+		color: '#2563eb',
+	});
+
+	// Icon Position
+	const [iconPosition, setIconPosition] = useState({
+		desktop: {
+			hidden: false,
+			enableExactPosition: false,
+			exactPosition: {
+				horizontal: {
+					direction: 'to-left',
+					value: 10,
+					unit: 'px',
+				},
+				vertical: {
+					direction: 'higher',
+					value: 10,
+					unit: 'px',
+				},
+			},
+			position: 'top-left',
+		},
+		mobile: {
+			hidden: false,
+			enableExactPosition: false,
+			exactPosition: {
+				horizontal: {
+					direction: 'to-right',
+					value: 10,
+					unit: 'px',
+				},
+				vertical: {
+					direction: 'lower',
+					value: 10,
+					unit: 'px',
+				},
+			},
+			position: 'top-left',
+		},
+	});
+
+	const [hasChanges, setHasChanges] = useState(false);
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -22,6 +72,18 @@ export const SettingsProvider = ({ children }) => {
 				setOpenSidebar,
 				selectedMenu,
 				setSelectedMenu,
+				widgetIcon,
+				setWidgetIcon,
+				widgetIconSize,
+				setWidgetIconSize,
+				widgetIconColor,
+				setWidgetIconColor,
+				iconPosition,
+				setIconPosition,
+				iconDesign,
+				setIconDesign,
+				hasChanges,
+				setHasChanges,
 			}}
 		>
 			{children}
