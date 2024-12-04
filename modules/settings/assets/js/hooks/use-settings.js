@@ -15,11 +15,30 @@ export const SettingsProvider = ({ children }) => {
 		parent: 'widget',
 		child: 'iconSettings',
 	});
+	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
+		'content-adjustments': {
+			'text-size': true,
+			'line-height': true,
+			'align-text': true,
+			'readable-font': true,
+		},
+		'color-adjustments': {
+			greyscale: true,
+			contrast: true,
+		},
+		'orientation-adjustments': {
+			'page-structure': true,
+			'site-map': true,
+			'reading-panel': true,
+			'hide-images': true,
+			'pause-animations': true,
+			'highlight-links': true,
+		},
+	});
 
-	// Icon Design
-	const [widgetIcon, setWidgetIcon] = useState('person');
-	const [widgetIconSize, setWidgetIconSize] = useState('medium');
-	const [widgetIconColor, setWidgetIconColor] = useState('#2563eb');
+	// Track settings changes to enable/disable Save Changes button
+	const [hasChanges, setHasChanges] = useState(false);
+	const [hideMinimumOptionAlert, setHideMinimumOptionAlert] = useState(false);
 	const [iconDesign, setIconDesign] = useState({
 		icon: 'person',
 		size: 'medium',
@@ -63,8 +82,6 @@ export const SettingsProvider = ({ children }) => {
 			position: 'top-left',
 		},
 	});
-
-	const [hasChanges, setHasChanges] = useState(false);
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -72,12 +89,10 @@ export const SettingsProvider = ({ children }) => {
 				setOpenSidebar,
 				selectedMenu,
 				setSelectedMenu,
-				widgetIcon,
-				setWidgetIcon,
-				widgetIconSize,
-				setWidgetIconSize,
-				widgetIconColor,
-				setWidgetIconColor,
+				widgetMenuSettings,
+				setWidgetMenuSettings,
+				hideMinimumOptionAlert,
+				setHideMinimumOptionAlert,
 				iconPosition,
 				setIconPosition,
 				iconDesign,

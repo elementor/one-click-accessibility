@@ -4,13 +4,29 @@ import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 
 const BottomBar = () => {
-	const { selectedMenu, iconDesign, iconPosition, hasChanges, setHasChanges } =
-		useSettings();
+	const {
+		selectedMenu,
+		widgetMenuSettings,
+		iconDesign,
+		iconPosition,
+		hasChanges,
+		setHasChanges,
+	} = useSettings();
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 
 	const saveSettings = async () => {
-		if (
+		if (selectedMenu.parent === 'widget' && selectedMenu.child === 'menu') {
+			try {
+				await save({
+					a11y_widget_menu_settings: widgetMenuSettings,
+				});
+				success('Settings saved!');
+				setHasChanges(false);
+			} catch (e) {
+				error('Failed to save settings!');
+			}
+		} else if (
 			selectedMenu.parent === 'widget' &&
 			selectedMenu.child === 'iconSettings'
 		) {
@@ -29,7 +45,6 @@ const BottomBar = () => {
 			}
 		}
 	};
-
 	return (
 		<Box
 			display="flex"

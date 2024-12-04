@@ -14,12 +14,12 @@ import {
 	useSettings,
 	useSavedSettings,
 } from '@ea11y/hooks';
+import { Sidebar } from '@ea11y/layouts';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
-import { Sidebar } from './layouts/sidebar';
 
 const App = () => {
 	useSavedSettings();
-	const { isConnected } = usePluginSettingsContext();
+	const { isConnected, isRTL } = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
 
@@ -29,7 +29,7 @@ const App = () => {
 		? selectedParent.children[selectedMenu.child]
 		: null;
 	return (
-		<DirectionProvider rtl={false /* TODO:Add RTL detection in settings */}>
+		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
 				{!isConnected && <ConnectModal />}
 				<Grid display="flex" flexDirection="row" height="100%">
@@ -38,7 +38,7 @@ const App = () => {
 						width="100%"
 						display="flex"
 						flexDirection="column"
-						justifyContent="space-between"
+						justifyContent="start"
 					>
 						<AdminTopBar />
 						{selectedChild ? selectedChild.page : selectedParent?.page}

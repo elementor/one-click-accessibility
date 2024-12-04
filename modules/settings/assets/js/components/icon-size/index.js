@@ -61,7 +61,12 @@ const IconSize = (props) => {
 					>
 						{icon?.icon &&
 							cloneElement(icon.icon, {
-								sx: { color: iconDesign.color, fontSize: option.fontSize },
+								sx: {
+									color: iconDesign.color,
+									fontSize: option.fontSize,
+									height: option.fontSize,
+									width: 'auto',
+								},
 							})}
 						<Radio
 							value={option.value}

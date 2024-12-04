@@ -47,6 +47,7 @@ const IconSelect = (props) => {
 							gap: 1.5,
 							p: 2,
 							minWidth: 10,
+							width: 100,
 							minHeight: 100,
 							borderColor:
 								iconDesign.icon === option.value ? 'info.main' : 'divider',
@@ -56,7 +57,12 @@ const IconSelect = (props) => {
 					>
 						{option.icon &&
 							cloneElement(option.icon, {
-								sx: { color: iconDesign.color, fontSize: 44 },
+								sx: {
+									color: iconDesign.color,
+									fontSize: 44,
+									height: 44,
+									width: 'auto',
+								},
 							})}
 						<Radio
 							value={option.value}

@@ -5,6 +5,7 @@ namespace EA11y\Modules\Settings;
 use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
 use EA11y\Modules\Connect\Module as Connect;
+use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -89,6 +90,7 @@ class Module extends Module_Base {
 
 		return [
 			'isConnected' => Connect::is_connected(),
+			'isRTL' => is_rtl(),
 		];
 	}
 
@@ -102,18 +104,30 @@ class Module extends Module_Base {
 	 */
 	public function register_settings(): void {
 		$settings = [
+			'widget_menu_settings' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true
+					],
+				]
+			],
 			'widget_icon_settings' => [
 				'type' => 'object',
-                'show_in_rest' => [
-                        'schema' => [
-                                'type' => 'object',
-                                'additionalProperties' => true
-                        ],
-                ]
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true
+					],
+				]
 			],
 			'close_post_connect_modal' => [
 				'type' => 'boolean',
 			],
+            'hide_minimum_active_options_alert' => [
+                    'type' => 'boolean',
+            ]
 		];
 
 		foreach ( $settings as $setting => $args ) {
