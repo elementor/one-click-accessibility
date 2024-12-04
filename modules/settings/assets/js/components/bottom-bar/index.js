@@ -9,15 +9,14 @@ export const BottomBar = () => {
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 
-	const saveSettings = () => {
+	const saveSettings = async () => {
 		if (selectedMenu.parent === 'widget' && selectedMenu.child === 'menu') {
 			try {
-				save({
+				await save({
 					a11y_widget_menu_settings: widgetMenuSettings,
-				}).then(() => {
-					success('Settings saved!');
-					setHasChanges(false);
 				});
+				success('Settings saved!');
+				setHasChanges(false);
 			} catch (e) {
 				error('Failed to save settings!');
 			}
