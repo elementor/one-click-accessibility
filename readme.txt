@@ -1,5 +1,5 @@
 === One Click Accessibility ===
-Contributors: pojo.me, KingYes, ariel.k, jzaltzberg, bainternet
+Contributors: elemntor, KingYes, ariel.k
 Tags: Accessibility, A11y, Toolbar, Tools, wcag, accessible
 Requires at least: 4.1
 Tested up to: 6.7
