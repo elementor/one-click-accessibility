@@ -1,12 +1,17 @@
 <?php
 
 namespace EA11y\Classes;
+use EA11y\Classes\Services\Client;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 class Utils {
+
+	public static function get_api_client(): ?Client {
+		return Client::get_instance();
+	}
 
 	public static function is_plugin_page(): bool {
 		$current_screen = get_current_screen();
