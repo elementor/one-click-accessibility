@@ -5,6 +5,7 @@ namespace EA11y\Modules\Settings;
 use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
 use EA11y\Modules\Connect\Module as Connect;
+use EA11y\Modules\Connect\Classes\Config;
 use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,8 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Module extends Module_Base {
-	const SETTING_PREFIX     = 'a11y_';
-	const SETTING_GROUP      = 'a11y_settings';
+	const SETTING_PREFIX     = 'ea11y_';
+	const SETTING_GROUP      = 'ea11y_settings';
 	const SETTING_BASE_SLUG  = 'accessibility-settings-2'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
 
@@ -95,6 +96,37 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * @throws Exception
+	 */
+	public function on_connect() {
+		if ( ! Connect::is_connected() ) {
+			return;
+		}
+
+		$register_response = Utils::get_api_client()->make_request(
+			'POST',
+			'site/register'
+		);
+
+		if ( $register_response && ! is_wp_error( $register_response ) ) {
+			Data::set_subscription_id( $register_response->id );
+
+			$response = Utils::get_api_client()->make_request(
+				'POST',
+				'site/info'
+			);
+
+			if ( ! is_wp_error( $response ) ) {
+				update_option( self::SETTING_PREFIX . 'plan_data', $response );
+				update_option( Settings::IS_VALID_PLAN_DATA, true );
+			} else {
+				Logger::error( esc_html( $response->get_error_message() ) );
+				update_option( Settings::IS_VALID_PLAN_DATA, false );
+			}
+		}
+	}
+
+	/**
 	 * Register settings.
 	 *
 	 * Register settings for the plugin.
@@ -147,5 +179,6 @@ class Module extends Module_Base {
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
+		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 	}
 }
