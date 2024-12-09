@@ -1,4 +1,4 @@
-import { ChevronDownIcon, UserIcon } from '@elementor/icons';
+import { ChevronDownIcon, UserIcon, ExternalLinkIcon } from '@elementor/icons';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import List from '@elementor/ui/List';
@@ -16,6 +16,8 @@ import {
 import { useSettings } from '@ea11y/hooks';
 import { CreditCardIcon, UserArrowIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
+import API from '../../api';
+import { BILLING_LINK } from '../../constants';
 
 const MyAccountMenu = () => {
 	const { openSidebar } = useSettings();
@@ -23,6 +25,9 @@ const MyAccountMenu = () => {
 		variant: 'popover',
 		popupId: 'myAccountMenu',
 	});
+	const onDeactivateAndDisconnect = () => {
+		API.disconnect().then(() => API.redirectToConnect());
+	};
 	return (
 		<>
 			<List>
@@ -72,17 +77,21 @@ const MyAccountMenu = () => {
 						</Typography>
 					</Box>
 				</MenuItem>
-				<MenuItem onClick={accountMenuState.close}>
+				<MenuItem onClick={onDeactivateAndDisconnect}>
 					<UserArrowIcon sx={{ color: 'common.white' }} />
 					<Typography color="common.white" marginLeft={1}>
 						{__('Switch account', 'pojo-accessibility')}
 					</Typography>
 				</MenuItem>
-				<MenuItem onClick={accountMenuState.close}>
+				<MenuItem href={BILLING_LINK} target="_blank">
 					<CreditCardIcon sx={{ color: 'common.white' }} />
 					<Typography color="common.white" marginLeft={1}>
 						{__('Billing', 'pojo-accessibility')}
 					</Typography>
+					<ExternalLinkIcon
+						fontSize="small"
+						sx={{ color: 'common.white', marginLeft: 1 }}
+					/>
 				</MenuItem>
 			</Menu>
 		</>
