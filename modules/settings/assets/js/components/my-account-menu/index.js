@@ -28,6 +28,10 @@ const MyAccountMenu = () => {
 	const onDeactivateAndDisconnect = () => {
 		API.disconnect().then(() => API.redirectToConnect());
 	};
+
+	const redirectToBilling = () => {
+		window.open(BILLING_LINK, '_blank').focus();
+	};
 	return (
 		<>
 			<List>
@@ -83,7 +87,7 @@ const MyAccountMenu = () => {
 						{__('Switch account', 'pojo-accessibility')}
 					</Typography>
 				</MenuItem>
-				<MenuItem href={BILLING_LINK} target="_blank">
+				<MenuItem onClick={redirectToBilling}>
 					<CreditCardIcon sx={{ color: 'common.white' }} />
 					<Typography color="common.white" marginLeft={1}>
 						{__('Billing', 'pojo-accessibility')}
