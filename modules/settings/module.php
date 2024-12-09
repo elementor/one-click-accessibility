@@ -6,14 +6,15 @@ use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
 use EA11y\Modules\Connect\Module as Connect;
 use Throwable;
+use EA11y\Modules\Settings\Classes\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 class Module extends Module_Base {
-	const SETTING_PREFIX     = 'a11y_';
-	const SETTING_GROUP      = 'a11y_settings';
+	const SETTING_PREFIX     = 'ea11y_';
+	const SETTING_GROUP      = 'ea11y_settings';
 	const SETTING_BASE_SLUG  = 'accessibility-settings-2'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
 
@@ -90,6 +91,7 @@ class Module extends Module_Base {
 
 		return [
 			'isConnected' => Connect::is_connected(),
+			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
 		];
 	}
