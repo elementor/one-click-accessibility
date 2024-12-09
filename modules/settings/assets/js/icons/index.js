@@ -17,3 +17,4 @@ export { default as ReadingPanelIcon } from './reading-panel';
 export { default as HideImagesIcon } from './hide-images';
 export { default as PauseAnimationsIcon } from './pause-animations';
 export { default as ReadableFontIcon } from './readable-font';
+export { default as PostConnectModalIcon } from './post-connect-modal-icon';
