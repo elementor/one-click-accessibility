@@ -127,6 +127,15 @@ class API {
 			path: `${v1Prefix}/settings/get-settings`,
 		});
 	}
+
+	/**
+	 * Go to connect service
+	 * @return {Promise<void>} redirect
+	 */
+	static async redirectToConnect() {
+		const link = await this.initConnect();
+		window.open(link, '_self').focus();
+	}
 }
 
 export default API;

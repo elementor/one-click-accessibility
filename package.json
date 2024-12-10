@@ -37,7 +37,7 @@
 		"prettier": "^3.4.1"
 	},
 	"dependencies": {
-		"@elementor/icons": "^1.17.0",
+		"@elementor/icons": "^1.20.0",
 		"@elementor/ui": "^1.21.2",
 		"@wordpress/api-fetch": "^7.10.0",
 		"@wordpress/core-data": "^7.10.0",
