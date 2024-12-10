@@ -13,7 +13,7 @@ import {
 	bindTrigger,
 	usePopupState,
 } from '@elementor/ui/usePopupState';
-import { useSettings } from '@ea11y/hooks';
+import { useSettings, useToastNotification } from '@ea11y/hooks';
 import { CreditCardIcon, UserArrowIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
@@ -21,12 +21,21 @@ import { BILLING_LINK } from '../../constants';
 
 const MyAccountMenu = () => {
 	const { openSidebar } = useSettings();
+	const { error } = useToastNotification();
 	const accountMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'myAccountMenu',
 	});
-	const onDeactivateAndDisconnect = () => {
-		API.disconnect().then(() => API.redirectToConnect());
+	const onDeactivateAndDisconnect = async () => {
+		try {
+			await API.disconnect();
+			await API.redirectToConnect();
+		} catch (e) {
+			error(
+				__('Failed to switch account. Please try again.', 'pojo-accessibility'),
+			);
+			console.error(e);
+		}
 	};
 
 	const redirectToBilling = () => {
