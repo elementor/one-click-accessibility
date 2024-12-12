@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Settings {
 
 	public const IS_VALID_PLAN_DATA = 'ea11y_is_valid_plan_data';
+	public const PLAN_DATA = 'ea11y_plan_data';
 
 	/**
 	 * Returns plugin settings data by option name typecasted to an appropriate data type.
