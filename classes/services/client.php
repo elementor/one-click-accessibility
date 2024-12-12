@@ -61,7 +61,7 @@ class Client {
 
 	public function make_request( $method, $endpoint, $body = [], array $headers = [], $send_json = false ) {
 		$headers = array_replace_recursive( [
-			'x-elementor-site-mailer' => EA11Y_VERSION,
+			'x-elementor-a11y' => EA11Y_VERSION,
 			'x-elementor-apps' => 'a11y',
 		], $headers );
 
@@ -143,7 +143,7 @@ class Client {
 			$body = true;
 		}
 
-		// Return with no content on successfull delettion of domain from service.
+		// Return with no content on successfull deletion of domain from service.
 		if ( 204 === $response_code ) {
 			$body = true;
 			return $body;
@@ -163,7 +163,7 @@ class Client {
 			return $this->request( $method, $endpoint, $args );
 		}
 
-		if ( 200 !== $response_code ) {
+		if ( ! in_array(  $response_code, [200, 201] ) ) {
 			// In case $as_array = true.
 			$message = $body->message ?? wp_remote_retrieve_response_message( $response );
 			$message = is_array( $message ) ? join( ', ', $message ) : $message;
