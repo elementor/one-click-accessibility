@@ -114,19 +114,11 @@ class Module extends Module_Base {
 
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
 			Data::set_subscription_id( $register_response->id );
-
-			$response = Utils::get_api_client()->make_request(
-				'POST',
-				'site/info'
-			);
-
-			if ( ! is_wp_error( $response ) ) {
-				update_option( self::SETTING_PREFIX . 'plan_data', $response );
-				update_option( Settings::IS_VALID_PLAN_DATA, true );
-			} else {
-				Logger::error( esc_html( $response->get_error_message() ) );
-				update_option( Settings::IS_VALID_PLAN_DATA, false );
-			}
+            update_option( Settings::PLAN_DATA, $register_response );
+            update_option( Settings::IS_VALID_PLAN_DATA, true );
+		} else {
+			Logger::error( esc_html( $register_response->get_error_message() ) );
+			update_option( Settings::IS_VALID_PLAN_DATA, false );
 		}
 	}
 
