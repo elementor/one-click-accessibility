@@ -1,6 +1,6 @@
 <?php
-
 namespace EA11y\Classes;
+
 use EA11y\Classes\Services\Client;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ class Utils {
 		return str_contains( $current_screen->id, 'options-' );
 	}
 
-	public static function is_elementor_installed() {
+	public static function is_elementor_installed() :bool {
 		$file_path = 'elementor/elementor.php';
 		$installed_plugins = get_plugins();
 		return isset( $installed_plugins[ $file_path ] );
