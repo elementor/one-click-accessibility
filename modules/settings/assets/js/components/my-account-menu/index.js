@@ -18,11 +18,12 @@ import { CreditCardIcon, UserArrowIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
 
 const MyAccountMenu = () => {
-	const { openSidebar } = useSettings();
+	const { openSidebar, planData } = useSettings();
 	const accountMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'myAccountMenu',
 	});
+	console.log(planData);
 	return (
 		<>
 			<List>
@@ -68,7 +69,7 @@ const MyAccountMenu = () => {
 							Jack Baueuer
 						</Typography>
 						<Typography variant="caption" color="common.white">
-							jack@bauer.com
+							{planData?.user?.email}
 						</Typography>
 					</Box>
 				</MenuItem>
