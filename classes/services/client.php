@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Client
  */
 class Client {
-	const BASE_URL = 'https://my.elementor.com/apps/api/v1/a11y/';
+	private const BASE_URL = 'https://my.elementor.com/apps/api/v1/a11y/';
 
 	private bool $refreshed = false;
 
@@ -27,7 +27,7 @@ class Client {
 	 * used for testing
 	 * @param $instance
 	 */
-	public static function set_instance($instance) {
+	public static function set_instance( $instance ) {
 		self::$instance = $instance;
 	}
 
@@ -88,8 +88,12 @@ class Client {
 		);
 	}
 
+	public static function get_client_base_url() {
+		return apply_filters( 'ea11y_client_base_url', self::BASE_URL );
+	}
+
 	private static function get_remote_url( $endpoint ): string {
-		return self::BASE_URL . $endpoint;
+		return self::get_client_base_url() . $endpoint;
 	}
 
 	protected function is_connected(): bool {
@@ -163,7 +167,7 @@ class Client {
 			return $this->request( $method, $endpoint, $args );
 		}
 
-		if ( ! in_array(  $response_code, [200, 201] ) ) {
+		if ( ! in_array( $response_code, [ 200, 201 ] ) ) {
 			// In case $as_array = true.
 			$message = $body->message ?? wp_remote_retrieve_response_message( $response );
 			$message = is_array( $message ) ? join( ', ', $message ) : $message;
