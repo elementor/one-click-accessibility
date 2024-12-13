@@ -19,7 +19,7 @@ const BottomBar = () => {
 		if (selectedMenu.parent === 'widget' && selectedMenu.child === 'menu') {
 			try {
 				await save({
-					a11y_widget_menu_settings: widgetMenuSettings,
+					ea11y_widget_menu_settings: widgetMenuSettings,
 				});
 				success('Settings saved!');
 				setHasChanges(false);
@@ -32,7 +32,7 @@ const BottomBar = () => {
 		) {
 			try {
 				await save({
-					a11y_widget_icon_settings: {
+					ea11y_widget_icon_settings: {
 						style: iconDesign,
 						position: iconPosition,
 					},
