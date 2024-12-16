@@ -7,6 +7,7 @@ import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
 import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
+import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import {
 	bindMenu,
@@ -20,12 +21,23 @@ import API from '../../api';
 import { BILLING_LINK } from '../../constants';
 
 const MyAccountMenu = () => {
-	const { openSidebar } = useSettings();
+	const { openSidebar, planData } = useSettings();
 	const { error } = useToastNotification();
 	const accountMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'myAccountMenu',
 	});
+
+	const truncateEmail = (email, maxLength = 24) => {
+		if (email === undefined || email === null) {
+			return '';
+		}
+		if (email.length <= maxLength) {
+			return email;
+		}
+		return email.slice(0, maxLength - 3) + '...';
+	};
+
 	const onDeactivateAndDisconnect = async () => {
 		try {
 			await API.disconnect();
@@ -41,6 +53,7 @@ const MyAccountMenu = () => {
 	const redirectToBilling = () => {
 		window.open(BILLING_LINK, '_blank').focus();
 	};
+  
 	return (
 		<>
 			<List>
@@ -80,14 +93,21 @@ const MyAccountMenu = () => {
 					onClick={accountMenuState.close}
 					sx={{ gap: 1, width: '225px' }}
 				>
-					<Avatar>JB</Avatar>
+					<Avatar>
+						<UserIcon sx={{ color: 'common.white' }} />
+					</Avatar>
 					<Box display="flex" flexDirection="column" gap={0}>
-						<Typography variant="subtitle2" color="common.white">
-							Jack Baueuer
-						</Typography>
-						<Typography variant="caption" color="common.white">
-							jack@bauer.com
-						</Typography>
+						{planData?.user?.email.length < 24 ? (
+							<Typography variant="caption" color="common.white">
+								{planData?.user?.email}
+							</Typography>
+						) : (
+							<Tooltip title={planData?.user?.email}>
+								<Typography variant="caption" color="common.white">
+									{truncateEmail(planData?.user?.email)}
+								</Typography>
+							</Tooltip>
+						)}
 					</Box>
 				</MenuItem>
 				<MenuItem onClick={onDeactivateAndDisconnect}>

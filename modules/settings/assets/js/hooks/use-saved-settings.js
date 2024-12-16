@@ -9,6 +9,7 @@ export const useSavedSettings = () => {
 		setHideMinimumOptionAlert,
 		setIconDesign,
 		setIconPosition,
+		setPlanData,
 	} = useSettings();
 
 	const result = useSelect((select) => {
@@ -23,22 +24,26 @@ export const useSavedSettings = () => {
 
 	useEffect(() => {
 		if (result.hasFinishedResolution) {
-			if (result?.data?.a11y_widget_menu_settings) {
-				setWidgetMenuSettings(result.data.a11y_widget_menu_settings);
+			if (result?.data?.ea11y_widget_menu_settings) {
+				setWidgetMenuSettings(result.data.ea11y_widget_menu_settings);
 			}
 
-			if (result?.data?.a11y_widget_icon_settings?.style) {
-				setIconDesign(result.data.a11y_widget_icon_settings.style);
+			if (result?.data?.ea11y_widget_icon_settings?.style) {
+				setIconDesign(result.data.ea11y_widget_icon_settings.style);
 			}
 
-			if (result?.data?.a11y_hide_minimum_active_options_alert) {
+			if (result?.data?.ea11y_hide_minimum_active_options_alert) {
 				setHideMinimumOptionAlert(
-					result.data.a11y_hide_minimum_active_options_alert,
+					result.data.ea11y_hide_minimum_active_options_alert,
 				);
 			}
 
-			if (result?.data?.a11y_widget_icon_settings?.position) {
-				setIconPosition(result.data.a11y_widget_icon_settings.position);
+			if (result?.data?.ea11y_widget_icon_settings?.position) {
+				setIconPosition(result.data.ea11y_widget_icon_settings.position);
+			}
+
+			if (result?.data?.ea11y_plan_data) {
+				setPlanData(result.data.ea11y_plan_data);
 			}
 		}
 	}, [result.hasFinishedResolution]);

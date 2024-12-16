@@ -36,6 +36,8 @@ export const SettingsProvider = ({ children }) => {
 		},
 	});
 
+	const [planData, setPlanData] = useState(null);
+
 	// Track settings changes to enable/disable Save Changes button
 	const [hasChanges, setHasChanges] = useState(false);
 	const [hideMinimumOptionAlert, setHideMinimumOptionAlert] = useState(false);
@@ -99,6 +101,8 @@ export const SettingsProvider = ({ children }) => {
 				setIconDesign,
 				hasChanges,
 				setHasChanges,
+				planData,
+				setPlanData,
 			}}
 		>
 			{children}
