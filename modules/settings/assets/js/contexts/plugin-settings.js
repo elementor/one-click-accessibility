@@ -23,6 +23,12 @@ export const PluginSettingsProvider = ({ children }) => {
 					settings.isConnected = Boolean(settings.isConnected);
 				}
 
+				if ('closePostConnectModal' in settings) {
+					settings.closePostConnectModal = Boolean(
+						settings.closePostConnectModal,
+					);
+				}
+
 				setPluginSettings(settings);
 				setLoaded(true);
 			})
