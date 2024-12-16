@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Module extends Module_Base {
-	const SETTING_PREFIX     = 'a11y_';
-	const SETTING_GROUP      = 'a11y_settings';
+	const SETTING_PREFIX     = 'ea11y_';
+	const SETTING_GROUP      = 'ea11y_settings';
 	const SETTING_BASE_SLUG  = 'accessibility-settings-2'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
 
