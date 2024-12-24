@@ -19,6 +19,7 @@ final class Manager {
 			'Legacy',
 			'Connect',
 			'Settings',
+			'Widget',
 		];
 	}
 
