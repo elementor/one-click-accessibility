@@ -15,8 +15,8 @@ class Config {
 	const APP_REST_NAMESPACE = 'ea11y';
 	const BASE_URL = 'https://my.elementor.com/connect';
 	const ADMIN_PAGE = 'accessibility-settings-2';
-	const APP_TYPE = 'app_mailer';
-	const SCOPES = 'openid offline_access';
+	const APP_TYPE = 'app_access';
+	const SCOPES = 'openid offline_access share_usage_data';
 	const STATE_NONCE = 'ea11y_auth_nonce';
 	const CONNECT_MODE = 'site';
 }

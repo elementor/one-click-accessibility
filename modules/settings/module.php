@@ -5,8 +5,12 @@ namespace EA11y\Modules\Settings;
 use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
 use EA11y\Modules\Connect\Module as Connect;
-use Throwable;
+use EA11y\Modules\Connect\Classes\Config;
+use EA11y\Modules\Connect\Classes\Data;
+use EA11y\Classes\Logger;
 use EA11y\Modules\Settings\Classes\Settings;
+use Throwable;
+use Exception;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -57,6 +61,7 @@ class Module extends Module_Base {
 	 * Enqueue Scripts and Styles
 	 */
 	public function enqueue_scripts( $hook ) : void {
+		//TODO: Update page name
 		if ( 'toplevel_page_accessibility-settings-2' !== $hook ) {
 			return;
 		}
@@ -97,6 +102,58 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * @throws Exception
+	 */
+	public function on_connect(): void {
+		if ( ! Connect::is_connected() ) {
+			return;
+		}
+
+		$register_response = Utils::get_api_client()->make_request(
+			'POST',
+			'site/register'
+		);
+
+		if ( $register_response && ! is_wp_error( $register_response ) ) {
+			Data::set_subscription_id( $register_response->id );
+            update_option( Settings::PLAN_DATA, $register_response );
+            update_option( Settings::IS_VALID_PLAN_DATA, true );
+		} else {
+			Logger::error( esc_html( $register_response->get_error_message() ) );
+			update_option( Settings::IS_VALID_PLAN_DATA, false );
+		}
+	}
+
+	/**
+     * Retry registering the site if it fails during connect.
+     *
+	 * @param $current_screen
+	 * @return void
+	 */
+    public function check_plan_data( $current_screen ) : void {
+        //TODO: Update page name
+	    if ( 'toplevel_page_accessibility-settings-2' !== $current_screen->base ) {
+		    return;
+	    }
+
+        if ( Connect::is_connected() &&  get_option( Settings::PLAN_DATA ) === false ) {
+	        $register_response = Utils::get_api_client()->make_request(
+		        'POST',
+		        'site/register'
+	        );
+
+	        if ( $register_response && ! is_wp_error( $register_response ) ) {
+		        Data::set_subscription_id( $register_response->id );
+		        update_option( Settings::PLAN_DATA, $register_response );
+		        update_option( Settings::IS_VALID_PLAN_DATA, true );
+	        } else {
+		        Logger::error( esc_html( $register_response->get_error_message() ) );
+		        update_option( Settings::IS_VALID_PLAN_DATA, false );
+	        }
+        }
+    }
+
+	/**
 	 * Register settings.
 	 *
 	 * Register settings for the plugin.
@@ -116,6 +173,15 @@ class Module extends Module_Base {
 				]
 			],
 			'widget_icon_settings' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true
+					],
+				]
+			],
+			'plan_data' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [
@@ -149,5 +215,7 @@ class Module extends Module_Base {
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
+		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
+        add_action( 'current_screen', [ $this, 'check_plan_data' ] );
 	}
 }
