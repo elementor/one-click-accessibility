@@ -10,6 +10,8 @@ class Settings {
 
 	public const IS_VALID_PLAN_DATA = 'ea11y_is_valid_plan_data';
 	public const PLAN_DATA = 'ea11y_plan_data';
+	public const WIDGET_ICON_SETTINGS = 'ea11y_widget_icon_settings';
+	public const WIDGET_MENU_SETTINGS = 'ea11y_widget_menu_settings';
 
 	/**
 	 * Returns plugin settings data by option name typecasted to an appropriate data type.
