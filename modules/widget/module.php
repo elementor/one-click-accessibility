@@ -80,11 +80,10 @@ class Module extends Module_Base {
 
 		wp_localize_script(
 			'ea11y-widget',
-			'ea11yWidgetData',
+			'ea11yWidget',
 			[
 				'iconSettings' => wp_json_encode( get_option( 'ea11y_widget_icon_settings' ) ),
 				'menuSettings' => wp_json_encode( get_option( 'ea11y_widget_menu_settings' ) ),
-				'wpRestNonce' => wp_create_nonce( 'wp_rest' )
 			]
 		);
 	}
