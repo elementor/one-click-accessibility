@@ -82,8 +82,8 @@ class Module extends Module_Base {
 			'ea11y-widget',
 			'ea11yWidget',
 			[
-				'iconSettings' => wp_json_encode( get_option( 'ea11y_widget_icon_settings' ) ),
-				'menuSettings' => wp_json_encode( get_option( 'ea11y_widget_menu_settings' ) ),
+				'iconSettings' => get_option( 'ea11y_widget_icon_settings' ),
+				'menuSettings' => get_option( 'ea11y_widget_menu_settings' ),
 			]
 		);
 	}
