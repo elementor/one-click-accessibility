@@ -54,7 +54,7 @@ function ConnectModal() {
 				</Typography>
 				<Typography variant="body2" color="text.primary" width={400}>
 					{__(
-						'Make your site more inclusive with One Click Accessibility',
+						'Make your site more inclusive with One Click Accessibility.',
 						'pojo-accessibility',
 					)}
 				</Typography>
@@ -102,7 +102,7 @@ function ConnectModal() {
 						fullWidth
 						sx={{ marginTop: 5 }}
 					>
-						{__('Get Started', 'pojo-accessibility')}
+						{__('Get started', 'pojo-accessibility')}
 					</Button>
 				</Box>
 			</Grid>
