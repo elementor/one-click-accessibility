@@ -21,9 +21,9 @@ const PostConnectModal = () => {
 		<Modal open={isOpen}>
 			<Grid
 				container
-				gap={5}
 				direction="column"
 				alignItems="center"
+				justifyContent="center"
 				sx={{
 					position: 'absolute',
 					top: '50%',
@@ -34,46 +34,38 @@ const PostConnectModal = () => {
 					height: 530,
 					backgroundColor: 'background.paper',
 					boxShadow: 24,
-					p: '40px 20px',
+					p: '20px',
 					textAlign: 'center',
 					borderRadius: '4px',
 				}}
 			>
 				<PostConnectModalIcon />
-				<Grid
-					container
-					direction="column"
-					justifyContent="center"
-					alignItems="center"
-					gap={2}
+				<Typography
+					variant="h5"
+					color="text.primary"
+					marginTop={5}
+					marginBottom={1}
 				>
-					<Typography variant="h5" marginBottom={1}>
-						{__('Awesome! Your site can now send emails', 'site-mailer')}
-					</Typography>
-					<Typography
-						variant="body2"
-						sx={{ width: '500px', maxWidth: '100%' }}
-						marginBottom={1}
-					>
-						{__(
-							'By default, emails from your site will be sent via:',
-							'site-mailer',
-						)}
-						<br />
-						<b>xyz@gmail.com</b>
-						<br />
-						{__(
-							'You can change this address by adding a custom domain in the settings tab.',
-							'site-mailer',
-						)}
-					</Typography>
-				</Grid>
+					{__("You're all set", 'site-mailer')}
+				</Typography>
+				<Typography
+					variant="body2"
+					sx={{ width: '500px', maxWidth: '100%' }}
+					color="text.primary"
+					marginBottom={5}
+				>
+					{__(
+						'The One Click Accessibility widget is now active and ready to use on your site!',
+						'site-mailer',
+					)}
+				</Typography>
 				<Button
 					variant="contained"
 					sx={{ padding: '8px 22px', width: '300px' }}
 					onClick={onClose}
+					color="info"
 				>
-					Got it!
+					{__('Done', 'pojo-accessibility')}
 				</Button>
 			</Grid>
 		</Modal>
