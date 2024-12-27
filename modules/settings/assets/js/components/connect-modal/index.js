@@ -9,8 +9,8 @@ import ListItemText from '@elementor/ui/ListItemText';
 import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
 import { useAuth, useModal } from '@ea11y/hooks';
+import { ConnectModalIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
-import ConnectModalIcon from './connect-modal-icon';
 
 function ConnectModal() {
 	const { isOpen } = useModal();
