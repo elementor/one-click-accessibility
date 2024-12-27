@@ -8,7 +8,7 @@ const Menu = () => {
 	return (
 		<Container sx={{ overflow: 'auto', maxHeight: '100%', p: 5 }}>
 			<Typography variant="h4" fontWeight="400" marginBottom={4}>
-				{__('Menu', 'pojo-accessibility')}
+				{__('Feature management', 'pojo-accessibility')}
 			</Typography>
 			<Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
 				<MenuSettings />
