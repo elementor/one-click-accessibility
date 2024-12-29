@@ -34,11 +34,11 @@ class Data {
 	 * set_option
 	 * @param $option_name
 	 * @param $option_value
-	 * @param $auto_load
+	 * @param bool $auto_load
 	 *
 	 * @return bool
 	 */
-	public static function set_option( $option_name, $option_value, $auto_load = false ): bool {
+	public static function set_option( $option_name, $option_value, $auto_load = false ) : bool {
 		return update_option( Config::APP_PREFIX . $option_name, $option_value, $auto_load );
 	}
 
@@ -85,7 +85,7 @@ class Data {
 	 *
 	 * @return bool
 	 */
-	public static function delete_user_data( $user_id, $data_name ): bool {
+	public static function delete_user_data( $user_id, $data_name ) : bool {
 		return delete_user_meta( $user_id, Config::APP_PREFIX . $data_name );
 	}
 
@@ -140,7 +140,7 @@ class Data {
 	 *
 	 * @return bool
 	 */
-	public static function set_client_id( $value ): bool {
+	public static function set_client_id( $value ) : bool {
 		return self::set_connect_mode_data( self::CLIENT_ID, $value );
 	}
 
@@ -148,7 +148,7 @@ class Data {
 		return self::get_connect_mode_data( self::SUBSCRIPTION_ID, false );
 	}
 
-	public static function set_subscription_id( $value ): bool {
+	public static function set_subscription_id( $value ) : bool {
 		return self::set_connect_mode_data( self::SUBSCRIPTION_ID, $value );
 	}
 
@@ -158,7 +158,7 @@ class Data {
 	 *
 	 * @return bool
 	 */
-	public static function set_client_secret( $value ): bool {
+	public static function set_client_secret( $value ) : bool {
 		return self::set_connect_mode_data( self::CLIENT_SECRET, $value );
 	}
 
@@ -185,7 +185,7 @@ class Data {
 	/**
 	 * get_home_url
 	 *
-	 * Return a plain text version of a based64 encoded home URL if its stored as base64 encoded
+	 * Return a plain text version of a based64 encoded home URL if it's stored as base64 encoded
 	 * @return string|null
 	 */
 	public static function get_home_url() {
@@ -199,7 +199,7 @@ class Data {
 	 *
 	 * Stores home URL as a base64 string to avoid migration/stg tools from overriding value
 	 */
-	public static function set_home_url( ?string $home_url = null ): bool {
+	public static function set_home_url( ?string $home_url = null ) : bool {
 		$home_url = $home_url ?? home_url();
 		return self::set_connect_mode_data( self::HOME_URL, base64_encode( $home_url ) );
 	}
@@ -263,7 +263,7 @@ class Data {
 	 *
 	 * @return bool
 	 */
-	public static function insert_option_uniquely( $option_name, $option_value ): bool {
+	public static function insert_option_uniquely( $option_name, $option_value ) : bool {
 		global $wpdb;
 		if ( ! self::is_option_whitelisted_for_direct_access( $option_name ) ) {
 			return false;
@@ -305,7 +305,7 @@ class Data {
 	 *
 	 * @return boolean
 	 */
-	public static function is_option_whitelisted_for_direct_access( string $option_name ): bool {
+	public static function is_option_whitelisted_for_direct_access( string $option_name ) : bool {
 		$options_whitelist = [
 			Config::APP_NAME . Service::REFRESH_TOKEN_LOCK,
 		];

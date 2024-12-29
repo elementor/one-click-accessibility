@@ -1,0 +1,40 @@
+<?php
+
+namespace EA11y\Modules\Remediation;
+
+use EA11y\Classes\Module_Base;
+use EA11y\Modules\Connect\Module as Connect;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+class Module extends Module_Base {
+
+	public function get_name(): string {
+		return 'remediation';
+	}
+
+	public static function is_active(): bool {
+		return Connect::is_connected();
+	}
+
+	public static function routes_list(): array {
+		return [
+			'Register',
+			'Set_Alt_Text',
+			'Add_Remediation',
+		];
+	}
+
+	public static function component_list(): array {
+		return [
+			'Remediations_Runner',
+		];
+	}
+
+	public function __construct() {
+		$this->register_routes();
+		$this->register_components();
+	}
+}

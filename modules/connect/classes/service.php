@@ -147,7 +147,7 @@ class Service {
 	 * @return array
 	 * @throws Service_Exception
 	 */
-	public static function get_token( string $grant_type, ?string $credential = null, ?bool $update = true ): array {
+	public static function get_token( string $grant_type, ?string $credential = null, ?bool $update = true ) : array {
 		$token_url = Utils::get_token_url();
 
 		if ( ! $token_url ) {
@@ -200,7 +200,7 @@ class Service {
 		return $data;
 	}
 
-	public static function jwt_decode( $payload ): string {
+	public static function jwt_decode( $payload ) : string {
 		static $jwks = null;
 
 		$jwks_url = Utils::get_jwks_url();
@@ -240,7 +240,7 @@ class Service {
 	 * @return array|null
 	 * @throws Service_Exception
 	 */
-	public static function request( string $url, array $args, int $valid_response_code = 200 ): ?array {
+	public static function request( string $url, array $args, int $valid_response_code = 200 ) : ?array {
 		$args['timeout'] = 30;
 
 		$response = wp_remote_request( $url, $args );
