@@ -29,11 +29,11 @@ class Module extends Module_Base {
 			return;
 		}
 
-		if ( empty ( Settings::PLAN_DATA ) && ! isset( $plan_data->public_api_key ) ) {
+		$plan_data = Settings::get( Settings::PLAN_DATA );
+
+		if ( ! isset( $plan_data->public_api_key ) ) {
 				return;
 		}
-
-		$plan_data = Settings::get( Settings::PLAN_DATA );
 
 		wp_enqueue_script(
 			'ea11y-widget',
