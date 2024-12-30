@@ -20,6 +20,7 @@ final class Manager {
 			'Connect',
 			'Settings',
 			'Widget',
+			'Core',
 		];
 	}
 
