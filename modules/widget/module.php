@@ -3,9 +3,7 @@
 namespace EA11y\Modules\Widget;
 
 use EA11y\Classes\Module_Base;
-use EA11y\Classes\Utils;
 use EA11y\Modules\Connect\Module as Connect;
-use EA11y\Classes\Logger;
 use EA11y\Modules\Settings\Classes\Settings;
 use Exception;
 
@@ -26,6 +24,10 @@ class Module extends Module_Base {
 	 * @throws Exception
 	 */
 	public function enqueue_accessibility_widget () : void {
+
+		if ( ! Connect::is_connected() ) {
+			return;
+		}
 
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 
