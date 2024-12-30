@@ -3,6 +3,7 @@ namespace EA11y\Modules\Core;
 
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Connect\Module as Connect;
+use EA11y\Modules\Settings\Module as Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -27,7 +28,7 @@ class Module extends Module_Base {
 		$custom_links = [
 			'dashboard' => sprintf(
 				'<a href="%s">%s</a>',
-				admin_url( 'admin.php?page=' . \EA11y\Modules\Settings\Module::SETTING_BASE_SLUG ),
+				admin_url( 'admin.php?page=' . Settings::SETTING_BASE_SLUG ),
 				esc_html__( 'Dashboard', 'pojo-accessibility' )
 			),
 		];
@@ -41,7 +42,7 @@ class Module extends Module_Base {
 		} else {
 			$custom_links['connect'] = sprintf(
 				'<a href="%s" style="color: #524CFF; font-weight: 700;">%s</a>',
-				admin_url( 'admin.php?page=' . \EA11y\Modules\Settings\Module::SETTING_BASE_SLUG ),
+				admin_url( 'admin.php?page=' . Settings::SETTING_BASE_SLUG ),
 				esc_html__( 'Connect', 'pojo-accessibility' )
 			);
 		}
