@@ -19,3 +19,5 @@ export { default as PauseAnimationsIcon } from './pause-animations';
 export { default as ReadableFontIcon } from './readable-font';
 export { default as PostConnectModalIcon } from './post-connect-modal-icon';
 export { default as ConnectModalIcon } from './connect-modal-icon';
+export { default as AccessibilityStatementCreateIcon } from './accessibility-statement-create';
+export { default as AccessibilityStatementExistingIcon } from './accessibility-statement-existing';
