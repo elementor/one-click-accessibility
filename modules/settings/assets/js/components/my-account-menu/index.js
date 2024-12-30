@@ -53,7 +53,7 @@ const MyAccountMenu = () => {
 	const redirectToBilling = () => {
 		window.open(BILLING_LINK, '_blank').focus();
 	};
-  
+
 	return (
 		<>
 			<List>
