@@ -124,9 +124,82 @@ class Module extends Module_Base {
 			Data::set_subscription_id( $register_response->id );
 			update_option( Settings::PLAN_DATA, $register_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
+			$this->set_default_settings();
 		} else {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
 			update_option( Settings::IS_VALID_PLAN_DATA, false );
+		}
+	}
+
+	/**
+	 * Set default values after successful registration.
+	 * @return void
+	 */
+	private function set_default_settings() : void {
+		$widget_menu_settings = [
+			'content-adjustments' => [
+				'text-size' => true,
+				'line-height' => true,
+				'align-text' => true,
+				'readable-font' => true,
+			],
+			'color-adjustments' => [
+				'greyscale' => true,
+				'contrast' => true,
+			],
+			'orientation-adjustments' => [
+				'page-structure' => true,
+				'site-map' => true,
+				'reading-panel' => true,
+				'hide-images' => true,
+				'pause-animations' => true,
+				'highlight-links' => true,
+			],
+		];
+
+		$widget_icon_settings = [
+			'desktop' => [
+				'hidden' => false,
+				'enableExactPosition' => false,
+				'exactPosition' => [
+					'horizontal' => [
+						'direction' => 'to-left',
+						'value' => 10,
+						'unit' => 'px',
+					],
+					'vertical' => [
+						'direction' => 'higher',
+						'value' => 10,
+						'unit' => 'px',
+					],
+				],
+				'position' => 'top-left',
+			],
+			'mobile' => [
+				'hidden' => false,
+				'enableExactPosition' => false,
+				'exactPosition' => [
+					'horizontal' => [
+						'direction' => 'to-right',
+						'value' => 10,
+						'unit' => 'px',
+					],
+					'vertical' => [
+						'direction' => 'lower',
+						'value' => 10,
+						'unit' => 'px',
+					],
+				],
+				'position' => 'top-left',
+			],
+		];
+
+		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
+			update_option( Settings::WIDGET_MENU_SETTINGS, $widget_menu_settings );
+		}
+
+		if ( ! get_option( Settings::WIDGET_ICON_SETTINGS ) ) {
+			update_option( Settings::WIDGET_ICON_SETTINGS, $widget_icon_settings );
 		}
 	}
 
