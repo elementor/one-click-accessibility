@@ -1,13 +1,20 @@
 import Container from '@elementor/ui/Container';
 import FormControl from '@elementor/ui/FormControl';
-import FormControlLabel from '@elementor/ui/FormControlLabel';
+import FormLabel from '@elementor/ui/FormLabel';
+import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { BottomBar } from '@ea11y/components';
+import {
+	AccessibilityStatementExistingIcon,
+	AccessibilityStatementCreateIcon,
+} from '@ea11y/icons';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const AccessibilityStatement = () => {
+	const [statementOption, setStatementOption] = useState(false);
 	return (
 		<>
 			<Container p={1} sx={{ overflow: 'auto', maxHeight: '100%', padding: 4 }}>
@@ -36,23 +43,88 @@ const AccessibilityStatement = () => {
 						'pojo-accessibility',
 					)}
 				</Typography>
-				<FormControl sx={{ marginBottom: 4 }}>
-					<RadioGroup
-						aria-labelledby="accessibility-statement-page"
-						defaultValue={false}
-						name="radio-buttons-group"
-						row
+				<FormControl>
+					<FormLabel
+						id="icon-select-radio-buttons-group-label"
+						color="secondary"
 					>
-						<FormControlLabel
-							control={<Radio size="small" color="default" />}
-							label={__('No, I do not have one', 'pojo-accessibility')}
-							value={false}
-						/>
-						<FormControlLabel
-							control={<Radio size="small" color="default" />}
-							label={__('Yes', 'pojo-accessibility')}
-							value={true}
-						/>
+						<Typography variant="h6" marginBottom={1} color="text.primary">
+							{__('Need an accessibility statement?', 'pojo-accessibility')}
+						</Typography>
+						<Typography variant="body2" color="text.secondary" marginBottom={1}>
+							{__(
+								'You can have a statement created for you or use what you already have.',
+								'pojo-accessibility',
+							)}
+						</Typography>
+					</FormLabel>
+					<RadioGroup
+						aria-labelledby="icon-select-radio-buttons-group-label"
+						name="icon-select-radio-buttons-group"
+						value={statementOption}
+						sx={{
+							display: 'flex',
+							flexDirection: 'row',
+							flexWrap: 'nowrap',
+							gap: 2,
+						}}
+					>
+						<Paper
+							key="generate-accessibility-statement"
+							variant="outlined"
+							onClick={() => setStatementOption(false)}
+							sx={{
+								borderRadius: 'md',
+								boxShadow: 'sm',
+								display: 'flex',
+								flexDirection: 'column',
+								flexGrow: 1,
+								alignItems: 'center',
+								justifyContent: 'center',
+								gap: 1.5,
+								p: 2,
+								width: 329,
+								minHeight: 169,
+								borderColor:
+									statementOption === false ? 'info.main' : 'divider',
+								borderWidth: statementOption === false ? 2 : 1,
+								cursor: 'pointer',
+							}}
+						>
+							<AccessibilityStatementExistingIcon />
+							<Typography>
+								{__('Yes, I need one', 'pojo-accessibility')}
+							</Typography>
+							<Radio value={false} sx={{ opacity: 0, position: 'absolute' }} />
+						</Paper>
+						<Paper
+							key="generate-accessibility-statement"
+							variant="outlined"
+							onClick={() => setStatementOption(true)}
+							sx={{
+								borderRadius: 'md',
+								boxShadow: 'sm',
+								display: 'flex',
+								flexDirection: 'column',
+								flexGrow: 1,
+								alignItems: 'center',
+								justifyContent: 'center',
+								gap: 1.5,
+								p: 2,
+								minWidth: 10,
+								width: 329,
+								minHeight: 169,
+								borderColor: statementOption === true ? 'info.main' : 'divider',
+								borderWidth: statementOption === true ? 2 : 1,
+								cursor: 'pointer',
+							}}
+						>
+							<AccessibilityStatementCreateIcon />
+							<Typography>
+								{__('No, I already have one', 'pojo-accessibility')}
+							</Typography>
+							<Radio value={true} sx={{ opacity: 0, position: 'absolute' }} />
+						</Paper>
 					</RadioGroup>
 				</FormControl>
 			</Container>
