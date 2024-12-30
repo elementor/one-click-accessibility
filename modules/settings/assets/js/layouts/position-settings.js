@@ -34,7 +34,7 @@ export const PositionSettings = (props) => {
 				</Typography>
 				<Typography variant="body2">
 					{__(
-						'Set where the widget appears on your site. This applies to all pages.',
+						'Decide where you want your accessibility button to appear across every page of your site so visitors can easily find it.',
 						'pojo-accessibility',
 					)}
 				</Typography>

@@ -8,6 +8,7 @@ import {
 	Notifications,
 	MenuItems,
 	AdminTopBar,
+	PostConnectModal,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
@@ -19,7 +20,8 @@ import { usePluginSettingsContext } from './contexts/plugin-settings';
 
 const App = () => {
 	useSavedSettings();
-	const { isConnected, isRTL } = usePluginSettingsContext();
+	const { isConnected, isRTL, closePostConnectModal } =
+		usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
 
@@ -32,6 +34,7 @@ const App = () => {
 		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
 				{!isConnected && <ConnectModal />}
+				{isConnected && !closePostConnectModal && <PostConnectModal />}
 				<Grid display="flex" flexDirection="row" height="100%">
 					<Sidebar />
 					<Box

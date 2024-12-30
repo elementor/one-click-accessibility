@@ -102,6 +102,7 @@ class Module extends Module_Base {
 
 		return [
 			'isConnected' => Connect::is_connected(),
+			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
 		];
 	}
