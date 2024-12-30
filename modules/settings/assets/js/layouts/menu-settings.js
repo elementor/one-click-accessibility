@@ -88,9 +88,9 @@ const MenuSettings = () => {
 	return (
 		<Card variant="outlined">
 			<CardHeader
-				title={__('Menu Items', 'pojo-accessibility')}
+				title={__('Feature Menu', 'pojo-accessibility')}
 				subheader={__(
-					'Select below the items that you want to appear in the widget.',
+					'Choose which accessibility features and capabilities you want to include.',
 					'pojo-accessibility',
 				)}
 			/>

@@ -5,24 +5,24 @@ import { __ } from '@wordpress/i18n';
 
 export const MenuItems = {
 	widget: {
-		name: __('Widget', 'pojo-accessibility'),
+		name: __('Accessibility Widget', 'pojo-accessibility'),
 		key: 'widget',
 		icon: <WidgetIcon />,
 		children: {
 			iconSettings: {
-				name: __('Icon Settings', 'pojo-accessibility'),
+				name: __('Design & position', 'pojo-accessibility'),
 				key: 'icon-settings',
 				page: <IconSettings />,
 			},
 			menu: {
-				name: __('Menu', 'pojo-accessibility'),
+				name: __('Feature management', 'pojo-accessibility'),
 				key: 'menu',
 				page: <Menu />,
 			},
 		},
 	},
 	accessibilityStatement: {
-		name: __('Accessibility Statement', 'pojo-accessibility'),
+		name: __('Accessibility statement', 'pojo-accessibility'),
 		key: 'accessibility-statement',
 		page: <AccessibilityStatement />,
 		icon: <PagesIcon />,

@@ -13,7 +13,7 @@ const IconDesignSettings = (props) => {
 				</Typography>
 				<Typography variant="body2">
 					{__(
-						'Customize the design of the button that visitors use to open the widget.',
+						"Customize your accessibility button's color, icon, and size to match your brand.",
 						'pojo-accessibility',
 					)}
 				</Typography>

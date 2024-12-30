@@ -26,6 +26,12 @@ class Module extends Module_Base {
 		return 'settings';
 	}
 
+	public static function component_list(): array {
+		return [
+			'Settings_Pointer',
+		];
+	}
+
 	public function render_app() {
 		?>
 		<!-- The hack required to wrap WP notifications -->
@@ -96,6 +102,7 @@ class Module extends Module_Base {
 
 		return [
 			'isConnected' => Connect::is_connected(),
+			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
 		];
 	}
@@ -283,7 +290,7 @@ class Module extends Module_Base {
 	 */
 	public function __construct() {
 		$this->register_routes();
-		$this->register_components();
+		$this->register_components( self::component_list() );
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
