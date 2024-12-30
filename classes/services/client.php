@@ -65,7 +65,7 @@ class Client {
 	 * @return string
 	 */
 	private static function webhook_endpoint(): string {
-		$blog_id            = get_current_blog_id();
+		$blog_id = get_current_blog_id();
 		return get_rest_url( $blog_id, 'a11y/v1/webhooks/common' );
 	}
 
@@ -161,15 +161,6 @@ class Client {
 		if ( 204 === $response_code ) {
 			$body = true;
 			return $body;
-		}
-
-		/**
-		 * product/widget endpoint returns javascript hence we
-		 * escape decoding for the data received in body from
-		 * this endpoint.
-		 */
-		if ( ! strpos( $endpoint, 'widget' ) ) {
-			$body = json_decode( $body );
 		}
 
 		if ( false === $body ) {
