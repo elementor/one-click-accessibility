@@ -32,7 +32,7 @@ class Module extends Module_Base {
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 
 		if ( ! isset( $plan_data->public_api_key ) ) {
-				return;
+			return;
 		}
 
 		wp_enqueue_script(
