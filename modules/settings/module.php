@@ -26,6 +26,12 @@ class Module extends Module_Base {
 		return 'settings';
 	}
 
+	public static function component_list(): array {
+		return [
+			'Settings_Pointer',
+		];
+	}
+
 	public function render_app() {
 		?>
 		<!-- The hack required to wrap WP notifications -->
@@ -96,6 +102,7 @@ class Module extends Module_Base {
 
 		return [
 			'isConnected' => Connect::is_connected(),
+			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
 		];
 	}
@@ -115,8 +122,9 @@ class Module extends Module_Base {
 
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
 			Data::set_subscription_id( $register_response->id );
-            update_option( Settings::PLAN_DATA, $register_response );
-            update_option( Settings::IS_VALID_PLAN_DATA, true );
+			update_option( Settings::PLAN_DATA, $register_response );
+			update_option( Settings::IS_VALID_PLAN_DATA, true );
+			$this->set_default_settings();
 		} else {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
 			update_option( Settings::IS_VALID_PLAN_DATA, false );
@@ -124,33 +132,105 @@ class Module extends Module_Base {
 	}
 
 	/**
-     * Retry registering the site if it fails during connect.
-     *
+	 * Set default values after successful registration.
+	 * @return void
+	 */
+	private function set_default_settings() : void {
+		$widget_menu_settings = [
+			'content-adjustments' => [
+				'text-size' => true,
+				'line-height' => true,
+				'align-text' => true,
+				'readable-font' => true,
+			],
+			'color-adjustments' => [
+				'greyscale' => true,
+				'contrast' => true,
+			],
+			'orientation-adjustments' => [
+				'page-structure' => true,
+				'site-map' => true,
+				'reading-panel' => true,
+				'hide-images' => true,
+				'pause-animations' => true,
+				'highlight-links' => true,
+			],
+		];
+
+		$widget_icon_settings = [
+			'desktop' => [
+				'hidden' => false,
+				'enableExactPosition' => false,
+				'exactPosition' => [
+					'horizontal' => [
+						'direction' => 'to-left',
+						'value' => 10,
+						'unit' => 'px',
+					],
+					'vertical' => [
+						'direction' => 'higher',
+						'value' => 10,
+						'unit' => 'px',
+					],
+				],
+				'position' => 'top-left',
+			],
+			'mobile' => [
+				'hidden' => false,
+				'enableExactPosition' => false,
+				'exactPosition' => [
+					'horizontal' => [
+						'direction' => 'to-right',
+						'value' => 10,
+						'unit' => 'px',
+					],
+					'vertical' => [
+						'direction' => 'lower',
+						'value' => 10,
+						'unit' => 'px',
+					],
+				],
+				'position' => 'top-left',
+			],
+		];
+
+		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
+			update_option( Settings::WIDGET_MENU_SETTINGS, $widget_menu_settings );
+		}
+
+		if ( ! get_option( Settings::WIDGET_ICON_SETTINGS ) ) {
+			update_option( Settings::WIDGET_ICON_SETTINGS, $widget_icon_settings );
+		}
+	}
+
+	/**
+	 * Retry registering the site if it fails during connect.
+	 *
 	 * @param $current_screen
 	 * @return void
 	 */
-    public function check_plan_data( $current_screen ) : void {
-        //TODO: Update page name
-	    if ( 'toplevel_page_accessibility-settings-2' !== $current_screen->base ) {
-		    return;
-	    }
+	public function check_plan_data( $current_screen ) : void {
+		//TODO: Update page name
+		if ( 'toplevel_page_accessibility-settings-2' !== $current_screen->base ) {
+			return;
+		}
 
-        if ( Connect::is_connected() &&  get_option( Settings::PLAN_DATA ) === false ) {
-	        $register_response = Utils::get_api_client()->make_request(
-		        'POST',
-		        'site/register'
-	        );
+		if ( Connect::is_connected() && get_option( Settings::PLAN_DATA ) === false ) {
+			$register_response = Utils::get_api_client()->make_request(
+				'POST',
+				'site/register'
+			);
 
-	        if ( $register_response && ! is_wp_error( $register_response ) ) {
-		        Data::set_subscription_id( $register_response->id );
-		        update_option( Settings::PLAN_DATA, $register_response );
-		        update_option( Settings::IS_VALID_PLAN_DATA, true );
-	        } else {
-		        Logger::error( esc_html( $register_response->get_error_message() ) );
-		        update_option( Settings::IS_VALID_PLAN_DATA, false );
-	        }
-        }
-    }
+			if ( $register_response && ! is_wp_error( $register_response ) ) {
+				Data::set_subscription_id( $register_response->id );
+				update_option( Settings::PLAN_DATA, $register_response );
+				update_option( Settings::IS_VALID_PLAN_DATA, true );
+			} else {
+				Logger::error( esc_html( $register_response->get_error_message() ) );
+				update_option( Settings::IS_VALID_PLAN_DATA, false );
+			}
+		}
+	}
 
 	/**
 	 * Register settings.
@@ -167,34 +247,34 @@ class Module extends Module_Base {
 				'show_in_rest' => [
 					'schema' => [
 						'type' => 'object',
-						'additionalProperties' => true
+						'additionalProperties' => true,
 					],
-				]
+				],
 			],
 			'widget_icon_settings' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [
 						'type' => 'object',
-						'additionalProperties' => true
+						'additionalProperties' => true,
 					],
-				]
+				],
 			],
 			'plan_data' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [
 						'type' => 'object',
-						'additionalProperties' => true
+						'additionalProperties' => true,
 					],
-				]
+				],
 			],
 			'close_post_connect_modal' => [
 				'type' => 'boolean',
 			],
-            'hide_minimum_active_options_alert' => [
-                    'type' => 'boolean',
-            ]
+			'hide_minimum_active_options_alert' => [
+				'type' => 'boolean',
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {
@@ -210,11 +290,11 @@ class Module extends Module_Base {
 	 */
 	public function __construct() {
 		$this->register_routes();
-		$this->register_components();
+		$this->register_components( self::component_list() );
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
-        add_action( 'current_screen', [ $this, 'check_plan_data' ] );
+		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
 	}
 }

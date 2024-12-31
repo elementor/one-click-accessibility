@@ -56,7 +56,17 @@ class Client {
 			'user_agent' => ! empty( $_SERVER['HTTP_USER_AGENT'] )
 				? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) )
 				: 'Unknown',
+			'webhook_url' => self::webhook_endpoint(),
 		];
+	}
+
+	/**
+	 * Log update endpoint
+	 * @return string
+	 */
+	private static function webhook_endpoint(): string {
+		$blog_id = get_current_blog_id();
+		return get_rest_url( $blog_id, 'a11y/v1/webhooks/common' );
 	}
 
 	public function make_request( $method, $endpoint, $body = [], array $headers = [], $send_json = false ) {
@@ -147,13 +157,11 @@ class Client {
 			$body = true;
 		}
 
-		// Return with no content on successfull deletion of domain from service.
+		// Return with no content on successful deletion of domain from service.
 		if ( 204 === $response_code ) {
 			$body = true;
 			return $body;
 		}
-
-		$body = json_decode( $body );
 
 		if ( false === $body ) {
 			return new WP_Error( 422, 'Wrong Server Response' );
@@ -167,7 +175,7 @@ class Client {
 			return $this->request( $method, $endpoint, $args );
 		}
 
-		if ( ! in_array( $response_code, [ 200, 201 ] ) ) {
+		if ( ! in_array( $response_code, [ 200, 201 ], true ) ) {
 			// In case $as_array = true.
 			$message = $body->message ?? wp_remote_retrieve_response_message( $response );
 			$message = is_array( $message ) ? join( ', ', $message ) : $message;
