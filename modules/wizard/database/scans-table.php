@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Remediation\Database;
+namespace EA11y\Modules\Wizard\Database;
 
 use EA11y\Classes\Database\{
 	Table,
@@ -11,24 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Page_Table extends Table {
+/**
+ * Class Scans_Table
+ */
+class Scans_Table extends Table {
 	// override base's const:
 	const DB_VERSION = '1';
-	const DB_VERSION_FLAG_NAME = 'ea11y_page_db_version';
+	const DB_VERSION_FLAG_NAME = 'ea11y_scan_db_version';
 
 	const ID = 'id';
-	const URL = 'url';
-	const OBJECT_ID = 'object_id';
-	const OBJECT_TYPE = 'object_type';
-	const OBJECT_TYPE_NAME = 'object_type_name';
-	const HASH = 'hash';
-	const REMEDIATIONS = 'remediations';
-	const FULL_HTML = 'full_html';
-	const STATUS = 'status';
+	const PAGE_ID = 'page_id';
+	const RESULTS = 'results';
+	const SUMMARY = 'summary';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
-	public static $table_name = 'ea11y_page_remediations';
+	public static $table_name = 'ea11y_page_scans';
 
 	public static function get_columns(): array {
 		return [
@@ -41,49 +39,22 @@ class Page_Table extends Table {
 				] ),
 				'key' => Database_Constants::get_primary_key_string( self::ID ),
 			],
-			self::URL => [
-				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
-				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::DEFAULT,
-					'\'\'',
-				] ),
-				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::URL ),
-			],
-			self::OBJECT_ID => [
+			self::PAGE_ID => [
 				'type' => Database_Constants::get_col_type( Database_Constants::INT, 11 ),
 				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::DEFAULT,
-					0,
-				] ),
-			],
-			self::OBJECT_TYPE => [
-				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 255 ),
-				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::DEFAULT,
-					'\'\'',
-				] ),
-			],
-			self::OBJECT_TYPE_NAME => [
-				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 255 ),
-				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::DEFAULT,
-					'\'\'',
-				] ),
-			],
-			self::HASH => [
-				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 255 ),
-				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::UNSIGNED,
 					Database_Constants::NOT_NULL,
 				] ),
-				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::HASH ),
+				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::PAGE_ID ),
 			],
-			self::REMEDIATIONS => [
+			self::RESULTS => [
 				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					'\'\'',
+				] ),
 			],
-			self::FULL_HTML => [
-				'type' => Database_Constants::get_col_type( Database_Constants::LONGTEXT ),
-			],
-			self::STATUS => [
+			self::SUMMARY => [
 				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
 				'flags' => Database_Constants::build_flags_string( [
 					Database_Constants::DEFAULT,

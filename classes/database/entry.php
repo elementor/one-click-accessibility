@@ -341,6 +341,22 @@ class Entry {
 	}
 
 	/**
+	 * to_json
+	 * @return string
+	 */
+	public function to_json() : string {
+		return json_encode( $this->entry_data );
+	}
+
+	public function get_data() {
+		return $this->entry_data;
+	}
+
+	public function to_array() {
+		return $this->get_data();
+	}
+
+	/**
 	 * DB_Entry_Base constructor.
 	 * Uses the passed on arguments to initialize/set the Entry.
 	 * Will through an exception in case the Entry's table property is not set correctly, and the /Table/ class
