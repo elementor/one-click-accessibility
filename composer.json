@@ -1,6 +1,7 @@
 {
 	"name": "pojome/pojo-accessibility",
 	"description": "pojo accessibility",
+	"type": "wordpress-plugin",
 	"minimum-stability": "dev",
 	"license": "gpl2",
 	"authors": [
@@ -9,7 +10,7 @@
 			"email": "yakir@pojo.me"
 		}
 	],
-	"require": {
+	"require-dev": {
 		"phpunit/phpunit": "4.8.8"
 	}
 }
