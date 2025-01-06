@@ -39,8 +39,7 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 						variant={tagName === 'div' ? 'body1' : tagName}
 						component={tagName}
 					>
-						{node.children &&
-							node.children.map((child, index) => transform(child))}
+						{node.children && node.children.map((child) => transform(child))}
 					</Typography>
 				);
 			}

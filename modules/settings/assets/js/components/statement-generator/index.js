@@ -14,7 +14,6 @@ import { AlertError, HtmlToTypography } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 import { Statement } from '../../helpers/accessibility-statement';
-import apiFetch from '@wordpress/api-fetch';
 
 // Customization for the WP admin global CSS.
 const StyledTextField = styled(TextField)(() => ({

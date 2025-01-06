@@ -1,12 +1,11 @@
 import Container from '@elementor/ui/Container';
 import FormControl from '@elementor/ui/FormControl';
 import FormLabel from '@elementor/ui/FormLabel';
-import Modal from '@elementor/ui/Modal';
 import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
-import { BottomBar, StatementGenerator } from '@ea11y/components';
+import { StatementGenerator } from '@ea11y/components';
 import { useModal } from '@ea11y/hooks';
 import {
 	AccessibilityStatementExistingIcon,
