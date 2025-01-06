@@ -13,7 +13,8 @@ class Module extends Module_Test_Base {
 		'Frontend',
 		'Customizer',
 		'Settings',
-		'Admin'
+		'Admin',
+		'Upgrade'
 	];
 
 	public $routes = [];
