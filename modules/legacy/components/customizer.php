@@ -171,7 +171,7 @@ class Customizer {
 		$section_description = '<p>' . __( 'Use the control below to customize the appearance and layout of the Accessibility Toolbar', 'pojo-accessibility' ) . '</p><p>' .
 			sprintf( __( 'Additional Toolbar settings can be configured at the %s page.', 'pojo-accessibility' ),
 			'<a href="' . admin_url( 'admin.php?page=accessibility-toolbar' ) . '" target="blank">' . __( 'Accessibility Toolbar', 'pojo-accessibility' ) . '</a>'
-			) . '</p>';
+			) . '</p>' . apply_filters( 'pojo_a11y_customizer_section_description', '' );
 
 		$wp_customize->add_section( 'accessibility', [
 			'title'       => __( 'Accessibility', 'pojo-accessibility' ),
