@@ -26,8 +26,8 @@
 		"@wordpress/eslint-plugin": "^21.3.0",
 		"@wordpress/scripts": "^30.3.0",
 		"eslint": "^8.57.1",
-		"eslint-import-resolver-webpack": "^0.13.9",
 		"eslint-config-prettier": "^9.1.0",
+		"eslint-import-resolver-webpack": "^0.13.9",
 		"eslint-plugin-babel": "^5.3.1",
 		"eslint-plugin-import": "^2.31.0",
 		"eslint-plugin-jsx-a11y": "^6.10.1",
@@ -46,6 +46,7 @@
 		"@wordpress/element": "^6.10.0",
 		"@wordpress/i18n": "^5.10.0",
 		"@wordpress/url": "^4.10.0",
+		"html-react-parser": "^5.2.2",
 		"husky": "^9.1.6",
 		"prop-types": "^15.8.1",
 		"react-colorful": "^5.6.1"

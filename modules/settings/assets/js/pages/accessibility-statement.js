@@ -1,11 +1,13 @@
 import Container from '@elementor/ui/Container';
 import FormControl from '@elementor/ui/FormControl';
 import FormLabel from '@elementor/ui/FormLabel';
+import Modal from '@elementor/ui/Modal';
 import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
-import { BottomBar } from '@ea11y/components';
+import { BottomBar, StatementGenerator } from '@ea11y/components';
+import { useModal } from '@ea11y/hooks';
 import {
 	AccessibilityStatementExistingIcon,
 	AccessibilityStatementCreateIcon,
@@ -14,7 +16,8 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const AccessibilityStatement = () => {
-	const [statementOption, setStatementOption] = useState(false);
+	const { isOpen, open, close } = useModal(false);
+	const [statementOption, setStatementOption] = useState();
 	return (
 		<>
 			<Container p={1} sx={{ overflow: 'auto', maxHeight: '100%', padding: 4 }}>
@@ -34,12 +37,6 @@ const AccessibilityStatement = () => {
 				>
 					{__(
 						'An accessibility statement showcases your efforts to create an inclusive online space, highlighting helpful features and a commitment to accessibility. Learn more',
-						'pojo-accessibility',
-					)}
-				</Typography>
-				<Typography variant="subtitle1" color="text.primary" marginBottom={2}>
-					{__(
-						'Already have an accessibile statement page?',
 						'pojo-accessibility',
 					)}
 				</Typography>
@@ -72,7 +69,10 @@ const AccessibilityStatement = () => {
 						<Paper
 							key="generate-accessibility-statement"
 							variant="outlined"
-							onClick={() => setStatementOption(false)}
+							onClick={() => {
+								setStatementOption(false);
+								open();
+							}}
 							sx={{
 								borderRadius: 'md',
 								boxShadow: 'sm',
@@ -98,7 +98,7 @@ const AccessibilityStatement = () => {
 							<Radio value={false} sx={{ opacity: 0, position: 'absolute' }} />
 						</Paper>
 						<Paper
-							key="generate-accessibility-statement"
+							key="existing-accessibility-statement"
 							variant="outlined"
 							onClick={() => setStatementOption(true)}
 							sx={{
@@ -128,7 +128,7 @@ const AccessibilityStatement = () => {
 					</RadioGroup>
 				</FormControl>
 			</Container>
-			<BottomBar />
+			<StatementGenerator open={isOpen} close={close} />
 		</>
 	);
 };
