@@ -575,7 +575,7 @@ class Settings {
 	public function admin_menu() {
 		$this->menu_slug = add_menu_page(
 			__( 'Accessibility', 'pojo-accessibility' ),
-			__( 'Accessibility', 'pojo-accessibility' ),
+			__( 'Accessibility', 'pojo-accessibility' ) . ' <span class="awaiting-mod"></span>',
 			'manage_options',
 			'accessibility-settings',
 			[ &$this, 'display_settings_page' ],
