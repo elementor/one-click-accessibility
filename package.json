@@ -13,6 +13,7 @@
 		"prepare": "husky install",
 		"local:start": "wp-env start",
 		"local:stop": "wp-env stop",
+        "local:quick-run": "npx @wp-now/wp-now start",
 		"local:composer:dev": "wp-env run cli --env-cwd=wp-content/plugins/one-click-accessibility composer install",
 		"local:composer:build": "wp-env run cli --env-cwd=wp-content/plugins/one-click-accessibility composer install --no-dev",
 		"local:wp-cli": "wp-env run cli --env-cwd=wp-content/plugins/one-click-accessibility wp",
