@@ -72,7 +72,7 @@ class Upgrade {
 	public function add_deprecated_notice_to_customizer_section_description(): string {
 		$content = sprintf(
 			'<p>%s</p><p><a href=\"%s\">%s</a></p><p><a class=\"button\" href=\"%s\">%s</a></p>',
-			esc_html__( 'New! Switch to our updated accessibility plugin for better features and control.', 'pojo-accessibility' ),
+			esc_html__( 'New! Switch to our updated accessibility widget for better features and control.', 'pojo-accessibility' ),
 			self::get_learn_more_link(),
 			esc_html__( 'Learn More', 'pojo-accessibility' ),
 			self::get_switch_now_link(),
@@ -116,8 +116,8 @@ class Upgrade {
 					<div class="video-wrapper">
 						<iframe width="480" height="270" src="https://www.youtube.com/embed/MLpWrANjFbI?si=NugoZlkXwil9ya9P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 					</div>
-					<h2 style="color: #0C0D0E;font-family: Roboto;font-size: 24px;font-style: normal;font-weight: 700;line-height: 133.4%;"><?php esc_html_e( 'Switch to our new accessibility plugin', 'pojo-accessibility' ); ?></h2>
-					<p><?php esc_html_e( '{{appName}} by Elementor is our new and improved accessibility plugin. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
+					<h2 style="color: #0C0D0E;font-family: Roboto;font-size: 24px;font-style: normal;font-weight: 700;line-height: 133.4%;"><?php esc_html_e( 'Switch to our new accessibility widget', 'pojo-accessibility' ); ?></h2>
+					<p><?php esc_html_e( '{{appName}} by Elementor is our new and improved accessibility widget. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
 					<div>
 						<ul class="benefits">
 							<li>
@@ -352,7 +352,7 @@ class Upgrade {
 		wp_enqueue_style( 'wp-pointer' );
 
 		$pointer_content = '<h3>' . esc_html__( 'Accessibility', 'pojo-accessibility' ) . '</h3>';
-		$pointer_content .= '<p>' . esc_html__( "Our new, improved accessibility plugin is now available! {{appName}} is packed with advanced styling options, improved feature controls, and so much more. ", 'pojo-accessibility' ) . '</p>';
+		$pointer_content .= '<p>' . esc_html__( "Our new, improved accessibility widget is now available! {{appName}} is packed with advanced styling options, improved feature controls, and so much more. ", 'pojo-accessibility' ) . '</p>';
 
 		$pointer_content .= sprintf(
 			'<p><a class="button button-primary ea11y-pointer-settings-link" href="%s">%s</a></p>',
