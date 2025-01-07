@@ -117,7 +117,7 @@ class Upgrade {
 						<iframe width="480" height="270" src="https://www.youtube.com/embed/MLpWrANjFbI?si=NugoZlkXwil9ya9P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 					</div>
 					<h2 style="color: #0C0D0E;font-family: Roboto;font-size: 24px;font-style: normal;font-weight: 700;line-height: 133.4%;"><?php esc_html_e( 'Switch to our new accessibility widget', 'pojo-accessibility' ); ?></h2>
-					<p><?php esc_html_e( '{{appName}} by Elementor is our new and improved accessibility widget. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
+					<p><?php esc_html_e( 'Equally by Elementor is our new and improved accessibility widget. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
 					<div>
 						<ul class="benefits">
 							<li>
@@ -221,8 +221,8 @@ class Upgrade {
 			<div  id="<?php echo esc_html( self::CONFIRMATION_MODAL ); ?>" style="display:none;">
 				<div data-modal-slug="<?php echo esc_html( self::CONFIRMATION_MODAL ); ?>" class="modal-content-wrap">
 					<div>add icons here!!!</div>
-					<h2 style="color: #0C0D0E;font-family: Roboto;font-size: 24px;font-style: normal;font-weight: 700;line-height: 133.4%;"><?php esc_html_e( 'Confirm switching to {{appName}}', 'pojo-accessibility' ); ?></h2>
-					<p><?php esc_html_e( 'You’re about to switch from {{oldApp}}, which we no longer support, to  {{appName}} by Elementor. Any previous settings will be removed, and this action cannot be undone.', 'pojo-accessibility' ); ?></p>
+					<h2 style="color: #0C0D0E;font-family: Roboto;font-size: 24px;font-style: normal;font-weight: 700;line-height: 133.4%;"><?php esc_html_e( 'Confirm switching to Equally', 'pojo-accessibility' ); ?></h2>
+					<p><?php esc_html_e( 'You’re about to switch from One click accessibility, which we no longer support, to Equally by Elementor. Any previous settings will be removed, and this action cannot be undone.', 'pojo-accessibility' ); ?></p>
 					<div class="footer-actions">
 						<a href="#" class="close-button"><?php esc_html_e( 'Keep Current' ); ?></a>
 						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary upgrade-now"><?php esc_html_e( 'Confirm and switch', 'pojo-accessibility' ); ?></a>
@@ -352,7 +352,7 @@ class Upgrade {
 		wp_enqueue_style( 'wp-pointer' );
 
 		$pointer_content = '<h3>' . esc_html__( 'Accessibility', 'pojo-accessibility' ) . '</h3>';
-		$pointer_content .= '<p>' . esc_html__( "Our new, improved accessibility widget is now available! {{appName}} is packed with advanced styling options, improved feature controls, and so much more. ", 'pojo-accessibility' ) . '</p>';
+		$pointer_content .= '<p>' . esc_html__( "Our new, improved accessibility widget is now available! Equally is packed with advanced styling options, improved feature controls, and so much more. ", 'pojo-accessibility' ) . '</p>';
 
 		$pointer_content .= sprintf(
 			'<p><a class="button button-primary ea11y-pointer-settings-link" href="%s">%s</a></p>',

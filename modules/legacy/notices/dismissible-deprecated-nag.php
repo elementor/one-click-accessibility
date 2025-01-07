@@ -19,7 +19,7 @@ class Dismissible_Deprecated_Nag extends Notice_Base {
 	public $capability = 'manage_options';
 	public string $id = 'dismissible-deprecated-nag';
 
-	public string $content = '<p>Time to take your site’s accessibility to the next level with {{appName}}, our newest accessibility widget is packed advanced customization, flexible feature controls, and a built-in statement generator. Want more details before switching? Learn more</p>';
+	public string $content = '<p>Time to take your site’s accessibility to the next level with Equally, our newest accessibility widget is packed advanced customization, flexible feature controls, and a built-in statement generator. Want more details before switching? Learn more</p>';
 
 	public function maybe_add_nag_deprecation_notice() {
 		if (  Upgrade::is_legacy_page() ) {
@@ -28,7 +28,13 @@ class Dismissible_Deprecated_Nag extends Notice_Base {
 	}
 
 	public function content(): string {
-		return $this->content . '<p><a class="button button-primary" href="' . esc_attr( Upgrade::get_switch_now_link() ). '">Switch To {{appName}}</a></p>';
+		return sprintf( '<p>%s</p> <a href="%s">%s</a><p><a class="button button-primary" href="%s">%s</a></p>',
+			esc_html__( 'Time to take your site’s accessibility to the next level with Equally, our newest accessibility widget is packed advanced customization, flexible feature controls, and a built-in statement generator. Want more details before switching?', 'pojo-accessibility' ),
+			esc_attr( Upgrade::get_learn_more_link() ),
+			esc_html__( 'Learn more', 'pojo-accessibility' ),
+			esc_attr( Upgrade::get_switch_now_link() ),
+			esc_html__( 'Switch To Equally', 'pojo-accessibility' )
+		);
 	}
 
 	public function __construct() {
