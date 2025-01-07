@@ -7,7 +7,6 @@ import {
 	TextSizeIcon,
 	ContrastIcon,
 	PageStructureIcon,
-	SiteMapIcon,
 	ReadingPanelIcon,
 	HideImagesIcon,
 	PauseAnimationsIcon,
@@ -20,15 +19,15 @@ export const MENU_SETTINGS = {
 	'content-adjustments': {
 		title: __('Content Adjustments', 'pojo-accessibility'),
 		options: {
-			'text-size': {
+			'bigger-text': {
 				title: __('Adjust text size', 'pojo-accessibility'),
 				icon: <TextSizeIcon sx={iconStyle} />,
 			},
-			'line-height': {
+			'bigger-line-height': {
 				title: __('Adjust line height', 'pojo-accessibility'),
 				icon: <LineHeightIcon sx={iconStyle} />,
 			},
-			'align-text': {
+			'text-align': {
 				title: __('Align text', 'pojo-accessibility'),
 				icon: <AlignLeftIcon sx={iconStyle} />,
 			},
@@ -41,7 +40,7 @@ export const MENU_SETTINGS = {
 	'color-adjustments': {
 		title: __('Color Adjustments', 'pojo-accessibility'),
 		options: {
-			greyscale: {
+			grayscale: {
 				title: __('Greyscale', 'pojo-accessibility'),
 				icon: <GrayscaleIcon sx={iconStyle} />,
 			},
@@ -58,12 +57,8 @@ export const MENU_SETTINGS = {
 				title: __('Page structure', 'pojo-accessibility'),
 				icon: <PageStructureIcon sx={iconStyle} />,
 			},
-			'site-map': {
-				title: __('Site map', 'pojo-accessibility'),
-				icon: <SiteMapIcon sx={iconStyle} />,
-			},
-			'reading-panel': {
-				title: __('Reading panel', 'pojo-accessibility'),
+			'reading-mask': {
+				title: __('Reading mask', 'pojo-accessibility'),
 				icon: <ReadingPanelIcon sx={iconStyle} />,
 			},
 			'hide-images': {
