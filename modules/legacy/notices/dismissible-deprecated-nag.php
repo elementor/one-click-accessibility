@@ -19,8 +19,6 @@ class Dismissible_Deprecated_Nag extends Notice_Base {
 	public $capability = 'manage_options';
 	public string $id = 'dismissible-deprecated-nag';
 
-	public string $content = '<p>Time to take your site’s accessibility to the next level with Equally, our newest accessibility widget is packed advanced customization, flexible feature controls, and a built-in statement generator. Want more details before switching? Learn more</p>';
-
 	public function maybe_add_nag_deprecation_notice() {
 		if (  Upgrade::is_legacy_page() ) {
 			$this->conditions = false;
