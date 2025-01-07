@@ -17,7 +17,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MENU_SETTINGS } from '../constants/menu-settings';
 
-// Customization for the WP admin global CSS.
+// Customization to override the WP admin global CSS.
 const StyledSwitch = styled(Switch)(() => ({
 	input: {
 		height: '56px',
@@ -45,30 +45,28 @@ const MenuSettings = () => {
 			});
 		}
 	}, [widgetMenuSettings]);
-	// Function to toggle the value of a setting
+
+	// Toggle the value of a setting
 	const toggleSetting = (category, option) => {
 		setWidgetMenuSettings((prevSettings) => {
 			const newSettings = {
 				...prevSettings,
-				[category]: {
-					...prevSettings[category],
-					[option]: !prevSettings[category][option],
+				[option]: {
+					enabled: !prevSettings[option]?.enabled,
 				},
 			};
 
-			setHasChanges(true); // Mark as changed
+			setHasChanges(true);
 			return newSettings;
 		});
 	};
 
-	// Function to check if at least two options are enabled
+	// Check if at least two options are enabled
 	const areAtLeastTwoOptionsEnabled = (settings) => {
 		let enabledCount = 0;
 
-		// Iterate through each category in settings
 		for (const category in settings) {
 			if (settings.hasOwnProperty(category)) {
-				// Count enabled options in the current category
 				for (const option in settings[category]) {
 					if (settings[category][option]) {
 						enabledCount++;
@@ -77,7 +75,7 @@ const MenuSettings = () => {
 			}
 		}
 
-		return enabledCount > 2; // Return true if at least two options are enabled
+		return enabledCount > 2;
 	};
 
 	const handleCloseNotification = () => {
@@ -126,14 +124,13 @@ const MenuSettings = () => {
 															size="medium"
 															color="info"
 															checked={
-																widgetMenuSettings[parentKey]?.[childKey] ||
-																false
+																widgetMenuSettings[childKey]?.enabled || false
 															}
 															onChange={() =>
 																toggleSetting(parentKey, childKey)
 															}
 															disabled={
-																widgetMenuSettings[parentKey]?.[childKey]
+																widgetMenuSettings[childKey]?.enabled
 																	? disableOptions
 																	: false
 															}
