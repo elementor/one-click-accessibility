@@ -292,7 +292,7 @@ class Module extends Module_Base {
 		$this->register_routes();
 		$this->register_components( self::component_list() );
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 9 );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );

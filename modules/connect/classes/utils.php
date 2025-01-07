@@ -22,7 +22,7 @@ class Utils {
 	 * get_redirect_uri
 	 * @return string
 	 */
-	public static function get_redirect_uri( string $domain = '' ): string {
+	public static function get_redirect_uri( string $domain = '' ) : string {
 		if ( false !== strpos( Config::ADMIN_PAGE, '?page=' ) ) {
 			$admin_url = admin_url( Config::ADMIN_PAGE );
 		} else {

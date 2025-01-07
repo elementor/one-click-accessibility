@@ -17,10 +17,11 @@ class Module extends Module_Base {
 	public static function component_list() : array {
 		return [
 			'Pointers',
+			'Notices',
 		];
 	}
 
-	public function add_plugin_links( $links, $plugin_file_name ): array {
+	public function add_plugin_links( $links, $plugin_file_name ) : array {
 		if ( ! str_ends_with( $plugin_file_name, '/pojo-accessibility.php' ) ) {
 			return (array) $links;
 		}
@@ -48,6 +49,10 @@ class Module extends Module_Base {
 		}
 
 		return array_merge( $custom_links, $links );
+	}
+
+	public static function is_active() : bool {
+		return true;
 	}
 
 	/**

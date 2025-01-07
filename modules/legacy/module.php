@@ -5,6 +5,7 @@ namespace EA11y\Modules\Legacy;
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Legacy\Components\Customizer;
 use EA11y\Modules\Legacy\Components\Settings;
+use EA11y\Modules\Legacy\Components\Upgrade;
 use EA11y\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,6 +23,7 @@ class Module extends Module_Base {
 			'Customizer',
 			'Settings',
 			'Admin',
+			'Upgrade',
 		];
 	}
 
@@ -54,6 +56,13 @@ class Module extends Module_Base {
 		 * @var Settings $settings
 		 */
 		return Plugin::instance()->modules_manager->get_modules( 'Legacy' )->get_component( 'Settings' );
+	}
+
+	public static function is_active(): bool {
+		if (  get_option( 'pojo_a11y_toolbar', false ) && ! Upgrade::is_upgraded() ) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
