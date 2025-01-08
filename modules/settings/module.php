@@ -120,9 +120,20 @@ class Module extends Module_Base {
 			'site/register'
 		);
 
+		$this->save_plan_data( $register_response );
+	}
+
+	/**
+	 * Save plan data to plan_data option
+	 * @param $register_response
+	 *
+	 * @return void
+	 */
+	public function save_plan_data( $register_response ) : void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
-			Data::set_subscription_id( $register_response->id );
-			update_option( Settings::PLAN_DATA, $register_response );
+			$decoded_response = json_decode( $register_response );
+			Data::set_subscription_id( $decoded_response->id );
+			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
 			$this->set_default_settings();
 		} else {
@@ -235,14 +246,7 @@ class Module extends Module_Base {
 				'site/register'
 			);
 
-			if ( $register_response && ! is_wp_error( $register_response ) ) {
-				Data::set_subscription_id( $register_response->id );
-				update_option( Settings::PLAN_DATA, $register_response );
-				update_option( Settings::IS_VALID_PLAN_DATA, true );
-			} else {
-				Logger::error( esc_html( $register_response->get_error_message() ) );
-				update_option( Settings::IS_VALID_PLAN_DATA, false );
-			}
+			$this->save_plan_data( $register_response );
 		}
 	}
 
@@ -275,7 +279,13 @@ class Module extends Module_Base {
 				],
 			],
 			'plan_data' => [
-				'type' => 'string',
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
 			],
 			'close_post_connect_modal' => [
 				'type' => 'boolean',

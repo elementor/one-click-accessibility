@@ -30,7 +30,7 @@ class Module extends Module_Base {
 			return;
 		}
 
-		$plan_data = json_decode(Settings::get( Settings::PLAN_DATA ));
+		$plan_data = Settings::get( Settings::PLAN_DATA );
 
 		if ( ! isset( $plan_data->public_api_key ) ) {
 			return;
@@ -98,7 +98,7 @@ class Module extends Module_Base {
 			return;
 		}
 
-		$plan_data = json_decode(Settings::get( Settings::PLAN_DATA ));
+		$plan_data = Settings::get( Settings::PLAN_DATA );
 
 		if ( ! isset( $plan_data->public_api_key ) ) {
 			return;
