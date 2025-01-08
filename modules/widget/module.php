@@ -50,19 +50,48 @@ class Module extends Module_Base {
 			[
 				'iconSettings' => get_option( 'ea11y_widget_icon_settings' ),
 				'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
+				'widgetIconURL' => $this->get_widget_icon_url(),
 			]
 		);
 	}
 
+	/**
+	 * Get widget URL
+	 * @return string
+	 */
 	private function get_widget_url() : string {
 		return apply_filters( 'ea11y_widget_url', '' ); // TODO: add public url
 	}
 
 	/**
-	 * Load empty scripts in admin
+	 * Get widget icon URL
+	 * @return string
+	 */
+	public function get_widget_icon_url() : string {
+		$option = get_option( 'ea11y_widget_icon_settings' );
+
+		if ( ! $option ) {
+			return 'person';
+		}
+
+		$slug = 'person';
+
+		if ( $option['style']['icon'] ) {
+			$slug =  $option['style']['icon'];
+		}
+
+		return EA11Y_ASSETS_URL . 'images/widget-icon-' . $slug . '.svg';
+	}
+
+	/**
+	 * Load scripts in admin
 	 * @return void
 	 */
-	public function enqueue_accessibility_widget_admin () : void {
+	public function enqueue_accessibility_widget_admin ( $hook ) : void {
+		if ( SettingsModule::SETTING_PAGE_SLUG !== $hook ) {
+			return;
+		}
+
 		if ( ! Connect::is_connected() ) {
 			return;
 		}
@@ -88,7 +117,9 @@ class Module extends Module_Base {
 				'iconSettings' => get_option( 'ea11y_widget_icon_settings' ),
 				'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
 				'preview' => true,
-				'previewContainer' => '#ea11y-widget-preview--container'
+				'previewContainer' => '#ea11y-widget-preview--container',
+				'apiKey' => $plan_data->public_api_key,
+				'widgetIconURL' => $this->get_widget_icon_url(),
 			]
 		);
 	}
