@@ -275,13 +275,7 @@ class Module extends Module_Base {
 				],
 			],
 			'plan_data' => [
-				'type' => 'object',
-				'show_in_rest' => [
-					'schema' => [
-						'type' => 'object',
-						'additionalProperties' => true,
-					],
-				],
+				'type' => 'string',
 			],
 			'close_post_connect_modal' => [
 				'type' => 'boolean',
