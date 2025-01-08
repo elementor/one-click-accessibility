@@ -57,6 +57,10 @@ const MenuSettings = () => {
 			};
 
 			setHasChanges(true);
+			if (window?.ea11yWidget?.toolsSettings) {
+				window.ea11yWidget.toolsSettings = newSettings;
+				window.ea11yWidget.widget.updateState();
+			}
 			return newSettings;
 		});
 	};
