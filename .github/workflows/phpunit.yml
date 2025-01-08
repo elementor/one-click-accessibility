@@ -104,7 +104,6 @@ jobs:
         run: npm run build
 
       - name: Set up WordPress and WordPress Test Library
-#        uses: sjinks/setup-wordpress-test-library@master
         uses: bainternet/setup-wordpress-test-library@master
         with:
           version: ${{ matrix.wp }}
