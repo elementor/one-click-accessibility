@@ -2,10 +2,12 @@ import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import { DynamicScriptLoader } from '@ea11y/components';
+import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
-import { WIDGET } from '../constants';
+import { WIDGET_URL } from '../constants';
 
 const WidgetPreview = () => {
+	const { planData } = useSettings();
 	const handleScriptLoad = () => {
 		console.log('External script loaded!');
 	};
@@ -29,7 +31,7 @@ const WidgetPreview = () => {
 				></CardContent>
 			</Card>
 			<DynamicScriptLoader
-				src={WIDGET}
+				src={WIDGET_URL + '?api_key=' + planData?.public_api_key}
 				onLoad={handleScriptLoad}
 				onError={handleScriptError}
 			/>
