@@ -3,6 +3,7 @@ import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import { DynamicScriptLoader } from '@ea11y/components';
 import { __ } from '@wordpress/i18n';
+import { WIDGET } from '../constants';
 
 const WidgetPreview = () => {
 	const handleScriptLoad = () => {
@@ -28,7 +29,7 @@ const WidgetPreview = () => {
 				></CardContent>
 			</Card>
 			<DynamicScriptLoader
-				src="http://localhost:10058/wp-content/apps-a11y-widget/dist/widget.js"
+				src={WIDGET}
 				onLoad={handleScriptLoad}
 				onError={handleScriptError}
 			/>
