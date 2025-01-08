@@ -85,6 +85,8 @@ class Module extends Module_Base {
 
 	/**
 	 * Load scripts in admin
+	 * @param $hook
+	 *
 	 * @return void
 	 */
 	public function enqueue_accessibility_widget_admin ( $hook ) : void {
@@ -114,7 +116,7 @@ class Module extends Module_Base {
 			'ea11y-widget',
 			'ea11yWidget',
 			[
-				'iconSettings' => get_option( 'ea11y_widget_icon_settings' ),
+				'iconSettings' => $this->get_widget_icon_settings(),
 				'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
 				'preview' => true,
 				'previewContainer' => '#ea11y-widget-preview--container',
@@ -122,6 +124,22 @@ class Module extends Module_Base {
 				'widgetIconURL' => $this->get_widget_icon_url(),
 			]
 		);
+	}
+
+	/**
+	 * Remove person object from the icon settings for frontend.
+	 * @return array
+	 */
+	public function get_widget_icon_settings () : array {
+		$option = get_option( 'ea11y_widget_icon_settings' );
+
+		if ( ! $option ) {
+			return [];
+		}
+
+		unset( $option['style']['icon'] );
+
+		return $option;
 	}
 
 	/**
