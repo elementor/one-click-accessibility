@@ -92,6 +92,12 @@ export const SettingsProvider = ({ children }) => {
 		current_date: new Date().toLocaleDateString(),
 	});
 
+	const [accessibilityStatementData, setAccessibilityStatementData] = useState({
+		statement: null,
+		pageId: null,
+		createdOn: null,
+	});
+
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -113,6 +119,8 @@ export const SettingsProvider = ({ children }) => {
 				setPlanData,
 				companyData,
 				setCompanyData,
+				accessibilityStatementData,
+				setAccessibilityStatementData,
 			}}
 		>
 			{children}

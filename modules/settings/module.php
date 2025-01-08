@@ -196,6 +196,15 @@ class Module extends Module_Base {
 					],
 				],
 			],
+			'accessibility_statement_data' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
+			],
 			'close_post_connect_modal' => [
 				'type' => 'boolean',
 			],
