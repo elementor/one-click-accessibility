@@ -43,7 +43,7 @@ export const useSavedSettings = () => {
 			}
 
 			if (result?.data?.ea11y_plan_data) {
-				setPlanData(result.data.ea11y_plan_data);
+				setPlanData(JSON.parse(result.data.ea11y_plan_data));
 			}
 		}
 	}, [result.hasFinishedResolution]);
