@@ -11,7 +11,8 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
-import { useSettings } from '@ea11y/hooks';
+import { useSettings, useStorage } from '@ea11y/hooks';
+import apiFetch from '@wordpress/api-fetch';
 import { __ } from '@wordpress/i18n';
 import { Statement } from '../../helpers/accessibility-statement';
 
@@ -33,7 +34,10 @@ const StyledTextField = styled(TextField)(() => ({
 }));
 
 const StatementGenerator = ({ open, close }) => {
-	const { companyData, setCompanyData } = useSettings();
+	const { companyData, setCompanyData, setAccessibilityStatementData } =
+		useSettings();
+	const { save } = useStorage();
+
 	const handleClose = () => {
 		close();
 	};
@@ -43,6 +47,45 @@ const StatementGenerator = ({ open, close }) => {
 			...prevData,
 			[key]: value,
 		}));
+	};
+
+	// Replace content of accessibility statement with user inputs.
+	const parseContent = (text, replacements) => {
+		let updatedText = text;
+
+		// Replace each placeholder with the corresponding value from replacements
+		Object.keys(replacements).forEach((key) => {
+			const placeholder = `{${key}}`; // Create placeholder format (e.g., {company_name})
+			const value = replacements[key]; // Get the replacement value
+			updatedText = updatedText.replace(new RegExp(placeholder, 'g'), value);
+		});
+
+		return updatedText;
+	};
+
+	const createPage = async () => {
+		await apiFetch({
+			method: 'POST',
+			path: '/wp/v2/pages',
+			data: {
+				title: 'Accessibility statement',
+				content: parseContent(Statement, companyData),
+			},
+		}).then((response) => {
+			console.log(response);
+			setAccessibilityStatementData({
+				statement: parseContent(Statement, companyData),
+				pageId: response.id,
+				createdOn: response.date,
+			});
+			save({
+				ea11y_accessibility_statement_data: {
+					statement: parseContent(Statement, companyData),
+					pageId: response.id,
+					createdOn: response.date,
+				},
+			});
+		});
 	};
 
 	return (
@@ -153,7 +196,7 @@ const StatementGenerator = ({ open, close }) => {
 					<Button onClick={handleClose} color="secondary">
 						{__('Cancel', 'pojo-accessibility')}
 					</Button>
-					<Button onClick={handleClose} variant="contained" color="info">
+					<Button onClick={createPage} variant="contained" color="info">
 						{__('Create statement & page', 'pojo-accessibility')}
 					</Button>
 				</DialogActions>
