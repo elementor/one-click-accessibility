@@ -70,6 +70,7 @@ const StatementGenerator = ({ open, close }) => {
 			data: {
 				title: 'Accessibility statement',
 				content: parseContent(Statement, companyData),
+				status: 'publish',
 			},
 		}).then((response) => {
 			console.log(response);
@@ -77,12 +78,14 @@ const StatementGenerator = ({ open, close }) => {
 				statement: parseContent(Statement, companyData),
 				pageId: response.id,
 				createdOn: response.date,
+				link: response.link,
 			});
 			save({
 				ea11y_accessibility_statement_data: {
 					statement: parseContent(Statement, companyData),
 					pageId: response.id,
 					createdOn: response.date,
+					link: response.link,
 				},
 			});
 		});
