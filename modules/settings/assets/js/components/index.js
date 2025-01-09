@@ -12,3 +12,4 @@ export { MenuItems } from '../components/sidebar-menu/menu';
 export { default as AdminTopBar } from './admin-top-bar';
 export { default as BottomBar } from './bottom-bar';
 export { default as PostConnectModal } from './post-connect-modal';
+export { default as DynamicScriptLoader } from './dynamic-script-loader';

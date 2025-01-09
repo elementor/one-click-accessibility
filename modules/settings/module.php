@@ -21,6 +21,7 @@ class Module extends Module_Base {
 	const SETTING_GROUP      = 'ea11y_settings';
 	const SETTING_BASE_SLUG  = 'accessibility-settings-2'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
+	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
 
 	public function get_name(): string {
 		return 'settings';
@@ -67,8 +68,7 @@ class Module extends Module_Base {
 	 * Enqueue Scripts and Styles
 	 */
 	public function enqueue_scripts( $hook ) : void {
-		//TODO: Update page name
-		if ( 'toplevel_page_accessibility-settings-2' !== $hook ) {
+		if ( self::SETTING_PAGE_SLUG !== $hook ) {
 			return;
 		}
 
@@ -120,9 +120,20 @@ class Module extends Module_Base {
 			'site/register'
 		);
 
+		$this->save_plan_data( $register_response );
+	}
+
+	/**
+	 * Save plan data to plan_data option
+	 * @param $register_response
+	 *
+	 * @return void
+	 */
+	public function save_plan_data( $register_response ) : void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
-			Data::set_subscription_id( $register_response->id );
-			update_option( Settings::PLAN_DATA, $register_response );
+			$decoded_response = json_decode( $register_response );
+			Data::set_subscription_id( $decoded_response->id );
+			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
 			$this->set_default_settings();
 		} else {
@@ -137,23 +148,38 @@ class Module extends Module_Base {
 	 */
 	private function set_default_settings() : void {
 		$widget_menu_settings = [
-			'content-adjustments' => [
-				'text-size' => true,
-				'line-height' => true,
-				'align-text' => true,
-				'readable-font' => true,
+			'bigger-text' => [
+				'enabled' => true,
 			],
-			'color-adjustments' => [
-				'greyscale' => true,
-				'contrast' => true,
+			'bigger-line-height' => [
+				'enabled' => true,
 			],
-			'orientation-adjustments' => [
-				'page-structure' => true,
-				'site-map' => true,
-				'reading-panel' => true,
-				'hide-images' => true,
-				'pause-animations' => true,
-				'highlight-links' => true,
+			'text-align' => [
+				'enabled' => true,
+			],
+			'readable-font' => [
+				'enabled' => true,
+			],
+			'grayscale' => [
+				'enabled' => true,
+			],
+			'contrast' => [
+				'enabled' => true,
+			],
+			'page-structure' => [
+				'enabled' => true,
+			],
+			'reading-mask' => [
+				'enabled' => true,
+			],
+			'hide-images' => [
+				'enabled' => true,
+			],
+			'pause-animations' => [
+				'enabled' => true,
+			],
+			'highlight-links' => [
+				'enabled' => true,
 			],
 		];
 
@@ -210,8 +236,7 @@ class Module extends Module_Base {
 	 * @return void
 	 */
 	public function check_plan_data( $current_screen ) : void {
-		//TODO: Update page name
-		if ( 'toplevel_page_accessibility-settings-2' !== $current_screen->base ) {
+		if ( self::SETTING_PAGE_SLUG !== $current_screen->base ) {
 			return;
 		}
 
@@ -221,14 +246,7 @@ class Module extends Module_Base {
 				'site/register'
 			);
 
-			if ( $register_response && ! is_wp_error( $register_response ) ) {
-				Data::set_subscription_id( $register_response->id );
-				update_option( Settings::PLAN_DATA, $register_response );
-				update_option( Settings::IS_VALID_PLAN_DATA, true );
-			} else {
-				Logger::error( esc_html( $register_response->get_error_message() ) );
-				update_option( Settings::IS_VALID_PLAN_DATA, false );
-			}
+			$this->save_plan_data( $register_response );
 		}
 	}
 

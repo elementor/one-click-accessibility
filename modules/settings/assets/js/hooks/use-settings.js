@@ -15,24 +15,40 @@ export const SettingsProvider = ({ children }) => {
 		parent: 'widget',
 		child: 'iconSettings',
 	});
+
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
-		'content-adjustments': {
-			'text-size': true,
-			'line-height': true,
-			'align-text': true,
-			'readable-font': true,
+		'bigger-text': {
+			enabled: true,
 		},
-		'color-adjustments': {
-			greyscale: true,
-			contrast: true,
+		'bigger-line-height': {
+			enabled: true,
 		},
-		'orientation-adjustments': {
-			'page-structure': true,
-			'site-map': true,
-			'reading-panel': true,
-			'hide-images': true,
-			'pause-animations': true,
-			'highlight-links': true,
+		'text-align': {
+			enabled: true,
+		},
+		'readable-font': {
+			enabled: true,
+		},
+		grayscale: {
+			enabled: true,
+		},
+		contrast: {
+			enabled: true,
+		},
+		'page-structure': {
+			enabled: true,
+		},
+		'reading-mask': {
+			enabled: true,
+		},
+		'hide-images': {
+			enabled: true,
+		},
+		'pause-animations': {
+			enabled: true,
+		},
+		'highlight-links': {
+			enabled: true,
 		},
 	});
 
