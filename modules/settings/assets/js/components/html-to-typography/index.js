@@ -36,8 +36,9 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 			if (supportedTags.includes(tagName)) {
 				return (
 					<Typography
-						variant={tagName === 'div' ? 'body1' : tagName}
+						variant={tagName === 'p' ? 'body2' : 'subtitle2'}
 						component={tagName}
+						marginBottom={1}
 					>
 						{node.children && node.children.map((child) => transform(child))}
 					</Typography>
@@ -47,8 +48,7 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 
 		// If the node is text, replace placeholders and return
 		if (node.type === 'text') {
-			const replacedText = replacePlaceholders(node.data);
-			return replacedText;
+			return replacePlaceholders(node.data);
 		}
 
 		return null;
