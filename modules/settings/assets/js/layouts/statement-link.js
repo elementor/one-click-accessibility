@@ -10,15 +10,40 @@ import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
 import { WidgetLoader } from '@ea11y/components';
-import { useSettings, useStorage } from '@ea11y/hooks';
+import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { useEntityRecords } from '@wordpress/core-data';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const StatementLink = () => {
+	const [disabled, setDisabled] = useState(true);
 	const { accessibilityStatementData, setAccessibilityStatementData } =
 		useSettings();
 	const { save } = useStorage();
+	const { success, error } = useToastNotification();
 	const pages = useEntityRecords('postType', 'page', { per_page: -1 });
+
+	useEffect(() => {
+		if (window?.ea11yWidget) {
+			if (accessibilityStatementData.hideLink) {
+				window.ea11yWidget.accessibilityStatementURL = null;
+			} else {
+				window.ea11yWidget.accessibilityStatementURL =
+					accessibilityStatementData?.link;
+			}
+		}
+		window?.ea11yWidget?.widget?.updateState();
+	}, [accessibilityStatementData?.hideLink, accessibilityStatementData?.link]);
+
+	useEffect(() => {
+		// Enable button when data is changed
+		setDisabled(false);
+	}, [accessibilityStatementData]);
+
+	useEffect(() => {
+		// Disable button on load
+		setDisabled(true);
+	}, []);
 
 	const changePage = (id) => {
 		const page = pages.records.filter((record) => record.id === id);
@@ -31,12 +56,21 @@ const StatementLink = () => {
 		}
 	};
 
-	const savePage = () => {
-		save({ ea11y_accessibility_statement_data: accessibilityStatementData });
+	const savePage = async () => {
+		try {
+			await save({
+				ea11y_accessibility_statement_data: accessibilityStatementData,
+			});
+			await success('Settings saved');
+			setDisabled(true);
+		} catch (e) {
+			error('Failed to save settings!');
+			console.error(e);
+		}
 	};
 
 	return (
-		<Card elevation={0} variant="outlined" sx={{ marginTop: 5 }}>
+		<Card elevation={0} variant="outlined" sx={{ marginTop: 5, width: '100%' }}>
 			<CardHeader
 				title={__('Statement link', 'pojo-accessibility')}
 				subheader={__(
@@ -95,7 +129,12 @@ const StatementLink = () => {
 				</Box>
 			</CardContent>
 			<CardActions>
-				<Button color="info" variant="contained" onClick={savePage}>
+				<Button
+					color="info"
+					variant="contained"
+					onClick={savePage}
+					disabled={disabled}
+				>
 					{__('Save changes', 'pojo-accessibility')}
 				</Button>
 			</CardActions>
