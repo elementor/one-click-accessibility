@@ -90,7 +90,7 @@ class Module extends Module_Base {
 	 */
 	public function get_accessibility_statement_url() : string {
 		$option = get_option( 'ea11y_accessibility_statement_data' );
-		if ( ! empty( $option ) ) {
+		if ( ! empty( $option ) && ! $option['hideLink'] ) {
 			return $option['link'];
 		}
 		return '';
