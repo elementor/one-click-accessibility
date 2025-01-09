@@ -10,12 +10,12 @@ export const MenuItems = {
 		icon: <WidgetIcon />,
 		children: {
 			iconSettings: {
-				name: __('Design & position', 'pojo-accessibility'),
+				name: __('Button', 'pojo-accessibility'),
 				key: 'icon-settings',
 				page: <IconSettings />,
 			},
 			menu: {
-				name: __('Feature management', 'pojo-accessibility'),
+				name: __('Capabilities', 'pojo-accessibility'),
 				key: 'menu',
 				page: <Menu />,
 			},

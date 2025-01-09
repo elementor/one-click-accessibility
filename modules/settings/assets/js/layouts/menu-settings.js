@@ -95,6 +95,7 @@ const MenuSettings = () => {
 					'Choose which accessibility features and capabilities you want to include.',
 					'pojo-accessibility',
 				)}
+				sx={{ paddingBottom: 0 }}
 			/>
 			{disableOptions && !hideMinimumOptionAlert && (
 				<Alert severity="info" sx={{ m: 2 }} onClose={handleCloseNotification}>

@@ -17,7 +17,13 @@ const WidgetPreview = () => {
 				/>
 				<CardContent
 					id="ea11y-widget-preview--container"
-					sx={{ height: '50vh', overflow: 'auto' }}
+					sx={{
+						overflow: 'auto',
+						marginRight: 'auto',
+						marginLeft: 'auto',
+						marginTop: 4,
+						padding: '0 24px',
+					}}
 				></CardContent>
 			</Card>
 			<WidgetLoader />

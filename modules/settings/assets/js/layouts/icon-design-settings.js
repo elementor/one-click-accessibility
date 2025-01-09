@@ -18,7 +18,7 @@ const IconDesignSettings = (props) => {
 					)}
 				</Typography>
 			</Box>
-			<Grid gridTemplateColumns="repeat(2, 1fr)" display="grid" gap={8} p={2}>
+			<Grid gridTemplateColumns="repeat(2, 1fr)" display="grid" gap={5} p={2}>
 				<Box display="flex" flexDirection="column" gap={5}>
 					<IconSelect />
 					<IconSize />
