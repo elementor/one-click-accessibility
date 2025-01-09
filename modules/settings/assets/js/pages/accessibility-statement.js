@@ -6,6 +6,7 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { StatementGenerator } from '@ea11y/components';
 import { useModal, useSettings } from '@ea11y/hooks';
 import {
@@ -16,11 +17,30 @@ import { StatementLink } from '@ea11y/layouts';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+const StyledPaper = styled(Paper)`
+	display: flex;
+	flex-direction: column;
+	flex-grow: 8px;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 16px;
+	width: 500px;
+	min-height: 169px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius};
+	box-shadow: ${({ theme }) => theme.shadows[0]};
+	cursor: pointer;
+	:hover {
+		box-shadow: ${({ theme }) => theme.shadows[5]};
+		border-color: ${({ theme }) => theme.palette.info.main};
+	}
+`;
+
 const AccessibilityStatement = () => {
 	const { isOpen, open, close } = useModal(false);
 	const [continueDisabled, setContinueDisabled] = useState(true);
 	// Store statement option - generate or existing
-	const [statementOption, setStatementOption] = useState();
+	const [statementOption, setStatementOption] = useState('');
 	const [showStatementLink, setShowStatementLink] = useState(false);
 	const { accessibilityStatementData } = useSettings();
 
@@ -95,28 +115,16 @@ const AccessibilityStatement = () => {
 									gap: 2,
 								}}
 							>
-								<Paper
+								<StyledPaper
 									key="generate-accessibility-statement"
 									variant="outlined"
 									onClick={() => {
 										setStatementOption('generate');
 									}}
 									sx={{
-										borderRadius: 'md',
-										boxShadow: 'sm',
-										display: 'flex',
-										flexDirection: 'column',
-										flexGrow: 1,
-										alignItems: 'center',
-										justifyContent: 'center',
-										gap: 1,
-										p: 2,
-										width: 500,
-										minHeight: 169,
 										borderColor:
 											statementOption === 'generate' ? 'info.main' : 'divider',
 										borderWidth: statementOption === 'generate' ? 2 : 1,
-										cursor: 'pointer',
 									}}
 								>
 									<AccessibilityStatementExistingIcon />
@@ -127,28 +135,15 @@ const AccessibilityStatement = () => {
 										value="generate"
 										sx={{ opacity: 0, position: 'absolute' }}
 									/>
-								</Paper>
-								<Paper
+								</StyledPaper>
+								<StyledPaper
 									key="existing-accessibility-statement"
 									variant="outlined"
 									onClick={() => setStatementOption('existing')}
 									sx={{
-										borderRadius: 'md',
-										boxShadow: 'sm',
-										display: 'flex',
-										flexDirection: 'column',
-										flexGrow: 1,
-										alignItems: 'center',
-										justifyContent: 'center',
-										gap: 1,
-										p: 2,
-										minWidth: 10,
-										width: 500,
-										minHeight: 169,
 										borderColor:
 											statementOption === 'existing' ? 'info.main' : 'divider',
 										borderWidth: statementOption === 'existing' ? 2 : 1,
-										cursor: 'pointer',
 									}}
 								>
 									<AccessibilityStatementCreateIcon />
@@ -159,7 +154,7 @@ const AccessibilityStatement = () => {
 										value="existing"
 										sx={{ opacity: 0, position: 'absolute' }}
 									/>
-								</Paper>
+								</StyledPaper>
 							</RadioGroup>
 						</FormControl>
 						<Button
