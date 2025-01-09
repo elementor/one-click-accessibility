@@ -96,6 +96,8 @@ export const SettingsProvider = ({ children }) => {
 		statement: null,
 		pageId: null,
 		createdOn: null,
+		link: null,
+		hideLink: false,
 	});
 
 	return (
