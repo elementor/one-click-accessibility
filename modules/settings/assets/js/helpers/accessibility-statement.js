@@ -15,7 +15,7 @@ export const Statement = `
 <p>As of the date of this statement, {company_name} website is partially conformant with WCAG 2.2 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard.</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
-<p>We are currently working on remediating our website to ensure the best quality use-ability for all of our users.</p>
+<p>We are currently working on remediating our website to ensure the best quality usability for all of our users.</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading {"level":6} -->
 <h6>Feedback</h6>
