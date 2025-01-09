@@ -9,6 +9,7 @@ import FormLabel from '@elementor/ui/FormLabel';
 import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
+import { WidgetLoader } from '@ea11y/components';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { useEntityRecords } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
@@ -85,7 +86,12 @@ const StatementLink = () => {
 							checked={accessibilityStatementData?.hideLink}
 						/>
 					</Box>
-					<Box></Box>
+					<Box
+						id="ea11y-widget-preview--container"
+						className="ea11y-statement--widget-preview"
+					>
+						<WidgetLoader />
+					</Box>
 				</Box>
 			</CardContent>
 			<CardActions>

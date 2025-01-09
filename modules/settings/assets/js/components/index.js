@@ -15,4 +15,4 @@ export { default as PostConnectModal } from './post-connect-modal';
 export { default as StatementGenerator } from './statement-generator';
 export { default as AlertError } from './error';
 export { default as HtmlToTypography } from './html-to-typography';
-export { default as DynamicScriptLoader } from './dynamic-script-loader';
+export { default as WidgetLoader } from './widget-loader';

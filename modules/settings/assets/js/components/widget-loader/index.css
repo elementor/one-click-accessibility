@@ -1,0 +1,10 @@
+.ea11y-statement--widget-preview {
+    height: 200px;
+    position: relative;
+    padding: 25px;
+    overflow: hidden;
+}
+
+.ea11y-statement--widget-preview .ea11y-widget-container--preview {
+    position: absolute;
+}
