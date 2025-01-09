@@ -88,6 +88,8 @@ const StatementGenerator = ({ open, close }) => {
 					link: response.link,
 				},
 			});
+
+			close();
 		});
 	};
 

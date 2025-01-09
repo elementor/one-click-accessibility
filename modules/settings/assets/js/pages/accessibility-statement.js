@@ -138,7 +138,7 @@ const AccessibilityStatement = () => {
 						</RadioGroup>
 					</FormControl>
 				)}
-				{(!statementOption || accessibilityStatementData?.pageId) && (
+				{(statementOption || accessibilityStatementData?.pageId) && (
 					<StatementLink />
 				)}
 			</Container>

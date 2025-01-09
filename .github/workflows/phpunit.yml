@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         php: [7.4, 8.0, 8.1, 8.2]
-        wp: [6.4.x, latest, nightly]
+        wp: [6.5.x, 6.6.x, latest, nightly]
         ms: [no, yes]
         coverage: [no]
         phpunit: [9]
@@ -92,19 +92,19 @@ jobs:
       - name: Install dependencies
         uses: ramsey/composer-install@v3
 
-      #- name: Install Node.js
-       # uses: actions/setup-node@v2
-       # with:
-         # node-version: 18.x
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
 
-      #- name: Install dependencies
-      #  run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      #- name: Build assets
-      #  run: npm run build
+      - name: Build assets
+        run: npm run build
 
       - name: Set up WordPress and WordPress Test Library
-        uses: sjinks/setup-wordpress-test-library@master
+        uses: bainternet/setup-wordpress-test-library@master
         with:
           version: ${{ matrix.wp }}
 

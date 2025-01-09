@@ -21,6 +21,7 @@ class Module extends Module_Base {
 	const SETTING_GROUP      = 'ea11y_settings';
 	const SETTING_BASE_SLUG  = 'accessibility-settings-2'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
+	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
 
 	public function get_name(): string {
 		return 'settings';
@@ -67,8 +68,7 @@ class Module extends Module_Base {
 	 * Enqueue Scripts and Styles
 	 */
 	public function enqueue_scripts( $hook ) : void {
-		//TODO: Update page name
-		if ( 'toplevel_page_accessibility-settings-2' !== $hook ) {
+		if ( self::SETTING_PAGE_SLUG !== $hook ) {
 			return;
 		}
 
@@ -120,13 +120,112 @@ class Module extends Module_Base {
 			'site/register'
 		);
 
+		$this->save_plan_data( $register_response );
+	}
+
+	/**
+	 * Save plan data to plan_data option
+	 * @param $register_response
+	 *
+	 * @return void
+	 */
+	public function save_plan_data( $register_response ) : void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
-			Data::set_subscription_id( $register_response->id );
-			update_option( Settings::PLAN_DATA, $register_response );
+			$decoded_response = json_decode( $register_response );
+			Data::set_subscription_id( $decoded_response->id );
+			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
+			$this->set_default_settings();
 		} else {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
 			update_option( Settings::IS_VALID_PLAN_DATA, false );
+		}
+	}
+
+	/**
+	 * Set default values after successful registration.
+	 * @return void
+	 */
+	private function set_default_settings() : void {
+		$widget_menu_settings = [
+			'bigger-text' => [
+				'enabled' => true,
+			],
+			'bigger-line-height' => [
+				'enabled' => true,
+			],
+			'text-align' => [
+				'enabled' => true,
+			],
+			'readable-font' => [
+				'enabled' => true,
+			],
+			'grayscale' => [
+				'enabled' => true,
+			],
+			'contrast' => [
+				'enabled' => true,
+			],
+			'page-structure' => [
+				'enabled' => true,
+			],
+			'reading-mask' => [
+				'enabled' => true,
+			],
+			'hide-images' => [
+				'enabled' => true,
+			],
+			'pause-animations' => [
+				'enabled' => true,
+			],
+			'highlight-links' => [
+				'enabled' => true,
+			],
+		];
+
+		$widget_icon_settings = [
+			'desktop' => [
+				'hidden' => false,
+				'enableExactPosition' => false,
+				'exactPosition' => [
+					'horizontal' => [
+						'direction' => 'to-left',
+						'value' => 10,
+						'unit' => 'px',
+					],
+					'vertical' => [
+						'direction' => 'higher',
+						'value' => 10,
+						'unit' => 'px',
+					],
+				],
+				'position' => 'top-left',
+			],
+			'mobile' => [
+				'hidden' => false,
+				'enableExactPosition' => false,
+				'exactPosition' => [
+					'horizontal' => [
+						'direction' => 'to-right',
+						'value' => 10,
+						'unit' => 'px',
+					],
+					'vertical' => [
+						'direction' => 'lower',
+						'value' => 10,
+						'unit' => 'px',
+					],
+				],
+				'position' => 'top-left',
+			],
+		];
+
+		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
+			update_option( Settings::WIDGET_MENU_SETTINGS, $widget_menu_settings );
+		}
+
+		if ( ! get_option( Settings::WIDGET_ICON_SETTINGS ) ) {
+			update_option( Settings::WIDGET_ICON_SETTINGS, $widget_icon_settings );
 		}
 	}
 
@@ -137,8 +236,7 @@ class Module extends Module_Base {
 	 * @return void
 	 */
 	public function check_plan_data( $current_screen ) : void {
-		//TODO: Update page name
-		if ( 'toplevel_page_accessibility-settings-2' !== $current_screen->base ) {
+		if ( self::SETTING_PAGE_SLUG !== $current_screen->base ) {
 			return;
 		}
 
@@ -148,14 +246,7 @@ class Module extends Module_Base {
 				'site/register'
 			);
 
-			if ( $register_response && ! is_wp_error( $register_response ) ) {
-				Data::set_subscription_id( $register_response->id );
-				update_option( Settings::PLAN_DATA, $register_response );
-				update_option( Settings::IS_VALID_PLAN_DATA, true );
-			} else {
-				Logger::error( esc_html( $register_response->get_error_message() ) );
-				update_option( Settings::IS_VALID_PLAN_DATA, false );
-			}
+			$this->save_plan_data( $register_response );
 		}
 	}
 
@@ -228,7 +319,7 @@ class Module extends Module_Base {
 		$this->register_routes();
 		$this->register_components( self::component_list() );
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 9 );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );

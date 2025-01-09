@@ -126,7 +126,7 @@ class Assets {
 		);
 
 		// add translation support
-		wp_set_script_translations( $handle, 'elementor-sw' );
+		wp_set_script_translations( $handle, 'pojo-accessibility' );
 
 		if ( ! $with_css ) {
 			return;
