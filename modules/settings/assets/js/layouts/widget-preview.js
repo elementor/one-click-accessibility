@@ -31,7 +31,7 @@ const WidgetPreview = () => {
 				></CardContent>
 			</Card>
 			<DynamicScriptLoader
-				src={WIDGET_URL + '?api_key=' + planData?.public_api_key}
+				src={`${WIDGET_URL}?api_key=${planData?.public_api_key}`}
 				onLoad={handleScriptLoad}
 				onError={handleScriptError}
 			/>
