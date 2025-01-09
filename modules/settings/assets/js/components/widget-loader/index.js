@@ -1,7 +1,6 @@
 import { useSettings } from '@ea11y/hooks';
 import { useEffect } from '@wordpress/element';
 import { WIDGET_URL } from '../../constants/index';
-import './index.css';
 
 const WidgetLoader = ({ src, onLoad, onError }) => {
 	const { planData } = useSettings();
