@@ -29,23 +29,26 @@ const SidebarMenu = () => {
 	return (
 		<List>
 			{Object.entries(MenuItems).map(([key, item]) => (
-				<Fragment key={item.key}>
-					<ListItem disableGutters>
+				<Fragment key={item?.key}>
+					<ListItem disableGutters disablePadding>
 						<ListItemButton
 							onClick={() =>
-								item.children ? handleToggleItem(key) : handleSelectedMenu(key)
+								item?.children ? handleToggleItem(key) : handleSelectedMenu(key)
 							}
-							sx={{ justifyContent: 'center' }}
+							sx={{ justifyContent: 'center', borderRadius: 1 }}
 							selected={
-								key === selectedMenu.parent &&
-								(!selectedMenu.child || !openSidebar)
+								key === selectedMenu?.parent &&
+								(!selectedMenu?.child || !openSidebar)
 							}
 						>
 							<ListItemIcon>{item.icon}</ListItemIcon>
 							<ListItemText primary={item.name} hidden={!openSidebar} />
-							{item.children && (
+							{item?.children && (
 								<ListItemIcon
-									sx={{ display: !openSidebar ? 'none' : 'default' }}
+									sx={{
+										display: !openSidebar ? 'none' : 'default',
+										marginLeft: 2,
+									}}
 								>
 									<ChevronDownIcon
 										sx={{ rotate: expandedItems[key] ? '180deg' : '0' }}
@@ -54,17 +57,17 @@ const SidebarMenu = () => {
 							)}
 						</ListItemButton>
 					</ListItem>
-					{item.children && expandedItems[key] && (
-						<List component="div" disablePadding>
-							{Object.entries(item.children).map(([childKey, child]) => (
-								<ListItem key={childKey} sx={{ py: 0 }} hidden={!openSidebar}>
+					{item?.children && expandedItems[key] && (
+						<List disablePadding disableGutters>
+							{Object.entries(item?.children).map(([childKey, child]) => (
+								<ListItem key={childKey} hidden={!openSidebar} sx={{ p: 0 }}>
 									<ListItemButton
-										sx={{ py: 0 }}
+										sx={{ paddingLeft: '44px', borderRadius: 1 }}
 										hidden={!openSidebar}
-										selected={childKey === selectedMenu.child && openSidebar}
+										selected={childKey === selectedMenu?.child && openSidebar}
 										onClick={() => handleSelectedMenu(key, childKey)}
 									>
-										<ListItemText primary={child.name} hidden={!openSidebar} />
+										<ListItemText primary={child?.name} hidden={!openSidebar} />
 									</ListItemButton>
 								</ListItem>
 							))}
