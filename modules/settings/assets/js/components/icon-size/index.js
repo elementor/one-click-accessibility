@@ -4,11 +4,31 @@ import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { useIconDesign } from '@ea11y/hooks';
 import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { getOptionByValue } from '../../helpers/accessibility-options';
 
+const StyledPaper = styled(Paper)`
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: 12px;
+	align-items: center;
+	justify-content: center;
+	padding: 16px
+	min-width: 10px;
+	width: 100px;
+	min-height: 100px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius};
+	box-shadow: ${({ theme }) => theme.shadows[0]};
+	cursor: pointer;
+	:hover {
+		box-shadow: 0px 0px 15px 0px rgba(37, 99, 235, 0.15);
+		border-color: ${({ theme }) => theme.palette.info.main};
+	}
+`;
 const IconSize = (props) => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 	const icon = getOptionByValue(iconDesign.icon);
@@ -37,26 +57,14 @@ const IconSize = (props) => {
 				}}
 			>
 				{options.map((option) => (
-					<Paper
+					<StyledPaper
 						key={option.value}
 						variant="outlined"
 						onClick={() => updateIconDesign({ size: option.value })}
 						sx={{
-							borderRadius: 'md',
-							boxShadow: 'sm',
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-							justifyContent: 'center',
-							flexGrow: 1,
-							gap: 1.5,
-							p: 2,
-							minWidth: 10,
-							minHeight: 100,
 							borderColor:
 								iconDesign.size === option.value ? 'info.main' : 'divider',
 							borderWidth: iconDesign.size === option.value ? 2 : 1,
-							cursor: 'pointer',
 						}}
 					>
 						{icon?.icon &&
@@ -72,7 +80,7 @@ const IconSize = (props) => {
 							value={option.value}
 							sx={{ opacity: 0, position: 'absolute' }}
 						/>
-					</Paper>
+					</StyledPaper>
 				))}
 			</RadioGroup>
 		</FormControl>
