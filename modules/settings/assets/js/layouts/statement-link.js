@@ -12,7 +12,7 @@ import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { WidgetLoader } from '@ea11y/components';
+import { CopyLink, WidgetLoader } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
@@ -98,25 +98,36 @@ const StatementLink = () => {
 									{__('Choose which page to link', 'pojo-accessibility')}
 								</Typography>
 							</FormLabel>
-							<Select
-								variant="outlined"
-								onChange={(e) => changePage(e.target.value)}
-								value={accessibilityStatementData?.pageId}
-								error={!isValidPage}
-								color="info"
+							<Box
+								display="flex"
+								flexDirection="row"
+								fullWidth
+								alignItems="center"
 							>
-								{pages?.hasResolved && pages?.records.length > 0 ? (
-									pages?.records.map((page) => (
-										<MenuItem value={page.id} key={page.id}>
-											{page.title.rendered}
+								<Select
+									variant="outlined"
+									onChange={(e) => changePage(e.target.value)}
+									value={accessibilityStatementData?.pageId}
+									error={!isValidPage}
+									color="info"
+									fullWidth
+								>
+									{pages?.hasResolved && pages?.records.length > 0 ? (
+										pages?.records.map((page) => (
+											<MenuItem value={page.id} key={page.id}>
+												{page.title.rendered}
+											</MenuItem>
+										))
+									) : (
+										<MenuItem value={0} key={0}>
+											{__('No pages found', 'pojo-accessibility')}
 										</MenuItem>
-									))
-								) : (
-									<MenuItem value={0} key={0}>
-										{__('No pages found', 'pojo-accessibility')}
-									</MenuItem>
+									)}
+								</Select>
+								{accessibilityStatementData?.link && (
+									<CopyLink content={accessibilityStatementData?.link} />
 								)}
-							</Select>
+							</Box>
 							{!isValidPage && (
 								<FormHelperText>
 									{__('Please select a page', 'pojo-accessibility')}

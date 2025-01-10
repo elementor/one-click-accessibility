@@ -16,3 +16,4 @@ export { default as StatementGenerator } from './statement-generator';
 export { default as AlertError } from './error';
 export { default as HtmlToTypography } from './html-to-typography';
 export { default as WidgetLoader } from './widget-loader';
+export { default as CopyLink } from './copy-link';
