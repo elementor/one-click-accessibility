@@ -57,8 +57,8 @@ const SidebarMenu = () => {
 							)}
 						</ListItemButton>
 					</ListItem>
-					{item?.children && expandedItems[key] && (
-						<List disablePadding disableGutters>
+					{item?.children && expandedItems[key] && openSidebar && (
+						<List disablePadding>
 							{Object.entries(item?.children).map(([childKey, child]) => (
 								<ListItem key={childKey} hidden={!openSidebar} sx={{ p: 0 }}>
 									<ListItemButton
