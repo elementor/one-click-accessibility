@@ -30,10 +30,6 @@ html[dir='rtl'] #ea11y-app {
 }
 
 /* Widget Preview in Menu Settings */
-/*.ea11y-widget-link {
-	width: 100%;
-	justify-content: end;
-}*/
 
 #ea11y-widget-preview--container #ea11y-root {
 	display: flex;
@@ -49,7 +45,7 @@ html[dir='rtl'] #ea11y-app {
 /* Widget style for statement section */
 
 .ea11y-statement--widget-preview {
-	height: 200px;
+	height: 250px;
 	position: relative;
 	padding: 25px;
 	overflow: hidden;
@@ -57,4 +53,27 @@ html[dir='rtl'] #ea11y-app {
 
 .ea11y-statement--widget-preview .ea11y-widget-container--preview {
 	position: absolute;
+}
+
+.ea11y-statement--widget-preview .ea11y-widget-container * {
+	opacity: 0.5;
+}
+
+.ea11y-statement--widget-preview .ea11y-widget-container:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: #eaf4ff;
+	opacity: 0.1;
+	z-index: 0;
+	box-sizing: border-box;
+}
+
+.ea11y-statement--widget-preview .ea11y-widget-statement-link,
+.ea11y-statement--widget-preview .ea11y-widget-statement-link * {
+	z-index: 1;
+	opacity: 1;
 }
