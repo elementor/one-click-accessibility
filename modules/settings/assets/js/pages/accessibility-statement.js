@@ -37,12 +37,12 @@ const StyledPaper = styled(Paper)`
 `;
 
 const AccessibilityStatement = () => {
+	const { accessibilityStatementData } = useSettings();
 	const { isOpen, open, close } = useModal(false);
 	const [continueDisabled, setContinueDisabled] = useState(true);
 	// Store statement option - generate or existing
 	const [statementOption, setStatementOption] = useState('');
 	const [showStatementLink, setShowStatementLink] = useState(false);
-	const { accessibilityStatementData } = useSettings();
 
 	useEffect(() => {
 		setContinueDisabled(false);
@@ -60,6 +60,7 @@ const AccessibilityStatement = () => {
 			setShowStatementLink(true);
 		}
 	};
+
 	return (
 		<>
 			<Box
@@ -183,23 +184,25 @@ const AccessibilityStatement = () => {
 						<StatementLink />
 					)}
 				</Container>
-				<Box
-					display="flex"
-					justifyContent="end"
-					p={2}
-					width="100%"
-					borderTop="1px solid rgba(0, 0, 0, 0.12)"
-				>
-					<Button
-						color="info"
-						variant="contained"
-						disabled={continueDisabled}
-						onClick={handleContinue}
-						sx={{ alignSelf: 'end' }}
+				{!accessibilityStatementData?.pageId && !showStatementLink && (
+					<Box
+						display="flex"
+						justifyContent="end"
+						p={2}
+						width="100%"
+						borderTop="1px solid rgba(0, 0, 0, 0.12)"
 					>
-						{__('Continue', 'pojo-accessibility')}
-					</Button>
-				</Box>
+						<Button
+							color="info"
+							variant="contained"
+							disabled={continueDisabled}
+							onClick={handleContinue}
+							sx={{ alignSelf: 'end' }}
+						>
+							{__('Continue', 'pojo-accessibility')}
+						</Button>
+					</Box>
+				)}
 			</Box>
 			<StatementGenerator open={isOpen} close={close} />
 		</>
