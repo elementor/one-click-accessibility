@@ -14,9 +14,9 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
 import { useSettings, useStorage } from '@ea11y/hooks';
-import apiFetch from '@wordpress/api-fetch';
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import API from '../../api';
 import { Statement } from '../../helpers/accessibility-statement';
 import {
 	parseContent,
@@ -93,14 +93,10 @@ const StatementGenerator = ({ open, close }) => {
 	};
 
 	const createPage = async () => {
-		await apiFetch({
-			method: 'POST',
-			path: '/wp/v2/pages',
-			data: {
-				title: 'Accessibility statement',
-				content: parseContent(Statement, companyData),
-				status: 'publish',
-			},
+		await API.addPage({
+			title: 'Accessibility statement',
+			content: parseContent(Statement, companyData),
+			status: 'publish',
 		}).then((response) => {
 			setAccessibilityStatementData({
 				statement: parseContent(Statement, companyData),
