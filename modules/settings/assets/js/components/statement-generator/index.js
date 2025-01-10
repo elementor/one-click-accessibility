@@ -1,4 +1,3 @@
-import { FormHelperText } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Dialog from '@elementor/ui/Dialog';
@@ -8,6 +7,7 @@ import DialogHeader from '@elementor/ui/DialogHeader';
 import DialogTitle from '@elementor/ui/DialogTitle';
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
 import FormControl from '@elementor/ui/FormControl';
+import FormHelperText from '@elementor/ui/FormHelperText';
 import FormLabel from '@elementor/ui/FormLabel';
 import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
