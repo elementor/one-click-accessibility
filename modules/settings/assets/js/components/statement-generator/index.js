@@ -227,7 +227,7 @@ const StatementGenerator = ({ open, close }) => {
 							<Typography
 								variant="subtitle1"
 								color="text.primary"
-								marginBottom={3}
+								marginBottom={6}
 							>
 								{__(
 									'Preview your accessibility statement',
