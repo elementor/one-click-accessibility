@@ -45,6 +45,8 @@ const StatementLink = () => {
 		if (!accessibilityStatementData?.link) {
 			setDisabled(true);
 			setIsValidPage(false);
+		} else {
+			setIsValidPage(true);
 		}
 	}, [accessibilityStatementData]);
 
@@ -100,7 +102,7 @@ const StatementLink = () => {
 								variant="outlined"
 								onChange={(e) => changePage(e.target.value)}
 								value={accessibilityStatementData?.pageId}
-								error={isValidPage}
+								error={!isValidPage}
 								color="info"
 							>
 								{pages?.hasResolved && pages?.records.length > 0 ? (
@@ -115,7 +117,7 @@ const StatementLink = () => {
 									</MenuItem>
 								)}
 							</Select>
-							{isValidPage && (
+							{!isValidPage && (
 								<FormHelperText>
 									{__('Please select a page', 'pojo-accessibility')}
 								</FormHelperText>
