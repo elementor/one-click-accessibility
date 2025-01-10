@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 
 export const MenuItems = {
 	widget: {
-		name: __('Accessibility Widget', 'pojo-accessibility'),
+		name: __('Accessibility widget', 'pojo-accessibility'),
 		key: 'widget',
 		icon: <WidgetIcon />,
 		children: {
@@ -25,6 +25,6 @@ export const MenuItems = {
 		name: __('Accessibility statement', 'pojo-accessibility'),
 		key: 'accessibility-statement',
 		page: <AccessibilityStatement />,
-		icon: <PagesIcon />,
+		icon: <PagesIcon sx={{ color: 'common.black' }} />,
 	},
 };
