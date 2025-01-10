@@ -1,14 +1,17 @@
-import { CardActions } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
+import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
+import FormControl from '@elementor/ui/FormControl';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
+import FormHelperText from '@elementor/ui/FormHelperText';
 import FormLabel from '@elementor/ui/FormLabel';
 import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
+import Typography from '@elementor/ui/Typography';
 import { WidgetLoader } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { useEntityRecords } from '@wordpress/core-data';
@@ -17,6 +20,7 @@ import { __ } from '@wordpress/i18n';
 
 const StatementLink = () => {
 	const [disabled, setDisabled] = useState(true);
+	const [isValidPage, setIsValidPage] = useState(false);
 	const { accessibilityStatementData, setAccessibilityStatementData } =
 		useSettings();
 	const { save } = useStorage();
@@ -38,6 +42,10 @@ const StatementLink = () => {
 	useEffect(() => {
 		// Enable button when data is changed
 		setDisabled(false);
+		if (!accessibilityStatementData?.link) {
+			setDisabled(true);
+			setIsValidPage(false);
+		}
 	}, [accessibilityStatementData]);
 
 	useEffect(() => {
@@ -82,47 +90,65 @@ const StatementLink = () => {
 			<CardContent>
 				<Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={5}>
 					<Box display="flex" flexDirection="column">
-						<FormLabel sx={{ marginBottom: 2 }}>
-							{__('Choose which page to link', 'pojo-accessibility')}
-						</FormLabel>
-						<Select
-							variant="outlined"
-							onChange={(e) => changePage(e.target.value)}
-							value={accessibilityStatementData?.pageId}
-							sx={{ width: '200px' }}
-						>
-							{pages?.hasResolved && pages?.records.length > 0 ? (
-								pages?.records.map((page) => (
-									<MenuItem value={page.id} key={page.id}>
-										{page.title.rendered}
+						<FormControl fullWidth sx={{ marginBottom: 5 }}>
+							<FormLabel sx={{ marginBottom: 2 }}>
+								<Typography variant="subtitle2" color="text.primary">
+									{__('Choose which page to link', 'pojo-accessibility')}
+								</Typography>
+							</FormLabel>
+							<Select
+								variant="outlined"
+								onChange={(e) => changePage(e.target.value)}
+								value={accessibilityStatementData?.pageId}
+								error={isValidPage}
+								color="info"
+							>
+								{pages?.hasResolved && pages?.records.length > 0 ? (
+									pages?.records.map((page) => (
+										<MenuItem value={page.id} key={page.id}>
+											{page.title.rendered}
+										</MenuItem>
+									))
+								) : (
+									<MenuItem value={0} key={0}>
+										{__('No pages found', 'pojo-accessibility')}
 									</MenuItem>
-								))
-							) : (
-								<MenuItem value={0} key={0}>
-									{__('No pages found', 'pojo-accessibility')}
-								</MenuItem>
+								)}
+							</Select>
+							{isValidPage && (
+								<FormHelperText>
+									{__('Please select a page', 'pojo-accessibility')}
+								</FormHelperText>
 							)}
-						</Select>
-						<FormLabel sx={{ marginBottom: 2, marginTop: 2 }}>
-							{__('Want to hide the link?', 'pojo-accessibility')}
-						</FormLabel>
-						<FormControlLabel
-							label={__('Hide link', 'pojo-accessibility')}
-							labelPlacement="start"
-							control={<Switch color="info" size="small" />}
-							sx={{ marginBottom: 3, alignSelf: 'start' }}
-							onChange={() => {
-								setAccessibilityStatementData({
-									...accessibilityStatementData,
-									hideLink: !accessibilityStatementData.hideLink,
-								});
-							}}
-							checked={accessibilityStatementData?.hideLink}
-						/>
+						</FormControl>
+						<FormControl fullWidth>
+							<FormLabel sx={{ marginBottom: 2, marginTop: 2 }}>
+								<Typography variant="subtitle2" color="text.primary">
+									{__('Want to hide the link?', 'pojo-accessibility')}
+								</Typography>
+							</FormLabel>
+							<FormControlLabel
+								label={__('Hide link', 'pojo-accessibility')}
+								labelPlacement="start"
+								control={
+									<Switch color="info" size="small" sx={{ marginLeft: 3 }} />
+								}
+								sx={{ marginBottom: 3, alignSelf: 'start', ml: 0 }}
+								onChange={() => {
+									setAccessibilityStatementData({
+										...accessibilityStatementData,
+										hideLink: !accessibilityStatementData.hideLink,
+									});
+								}}
+								checked={accessibilityStatementData?.hideLink}
+							/>
+						</FormControl>
 					</Box>
 					<Box
 						id="ea11y-widget-preview--container"
 						className="ea11y-statement--widget-preview"
+						padding={0}
+						marginTop={4}
 					>
 						<WidgetLoader />
 					</Box>
