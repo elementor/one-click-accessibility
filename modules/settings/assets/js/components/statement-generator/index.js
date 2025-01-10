@@ -13,7 +13,7 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
-import { useSettings, useStorage } from '@ea11y/hooks';
+import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
@@ -48,6 +48,7 @@ const StatementGenerator = ({ open, close }) => {
 	const [isValidEmail, setValidEmail] = useState(null);
 	const [isValidDomain, setValidDomain] = useState(null);
 	const [disableCreateButton, setDisabledCreateButton] = useState(true);
+	const { success, error } = useToastNotification();
 
 	const { companyData, setCompanyData, setAccessibilityStatementData } =
 		useSettings();
@@ -93,32 +94,39 @@ const StatementGenerator = ({ open, close }) => {
 	};
 
 	const createPage = async () => {
-		await API.addPage({
-			title: 'Accessibility statement',
-			content: parseContent(Statement, companyData),
-			status: 'publish',
-		}).then((response) => {
-			setAccessibilityStatementData({
-				statement: parseContent(Statement, companyData),
-				pageId: response.id,
-				createdOn: response.date,
-				link: response.link,
-			});
-			save({
-				ea11y_accessibility_statement_data: {
-					statement: parseContent(Statement, companyData),
+		const parsedContent = parseContent(Statement, companyData);
+		try {
+			await API.addPage({
+				title: 'Accessibility statement',
+				content: parsedContent,
+				status: 'publish',
+			}).then((response) => {
+				setAccessibilityStatementData({
+					statement: parsedContent,
 					pageId: response.id,
 					createdOn: response.date,
 					link: response.link,
-				},
-			});
+				});
+				save({
+					ea11y_accessibility_statement_data: {
+						statement: parsedContent,
+						pageId: response.id,
+						createdOn: response.date,
+						link: response.link,
+					},
+				});
 
-			// Update accessibility statement URL in the global object.
-			if (window?.ea11yWidget) {
-				window.ea11yWidget.accessibilityStatementURL = response.link;
-			}
-			close();
-		});
+				// Update accessibility statement URL in the global object.
+				if (window?.ea11yWidget) {
+					window.ea11yWidget.accessibilityStatementURL = response.link;
+				}
+				close();
+				success('Page created');
+			});
+		} catch (e) {
+			error('Error while creating page');
+			console.log(e);
+		}
 	};
 
 	return (
@@ -131,7 +139,7 @@ const StatementGenerator = ({ open, close }) => {
 				fullWidth
 				maxWidth="lg"
 			>
-				<DialogHeader onClose={() => handleClose()}>
+				<DialogHeader onClose={handleClose}>
 					<DialogTitle>
 						{__('Statement generator', 'pojo-accessibility')}
 					</DialogTitle>
