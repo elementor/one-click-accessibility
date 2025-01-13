@@ -26,22 +26,22 @@ import {
 } from '../../helpers/statement-generator';
 
 // Customization for the WP admin global CSS.
-const StyledTextField = styled(TextField)(() => ({
-	width: '100%',
-	marginTop: 8,
-	'.wp-admin & .MuiInputBase-input, & .MuiInputBase-input:focus': {
-		backgroundColor: 'initial',
-		boxShadow: 'none',
-		border: 0,
-		color: 'inherit',
-		outline: 0,
-		padding: '16.5px 14px 16.5px 14px',
-		'&.MuiInputBase-inputSizeSmall': {
-			padding: '8.5px 14px 8.5px 14px',
-		},
-		height: '40px',
-	},
-}));
+const StyledTextField = styled(TextField)`
+	width: 100%;
+	.wp-admin & .MuiInputBase-input,
+	& .MuiInputBase-input:focus {
+		background-color: initial;
+		box-shadow: none;
+		border: 0;
+		color: inherit;
+		outline: 0;
+		padding: 16.5px 14px 16.5px 14px;
+		&.MuiInputBase-inputSizeSmall {
+			padding: 8.5px 14px 8.5px 14px;
+		}
+		height: 40px;
+	}
+`;
 
 const StatementGenerator = ({ open, close }) => {
 	const [isValidName, setValidName] = useState(null);
