@@ -8,7 +8,8 @@ export const checkEmail = (email) => {
 };
 
 export const checkDomain = (domain) => {
-	const domainRegex = /^(https?:\/\/)?([a-zA-Z0-9-_]+\.)+[a-zA-Z]{2,}\/?$/;
+	const domainRegex =
+		/^(https?:\/\/)?([a-zA-Z0-9\u00A1-\uFFFF-]+\.)+[a-zA-Z\u00A1-\uFFFF]{2,}\/?$/;
 	return domainRegex.test(domain);
 };
 
