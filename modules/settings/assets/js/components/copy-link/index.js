@@ -28,7 +28,11 @@ const CopyLink = ({ content }) => {
 			open={open}
 			onClose={handleClose}
 			onOpen={handleOpen}
-			title={copied ? __('Copied!', 'site-mailer') : __('Copy', 'site-mailer')}
+			title={
+				copied
+					? __('Copied!', 'pojo-accessibility')
+					: __('Copy', 'pojo-accessibility')
+			}
 			arrow={false}
 			PopperProps={{
 				modifiers: [
