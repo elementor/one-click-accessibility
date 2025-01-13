@@ -10,6 +10,12 @@ import { __ } from '@wordpress/i18n';
 const GeneratedPageInfoTipCard = () => {
 	const { setShowAccessibilityGeneratedInfotip } = useSettings();
 	const { save } = useStorage();
+	const dismissNotice = async () => {
+		setShowAccessibilityGeneratedInfotip(false);
+		await save({
+			ea11y_show_accessibility_generated_page_infotip: false,
+		});
+	};
 	return (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
 			<CardHeader title={__('Tooltip', 'pojo-accessibility')} />
@@ -26,12 +32,7 @@ const GeneratedPageInfoTipCard = () => {
 					size="small"
 					variant="contained"
 					color="info"
-					onClick={async () => {
-						setShowAccessibilityGeneratedInfotip(false);
-						await save({
-							ea11y_show_accessibility_generated_page_infotip: false,
-						});
-					}}
+					onClick={dismissNotice}
 				>
 					{__('Got it', 'pojo-accessibility')}
 				</Button>
