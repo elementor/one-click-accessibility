@@ -8,11 +8,16 @@ import FormControl from '@elementor/ui/FormControl';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import FormLabel from '@elementor/ui/FormLabel';
+import Infotip from '@elementor/ui/Infotip';
 import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { CopyLink, WidgetLoader } from '@ea11y/components';
+import {
+	CopyLink,
+	WidgetLoader,
+	GeneratedPageInfoTipCard,
+} from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
@@ -21,8 +26,11 @@ import { __ } from '@wordpress/i18n';
 const StatementLink = () => {
 	const [disabled, setDisabled] = useState(true);
 	const [isValidPage, setIsValidPage] = useState(false);
-	const { accessibilityStatementData, setAccessibilityStatementData } =
-		useSettings();
+	const {
+		accessibilityStatementData,
+		setAccessibilityStatementData,
+		showAccessibilityGeneratedInfotip,
+	} = useSettings();
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 	const pages = useEntityRecords('postType', 'page', { per_page: -1 });
@@ -104,26 +112,34 @@ const StatementLink = () => {
 								fullWidth
 								alignItems="center"
 							>
-								<Select
-									variant="outlined"
-									onChange={(e) => changePage(e.target.value)}
-									value={accessibilityStatementData?.pageId}
-									error={!isValidPage}
-									color="info"
-									fullWidth
+								<Infotip
+									placement="bottom"
+									content={<GeneratedPageInfoTipCard />}
+									disableHoverListener
+									disableFocusListener
+									open={showAccessibilityGeneratedInfotip}
 								>
-									{pages?.hasResolved && pages?.records.length > 0 ? (
-										pages?.records.map((page) => (
-											<MenuItem value={page.id} key={page.id}>
-												{page.title.rendered}
+									<Select
+										variant="outlined"
+										onChange={(e) => changePage(e.target.value)}
+										value={accessibilityStatementData?.pageId}
+										error={!isValidPage}
+										color="info"
+										fullWidth
+									>
+										{pages?.hasResolved && pages?.records.length > 0 ? (
+											pages?.records.map((page) => (
+												<MenuItem value={page.id} key={page.id}>
+													{page.title.rendered}
+												</MenuItem>
+											))
+										) : (
+											<MenuItem value={0} key={0}>
+												{__('No pages found', 'pojo-accessibility')}
 											</MenuItem>
-										))
-									) : (
-										<MenuItem value={0} key={0}>
-											{__('No pages found', 'pojo-accessibility')}
-										</MenuItem>
-									)}
-								</Select>
+										)}
+									</Select>
+								</Infotip>
 								{accessibilityStatementData?.link && (
 									<CopyLink content={accessibilityStatementData?.link} />
 								)}

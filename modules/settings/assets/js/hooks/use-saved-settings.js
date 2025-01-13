@@ -11,6 +11,7 @@ export const useSavedSettings = () => {
 		setIconPosition,
 		setPlanData,
 		setAccessibilityStatementData,
+		setShowAccessibilityGeneratedInfotip,
 	} = useSettings();
 
 	const result = useSelect((select) => {
@@ -50,6 +51,11 @@ export const useSavedSettings = () => {
 			if (result?.data?.ea11y_accessibility_statement_data) {
 				setAccessibilityStatementData(
 					result.data.ea11y_accessibility_statement_data,
+				);
+			}
+			if (result?.data?.ea11y_show_accessibility_generated_page_infotip) {
+				setShowAccessibilityGeneratedInfotip(
+					result.data.ea11y_show_accessibility_generated_page_infotip,
 				);
 			}
 		}

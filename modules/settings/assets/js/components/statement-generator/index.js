@@ -26,22 +26,22 @@ import {
 } from '../../helpers/statement-generator';
 
 // Customization for the WP admin global CSS.
-const StyledTextField = styled(TextField)(() => ({
-	width: '100%',
-	marginTop: 8,
-	'.wp-admin & .MuiInputBase-input, & .MuiInputBase-input:focus': {
-		backgroundColor: 'initial',
-		boxShadow: 'none',
-		border: 0,
-		color: 'inherit',
-		outline: 0,
-		padding: '16.5px 14px 16.5px 14px',
-		'&.MuiInputBase-inputSizeSmall': {
-			padding: '8.5px 14px 8.5px 14px',
-		},
-		height: '40px',
-	},
-}));
+const StyledTextField = styled(TextField)`
+	width: 100%;
+	.wp-admin & .MuiInputBase-input,
+	& .MuiInputBase-input:focus {
+		background-color: initial;
+		box-shadow: none;
+		border: 0;
+		color: inherit;
+		outline: 0;
+		padding: 16.5px 14px 16.5px 14px;
+		&.MuiInputBase-inputSizeSmall {
+			padding: 8.5px 14px 8.5px 14px;
+		}
+		height: 40px;
+	}
+`;
 
 const StatementGenerator = ({ open, close }) => {
 	const [isValidName, setValidName] = useState(null);
@@ -50,8 +50,12 @@ const StatementGenerator = ({ open, close }) => {
 	const [disableCreateButton, setDisabledCreateButton] = useState(true);
 	const { success, error } = useToastNotification();
 
-	const { companyData, setCompanyData, setAccessibilityStatementData } =
-		useSettings();
+	const {
+		companyData,
+		setCompanyData,
+		setAccessibilityStatementData,
+		setShowAccessibilityGeneratedInfotip,
+	} = useSettings();
 	const { save } = useStorage();
 
 	useEffect(() => {
@@ -96,36 +100,36 @@ const StatementGenerator = ({ open, close }) => {
 	const createPage = async () => {
 		const parsedContent = parseContent(Statement, companyData);
 		try {
-			await API.addPage({
+			const response = await API.addPage({
 				title: 'Accessibility statement',
 				content: parsedContent,
 				status: 'publish',
-			}).then((response) => {
-				setAccessibilityStatementData({
+			});
+			await setAccessibilityStatementData({
+				statement: parsedContent,
+				pageId: response.id,
+				createdOn: response.date,
+				link: response.link,
+			});
+			await setShowAccessibilityGeneratedInfotip(true);
+			await save({
+				ea11y_accessibility_statement_data: {
 					statement: parsedContent,
 					pageId: response.id,
 					createdOn: response.date,
 					link: response.link,
-				});
-				save({
-					ea11y_accessibility_statement_data: {
-						statement: parsedContent,
-						pageId: response.id,
-						createdOn: response.date,
-						link: response.link,
-					},
-				});
-
-				// Update accessibility statement URL in the global object.
-				if (window?.ea11yWidget) {
-					window.ea11yWidget.accessibilityStatementURL = response.link;
-				}
-				close();
-				success('Page created');
+				},
+				ea11y_show_accessibility_generated_page_infotip: true,
 			});
+			// Update accessibility statement URL in the global object.
+			if (window?.ea11yWidget) {
+				window.ea11yWidget.accessibilityStatementURL = response.link;
+			}
+			await close();
+			await success('Page created');
 		} catch (e) {
 			error('Error while creating page');
-			console.log(e);
+			console.error(e);
 		}
 	};
 
