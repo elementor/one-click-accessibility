@@ -9,7 +9,7 @@ const IconSettings = () => {
 		<>
 			<Container p={1} sx={{ overflow: 'auto', maxHeight: '100%', padding: 4 }}>
 				<Typography variant="h4" fontWeight="400" marginBottom={4}>
-					{__('Design & position', 'pojo-accessibility')}
+					{__('Button', 'pojo-accessibility')}
 				</Typography>
 				<IconDesignSettings marginBottom={4} />
 				<PositionSettings />

@@ -5,17 +5,17 @@ import { __ } from '@wordpress/i18n';
 
 export const MenuItems = {
 	widget: {
-		name: __('Accessibility Widget', 'pojo-accessibility'),
+		name: __('Accessibility widget', 'pojo-accessibility'),
 		key: 'widget',
 		icon: <WidgetIcon />,
 		children: {
 			iconSettings: {
-				name: __('Design & position', 'pojo-accessibility'),
+				name: __('Button', 'pojo-accessibility'),
 				key: 'icon-settings',
 				page: <IconSettings />,
 			},
 			menu: {
-				name: __('Feature management', 'pojo-accessibility'),
+				name: __('Capabilities', 'pojo-accessibility'),
 				key: 'menu',
 				page: <Menu />,
 			},
@@ -25,6 +25,6 @@ export const MenuItems = {
 		name: __('Accessibility statement', 'pojo-accessibility'),
 		key: 'accessibility-statement',
 		page: <AccessibilityStatement />,
-		icon: <PagesIcon />,
+		icon: <PagesIcon sx={{ color: 'common.black' }} />,
 	},
 };

@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 	const SETTING_PREFIX     = 'ea11y_';
 	const SETTING_GROUP      = 'ea11y_settings';
-	const SETTING_BASE_SLUG  = 'accessibility-settings-2'; //TODO: Change this later
+	const SETTING_BASE_SLUG  = 'accessibility-settings'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
 	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
 
@@ -46,8 +46,8 @@ class Module extends Module_Base {
 
 	public function register_page() : void {
 		add_menu_page(
-			__( 'Accessibility New', 'pojo-accessibility' ), //TODO: Change this later
-			__( 'Accessibility New', 'pojo-accessibility' ),
+			__( 'Equally', 'pojo-accessibility' ), //TODO: Change this later
+			__( 'Equally', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
@@ -279,6 +279,15 @@ class Module extends Module_Base {
 				],
 			],
 			'plan_data' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
+			],
+			'accessibility_statement_data' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [

@@ -50,6 +50,7 @@ class Module extends Module_Base {
 			[
 				'iconSettings' => get_option( 'ea11y_widget_icon_settings' ),
 				'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
+				'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
 				'widgetIconURL' => $this->get_widget_icon_url(),
 			]
 		);
@@ -81,6 +82,18 @@ class Module extends Module_Base {
 		}
 
 		return EA11Y_ASSETS_URL . 'images/widget-icon-' . $slug . '.svg';
+	}
+
+	/**
+	 * Get accessibility statement URL
+	 * @return string
+	 */
+	public function get_accessibility_statement_url() : string {
+		$option = get_option( 'ea11y_accessibility_statement_data' );
+		if ( ! empty( $option ) && ! $option['hideLink'] ) {
+			return $option['link'];
+		}
+		return '';
 	}
 
 	/**
@@ -122,6 +135,7 @@ class Module extends Module_Base {
 				'previewContainer' => '#ea11y-widget-preview--container',
 				'apiKey' => $plan_data->public_api_key,
 				'widgetIconURL' => $this->get_widget_icon_url(),
+				'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
 			]
 		);
 	}

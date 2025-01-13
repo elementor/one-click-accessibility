@@ -10,15 +10,17 @@ const Sidebar = () => {
 		<Drawer
 			variant="permanent"
 			open={openSidebar}
+			sx={{ width: 'auto' }}
 			PaperProps={{
 				sx: {
 					position: 'relative',
-					minWidth: '90px',
-					maxWidth: '260px',
+					minWidth: '120px',
+					maxWidth: '300px',
 					width: openSidebar ? '100%' : '0',
 					transition: 'all 0.3s',
 					height: '100%',
 					justifyContent: 'space-between',
+					padding: 2,
 				},
 			}}
 		>
