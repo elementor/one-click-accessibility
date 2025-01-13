@@ -116,6 +116,11 @@ export const SettingsProvider = ({ children }) => {
 		hideLink: false,
 	});
 
+	const [
+		showAccessibilityGeneratedInfotip,
+		setShowAccessibilityGeneratedInfotip,
+	] = useState(false);
+
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -139,6 +144,8 @@ export const SettingsProvider = ({ children }) => {
 				setCompanyData,
 				accessibilityStatementData,
 				setAccessibilityStatementData,
+				showAccessibilityGeneratedInfotip,
+				setShowAccessibilityGeneratedInfotip,
 			}}
 		>
 			{children}

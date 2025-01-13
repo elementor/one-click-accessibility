@@ -302,6 +302,9 @@ class Module extends Module_Base {
 			'hide_minimum_active_options_alert' => [
 				'type' => 'boolean',
 			],
+			'show_accessibility_generated_page_infotip' => [
+				'type' => 'boolean',
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {

@@ -50,8 +50,12 @@ const StatementGenerator = ({ open, close }) => {
 	const [disableCreateButton, setDisabledCreateButton] = useState(true);
 	const { success, error } = useToastNotification();
 
-	const { companyData, setCompanyData, setAccessibilityStatementData } =
-		useSettings();
+	const {
+		companyData,
+		setCompanyData,
+		setAccessibilityStatementData,
+		setShowAccessibilityGeneratedInfotip,
+	} = useSettings();
 	const { save } = useStorage();
 
 	useEffect(() => {
@@ -107,6 +111,7 @@ const StatementGenerator = ({ open, close }) => {
 				createdOn: response.date,
 				link: response.link,
 			});
+			await setShowAccessibilityGeneratedInfotip(true);
 			await save({
 				ea11y_accessibility_statement_data: {
 					statement: parsedContent,
@@ -114,6 +119,7 @@ const StatementGenerator = ({ open, close }) => {
 					createdOn: response.date,
 					link: response.link,
 				},
+				ea11y_show_accessibility_generated_page_infotip: true,
 			});
 			// Update accessibility statement URL in the global object.
 			if (window?.ea11yWidget) {
