@@ -96,36 +96,34 @@ const StatementGenerator = ({ open, close }) => {
 	const createPage = async () => {
 		const parsedContent = parseContent(Statement, companyData);
 		try {
-			await API.addPage({
+			const response = await API.addPage({
 				title: 'Accessibility statement',
 				content: parsedContent,
 				status: 'publish',
-			}).then((response) => {
-				setAccessibilityStatementData({
+			});
+			await setAccessibilityStatementData({
+				statement: parsedContent,
+				pageId: response.id,
+				createdOn: response.date,
+				link: response.link,
+			});
+			await save({
+				ea11y_accessibility_statement_data: {
 					statement: parsedContent,
 					pageId: response.id,
 					createdOn: response.date,
 					link: response.link,
-				});
-				save({
-					ea11y_accessibility_statement_data: {
-						statement: parsedContent,
-						pageId: response.id,
-						createdOn: response.date,
-						link: response.link,
-					},
-				});
-
-				// Update accessibility statement URL in the global object.
-				if (window?.ea11yWidget) {
-					window.ea11yWidget.accessibilityStatementURL = response.link;
-				}
-				close();
-				success('Page created');
+				},
 			});
+			// Update accessibility statement URL in the global object.
+			if (window?.ea11yWidget) {
+				window.ea11yWidget.accessibilityStatementURL = response.link;
+			}
+			await close();
+			await success('Page created');
 		} catch (e) {
 			error('Error while creating page');
-			console.log(e);
+			console.error(e);
 		}
 	};
 
