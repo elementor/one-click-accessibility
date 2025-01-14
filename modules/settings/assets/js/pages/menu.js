@@ -9,9 +9,10 @@ import { __ } from '@wordpress/i18n';
 const Menu = () => {
 	useEffect(() => {
 		mixpanelService.sendEvent('Page View', {
-			page: 'Feature management',
+			page: 'Capabilities',
 		});
 	}, []);
+
 	return (
 		<Container sx={{ overflow: 'auto', maxHeight: '100%', p: 5 }}>
 			<Typography variant="h4" fontWeight="400" marginBottom={4}>

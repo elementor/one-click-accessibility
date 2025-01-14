@@ -9,7 +9,7 @@ import { __ } from '@wordpress/i18n';
 const IconSettings = () => {
 	useEffect(() => {
 		mixpanelService.sendEvent('Page View', {
-			page: 'Design & position',
+			page: 'Button',
 		});
 	}, []);
 	return (

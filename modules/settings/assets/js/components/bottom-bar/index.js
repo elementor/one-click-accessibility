@@ -24,6 +24,11 @@ const BottomBar = () => {
 				});
 				success('Settings saved!');
 				setHasChanges(false);
+				mixpanelService.sendEvent('Save button clicked', {
+					savedData: {
+						ea11y_widget_menu_settings: widgetMenuSettings,
+					},
+				});
 			} catch (e) {
 				error('Failed to save settings!');
 			}
