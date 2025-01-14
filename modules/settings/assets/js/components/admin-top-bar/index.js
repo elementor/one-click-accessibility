@@ -26,7 +26,7 @@ const AdminTopBar = () => {
 					aria-label={__('Help', 'pojo-accessibility')}
 					onClick={() =>
 						mixpanelService.sendEvent('Help button clicked', {
-							component: 'admin-top-bar',
+							source: 'Header',
 						})
 					}
 				>
