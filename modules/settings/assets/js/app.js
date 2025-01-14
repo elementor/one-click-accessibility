@@ -30,7 +30,7 @@ const App = () => {
 	useEffect(() => {
 		mixpanelService.init();
 		mixpanelService.sendEvent('Page View', {
-			page: 'Design & position',
+			page: 'Button',
 		});
 	}, []);
 
