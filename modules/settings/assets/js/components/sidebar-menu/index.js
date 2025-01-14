@@ -6,25 +6,33 @@ import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
 import { MenuItems } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { useState, Fragment } from '@wordpress/element';
 
 const SidebarMenu = () => {
 	const { openSidebar, selectedMenu, setSelectedMenu } = useSettings();
 	const [expandedItems, setExpandedItems] = useState({ widget: true });
 
-	const handleSelectedMenu = (parentKey, childKey) => {
+	const handleSelectedMenu = (name, parentKey, childKey) => {
 		if (childKey) {
 			setSelectedMenu({ parent: parentKey, child: childKey });
 		} else {
 			setSelectedMenu({ parent: parentKey, child: null });
 		}
+
+		mixpanelService.sendEvent('Menu button click', {
+			buttonName: name,
+		});
 	};
 
-	const handleToggleItem = (itemName) => {
+	const handleToggleItem = (itemName, itemKey) => {
 		setExpandedItems((prev) => ({
 			...prev,
-			[itemName]: !prev[itemName], // Toggle the expanded state for the clicked item
+			[itemKey]: !prev[itemKey], // Toggle the expanded state for the clicked item
 		}));
+		mixpanelService.sendEvent('Menu button click', {
+			buttonName: itemName,
+		});
 	};
 	return (
 		<List>
@@ -33,7 +41,9 @@ const SidebarMenu = () => {
 					<ListItem disableGutters>
 						<ListItemButton
 							onClick={() =>
-								item.children ? handleToggleItem(key) : handleSelectedMenu(key)
+								item.children
+									? handleToggleItem(item.name, key)
+									: handleSelectedMenu(item.name, key)
 							}
 							sx={{ justifyContent: 'center' }}
 							selected={
@@ -62,7 +72,9 @@ const SidebarMenu = () => {
 										sx={{ py: 0 }}
 										hidden={!openSidebar}
 										selected={childKey === selectedMenu.child && openSidebar}
-										onClick={() => handleSelectedMenu(key, childKey)}
+										onClick={() =>
+											handleSelectedMenu(child.name, key, childKey)
+										}
 									>
 										<ListItemText primary={child.name} hidden={!openSidebar} />
 									</ListItemButton>

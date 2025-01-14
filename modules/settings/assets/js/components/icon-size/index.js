@@ -5,6 +5,7 @@ import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { useIconDesign } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { getOptionByValue } from '../../helpers/accessibility-options';
@@ -18,6 +19,14 @@ const IconSize = (props) => {
 		{ value: 'medium', fontSize: 44 },
 		{ value: 'small', fontSize: 36 },
 	];
+
+	const selectIconSize = (size) => () => {
+		updateIconDesign({ size });
+		mixpanelService.sendEvent('Size type clicked', {
+			size,
+		});
+	};
+
 	return (
 		<FormControl>
 			<FormLabel id="icon-size-radio-buttons-group-label" color="secondary">
@@ -40,7 +49,7 @@ const IconSize = (props) => {
 					<Paper
 						key={option.value}
 						variant="outlined"
-						onClick={() => updateIconDesign({ size: option.value })}
+						onClick={selectIconSize(option.value)}
 						sx={{
 							borderRadius: 'md',
 							boxShadow: 'sm',

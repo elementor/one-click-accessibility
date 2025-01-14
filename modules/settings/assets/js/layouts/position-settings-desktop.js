@@ -4,6 +4,7 @@ import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 
 const PositionSettingsDesktop = () => {
@@ -11,6 +12,13 @@ const PositionSettingsDesktop = () => {
 
 	const toggleVisibility = (device) => {
 		updateIconPosition(device, 'hidden', !iconPosition[device].hidden);
+		mixpanelService.sendEvent('Toggle clicked', {
+			toggleData: {
+				state: !iconPosition[device].hidden,
+				type: 'Hide on desktop',
+				device,
+			},
+		});
 	};
 
 	const toggleExactPosition = (device) => {
@@ -19,6 +27,13 @@ const PositionSettingsDesktop = () => {
 			'enableExactPosition',
 			!iconPosition[device].enableExactPosition,
 		);
+		mixpanelService.sendEvent('Toggle clicked', {
+			toggleData: {
+				state: !iconPosition[device].enableExactPosition,
+				type: 'Exact position',
+				device,
+			},
+		});
 	};
 
 	const hideOnDesktopLabel = (

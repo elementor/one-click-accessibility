@@ -1,6 +1,7 @@
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 
 const BottomBar = () => {
@@ -40,6 +41,13 @@ const BottomBar = () => {
 
 				success('Settings saved!');
 				setHasChanges(false);
+
+				mixpanelService.sendEvent('Save button clicked', {
+					savedData: {
+						style: iconDesign,
+						position: iconPosition,
+					},
+				});
 			} catch (e) {
 				error('Failed to save settings!');
 			}

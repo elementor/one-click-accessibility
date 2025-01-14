@@ -5,12 +5,20 @@ import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { useIconDesign } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import options from '../../helpers/accessibility-options';
 
 const IconSelect = (props) => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
+
+	const selectIcon = (icon) => () => {
+		updateIconDesign({ icon });
+		mixpanelService.sendEvent('Icon type selected', {
+			iconType: icon,
+		});
+	};
 
 	return (
 		<FormControl>
@@ -35,7 +43,7 @@ const IconSelect = (props) => {
 					<Paper
 						key={option.value}
 						variant="outlined"
-						onClick={() => updateIconDesign({ icon: option.value })}
+						onClick={selectIcon(option.value)}
 						sx={{
 							borderRadius: 'md',
 							boxShadow: 'sm',

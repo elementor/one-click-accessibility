@@ -5,9 +5,17 @@ import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { BottomBar } from '@ea11y/components';
+import { mixpanelService } from '@ea11y/services';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const AccessibilityStatement = () => {
+	useEffect(() => {
+		mixpanelService.sendEvent('Page View', {
+			page: 'Accessibility statement',
+		});
+	}, []);
+
 	return (
 		<>
 			<Container p={1} sx={{ overflow: 'auto', maxHeight: '100%', padding: 4 }}>

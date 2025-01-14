@@ -12,6 +12,7 @@ import {
 	bindMenu,
 } from '@elementor/ui/usePopupState';
 import { useIconPosition } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -62,6 +63,15 @@ const PositionControl = ({ type, disabled, mode }) => {
 			units[index],
 		);
 		popupState.close();
+		mixpanelService.sendEvent('Handle Unit Changed', {
+			positionData: {
+				mode,
+				type,
+				unit: units[index],
+				value: iconPosition[mode].exactPosition[type].direction,
+				direction: iconPosition[mode].exactPosition[type].value,
+			},
+		});
 	};
 	const handlePositionChange = (event) => {
 		updateExactPosition(
@@ -71,6 +81,15 @@ const PositionControl = ({ type, disabled, mode }) => {
 			event.target.value,
 			iconPosition[mode].exactPosition[type].unit,
 		);
+		mixpanelService.sendEvent('Handle Value Changed', {
+			positionData: {
+				mode,
+				type,
+				value: event.target.value,
+				unit: iconPosition[mode].exactPosition[type].unit,
+				direction: iconPosition[mode].exactPosition[type].value,
+			},
+		});
 	};
 	const handlePositionDirection = (event) => {
 		updateExactPosition(
@@ -80,6 +99,15 @@ const PositionControl = ({ type, disabled, mode }) => {
 			iconPosition[mode].exactPosition[type].value,
 			iconPosition[mode].exactPosition[type].unit,
 		);
+		mixpanelService.sendEvent('Handle Direction Changed', {
+			positionData: {
+				mode,
+				type,
+				value: iconPosition[mode].exactPosition[type].value,
+				unit: iconPosition[mode].exactPosition[type].unit,
+				direction: event.target.value,
+			},
+		});
 	};
 	return (
 		<Box display="flex" gap={1} marginTop={2}>

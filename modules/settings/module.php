@@ -84,7 +84,11 @@ class Module extends Module_Base {
 		wp_localize_script(
 			'admin',
 			'ea11ySettingsData',
-			[ 'wpRestNonce' => wp_create_nonce( 'wp_rest' ) ]
+			[
+				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
+				'planData' => Settings::get( Settings::PLAN_DATA ),
+				'clientId' => Data::get_client_id(),
+			]
 		);
 	}
 

@@ -8,6 +8,7 @@ import RadioGroup from '@elementor/ui/RadioGroup';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { useIconPosition } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 
 const AlignmentMatrixControl = ({ mode }) => {
@@ -15,6 +16,12 @@ const AlignmentMatrixControl = ({ mode }) => {
 
 	const handleChange = (event) => {
 		updateIconPosition(mode, 'position', event.target.value);
+		mixpanelService.sendEvent('Position button clicked', {
+			buttonData: {
+				mode,
+				value: event.target.value,
+			},
+		});
 	};
 
 	// Define options based on the mode

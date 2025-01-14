@@ -14,14 +14,16 @@ import {
 	bindTrigger,
 	usePopupState,
 } from '@elementor/ui/usePopupState';
-import { useSettings, useToastNotification } from '@ea11y/hooks';
+import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { CreditCardIcon, UserArrowIcon } from '@ea11y/icons';
+import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
 import { BILLING_LINK } from '../../constants';
 
 const MyAccountMenu = () => {
 	const { openSidebar, planData } = useSettings();
+	const { save } = useStorage();
 	const { error } = useToastNotification();
 	const accountMenuState = usePopupState({
 		variant: 'popover',
@@ -42,6 +44,12 @@ const MyAccountMenu = () => {
 		try {
 			await API.disconnect();
 			await API.redirectToConnect();
+			await save({
+				ea11y_close_post_connect_modal: false,
+			});
+			mixpanelService.sendEvent('Menu button click', {
+				buttonName: 'Switch account',
+			});
 		} catch (e) {
 			error(
 				__('Failed to switch account. Please try again.', 'pojo-accessibility'),
@@ -52,11 +60,20 @@ const MyAccountMenu = () => {
 
 	const redirectToBilling = () => {
 		window.open(BILLING_LINK, '_blank').focus();
+		mixpanelService.sendEvent('Menu button click', {
+			buttonName: 'Billing',
+		});
 	};
 
 	return (
 		<>
-			<List>
+			<List
+				onClick={() => {
+					mixpanelService.sendEvent('Menu button click', {
+						buttonName: 'My Account',
+					});
+				}}
+			>
 				<ListItemButton
 					{...bindTrigger(accountMenuState)}
 					sx={{ justifyContent: 'center' }}
