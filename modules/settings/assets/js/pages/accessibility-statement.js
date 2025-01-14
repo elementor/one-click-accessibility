@@ -59,6 +59,13 @@ const AccessibilityStatement = () => {
 		setContinueDisabled(true);
 	}, []);
 
+	const onStatementOptionClick = (option) => () => {
+		setStatementOption(option);
+		mixpanelService.sendEvent('Statement flow selected', {
+			flowType: option,
+		});
+	};
+
 	const handleContinue = () => {
 		if (statementOption === 'generate') {
 			open();
@@ -142,9 +149,7 @@ const AccessibilityStatement = () => {
 									<StyledPaper
 										key="generate-accessibility-statement"
 										variant="outlined"
-										onClick={() => {
-											setStatementOption('generate');
-										}}
+										onClick={onStatementOptionClick('generate')}
 										sx={{
 											borderColor:
 												statementOption === 'generate'
@@ -165,7 +170,7 @@ const AccessibilityStatement = () => {
 									<StyledPaper
 										key="existing-accessibility-statement"
 										variant="outlined"
-										onClick={() => setStatementOption('existing')}
+										onClick={onStatementOptionClick('existing')}
 										sx={{
 											borderColor:
 												statementOption === 'existing'
