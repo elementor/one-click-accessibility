@@ -118,6 +118,14 @@ class API {
 		});
 	}
 
+	static async addPage(data) {
+		return API.request({
+			method: 'POST',
+			path: `${wpV2Prefix}/pages`,
+			data,
+		});
+	}
+
 	/**
 	 * @return {Promise<any>} {}
 	 */

@@ -380,8 +380,7 @@ class Upgrade {
 			}
 
 			jQuery( document ).ready( function( $ ) {
-				//TODO: Update page URL
-				$( '#<?php echo Settings::SETTINGS_PAGE; ?>' ).pointer( {
+				$( '#<?php echo esc_html( Settings::SETTINGS_PAGE ); ?>' ).pointer( {
 					content: '<?php echo wp_kses( $pointer_content, $allowed_tags ); ?>',
 					pointerClass: 'ea11y-settings-pointer',
 					position: {

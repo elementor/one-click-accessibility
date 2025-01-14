@@ -100,6 +100,27 @@ export const SettingsProvider = ({ children }) => {
 			position: 'top-left',
 		},
 	});
+
+	const [companyData, setCompanyData] = useState({
+		company_name: 'Acme Inc.',
+		company_website: 'https://www.acme.com/',
+		company_email: 'contact@acme.com',
+		current_date: new Date().toLocaleDateString(),
+	});
+
+	const [accessibilityStatementData, setAccessibilityStatementData] = useState({
+		statement: null,
+		pageId: null,
+		createdOn: null,
+		link: null,
+		hideLink: false,
+	});
+
+	const [
+		showAccessibilityGeneratedInfotip,
+		setShowAccessibilityGeneratedInfotip,
+	] = useState(false);
+
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -119,6 +140,12 @@ export const SettingsProvider = ({ children }) => {
 				setHasChanges,
 				planData,
 				setPlanData,
+				companyData,
+				setCompanyData,
+				accessibilityStatementData,
+				setAccessibilityStatementData,
+				showAccessibilityGeneratedInfotip,
+				setShowAccessibilityGeneratedInfotip,
 			}}
 		>
 			{children}

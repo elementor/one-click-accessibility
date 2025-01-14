@@ -16,3 +16,4 @@ coverage/
 .editorconfig
 .vscode
 .env
+*.zip

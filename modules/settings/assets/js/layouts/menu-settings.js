@@ -57,9 +57,9 @@ const MenuSettings = () => {
 			};
 
 			setHasChanges(true);
-			if (window?.ea11yWidget?.toolsSettings) {
+			if (window?.ea11yWidget?.toolsSettings && window?.ea11yWidget?.widget) {
 				window.ea11yWidget.toolsSettings = newSettings;
-				window.ea11yWidget.widget.updateState();
+				window?.ea11yWidget?.widget.updateState();
 			}
 			return newSettings;
 		});
@@ -95,6 +95,7 @@ const MenuSettings = () => {
 					'Choose which accessibility features and capabilities you want to include.',
 					'pojo-accessibility',
 				)}
+				sx={{ paddingBottom: 0 }}
 			/>
 			{disableOptions && !hideMinimumOptionAlert && (
 				<Alert severity="info" sx={{ m: 2 }} onClose={handleCloseNotification}>

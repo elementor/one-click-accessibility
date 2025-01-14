@@ -29,21 +29,22 @@ const verticalOptions = [
 ];
 
 // Customization for the WP admin global CSS.
-const StyledTextField = styled(TextField)(() => ({
-	width: '200px',
-	'.wp-admin & .MuiInputBase-input, & .MuiInputBase-input:focus': {
-		backgroundColor: 'initial',
-		boxShadow: 'none',
-		border: 0,
-		color: 'inherit',
-		outline: 0,
-		padding: '16.5px 14px 16.5px 14px',
-		'&.MuiInputBase-inputSizeSmall': {
-			padding: '8.5px 14px 8.5px 14px',
-		},
-		height: '56px',
-	},
-}));
+const StyledTextField = styled(TextField)`
+	width: 200px;
+	.wp-admin & .MuiInputBase-input,
+	& .MuiInputBase-input:focus {
+		background-color: initial;
+		box-shadow: none;
+		border: 0;
+		color: inherit;
+		outline: 0;
+		padding: 16.5px 14px 16.5px 14px;
+		&.MuiInputBase-inputSizeSmall {
+			padding: 8.5px 14px 8.5px 14px;
+		}
+		height: 56px;
+	}
+`;
 
 const PositionControl = ({ type, disabled, mode }) => {
 	const { iconPosition, updateExactPosition } = useIconPosition();

@@ -1,7 +1,18 @@
+import { useSettings } from '@ea11y/hooks';
 import { useEffect } from '@wordpress/element';
+import { WIDGET_URL } from '../../constants/index';
 
-const DynamicScriptLoader = ({ src, onLoad, onError }) => {
+const WidgetLoader = ({ src, onLoad, onError }) => {
+	const { planData } = useSettings();
 	useEffect(() => {
+		const handleScriptLoad = () => {
+			console.log('External script loaded!');
+		};
+
+		const handleScriptError = () => {
+			console.error('Failed to load the external script.');
+		};
+
 		// Check if the script already exists
 		const existingScript = document.querySelector(`script[src="${src}"]`);
 		if (existingScript) {
@@ -11,7 +22,12 @@ const DynamicScriptLoader = ({ src, onLoad, onError }) => {
 
 		// Create a new script element
 		const script = document.createElement('script');
-		script.src = src;
+		if (src) {
+			script.src = src;
+		} else {
+			script.src = `${WIDGET_URL}?api_key=${planData?.public_api_key}`;
+		}
+
 		script.async = true;
 
 		// Attach onLoad and onError handlers
@@ -20,6 +36,9 @@ const DynamicScriptLoader = ({ src, onLoad, onError }) => {
 			if (onLoad) {
 				onLoad();
 				window?.ea11yWidget?.widget?.open();
+			} else {
+				handleScriptLoad();
+				window?.ea11yWidget?.widget?.open();
 			}
 		};
 
@@ -27,6 +46,8 @@ const DynamicScriptLoader = ({ src, onLoad, onError }) => {
 			console.error(`Failed to load script: ${src}`);
 			if (onError) {
 				onError();
+			} else {
+				handleScriptError();
 			}
 		};
 
@@ -43,4 +64,4 @@ const DynamicScriptLoader = ({ src, onLoad, onError }) => {
 	return null;
 };
 
-export default DynamicScriptLoader;
+export default WidgetLoader;
