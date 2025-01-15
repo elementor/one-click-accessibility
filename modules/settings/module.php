@@ -46,12 +46,12 @@ class Module extends Module_Base {
 
 	public function register_page() : void {
 		add_menu_page(
-			__( 'Equally', 'pojo-accessibility' ), //TODO: Change this later
-			__( 'Equally', 'pojo-accessibility' ),
+			__( 'Web Accessibility', 'pojo-accessibility' ),
+			__( 'Web Accessibility', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			'dashicons-universal-access-alt',
+        EA11Y_ASSETS_URL . 'images/menu-icon.svg',
 		);
 
 		add_submenu_page(
@@ -250,6 +250,17 @@ class Module extends Module_Base {
 		}
 	}
 
+  public function remove_admin_footer_text( $text ): string {
+    $screen = get_current_screen();
+
+    if ( self::SETTING_PAGE_SLUG === $screen->base ) {
+        remove_filter( 'update_footer', 'core_update_footer' );
+        return '';
+    }
+
+    return $text;
+  }
+
 	/**
 	 * Register settings.
 	 *
@@ -321,6 +332,8 @@ class Module extends Module_Base {
 	public function __construct() {
 		$this->register_routes();
 		$this->register_components( self::component_list() );
+
+    add_filter( 'admin_footer_text', [ $this, 'remove_admin_footer_text' ] );
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 9 );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );

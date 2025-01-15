@@ -55,25 +55,15 @@ html[dir='rtl'] #ea11y-app {
 	position: absolute;
 }
 
-.ea11y-statement--widget-preview .ea11y-widget-container * {
-	opacity: 0.5;
-}
-
-.ea11y-statement--widget-preview .ea11y-widget-container:before {
+.ea11y-statement--widget-preview .ea11y-widget-content::after {
 	content: '';
+
 	position: absolute;
 	top: 0;
+	right: 0;
 	left: 0;
-	height: 100%;
-	width: 100%;
-	background-color: #eaf4ff;
-	opacity: 0.1;
-	z-index: 0;
-	box-sizing: border-box;
-}
+	bottom: 60px;
 
-.ea11y-statement--widget-preview .ea11y-widget-statement-link,
-.ea11y-statement--widget-preview .ea11y-widget-statement-link * {
-	z-index: 1;
-	opacity: 1;
+	background-color: #FCFDFF;
+	opacity: 0.6;
 }

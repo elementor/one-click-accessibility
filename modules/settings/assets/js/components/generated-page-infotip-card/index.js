@@ -10,23 +10,28 @@ import { __ } from '@wordpress/i18n';
 const GeneratedPageInfoTipCard = () => {
 	const { setShowAccessibilityGeneratedInfotip } = useSettings();
 	const { save } = useStorage();
+
 	const dismissNotice = async () => {
 		setShowAccessibilityGeneratedInfotip(false);
+
 		await save({
 			ea11y_show_accessibility_generated_page_infotip: false,
 		});
 	};
+
 	return (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
-			<CardHeader title={__('Tooltip', 'pojo-accessibility')} />
+			<CardHeader title={''} />
+
 			<CardContent>
 				<Typography variant="body2" color="text.secondary">
 					{__(
-						'The accessibility statement page you generated is already linked to the widget.',
+						'We went ahead and linked the accessibility statement page you just created to your widget.',
 						'pojo-accessibility',
 					)}
 				</Typography>
 			</CardContent>
+
 			<CardActions>
 				<Button
 					size="small"
