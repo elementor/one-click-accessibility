@@ -12,7 +12,7 @@ const init = async () => {
 	}
 
 	await mixpanel.init(MIXPANEL_TOKEN, {
-		debug: ea11ySettingsData.pluginEnv !== 'production',
+		debug: ea11ySettingsData.pluginEnv === 'dev',
 		track_pageview: false,
 		persistence: 'localStorage',
 	});
