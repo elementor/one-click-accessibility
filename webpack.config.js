@@ -1,14 +1,10 @@
 const path = require('path');
-const dotenv = require('dotenv');
-const webpack = require('webpack');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 
 // add your entry points here
 const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
 };
-
-const env = dotenv.config().parsed;
 
 module.exports = {
 	...defaultConfig,
@@ -17,12 +13,6 @@ module.exports = {
 		...defaultConfig.output,
 		path: path.resolve(process.cwd(), 'assets/build'),
 	},
-	plugins: [
-		...defaultConfig.plugins,
-		new webpack.DefinePlugin({
-			'process.env': JSON.stringify(env),
-		}),
-	],
 	resolve: {
 		alias: {
 			'@ea11y/hooks': path.resolve(

@@ -22,6 +22,7 @@ class Module extends Module_Base {
 	const SETTING_BASE_SLUG  = 'accessibility-settings'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
 	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
+	const MIXPANEL_TOKEN = '150605b3b9f979922f2ac5a52e2dcfe9';
 
 	public function get_name(): string {
 		return 'settings';
@@ -51,7 +52,7 @@ class Module extends Module_Base {
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-        EA11Y_ASSETS_URL . 'images/menu-icon.svg',
+			EA11Y_ASSETS_URL . 'images/menu-icon.svg',
 		);
 
 		add_submenu_page(
@@ -88,8 +89,17 @@ class Module extends Module_Base {
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'clientId' => Data::get_client_id(),
+				'mixpanelToken' => self::get_mixpanel_token(),
 			]
 		);
+	}
+
+	/**
+	 * Get Mixpanel project Token
+	 * @return string
+	 */
+	private static function get_mixpanel_token() : string {
+		return apply_filters( 'ea11y_mixpanel_token', self::MIXPANEL_TOKEN );
 	}
 
 	public static function routes_list() : array {
@@ -254,16 +264,16 @@ class Module extends Module_Base {
 		}
 	}
 
-  public function remove_admin_footer_text( $text ): string {
-    $screen = get_current_screen();
+	public function remove_admin_footer_text( $text ): string {
+		$screen = get_current_screen();
 
-    if ( self::SETTING_PAGE_SLUG === $screen->base ) {
-        remove_filter( 'update_footer', 'core_update_footer' );
-        return '';
-    }
+		if ( self::SETTING_PAGE_SLUG === $screen->base ) {
+			remove_filter( 'update_footer', 'core_update_footer' );
+			return '';
+		}
 
-    return $text;
-  }
+		return $text;
+	}
 
 	/**
 	 * Register settings.
@@ -337,7 +347,7 @@ class Module extends Module_Base {
 		$this->register_routes();
 		$this->register_components( self::component_list() );
 
-    add_filter( 'admin_footer_text', [ $this, 'remove_admin_footer_text' ] );
+		add_filter( 'admin_footer_text', [ $this, 'remove_admin_footer_text' ] );
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 9 );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
