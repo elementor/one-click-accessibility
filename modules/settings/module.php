@@ -22,7 +22,6 @@ class Module extends Module_Base {
 	const SETTING_BASE_SLUG  = 'accessibility-settings'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
 	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
-	const MIXPANEL_TOKEN = '150605b3b9f979922f2ac5a52e2dcfe9';
 
 	public function get_name(): string {
 		return 'settings';
@@ -89,7 +88,7 @@ class Module extends Module_Base {
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'clientId' => Data::get_client_id(),
-				'mixpanelToken' => self::get_mixpanel_token(),
+				'pluginEnv' => self::get_plugin_env(),
 			]
 		);
 	}
@@ -98,8 +97,8 @@ class Module extends Module_Base {
 	 * Get Mixpanel project Token
 	 * @return string
 	 */
-	private static function get_mixpanel_token() : string {
-		return apply_filters( 'ea11y_mixpanel_token', self::MIXPANEL_TOKEN );
+	private static function get_plugin_env() : string {
+		return apply_filters( 'ea11y_plugin_env', 'production' );
 	}
 
 	public static function routes_list() : array {
