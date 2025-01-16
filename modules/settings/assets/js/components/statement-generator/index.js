@@ -14,6 +14,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
@@ -127,6 +128,8 @@ const StatementGenerator = ({ open, close }) => {
 			}
 			await close();
 			await success('Page created');
+
+			mixpanelService.sendEvent('Statement page created');
 		} catch (e) {
 			error('Error while creating page');
 			console.error(e);

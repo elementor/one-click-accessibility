@@ -6,6 +6,7 @@ import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useIconDesign } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import options from '../../helpers/accessibility-options';
@@ -34,6 +35,13 @@ const StyledPaper = styled(Paper)`
 const IconSelect = (props) => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 
+	const selectIcon = (icon) => () => {
+		updateIconDesign({ icon });
+		mixpanelService.sendEvent('Icon type selected', {
+			iconType: icon,
+		});
+	};
+
 	return (
 		<FormControl>
 			<FormLabel id="icon-select-radio-buttons-group-label" color="secondary">
@@ -58,7 +66,7 @@ const IconSelect = (props) => {
 					<StyledPaper
 						key={option.value}
 						variant="outlined"
-						onClick={() => updateIconDesign({ icon: option.value })}
+						onClick={selectIcon(option.value)}
 						sx={{
 							borderColor:
 								iconDesign.icon === option.value ? 'info.main' : 'divider',

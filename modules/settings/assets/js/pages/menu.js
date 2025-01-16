@@ -2,9 +2,17 @@ import Box from '@elementor/ui/Box';
 import Container from '@elementor/ui/Container';
 import Typography from '@elementor/ui/Typography';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
+import { mixpanelService } from '@ea11y/services';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const Menu = () => {
+	useEffect(() => {
+		mixpanelService.sendEvent('Page View', {
+			page: 'Capabilities',
+		});
+	}, []);
+
 	return (
 		<Container sx={{ overflow: 'auto', maxHeight: '100%', p: 5 }}>
 			<Typography variant="h4" fontWeight="400" marginBottom={4}>

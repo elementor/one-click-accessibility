@@ -16,6 +16,8 @@ import {
 	useSavedSettings,
 } from '@ea11y/hooks';
 import { Sidebar } from '@ea11y/layouts';
+import { mixpanelService } from '@ea11y/services';
+import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 
 const App = () => {
@@ -25,6 +27,13 @@ const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
 
+	useEffect(() => {
+		mixpanelService.init();
+		mixpanelService.sendEvent('Page View', {
+			page: 'Button',
+		});
+	}, []);
+
 	// Accessing the selected menu item
 	const selectedParent = MenuItems[selectedMenu.parent];
 	const selectedChild = selectedMenu.child
@@ -33,7 +42,7 @@ const App = () => {
 	return (
 		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
-				{!isConnected && <ConnectModal />}
+				{isConnected !== undefined && !isConnected && <ConnectModal />}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
 				<Grid display="flex" flexDirection="row" height="100%">
 					<Sidebar />

@@ -2,6 +2,7 @@ import HelpIcon from '@elementor/icons/HelpIcon';
 import AppBar from '@elementor/ui/AppBar';
 import Link from '@elementor/ui/Link';
 import Toolbar from '@elementor/ui/Toolbar';
+import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { HELP_LINK } from '../../constants';
 
@@ -23,6 +24,11 @@ const AdminTopBar = () => {
 					target="_blank"
 					sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
 					aria-label={__('Help', 'pojo-accessibility')}
+					onClick={() =>
+						mixpanelService.sendEvent('Help button clicked', {
+							source: 'Header',
+						})
+					}
 				>
 					<HelpIcon />
 				</Link>

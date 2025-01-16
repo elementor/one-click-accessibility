@@ -16,6 +16,7 @@ import {
 	AccessibilityStatementCreateIcon,
 } from '@ea11y/icons';
 import { StatementLink } from '@ea11y/layouts';
+import { mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { injectTemplateVars } from '../utils';
@@ -52,12 +53,25 @@ const AccessibilityStatement = () => {
 	const [showStatementLink, setShowStatementLink] = useState(false);
 
 	useEffect(() => {
+		mixpanelService.sendEvent('Page View', {
+			page: 'Accessibility statement',
+		});
+	}, []);
+
+	useEffect(() => {
 		setContinueDisabled(false);
 	}, [statementOption]);
 
 	useEffect(() => {
 		setContinueDisabled(true);
 	}, []);
+
+	const onStatementOptionClick = (option) => () => {
+		setStatementOption(option);
+		mixpanelService.sendEvent('Statement flow selected', {
+			flowType: option,
+		});
+	};
 
 	const handleContinue = () => {
 		if (statementOption === 'generate') {
@@ -159,9 +173,7 @@ const AccessibilityStatement = () => {
 									<StyledPaper
 										key="generate-accessibility-statement"
 										variant="outlined"
-										onClick={() => {
-											setStatementOption('generate');
-										}}
+										onClick={onStatementOptionClick('generate')}
 										sx={{
 											borderColor:
 												statementOption === 'generate'
@@ -185,7 +197,7 @@ const AccessibilityStatement = () => {
 									<StyledPaper
 										key="existing-accessibility-statement"
 										variant="outlined"
-										onClick={() => setStatementOption('existing')}
+										onClick={onStatementOptionClick('existing')}
 										sx={{
 											borderColor:
 												statementOption === 'existing'

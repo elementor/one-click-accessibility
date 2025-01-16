@@ -19,6 +19,7 @@ import {
 	GeneratedPageInfoTipCard,
 } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -71,7 +72,24 @@ const StatementLink = () => {
 				pageId: page[0]?.id,
 				link: page[0]?.link,
 			});
+
+			mixpanelService.sendEvent('Statement page selected', {
+				page: page[0]?.link,
+			});
 		}
+	};
+
+	const onHideLink = () => {
+		setAccessibilityStatementData({
+			...accessibilityStatementData,
+			hideLink: !accessibilityStatementData.hideLink,
+		});
+		mixpanelService.sendEvent('Toggle clicked', {
+			toggleData: {
+				state: !accessibilityStatementData.hideLink,
+				type: 'Hide link',
+			},
+		});
 	};
 
 	const savePage = async () => {
@@ -174,12 +192,7 @@ const StatementLink = () => {
 									/>
 								}
 								sx={{ marginBottom: 3, alignSelf: 'start', ml: 0 }}
-								onChange={() => {
-									setAccessibilityStatementData({
-										...accessibilityStatementData,
-										hideLink: !accessibilityStatementData.hideLink,
-									});
-								}}
+								onChange={onHideLink}
 								checked={accessibilityStatementData?.hideLink}
 							/>
 						</FormControl>

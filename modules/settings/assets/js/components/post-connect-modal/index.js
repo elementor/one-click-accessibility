@@ -4,11 +4,19 @@ import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
 import { useModal, useStorage } from '@ea11y/hooks';
 import { PostConnectModalIcon } from '@ea11y/icons';
+import { mixpanelService } from '@ea11y/services';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const PostConnectModal = () => {
 	const { isOpen, close } = useModal();
 	const { save } = useStorage();
+
+	useEffect(() => {
+		if (isOpen) {
+			mixpanelService.sendEvent('Connect success');
+		}
+	}, [isOpen]);
 
 	const onClose = async () => {
 		await save({
