@@ -42,7 +42,7 @@ const IconSize = (props) => {
 
 	const selectIconSize = (size) => () => {
 		updateIconDesign({ size });
-		mixpanelService.sendEvent('Size type clicked', {
+		mixpanelService.sendEvent('size_type_clicked', {
 			size,
 		});
 	};

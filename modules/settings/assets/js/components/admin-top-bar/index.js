@@ -25,7 +25,7 @@ const AdminTopBar = () => {
 					sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
 					aria-label={__('Help', 'pojo-accessibility')}
 					onClick={() =>
-						mixpanelService.sendEvent('Help button clicked', {
+						mixpanelService.sendEvent('help_button_clicked', {
 							source: 'Header',
 						})
 					}

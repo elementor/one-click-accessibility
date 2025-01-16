@@ -37,7 +37,7 @@ const IconSelect = (props) => {
 
 	const selectIcon = (icon) => () => {
 		updateIconDesign({ icon });
-		mixpanelService.sendEvent('Icon type selected', {
+		mixpanelService.sendEvent('icon_type_selected', {
 			iconType: icon,
 		});
 	};

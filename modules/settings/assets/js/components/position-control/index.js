@@ -64,7 +64,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			units[index],
 		);
 		popupState.close();
-		mixpanelService.sendEvent('Handle Unit Changed', {
+		mixpanelService.sendEvent('handle_unit_changed', {
 			positionData: {
 				mode,
 				type,
@@ -82,7 +82,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			event.target.value,
 			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
-		mixpanelService.sendEvent('Handle Value Changed', {
+		mixpanelService.sendEvent('handle_value_changed', {
 			positionData: {
 				mode,
 				type,
@@ -100,7 +100,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			iconPosition[mode]?.exactPosition[type]?.value,
 			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
-		mixpanelService.sendEvent('Handle Direction Changed', {
+		mixpanelService.sendEvent('handle_direction_changed', {
 			positionData: {
 				mode,
 				type,

@@ -47,7 +47,7 @@ const MyAccountMenu = () => {
 			await save({
 				ea11y_close_post_connect_modal: false,
 			});
-			mixpanelService.sendEvent('Menu button click', {
+			mixpanelService.sendEvent('menu_button_clicked', {
 				buttonName: 'Switch account',
 			});
 		} catch (e) {
@@ -60,7 +60,7 @@ const MyAccountMenu = () => {
 
 	const redirectToBilling = () => {
 		window.open(BILLING_LINK, '_blank').focus();
-		mixpanelService.sendEvent('Menu button click', {
+		mixpanelService.sendEvent('menu_button_clicked', {
 			buttonName: 'Billing',
 		});
 	};
@@ -69,7 +69,7 @@ const MyAccountMenu = () => {
 		<>
 			<List
 				onClick={() => {
-					mixpanelService.sendEvent('Menu button click', {
+					mixpanelService.sendEvent('menu_button_clicked', {
 						buttonName: 'My Account',
 					});
 				}}

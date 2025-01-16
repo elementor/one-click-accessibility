@@ -13,7 +13,7 @@ import './style.css';
 const ColorPicker = () => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 	const debounced = useDebouncedCallback((value) => {
-		mixpanelService.sendEvent('Color Changed', {
+		mixpanelService.sendEvent('color_changed', {
 			color: value,
 		});
 	}, 1000);

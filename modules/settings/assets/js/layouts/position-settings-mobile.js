@@ -12,7 +12,7 @@ const PositionSettingsMobile = () => {
 
 	const toggleVisibility = (device) => {
 		updateIconPosition(device, 'hidden', !iconPosition[device].hidden);
-		mixpanelService.sendEvent('Toggle clicked', {
+		mixpanelService.sendEvent('toggle_clicked', {
 			toggleData: {
 				state: !iconPosition[device].hidden,
 				type: 'Hide on mobile',
@@ -27,7 +27,7 @@ const PositionSettingsMobile = () => {
 			'enableExactPosition',
 			!iconPosition[device].enableExactPosition,
 		);
-		mixpanelService.sendEvent('Toggle clicked', {
+		mixpanelService.sendEvent('toggle_clicked', {
 			toggleData: {
 				state: !iconPosition[device].enableExactPosition,
 				type: 'Exact position',

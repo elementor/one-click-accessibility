@@ -14,7 +14,7 @@ const PostConnectModal = () => {
 
 	useEffect(() => {
 		if (isOpen) {
-			mixpanelService.sendEvent('Connect success');
+			mixpanelService.sendEvent('connect_success');
 		}
 	}, [isOpen]);
 
