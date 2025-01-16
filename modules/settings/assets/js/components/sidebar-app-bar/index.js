@@ -20,7 +20,7 @@ const SidebarAppBar = () => {
 						marginLeft={1}
 						display={!openSidebar ? 'none' : 'inherit'}
 					>
-						{__('Equally', 'pojo-accessibility')}
+						{__('Web Accessibility', 'pojo-accessibility')}
 					</Typography>
 				</Box>
 				<IconButton

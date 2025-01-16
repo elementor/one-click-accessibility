@@ -25,8 +25,9 @@ const StyledPaper = styled(Paper)`
 	border-radius: ${({ theme }) => theme.shape.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows[0]};
 	cursor: pointer;
+
 	:hover {
-		box-shadow: 0px 0px 15px 0px rgba(37, 99, 235, 0.15);
+		box-shadow: 0 0 15px 0 rgba(37, 99, 235, 0.15);
 		border-color: ${({ theme }) => theme.palette.info.main};
 	}
 `;
@@ -48,6 +49,7 @@ const IconSelect = (props) => {
 					{__('Icon', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
+
 			<RadioGroup
 				{...props}
 				aria-labelledby="icon-select-radio-buttons-group-label"
@@ -56,7 +58,7 @@ const IconSelect = (props) => {
 				sx={{
 					display: 'flex',
 					flexDirection: 'row',
-					flexWrap: 'nowrap',
+					flexWrap: 'wrap',
 					gap: 2,
 				}}
 			>

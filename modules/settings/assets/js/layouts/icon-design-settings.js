@@ -11,6 +11,7 @@ const IconDesignSettings = (props) => {
 				<Typography variant="subtitle1">
 					{__('Design', 'pojo-accessibility')}
 				</Typography>
+
 				<Typography variant="body2">
 					{__(
 						"Customize your accessibility button's color, icon, and size to match your brand.",
@@ -18,11 +19,13 @@ const IconDesignSettings = (props) => {
 					)}
 				</Typography>
 			</Box>
+
 			<Grid gridTemplateColumns="repeat(2, 1fr)" display="grid" gap={5} p={2}>
 				<Box display="flex" flexDirection="column" gap={5}>
 					<IconSelect />
 					<IconSize />
 				</Box>
+
 				<Box>
 					<ColorPicker />
 				</Box>

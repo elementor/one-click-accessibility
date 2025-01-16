@@ -3,6 +3,7 @@ import Button from '@elementor/ui/Button';
 import Container from '@elementor/ui/Container';
 import FormControl from '@elementor/ui/FormControl';
 import FormLabel from '@elementor/ui/FormLabel';
+import Link from '@elementor/ui/Link';
 import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
@@ -18,11 +19,11 @@ import { StatementLink } from '@ea11y/layouts';
 import { mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { injectTemplateVars } from '../utils';
 
 const StyledPaper = styled(Paper)`
 	display: flex;
 	flex-direction: column;
-	flex-grow: 8px;
 	align-items: center;
 	justify-content: center;
 	padding: 24px;
@@ -31,10 +32,16 @@ const StyledPaper = styled(Paper)`
 	border-radius: ${({ theme }) => theme.shape.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows[0]};
 	cursor: pointer;
+
 	:hover {
-		box-shadow: 0px 0px 15px 0px rgba(37, 99, 235, 0.15);
+		box-shadow: 0 0 15px 0 rgba(37, 99, 235, 0.15);
 		border-color: ${({ theme }) => theme.palette.info.main};
 	}
+`;
+
+const StyledTitle = styled(Typography)`
+	font-weight: 400;
+	letter-spacing: 0.25px;
 `;
 
 const AccessibilityStatement = () => {
@@ -92,18 +99,33 @@ const AccessibilityStatement = () => {
 						display: 'flex',
 						flexDirection: 'column',
 						alignItems: 'start',
-						gap: 4,
+						gap: 2,
 					}}
 				>
-					<Typography variant="h4" color="text.primary" fontWeight="400">
+					<StyledTitle variant="h4" color="text.primary">
 						{__('Accessibility statement', 'pojo-accessibility')}
-					</Typography>
+					</StyledTitle>
+
 					<Typography variant="body2" color="text.primary" width="60%">
-						{__(
-							'An accessibility statement showcases your efforts to create an inclusive online space, highlighting helpful features and a commitment to accessibility. Learn more',
-							'pojo-accessibility',
+						{injectTemplateVars(
+							__(
+								'An accessibility statement showcases your efforts to create an inclusive online space, highlighting helpful features and a commitment to accessibility. {{link}}Learn more{{/link}}',
+								'pojo-accessibility',
+							),
+							{
+								link: ({ children }) => (
+									<Link
+										href={'https://example.com/'}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{children}
+									</Link>
+								),
+							},
 						)}
 					</Typography>
+
 					{!accessibilityStatementData?.pageId && !showStatementLink && (
 						<>
 							<FormControl>
@@ -116,13 +138,14 @@ const AccessibilityStatement = () => {
 										color="text.primary"
 										align="center"
 										marginBottom="4px"
-										marginTop={3}
+										marginTop={4}
 									>
 										{__(
 											'Need an accessibility statement?',
 											'pojo-accessibility',
 										)}
 									</Typography>
+
 									<Typography
 										variant="body2"
 										color="text.secondary"
@@ -135,6 +158,7 @@ const AccessibilityStatement = () => {
 										)}
 									</Typography>
 								</FormLabel>
+
 								<RadioGroup
 									aria-labelledby="icon-select-radio-buttons-group-label"
 									name="icon-select-radio-buttons-group"
@@ -159,14 +183,17 @@ const AccessibilityStatement = () => {
 										}}
 									>
 										<AccessibilityStatementCreateIcon />
+
 										<Typography marginTop={1}>
 											{__('Yes, I need one', 'pojo-accessibility')}
 										</Typography>
+
 										<Radio
 											value="generate"
 											sx={{ opacity: 0, position: 'absolute' }}
 										/>
 									</StyledPaper>
+
 									<StyledPaper
 										key="existing-accessibility-statement"
 										variant="outlined"
@@ -180,9 +207,11 @@ const AccessibilityStatement = () => {
 										}}
 									>
 										<AccessibilityStatementExistingIcon />
+
 										<Typography marginTop={1}>
 											{__('No, I already have one', 'pojo-accessibility')}
 										</Typography>
+
 										<Radio
 											value="existing"
 											sx={{ opacity: 0, position: 'absolute' }}
@@ -192,10 +221,12 @@ const AccessibilityStatement = () => {
 							</FormControl>
 						</>
 					)}
+
 					{(accessibilityStatementData?.pageId || showStatementLink) && (
 						<StatementLink />
 					)}
 				</Container>
+
 				{!accessibilityStatementData?.pageId && !showStatementLink && (
 					<Box
 						display="flex"
@@ -216,6 +247,7 @@ const AccessibilityStatement = () => {
 					</Box>
 				)}
 			</Box>
+
 			<StatementGenerator open={isOpen} close={close} />
 		</>
 	);
