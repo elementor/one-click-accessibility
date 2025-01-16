@@ -31,7 +31,7 @@ class Dismissible_Deprecated_Nag extends Notice_Base {
 			esc_attr( Upgrade::get_learn_more_link() ),
 			esc_html__( 'Learn more', 'pojo-accessibility' ),
 			esc_attr( Upgrade::get_switch_now_link() ),
-			esc_html__( 'Switch To Equally', 'pojo-accessibility' )
+			esc_html__( 'Switch To Web Accessibility', 'pojo-accessibility' )
 		);
 	}
 

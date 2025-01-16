@@ -88,7 +88,7 @@ const StatementLink = () => {
 	};
 
 	return (
-		<Card elevation={0} variant="outlined" sx={{ marginTop: 5, width: '100%' }}>
+		<Card elevation={0} variant="outlined" sx={{ marginTop: 1, width: '100%' }}>
 			<CardHeader
 				title={__('Statement link', 'pojo-accessibility')}
 				subheader={__(
@@ -97,15 +97,17 @@ const StatementLink = () => {
 				)}
 				sx={{ borderBottom: '1px solid', borderBottomColor: 'divider' }}
 			/>
+
 			<CardContent>
 				<Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={5}>
 					<Box display="flex" flexDirection="column">
-						<FormControl fullWidth sx={{ marginBottom: 5 }}>
-							<FormLabel sx={{ marginBottom: 2 }}>
+						<FormControl fullWidth sx={{ marginBottom: 2 }}>
+							<FormLabel sx={{ marginBottom: 1 }}>
 								<Typography variant="subtitle2" color="text.primary">
 									{__('Choose which page to link', 'pojo-accessibility')}
 								</Typography>
 							</FormLabel>
+
 							<Box
 								display="flex"
 								flexDirection="row"
@@ -113,7 +115,7 @@ const StatementLink = () => {
 								alignItems="center"
 							>
 								<Infotip
-									placement="bottom"
+									placement="right-start"
 									content={<GeneratedPageInfoTipCard />}
 									disableHoverListener
 									disableFocusListener
@@ -125,7 +127,8 @@ const StatementLink = () => {
 										value={accessibilityStatementData?.pageId}
 										error={!isValidPage}
 										color="info"
-										fullWidth
+										size="small"
+										sx={{ minWidth: '242px' }}
 									>
 										{pages?.hasResolved && pages?.records.length > 0 ? (
 											pages?.records.map((page) => (
@@ -140,27 +143,35 @@ const StatementLink = () => {
 										)}
 									</Select>
 								</Infotip>
+
 								{accessibilityStatementData?.link && (
 									<CopyLink content={accessibilityStatementData?.link} />
 								)}
 							</Box>
+
 							{!isValidPage && (
 								<FormHelperText>
 									{__('Please select a page', 'pojo-accessibility')}
 								</FormHelperText>
 							)}
 						</FormControl>
+
 						<FormControl fullWidth>
 							<FormLabel sx={{ marginBottom: 2, marginTop: 2 }}>
 								<Typography variant="subtitle2" color="text.primary">
 									{__('Want to hide the link?', 'pojo-accessibility')}
 								</Typography>
 							</FormLabel>
+
 							<FormControlLabel
 								label={__('Hide link', 'pojo-accessibility')}
 								labelPlacement="start"
 								control={
-									<Switch color="info" size="small" sx={{ marginLeft: 3 }} />
+									<Switch
+										color="secondary"
+										size="small"
+										sx={{ marginLeft: 3 }}
+									/>
 								}
 								sx={{ marginBottom: 3, alignSelf: 'start', ml: 0 }}
 								onChange={() => {
@@ -173,16 +184,24 @@ const StatementLink = () => {
 							/>
 						</FormControl>
 					</Box>
-					<Box
-						id="ea11y-widget-preview--container"
-						className="ea11y-statement--widget-preview"
-						padding={0}
-						marginTop={4}
-					>
-						<WidgetLoader />
+
+					<Box>
+						<Typography variant="subtitle2" color="text.primary">
+							{__('Preview link in widget', 'pojo-accessibility')}
+						</Typography>
+
+						<Box
+							id="ea11y-widget-preview--container"
+							className="ea11y-statement--widget-preview"
+							padding={0}
+							marginTop={2}
+						>
+							<WidgetLoader />
+						</Box>
 					</Box>
 				</Box>
 			</CardContent>
+
 			<CardActions>
 				<Button
 					color="info"
