@@ -19,18 +19,20 @@ import { __ } from '@wordpress/i18n';
 const units = ['PX', 'REM', 'EM'];
 
 const horizontalOptions = [
-	{ value: 'to-left', label: __('To the left', 'pojo-accessibility') },
-	{ value: 'to-right', label: __('To the right', 'pojo-accessibility') },
+	{ value: 'left', label: __('To the left', 'pojo-accessibility') },
+	{ value: 'right', label: __('To the right', 'pojo-accessibility') },
 ];
 
 const verticalOptions = [
-	{ value: 'higher', label: __('Higher', 'pojo-accessibility') },
-	{ value: 'lower', label: __('Lower', 'pojo-accessibility') },
+	{ value: 'top', label: __('Higher', 'pojo-accessibility') },
+	{ value: 'bottom', label: __('Lower', 'pojo-accessibility') },
 ];
 
 // Customization for the WP admin global CSS.
 const StyledTextField = styled(TextField)`
 	width: 200px;
+	height: 56px;
+
 	.wp-admin & .MuiInputBase-input,
 	& .MuiInputBase-input:focus {
 		background-color: initial;
@@ -39,6 +41,7 @@ const StyledTextField = styled(TextField)`
 		color: inherit;
 		outline: 0;
 		padding: 16.5px 14px 16.5px 14px;
+
 		&.MuiInputBase-inputSizeSmall {
 			padding: 8.5px 14px 8.5px 14px;
 		}
@@ -74,6 +77,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			},
 		});
 	};
+
 	const handlePositionChange = (event) => {
 		updateExactPosition(
 			mode,
@@ -92,6 +96,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			},
 		});
 	};
+
 	const handlePositionDirection = (event) => {
 		updateExactPosition(
 			mode,
@@ -110,6 +115,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			},
 		});
 	};
+
 	return (
 		<Box display="flex" gap={1} marginTop={2}>
 			<StyledTextField
@@ -129,6 +135,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 							>
 								{units[unitsIndex]}
 							</Button>
+
 							<Menu MenuListProps={{ dense: true }} {...bindMenu(popupState)}>
 								{units.map((unit, index) => (
 									<MenuItem
@@ -143,6 +150,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 					),
 				}}
 			/>
+
 			<Select
 				fullWidth
 				onChange={handlePositionDirection}

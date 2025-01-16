@@ -70,12 +70,12 @@ export const SettingsProvider = ({ children }) => {
 			enableExactPosition: false,
 			exactPosition: {
 				horizontal: {
-					direction: 'to-left',
+					direction: 'left',
 					value: 10,
 					unit: 'px',
 				},
 				vertical: {
-					direction: 'higher',
+					direction: 'top',
 					value: 10,
 					unit: 'px',
 				},
@@ -87,12 +87,12 @@ export const SettingsProvider = ({ children }) => {
 			enableExactPosition: false,
 			exactPosition: {
 				horizontal: {
-					direction: 'to-right',
+					direction: 'right',
 					value: 10,
 					unit: 'px',
 				},
 				vertical: {
-					direction: 'lower',
+					direction: 'bottom',
 					value: 10,
 					unit: 'px',
 				},
