@@ -59,8 +59,8 @@ const PositionControl = ({ type, disabled, mode }) => {
 		updateExactPosition(
 			mode,
 			type,
-			iconPosition[mode].exactPosition[type].direction,
-			iconPosition[mode].exactPosition[type].value,
+			iconPosition[mode]?.exactPosition[type]?.direction,
+			iconPosition[mode]?.exactPosition[type]?.value,
 			units[index],
 		);
 		popupState.close();
@@ -69,8 +69,8 @@ const PositionControl = ({ type, disabled, mode }) => {
 				mode,
 				type,
 				unit: units[index],
-				value: iconPosition[mode].exactPosition[type].direction,
-				direction: iconPosition[mode].exactPosition[type].value,
+				value: iconPosition[mode]?.exactPosition[type]?.direction,
+				direction: iconPosition[mode]?.exactPosition[type]?.value,
 			},
 		});
 	};
@@ -78,17 +78,17 @@ const PositionControl = ({ type, disabled, mode }) => {
 		updateExactPosition(
 			mode,
 			type,
-			iconPosition[mode].exactPosition[type].direction,
+			iconPosition[mode]?.exactPosition[type]?.direction,
 			event.target.value,
-			iconPosition[mode].exactPosition[type].unit,
+			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
 		mixpanelService.sendEvent('Handle Value Changed', {
 			positionData: {
 				mode,
 				type,
 				value: event.target.value,
-				unit: iconPosition[mode].exactPosition[type].unit,
-				direction: iconPosition[mode].exactPosition[type].value,
+				unit: iconPosition[mode]?.exactPosition[type]?.unit,
+				direction: iconPosition[mode]?.exactPosition[type]?.value,
 			},
 		});
 	};
@@ -97,15 +97,15 @@ const PositionControl = ({ type, disabled, mode }) => {
 			mode,
 			type,
 			event.target.value,
-			iconPosition[mode].exactPosition[type].value,
-			iconPosition[mode].exactPosition[type].unit,
+			iconPosition[mode]?.exactPosition[type]?.value,
+			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
 		mixpanelService.sendEvent('Handle Direction Changed', {
 			positionData: {
 				mode,
 				type,
-				value: iconPosition[mode].exactPosition[type].value,
-				unit: iconPosition[mode].exactPosition[type].unit,
+				value: iconPosition[mode]?.exactPosition[type]?.value,
+				unit: iconPosition[mode]?.exactPosition[type]?.unit,
 				direction: event.target.value,
 			},
 		});
