@@ -73,7 +73,7 @@ const StatementLink = () => {
 				link: page[0]?.link,
 			});
 
-			mixpanelService.sendEvent('Statement page selected', {
+			mixpanelService.sendEvent('statement_page_selected', {
 				page: page[0]?.link,
 			});
 		}
@@ -84,7 +84,7 @@ const StatementLink = () => {
 			...accessibilityStatementData,
 			hideLink: !accessibilityStatementData.hideLink,
 		});
-		mixpanelService.sendEvent('Toggle clicked', {
+		mixpanelService.sendEvent('toggle_clicked', {
 			toggleData: {
 				state: !accessibilityStatementData.hideLink,
 				type: 'Hide link',

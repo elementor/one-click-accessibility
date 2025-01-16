@@ -129,7 +129,7 @@ const StatementGenerator = ({ open, close }) => {
 			await close();
 			await success('Page created');
 
-			mixpanelService.sendEvent('Statement page created');
+			mixpanelService.sendEvent('statement_page_created');
 		} catch (e) {
 			error('Error while creating page');
 			console.error(e);

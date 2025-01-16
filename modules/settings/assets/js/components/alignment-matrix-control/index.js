@@ -16,7 +16,7 @@ const AlignmentMatrixControl = ({ mode }) => {
 
 	const handleChange = (event) => {
 		updateIconPosition(mode, 'position', event.target.value);
-		mixpanelService.sendEvent('Position button clicked', {
+		mixpanelService.sendEvent('position_button_clicked', {
 			buttonData: {
 				mode,
 				value: event.target.value,

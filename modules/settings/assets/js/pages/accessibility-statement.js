@@ -53,7 +53,7 @@ const AccessibilityStatement = () => {
 	const [showStatementLink, setShowStatementLink] = useState(false);
 
 	useEffect(() => {
-		mixpanelService.sendEvent('Page View', {
+		mixpanelService.sendEvent('page_view', {
 			page: 'Accessibility statement',
 		});
 	}, []);
@@ -68,7 +68,7 @@ const AccessibilityStatement = () => {
 
 	const onStatementOptionClick = (option) => () => {
 		setStatementOption(option);
-		mixpanelService.sendEvent('Statement flow selected', {
+		mixpanelService.sendEvent('statement_flow_selected', {
 			flowType: option,
 		});
 	};

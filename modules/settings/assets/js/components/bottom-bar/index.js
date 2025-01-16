@@ -24,7 +24,7 @@ const BottomBar = () => {
 				});
 				success('Settings saved!');
 				setHasChanges(false);
-				mixpanelService.sendEvent('Save button clicked', {
+				mixpanelService.sendEvent('save_button_clicked', {
 					savedData: {
 						ea11y_widget_menu_settings: widgetMenuSettings,
 					},
@@ -47,7 +47,7 @@ const BottomBar = () => {
 				success('Settings saved!');
 				setHasChanges(false);
 
-				mixpanelService.sendEvent('Save button clicked', {
+				mixpanelService.sendEvent('save_button_clicked', {
 					savedData: {
 						style: iconDesign,
 						position: iconPosition,

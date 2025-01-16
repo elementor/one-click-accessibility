@@ -29,7 +29,7 @@ const App = () => {
 
 	useEffect(() => {
 		mixpanelService.init().then(() => {
-			mixpanelService.sendEvent('Page View', {
+			mixpanelService.sendEvent('page_view', {
 				page: 'Button',
 			});
 		});

@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
 
 const IconSettings = () => {
 	useEffect(() => {
-		mixpanelService.sendEvent('Page View', {
+		mixpanelService.sendEvent('page_view', {
 			page: 'Button',
 		});
 	}, []);

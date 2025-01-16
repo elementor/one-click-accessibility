@@ -20,7 +20,7 @@ const SidebarMenu = () => {
 			setSelectedMenu({ parent: parentKey, child: null });
 		}
 
-		mixpanelService.sendEvent('Menu button click', {
+		mixpanelService.sendEvent('menu_button_clicked', {
 			buttonName: itemName,
 		});
 	};
@@ -30,7 +30,7 @@ const SidebarMenu = () => {
 			...prev,
 			[itemKey]: !prev[itemKey], // Toggle the expanded state for the clicked item
 		}));
-		mixpanelService.sendEvent('Menu button click', {
+		mixpanelService.sendEvent('menu_button_clicked', {
 			buttonName: itemName,
 		});
 	};
