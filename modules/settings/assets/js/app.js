@@ -28,9 +28,10 @@ const App = () => {
 	const { selectedMenu } = useSettings();
 
 	useEffect(() => {
-		mixpanelService.init();
-		mixpanelService.sendEvent('Page View', {
-			page: 'Button',
+		mixpanelService.init().then(() => {
+			mixpanelService.sendEvent('Page View', {
+				page: 'Button',
+			});
 		});
 	}, []);
 
