@@ -1,22 +1,27 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-const ElementorLogo = ({ size }) => {
+const ElementorLogo = () => {
 	return (
-		<SvgIcon viewBox="0 0 24 24" fontSize={size}>
-			<g clipPath="url(#a)">
-				<path
-					fill="#0C0D0E"
-					fillRule="evenodd"
-					d="M2.022 18.667A12 12 0 1 1 21.977 5.333 12 12 0 0 1 2.022 18.667ZM9 7H7v10h2V7Zm8 0h-6v2h6V7Zm0 3.999h-6v2h6v-2ZM17 15h-6v2h6v-2Z"
-					clipRule="evenodd"
-				/>
-			</g>
-
-			<defs>
-				<clipPath id="a">
-					<path fill="#fff" d="M0 0h24v24H0z" />
-				</clipPath>
-			</defs>
+		<SvgIcon viewBox="0 0 24 24" width="20" height="20" fill="none">
+			<path
+				fill="#000"
+				d="M0 9.998a9.994 9.994 0 0 0 6.171 9.237 9.993 9.993 0 0 0 7.654 0 10.005 10.005 0 0 0 3.244-2.166 10.005 10.005 0 0 0 0-14.142 10.005 10.005 0 0 0-14.142 0A10.004 10.004 0 0 0 0 9.998Z"
+			/>
+			<path
+				stroke="#fff"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				strokeWidth="1.821"
+				d="m7.775 15.001 2.221-3.335M9.996 11.666 12.221 15M9.996 11.666V9.445M9.996 9.445l3.335-1.11M9.997 9.445l-3.332-1.11"
+			/>
+			<path
+				fill="#fff"
+				stroke="#fff"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				strokeWidth="1.456"
+				d="M10.47 6.186a.557.557 0 1 0-.944-.593.557.557 0 0 0 .943.593Z"
+			/>
 		</SvgIcon>
 	);
 };

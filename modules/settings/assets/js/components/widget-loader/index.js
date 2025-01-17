@@ -4,6 +4,7 @@ import { WIDGET_URL } from '../../constants/index';
 
 const WidgetLoader = ({ src, onLoad, onError }) => {
 	const { planData } = useSettings();
+
 	useEffect(() => {
 		const handleScriptLoad = () => {
 			console.log('External script loaded!');

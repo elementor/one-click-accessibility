@@ -3,29 +3,45 @@ import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
 import { ElementorLogo, SquareRoundedChevronsLeft } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
+
+const StyledHeading = styled(Box)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: ${({ theme }) => theme.spacing(0.5)};
+	padding-top: 0;
+`;
 
 const SidebarAppBar = () => {
 	const { openSidebar, setOpenSidebar } = useSettings();
 
 	return (
-		<AppBar position="static" color="transparent">
-			<Toolbar disableGutters sx={{ justifyContent: 'space-between' }}>
-				<Box display="flex" alignItems="center" justifyContent="center" p={1}>
+		<AppBar position="static" color="transparent" elevation={0}>
+			<Toolbar
+				disableGutters
+				variant="dense"
+				sx={{ justifyContent: 'flex-start' }}
+			>
+				<StyledHeading>
 					<ElementorLogo />
+
 					<Typography
 						variant="h6"
-						marginLeft={1}
+						marginLeft={0.5}
 						display={!openSidebar ? 'none' : 'inherit'}
 					>
-						{__('Web Accessibility', 'pojo-accessibility')}
+						{__('Web accessibility', 'pojo-accessibility')}
 					</Typography>
-				</Box>
+				</StyledHeading>
+
 				<IconButton
 					color="inherit"
 					onClick={() => setOpenSidebar(!openSidebar)}
+					size="small"
 				>
 					<SquareRoundedChevronsLeft
 						sx={{ rotate: !openSidebar ? '180deg' : '0' }}

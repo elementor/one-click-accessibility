@@ -1,4 +1,9 @@
-import { ChevronDownIcon, UserIcon, ExternalLinkIcon } from '@elementor/icons';
+import {
+	UserIcon,
+	ExternalLinkIcon,
+	ChevronUpIcon,
+	ChevronDownIcon,
+} from '@elementor/icons';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import List from '@elementor/ui/List';
@@ -25,6 +30,7 @@ const MyAccountMenu = () => {
 	const { openSidebar, planData } = useSettings();
 	const { save } = useStorage();
 	const { error } = useToastNotification();
+
 	const accountMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'myAccountMenu',
@@ -34,9 +40,11 @@ const MyAccountMenu = () => {
 		if (email === undefined || email === null) {
 			return '';
 		}
+
 		if (email.length <= maxLength) {
 			return email;
 		}
+
 		return email.slice(0, maxLength - 3) + '...';
 	};
 
@@ -44,9 +52,11 @@ const MyAccountMenu = () => {
 		try {
 			await API.disconnect();
 			await API.redirectToConnect();
+
 			await save({
 				ea11y_close_post_connect_modal: false,
 			});
+
 			mixpanelService.sendEvent('menu_button_clicked', {
 				buttonName: 'Switch account',
 			});
@@ -54,12 +64,14 @@ const MyAccountMenu = () => {
 			error(
 				__('Failed to switch account. Please try again.', 'pojo-accessibility'),
 			);
+
 			console.error(e);
 		}
 	};
 
 	const redirectToBilling = () => {
 		window.open(BILLING_LINK, '_blank').focus();
+
 		mixpanelService.sendEvent('menu_button_clicked', {
 			buttonName: 'Billing',
 		});
@@ -76,20 +88,33 @@ const MyAccountMenu = () => {
 			>
 				<ListItemButton
 					{...bindTrigger(accountMenuState)}
-					sx={{ justifyContent: 'center' }}
+					sx={{
+						justifyContent: 'center',
+						py: 2,
+						px: 3,
+					}}
+					selected={accountMenuState.isOpen}
+					shape="rounded"
 				>
 					<ListItemIcon>
-						<UserIcon sx={{ color: 'common.black' }} />
+						<UserIcon sx={{ color: 'common.black' }} fontSize="small" />
 					</ListItemIcon>
+
 					<ListItemText
 						primary={__('My Account', 'pojo-accessibility')}
 						hidden={!openSidebar}
 					/>
+
 					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
-						<ChevronDownIcon />
+						{accountMenuState.isOpen ? (
+							<ChevronDownIcon fontSize="small" />
+						) : (
+							<ChevronUpIcon fontSize="small" />
+						)}
 					</ListItemIcon>
 				</ListItemButton>
 			</List>
+
 			<Menu
 				{...bindMenu(accountMenuState)}
 				anchorOrigin={{
@@ -113,6 +138,7 @@ const MyAccountMenu = () => {
 					<Avatar>
 						<UserIcon sx={{ color: 'common.white' }} />
 					</Avatar>
+
 					<Box display="flex" flexDirection="column" gap={0}>
 						{planData?.user?.email.length < 24 ? (
 							<Typography variant="caption" color="common.white">
@@ -127,17 +153,22 @@ const MyAccountMenu = () => {
 						)}
 					</Box>
 				</MenuItem>
+
 				<MenuItem onClick={onDeactivateAndDisconnect}>
 					<UserArrowIcon sx={{ color: 'common.white' }} />
+
 					<Typography color="common.white" marginLeft={1}>
 						{__('Switch account', 'pojo-accessibility')}
 					</Typography>
 				</MenuItem>
+
 				<MenuItem onClick={redirectToBilling}>
 					<CreditCardIcon sx={{ color: 'common.white' }} />
+
 					<Typography color="common.white" marginLeft={1}>
 						{__('Billing', 'pojo-accessibility')}
 					</Typography>
+
 					<ExternalLinkIcon
 						fontSize="small"
 						sx={{ color: 'common.white', marginLeft: 1 }}

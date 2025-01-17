@@ -20,7 +20,8 @@ const Sidebar = () => {
 					transition: 'all 0.3s',
 					height: '100%',
 					justifyContent: 'space-between',
-					padding: 2,
+					padding: 1.5,
+					paddingTop: 0,
 				},
 			}}
 		>
@@ -28,6 +29,7 @@ const Sidebar = () => {
 				<SidebarAppBar />
 				<SidebarMenu />
 			</Box>
+
 			<MyAccountMenu drawerState={openSidebar} />
 		</Drawer>
 	);

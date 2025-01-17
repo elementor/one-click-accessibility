@@ -36,7 +36,7 @@ const SidebarMenu = () => {
 	};
 
 	return (
-		<List>
+		<List sx={{ paddingTop: 2.5 }}>
 			{Object.entries(MenuItems).map(([key, item]) => (
 				<Fragment key={item?.key}>
 					<ListItem disableGutters disablePadding>
@@ -53,6 +53,7 @@ const SidebarMenu = () => {
 							}
 						>
 							<ListItemIcon>{item.icon}</ListItemIcon>
+
 							<ListItemText primary={item.name} hidden={!openSidebar} />
 							{item?.children && (
 								<ListItemIcon
@@ -62,16 +63,23 @@ const SidebarMenu = () => {
 									}}
 								>
 									<ChevronDownIcon
+										fontSize="small"
 										sx={{ rotate: expandedItems[key] ? '180deg' : '0' }}
 									/>
 								</ListItemIcon>
 							)}
 						</ListItemButton>
 					</ListItem>
+
 					{item?.children && expandedItems[key] && openSidebar && (
 						<List disablePadding>
 							{Object.entries(item?.children).map(([childKey, child]) => (
-								<ListItem key={childKey} hidden={!openSidebar} sx={{ p: 0 }}>
+								<ListItem
+									key={childKey}
+									hidden={!openSidebar}
+									sx={{ p: 0 }}
+									dense
+								>
 									<ListItemButton
 										sx={{ paddingLeft: '44px', borderRadius: 1 }}
 										hidden={!openSidebar}
