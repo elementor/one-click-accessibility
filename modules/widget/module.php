@@ -117,16 +117,8 @@ class Module extends Module_Base {
 			return;
 		}
 
-		wp_enqueue_script(
-			'ea11y-widget',
-			EA11Y_ASSETS_URL . '/js/widget.js',
-			[],
-			EA11Y_VERSION,
-			true
-		);
-
 		wp_localize_script(
-			'ea11y-widget',
+			'admin', // use admin settings script
 			'ea11yWidget',
 			[
 				'iconSettings' => $this->get_widget_icon_settings(),
