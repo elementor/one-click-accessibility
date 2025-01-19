@@ -2,13 +2,17 @@
 
 namespace EA11y\Modules\Settings;
 
-use EA11y\Classes\Module_Base;
-use EA11y\Classes\Utils;
+use EA11y\Classes\{
+	Module_Base,
+	Utils,
+	Logger
+};
+use EA11y\Modules\Connect\Classes\{
+	Config, Data
+};
 use EA11y\Modules\Connect\Module as Connect;
-use EA11y\Modules\Connect\Classes\Config;
-use EA11y\Modules\Connect\Classes\Data;
-use EA11y\Classes\Logger;
 use EA11y\Modules\Settings\Classes\Settings;
+use EA11y\Modules\Widget\Module as WidgetModule;
 use Throwable;
 use Exception;
 
@@ -89,6 +93,7 @@ class Module extends Module_Base {
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'clientId' => Data::get_client_id(),
 				'pluginEnv' => self::get_plugin_env(),
+				'widgetUrl' => WidgetModule::get_widget_url(),
 			]
 		);
 	}
