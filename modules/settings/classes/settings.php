@@ -33,7 +33,7 @@ class Settings {
 	 *
 	 * @return bool
 	 */
-	public static function set( string $option_name, $value ): bool {
+	public static function set( string $option_name, $value ) : bool {
 		return update_option( $option_name, $value, false );
 	}
 }

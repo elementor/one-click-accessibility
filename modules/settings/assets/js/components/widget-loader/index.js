@@ -1,6 +1,5 @@
 import { useSettings } from '@ea11y/hooks';
 import { useEffect } from '@wordpress/element';
-import { WIDGET_URL } from '../../constants/index';
 
 const WidgetLoader = ({ src, onLoad, onError }) => {
 	const { planData } = useSettings();
@@ -25,7 +24,7 @@ const WidgetLoader = ({ src, onLoad, onError }) => {
 		if (src) {
 			script.src = src;
 		} else {
-			script.src = `${WIDGET_URL}?api_key=${planData?.public_api_key}`;
+			script.src = `${window?.ea11ySettingsData?.widgetUrl}?api_key=${planData?.public_api_key}`;
 		}
 
 		script.async = true;

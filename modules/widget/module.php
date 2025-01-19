@@ -38,7 +38,7 @@ class Module extends Module_Base {
 
 		wp_enqueue_script(
 			'ea11y-widget',
-			$this->get_widget_url() .'?api_key=' . $plan_data->public_api_key,
+			self::get_widget_url() .'?api_key=' . $plan_data->public_api_key,
 			[],
 			EA11Y_VERSION,
 			true
@@ -60,7 +60,7 @@ class Module extends Module_Base {
 	 * Get widget URL
 	 * @return string
 	 */
-	private function get_widget_url() : string {
+	public static function get_widget_url() : string {
 		return apply_filters( 'ea11y_widget_url', '' ); // TODO: add public url
 	}
 
@@ -117,16 +117,8 @@ class Module extends Module_Base {
 			return;
 		}
 
-		wp_enqueue_script(
-			'ea11y-widget',
-			EA11Y_ASSETS_URL . '/js/widget.js',
-			[],
-			EA11Y_VERSION,
-			true
-		);
-
 		wp_localize_script(
-			'ea11y-widget',
+			'admin', // use admin settings script
 			'ea11yWidget',
 			[
 				'iconSettings' => $this->get_widget_icon_settings(),
