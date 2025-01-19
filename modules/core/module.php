@@ -27,20 +27,14 @@ class Module extends Module_Base {
 		}
 
 		$custom_links = [
-			'dashboard' => sprintf(
+			'settings' => sprintf(
 				'<a href="%s">%s</a>',
 				admin_url( 'admin.php?page=' . Settings::SETTING_BASE_SLUG ),
-				esc_html__( 'Dashboard', 'pojo-accessibility' )
+				esc_html__( 'Settings', 'pojo-accessibility' )
 			),
 		];
 
-		if ( Connect::is_connected() ) {
-			$custom_links['upgrade'] = sprintf(
-				'<a href="%s" style="color: #524CFF; font-weight: 700;" target="_blank" rel="noopener noreferrer">%s</a>',
-				'https://go.elementor.com/sm-panel-wp-dash-upgrade-plugins/',
-				esc_html__( 'Upgrade', 'pojo-accessibility' )
-			);
-		} else {
+		if ( ! Connect::is_connected() ) {
 			$custom_links['connect'] = sprintf(
 				'<a href="%s" style="color: #524CFF; font-weight: 700;">%s</a>',
 				admin_url( 'admin.php?page=' . Settings::SETTING_BASE_SLUG ),

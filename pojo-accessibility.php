@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: One Click Accessibility
-Plugin URI: https://wpaccessibility.io/?utm_source=wp-plugins&utm_campaign=plugin-uri&utm_medium=wp-dash
-Description: The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
-Author: One Click Accessibility
-Author URI: https://wpaccessibility.io/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
+Plugin Name: Web Accessibility - Implement Accessibility Features: Widget and Statement Generator
+Plugin URI: https://elementor.com/
+Description: Improve your website’s accessibility with ease. Customize capabilities such as text resizing, contrast modes, link highlights, and easily generate an accessibility statement to demonstrate your commitment to inclusivity.
+Author: Elementor.com
+Author URI: https://elementor.com/
 Version: 2.1.0
 Text Domain: pojo-accessibility
 Domain Path: /languages/
