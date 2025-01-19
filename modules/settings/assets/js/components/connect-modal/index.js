@@ -1,4 +1,3 @@
-import { CircleCheckFilledIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Grid from '@elementor/ui/Grid';
