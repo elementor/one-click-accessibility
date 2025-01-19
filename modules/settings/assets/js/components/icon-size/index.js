@@ -18,15 +18,16 @@ const StyledPaper = styled(Paper)`
 	gap: 12px;
 	align-items: center;
 	justify-content: center;
-	padding: 16px
+	padding: 16px;
 	min-width: 10px;
 	width: 100px;
 	min-height: 100px;
 	border-radius: ${({ theme }) => theme.shape.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows[0]};
 	cursor: pointer;
+
 	:hover {
-		box-shadow: 0px 0px 15px 0px rgba(37, 99, 235, 0.15);
+		box-shadow: 0 0 15px 0 rgba(37, 99, 235, 0.15);
 		border-color: ${({ theme }) => theme.palette.info.main};
 	}
 `;
@@ -54,6 +55,7 @@ const IconSize = (props) => {
 					{__('Size', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
+
 			<RadioGroup
 				{...props}
 				aria-labelledby="icon-size-radio-buttons-group-label"
@@ -85,6 +87,7 @@ const IconSize = (props) => {
 									width: 'auto',
 								},
 							})}
+
 						<Radio
 							value={option.value}
 							sx={{ opacity: 0, position: 'absolute' }}

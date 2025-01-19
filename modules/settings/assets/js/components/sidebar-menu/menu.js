@@ -7,7 +7,7 @@ export const MenuItems = {
 	widget: {
 		name: __('Accessibility widget', 'pojo-accessibility'),
 		key: 'widget',
-		icon: <WidgetIcon />,
+		icon: <WidgetIcon size="small" />,
 		children: {
 			iconSettings: {
 				name: __('Button', 'pojo-accessibility'),
@@ -25,6 +25,6 @@ export const MenuItems = {
 		name: __('Accessibility statement', 'pojo-accessibility'),
 		key: 'accessibility-statement',
 		page: <AccessibilityStatement />,
-		icon: <PagesIcon sx={{ color: 'common.black' }} />,
+		icon: <PagesIcon size="small" sx={{ color: 'common.black' }} />,
 	},
 };

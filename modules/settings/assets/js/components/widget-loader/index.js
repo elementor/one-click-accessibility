@@ -3,6 +3,7 @@ import { useEffect } from '@wordpress/element';
 
 const WidgetLoader = ({ src, onLoad, onError }) => {
 	const { planData } = useSettings();
+
 	useEffect(() => {
 		const handleScriptLoad = () => {
 			console.log('External script loaded!');
