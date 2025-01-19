@@ -48,10 +48,17 @@ class Upgrade {
 
 	/**
 	 * get_learn_more_link
+	 *
+	 * @param $campaign
+	 *
 	 * @return string
 	 */
-	public static function get_learn_more_link() : string {
-		return 'https://www.pojo.me/accessibility/';
+	public static function get_learn_more_link( $campaign ) : string {
+		return add_query_arg([
+			'utm_source' => 'acc-switch',
+			'utm_medium' => 'wp-dash',
+			'utm_campaign' => $campaign,
+		], 'https://go.elementor.com/acc-notice-switch-oc/' );
 	}
 
 	/**
@@ -73,7 +80,7 @@ class Upgrade {
 		$content = sprintf(
 			'<p>%s</p><p><a href=\"%s\">%s</a></p><p><a class=\"button\" href=\"%s\">%s</a></p>',
 			esc_html__( 'New! Switch to our updated accessibility widget for better features and control.', 'pojo-accessibility' ),
-			self::get_learn_more_link(),
+			self::get_learn_more_link( 'acc-notice-switch-custom' ),
 			esc_html__( 'Learn More', 'pojo-accessibility' ),
 			self::get_switch_now_link(),
 			esc_html__( 'Switch Now', 'pojo-accessibility' )
@@ -129,7 +136,7 @@ class Upgrade {
 							<li><?php esc_html_e( 'Create or add your Accessibility Statement instantly', 'pojo-accessibility' ); ?></li>
 						</ul>
 					</div>
-					<a href="<?php echo esc_url( self::get_learn_more_link() ); ?>"><?php esc_html_e( 'Learn more about the changes', 'pojo-accessibility' ); ?></a>
+					<a href="<?php echo esc_url( self::get_learn_more_link( 'acc-popup-switch-oc' ) ); ?>"><?php esc_html_e( 'Learn more about the changes', 'pojo-accessibility' ); ?></a>
 					<div class="footer-actions">
 						<a href="#" class="close-button"><?php esc_html_e( 'Not now' ); ?></a>
 						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary"><?php esc_html_e( 'Switch now', 'pojo-accessibility' ); ?></a>

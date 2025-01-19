@@ -23,7 +23,7 @@ class Sticky_Deprecated_Nag extends Notice_Base {
 		return sprintf( '<h4>%s</h4><p>%s<a href="%s">%s</a></p><p><a class="button button-primary" href="%s">%s</a></p>',
             __( 'New accessibility widget available!', 'pojo-accessibility' ),
 			__( 'Your current accessibility Widget is no longer supported. Switch to Equally by Elementor now to access more customization, control, and tools for a more inclusive site.', 'pojo-accessibility' ),
-			Upgrade::get_learn_more_link(), // link to learn more
+			Upgrade::get_learn_more_link( 'acc-notice-switch-oc' ), // link to learn more
 			__( 'Learn More', 'pojo-accessibility' ),
 			Upgrade::get_switch_now_link(), // link to switch now
 			__( 'Switch Now', 'pojo-accessibility' )
