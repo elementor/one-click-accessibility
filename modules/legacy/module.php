@@ -59,7 +59,7 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
-		if (  get_option( 'pojo_a11y_toolbar', false ) && ! Upgrade::is_upgraded() ) {
+		if (  Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() ) {
 			return true;
 		}
 		return false;

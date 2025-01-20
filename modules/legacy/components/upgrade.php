@@ -31,6 +31,51 @@ class Upgrade {
 	}
 
 	/**
+	 * has_legacy_data
+	 * used to check if the user has any legacy data stored
+	 * @return bool
+	 */
+	public static function has_legacy_data() : bool {
+		$options = [
+			'pojo_a11y_focusable',
+			'pojo_a11y_skip_to_content_link',
+			'pojo_a11y_skip_to_content_link_element_id',
+			'pojo_a11y_remove_link_target',
+			'pojo_a11y_add_role_links',
+			'pojo_a11y_save',
+			'pojo_a11y_save_expiration',
+			'pojo_a11y_toolbar_title',
+			'pojo_a11y_toolbar_button_resize_font',
+			'pojo_a11y_toolbar_button_resize_font_add_title',
+			'pojo_a11y_toolbar_button_resize_font_less_title',
+			'pojo_a11y_toolbar_button_grayscale',
+			'pojo_a11y_toolbar_button_grayscale_title',
+			'pojo_a11y_toolbar_button_high_contrast',
+			'pojo_a11y_toolbar_button_high_contrast_title',
+			'pojo_a11y_toolbar_button_negative_contrast',
+			'pojo_a11y_toolbar_button_negative_contrast_title',
+			'pojo_a11y_toolbar_button_light_bg',
+			'pojo_a11y_toolbar_button_light_bg_title',
+			'pojo_a11y_toolbar_button_links_underline',
+			'pojo_a11y_toolbar_button_links_underline_title',
+			'pojo_a11y_toolbar_button_readable_font',
+			'pojo_a11y_toolbar_button_readable_font_title',
+			'pojo_a11y_toolbar_button_sitemap_title',
+			'pojo_a11y_toolbar_button_sitemap_link',
+			'pojo_a11y_toolbar_button_help_title',
+			'pojo_a11y_toolbar_button_help_link',
+			'pojo_a11y_toolbar_button_feedback_title',
+			'pojo_a11y_toolbar_button_feedback_link',
+		];
+		foreach ( $options as $option ) {
+			if ( get_option( $option, false ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * is_upgraded
 	 * @return bool
 	 */
