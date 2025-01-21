@@ -27,8 +27,8 @@ const StyledPaper = styled(Paper)`
 	align-items: center;
 	justify-content: center;
 	padding: 24px;
-	width: 500px;
-	min-height: 169px;
+	width: 376px;
+	min-height: 264px;
 	border-radius: ${({ theme }) => theme.shape.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows[0]};
 	cursor: pointer;
@@ -118,6 +118,8 @@ const AccessibilityStatement = () => {
 										href={'https://example.com/'}
 										target="_blank"
 										rel="noopener noreferrer"
+										color="secondary"
+										underline="hover"
 									>
 										{children}
 									</Link>
@@ -128,7 +130,13 @@ const AccessibilityStatement = () => {
 
 					{!accessibilityStatementData?.pageId && !showStatementLink && (
 						<>
-							<FormControl>
+							<FormControl
+								sx={{
+									display: 'flex',
+									justifyContent: 'center',
+									width: '100%',
+								}}
+							>
 								<FormLabel
 									id="icon-select-radio-buttons-group-label"
 									color="secondary"
@@ -165,9 +173,11 @@ const AccessibilityStatement = () => {
 									value={statementOption}
 									sx={{
 										display: 'flex',
+										justifyContent: 'center',
 										flexDirection: 'row',
 										flexWrap: 'nowrap',
 										gap: 5,
+										width: '100%',
 									}}
 								>
 									<StyledPaper

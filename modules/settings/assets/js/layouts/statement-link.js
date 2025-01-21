@@ -137,6 +137,11 @@ const StatementLink = () => {
 									content={<GeneratedPageInfoTipCard />}
 									disableHoverListener
 									disableFocusListener
+									PopperProps={{
+										sx: {
+											zIndex: 9999999999, // Custom z-index for the popper
+										},
+									}}
 									open={showAccessibilityGeneratedInfotip}
 								>
 									<Select
