@@ -32,6 +32,7 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 				'p',
 				'span',
 				'div',
+				'strong',
 			];
 			if (supportedTags.includes(tagName)) {
 				return (
@@ -39,6 +40,7 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 						variant={tagName === 'p' ? 'body2' : 'subtitle2'}
 						component={tagName}
 						marginBottom={1}
+						sx={node.attribs.class ? { textAlign: 'center' } : {}} //for correct render on preview
 					>
 						{node.children && node.children.map((child) => transform(child))}
 					</Typography>

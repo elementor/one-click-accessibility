@@ -102,9 +102,9 @@ export const SettingsProvider = ({ children }) => {
 	});
 
 	const [companyData, setCompanyData] = useState({
-		company_name: 'Acme Inc.',
-		company_website: 'https://www.acme.com/',
-		company_email: 'contact@acme.com',
+		company_name: '',
+		company_website: '',
+		company_email: '',
 		current_date: new Date().toLocaleDateString(),
 	});
 

@@ -15,7 +15,7 @@ import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
-import { useState, useEffect } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
 import { Statement } from '../../helpers/accessibility-statement';
@@ -45,10 +45,9 @@ const StyledTextField = styled(TextField)`
 `;
 
 const StatementGenerator = ({ open, close }) => {
-	const [isValidName, setValidName] = useState(null);
-	const [isValidEmail, setValidEmail] = useState(null);
-	const [isValidDomain, setValidDomain] = useState(null);
-	const [disableCreateButton, setDisabledCreateButton] = useState(true);
+	const [isValidName, setValidName] = useState(true);
+	const [isValidEmail, setValidEmail] = useState(true);
+	const [isValidDomain, setValidDomain] = useState(true);
 	const { success, error } = useToastNotification();
 
 	const {
@@ -59,43 +58,41 @@ const StatementGenerator = ({ open, close }) => {
 	} = useSettings();
 	const { save } = useStorage();
 
-	useEffect(() => {
-		if (checkEmail(companyData?.company_email)) {
-			setValidEmail(true);
-		} else {
-			setValidEmail(false);
-		}
-
-		if (checkCompanyName(companyData?.company_name)) {
-			setValidName(true);
-		} else {
-			setValidName(false);
-		}
-
-		if (checkDomain(companyData?.company_website)) {
-			setValidDomain(true);
-		} else {
-			setValidDomain(false);
-		}
-	}, [companyData]);
-
-	useEffect(() => {
-		if (!isValidEmail || !isValidName || !isValidDomain) {
-			setDisabledCreateButton(true);
-		} else {
-			setDisabledCreateButton(false);
-		}
-	}, [isValidName, isValidEmail, isValidDomain]);
+	const isSubmitEnabled =
+		companyData.company_name &&
+		companyData.company_website &&
+		companyData.company_email &&
+		isValidEmail &&
+		isValidName &&
+		isValidDomain;
 
 	const handleClose = () => {
 		close();
 	};
 
+	const validateForm = (key, value) => {
+		switch (key) {
+			case 'company_website':
+				setValidDomain(checkDomain(value));
+				break;
+			case 'company_name':
+				setValidName(checkCompanyName(value));
+				break;
+			case 'company_email':
+				setValidEmail(checkEmail(value));
+				break;
+			default:
+				break;
+		}
+	};
+
 	const updateCompanyData = (key, value) => {
-		setCompanyData((prevData) => ({
-			...prevData,
+		const data = {
+			...companyData,
 			[key]: value,
-		}));
+		};
+		setCompanyData(data);
+		validateForm(key, value);
 	};
 
 	const createPage = async () => {
@@ -145,6 +142,7 @@ const StatementGenerator = ({ open, close }) => {
 				aria-describedby="alert-dialog-description"
 				fullWidth
 				maxWidth="lg"
+				sx={{ zIndex: 99999 }}
 			>
 				<DialogHeader onClose={handleClose}>
 					<DialogTitle>
@@ -178,6 +176,7 @@ const StatementGenerator = ({ open, close }) => {
 									color="secondary"
 									margin="normal"
 									value={companyData.company_name}
+									placeholder="Acme Inc."
 									onChange={(e) =>
 										updateCompanyData('company_name', e.currentTarget.value)
 									}
@@ -200,6 +199,7 @@ const StatementGenerator = ({ open, close }) => {
 									color="secondary"
 									margin="normal"
 									value={companyData.company_website}
+									placeholder="https://www.acme.com/"
 									onChange={(e) =>
 										updateCompanyData('company_website', e.currentTarget.value)
 									}
@@ -222,6 +222,7 @@ const StatementGenerator = ({ open, close }) => {
 									color="secondary"
 									margin="normal"
 									value={companyData.company_email}
+									placeholder="contact@acme.com"
 									onChange={(e) =>
 										updateCompanyData('company_email', e.currentTarget.value)
 									}
@@ -268,7 +269,7 @@ const StatementGenerator = ({ open, close }) => {
 						onClick={createPage}
 						variant="contained"
 						color="info"
-						disabled={disableCreateButton}
+						disabled={!isSubmitEnabled}
 					>
 						{__('Create statement & page', 'pojo-accessibility')}
 					</Button>
