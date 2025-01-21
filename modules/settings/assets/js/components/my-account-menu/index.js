@@ -1,9 +1,4 @@
-import {
-	UserIcon,
-	ExternalLinkIcon,
-	ChevronUpIcon,
-	ChevronDownIcon,
-} from '@elementor/icons';
+import { UserIcon, ChevronUpIcon, ChevronDownIcon } from '@elementor/icons';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import List from '@elementor/ui/List';
@@ -20,11 +15,10 @@ import {
 	usePopupState,
 } from '@elementor/ui/usePopupState';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
-import { CreditCardIcon, UserArrowIcon } from '@ea11y/icons';
+import { UserArrowIcon } from '@ea11y/icons';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
-import { BILLING_LINK } from '../../constants';
 
 const MyAccountMenu = () => {
 	const { openSidebar, planData } = useSettings();
@@ -69,14 +63,6 @@ const MyAccountMenu = () => {
 		}
 	};
 
-	const redirectToBilling = () => {
-		window.open(BILLING_LINK, '_blank').focus();
-
-		mixpanelService.sendEvent('menu_button_clicked', {
-			buttonName: 'Billing',
-		});
-	};
-
 	return (
 		<>
 			<List
@@ -90,7 +76,7 @@ const MyAccountMenu = () => {
 					{...bindTrigger(accountMenuState)}
 					sx={{
 						justifyContent: 'center',
-						py: 2,
+						py: 1,
 						px: 3,
 					}}
 					selected={accountMenuState.isOpen}
@@ -133,7 +119,7 @@ const MyAccountMenu = () => {
 			>
 				<MenuItem
 					onClick={accountMenuState.close}
-					sx={{ gap: 1, width: '225px' }}
+					sx={{ gap: 1, width: '240px' }}
 				>
 					<Avatar>
 						<UserIcon sx={{ color: 'common.white' }} />
@@ -160,19 +146,6 @@ const MyAccountMenu = () => {
 					<Typography color="common.white" marginLeft={1}>
 						{__('Switch account', 'pojo-accessibility')}
 					</Typography>
-				</MenuItem>
-
-				<MenuItem onClick={redirectToBilling}>
-					<CreditCardIcon sx={{ color: 'common.white' }} />
-
-					<Typography color="common.white" marginLeft={1}>
-						{__('Billing', 'pojo-accessibility')}
-					</Typography>
-
-					<ExternalLinkIcon
-						fontSize="small"
-						sx={{ color: 'common.white', marginLeft: 1 }}
-					/>
 				</MenuItem>
 			</Menu>
 		</>
