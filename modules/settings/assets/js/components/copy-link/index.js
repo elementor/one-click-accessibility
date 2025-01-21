@@ -32,7 +32,7 @@ const CopyLink = ({ content }) => {
 			title={
 				copied
 					? __('Copied!', 'pojo-accessibility')
-					: __('Copy', 'pojo-accessibility')
+					: __('Copy link', 'pojo-accessibility')
 			}
 			arrow={true}
 			PopperProps={{
@@ -40,7 +40,7 @@ const CopyLink = ({ content }) => {
 					{
 						name: 'offset',
 						options: {
-							offset: [0, -8], // Adjusts the vertical (top) margin
+							offset: [0, -16], // Adjusts the vertical (top) margin
 						},
 					},
 					{
@@ -56,7 +56,7 @@ const CopyLink = ({ content }) => {
 		>
 			<IconButton
 				onClick={copyToClipboard}
-				sx={{ width: '50px', height: '50px', marginLeft: 2 }}
+				sx={{ width: '50px', height: '50px', marginLeft: 1 }}
 			>
 				<LinkIcon width="1em" height="1em" />
 			</IconButton>
