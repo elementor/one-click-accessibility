@@ -60,7 +60,7 @@ class Module extends Module_Base {
 	 * @return string
 	 */
 	public static function get_widget_url() : string {
-		return apply_filters( 'ea11y_widget_url', '' ); // TODO: add public url
+		return apply_filters( 'ea11y_widget_url', 'https://cdn.elementor.com/a11y/widget.js' );
 	}
 
 	/**
