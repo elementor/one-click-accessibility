@@ -17,47 +17,39 @@ const BottomBar = () => {
 	const { success, error } = useToastNotification();
 
 	const saveSettings = async () => {
+		let savedData = {};
+
 		if (selectedMenu.parent === 'widget' && selectedMenu.child === 'menu') {
-			try {
-				await save({
-					ea11y_widget_menu_settings: widgetMenuSettings,
-				});
-				success('Settings saved!');
-				setHasChanges(false);
-				mixpanelService.sendEvent('save_button_clicked', {
-					savedData: {
-						ea11y_widget_menu_settings: widgetMenuSettings,
-					},
-				});
-			} catch (e) {
-				error('Failed to save settings!');
-			}
+			savedData = {
+				ea11y_widget_menu_settings: widgetMenuSettings,
+			};
 		} else if (
 			selectedMenu.parent === 'widget' &&
 			selectedMenu.child === 'iconSettings'
 		) {
-			try {
-				await save({
-					ea11y_widget_icon_settings: {
-						style: iconDesign,
-						position: iconPosition,
-					},
-				});
+			savedData = {
+				ea11y_widget_icon_settings: {
+					style: iconDesign,
+					position: iconPosition,
+				},
+			};
+		}
 
-				success('Settings saved!');
-				setHasChanges(false);
+		try {
+			await save(savedData);
 
-				mixpanelService.sendEvent('save_button_clicked', {
-					savedData: {
-						style: iconDesign,
-						position: iconPosition,
-					},
-				});
-			} catch (e) {
-				error('Failed to save settings!');
-			}
+			success(__('Settings saved!', 'pojo-accessibility'));
+
+			setHasChanges(false);
+
+			mixpanelService.sendEvent('save_button_clicked', {
+				savedData,
+			});
+		} catch (e) {
+			error(__('Failed to save settings!', 'pojo-accessibility'));
 		}
 	};
+
 	return (
 		<Box
 			display="flex"
@@ -72,7 +64,7 @@ const BottomBar = () => {
 				onClick={saveSettings}
 				disabled={!hasChanges}
 			>
-				{__('Save Changes', 'pojo-accessibility')}
+				{__('Save changes', 'pojo-accessibility')}
 			</Button>
 		</Box>
 	);
