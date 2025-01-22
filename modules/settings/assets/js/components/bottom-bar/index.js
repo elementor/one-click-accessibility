@@ -1,8 +1,18 @@
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
+import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
+
+const StyledContainer = styled(Box)`
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+
+	padding: ${({ theme }) => theme.spacing(2)};
+	border-top: 1px solid ${({ theme }) => theme.palette.divider};
+`;
 
 const BottomBar = () => {
 	const {
@@ -51,13 +61,7 @@ const BottomBar = () => {
 	};
 
 	return (
-		<Box
-			display="flex"
-			justifyContent="end"
-			p={2}
-			width="100%"
-			borderTop="1px solid rgba(0, 0, 0, 0.12)"
-		>
+		<StyledContainer>
 			<Button
 				variant="contained"
 				color="info"
@@ -66,7 +70,7 @@ const BottomBar = () => {
 			>
 				{__('Save changes', 'pojo-accessibility')}
 			</Button>
-		</Box>
+		</StyledContainer>
 	);
 };
 
