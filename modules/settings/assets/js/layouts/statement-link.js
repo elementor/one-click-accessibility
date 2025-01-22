@@ -13,6 +13,7 @@ import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import {
 	CopyLink,
 	WidgetLoader,
@@ -23,6 +24,14 @@ import { mixpanelService } from '@ea11y/services';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+
+const StyledPreviewContainer = styled(Box)`
+	padding: 0;
+	margin-top: ${({ theme }) => theme.spacing(2)};
+
+	border-radius: 4px;
+	border: 1px solid ${({ theme }) => theme.palette.divider};
+`;
 
 const StatementLink = () => {
 	const [disabled, setDisabled] = useState(true);
@@ -97,10 +106,13 @@ const StatementLink = () => {
 			await save({
 				ea11y_accessibility_statement_data: accessibilityStatementData,
 			});
-			await success('Settings saved');
+
+			await success('Changes saved');
+
 			setDisabled(true);
 		} catch (e) {
 			error('Failed to save settings!');
+
 			console.error(e);
 		}
 	};
@@ -208,14 +220,12 @@ const StatementLink = () => {
 							{__('Preview link in widget', 'pojo-accessibility')}
 						</Typography>
 
-						<Box
+						<StyledPreviewContainer
 							id="ea11y-widget-preview--container"
 							className="ea11y-statement--widget-preview"
-							padding={0}
-							marginTop={2}
 						>
 							<WidgetLoader />
-						</Box>
+						</StyledPreviewContainer>
 					</Box>
 				</Box>
 			</CardContent>
