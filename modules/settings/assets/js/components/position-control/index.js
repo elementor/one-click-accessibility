@@ -28,13 +28,23 @@ const verticalOptions = [
 	{ value: 'bottom', label: __('Lower', 'pojo-accessibility') },
 ];
 
-// Customization for the WP admin global CSS.
+const StyledContainer = styled(Box)`
+	display: flex;
+	gap: ${({ theme }) => theme.spacing(1)};
+	margin-top: ${({ theme }) => theme.spacing(2)};
+	margin-bottom: ${({ theme, isError }) =>
+		isError ? theme.spacing(4) : 'initial'};
+
+	transition: all 100ms ease-in-out;
+`;
+
 const StyledTextField = styled(TextField)`
 	width: 200px;
 	height: 56px;
 
 	.wp-admin & .MuiInputBase-input,
 	& .MuiInputBase-input:focus {
+		height: 56px;
 		background-color: initial;
 		box-shadow: none;
 		border: 0;
@@ -45,13 +55,16 @@ const StyledTextField = styled(TextField)`
 		&.MuiInputBase-inputSizeSmall {
 			padding: 8.5px 14px 8.5px 14px;
 		}
-		height: 56px;
 	}
 `;
 
 const PositionControl = ({ type, disabled, mode }) => {
 	const { iconPosition, updateExactPosition } = useIconPosition();
 	const [unitsIndex, setUnitsIndex] = useState(0);
+	const [inputValue, setInputValue] = useState(
+		iconPosition[mode]?.exactPosition[type]?.value,
+	);
+	const [isValid, setIsValid] = useState(inputValue >= 5 && inputValue <= 550);
 	const popupState = usePopupState({
 		variant: 'popover',
 		popupId: 'position-settings',
@@ -59,6 +72,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 	const handleMenuItemClick = (index) => {
 		setUnitsIndex(index);
+
 		updateExactPosition(
 			mode,
 			type,
@@ -66,7 +80,9 @@ const PositionControl = ({ type, disabled, mode }) => {
 			iconPosition[mode]?.exactPosition[type]?.value,
 			units[index],
 		);
+
 		popupState.close();
+
 		mixpanelService.sendEvent('handle_unit_changed', {
 			positionData: {
 				mode,
@@ -79,22 +95,31 @@ const PositionControl = ({ type, disabled, mode }) => {
 	};
 
 	const handlePositionChange = (event) => {
-		updateExactPosition(
-			mode,
-			type,
-			iconPosition[mode]?.exactPosition[type]?.direction,
-			event.target.value,
-			iconPosition[mode]?.exactPosition[type]?.unit,
-		);
-		mixpanelService.sendEvent('handle_value_changed', {
-			positionData: {
+		const value = parseInt(event.target.value, 10) || 0;
+		const valueIsValid = value >= 5 && value <= 550;
+
+		setInputValue(event.target.value);
+		setIsValid(valueIsValid);
+
+		if (valueIsValid) {
+			updateExactPosition(
 				mode,
 				type,
-				value: event.target.value,
-				unit: iconPosition[mode]?.exactPosition[type]?.unit,
-				direction: iconPosition[mode]?.exactPosition[type]?.value,
-			},
-		});
+				iconPosition[mode]?.exactPosition[type]?.direction,
+				value,
+				iconPosition[mode]?.exactPosition[type]?.unit,
+			);
+
+			mixpanelService.sendEvent('handle_value_changed', {
+				positionData: {
+					mode,
+					type,
+					value,
+					unit: iconPosition[mode]?.exactPosition[type]?.unit,
+					direction: iconPosition[mode]?.exactPosition[type]?.value,
+				},
+			});
+		}
 	};
 
 	const handlePositionDirection = (event) => {
@@ -105,6 +130,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			iconPosition[mode]?.exactPosition[type]?.value,
 			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
+
 		mixpanelService.sendEvent('handle_direction_changed', {
 			positionData: {
 				mode,
@@ -117,11 +143,13 @@ const PositionControl = ({ type, disabled, mode }) => {
 	};
 
 	return (
-		<Box display="flex" gap={1} marginTop={2}>
+		<StyledContainer isError={!isValid}>
 			<StyledTextField
 				size="medium"
+				error={!isValid}
+				helperText={!isValid ? 'Invalid value' : ''}
 				disabled={disabled}
-				value={iconPosition[mode]?.exactPosition?.[type].value}
+				value={inputValue}
 				onChange={handlePositionChange}
 				InputProps={{
 					endAdornment: (
@@ -153,6 +181,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 			<Select
 				fullWidth
+				variant="outlined"
 				onChange={handlePositionDirection}
 				disabled={disabled}
 				value={iconPosition[mode]?.exactPosition?.[type].direction}
@@ -184,7 +213,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 							</MenuItem>
 						))}
 			</Select>
-		</Box>
+		</StyledContainer>
 	);
 };
 

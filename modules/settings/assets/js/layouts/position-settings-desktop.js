@@ -12,6 +12,7 @@ const PositionSettingsDesktop = () => {
 
 	const toggleVisibility = (device) => {
 		updateIconPosition(device, 'hidden', !iconPosition[device].hidden);
+
 		mixpanelService.sendEvent('toggle_clicked', {
 			toggleData: {
 				state: !iconPosition[device].hidden,
@@ -27,6 +28,7 @@ const PositionSettingsDesktop = () => {
 			'enableExactPosition',
 			!iconPosition[device].enableExactPosition,
 		);
+
 		mixpanelService.sendEvent('toggle_clicked', {
 			toggleData: {
 				state: !iconPosition[device].enableExactPosition,
@@ -67,6 +69,7 @@ const PositionSettingsDesktop = () => {
 					gap={5}
 				>
 					<AlignmentMatrixControl mode="desktop" />
+
 					<Box>
 						<FormControlLabel
 							label={exactPositionLabel}
@@ -76,11 +79,20 @@ const PositionSettingsDesktop = () => {
 							onChange={() => toggleExactPosition('desktop')}
 							checked={iconPosition.desktop?.enableExactPosition}
 						/>
+
+						<Typography variant="body2" sx={{ marginTop: 2, marginBottom: 1 }}>
+							{__(
+								'Exact positioning, 5 – 500 px are permitted values:',
+								'pojo-accessibility',
+							)}
+						</Typography>
+
 						<PositionControl
 							type="horizontal"
 							mode="desktop"
 							disabled={!iconPosition.desktop?.enableExactPosition}
 						/>
+
 						<PositionControl
 							type="vertical"
 							mode="desktop"
