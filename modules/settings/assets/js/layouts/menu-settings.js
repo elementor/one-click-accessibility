@@ -14,6 +14,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
 import { useSettings, useStorage } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MENU_SETTINGS } from '../constants/menu-settings';
@@ -82,6 +83,15 @@ const MenuSettings = () => {
 			if (window?.ea11yWidget?.toolsSettings && window?.ea11yWidget?.widget) {
 				window.ea11yWidget.toolsSettings = newSettings;
 				window?.ea11yWidget?.widget.updateState();
+			}
+
+			if (prevSettings[option]) {
+				mixpanelService.sendEvent('toggle_clicked', {
+					toggleData: {
+						state: !prevSettings[option]?.enabled,
+						type: option,
+					},
+				});
 			}
 
 			return newSettings;
