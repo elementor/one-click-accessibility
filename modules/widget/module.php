@@ -24,7 +24,7 @@ class Module extends Module_Base {
 	 * @return void
 	 * @throws Exception
 	 */
-	public function enqueue_accessibility_widget () : void {
+	public function enqueue_accessibility_widget() : void {
 
 		if ( ! Connect::is_connected() ) {
 			return;
@@ -38,7 +38,7 @@ class Module extends Module_Base {
 
 		wp_enqueue_script(
 			'ea11y-widget',
-			self::get_widget_url() .'?api_key=' . $plan_data->public_api_key,
+			self::get_widget_url() . '?api_key=' . $plan_data->public_api_key,
 			[],
 			EA11Y_VERSION,
 			true
@@ -70,7 +70,7 @@ class Module extends Module_Base {
 	public function get_accessibility_statement_url() : string {
 		$option = get_option( 'ea11y_accessibility_statement_data' );
 
-		if ( ! empty( $option ) && ! $option['hideLink'] ) {
+		if ( ! empty( $option ) && ! empty( $option['link'] ) && empty( $option['hideLink'] ) ) {
 			return $option['link'];
 		}
 
@@ -83,7 +83,7 @@ class Module extends Module_Base {
 	 *
 	 * @return void
 	 */
-	public function enqueue_accessibility_widget_admin ( $hook ) : void {
+	public function enqueue_accessibility_widget_admin( $hook ) : void {
 		if ( SettingsModule::SETTING_PAGE_SLUG !== $hook ) {
 			return;
 		}
@@ -116,7 +116,7 @@ class Module extends Module_Base {
 	 * Remove person object from the icon settings for frontend.
 	 * @return array
 	 */
-	public function get_widget_icon_settings () : array {
+	public function get_widget_icon_settings() : array {
 		$option = get_option( 'ea11y_widget_icon_settings' );
 
 		if ( ! $option ) {
