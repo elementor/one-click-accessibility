@@ -29,6 +29,7 @@ class Disconnect extends Route_Base {
 
 	public function POST() {
 		try {
+			Service::refresh_token();
 			Service::disconnect();
 
 			return $this->respond_success_json();
