@@ -123,7 +123,7 @@ class Upgrade {
 	 */
 	public function add_deprecated_notice_to_customizer_section_description(): string {
 		$content = sprintf(
-			'<p>%s</p><p><a href=\"%s\">%s</a></p><p><a class=\"button\" href=\"%s\">%s</a></p>',
+			'<p>%s</p><p><a href="%s">%s</a></p><p><a class="button" href="%s">%s</a></p>',
 			esc_html__( 'New! Switch to our updated accessibility widget for better features and control.', 'pojo-accessibility' ),
 			self::get_learn_more_link( 'acc-notice-switch-custom' ),
 			esc_html__( 'Learn More', 'pojo-accessibility' ),
@@ -287,9 +287,9 @@ class Upgrade {
 				.intro-learn-more{
 					color: #2563EB !important;
 				}
-                .intro-learn-more:hover{
-                    color: #1D4ED8 !important;
-                }
+				.intro-learn-more:hover{
+					color: #1D4ED8 !important;
+				}
 				.footer-actions {
 					display: flex;
 					gap: 20px;
@@ -317,9 +317,9 @@ class Upgrade {
 					letter-spacing: 0.4px;
 					padding: 3px 16px !important; /* Override WordPress CSS */
 				}
-                .switch-now:hover, .switch-now:active {
-                    background: #1D4ED8 !important;
-                }
+				.switch-now:hover, .switch-now:active {
+					background: #1D4ED8 !important;
+				}
 				.no-underline {
 					text-decoration: none;
 				}
@@ -485,21 +485,21 @@ class Upgrade {
 					letter-spacing: 0.4px;
 					padding: 3px 16px !important;
 				}
-                .upgrade-now:hover, .upgrade-now:active {
-                    background: #1D4ED8 !important;
-                }
-                .close-button {
-                    font-family: Roboto, sans-serif;
-                    font-size: 15px;
-                    font-style: normal;
-                    font-weight: 500;
-                    line-height: 24px; /* 160% */
-                    letter-spacing: 0.4px;
-                    color: #515962;
-                }
-                .close-button:hover, .close-button:active {
-                    color: #1D4ED8;
-                }
+				.upgrade-now:hover, .upgrade-now:active {
+					background: #1D4ED8 !important;
+				}
+				.close-button {
+					font-family: Roboto, sans-serif;
+					font-size: 15px;
+					font-style: normal;
+					font-weight: 500;
+					line-height: 24px; /* 160% */
+					letter-spacing: 0.4px;
+					color: #515962;
+				}
+				.close-button:hover, .close-button:active {
+					color: #1D4ED8;
+				}
 			</style>
 			<?php
 		}, 1000);
