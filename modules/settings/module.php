@@ -207,7 +207,7 @@ class Module extends Module_Base {
 				'enableExactPosition' => false,
 				'exactPosition' => [
 					'horizontal' => [
-						'direction' => 'left',
+						'direction' => is_rtl() ? 'right' : 'left',
 						'value' => 10,
 						'unit' => 'px',
 					],
@@ -217,7 +217,7 @@ class Module extends Module_Base {
 						'unit' => 'px',
 					],
 				],
-				'position' => 'top-left',
+				'position' => is_rtl() ? 'bottom-left' : 'bottom-right',
 			],
 			'mobile' => [
 				'hidden' => false,
@@ -234,7 +234,7 @@ class Module extends Module_Base {
 						'unit' => 'px',
 					],
 				],
-				'position' => 'top-left',
+				'position' => is_rtl() ? 'bottom-left' : 'bottom-right',
 			],
 		];
 
