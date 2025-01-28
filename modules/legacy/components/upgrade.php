@@ -166,12 +166,19 @@ class Upgrade {
 			<div  id="<?php echo esc_html( self::INTRODUCTION_NOTICE ); ?>" style="display:none;">
 				<div data-modal-slug="<?php echo esc_html( self::INTRODUCTION_NOTICE ); ?>" class="modal-content-wrap">
 					<div class="video-wrapper">
-						<iframe width="480" height="270" src="https://www.youtube.com/embed/MLpWrANjFbI?si=NugoZlkXwil9ya9P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+						<iframe
+								width="480"
+								height="270"
+								src="https://www.youtube.com/embed/MLpWrANjFbI?si=NugoZlkXwil9ya9P"
+								title="YouTube video player"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+								referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+						</iframe>
 					</div>
-					<h2 style="margin-top: 16px;margin-bottom: 16px;font-family: Roboto;font-size: 24px;font-style: normal;font-weight: 700;line-height: 133.4%; /* 32.016px */"><?php esc_html_e( 'Switch to our new accessibility widget', 'pojo-accessibility' ); ?></h2>
-					<p class="intro-description"><?php esc_html_e( 'Web Accessibility by Elementor is our new and improved accessibility plugin. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
+					<h2 class="intro-title"><?php esc_html_e( 'Switch to our new accessibility widget', 'pojo-accessibility' ); ?></h2>
+					<p class="intro-description typography-body1"><?php esc_html_e( 'Web Accessibility by Elementor is our new and improved accessibility plugin. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
 					<div>
-						<ul class="benefits">
+						<ul class="benefits typography-body1">
 							<li>
 								<?php esc_html_e( 'Personalize colors, styles, and layouts to match your brand', 'pojo-accessibility' ); ?>
 							</li>
@@ -181,9 +188,9 @@ class Upgrade {
 							<li><?php esc_html_e( 'Create or add your Accessibility Statement instantly', 'pojo-accessibility' ); ?></li>
 						</ul>
 					</div>
-					<a class="intor-learn-more" href="<?php echo esc_url( self::get_learn_more_link( 'acc-popup-switch-oc' ) ); ?>"><?php esc_html_e( 'Learn more about the changes', 'pojo-accessibility' ); ?></a>
+					<a class="intro-learn-more no-underline typography-body1" href="<?php echo esc_url( self::get_learn_more_link( 'acc-popup-switch-oc' ) ); ?>"><?php esc_html_e( 'Learn more about the changes', 'pojo-accessibility' ); ?></a>
 					<div class="footer-actions">
-						<a href="#" class="close-button"><?php esc_html_e( 'Not now' ); ?></a>
+						<a href="#" class="close-button no-underline"><?php esc_html_e( 'Not now', 'pojo-accessibility' ); ?></a>
 						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary switch-now"><?php esc_html_e( 'Switch to Web Accessibility', 'pojo-accessibility' ); ?></a>
 					</div>
 				</div>
@@ -197,7 +204,7 @@ class Upgrade {
 						document.addEventListener( 'DOMContentLoaded', () => callback() );
 					} else {
 						document.attachEvent( 'onreadystatechange', () => {
-							if ( document?.readyState=='complete' ) {
+							if ( document?.readyState === 'complete' ) {
 								callback();
 							}
 						});
@@ -210,7 +217,7 @@ class Upgrade {
 							return;
 						}
 						const $modal = document.querySelector( `[data-modal-slug="${localStorageKey}"]` );
-						tb_show( '', `/?TB_inline&inlineId=${localStorageKey}&height=620&width=480&modal=true` );
+						tb_show( '', `/?TB_inline&inlineId=${localStorageKey}&height=650&width=480&modal=true` );
 						const closeButton = $modal.querySelector( 'a.close-button' );
 						const close = () => {
 							tb_remove();
@@ -226,6 +233,19 @@ class Upgrade {
 				);
 			</script>
 			<style>
+				/* Basic components */
+				.typography-body1 {
+					font-family: Roboto, sans-serif;
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 400;
+					letter-spacing: 0.15px;
+				}
+
+				/* Modal CSS */
+				#TB_window {
+					border-radius: 4px;
+				}
 				.video-wrapper {
 					position: relative;
 					padding-bottom: 56.25%;
@@ -234,69 +254,74 @@ class Upgrade {
 					overflow: hidden;
 				}
 				.modal-content-wrap {
-					padding: 0 9px;
+					padding: 1px 9px;
+				}
+				.intro-title {
+					margin-top: 16px;
+					font-family: Roboto, sans-serif;
+					font-size: 24px;
+					font-style: normal;
+					font-weight: 700;
+					line-height: 133.4%;
 				}
 				.intro-description{
-					padding: 0;margin-top: 8px;margin-bottom: 24px;
-					font-family: Roboto;
+					padding: 0 !important;
+					margin-top: 24px;
+					margin-bottom: 24px;
 					color: #69727D;
-					font-size: 16px;
-					font-style: normal;
-					font-weight: 400;
-					line-height: 150%; /* 24px */
-					letter-spacing: 0.15px;
 				}
-				.benefits{
-					padding-inline-start: 24px;
+				.benefits {
+					margin: 24px 0;
 				}
 				.benefits li{
-					list-style-image: url('data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB2aWV3Qm94PSIwIDAgMjAgMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJDaXJjbGVDaGVja0ZpbGxlZCI+CjxwYXRoIGlkPSJWZWN0b3IiIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTAgMS44NzVDOC45MzMwMSAxLjg3NSA3Ljg3NjQ3IDIuMDg1MTYgNi44OTA3IDIuNDkzNDhDNS45MDQ5MyAyLjkwMTggNS4wMDkyMyAzLjUwMDI4IDQuMjU0NzYgNC4yNTQ3NkMzLjUwMDI4IDUuMDA5MjMgMi45MDE4IDUuOTA0OTMgMi40OTM0OCA2Ljg5MDdDMi4wODUxNiA3Ljg3NjQ3IDEuODc1IDguOTMzMDEgMS44NzUgMTBDMS44NzUgMTEuMDY3IDIuMDg1MTYgMTIuMTIzNSAyLjQ5MzQ4IDEzLjEwOTNDMi45MDE4IDE0LjA5NTEgMy41MDAyOCAxNC45OTA4IDQuMjU0NzYgMTUuNzQ1MkM1LjAwOTIzIDE2LjQ5OTcgNS45MDQ5MyAxNy4wOTgyIDYuODkwNyAxNy41MDY1QzcuODc2NDcgMTcuOTE0OCA4LjkzMzAxIDE4LjEyNSAxMCAxOC4xMjVDMTEuMDY3IDE4LjEyNSAxMi4xMjM1IDE3LjkxNDggMTMuMTA5MyAxNy41MDY1QzE0LjA5NTEgMTcuMDk4MiAxNC45OTA4IDE2LjQ5OTcgMTUuNzQ1MiAxNS43NDUyQzE2LjQ5OTcgMTQuOTkwOCAxNy4wOTgyIDE0LjA5NTEgMTcuNTA2NSAxMy4xMDkzQzE3LjkxNDggMTIuMTIzNSAxOC4xMjUgMTEuMDY3IDE4LjEyNSAxMEMxOC4xMjUgOC45MzMwMSAxNy45MTQ4IDcuODc2NDcgMTcuNTA2NSA2Ljg5MDdDMTcuMDk4MiA1LjkwNDkzIDE2LjQ5OTcgNS4wMDkyMyAxNS43NDUyIDQuMjU0NzZDMTQuOTkwOCAzLjUwMDI4IDE0LjA5NTEgMi45MDE4IDEzLjEwOTMgMi40OTM0OEMxMi4xMjM1IDIuMDg1MTYgMTEuMDY3IDEuODc1IDEwIDEuODc1Wk0xMy41MzQ2IDguMzgwMjRDMTMuNzc4NyA4LjEzNjE2IDEzLjc3ODcgNy43NDA0MyAxMy41MzQ2IDcuNDk2MzVDMTMuMjkwNSA3LjI1MjI4IDEyLjg5NDggNy4yNTIyOCAxMi42NTA3IDcuNDk2MzVMOC45NjkyNSAxMS4xNzc4TDcuMzQ5NDkgOS41NTgwNUM3LjEwNTQyIDkuMzEzOTggNi43MDk2OSA5LjMxMzk4IDYuNDY1NjEgOS41NTgwNUM2LjIyMTUzIDkuODAyMTMgNi4yMjE1MyAxMC4xOTc5IDYuNDY1NjEgMTAuNDQxOUw4LjUyNzMxIDEyLjUwMzZDOC42NDQ1MiAxMi42MjA4IDguODAzNDkgMTIuNjg2NyA4Ljk2OTI1IDEyLjY4NjdDOS4xMzUwMSAxMi42ODY3IDkuMjkzOTggMTIuNjIwOCA5LjQxMTE5IDEyLjUwMzZMMTMuNTM0NiA4LjM4MDI0WiIgZmlsbD0iIzI1NjNFQiIvPgo8L2c+Cjwvc3ZnPgo=');
-					font-family: Roboto;
-					font-size: 16px;
-					font-style: normal;
-					font-weight: 400;
-					line-height: 150%; /* 24px */
-					letter-spacing: 0.15px;
 					color: #69727D;
+					background-image: url(data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB2aWV3Qm94PSIwIDAgMjAgMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJDaXJjbGVDaGVja0ZpbGxlZCI+CjxwYXRoIGlkPSJWZWN0b3IiIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTAgMS44NzVDOC45MzMwMSAxLjg3NSA3Ljg3NjQ3IDIuMDg1MTYgNi44OTA3IDIuNDkzNDhDNS45MDQ5MyAyLjkwMTggNS4wMDkyMyAzLjUwMDI4IDQuMjU0NzYgNC4yNTQ3NkMzLjUwMDI4IDUuMDA5MjMgMi45MDE4IDUuOTA0OTMgMi40OTM0OCA2Ljg5MDdDMi4wODUxNiA3Ljg3NjQ3IDEuODc1IDguOTMzMDEgMS44NzUgMTBDMS44NzUgMTEuMDY3IDIuMDg1MTYgMTIuMTIzNSAyLjQ5MzQ4IDEzLjEwOTNDMi45MDE4IDE0LjA5NTEgMy41MDAyOCAxNC45OTA4IDQuMjU0NzYgMTUuNzQ1MkM1LjAwOTIzIDE2LjQ5OTcgNS45MDQ5MyAxNy4wOTgyIDYuODkwNyAxNy41MDY1QzcuODc2NDcgMTcuOTE0OCA4LjkzMzAxIDE4LjEyNSAxMCAxOC4xMjVDMTEuMDY3IDE4LjEyNSAxMi4xMjM1IDE3LjkxNDggMTMuMTA5MyAxNy41MDY1QzE0LjA5NTEgMTcuMDk4MiAxNC45OTA4IDE2LjQ5OTcgMTUuNzQ1MiAxNS43NDUyQzE2LjQ5OTcgMTQuOTkwOCAxNy4wOTgyIDE0LjA5NTEgMTcuNTA2NSAxMy4xMDkzQzE3LjkxNDggMTIuMTIzNSAxOC4xMjUgMTEuMDY3IDE4LjEyNSAxMEMxOC4xMjUgOC45MzMwMSAxNy45MTQ4IDcuODc2NDcgMTcuNTA2NSA2Ljg5MDdDMTcuMDk4MiA1LjkwNDkzIDE2LjQ5OTcgNS4wMDkyMyAxNS43NDUyIDQuMjU0NzZDMTQuOTkwOCAzLjUwMDI4IDE0LjA5NTEgMi45MDE4IDEzLjEwOTMgMi40OTM0OEMxMi4xMjM1IDIuMDg1MTYgMTEuMDY3IDEuODc1IDEwIDEuODc1Wk0xMy41MzQ2IDguMzgwMjRDMTMuNzc4NyA4LjEzNjE2IDEzLjc3ODcgNy43NDA0MyAxMy41MzQ2IDcuNDk2MzVDMTMuMjkwNSA3LjI1MjI4IDEyLjg5NDggNy4yNTIyOCAxMi42NTA3IDcuNDk2MzVMOC45NjkyNSAxMS4xNzc4TDcuMzQ5NDkgOS41NTgwNUM3LjEwNTQyIDkuMzEzOTggNi43MDk2OSA5LjMxMzk4IDYuNDY1NjEgOS41NTgwNUM2LjIyMTUzIDkuODAyMTMgNi4yMjE1MyAxMC4xOTc5IDYuNDY1NjEgMTAuNDQxOUw4LjUyNzMxIDEyLjUwMzZDOC42NDQ1MiAxMi42MjA4IDguODAzNDkgMTIuNjg2NyA4Ljk2OTI1IDEyLjY4NjdDOS4xMzUwMSAxMi42ODY3IDkuMjkzOTggMTIuNjIwOCA5LjQxMTE5IDEyLjUwMzZMMTMuNTM0NiA4LjM4MDI0WiIgZmlsbD0iIzI1NjNFQiIvPgo8L2c+Cjwvc3ZnPgo=);
+					background-repeat: no-repeat;
+					padding: 0 0 0 25px;
+					margin-bottom: 8px;
 				}
 				li::marker{
 					font-size: 1.5em;
 					line-height: 0.1em;
 				}
-				.intor-learn-more{
-					margin-top: 16px;
-					font-family: Roboto;
-					font-size: 16px;
-					font-style: normal;
-					font-weight: 400;
-					line-height: 150%; /* 24px */
-					letter-spacing: 0.15px;
-					color: #2563EB;
+				.intro-learn-more{
+					color: #2563EB !important;
 				}
+                .intro-learn-more:hover{
+                    color: #1D4ED8 !important;
+                }
 				.footer-actions {
 					display: flex;
 					gap: 20px;
 					justify-content: end;
-					padding: 24px;
+					align-items: center;
+					padding: 16px 0 1px 0;
+					margin-top: 32px;
 				}
 				.close-button {
-					font-family: Roboto;
+					font-family: Roboto, sans-serif;
 					font-size: 15px;
 					font-style: normal;
 					font-weight: 500;
-					line-height: 24px; /* 160% */
+					line-height: 24px;
 					letter-spacing: 0.4px;
 					color: #515962;
 				}
 				.switch-now {
-					background: #2563EB;
+					background: #2563EB !important;
 					border-radius: 4px;
-					font-family: Roboto;
-					font-size: 15px;
+					font-family: Roboto, sans-serif;
+					font-size: 15px !important;
 					font-style: normal;
 					font-weight: 500;
-					line-height: 24px; /* 160% */
 					letter-spacing: 0.4px;
+					padding: 3px 16px !important; /* Override WordPress CSS */
+				}
+                .switch-now:hover, .switch-now:active {
+                    background: #1D4ED8 !important;
+                }
+				.no-underline {
+					text-decoration: none;
 				}
 			</style>
 			<?php
@@ -333,15 +358,18 @@ class Upgrade {
 							</svg>
 						</div>
 						<div>
-							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 48 49" fill="none">
-								<path d="M21.3076 0.6497C15.8994 1.27144 10.9435 3.64535 7.06171 7.50766C3.50023 11.0497 1.1636 15.4584 0.29679 20.3192C-0.0989299 22.5424 -0.0989299 26.5743 0.29679 28.7975C2.04926 38.5757 9.92596 46.4511 19.7059 48.2033C21.9295 48.5989 25.962 48.5989 28.1856 48.2033C33.0473 47.3366 37.4567 45.0004 40.9994 41.4395C47.802 34.5815 49.8559 24.5207 46.2379 15.5337C42.2619 5.62361 31.9355 -0.556095 21.3076 0.6497ZM25.2648 12.2178C26.9419 13.0845 27.2246 15.2134 25.8301 16.5511C25.3779 16.9845 25.0575 17.1163 24.1719 17.1729C23.1355 17.2482 23.0224 17.2105 22.3817 16.6642C20.893 15.3453 21.0438 13.3106 22.6832 12.312C23.3993 11.8598 24.5111 11.8222 25.2648 12.2178ZM17.162 17.512C21.5149 17.8888 26.3577 17.8888 31.1441 17.4932C34.7809 17.1917 35.1013 17.1917 35.5347 17.4743C36.1377 17.87 36.1942 18.9062 35.6477 19.4526C35.2143 19.8859 34.9505 19.9424 31.389 20.3004C29.1089 20.5453 28.7132 20.6395 28.4306 20.9975C28.1102 21.3555 28.0914 22.0337 28.0914 28.7598C28.0914 36.0511 28.0914 36.1265 27.6768 36.5598C27.168 37.1062 26.1693 37.1439 25.6605 36.6352C25.246 36.2207 25.1706 35.7497 24.8879 32.3772C24.643 29.4192 24.5864 29.1555 24.2284 29.0236C23.6254 28.7786 23.437 29.3815 23.2108 32.3207C22.9282 35.6743 22.7586 36.541 22.2498 36.8047C21.6656 37.1062 20.893 37.012 20.422 36.5786L19.9885 36.183V28.7786C19.9885 22.0337 19.9697 21.3555 19.6682 20.9975C19.3667 20.6395 18.9521 20.5453 16.0314 20.2439C13.1106 19.9236 12.7148 19.8482 12.4133 19.4714C11.9799 18.9439 11.9799 18.0019 12.3945 17.5497C12.7714 17.1352 13.0163 17.1352 17.162 17.512Z" fill="black"/>
+							<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none">
+								<rect width="48" height="48" rx="24" fill="#FF7BE5"/>
+								<path d="M23.886 16.529a2.954 2.954 0 1 0 0-5.908 2.954 2.954 0 0 0 0 5.908Z" fill="#fff"/>
+								<path d="M28.223 17.35c-2.91.304-5.858.296-8.848 0l-6.585-1.035a1.717 1.717 0 0 0-1.773 1.716c0 .93.584 1.593 1.666 1.716l7.482.986-.615 15.28a1.57 1.57 0 0 0 3.137.118l.495-6.555a.79.79 0 0 1 1.579 0l.495 6.555a1.57 1.57 0 0 0 3.137-.117l-.547-13.458c0-.984.782-1.792 1.765-1.825l5.473-.984c1.09-.194 1.667-.787 1.667-1.716 0-.973-.803-1.749-1.773-1.719l-6.763 1.036.008.003Z" fill="#fff"/>
+								<path d="m16.889 21.437-3.132-1.53c6.826.773 7.493 1.142 10.64 1.21-3.251.178-6.101.555-7.508.318v.002Z" fill="#FF7BE5"/>
 							</svg>
 						</div>
 					</div>
-					<h2 class="confirmation-title" style="color: #0C0D0E;font-family: Roboto;font-size: 24px;font-style: normal;font-weight: 700;line-height: 133.4%;"><?php esc_html_e( 'Confirm switching to Web Accessibility', 'pojo-accessibility' ); ?></h2>
-					<p class="confirmation-description"><?php esc_html_e( 'You’re about to switch from One click accessibility, which we no longer support, to Equally by Elementor. Any previous settings will be removed, and this action cannot be undone.', 'pojo-accessibility' ); ?></p>
+					<h2 class="confirmation-title"><?php esc_html_e( 'Confirm switching to Web Accessibility', 'pojo-accessibility' ); ?></h2>
+					<p class="confirmation-description"><?php esc_html_e( 'You’re about to switch from One click accessibility, which we no longer support, to Web Accessibility by Elementor. Any previous settings will be removed, and this action cannot be undone.', 'pojo-accessibility' ); ?></p>
 					<div class="footer-actions">
-						<a href="#" class="close-button"><?php esc_html_e( 'Keep Current' ); ?></a>
+						<a href="#" class="close-button no-underline"><?php esc_html_e( 'Keep Current', 'pojo-accessibility' ); ?></a>
 						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary upgrade-now"><?php esc_html_e( 'Confirm and switch', 'pojo-accessibility' ); ?></a>
 					</div>
 				</div>
@@ -364,7 +392,7 @@ class Upgrade {
 				onLoad(
 					() => setTimeout( () => {
 						const modal = document.querySelector( `[data-modal-slug="${ modalID }"]` );
-						tb_show( '', `/?TB_inline&inlineId=${ modalID }&height=320&width=552&modal=true` );
+						tb_show( '', `/?TB_inline&inlineId=${ modalID }&height=330&width=552&modal=true` );
 						const closeButton = modal.querySelector( 'a.close-button' );
 						const upgradeButton = modal.querySelector( 'a.upgrade-now' );
 						const close = () => {
@@ -398,42 +426,34 @@ class Upgrade {
 
 			</script>
 			<style>
+				#TB_window {
+					border-radius: 4px;
+				}
+				.no-underline {
+					text-decoration: none;
+				}
 				.modal-content-wrap {
 					padding: 0 9px;
 					display: flex;
 					flex-direction: column;
 					align-items: center;
 				}
-				.footer-actions {
-					display: flex;
-					gap: 20px;
-					justify-content: end;
-					padding: 24px;
-				}
-				.close-button {
-					font-family: Roboto;
-					font-size: 15px;
-					font-style: normal;
-					font-weight: 500;
-					line-height: 24px; /* 160% */
-					letter-spacing: 0.4px;
-					color: #515962;
-				}
 				.confirmation-title {
-					font-family: Roboto;
+					font-family: Roboto, sans-serif !important;
 					font-size: 24px;
 					font-style: normal;
 					font-weight: 700;
-					line-height: 133.4%; /* 32.016px */
+					line-height: 133.4%;
 					margin-block: 1px;
+					margin-bottom: 9px
 				}
 				.confirmation-description{
-					font-family: Roboto;
+					font-family: Roboto, sans-serif;
 					font-size: 16px;
 					font-style: normal;
 					font-weight: 500;
-					line-height: 130%; /* 20.8px */
 					letter-spacing: 0.15px;
+					text-align: center;
 					color: #69727D;
 				}
 				.top-icons {
@@ -444,18 +464,42 @@ class Upgrade {
 					align-content: center;
 					row-gap: 1px;
 					flex-wrap: wrap;
-					margin-block: 24px;
+					margin-block: 25px;
+				}
+				.footer-actions {
+					display: flex;
+					gap: 20px;
+					justify-content: end;
+					align-items: center;
+					width: 100%;
+					margin-top: 16px;
 				}
 				.upgrade-now {
-					background: #2563EB;
+					background: #2563EB !important;
 					border-radius: 4px;
-					font-family: Roboto;
-					font-size: 15px;
+					font-family: Roboto, sans-serif;
+					font-size: 15px !important;
 					font-style: normal;
 					font-weight: 500;
-					line-height: 24px; /* 160% */
+					line-height: 24px;
 					letter-spacing: 0.4px;
+					padding: 3px 16px !important;
 				}
+                .upgrade-now:hover, .upgrade-now:active {
+                    background: #1D4ED8 !important;
+                }
+                .close-button {
+                    font-family: Roboto, sans-serif;
+                    font-size: 15px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 24px; /* 160% */
+                    letter-spacing: 0.4px;
+                    color: #515962;
+                }
+                .close-button:hover, .close-button:active {
+                    color: #1D4ED8;
+                }
 			</style>
 			<?php
 		}, 1000);
@@ -510,12 +554,11 @@ class Upgrade {
 			return;
 		}
 
-
 		wp_enqueue_script( 'wp-pointer' );
 		wp_enqueue_style( 'wp-pointer' );
 
 		$pointer_content = '<h3>' . esc_html__( 'Accessibility', 'pojo-accessibility' ) . '</h3>';
-		$pointer_content .= '<p>' . esc_html__( "Our new, improved accessibility plugin is now available! Web Accessibility is packed with advanced styling options, improved feature controls, and so much more.", 'pojo-accessibility' ) . '</p>';
+		$pointer_content .= '<p>' . esc_html__( 'Our new, improved accessibility plugin is now available! Web Accessibility is packed with advanced styling options, improved feature controls, and so much more.', 'pojo-accessibility' ) . '</p>';
 
 		$pointer_content .= sprintf(
 			'<p><a class="button button-primary ea11y-pointer-settings-link" href="%s">%s</a></p>',
