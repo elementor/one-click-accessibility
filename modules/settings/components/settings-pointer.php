@@ -4,6 +4,7 @@ namespace EA11y\Modules\Settings\Components;
 
 use EA11y\Modules\Core\Components\Pointers;
 use EA11y\Modules\Settings\Module as SettingsModule;
+use EA11y\Classes\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -20,6 +21,10 @@ class Settings_Pointer {
 		if ( Pointers::is_dismissed( self::CURRENT_POINTER_SLUG ) ) {
 			return;
 		}
+
+        if ( Utils::is_plugin_settings_page() ) {
+            return;
+        }
 
 		wp_enqueue_script( 'wp-pointer' );
 		wp_enqueue_style( 'wp-pointer' );
