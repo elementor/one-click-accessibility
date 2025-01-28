@@ -207,7 +207,7 @@ class Module extends Module_Base {
 				'enableExactPosition' => false,
 				'exactPosition' => [
 					'horizontal' => [
-						'direction' => is_rtl() ? 'right' : 'left',
+						'direction' => 'right',
 						'value' => 10,
 						'unit' => 'px',
 					],
