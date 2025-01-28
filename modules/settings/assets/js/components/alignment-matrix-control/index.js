@@ -62,7 +62,6 @@ const AlignmentMatrixControl = ({ mode }) => {
 							value={iconPosition[mode].position}
 							onChange={handleChange}
 							name="alignment-matrix-control"
-							flip={false}
 							sx={{
 								display: 'grid',
 								gridTemplateColumns:
