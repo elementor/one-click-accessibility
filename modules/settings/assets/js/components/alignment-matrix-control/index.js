@@ -57,6 +57,7 @@ const AlignmentMatrixControl = ({ mode }) => {
 				<Box display="flex" justifyContent="center" padding={4} width="100%">
 					<Paper color="secondary">
 						<RadioGroup
+							dir="ltr"
 							aria-labelledby="alignment-matrix-control"
 							value={iconPosition[mode].position}
 							onChange={handleChange}
