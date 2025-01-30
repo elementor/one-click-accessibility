@@ -114,7 +114,7 @@ class Module extends Module_Base {
         }
 
         if ( ! is_wp_error( $response ) ) {
-            Settings::set( Settings::PLAN_DATA, $response );
+            Settings::set( Settings::PLAN_DATA, json_decode( $response ) );
             Settings::set( Settings::IS_VALID_PLAN_DATA, true );
         } else {
             Logger::error( esc_html( $response->get_error_message() ) );
