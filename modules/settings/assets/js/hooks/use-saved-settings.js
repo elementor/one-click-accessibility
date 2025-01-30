@@ -1,9 +1,11 @@
 import { useSettings } from '@ea11y/hooks';
 import { store as coreDataStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 export const useSavedSettings = () => {
+	const [isLoading, setIsLoading] = useState(true);
+
 	const {
 		setWidgetMenuSettings,
 		setHideMinimumOptionAlert,
@@ -17,12 +19,20 @@ export const useSavedSettings = () => {
 	const result = useSelect((select) => {
 		return {
 			data: select(coreDataStore).getEntityRecord('root', 'site'),
+			isResolving: select(coreDataStore).isResolving('getEntityRecord', [
+				'root',
+				'site',
+			]),
 			hasFinishedResolution: select(coreDataStore).hasFinishedResolution(
 				'getEntityRecord',
 				['root', 'site'],
 			),
 		};
 	}, []);
+
+	useEffect(() => {
+		setIsLoading(result.isResolving);
+	}, [result]);
 
 	useEffect(() => {
 		if (result.hasFinishedResolution) {
@@ -60,4 +70,9 @@ export const useSavedSettings = () => {
 			}
 		}
 	}, [result.hasFinishedResolution]);
+
+	return {
+		loading: isLoading,
+		hasFinishedResolution: result.hasFinishedResolution,
+	};
 };

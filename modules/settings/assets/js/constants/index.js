@@ -1,3 +1,7 @@
 export const HELP_LINK = 'https://go.elementor.com/';
 export const UPGRADE_LINK = 'https://go.elementor.com/';
-export const BILLING_LINK = 'https://my.elementor.com/';
+
+export const SKELETON_OPTIONS = Object.freeze({
+	SPEED: 2,
+	FOREGROUND_COLOR: '#D9D9D9',
+});
