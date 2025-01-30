@@ -76,6 +76,8 @@ class Module extends Module_Base {
 			return;
 		}
 
+    self::refresh_plan_data();
+
 		wp_enqueue_style(
 			'ea11y-admin-fonts',
 			'https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap',
@@ -98,6 +100,28 @@ class Module extends Module_Base {
 		);
 	}
 
+    public static function refresh_plan_data() {
+        $plan_data = Settings::get( Settings::PLAN_DATA );
+
+        $response = Utils::get_api_client()->make_request(
+            'GET',
+            'site/info',
+            [ 'api_key' => $plan_data->public_api_key ]
+        );
+
+        if ( ! empty( $response->site_url ) && Data::get_home_url() !== $response->site_url ) {
+            Data::set_home_url( $response->site_url );
+        }
+
+        if ( ! is_wp_error( $response ) ) {
+            Settings::set( Settings::PLAN_DATA, $response );
+            Settings::set( Settings::IS_VALID_PLAN_DATA, true );
+        } else {
+            Logger::error( esc_html( $response->get_error_message() ) );
+            Settings::set( Settings::IS_VALID_PLAN_DATA, false );
+        }
+    }
+
 	/**
 	 * Get Mixpanel project Token
 	 * @return string
@@ -117,7 +141,6 @@ class Module extends Module_Base {
 	 * @return array
 	 */
 	public static function get_plugin_settings(): array {
-
 		return [
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
