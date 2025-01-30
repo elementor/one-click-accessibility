@@ -1,5 +1,8 @@
 #adminmenu .toplevel_page_accessibility-settings .wp-menu-image img {
-  padding: 5px 0 0;
+  width: 18px;
+  height: 18px;
+  padding: 8px 0 0 3px;
+
   opacity: 1;
   filter: none;
 }
