@@ -63,7 +63,7 @@ const PositionSettingsDesktop = () => {
 			{!iconPosition.desktop.hidden && (
 				<Box
 					display="grid"
-					gridTemplateColumns="repeat(2,1fr)"
+					gridTemplateColumns={{ lg: 'repeat(2,1fr)', md: 'repeat(1,1fr)' }}
 					justifyContent="space-evenly"
 					padding={2}
 					gap={5}

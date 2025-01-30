@@ -61,7 +61,7 @@ const PositionSettingsMobile = () => {
 			{!iconPosition.mobile.hidden && (
 				<Box
 					display="grid"
-					gridTemplateColumns="repeat(2,1fr)"
+					gridTemplateColumns={{ lg: 'repeat(2,1fr)', md: 'repeat(1,1fr)' }}
 					gap={5}
 					padding={2}
 				>
