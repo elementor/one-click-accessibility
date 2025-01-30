@@ -7,7 +7,6 @@ import {
 	ConnectModal,
 	Notifications,
 	MenuItems,
-	AdminTopBar,
 	PostConnectModal,
 } from '@ea11y/components';
 import {
@@ -53,7 +52,6 @@ const App = () => {
 						flexDirection="column"
 						justifyContent="start"
 					>
-						<AdminTopBar />
 						{selectedChild ? selectedChild.page : selectedParent?.page}
 					</Box>
 				</Grid>
