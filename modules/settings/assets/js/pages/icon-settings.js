@@ -1,3 +1,4 @@
+import Box from '@elementor/ui/Box';
 import Container from '@elementor/ui/Container';
 import Typography from '@elementor/ui/Typography';
 import { BottomBar } from '@ea11y/components';
@@ -13,7 +14,13 @@ const IconSettings = () => {
 		});
 	}, []);
 	return (
-		<>
+		<Box
+			display="flex"
+			flexDirection="column"
+			justifyContent="space-between"
+			alignItems="center"
+			height="100%"
+		>
 			<Container p={1} sx={{ overflow: 'auto', maxHeight: '100%', padding: 4 }}>
 				<Typography variant="h4" fontWeight="400" marginBottom={4}>
 					{__('Button', 'pojo-accessibility')}
@@ -22,7 +29,7 @@ const IconSettings = () => {
 				<PositionSettings />
 			</Container>
 			<BottomBar />
-		</>
+		</Box>
 	);
 };
 

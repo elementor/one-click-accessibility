@@ -1,4 +1,10 @@
-import { UserIcon, ChevronUpIcon, ChevronDownIcon } from '@elementor/icons';
+import {
+	UserIcon,
+	ChevronUpIcon,
+	ChevronDownIcon,
+	HelpIcon,
+	ExternalLinkIcon,
+} from '@elementor/icons';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import List from '@elementor/ui/List';
@@ -19,6 +25,7 @@ import { UserArrowIcon } from '@ea11y/icons';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
+import { HELP_LINK } from '../../constants';
 
 const MyAccountMenu = () => {
 	const { openSidebar, planData } = useSettings();
@@ -72,6 +79,33 @@ const MyAccountMenu = () => {
 					});
 				}}
 			>
+				<ListItemButton
+					sx={{
+						justifyContent: 'center',
+						py: 1,
+						px: 3,
+					}}
+					shape="rounded"
+					onClick={() => {
+						mixpanelService.sendEvent('help_button_clicked', {
+							source: 'Header',
+						});
+						window.open(HELP_LINK, '_blank');
+					}}
+				>
+					<ListItemIcon>
+						<HelpIcon sx={{ color: 'common.black' }} fontSize="small" />
+					</ListItemIcon>
+
+					<ListItemText
+						primary={__('Help center', 'pojo-accessibility')}
+						hidden={!openSidebar}
+					/>
+
+					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
+						<ExternalLinkIcon />
+					</ListItemIcon>
+				</ListItemButton>
 				<ListItemButton
 					{...bindTrigger(accountMenuState)}
 					sx={{
