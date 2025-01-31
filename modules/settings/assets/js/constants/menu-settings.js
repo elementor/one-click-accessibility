@@ -11,6 +11,8 @@ import {
 	HideImagesIcon,
 	PauseAnimationsIcon,
 } from '@ea11y/icons';
+import FocusIcon from '@ea11y/icons/focus-icon';
+import SitemapIcon from '@ea11y/icons/sitemap-icon';
 import { __ } from '@wordpress/i18n';
 
 const iconStyle = { color: 'black' };
@@ -72,6 +74,14 @@ export const MENU_SETTINGS = {
 			'highlight-links': {
 				title: __('Highlight links', 'pojo-accessibility'),
 				icon: <LinkIcon sx={iconStyle} />,
+			},
+			'focus-outline': {
+				title: __('Orientation', 'pojo-accessibility'),
+				icon: <FocusIcon sx={iconStyle} />,
+			},
+			sitemap: {
+				title: __('Sitemap', 'pojo-accessibility'),
+				icon: <SitemapIcon sx={iconStyle} />,
 			},
 		},
 	},

@@ -187,6 +187,10 @@ class Module extends Module_Base {
 			'page-structure' => [
 				'enabled' => true,
 			],
+			'sitemap' => [
+				'enabled' => true,
+				'url' => home_url( '/wp-sitemap.xml' ),
+			],
 			'reading-mask' => [
 				'enabled' => true,
 			],
@@ -197,6 +201,9 @@ class Module extends Module_Base {
 				'enabled' => true,
 			],
 			'highlight-links' => [
+				'enabled' => true,
+			],
+			'focus-outline' => [
 				'enabled' => true,
 			],
 		];
