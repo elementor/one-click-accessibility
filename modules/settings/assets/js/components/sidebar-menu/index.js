@@ -55,6 +55,9 @@ const SidebarMenu = () => {
 							<ListItemIcon>{item.icon}</ListItemIcon>
 
 							<ListItemText primary={item.name} hidden={!openSidebar} />
+
+							{item?.tooltip && item?.tooltip}
+
 							{item?.children && (
 								<ListItemIcon
 									sx={{

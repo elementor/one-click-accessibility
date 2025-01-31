@@ -1,0 +1,40 @@
+import { CardActions } from '@elementor/ui';
+import Button from '@elementor/ui/Button';
+import Card from '@elementor/ui/Card';
+import CardContent from '@elementor/ui/CardContent';
+import CardHeader from '@elementor/ui/CardHeader';
+import Typography from '@elementor/ui/Typography';
+import { useSettings } from '@ea11y/hooks';
+import { __ } from '@wordpress/i18n';
+
+const AccessibilityStatementTooltip = () => {
+	const { selectedMenu, setSelectedMenu } = useSettings();
+	return (
+		<Card elevation={0} sx={{ maxWidth: 300 }}>
+			<CardHeader title={__('Header', 'pojo-accessibility')} />
+			<CardContent>
+				<Typography variant="body2" color="text.secondary">
+					{__(
+						'You can now create an accessibility statement and page to make sure visitors know your site is inclusive and welcome.',
+						'pojo-accessibility',
+					)}
+				</Typography>
+			</CardContent>
+			<CardActions>
+				<Button
+					size="small"
+					variant="contained"
+					onClick={() => {
+						if ('accessibility-statement' !== selectedMenu) {
+							setSelectedMenu('accessibility-statement');
+						}
+					}}
+				>
+					{__('Take me there', 'pojo-accessibility')}
+				</Button>
+			</CardActions>
+		</Card>
+	);
+};
+
+export default AccessibilityStatementTooltip;

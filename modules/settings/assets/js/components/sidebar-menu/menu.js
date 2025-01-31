@@ -1,7 +1,9 @@
-import { PagesIcon } from '@elementor/icons';
+import { InfoCircleIcon, PagesIcon } from '@elementor/icons';
+import Infotip from '@elementor/ui/Infotip';
 import { WidgetIcon } from '@ea11y/icons';
 import { AccessibilityStatement, Menu, IconSettings } from '@ea11y/pages';
 import { __ } from '@wordpress/i18n';
+import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 
 export const MenuItems = {
 	widget: {
@@ -26,5 +28,10 @@ export const MenuItems = {
 		key: 'accessibility-statement',
 		page: <AccessibilityStatement />,
 		icon: <PagesIcon size="small" sx={{ color: 'common.black' }} />,
+		tooltip: (
+			<Infotip placement="right" content={<AccessibilityStatementTooltip />}>
+				<InfoCircleIcon color="info" sx={{ ml: 1 }} />
+			</Infotip>
+		),
 	},
 };
