@@ -2,10 +2,24 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
+
+const StyledBox = styled(Box)`
+	display: grid;
+	justify-content: space-evenly;
+
+	gap: ${({ theme }) => theme.spacing(5)};
+	padding: ${({ theme }) => theme.spacing(2)};
+
+	grid-template-columns: repeat(2, 1fr);
+	${({ theme }) => theme.breakpoints.down('lg')} {
+		grid-template-columns: repeat(1, 1fr);
+	}
+`;
 
 const PositionSettingsMobile = () => {
 	const { iconPosition, updateIconPosition } = useIconPosition();
@@ -59,12 +73,7 @@ const PositionSettingsMobile = () => {
 				checked={iconPosition.mobile.hidden}
 			/>
 			{!iconPosition.mobile.hidden && (
-				<Box
-					display="grid"
-					gridTemplateColumns={{ lg: 'repeat(2,1fr)', md: 'repeat(1,1fr)' }}
-					gap={5}
-					padding={2}
-				>
+				<StyledBox>
 					<AlignmentMatrixControl mode="mobile" />
 					<Box>
 						<FormControlLabel
@@ -92,7 +101,7 @@ const PositionSettingsMobile = () => {
 							disabled={!iconPosition.mobile?.enableExactPosition}
 						/>
 					</Box>
-				</Box>
+				</StyledBox>
 			)}
 		</>
 	);
