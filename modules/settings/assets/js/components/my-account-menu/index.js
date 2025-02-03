@@ -15,6 +15,7 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import {
 	bindMenu,
 	bindTrigger,
@@ -26,6 +27,11 @@ import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
 import { HELP_LINK } from '../../constants';
+
+const StyledListItemButton = styled(ListItemButton)`
+	justify-content: center;
+	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(3)}`};
+`;
 
 const MyAccountMenu = () => {
 	const { openSidebar, planData } = useSettings();
@@ -70,6 +76,13 @@ const MyAccountMenu = () => {
 		}
 	};
 
+	const handleHelpButtonClick = () => {
+		mixpanelService.sendEvent('help_button_clicked', {
+			source: 'Header',
+		});
+		window.open(HELP_LINK, '_blank');
+	};
+
 	return (
 		<>
 			<List
@@ -79,20 +92,7 @@ const MyAccountMenu = () => {
 					});
 				}}
 			>
-				<ListItemButton
-					sx={{
-						justifyContent: 'center',
-						py: 1,
-						px: 3,
-					}}
-					shape="rounded"
-					onClick={() => {
-						mixpanelService.sendEvent('help_button_clicked', {
-							source: 'Header',
-						});
-						window.open(HELP_LINK, '_blank');
-					}}
-				>
+				<StyledListItemButton shape="rounded" onClick={handleHelpButtonClick}>
 					<ListItemIcon>
 						<HelpIcon sx={{ color: 'common.black' }} fontSize="small" />
 					</ListItemIcon>
@@ -105,14 +105,9 @@ const MyAccountMenu = () => {
 					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
 						<ExternalLinkIcon />
 					</ListItemIcon>
-				</ListItemButton>
-				<ListItemButton
+				</StyledListItemButton>
+				<StyledListItemButton
 					{...bindTrigger(accountMenuState)}
-					sx={{
-						justifyContent: 'center',
-						py: 1,
-						px: 3,
-					}}
 					selected={accountMenuState.isOpen}
 					shape="rounded"
 				>
@@ -132,7 +127,7 @@ const MyAccountMenu = () => {
 							<ChevronUpIcon fontSize="small" />
 						)}
 					</ListItemIcon>
-				</ListItemButton>
+				</StyledListItemButton>
 			</List>
 
 			<Menu
