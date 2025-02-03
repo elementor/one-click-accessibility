@@ -271,6 +271,7 @@ class Service {
 
 		if ( ! empty( $last_token ) && $last_token === $current_refresh_token ) {
 			sleep( 1 );
+			delete_option( $lock_key );
 			return;
 		}
 
@@ -278,10 +279,12 @@ class Service {
 		$locked = Data::insert_option_uniquely( $lock_key, $current_refresh_token );
 		if ( ! $locked ) {
 			sleep( 1 );
+			delete_option( $lock_key );
 			return;
 		}
 
 		self::get_token( GrantTypes::REFRESH_TOKEN, $current_refresh_token );
+		delete_option( $lock_key );
 	}
 
 	/**

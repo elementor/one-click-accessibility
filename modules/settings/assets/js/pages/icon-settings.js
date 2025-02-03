@@ -16,21 +16,30 @@ const StyledBox = styled(Box)`
 	height: 100%;
 `;
 
+const StyledContainer = styled(Container)`
+	overflow: auto;
+	max-height: 100%;
+	padding: ${({ theme }) => theme.spacing(4)};
+`;
+
 const IconSettings = () => {
 	useEffect(() => {
 		mixpanelService.sendEvent('page_view', {
 			page: 'Button',
 		});
 	}, []);
+
 	return (
 		<StyledBox>
-			<Container p={1} sx={{ overflow: 'auto', maxHeight: '100%', padding: 4 }}>
+			<StyledContainer>
 				<Typography variant="h4" fontWeight="400" marginBottom={4}>
 					{__('Button', 'pojo-accessibility')}
 				</Typography>
+
 				<IconDesignSettings marginBottom={4} />
+
 				<PositionSettings />
-			</Container>
+			</StyledContainer>
 			<BottomBar />
 		</StyledBox>
 	);

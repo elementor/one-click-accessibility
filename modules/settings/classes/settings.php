@@ -22,7 +22,19 @@ class Settings {
 	 * @return mixed
 	 */
 	public static function get( string $option_name ) {
-		return get_option( $option_name );
+        switch ( $option_name ) {
+            case self::PLAN_DATA:
+                $value = get_option( $option_name );
+
+                if ( is_string( $value ) ) {
+                    return json_decode( $value );
+                }
+
+                return $value;
+
+            default:
+                return get_option( $option_name );
+        }
 	}
 
 	/**
