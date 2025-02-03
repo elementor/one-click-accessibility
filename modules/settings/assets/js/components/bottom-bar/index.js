@@ -9,6 +9,7 @@ const StyledContainer = styled(Box)`
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
+
 	padding: ${({ theme }) => theme.spacing(2)};
 	border-top: 1px solid ${({ theme }) => theme.palette.divider};
 `;
