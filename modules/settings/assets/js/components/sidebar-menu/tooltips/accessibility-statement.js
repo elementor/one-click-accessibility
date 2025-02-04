@@ -18,11 +18,13 @@ const AccessibilityStatementTooltip = () => {
 	}
 	const TooltipCard = (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
-			<CardHeader title={__('Header', 'pojo-accessibility')} />
+			<CardHeader
+				title={__('Accessibility statement generator', 'pojo-accessibility')}
+			/>
 			<CardContent>
 				<Typography variant="body2" color="text.secondary">
 					{__(
-						'You can now create an accessibility statement and page to make sure visitors know your site is inclusive and welcome.',
+						'You can now create an accessibility statement and page in seconds—this way visitors know your site is inclusive.',
 						'pojo-accessibility',
 					)}
 				</Typography>
