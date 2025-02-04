@@ -1,3 +1,4 @@
+import { ChevronLeftIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Container from '@elementor/ui/Container';
@@ -80,6 +81,14 @@ const AccessibilityStatement = () => {
 		} else if (statementOption === 'existing') {
 			setShowStatementLink(true);
 		}
+	};
+
+	/**
+	 * Go back to the statement option section.
+	 */
+	const handleBackButton = () => {
+		setContinueDisabled(false);
+		setShowStatementLink(false);
 	};
 
 	return (
@@ -233,7 +242,19 @@ const AccessibilityStatement = () => {
 					)}
 
 					{(accessibilityStatementData?.pageId || showStatementLink) && (
-						<StatementLink />
+						<>
+							{!accessibilityStatementData?.pageId && (
+								<Button
+									size="large"
+									color="secondary"
+									startIcon={<ChevronLeftIcon fontSize="small" />}
+									onClick={handleBackButton}
+								>
+									{__('Back', 'pojo-accessibility')}
+								</Button>
+							)}
+							<StatementLink />
+						</>
 					)}
 				</Container>
 
