@@ -37,8 +37,7 @@ class Module extends Module_Base {
 
 		wp_enqueue_script(
 			'ea11y-widget',
-//			self::get_widget_url() . '?api_key=' . $plan_data->public_api_key,
-            '/wp-content/apps-a11y-widget/dist/widget.js',
+			self::get_widget_url() . '?api_key=' . $plan_data->public_api_key,
 			[],
 			EA11Y_VERSION,
 			true
