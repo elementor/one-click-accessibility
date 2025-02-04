@@ -19,13 +19,29 @@ import { __ } from '@wordpress/i18n';
 const units = ['PX', 'REM', 'EM'];
 
 const horizontalOptions = [
-	{ value: 'left', label: __('To the left', 'pojo-accessibility') },
-	{ value: 'right', label: __('To the right', 'pojo-accessibility') },
+	{
+		value: 'left',
+		label: __('To the left', 'pojo-accessibility'),
+		hideFor: ['top-left', 'bottom-left', 'center-left'],
+	},
+	{
+		value: 'right',
+		label: __('To the right', 'pojo-accessibility'),
+		hideFor: ['top-right', 'bottom-right', 'center-right'],
+	},
 ];
 
 const verticalOptions = [
-	{ value: 'top', label: __('Higher', 'pojo-accessibility') },
-	{ value: 'bottom', label: __('Lower', 'pojo-accessibility') },
+	{
+		value: 'top',
+		label: __('Higher', 'pojo-accessibility'),
+		hideFor: ['top-left', 'top-center', 'top-right'],
+	},
+	{
+		value: 'bottom',
+		label: __('Lower', 'pojo-accessibility'),
+		hideFor: ['bottom-left', 'bottom-center', 'bottom-right'],
+	},
 ];
 
 const StyledContainer = styled(Box)`
@@ -185,6 +201,11 @@ const PositionControl = ({ type, disabled, mode }) => {
 				onChange={handlePositionDirection}
 				disabled={disabled}
 				value={iconPosition[mode]?.exactPosition?.[type].direction}
+				defaultValue={
+					iconPosition[mode]?.exactPosition[type]?.direction === 'horizontal'
+						? 'bottom-left'
+						: 'higher'
+				}
 				MenuProps={{
 					MenuListProps: {
 						sx: {
@@ -202,16 +223,26 @@ const PositionControl = ({ type, disabled, mode }) => {
 				}}
 			>
 				{type === 'horizontal'
-					? horizontalOptions.map((option) => (
-							<MenuItem key={option.value} value={option.value}>
-								{option.label}
-							</MenuItem>
-						))
-					: verticalOptions.map((option) => (
-							<MenuItem key={option.value} value={option.value}>
-								{option.label}
-							</MenuItem>
-						))}
+					? horizontalOptions.map((option) => {
+							if (option?.hideFor?.includes(iconPosition[mode]?.position)) {
+								return null;
+							}
+							return (
+								<MenuItem key={option.value} value={option.value}>
+									{option.label}
+								</MenuItem>
+							);
+						})
+					: verticalOptions.map((option) => {
+							if (option?.hideFor?.includes(iconPosition[mode]?.position)) {
+								return null;
+							}
+							return (
+								<MenuItem key={option.value} value={option.value}>
+									{option.label}
+								</MenuItem>
+							);
+						})}
 			</Select>
 		</StyledContainer>
 	);
