@@ -17,4 +17,5 @@ export { default as AlertError } from './error';
 export { default as HtmlToTypography } from './html-to-typography';
 export { default as WidgetLoader } from './widget-loader';
 export { default as CopyLink } from './copy-link';
+export { default as EditLink } from './edit-link';
 export { default as GeneratedPageInfoTipCard } from './generated-page-infotip-card';
