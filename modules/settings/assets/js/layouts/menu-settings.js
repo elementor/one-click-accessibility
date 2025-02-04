@@ -1,4 +1,4 @@
-import { CardActions } from '@elementor/ui';
+import { CardActions, ListItemSecondaryAction } from '@elementor/ui';
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
@@ -10,10 +10,10 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
 import Switch from '@elementor/ui/Switch';
-import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
+import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
@@ -112,23 +112,6 @@ const MenuSettings = () => {
 		});
 	};
 
-	const onEditSitemap = (event) => {
-		setWidgetMenuSettings({
-			...widgetMenuSettings,
-			sitemap: {
-				enabled: true,
-				url: event.target.value,
-			},
-		});
-		const isValid = validateUrl(event.target.value);
-
-		setHasError({
-			...hasError,
-			sitemap: !isValid,
-		});
-		setHasChanges(isValid);
-	};
-
 	const areAtLeastTwoOptionsEnabled = (settings) => {
 		let enabledCount = 0;
 
@@ -190,55 +173,39 @@ const MenuSettings = () => {
 									Object.entries(parentItem.options).map(
 										([childKey, childValue]) => {
 											return (
-												<>
-													<ListItem
-														as="div"
-														key={childKey}
-														disableGutters
-														sx={{ p: '4px' }}
-														secondaryAction={
-															<StyledSwitch
-																size="medium"
-																color="info"
-																checked={
-																	widgetMenuSettings[childKey]?.enabled || false
-																}
-																onChange={() =>
-																	toggleSetting(parentKey, childKey)
-																}
-																disabled={
-																	widgetMenuSettings[childKey]?.enabled
-																		? disableOptions
-																		: false
-																}
-															/>
-														}
-													>
-														<ListItemIcon>{childValue.icon}</ListItemIcon>
-														<ListItemText primary={childValue.title} />
-													</ListItem>
-													{childKey === 'sitemap' &&
-														widgetMenuSettings[childKey]?.enabled && (
-															<>
-																<TextField
-																	id="sitemap-url"
-																	type="url"
-																	onChange={onEditSitemap}
-																	value={widgetMenuSettings[childKey]?.url}
-																	sx={{ width: '100%' }}
-																	error={hasError.sitemap}
-																/>
-																{hasError.sitemap && (
-																	<Typography variant="caption" color="error">
-																		{__(
-																			'Please enter valid URL!',
-																			'pojo-accessibility',
-																		)}
-																	</Typography>
-																)}
-															</>
-														)}
-												</>
+												<ListItem
+													as="div"
+													key={childKey}
+													disableGutters
+													sx={{ p: '4px' }}
+												>
+													{childKey === 'sitemap' ? (
+														<SitemapSettings sitemap={childValue} />
+													) : (
+														<>
+															<ListItemIcon>{childValue.icon}</ListItemIcon>
+															<ListItemText primary={childValue.title} />
+														</>
+													)}
+
+													<ListItemSecondaryAction sx={{ top: '19px' }}>
+														<StyledSwitch
+															size="medium"
+															color="info"
+															checked={
+																widgetMenuSettings[childKey]?.enabled || false
+															}
+															onChange={() =>
+																toggleSetting(parentKey, childKey)
+															}
+															disabled={
+																widgetMenuSettings[childKey]?.enabled
+																	? disableOptions
+																	: false
+															}
+														/>
+													</ListItemSecondaryAction>
+												</ListItem>
 											);
 										},
 									)}

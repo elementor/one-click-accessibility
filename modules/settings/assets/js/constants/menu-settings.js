@@ -59,6 +59,10 @@ export const MENU_SETTINGS = {
 				title: __('Page structure', 'pojo-accessibility'),
 				icon: <PageStructureIcon sx={iconStyle} />,
 			},
+			sitemap: {
+				title: __('Sitemap', 'pojo-accessibility'),
+				icon: <SitemapIcon sx={iconStyle} />,
+			},
 			'reading-mask': {
 				title: __('Reading mask', 'pojo-accessibility'),
 				icon: <ReadingPanelIcon sx={iconStyle} />,
@@ -78,10 +82,6 @@ export const MENU_SETTINGS = {
 			'focus-outline': {
 				title: __('Orientation', 'pojo-accessibility'),
 				icon: <FocusIcon sx={iconStyle} />,
-			},
-			sitemap: {
-				title: __('Sitemap', 'pojo-accessibility'),
-				icon: <SitemapIcon sx={iconStyle} />,
 			},
 		},
 	},

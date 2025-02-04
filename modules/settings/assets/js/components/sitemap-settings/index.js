@@ -1,0 +1,138 @@
+import { InfoCircleIcon } from '@elementor/icons';
+import {
+	Accordion,
+	AccordionDetails,
+	AccordionSummary,
+	AccordionSummaryIcon,
+} from '@elementor/ui';
+import Box from '@elementor/ui/Box';
+import FormLabel from '@elementor/ui/FormLabel';
+import Infotip from '@elementor/ui/Infotip';
+import ListItemText from '@elementor/ui/ListItemText';
+import TextField from '@elementor/ui/TextField';
+import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
+import { useSettings } from '@ea11y/hooks';
+import { __ } from '@wordpress/i18n';
+import { validateUrl } from '../../utils';
+
+const SitemapSettings = ({ sitemap }) => {
+	const {
+		widgetMenuSettings,
+		setWidgetMenuSettings,
+		setHasChanges,
+		hasError,
+		setHasError,
+	} = useSettings();
+
+	const onEditSitemap = (event) => {
+		setWidgetMenuSettings({
+			...widgetMenuSettings,
+			sitemap: {
+				enabled: true,
+				url: event.target.value,
+			},
+		});
+		const isValid = validateUrl(event.target.value);
+
+		setHasError({
+			...hasError,
+			sitemap: !isValid,
+		});
+		setHasChanges(isValid);
+	};
+
+	return (
+		<StyledAccordion>
+			<StyledAccordionSummary aria-controls="panel-content" id="panel-header">
+				<AccordionSummaryIcon sx={{ padding: 0 }}>
+					{sitemap?.icon}
+				</AccordionSummaryIcon>
+				<ListItemText
+					primary={sitemap?.title}
+					sx={{ flexGrow: 0, marginRight: 1 }}
+				/>
+			</StyledAccordionSummary>
+			<StyledAccordionDetails>
+				<StyledBox>
+					<StyledFormLabel htmlFor="sitemap-url">
+						{__('Sitemap URL')}
+
+						<Infotip
+							content={
+								<Typography variant="body2" sx={{ p: 2 }}>
+									{__(
+										'You need to add a link to activate this',
+										'pojo-accessibility',
+									)}
+								</Typography>
+							}
+							placement="right"
+							arrow={true}
+						>
+							<InfoCircleIcon fontSize="small" />
+						</Infotip>
+					</StyledFormLabel>
+					<Box sx={{ flexGrow: 1 }}>
+						<TextField
+							id="sitemap-url"
+							type="url"
+							onChange={onEditSitemap}
+							value={widgetMenuSettings.sitemap?.url}
+							sx={{ width: '100%' }}
+							error={hasError.sitemap}
+							size="small"
+							variant="outlined"
+						/>
+						{hasError.sitemap && (
+							<Typography variant="caption" color="error">
+								{__('Please enter valid URL!', 'pojo-accessibility')}
+							</Typography>
+						)}
+					</Box>
+				</StyledBox>
+			</StyledAccordionDetails>
+		</StyledAccordion>
+	);
+};
+
+const StyledAccordion = styled(Accordion)`
+	border: none;
+	width: 100%;
+`;
+
+const StyledAccordionSummary = styled(AccordionSummary)`
+	padding: 0;
+	min-height: auto;
+	justify-content: left;
+	&.Mui-expanded {
+		min-height: auto;
+	}
+
+	& .MuiAccordionSummary-content,
+	& .MuiAccordionSummary-content.Mui-expanded {
+		margin: 0 !important;
+		align-items: center;
+		flex-grow: 0;
+	}
+`;
+
+const StyledBox = styled(Box)`
+	display: flex;
+	gap: 16px;
+	align-items: flex-start;
+`;
+
+const StyledFormLabel = styled(FormLabel)`
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	white-space: nowrap;
+	padding-top: 4px;
+`;
+
+const StyledAccordionDetails = styled(AccordionDetails)`
+	padding: 5px 45px 5px 0;
+`;
+
+export default SitemapSettings;

@@ -21,10 +21,7 @@ export const injectTemplateVars = (message, components) => {
 };
 
 export const validateUrl = (url) => {
-	try {
-		new URL(url);
-		return true;
-	} catch (error) {
-		return false;
-	}
+	const pattern =
+		/^(https?):\/\/([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d{1,5})?(\/.*)?$/i;
+	return pattern.test(url);
 };
