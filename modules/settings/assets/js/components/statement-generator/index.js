@@ -124,11 +124,11 @@ const StatementGenerator = ({ open, close }) => {
 				window.ea11yWidget.accessibilityStatementURL = response.link;
 			}
 			await close();
-			await success('Page created');
+			await success('Page created', 'pojo-accessibility');
 
 			mixpanelService.sendEvent('statement_page_created');
 		} catch (e) {
-			error('Error while creating page');
+			error('Error while creating page', 'pojo-accessibility');
 			console.error(e);
 		}
 	};

@@ -25,7 +25,6 @@ class Module extends Module_Base {
 	 * @throws Exception
 	 */
 	public function enqueue_accessibility_widget() : void {
-
 		if ( ! Connect::is_connected() ) {
 			return;
 		}
@@ -99,18 +98,22 @@ class Module extends Module_Base {
 			return;
 		}
 
-		wp_localize_script(
-			'admin', // use admin settings script
-			'ea11yWidget',
-			[
-				'iconSettings' => $this->get_widget_icon_settings(),
-				'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
-				'preview' => true,
-				'previewContainer' => '#ea11y-widget-preview--container',
-				'apiKey' => $plan_data->public_api_key,
-				'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
-			]
-		);
+    $widget_state = [
+        'iconSettings' => $this->get_widget_icon_settings(),
+        'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
+        'preview' => true,
+        'previewContainer' => '#ea11y-widget-preview--container',
+        'apiKey' => $plan_data->public_api_key,
+        'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
+    ];
+
+    ?>
+
+    <script id="ea11y-state">
+        window.ea11yWidget = <?php echo json_encode($widget_state); ?>;
+    </script>
+
+    <?php
 	}
 
 	/**

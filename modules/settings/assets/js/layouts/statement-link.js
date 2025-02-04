@@ -107,11 +107,11 @@ const StatementLink = () => {
 				ea11y_accessibility_statement_data: accessibilityStatementData,
 			});
 
-			await success('Changes saved');
+			await success('Changes saved', 'pojo-accessibility');
 
 			setDisabled(true);
 		} catch (e) {
-			error('Failed to save settings!');
+			error('Failed to save settings!', 'pojo-accessibility');
 
 			console.error(e);
 		}

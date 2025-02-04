@@ -75,6 +75,12 @@ const PositionSettingsMobile = () => {
 							onChange={() => toggleExactPosition('mobile')}
 							checked={iconPosition.mobile?.enableExactPosition}
 						/>
+						<Typography variant="body2" sx={{ marginTop: 2, marginBottom: 1 }}>
+							{__(
+								'Exact positioning, 5 – 500 px are permitted values:',
+								'pojo-accessibility',
+							)}
+						</Typography>
 						<PositionControl
 							type="horizontal"
 							mode="mobile"
