@@ -211,7 +211,7 @@ class Module extends Module_Base {
 				'enabled' => true,
 			],
 			'sitemap' => [
-				'enabled' => true,
+				'enabled' => false,
 				'url' => home_url( '/wp-sitemap.xml' ),
 			],
 			'reading-mask' => [
