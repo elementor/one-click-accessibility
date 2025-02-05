@@ -1,4 +1,4 @@
-import { CardActions } from '@elementor/ui';
+import { CardActions, ListItemSecondaryAction } from '@elementor/ui';
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
@@ -13,11 +13,13 @@ import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
+import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MENU_SETTINGS } from '../constants/menu-settings';
+import { validateUrl } from '../utils';
 
 const StyledSwitch = styled(Switch)`
 	input {
@@ -51,6 +53,8 @@ const MenuSettings = () => {
 		widgetMenuSettings,
 		setWidgetMenuSettings,
 		setHasChanges,
+		hasError,
+		setHasError,
 		hideMinimumOptionAlert,
 		setHideMinimumOptionAlert,
 	} = useSettings();
@@ -74,9 +78,19 @@ const MenuSettings = () => {
 			const newSettings = {
 				...prevSettings,
 				[option]: {
+					...prevSettings[option],
 					enabled: !prevSettings[option]?.enabled,
 				},
 			};
+
+			if (option === 'sitemap') {
+				setHasError({
+					...hasError,
+					sitemap: !prevSettings[option]?.enabled
+						? !validateUrl(prevSettings[option]?.url)
+						: false,
+				});
+			}
 
 			setHasChanges(true);
 
@@ -143,11 +157,11 @@ const MenuSettings = () => {
 			)}
 
 			<StyledCardContent>
-				<List>
+				<List as="div">
 					{Object.entries(MENU_SETTINGS).map(([parentKey, parentItem], i) => {
 						return (
 							<Box key={parentKey}>
-								<ListItem disableGutters>
+								<ListItem as="div" disableGutters>
 									<ListItemText>
 										<Typography variant="subtitle2">
 											{parentItem.title}
@@ -160,10 +174,21 @@ const MenuSettings = () => {
 										([childKey, childValue]) => {
 											return (
 												<ListItem
+													as="div"
 													key={childKey}
 													disableGutters
 													sx={{ p: '4px' }}
-													secondaryAction={
+												>
+													{childKey === 'sitemap' ? (
+														<SitemapSettings sitemap={childValue} />
+													) : (
+														<>
+															<ListItemIcon>{childValue.icon}</ListItemIcon>
+															<ListItemText primary={childValue.title} />
+														</>
+													)}
+
+													<ListItemSecondaryAction sx={{ top: '19px' }}>
 														<StyledSwitch
 															size="medium"
 															color="info"
@@ -179,10 +204,7 @@ const MenuSettings = () => {
 																	: false
 															}
 														/>
-													}
-												>
-													<ListItemIcon>{childValue.icon}</ListItemIcon>
-													<ListItemText primary={childValue.title} />
+													</ListItemSecondaryAction>
 												</ListItem>
 											);
 										},

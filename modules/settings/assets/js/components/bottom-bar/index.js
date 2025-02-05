@@ -21,6 +21,7 @@ const BottomBar = () => {
 		iconDesign,
 		iconPosition,
 		hasChanges,
+		hasError,
 		setHasChanges,
 	} = useSettings();
 	const { save } = useStorage();
@@ -66,7 +67,9 @@ const BottomBar = () => {
 				variant="contained"
 				color="info"
 				onClick={saveSettings}
-				disabled={!hasChanges}
+				disabled={
+					!hasChanges || Object.keys(hasError).some((key) => hasError[key])
+				}
 			>
 				{__('Save changes', 'pojo-accessibility')}
 			</Button>
