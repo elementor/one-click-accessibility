@@ -535,6 +535,16 @@ class Upgrade {
 		}
 
 		self::upgrade();
+
+		// store upgrade campaign data
+		$campaign_data = [
+			'source' => 'one-click-upgrade',
+			'campaign' => 'a11y-upgrade',
+			'medium' => 'wp-dash',
+		];
+
+		set_transient( 'elementor_ea11y_campaign', $campaign_data, 30 * DAY_IN_SECONDS );
+
 		wp_send_json_success( [] );
 	}
 
