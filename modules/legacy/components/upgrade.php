@@ -169,11 +169,11 @@ class Upgrade {
 						<iframe
 								width="480"
 								height="270"
-								src="https://www.youtube.com/embed/MLpWrANjFbI?si=NugoZlkXwil9ya9P"
+								src="https://www.youtube.com/embed/p-vVS5FXL_A?si=DL6RshUJot749xJ5&amp;controls=0"
 								title="YouTube video player"
 								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-								referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-						</iframe>
+								referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+						></iframe>
 					</div>
 					<h2 class="intro-title"><?php esc_html_e( 'Switch to our new accessibility widget', 'pojo-accessibility' ); ?></h2>
 					<p class="intro-description typography-body1"><?php esc_html_e( 'Web Accessibility by Elementor is our new and improved accessibility plugin. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
