@@ -10,6 +10,15 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 		Object.keys(replacements).forEach((key) => {
 			const placeholder = `{${key}}`; // Create placeholder format (e.g., {company_name})
 			const value = replacements[key]; // Get the replacement value
+
+			// Show placeholders in the preview until user fills in details.
+			if (replacements[key] === '') {
+				const preparedText = `[${key?.split('_').join(' ')}]`;
+				updatedText = updatedText.replace(
+					new RegExp(placeholder, 'g'),
+					preparedText,
+				);
+			}
 			updatedText = updatedText.replace(new RegExp(placeholder, 'g'), value);
 		});
 
@@ -41,6 +50,7 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 						component={tagName}
 						marginBottom={1}
 						sx={node.attribs.class ? { textAlign: 'center' } : {}} //for correct render on preview
+						color={tagName === 'p' ? 'text.secondary' : 'text.primary'}
 					>
 						{node.children && node.children.map((child) => transform(child))}
 					</Typography>
