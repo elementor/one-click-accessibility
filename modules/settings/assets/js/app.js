@@ -7,7 +7,6 @@ import {
 	ConnectModal,
 	Notifications,
 	MenuItems,
-	AdminTopBar,
 	PostConnectModal,
 } from '@ea11y/components';
 import {
@@ -67,8 +66,6 @@ const App = () => {
 					<Sidebar />
 
 					<StyledContainer>
-						<AdminTopBar />
-
 						<PageContent
 							// Looks the best if we have both checks
 							isLoading={!hasFinishedResolution || loading}

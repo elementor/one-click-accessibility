@@ -1,4 +1,10 @@
-import { UserIcon, ChevronUpIcon, ChevronDownIcon } from '@elementor/icons';
+import {
+	UserIcon,
+	ChevronUpIcon,
+	ChevronDownIcon,
+	HelpIcon,
+	ExternalLinkIcon,
+} from '@elementor/icons';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import List from '@elementor/ui/List';
@@ -9,6 +15,7 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import {
 	bindMenu,
 	bindTrigger,
@@ -19,6 +26,12 @@ import { UserArrowIcon } from '@ea11y/icons';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
+import { HELP_LINK } from '../../constants';
+
+const StyledListItemButton = styled(ListItemButton)`
+	justify-content: center;
+	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(3)}`};
+`;
 
 const MyAccountMenu = () => {
 	const { openSidebar, planData } = useSettings();
@@ -63,6 +76,13 @@ const MyAccountMenu = () => {
 		}
 	};
 
+	const handleHelpButtonClick = () => {
+		mixpanelService.sendEvent('help_button_clicked', {
+			source: 'Header',
+		});
+		window.open(HELP_LINK, '_blank');
+	};
+
 	return (
 		<>
 			<List
@@ -72,13 +92,22 @@ const MyAccountMenu = () => {
 					});
 				}}
 			>
-				<ListItemButton
+				<StyledListItemButton shape="rounded" onClick={handleHelpButtonClick}>
+					<ListItemIcon>
+						<HelpIcon sx={{ color: 'common.black' }} fontSize="small" />
+					</ListItemIcon>
+
+					<ListItemText
+						primary={__('Help center', 'pojo-accessibility')}
+						hidden={!openSidebar}
+					/>
+
+					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
+						<ExternalLinkIcon />
+					</ListItemIcon>
+				</StyledListItemButton>
+				<StyledListItemButton
 					{...bindTrigger(accountMenuState)}
-					sx={{
-						justifyContent: 'center',
-						py: 1,
-						px: 3,
-					}}
 					selected={accountMenuState.isOpen}
 					shape="rounded"
 				>
@@ -98,7 +127,7 @@ const MyAccountMenu = () => {
 							<ChevronUpIcon fontSize="small" />
 						)}
 					</ListItemIcon>
-				</ListItemButton>
+				</StyledListItemButton>
 			</List>
 
 			<Menu
