@@ -269,7 +269,7 @@ class Module extends Module_Base {
 		];
 
 		$skip_to_content_setting = [
-			'enabled' => false,
+			'enabled' => true,
 			'anchor' => '#content',
 		];
 

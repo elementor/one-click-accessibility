@@ -59,7 +59,7 @@ export const SettingsProvider = ({ children }) => {
 	});
 
 	const [skipToContentSettings, setSkipToContentSettings] = useState({
-		enabled: false,
+		enabled: true,
 	});
 
 	const [planData, setPlanData] = useState(null);
