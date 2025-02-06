@@ -19,6 +19,7 @@ import { StatementLink } from '@ea11y/layouts';
 import { mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { LEARN_MORE_LINK } from '../constants/index';
 import { injectTemplateVars } from '../utils';
 
 const StyledPaper = styled(Paper)`
@@ -115,7 +116,7 @@ const AccessibilityStatement = () => {
 							{
 								link: ({ children }) => (
 									<Link
-										href={'https://example.com/'}
+										href={LEARN_MORE_LINK}
 										target="_blank"
 										rel="noopener noreferrer"
 										color="secondary"
