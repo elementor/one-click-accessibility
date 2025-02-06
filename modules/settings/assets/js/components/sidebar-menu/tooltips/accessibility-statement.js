@@ -16,6 +16,7 @@ const AccessibilityStatementTooltip = () => {
 	if (accessibilityStatementData?.link) {
 		return null;
 	}
+
 	const TooltipCard = (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
 			<CardHeader
@@ -44,6 +45,7 @@ const AccessibilityStatementTooltip = () => {
 			</CardActions>
 		</Card>
 	);
+
 	return (
 		<Infotip placement="right" content={TooltipCard}>
 			<InfoCircleIcon color="info" sx={{ ml: 1 }} />

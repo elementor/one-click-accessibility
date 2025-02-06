@@ -27,6 +27,6 @@ export const MenuItems = {
 		key: 'accessibility-statement',
 		page: <AccessibilityStatement />,
 		icon: <PagesIcon size="small" sx={{ color: 'common.black' }} />,
-		tooltip: <AccessibilityStatementTooltip />,
+		infotip: <AccessibilityStatementTooltip />,
 	},
 };
