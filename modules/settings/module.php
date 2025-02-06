@@ -76,7 +76,7 @@ class Module extends Module_Base {
 			return;
 		}
 
-    self::refresh_plan_data();
+		self::refresh_plan_data();
 
 		wp_enqueue_style(
 			'ea11y-admin-fonts',
@@ -100,27 +100,27 @@ class Module extends Module_Base {
 		);
 	}
 
-    public static function refresh_plan_data() {
-        $plan_data = Settings::get( Settings::PLAN_DATA );
+	public static function refresh_plan_data() {
+		$plan_data = Settings::get( Settings::PLAN_DATA );
 
-        $response = Utils::get_api_client()->make_request(
-            'GET',
-            'site/info',
-            [ 'api_key' => $plan_data->public_api_key ]
-        );
+		$response = Utils::get_api_client()->make_request(
+			'GET',
+			'site/info',
+			[ 'api_key' => $plan_data->public_api_key ]
+		);
 
-        if ( ! empty( $response->site_url ) && Data::get_home_url() !== $response->site_url ) {
-            Data::set_home_url( $response->site_url );
-        }
+		if ( ! empty( $response->site_url ) && Data::get_home_url() !== $response->site_url ) {
+			Data::set_home_url( $response->site_url );
+		}
 
-        if ( ! is_wp_error( $response ) ) {
-            Settings::set( Settings::PLAN_DATA, json_decode( $response ) );
-            Settings::set( Settings::IS_VALID_PLAN_DATA, true );
-        } else {
-            Logger::error( esc_html( $response->get_error_message() ) );
-            Settings::set( Settings::IS_VALID_PLAN_DATA, false );
-        }
-    }
+		if ( ! is_wp_error( $response ) ) {
+			Settings::set( Settings::PLAN_DATA, json_decode( $response ) );
+			Settings::set( Settings::IS_VALID_PLAN_DATA, true );
+		} else {
+			Logger::error( esc_html( $response->get_error_message() ) );
+			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
+		}
+	}
 
 	/**
 	 * Get Mixpanel project Token
@@ -268,12 +268,21 @@ class Module extends Module_Base {
 			],
 		];
 
+		$skip_to_content_setting = [
+			'enabled' => false,
+			'anchor' => '#content',
+		];
+
 		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
 			update_option( Settings::WIDGET_MENU_SETTINGS, $widget_menu_settings );
 		}
 
 		if ( ! get_option( Settings::WIDGET_ICON_SETTINGS ) ) {
 			update_option( Settings::WIDGET_ICON_SETTINGS, $widget_icon_settings );
+		}
+
+		if ( ! get_option( Settings::SKIP_TO_CONTENT ) ) {
+			update_option( Settings::SKIP_TO_CONTENT, $skip_to_content_setting );
 		}
 	}
 
@@ -329,6 +338,15 @@ class Module extends Module_Base {
 				],
 			],
 			'widget_icon_settings' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
+			],
+			'skip_to_content_settings' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [

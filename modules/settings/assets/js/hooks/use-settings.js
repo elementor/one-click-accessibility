@@ -39,7 +39,7 @@ export const SettingsProvider = ({ children }) => {
 			enabled: true,
 		},
 		sitemap: {
-			enabled: true,
+			enabled: false,
 		},
 		'reading-mask': {
 			enabled: true,
@@ -58,12 +58,18 @@ export const SettingsProvider = ({ children }) => {
 		},
 	});
 
+	const [skipToContentSettings, setSkipToContentSettings] = useState({
+		enabled: false,
+	});
+
 	const [planData, setPlanData] = useState(null);
 
 	// Track settings changes to enable/disable Save Changes button
 	const [hasChanges, setHasChanges] = useState(false);
+	const [skipToContentHasChanges, setSkipToContentHasChanges] = useState(false);
 	const [hasError, setHasError] = useState({
 		sitemap: false,
+		skipToContent: false,
 	});
 	const [hideMinimumOptionAlert, setHideMinimumOptionAlert] = useState(false);
 	const [iconDesign, setIconDesign] = useState({
@@ -139,6 +145,10 @@ export const SettingsProvider = ({ children }) => {
 				setSelectedMenu,
 				widgetMenuSettings,
 				setWidgetMenuSettings,
+				skipToContentSettings,
+				setSkipToContentSettings,
+				skipToContentHasChanges,
+				setSkipToContentHasChanges,
 				hideMinimumOptionAlert,
 				setHideMinimumOptionAlert,
 				iconPosition,

@@ -25,3 +25,8 @@ export const validateUrl = (url) => {
 		/^(https?):\/\/([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d{1,5})?(\/.*)?$/i;
 	return pattern.test(url);
 };
+
+export const validateId = (id) => {
+	const pattern = /^#[A-Za-z0-9_.-]+$/;
+	return pattern.test(id);
+};
