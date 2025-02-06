@@ -2,24 +2,14 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { styled } from '@elementor/ui/styles';
-import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
+import {
+	AlignmentMatrixControl,
+	PositionControl,
+	PositionSettingsWrapper,
+} from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
-
-const StyledBox = styled(Box)`
-	display: grid;
-	justify-content: space-evenly;
-
-	gap: ${({ theme }) => theme.spacing(5)};
-	padding: ${({ theme }) => theme.spacing(2)};
-
-	grid-template-columns: repeat(2, 1fr);
-	${({ theme }) => theme.breakpoints.down('lg')} {
-		grid-template-columns: repeat(1, 1fr);
-	}
-`;
 
 const PositionSettingsDesktop = () => {
 	const { iconPosition, updateIconPosition } = useIconPosition();
@@ -75,7 +65,7 @@ const PositionSettingsDesktop = () => {
 				checked={iconPosition.desktop.hidden}
 			/>
 			{!iconPosition.desktop.hidden && (
-				<StyledBox>
+				<PositionSettingsWrapper>
 					<AlignmentMatrixControl mode="desktop" />
 
 					<Box>
@@ -107,7 +97,7 @@ const PositionSettingsDesktop = () => {
 							disabled={!iconPosition.desktop?.enableExactPosition}
 						/>
 					</Box>
-				</StyledBox>
+				</PositionSettingsWrapper>
 			)}
 		</>
 	);
