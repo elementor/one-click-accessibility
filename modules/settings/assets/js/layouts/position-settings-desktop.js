@@ -2,7 +2,11 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
+import {
+	AlignmentMatrixControl,
+	PositionControl,
+	PositionSettingsWrapper,
+} from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
@@ -61,13 +65,7 @@ const PositionSettingsDesktop = () => {
 				checked={iconPosition.desktop.hidden}
 			/>
 			{!iconPosition.desktop.hidden && (
-				<Box
-					display="grid"
-					gridTemplateColumns="repeat(2,1fr)"
-					justifyContent="space-evenly"
-					padding={2}
-					gap={5}
-				>
+				<PositionSettingsWrapper>
 					<AlignmentMatrixControl mode="desktop" />
 
 					<Box>
@@ -99,7 +97,7 @@ const PositionSettingsDesktop = () => {
 							disabled={!iconPosition.desktop?.enableExactPosition}
 						/>
 					</Box>
-				</Box>
+				</PositionSettingsWrapper>
 			)}
 		</>
 	);
