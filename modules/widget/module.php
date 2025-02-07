@@ -133,9 +133,22 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * Remove default skip link
+	 */
+
+	public function remove_skip_link() {
+		$skip_to_content_settings = get_option( Settings::SKIP_TO_CONTENT );
+
+		if ( $skip_to_content_settings && ! empty( $skip_to_content_settings['enabled'] ) ) {
+			remove_action( 'wp_footer', 'the_block_template_skip_link' );
+		}
+	}
+
+	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
+		$this->remove_skip_link();
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_accessibility_widget' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_accessibility_widget_admin' ] );
 	}
