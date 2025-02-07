@@ -109,16 +109,21 @@ const SkipToContentSettings = () => {
 			</Typography>
 			<StyledFormItem>
 				<StyledFormLabel htmlFor="skip-to-content-anchor">
-					{__('Content element ID')}
+					{__('Content element ID', 'pojo-accessibility')}
 
 					<Infotip
 						content={
-							<Typography variant="body2" sx={{ p: 2 }}>
-								{__(
-									'You need to add a valid ID of content element',
-									'pojo-accessibility',
-								)}
-							</Typography>
+							<Box sx={{ p: 2, maxWidth: '250px' }}>
+								<Typography variant="subtitle2" sx={{ mb: 1 }}>
+									{__('Skip to main content', 'pojo-accessibility')}
+								</Typography>
+								<Typography variant="body2">
+									{__(
+										'This feature allows visitors with visual assistive tools to skip to the main content of each page they’re viewing.',
+										'pojo-accessibility',
+									)}
+								</Typography>
+							</Box>
 						}
 						placement="right"
 						arrow={true}
