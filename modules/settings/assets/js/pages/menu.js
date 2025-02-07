@@ -2,6 +2,7 @@ import Box from '@elementor/ui/Box';
 import Container from '@elementor/ui/Container';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import SkipToContentSettings from '@ea11y/components/skip-to-content-settings';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
 import { mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
@@ -30,6 +31,8 @@ const Menu = () => {
 				<MenuSettings />
 				<WidgetPreview />
 			</Box>
+
+			<SkipToContentSettings />
 		</StyledContainer>
 	);
 };
