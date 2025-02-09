@@ -1,4 +1,4 @@
-=== One Click Accessibility ===
+=== Ally - Web Accessibility by Elementor, Make Your Website More Accessible ===
 Contributors: pojo.me, KingYes, ariel.k, jzaltzberg, bainternet
 Tags: Accessibility, A11y, Toolbar, Tools, wcag, accessible
 Requires at least: 4.1
@@ -7,38 +7,38 @@ Requires PHP: 5.4
 Stable tag: 2.1.0
 License: GPLv2 or later
 
-The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
+Ally - Web Accessibility by Elementor Make Your Website More Accessible (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
 
 == Description ==
 
-The One Click Accessibility toolbar is the fastest plugin to help you make your WordPress website more accessible.
+Ally (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
 
-While most accessibility issues can’t be addressed without directly changing your content, One Click Accessibility adds a number of helpful accessibility features with the minimum amount of setup and without the need for expert knowledge.
+Ally is a plugin aimed to help web creators design websites that align with global accessibility standards. With regulations like the European Accessibility Act set to take effect in 2025 - there is a growing shift towards a greater focus on accessibility.
 
-**Accessibility Toolbar:**
+Our Ally plugin replaces the One Click Accessibility plugin, and introduces a newly designed interface with an optimized editing experience.
 
-Add a toolbar toggling hat allows you to set:
 
-* Resize font (increase/decrease)
-* Grayscale
-* Negative Contrast
-* High Contrast
-* Light Background
-* Links Underline
-* Readable Font
-* Link to Sitemap / Feedback / Help pages
+**It’s the Law**
 
-**Accessibility Features:**
+As accessibility standards continue to evolve and become mandatory, it’s important to start making website adjustments to comply with fast-approaching global regulations. Among its other capabilities, this plugin lets you instantly generate your website's Accessibility Statement, which is now mandatory in most locales.
 
-* Enable skip to content
-* Add outline focus for focusable elements
-* Remove the target attribute from links
-* Add landmark roles to all links
-* Customizer for style adjustment
+Ally is not a substitute for a thorough accessibility audit and is NOTintended to completely make your website legally compliant. However, with it, you’re one step closer to making your website inclusive to more visitors, including those with visual, auditory or cognitive challenges.
 
-**Contributions:**
+**Why Prioritize Accessibility**
 
-Would you like to contribute to One Click Accessibility? You are more than welcome to submit your requests on the [GitHub repo](https://github.com/pojome/one-click-accessibility/). Also, if you have any notes about the code, please open a ticket on this issue tracker.
+Every user deserves a seamless online experience, regardless of their abilities. An accessible website isn't just ethical; it's good business. By prioritizing inclusivity, you improve user experience for everyone, boost your search engine rankings, and attract a wider audience.
+
+**Putting Your Visitors in Control**
+
+Accessible websites allow people with various disabilities to access your website using assistive technologies where visitors can adjust design elements to fit their needs, such as increasing font sizes, adjusting color contrasts, pausing animations, and more.
+
+**Features:**
+
+
+== Related Plugins ==
+* [Site Mailer](https://wordpress.org/plugins/site-mailer/): Effortlessly manage transactional emails with Site Mailer. High deliverability, logs and statistics, and no SMTP plugins needed
+* [Image Optimizer](https://wordpress.org/plugins/image-optimization/): Compress and optimize your images, giving you leaner, faster websites. Automatically optimize any new image you upload to your site or run a bulk optimization process on all previously uploaded images.
+
 
 == Installation ==
 
@@ -58,10 +58,11 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 
 == Screenshots ==
 
-1. Accessibility Customizer
-2. Accessibility Toolbar
-3. Grayscale Mode
-4. Negative Contrast Mode
+1. Capabilities: Toggle accessibility features on or off as needed.
+2. Position Settings: Set widget placement or hide it on desktop and mobile.
+3. Design: Customize the button's icon, size, and color.
+4. Accessibility Statement: Add or create a custom accessibility statement.
+5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
 
@@ -111,7 +112,7 @@ Would you like to contribute to One Click Accessibility? You are more than welco
 * Fixed! - Triggering blur after focus to avoid auto-focus by browser on tab reactivated
 
 = 1.1.1 - 2016-02-08 =
-* Tweak! - Added more hebrew strings translate 
+* Tweak! - Added more hebrew strings translate
 * Tested up to WordPress v4.4
 
 = 1.1.0 - 2016-02-07 =
