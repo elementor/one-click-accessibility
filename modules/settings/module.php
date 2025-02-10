@@ -167,6 +167,11 @@ class Module extends Module_Base {
 	}
 
 	public static function refresh_plan_data() {
+
+        if ( ! Connect::is_connected() ) {
+            return;
+        }
+
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 
         // Refresh only if refresh transient is expired
