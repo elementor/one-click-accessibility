@@ -25,7 +25,7 @@ const StyledGrid = styled(Grid)`
 
 	width: 600px;
 	max-width: 95%;
-	height: 552px;
+	height: 570px;
 	gap: 0;
 	background-color: ${({ theme }) => theme.palette.background.paper};
 	padding: ${({ theme }) => theme.spacing(5)};
@@ -65,7 +65,7 @@ const ConnectModal = () => {
 
 				<Typography variant="body2" color="text.primary" width={400}>
 					{__(
-						'Make your site more inclusive with Web accessibility.',
+						'Make your site more inclusive with Ally - Web Accessibility by Elementor.',
 						'pojo-accessibility',
 					)}
 				</Typography>

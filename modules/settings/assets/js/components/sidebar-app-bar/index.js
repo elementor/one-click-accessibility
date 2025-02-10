@@ -11,9 +11,9 @@ import { __ } from '@wordpress/i18n';
 const StyledHeading = styled(Box)`
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	padding: ${({ theme }) => theme.spacing(0.5)};
-	padding-top: 0;
+	justify-content: flex-start;
+	padding: 0;
+	width: 200px;
 `;
 
 const SidebarAppBar = () => {
@@ -24,17 +24,16 @@ const SidebarAppBar = () => {
 			<Toolbar
 				disableGutters
 				variant="dense"
-				sx={{ justifyContent: 'flex-start' }}
+				sx={{ justifyContent: 'space-between' }}
 			>
 				<StyledHeading>
 					<ElementorLogo />
-
 					<Typography
 						variant="h6"
 						marginLeft={0.5}
 						display={!openSidebar ? 'none' : 'inherit'}
 					>
-						{__('Web accessibility', 'pojo-accessibility')}
+						{__('Ally', 'pojo-accessibility')}
 					</Typography>
 				</StyledHeading>
 

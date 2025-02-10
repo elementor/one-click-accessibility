@@ -1,4 +1,4 @@
-export const HELP_LINK = 'https://go.elementor.com/';
+export const HELP_LINK = 'https://go.elementor.com/acc-main-help/';
 export const UPGRADE_LINK = 'https://go.elementor.com/';
 export const LEARN_MORE_LINK =
 	'https://go.elementor.com/acc-statement-learn-more/';
