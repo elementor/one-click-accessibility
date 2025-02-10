@@ -163,6 +163,8 @@ class Client {
 			return $body;
 		}
 
+		$body = json_decode( $body );
+
 		if ( false === $body ) {
 			return new WP_Error( 422, 'Wrong Server Response' );
 		}
