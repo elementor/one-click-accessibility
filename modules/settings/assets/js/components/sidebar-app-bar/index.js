@@ -11,8 +11,9 @@ import { __ } from '@wordpress/i18n';
 const StyledHeading = styled(Box)`
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	padding: 0;
+	width: 200px;
 `;
 
 const SidebarAppBar = () => {
