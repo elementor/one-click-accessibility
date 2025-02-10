@@ -134,6 +134,14 @@ class Module extends Module_Base {
 			return;
 		}
 
+		self::register_site_with_data();
+	}
+
+	/**
+	 * Register the website and save the plan data.
+	 * @return void
+	 */
+	public static function register_site_with_data() : void {
 		$register_response = Utils::get_api_client()->make_request(
 			'POST',
 			'site/register'
@@ -142,7 +150,7 @@ class Module extends Module_Base {
 		if ( is_wp_error( $register_response ) ) {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
 		} else {
-			$this->save_plan_data( $register_response );
+			self::save_plan_data( $register_response );
 		}
 	}
 
@@ -152,13 +160,13 @@ class Module extends Module_Base {
 	 *
 	 * @return void
 	 */
-	public function save_plan_data( $register_response ) : void {
+	public static function save_plan_data( $register_response ) : void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
 			$decoded_response = $register_response;
 			Data::set_subscription_id( $decoded_response->plan->subscription_id );
 			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
-			$this->set_default_settings();
+			self::set_default_settings();
 			self::set_plan_data_refresh_transient();
 		} else {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
@@ -176,16 +184,17 @@ class Module extends Module_Base {
 				return;
 		}
 
-	  // Refresh only if refresh transient is expired
-	  if ( self::get_plan_data_refresh_transient() ) {
-		  return;
-	  }
+		// Refresh only if refresh transient is expired
+		if ( self::get_plan_data_refresh_transient() ) {
+			return;
+		}
 
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 
 		// Return if plan data does not have public_api_key
 		if ( ! $plan_data->public_api_key ) {
-			Logger::error('Cannot refresh the plan data. No public API key found.');
+			Logger::error( 'Cannot refresh the plan data. No public API key found.' );
+			self::register_site_with_data();
 			return;
 		}
 
@@ -209,7 +218,7 @@ class Module extends Module_Base {
 	 * Set default values after successful registration.
 	 * @return void
 	 */
-	private function set_default_settings() : void {
+	private static function set_default_settings() : void {
 		$widget_menu_settings = [
 			'bigger-text' => [
 				'enabled' => true,
@@ -316,8 +325,8 @@ class Module extends Module_Base {
 				'site/register'
 			);
 
-			$this->save_plan_data( $register_response );
-            self::set_plan_data_refresh_transient();
+			self::save_plan_data( $register_response );
+			self::set_plan_data_refresh_transient();
 		}
 	}
 
@@ -397,12 +406,12 @@ class Module extends Module_Base {
 		}
 	}
 
-    public static function set_plan_data_refresh_transient (): void {
-        set_transient( Settings::PLAN_DATA . '_refresh' , true, HOUR_IN_SECONDS * 12  );
-    }
+	public static function set_plan_data_refresh_transient(): void {
+		set_transient( Settings::PLAN_DATA . '_refresh', true, HOUR_IN_SECONDS * 12 );
+	}
 
-	public static function get_plan_data_refresh_transient (): bool {
-		return get_transient( Settings::PLAN_DATA . '_refresh'  );
+	public static function get_plan_data_refresh_transient(): bool {
+		return get_transient( Settings::PLAN_DATA . '_refresh' );
 	}
 
 	/**
