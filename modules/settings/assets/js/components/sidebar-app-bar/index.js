@@ -12,8 +12,7 @@ const StyledHeading = styled(Box)`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: ${({ theme }) => theme.spacing(0.5)};
-	padding-top: 0;
+	padding: 0;
 `;
 
 const SidebarAppBar = () => {
@@ -24,11 +23,10 @@ const SidebarAppBar = () => {
 			<Toolbar
 				disableGutters
 				variant="dense"
-				sx={{ justifyContent: 'flex-start' }}
+				sx={{ justifyContent: 'space-between' }}
 			>
 				<StyledHeading>
 					<ElementorLogo />
-
 					<Typography
 						variant="h6"
 						marginLeft={0.5}
