@@ -23,7 +23,7 @@ import { validateUrl } from '../utils';
 
 const StyledSwitch = styled(Switch)`
 	input {
-		height: 56px;
+		height: 56px !important;
 	}
 `;
 

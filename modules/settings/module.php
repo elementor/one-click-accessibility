@@ -95,6 +95,7 @@ class Module extends Module_Base {
 				'clientId' => Data::get_client_id(),
 				'pluginEnv' => self::get_plugin_env(),
 				'widgetUrl' => WidgetModule::get_widget_url(),
+				'adminUrl' => admin_url(),
 			]
 		);
 	}
