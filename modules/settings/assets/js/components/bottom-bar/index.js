@@ -30,14 +30,11 @@ const BottomBar = () => {
 	const saveSettings = async () => {
 		let savedData = {};
 
-		if (selectedMenu.parent === 'widget' && selectedMenu.child === 'menu') {
+		if (selectedMenu.parent === 'capabilities') {
 			savedData = {
 				ea11y_widget_menu_settings: widgetMenuSettings,
 			};
-		} else if (
-			selectedMenu.parent === 'widget' &&
-			selectedMenu.child === 'iconSettings'
-		) {
+		} else if (selectedMenu.parent === 'design') {
 			savedData = {
 				ea11y_widget_icon_settings: {
 					style: iconDesign,
