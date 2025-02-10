@@ -154,35 +154,40 @@ class Module extends Module_Base {
 	 */
 	public function save_plan_data( $register_response ) : void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
-			$decoded_response = json_decode( $register_response );
+			$decoded_response = $register_response;
 			Data::set_subscription_id( $decoded_response->plan->subscription_id );
 			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
 			$this->set_default_settings();
-            self::set_plan_data_refresh_transient();
+			self::set_plan_data_refresh_transient();
 		} else {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
 			update_option( Settings::IS_VALID_PLAN_DATA, false );
 		}
 	}
 
-	public static function refresh_plan_data() {
+	/**
+	 * Refresh the plan data after 12 hours
+	 * @return void
+	 */
+	public static function refresh_plan_data() : void {
 
-        if ( ! Connect::is_connected() ) {
-            return;
-        }
+		if ( ! Connect::is_connected() ) {
+				return;
+		}
+
+	  // Refresh only if refresh transient is expired
+	  if ( self::get_plan_data_refresh_transient() ) {
+		  return;
+	  }
 
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 
-        // Refresh only if refresh transient is expired
-        if ( self::get_plan_data_refresh_transient() ) {
-            return;
-        }
-
-        // Return if plan data does not exist
-        if ( ! $plan_data ) {
-            return;
-        }
+		// Return if plan data does not have public_api_key
+		if ( ! $plan_data->public_api_key ) {
+			Logger::error('Cannot refresh the plan data. No public API key found.');
+			return;
+		}
 
 		$response = Utils::get_api_client()->make_request(
 			'GET',
@@ -191,12 +196,12 @@ class Module extends Module_Base {
 		);
 
 		if ( ! is_wp_error( $response ) ) {
-			Settings::set( Settings::PLAN_DATA, json_decode( $response ) );
+			Settings::set( Settings::PLAN_DATA, $response );
 			Settings::set( Settings::IS_VALID_PLAN_DATA, true );
+			self::set_plan_data_refresh_transient();
 		} else {
 			Logger::error( esc_html( $response->get_error_message() ) );
 			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
-
 		}
 	}
 
