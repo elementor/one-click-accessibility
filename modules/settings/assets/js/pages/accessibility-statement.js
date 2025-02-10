@@ -1,3 +1,4 @@
+import { ChevronLeftIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Container from '@elementor/ui/Container';
@@ -19,6 +20,7 @@ import { StatementLink } from '@ea11y/layouts';
 import { mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { LEARN_MORE_LINK } from '../constants/index';
 import { injectTemplateVars } from '../utils';
 
 const StyledPaper = styled(Paper)`
@@ -82,6 +84,14 @@ const AccessibilityStatement = () => {
 		}
 	};
 
+	/**
+	 * Go back to the statement option section.
+	 */
+	const handleBackButton = () => {
+		setContinueDisabled(false);
+		setShowStatementLink(false);
+	};
+
 	return (
 		<>
 			<Box
@@ -115,7 +125,7 @@ const AccessibilityStatement = () => {
 							{
 								link: ({ children }) => (
 									<Link
-										href={'https://example.com/'}
+										href={LEARN_MORE_LINK}
 										target="_blank"
 										rel="noopener noreferrer"
 										color="secondary"
@@ -233,7 +243,19 @@ const AccessibilityStatement = () => {
 					)}
 
 					{(accessibilityStatementData?.pageId || showStatementLink) && (
-						<StatementLink />
+						<>
+							{!accessibilityStatementData?.pageId && (
+								<Button
+									size="large"
+									color="secondary"
+									startIcon={<ChevronLeftIcon fontSize="small" />}
+									onClick={handleBackButton}
+								>
+									{__('Back', 'pojo-accessibility')}
+								</Button>
+							)}
+							<StatementLink />
+						</>
 					)}
 				</Container>
 

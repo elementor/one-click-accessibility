@@ -16,6 +16,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import {
 	CopyLink,
+	EditLink,
 	WidgetLoader,
 	GeneratedPageInfoTipCard,
 } from '@ea11y/components';
@@ -180,7 +181,10 @@ const StatementLink = () => {
 								</Infotip>
 
 								{accessibilityStatementData?.link && (
-									<CopyLink content={accessibilityStatementData?.link} />
+									<>
+										<EditLink />
+										<CopyLink content={accessibilityStatementData?.link} />
+									</>
 								)}
 							</Box>
 

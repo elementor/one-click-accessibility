@@ -54,10 +54,7 @@ const CopyLink = ({ content }) => {
 				],
 			}}
 		>
-			<IconButton
-				onClick={copyToClipboard}
-				sx={{ width: '50px', height: '50px', marginLeft: 1 }}
-			>
+			<IconButton onClick={copyToClipboard} sx={{ marginLeft: 1 }}>
 				<LinkIcon width="1em" height="1em" />
 			</IconButton>
 		</Tooltip>

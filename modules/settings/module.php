@@ -290,12 +290,21 @@ class Module extends Module_Base {
 			],
 		];
 
+		$skip_to_content_setting = [
+			'enabled' => true,
+			'anchor' => '#content',
+		];
+
 		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
 			update_option( Settings::WIDGET_MENU_SETTINGS, $widget_menu_settings );
 		}
 
 		if ( ! get_option( Settings::WIDGET_ICON_SETTINGS ) ) {
 			update_option( Settings::WIDGET_ICON_SETTINGS, $widget_icon_settings );
+		}
+
+		if ( ! get_option( Settings::SKIP_TO_CONTENT ) ) {
+			update_option( Settings::SKIP_TO_CONTENT, $skip_to_content_setting );
 		}
 	}
 
@@ -352,6 +361,15 @@ class Module extends Module_Base {
 				],
 			],
 			'widget_icon_settings' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
+			],
+			'skip_to_content_settings' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [

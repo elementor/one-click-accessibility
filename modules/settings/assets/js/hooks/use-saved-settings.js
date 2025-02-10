@@ -14,6 +14,7 @@ export const useSavedSettings = () => {
 		setPlanData,
 		setAccessibilityStatementData,
 		setShowAccessibilityGeneratedInfotip,
+		setSkipToContentSettings,
 	} = useSettings();
 
 	const result = useSelect((select) => {
@@ -67,6 +68,10 @@ export const useSavedSettings = () => {
 				setShowAccessibilityGeneratedInfotip(
 					result.data.ea11y_show_accessibility_generated_page_infotip,
 				);
+			}
+
+			if (result?.data?.ea11y_skip_to_content_settings) {
+				setSkipToContentSettings(result?.data?.ea11y_skip_to_content_settings);
 			}
 		}
 	}, [result.hasFinishedResolution]);
