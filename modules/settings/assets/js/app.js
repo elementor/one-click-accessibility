@@ -51,9 +51,9 @@ const App = () => {
 		});
 	}, []);
 
-	const selectedParent = MenuItems[selectedMenu.parent];
-	const selectedChild = selectedMenu.child
-		? selectedParent.children[selectedMenu.child]
+	const selectedParent = MenuItems[selectedMenu?.parent];
+	const selectedChild = selectedMenu?.child
+		? selectedParent?.children[selectedMenu?.child]
 		: null;
 
 	return (
@@ -69,7 +69,7 @@ const App = () => {
 						<PageContent
 							// Looks the best if we have both checks
 							isLoading={!hasFinishedResolution || loading}
-							page={selectedChild ? selectedChild.page : selectedParent?.page}
+							page={selectedChild ? selectedChild?.page : selectedParent?.page}
 						/>
 					</StyledContainer>
 				</StyledGrid>
