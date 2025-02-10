@@ -392,7 +392,7 @@ class Upgrade {
 				onLoad(
 					() => setTimeout( () => {
 						const modal = document.querySelector( `[data-modal-slug="${ modalID }"]` );
-						tb_show( '', `/?TB_inline&inlineId=${ modalID }&height=330&width=552&modal=true` );
+						tb_show( '', `/?TB_inline&inlineId=${ modalID }&height=360&width=552&modal=true` );
 						const closeButton = modal.querySelector( 'a.close-button' );
 						const upgradeButton = modal.querySelector( 'a.upgrade-now' );
 						const close = () => {
