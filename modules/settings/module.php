@@ -54,7 +54,7 @@ class Module extends Module_Base {
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			EA11Y_ASSETS_URL . 'images/menu-icon.svg',
+			EA11Y_ASSETS_URL . 'images/menu-icon-wp.svg',
 		);
 
 		add_submenu_page(
