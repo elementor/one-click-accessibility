@@ -191,7 +191,7 @@ class Upgrade {
 					<a class="intro-learn-more no-underline typography-body1" href="<?php echo esc_url( self::get_learn_more_link( 'acc-popup-switch-oc' ) ); ?>"><?php esc_html_e( 'Learn more about the changes', 'pojo-accessibility' ); ?></a>
 					<div class="footer-actions">
 						<a href="#" class="close-button no-underline"><?php esc_html_e( 'Not now', 'pojo-accessibility' ); ?></a>
-						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary switch-now"><?php esc_html_e( 'Switch to Ally - Web Accessibility by Elementor', 'pojo-accessibility' ); ?></a>
+						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary switch-now"><?php esc_html_e( 'Switch to Ally', 'pojo-accessibility' ); ?></a>
 					</div>
 				</div>
 			</div>
@@ -366,7 +366,7 @@ class Upgrade {
 							</svg>
 						</div>
 					</div>
-					<h2 class="confirmation-title"><?php esc_html_e( 'Confirm switching to Ally - Web Accessibility by Elementor', 'pojo-accessibility' ); ?></h2>
+					<h2 class="confirmation-title"><?php esc_html_e( 'Confirm switching to Ally - Web Accessibility', 'pojo-accessibility' ); ?></h2>
 					<p class="confirmation-description"><?php esc_html_e( 'You’re about to switch from One click accessibility, which we no longer support, to Ally - Web Accessibility by Elementor. Any previous settings will be removed, and this action cannot be undone.', 'pojo-accessibility' ); ?></p>
 					<div class="footer-actions">
 						<a href="#" class="close-button no-underline"><?php esc_html_e( 'Keep Current', 'pojo-accessibility' ); ?></a>
@@ -392,7 +392,7 @@ class Upgrade {
 				onLoad(
 					() => setTimeout( () => {
 						const modal = document.querySelector( `[data-modal-slug="${ modalID }"]` );
-						tb_show( '', `/?TB_inline&inlineId=${ modalID }&height=360&width=552&modal=true` );
+						tb_show( '', `/?TB_inline&inlineId=${ modalID }&height=330&width=552&modal=true` );
 						const closeButton = modal.querySelector( 'a.close-button' );
 						const upgradeButton = modal.querySelector( 'a.upgrade-now' );
 						const close = () => {
