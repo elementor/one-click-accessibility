@@ -47,8 +47,9 @@ class Module extends Module_Base {
 			'ea11y-widget',
 			'ea11yWidget',
 			[
-				'iconSettings' => get_option( 'ea11y_widget_icon_settings' ),
-				'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
+				'iconSettings' => get_option( Settings::WIDGET_ICON_SETTINGS ),
+				'toolsSettings' => get_option( Settings::WIDGET_MENU_SETTINGS ),
+				'skipToContent' => get_option( Settings::SKIP_TO_CONTENT ),
 				'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
 			]
 		);
@@ -97,22 +98,22 @@ class Module extends Module_Base {
 			return;
 		}
 
-    $widget_state = [
-        'iconSettings' => $this->get_widget_icon_settings(),
-        'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
-        'preview' => true,
-        'previewContainer' => '#ea11y-widget-preview--container',
-        'apiKey' => $plan_data->public_api_key,
-        'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
-    ];
+		$widget_state = [
+			'iconSettings' => $this->get_widget_icon_settings(),
+			'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
+			'preview' => true,
+			'previewContainer' => '#ea11y-widget-preview--container',
+			'apiKey' => $plan_data->public_api_key,
+			'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
+		];
 
-    ?>
+		?>
 
-    <script id="ea11y-state">
-        window.ea11yWidget = <?php echo json_encode($widget_state); ?>;
-    </script>
+	<script id="ea11y-state">
+		window.ea11yWidget = <?php echo json_encode( $widget_state ); ?>;
+	</script>
 
-    <?php
+		<?php
 	}
 
 	/**
@@ -132,9 +133,22 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * Remove default skip link
+	 */
+
+	public function remove_skip_link() {
+		$skip_to_content_settings = get_option( Settings::SKIP_TO_CONTENT );
+
+		if ( $skip_to_content_settings && ! empty( $skip_to_content_settings['enabled'] ) ) {
+			remove_action( 'wp_footer', 'the_block_template_skip_link' );
+		}
+	}
+
+	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
+		$this->remove_skip_link();
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_accessibility_widget' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_accessibility_widget_admin' ] );
 	}

@@ -80,7 +80,7 @@ export const MENU_SETTINGS = {
 				icon: <LinkIcon sx={iconStyle} />,
 			},
 			'focus-outline': {
-				title: __('Orientation', 'pojo-accessibility'),
+				title: __('Outline focus', 'pojo-accessibility'),
 				icon: <FocusIcon sx={iconStyle} />,
 			},
 		},

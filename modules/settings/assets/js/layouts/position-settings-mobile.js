@@ -2,7 +2,11 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
+import {
+	AlignmentMatrixControl,
+	PositionControl,
+	PositionSettingsWrapper,
+} from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
@@ -59,12 +63,7 @@ const PositionSettingsMobile = () => {
 				checked={iconPosition.mobile.hidden}
 			/>
 			{!iconPosition.mobile.hidden && (
-				<Box
-					display="grid"
-					gridTemplateColumns="repeat(2,1fr)"
-					gap={5}
-					padding={2}
-				>
+				<PositionSettingsWrapper>
 					<AlignmentMatrixControl mode="mobile" />
 					<Box>
 						<FormControlLabel
@@ -92,7 +91,7 @@ const PositionSettingsMobile = () => {
 							disabled={!iconPosition.mobile?.enableExactPosition}
 						/>
 					</Box>
-				</Box>
+				</PositionSettingsWrapper>
 			)}
 		</>
 	);

@@ -28,7 +28,7 @@ const StyledSwitch = styled(Switch)`
 `;
 
 const StyledCardContent = styled(CardContent)`
-	height: 50vh;
+	height: 55vh;
 	overflow: auto;
 	margin-bottom: 61.5px;
 	padding: 0 ${({ theme }) => theme.spacing(2)};

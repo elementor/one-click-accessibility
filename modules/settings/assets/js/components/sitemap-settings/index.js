@@ -13,6 +13,7 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { validateUrl } from '../../utils';
 
@@ -20,6 +21,7 @@ const SitemapSettings = ({ sitemap }) => {
 	const {
 		widgetMenuSettings,
 		setWidgetMenuSettings,
+		hasChanges,
 		setHasChanges,
 		hasError,
 		setHasError,
@@ -40,6 +42,15 @@ const SitemapSettings = ({ sitemap }) => {
 			sitemap: !isValid,
 		});
 		setHasChanges(isValid);
+	};
+
+	const onBlur = () => {
+		if (hasChanges) {
+			mixpanelService.sendEvent('field_content_updated', {
+				fieldName: 'sitemap-url',
+				value: widgetMenuSettings.sitemap?.url,
+			});
+		}
 	};
 
 	return (
@@ -74,12 +85,12 @@ const SitemapSettings = ({ sitemap }) => {
 						</Infotip>
 					</StyledFormLabel>
 					<Box sx={{ flexGrow: 1 }}>
-						<TextField
+						<StyledTextField
 							id="sitemap-url"
 							type="url"
 							onChange={onEditSitemap}
+							onBlur={onBlur}
 							value={widgetMenuSettings.sitemap?.url}
-							sx={{ width: '100%' }}
 							error={hasError.sitemap}
 							size="small"
 							variant="outlined"
@@ -128,7 +139,14 @@ const StyledFormLabel = styled(FormLabel)`
 	align-items: center;
 	gap: 8px;
 	white-space: nowrap;
-	padding-top: 4px;
+	padding-top: 7px;
+`;
+
+const StyledTextField = styled(TextField)`
+	width: 100%;
+	input {
+		height: 36px;
+	}
 `;
 
 const StyledAccordionDetails = styled(AccordionDetails)`
