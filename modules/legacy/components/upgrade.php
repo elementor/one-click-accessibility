@@ -176,7 +176,7 @@ class Upgrade {
 						></iframe>
 					</div>
 					<h2 class="intro-title"><?php esc_html_e( 'Switch to our new accessibility widget', 'pojo-accessibility' ); ?></h2>
-					<p class="intro-description typography-body1"><?php esc_html_e( 'Web Accessibility by Elementor is our new and improved accessibility plugin. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
+					<p class="intro-description typography-body1"><?php esc_html_e( 'Ally - Web Accessibility by Elementor is our new and improved accessibility plugin. Get advanced customization, control, and customer support with one simple switch.', 'pojo-accessibility' ); ?></p>
 					<div>
 						<ul class="benefits typography-body1">
 							<li>
@@ -191,7 +191,7 @@ class Upgrade {
 					<a class="intro-learn-more no-underline typography-body1" href="<?php echo esc_url( self::get_learn_more_link( 'acc-popup-switch-oc' ) ); ?>"><?php esc_html_e( 'Learn more about the changes', 'pojo-accessibility' ); ?></a>
 					<div class="footer-actions">
 						<a href="#" class="close-button no-underline"><?php esc_html_e( 'Not now', 'pojo-accessibility' ); ?></a>
-						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary switch-now"><?php esc_html_e( 'Switch to Web Accessibility', 'pojo-accessibility' ); ?></a>
+						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary switch-now"><?php esc_html_e( 'Switch to Ally - Web Accessibility by Elementor', 'pojo-accessibility' ); ?></a>
 					</div>
 				</div>
 			</div>
@@ -366,8 +366,8 @@ class Upgrade {
 							</svg>
 						</div>
 					</div>
-					<h2 class="confirmation-title"><?php esc_html_e( 'Confirm switching to Web Accessibility', 'pojo-accessibility' ); ?></h2>
-					<p class="confirmation-description"><?php esc_html_e( 'You’re about to switch from One click accessibility, which we no longer support, to Web Accessibility by Elementor. Any previous settings will be removed, and this action cannot be undone.', 'pojo-accessibility' ); ?></p>
+					<h2 class="confirmation-title"><?php esc_html_e( 'Confirm switching to Ally - Web Accessibility by Elementor', 'pojo-accessibility' ); ?></h2>
+					<p class="confirmation-description"><?php esc_html_e( 'You’re about to switch from One click accessibility, which we no longer support, to Ally - Web Accessibility by Elementor. Any previous settings will be removed, and this action cannot be undone.', 'pojo-accessibility' ); ?></p>
 					<div class="footer-actions">
 						<a href="#" class="close-button no-underline"><?php esc_html_e( 'Keep Current', 'pojo-accessibility' ); ?></a>
 						<a href="<?php echo esc_url( self::get_switch_now_link() ); ?>" class="button button-primary upgrade-now"><?php esc_html_e( 'Confirm and switch', 'pojo-accessibility' ); ?></a>
@@ -568,7 +568,7 @@ class Upgrade {
 		wp_enqueue_style( 'wp-pointer' );
 
 		$pointer_content = '<h3>' . esc_html__( 'Accessibility', 'pojo-accessibility' ) . '</h3>';
-		$pointer_content .= '<p>' . esc_html__( 'Our new, improved accessibility plugin is now available! Web Accessibility is packed with advanced styling options, improved feature controls, and so much more.', 'pojo-accessibility' ) . '</p>';
+		$pointer_content .= '<p>' . esc_html__( 'Our new, improved accessibility plugin is now available! Ally - Web Accessibility by Elementor is packed with advanced styling options, improved feature controls, and so much more.', 'pojo-accessibility' ) . '</p>';
 
 		$pointer_content .= sprintf(
 			'<p><a class="button button-primary ea11y-pointer-settings-link" href="%s">%s</a></p>',

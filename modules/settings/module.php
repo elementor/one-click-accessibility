@@ -1,5 +1,4 @@
 <?php
-
 namespace EA11y\Modules\Settings;
 
 use EA11y\Classes\{
@@ -50,8 +49,8 @@ class Module extends Module_Base {
 
 	public function register_page() : void {
 		add_menu_page(
-			__( 'Web Accessibility', 'pojo-accessibility' ),
-			__( 'Web Accessibility', 'pojo-accessibility' ),
+			__( 'Ally - Web Accessibility by Elementor', 'pojo-accessibility' ),
+			__( 'Ally', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],

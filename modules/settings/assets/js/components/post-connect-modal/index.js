@@ -68,7 +68,7 @@ const PostConnectModal = () => {
 					marginBottom={5}
 				>
 					{__(
-						'Web accessibility is now connected and ready to use on your site.',
+						'Ally - Web Accessibility by Elementor is now connected and ready to use on your site.',
 						'pojo-accessibility',
 					)}
 				</Typography>

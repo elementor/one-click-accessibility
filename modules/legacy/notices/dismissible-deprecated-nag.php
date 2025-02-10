@@ -27,11 +27,11 @@ class Dismissible_Deprecated_Nag extends Notice_Base {
 
 	public function content(): string {
 		return sprintf( '<p>%s <a href="%s">%s</a></p><p><a class="button button-primary" href="%s">%s</a></p>',
-			esc_html__( 'Time to take your site’s accessibility to the next level with Web Accessibility, our newest plugin packed with advanced widget customization, flexible feature controls, and a built-in statement generator. Want more details before switching?', 'pojo-accessibility' ),
+			esc_html__( 'Time to take your site’s accessibility to the next level with Ally - Web Accessibility by Elementor, our newest plugin packed with advanced widget customization, flexible feature controls, and a built-in statement generator. Want more details before switching?', 'pojo-accessibility' ),
 			esc_attr( Upgrade::get_learn_more_link( 'acc-notice-switch-dash' ) ),
 			esc_html__( 'Learn more', 'pojo-accessibility' ),
 			esc_attr( Upgrade::get_switch_now_link() ),
-			esc_html__( 'Switch To Web Accessibility', 'pojo-accessibility' )
+			esc_html__( 'Switch To Ally - Web Accessibility by Elementor', 'pojo-accessibility' )
 		);
 	}
 

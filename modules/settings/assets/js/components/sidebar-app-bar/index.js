@@ -34,7 +34,7 @@ const SidebarAppBar = () => {
 						marginLeft={0.5}
 						display={!openSidebar ? 'none' : 'inherit'}
 					>
-						{__('Web accessibility', 'pojo-accessibility')}
+						{__('Ally', 'pojo-accessibility')}
 					</Typography>
 				</StyledHeading>
 
