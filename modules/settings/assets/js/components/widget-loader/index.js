@@ -42,10 +42,7 @@ const WidgetLoader = ({ src, onLoad, onError }) => {
 				}
 				window?.ea11yWidget?.widget?.open();
 			} else {
-				document.head.removeChild(script);
-				console.log(
-					`Preview container does not exist! Script removed: ${script.src}`,
-				);
+				console.log(`Preview container does not exist! Preview ignored`);
 			}
 		};
 
