@@ -30,7 +30,7 @@ class Settings_Pointer {
 		wp_enqueue_style( 'wp-pointer' );
 		wp_enqueue_script( 'wp-util' );
 
-		$pointer_content = '<h3>' . esc_html__( 'Ally - Web Accessibility by Elementor', 'pojo-accessibility' ) . '</h3>';
+		$pointer_content = '<h3>' . esc_html__( 'Ally - Web Accessibility', 'pojo-accessibility' ) . '</h3>';
 		$pointer_content .= '<p>' . esc_html__( "Start setting up and customizing your site's accessibility widget.", 'pojo-accessibility' ) . '</p>';
 
 		$pointer_content .= sprintf(
