@@ -18,6 +18,7 @@ class Module extends Module_Base {
 		return [
 			'Pointers',
 			'Notices',
+			'Skip_Link',
 		];
 	}
 
