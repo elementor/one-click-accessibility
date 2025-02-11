@@ -34,6 +34,7 @@ const AccessibilityStatementTooltip = () => {
 				<Button
 					size="small"
 					variant="contained"
+					color="info"
 					onClick={() => {
 						if ('accessibility-statement' !== selectedMenu) {
 							setSelectedMenu('accessibility-statement');
