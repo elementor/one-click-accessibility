@@ -171,9 +171,10 @@ const StyledBox = styled(Box)`
 	align-items: center;
 	justify-content: space-between;
 `;
+
 const StyledSwitch = styled(Switch)`
 	input {
-		height: 56px;
+		height: 56px !important;
 	}
 `;
 
