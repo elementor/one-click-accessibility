@@ -38,7 +38,6 @@ const WidgetLoader = ({ src, onLoad, onError }) => {
 				onLoad();
 			} else {
 				handleScriptLoad();
-				window?.ea11yWidget?.widget?.open();
 			}
 		};
 
