@@ -263,6 +263,11 @@ class Module extends Module_Base {
 		];
 
 		$widget_icon_settings = [
+			'style' => [
+				'icon' => 'person',
+				'size' => 'medium',
+				'color' => '#2563eb',
+			],
 			'position' => [
 				'desktop' => [
 					'hidden' => false,
