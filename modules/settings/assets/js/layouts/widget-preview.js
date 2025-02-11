@@ -5,6 +5,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { WidgetLoader } from '@ea11y/components';
 import { __ } from '@wordpress/i18n';
+import { WIDGET_PREVIEW_ID } from '../constants';
 
 const StyledPreview = styled(CardContent)`
 	margin-right: auto;
@@ -41,7 +42,7 @@ const WidgetPreview = () => {
 					sx={{ paddingBottom: 0 }}
 				/>
 
-				<StyledPreview id="ea11y-widget-preview--container"></StyledPreview>
+				<StyledPreview id={WIDGET_PREVIEW_ID}></StyledPreview>
 			</Card>
 			<WidgetLoader />
 		</>
