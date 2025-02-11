@@ -263,39 +263,41 @@ class Module extends Module_Base {
 		];
 
 		$widget_icon_settings = [
-			'desktop' => [
-				'hidden' => false,
-				'enableExactPosition' => false,
-				'exactPosition' => [
-					'horizontal' => [
-						'direction' => 'right',
-						'value' => 10,
-						'unit' => 'px',
+			'position' => [
+				'desktop' => [
+					'hidden' => false,
+					'enableExactPosition' => false,
+					'exactPosition' => [
+						'horizontal' => [
+							'direction' => 'right',
+							'value' => 10,
+							'unit' => 'px',
+						],
+						'vertical' => [
+							'direction' => 'bottom',
+							'value' => 10,
+							'unit' => 'px',
+						],
 					],
-					'vertical' => [
-						'direction' => 'bottom',
-						'value' => 10,
-						'unit' => 'px',
-					],
+					'position' => is_rtl() ? 'bottom-left' : 'bottom-right',
 				],
-				'position' => is_rtl() ? 'bottom-left' : 'bottom-right',
-			],
-			'mobile' => [
-				'hidden' => false,
-				'enableExactPosition' => false,
-				'exactPosition' => [
-					'horizontal' => [
-						'direction' => 'right',
-						'value' => 10,
-						'unit' => 'px',
+				'mobile' => [
+					'hidden' => false,
+					'enableExactPosition' => false,
+					'exactPosition' => [
+						'horizontal' => [
+							'direction' => 'right',
+							'value' => 10,
+							'unit' => 'px',
+						],
+						'vertical' => [
+							'direction' => 'bottom',
+							'value' => 10,
+							'unit' => 'px',
+						],
 					],
-					'vertical' => [
-						'direction' => 'bottom',
-						'value' => 10,
-						'unit' => 'px',
-					],
+					'position' => is_rtl() ? 'bottom-left' : 'bottom-right',
 				],
-				'position' => is_rtl() ? 'bottom-left' : 'bottom-right',
 			],
 		];
 
