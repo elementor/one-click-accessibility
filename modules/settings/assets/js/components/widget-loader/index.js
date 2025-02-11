@@ -1,6 +1,6 @@
 import { useSettings } from '@ea11y/hooks';
 import { useEffect } from '@wordpress/element';
-import { WIDGET_PREVIEW_ID } from '../../constants';
+import { WIDGET_PREVIEW_ROOT } from '../../constants';
 
 const WidgetLoader = ({ src, onLoad, onError }) => {
 	const { planData } = useSettings();
@@ -33,16 +33,12 @@ const WidgetLoader = ({ src, onLoad, onError }) => {
 
 		// Attach onLoad and onError handlers
 		script.onload = () => {
-			if (document.getElementById(WIDGET_PREVIEW_ID)) {
-				console.log(`Script loaded successfully: ${script.src}`);
-				if (onLoad) {
-					onLoad();
-				} else {
-					handleScriptLoad();
-				}
-				window?.ea11yWidget?.widget?.open();
+			console.log(`Script loaded successfully: ${script.src}`);
+			if (onLoad) {
+				onLoad();
 			} else {
-				console.log(`Preview container does not exist! Preview ignored`);
+				handleScriptLoad();
+				window?.ea11yWidget?.widget?.open();
 			}
 		};
 
@@ -60,6 +56,9 @@ const WidgetLoader = ({ src, onLoad, onError }) => {
 
 		// Cleanup: Remove the script if the component unmounts
 		return () => {
+			if (document.getElementById(WIDGET_PREVIEW_ROOT)) {
+				document.getElementById(WIDGET_PREVIEW_ROOT).remove();
+			}
 			document.head.removeChild(script);
 			console.log(`Script removed: ${script.src}`);
 		};

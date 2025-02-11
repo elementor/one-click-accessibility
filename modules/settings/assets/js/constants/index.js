@@ -9,3 +9,4 @@ export const SKELETON_OPTIONS = Object.freeze({
 });
 
 export const WIDGET_PREVIEW_ID = 'ea11y-widget-preview--container';
+export const WIDGET_PREVIEW_ROOT = 'ea11y-root';

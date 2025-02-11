@@ -44,7 +44,13 @@ const WidgetPreview = () => {
 
 				<StyledPreview id={WIDGET_PREVIEW_ID}></StyledPreview>
 			</Card>
-			<WidgetLoader />
+			<WidgetLoader
+				onLoad={() => {
+					if (document.getElementById(WIDGET_PREVIEW_ID)) {
+						window?.ea11yWidget?.widget?.open();
+					}
+				}}
+			/>
 		</>
 	);
 };
