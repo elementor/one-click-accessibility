@@ -62,7 +62,7 @@ class Module extends Module_Base {
 		if (  Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() ) {
 			return true;
 		}
-		return false;
+		return true;
 	}
 
 	/**
