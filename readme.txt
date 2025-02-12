@@ -1,5 +1,5 @@
-=== Ally - Web Accessibility by Elementor, Make Your Website More Accessible ===
-Contributors: pojo.me, KingYes, ariel.k, jzaltzberg, bainternet
+=== Ally Web Accessibility – Make Your Website More Accessible ===
+Contributors: elemntor, pojo.me, KingYes, ariel.k, jzaltzberg, bainternet
 Tags: Accessibility, A11y, Toolbar, Tools, wcag, accessible
 Requires at least: 4.1
 Tested up to: 6.3
@@ -7,33 +7,88 @@ Requires PHP: 5.4
 Stable tag: 2.1.0
 License: GPLv2 or later
 
-Ally - Web Accessibility by Elementor Make Your Website More Accessible (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
+Ally Web Accessibility (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
 
 == Description ==
 
-Ally (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
+Ally Web Accessibility is a plugin aimed to help web creators design websites that align with global accessibility standards. With regulations like the European Accessibility Act set to take effect in 2025 - there is a growing shift towards a greater focus on accessibility.
 
-Ally is a plugin aimed to help web creators design websites that align with global accessibility standards. With regulations like the European Accessibility Act set to take effect in 2025 - there is a growing shift towards a greater focus on accessibility.
+Our Ally Web Accessibility plugin replaces the One Click Accessibility plugin and introduces a newly designed interface with an optimized editing experience.
 
-Our Ally plugin replaces the One Click Accessibility plugin, and introduces a newly designed interface with an optimized editing experience.
-
-
-**It’s the Law**
+=== It’s the Law
 
 As accessibility standards continue to evolve and become mandatory, it’s important to start making website adjustments to comply with fast-approaching global regulations. Among its other capabilities, this plugin lets you instantly generate your website's Accessibility Statement, which is now mandatory in most locales.
 
-Ally is not a substitute for a thorough accessibility audit and is NOTintended to completely make your website legally compliant. However, with it, you’re one step closer to making your website inclusive to more visitors, including those with visual, auditory or cognitive challenges.
+The Ally Web Accessibility plugin is not a substitute for a thorough accessibility audit and is NOT intended to completely make your website legally compliant. However, with it, you’re one step closer to making your website inclusive to more visitors, including those with visual, auditory or cognitive challenges.
 
-**Why Prioritize Accessibility**
+Ensuring that your website complies with all applicable accessibility requirements is your responsibility. We recommend working with qualified accessibility professionals to help achieve full compliance.
+
+=== Why Prioritize Accessibility
 
 Every user deserves a seamless online experience, regardless of their abilities. An accessible website isn't just ethical; it's good business. By prioritizing inclusivity, you improve user experience for everyone, boost your search engine rankings, and attract a wider audience.
 
-**Putting Your Visitors in Control**
+=== Putting Your Visitors in Control
 
 Accessible websites allow people with various disabilities to access your website using assistive technologies where visitors can adjust design elements to fit their needs, such as increasing font sizes, adjusting color contrasts, pausing animations, and more.
 
-**Features:**
+== Features: ==
 
+Ally Web Accessibility’s features so far:
+
+= Customization Options for Web Creators =
+
+- **Add Accessibility Statement URL**: Web creators can choose where to place the required Accessibility Statement from the current pages of their website.
+
+- **Generate the Accessibility Statement**: Effortlessly create your Accessibility Statement with our built-in generator without the need to search the web. Simply fill in a form with your details  and a custom Accessibility Statement will be instantly generated and placed on a dedicated page of your website.
+
+- **Show icon / Hide icon**: Choose to show or hide the accessibility icon separately for desktop and mobile versions of the website.
+
+- **Color Selection**:  Select the color scheme that the end-user will see when the icon is opened. This includes options for background, text, and highlight colors.
+
+- **Icon Color**: Decide on the color of the selected icon to match your website’s branding. The same color will also be displayed in the widget’s header and footer for brand consistency.
+
+- **Icon Positioning**: Define the position of the icon on any of the four corners of the page (top-left, top-right, bottom-left, bottom-right).
+
+- **Icon Size**: Choose the size of the accessibility icon: Large, Medium, and Small.
+
+- **Sitemap URL**: A default sitemap link is available in the widget to enhance the visibility of the site structure to end users. The web creator can override the default and set any desired URL.
+
+- **Skip to Main Content**: "Skip to Content"  enables users to quickly navigate to the main content. Set to ‘On’ by default, web creators have the option to edit the anchor ID link to navigate to the best location.
+
+= Customization Options for Website Visitors =
+Below is a list of features website visitors can control. (Each feature may be enabled/disabled by the web creator during website setup, determining which are shown to website visitors.)
+
+- **Hide the icon**: Allows the website visitor to turn off or hide the widget from the website interface, enabling them to use their own accessibility tools without interference.
+
+- **Restore Defaults**: Provides a one-click option to reset all customized accessibility settings back to their default state.
+
+- **Increase/Decrease Text Size**:  For users who have reading difficulties or low vision
+
+- **Grayscale**: Apply a grayscale filter to the page for color blind users.
+
+- **Contrast Scale**: A slider that adjusts between different contrast modes: Negative, High, Light, and Dark Contrast for color blind or the visually challenged.
+
+- **Links Underline**: Underlines all links on the page to make them more visible for the visually challenged.
+
+- **Readable Font**: Changes the font to one that is more legible for dyslexic users.
+
+- **Sitemap**: Displays all headers, landmarks, and links in a structured list for easier navigation including for those who use screen readers.
+
+- **Hide Images**: Hides all images on the page to reduce distractions and make the page more readable for the visually challenged or ADHD users.
+
+- **Pause Animations**: Stops animations running on the page, helping users with ADHD or cognitive difficulties to focus on content
+
+- **Reading Guide**: Makes the cursor bigger or turns it into a reading guide to focus on selected elements for users with reading difficulties.
+
+- **Line Height**: Increases space between text lines to make the content easier to read for dyslexic or visually challenged users.
+
+- **Text Align**: Allows users to align text (left, right, or center) to improve readability.
+
+- **Focus Outline**: Enables users to see which element is currently active as they Tab through the page. Geared for keyboard-only navigation.
+
+- **Skip to Main Content**: When users land on your site, pressing the Tab key brings the ‘Skip to main content’ link into focus. By selecting this link, users can skip directly to the main content, enabling them to quickly navigate to the main content. Useful for keyboard-only and screen-reader users.
+
+More great features are on the horizon, so stay tuned!
 
 == Related Plugins ==
 * [Site Mailer](https://wordpress.org/plugins/site-mailer/): Effortlessly manage transactional emails with Site Mailer. High deliverability, logs and statistics, and no SMTP plugins needed
@@ -55,6 +110,37 @@ Accessible websites allow people with various disabilities to access your websit
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Go to the plugin page (under Dashboard > Accessibility)
 1. Enjoy!
+
+== Frequently Asked Questions ==
+
+= What is Ally - Web Accessibility widget? =
+
+The Ally - Web Accessibility widget is a free, easy-to-use plugin designed to enhance website usability for individuals with disabilities. It is designed to help web creators make their websites more inclusive, and works seamlessly on all WordPress and Elementor websites.
+
+= Can I customize the widget's appearance? =
+
+Yes, you can fully customize the widget. Adjust the icon’s style, color, and size, and personalize the header and footer to match your site's branding. You can also choose its placement—position it in any corner, at a custom location, or hide it on mobile or desktop—and decide which accessibility features are visible to your users.
+
+= Does the widget support multiple languages? =
+
+Yes, the widget automatically adapts to your website's language, ensuring a smooth and consistent experience for every visitor.
+
+= Can website visitors hide the widget? =
+
+Yes, website visitors can temporarily hide the widget. They can choose to dismiss it for the current session, for 24 hours, or even for an entire week.
+
+= How do I set up the widget? =
+
+Once installed and connected, the widget appears on your site with default settings. You can customize its appearance and functionality via the WordPress admin panel. Additionally, you can link your existing accessibility statement or create a custom one using our built-in generator, which automatically creates a dedicated page for your statement.
+
+= Is the widget compatible with WordPress and Elementor? =
+
+Yes, the widget is fully integrated with Elementor and works seamlessly with any WordPress site, delivering a smooth and effective accessibility experience.
+
+= What is an accessibility statement, and how do I generate one? =
+
+An accessibility statement is a declaration of your commitment to providing an inclusive online experience. With the widget, you can generate a custom accessibility statement and seamlessly publish it on a dedicated page. Our Accessibility Statement Generator is provided as a tool to assist you in creating a customized accessibility statement for your website. However, the generated statement should be reviewed and tailored to ensure it accurately reflects your website's specific accessibility practices and compliance efforts.
+
 
 == Screenshots ==
 
