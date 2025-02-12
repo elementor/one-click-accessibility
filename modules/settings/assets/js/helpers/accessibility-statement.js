@@ -15,10 +15,13 @@ export const Statement = `
 <p>${__('The Web Content Accessibility Guidelines (WCAG) defines requirements for designers and developers to improve accessibility for people with disabilities. It defines three levels of conformance: Level A, Level AA, and Level AAA.', 'pojo-accessibility')}</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
-<p>${sprintf(__('As of the date of this statement, %s website is partially conformant with WCAG 2.2 level AA. Partially conformant means that some parts of the content do not fully conform to the accessibility standard.', 'pojo-accessibility'), '<strong>{company_name}</strong>')}</p>
+<p>${sprintf(__('%s is making constant efforts to improve the accessibility of its site and services in the belief that it is our collective moral obligation to allow seamless, accessible, and unhindered use for those of us with disabilities.', 'pojo-accessibility'), '<strong>{company_name}</strong>')}</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph -->
-<p>${__('We are currently working on remediating our website to ensure the best quality usability for all of our users.', 'pojo-accessibility')}</p>
+<p>${sprintf(__('We aim to make all pages and content on %s accessible, but some content may not yet fully meet the highest accessibility standards. This could be due to challenges in identifying the most suitable technological solution.', 'pojo-accessibility'), '<strong>{company_website}</strong>')}</p>
+<!-- /wp:paragraph -->
+<!-- wp:paragraph -->
+<p>${__('We may revise this Statement periodically to reflect improvements or changes to our accessibility practices.', 'pojo-accessibility')}</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading {"level":6} -->
 <h6>${__('Feedback', 'pojo-accessibility')}</h6>
