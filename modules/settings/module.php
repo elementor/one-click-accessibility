@@ -49,7 +49,7 @@ class Module extends Module_Base {
 
 	public function register_page() : void {
 		add_menu_page(
-			__( 'Ally - Web Accessibility by Elementor', 'pojo-accessibility' ),
+			__( 'Ally - Web Accessibility', 'pojo-accessibility' ),
 			__( 'Ally', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
@@ -73,6 +73,16 @@ class Module extends Module_Base {
 	public function enqueue_scripts( $hook ) : void {
 		if ( self::SETTING_PAGE_SLUG !== $hook ) {
 			return;
+		}
+
+		if ( version_compare( get_bloginfo( 'version' ), '6.6', '<' ) ) {
+			wp_register_script(
+				'react-jsx-runtime',
+				EA11Y_ASSETS_URL . 'lib/react-jsx-runtime.js',
+				[ 'react' ],
+				'18.3.0',
+				true
+			);
 		}
 
 		self::refresh_plan_data();

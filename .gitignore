@@ -2,6 +2,7 @@
 node_modules/
 .sass-cache/
 build/
+lib/
 log/
 vendor/
 composer.lock
