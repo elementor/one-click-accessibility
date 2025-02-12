@@ -4,7 +4,7 @@ Tags: Accessibility, A11y, Toolbar, Tools, wcag, accessible
 Requires at least: 4.1
 Tested up to: 6.3
 Requires PHP: 5.4
-Stable tag: 2.1.0
+Stable tag: 3.0.0
 License: GPLv2 or later
 
 Ally Web Accessibility (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
@@ -151,6 +151,17 @@ An accessibility statement is a declaration of your commitment to providing an i
 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
+
+= 3.0.0  2025-02-xx=
+* 🚀 Introducing Ally Web Accessibility! One Click Accessibility is now Ally Web Accessibility! Discover the new experience: Learn More.
+* New: Brand-New Interface – Redesigned for seamless touch-screen and mobile support.
+* New: Revamped Infrastructure – Overhauled backend to support new and future capabilities.
+* New: Page Structure Overview – Navigate your page’s structure for better accessibility.
+* New: Image Hiding Option – Hides all images on the page to reduce distractions and make the page more readable.
+* New: Pause animations option – Stops animations running on the page option, helping users focus on content.
+* New: Reading Mask option- helps users focus on specific text, reducing distractions and improving readability.
+* New: Accessibility Statement Generator – Easily generate an accessibility statement page for your site or link an existing one.
+* New: Auto translations of the widget according to the page language
 
 = 2.1.0 - 2022-12-18 =
 * New: Added custom element ID for "Skip Content" link ([#35](https://github.com/pojome/one-click-accessibility/issues/35)), ([#36](https://github.com/pojome/one-click-accessibility/issues/36))
