@@ -65,7 +65,7 @@ const ConnectModal = () => {
 
 				<Typography variant="body2" color="text.primary" width={400}>
 					{__(
-						'Make your site more inclusive with Ally - Web Accessibility by Elementor.',
+						'Make your site more inclusive with Ally - Web Accessibility.',
 						'pojo-accessibility',
 					)}
 				</Typography>
