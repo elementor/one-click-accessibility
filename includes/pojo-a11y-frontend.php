@@ -65,7 +65,7 @@ final class Pojo_A11y_Frontend {
 		$element_id = get_option( 'pojo_a11y_skip_to_content_link_element_id', 'content' );
 
 		?>
-		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="1" accesskey="s" href="#<?php echo esc_html( $element_id ); ?>"><?php esc_html_e( 'Skip to content', 'pojo-accessibility' ); ?></a>
+		<a id="pojo-a11y-skip-content" class="pojo-skip-link pojo-skip-content" tabindex="0" accesskey="s" href="#<?php echo esc_html( $element_id ); ?>"><?php esc_html_e( 'Skip to content', 'pojo-accessibility' ); ?></a>
 		<?php
 	}
 
@@ -114,7 +114,7 @@ final class Pojo_A11y_Frontend {
 			<div class="pojo-a11y-toolbar-overlay">
 				<div class="pojo-a11y-toolbar-inner">
 					<p class="pojo-a11y-toolbar-title"><?php echo $toolbar_title; ?></p>
-					
+
 					<ul class="pojo-a11y-toolbar-items pojo-a11y-tools">
 						<?php do_action( 'pojo_a11y_toolbar_before_buttons' ); ?>
 						<?php if ( $this->is_toolbar_button_active( 'resize_font' ) ) : ?>
@@ -123,7 +123,7 @@ final class Pojo_A11y_Frontend {
 									<?php echo $this->get_toolbar_button_title( 'resize_font_add' ); ?>
 								</a>
 							</li>
-							
+
 							<li class="pojo-a11y-toolbar-item">
 								<a href="#" class="pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-minus" data-action="resize-minus" data-action-group="resize" tabindex="-1" role="button">
 									<?php echo $this->get_toolbar_button_title( 'resize_font_less' ); ?>
