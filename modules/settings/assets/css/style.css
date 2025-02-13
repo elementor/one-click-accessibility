@@ -45,29 +45,3 @@ html[dir='rtl'] #ea11y-app {
 		max-width: 100% !important;
 	}
 }
-
-/* Widget style for statement section */
-
-.ea11y-statement--widget-preview {
-	height: 250px;
-	position: relative;
-	padding: 25px;
-	overflow: hidden;
-}
-
-.ea11y-statement--widget-preview .ea11y-widget-container--preview {
-	position: absolute;
-}
-
-.ea11y-statement--widget-preview .ea11y-widget-content::after {
-	content: '';
-
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	bottom: 40px;
-
-	background-color: #FCFDFF;
-	opacity: 0.6;
-}
