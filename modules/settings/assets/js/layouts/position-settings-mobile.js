@@ -17,11 +17,9 @@ const PositionSettingsMobile = () => {
 	const toggleVisibility = (device) => {
 		updateIconPosition(device, 'hidden', !iconPosition[device].hidden);
 		mixpanelService.sendEvent('toggle_clicked', {
-			toggleData: {
-				state: !iconPosition[device].hidden,
-				type: 'Hide on mobile',
-				device,
-			},
+			state: iconPosition[device].hidden ? 'on' : 'off',
+			type: 'Hide on mobile',
+			device,
 		});
 	};
 
@@ -32,11 +30,9 @@ const PositionSettingsMobile = () => {
 			!iconPosition[device].enableExactPosition,
 		);
 		mixpanelService.sendEvent('toggle_clicked', {
-			toggleData: {
-				state: !iconPosition[device].enableExactPosition,
-				type: 'Exact position',
-				device,
-			},
+			state: iconPosition[device].enableExactPosition ? 'on' : 'off',
+			type: 'Exact position',
+			device,
 		});
 	};
 
