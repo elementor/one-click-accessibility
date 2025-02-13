@@ -25,13 +25,46 @@ import { mixpanelService } from '@ea11y/services';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { WIDGET_PREVIEW_ID } from '../constants';
 
 const StyledPreviewContainer = styled(Box)`
-	padding: 0;
 	margin-top: ${({ theme }) => theme.spacing(2)};
 
 	border-radius: 4px;
 	border: 1px solid ${({ theme }) => theme.palette.divider};
+
+	height: 250px;
+	position: relative;
+	padding: 25px;
+	overflow: hidden;
+
+	& .ea11y-widget-container {
+		transform: translateY(0);
+	}
+
+	& .ea11y-widget-container--preview {
+		position: absolute;
+	}
+
+	& .ea11y-widget-content::after {
+		content: '';
+
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 40px;
+
+		background-color: #fcfdff;
+		opacity: 0.6;
+	}
+
+	@media screen and (min-width: 480px) {
+		& .ea11y-widget-container--preview {
+			bottom: 0;
+			right: 0;
+		}
+	}
 `;
 
 const StatementLink = () => {
@@ -224,11 +257,14 @@ const StatementLink = () => {
 							{__('Preview link in widget', 'pojo-accessibility')}
 						</Typography>
 
-						<StyledPreviewContainer
-							id="ea11y-widget-preview--container"
-							className="ea11y-statement--widget-preview"
-						>
-							<WidgetLoader />
+						<StyledPreviewContainer id="ea11y-widget-preview--container">
+							<WidgetLoader
+								onLoad={() => {
+									if (document.getElementById(WIDGET_PREVIEW_ID)) {
+										window?.ea11yWidget?.widget?.open();
+									}
+								}}
+							/>
 						</StyledPreviewContainer>
 					</Box>
 				</Box>
