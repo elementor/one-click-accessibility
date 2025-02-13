@@ -1,6 +1,5 @@
 import { InfoCircleIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
-import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import FormLabel from '@elementor/ui/FormLabel';
 import Infotip from '@elementor/ui/Infotip';
@@ -8,20 +7,18 @@ import Switch from '@elementor/ui/Switch';
 import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { validateId } from '../../utils';
 
 const SkipToContentSettings = () => {
-	const { save } = useStorage();
-	const { success, error } = useToastNotification();
-
 	const {
 		skipToContentSettings,
 		setSkipToContentSettings,
 		skipToContentHasChanges,
 		setSkipToContentHasChanges,
+		setHasChanges,
 		hasError,
 		setHasError,
 	} = useSettings();
@@ -38,6 +35,7 @@ const SkipToContentSettings = () => {
 				: false,
 		});
 		setSkipToContentHasChanges(true);
+		setHasChanges(true);
 	};
 
 	const onEditSkipToContent = (event) => {
@@ -53,6 +51,7 @@ const SkipToContentSettings = () => {
 			skipToContent: !isValid,
 		});
 		setSkipToContentHasChanges(isValid);
+		setHasChanges(isValid);
 	};
 
 	const onBlur = () => {
@@ -64,30 +63,6 @@ const SkipToContentSettings = () => {
 		}
 	};
 
-	const saveSettings = async () => {
-		try {
-			const savedData = {
-				ea11y_skip_to_content_settings: skipToContentSettings,
-			};
-
-			await save(savedData);
-
-			success(__('Settings saved!', 'pojo-accessibility'));
-
-			setSkipToContentHasChanges(false);
-
-			mixpanelService.sendEvent('save_button_clicked', {
-				savedData,
-			});
-		} catch (e) {
-			error(__('Failed to save settings!', 'pojo-accessibility'));
-		}
-	};
-
-	const isSubmitDisabled =
-		!skipToContentSettings.anchor ||
-		!skipToContentHasChanges ||
-		hasError.skipToContent;
 	return (
 		<Card variant="outlined" sx={{ padding: 2, marginBlock: 4 }}>
 			<StyledBox>
@@ -153,14 +128,6 @@ const SkipToContentSettings = () => {
 						</Typography>
 					)}
 				</Box>
-				<Button
-					variant="contained"
-					color="info"
-					onClick={saveSettings}
-					disabled={isSubmitDisabled}
-				>
-					{__('Save changes', 'pojo-accessibility')}
-				</Button>
 			</StyledFormItem>
 		</Card>
 	);
