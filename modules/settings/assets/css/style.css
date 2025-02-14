@@ -2,6 +2,11 @@
 	padding-bottom: 0;
 }
 
+/* Hide wp notices */
+.notice, .update-nag {
+	display: none;
+}
+
 body {
 	background: #fff;
 }
