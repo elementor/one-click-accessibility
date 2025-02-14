@@ -86,10 +86,8 @@ const MenuSettings = () => {
 
 			if (prevSettings[option]) {
 				mixpanelService.sendEvent('toggle_clicked', {
-					toggleData: {
-						state: !prevSettings[option]?.enabled,
-						type: option,
-					},
+					state: prevSettings[option]?.enabled ? 'off' : 'on',
+					type: option,
 				});
 			}
 
