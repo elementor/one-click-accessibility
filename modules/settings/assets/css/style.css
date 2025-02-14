@@ -2,6 +2,11 @@
 	padding-bottom: 0;
 }
 
+/* Hide notices */
+.notice, .update-nag {
+	display: none !important;
+}
+
 body {
 	background: #fff;
 }
