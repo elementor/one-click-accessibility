@@ -27,7 +27,7 @@ const init = async () => {
 
 	const userData = {
 		$email: ea11ySettingsData?.planData?.user?.email,
-		$user_id: ea11ySettingsData?.clientId,
+		$user_id: ea11ySettingsData?.planData?.user?.id,
 		$subscription_type: plan?.name,
 		$subscription_id: plan?.subscription_id,
 		$subscription_status: plan?.status,

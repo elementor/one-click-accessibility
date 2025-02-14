@@ -23,6 +23,11 @@ const StyledPreview = styled(CardContent)`
 
 		transform: scale(70%);
 	}
+
+	& #ea11y-root #ea11y-widget-container {
+		position: initial;
+		transform: translateY(0);
+	}
 `;
 
 const WidgetPreview = () => {
