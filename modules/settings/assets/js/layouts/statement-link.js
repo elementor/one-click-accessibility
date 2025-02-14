@@ -128,10 +128,8 @@ const StatementLink = () => {
 			hideLink: !accessibilityStatementData.hideLink,
 		});
 		mixpanelService.sendEvent('toggle_clicked', {
-			toggleData: {
-				state: !accessibilityStatementData.hideLink,
-				type: 'Hide link',
-			},
+			state: accessibilityStatementData.hideLink ? 'on' : 'off',
+			type: 'Hide link',
 		});
 	};
 
