@@ -13,10 +13,7 @@ const AccessibilityStatementTooltip = () => {
 	const { selectedMenu, setSelectedMenu, accessibilityStatementData } =
 		useSettings();
 
-	if (
-		accessibilityStatementData?.link ||
-		accessibilityStatementData?.link === null
-	) {
+	if (accessibilityStatementData?.link) {
 		return null;
 	}
 
