@@ -111,8 +111,10 @@ const MenuSettings = () => {
 	};
 
 	const areAtLeastTwoOptionsEnabled = (settings) => {
-		const count = Object.keys(settings).filter((key) => settings[key].enabled);
-		return count.length > 2;
+		const enabled = Object.keys(settings)?.filter(
+			(key) => settings[key]?.enabled,
+		);
+		return enabled.length > 2;
 	};
 
 	const handleCloseNotification = () => {
