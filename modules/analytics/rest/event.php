@@ -6,6 +6,7 @@ use EA11y\Classes\Logger;
 use EA11y\Modules\Analytics\Classes\Route_Base;
 use EA11y\Modules\Analytics\Database\Analytics_Entry;
 use EA11y\Modules\Analytics\Database\Analytics_Table;
+use EA11y\Modules\Analytics\Module as AnalyticsModule;
 use Throwable;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -15,9 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Event extends Route_Base {
-	public const NONCE_HEADER = 'X-WP-Nonce';
-	public const NONCE_NAME = 'wp_rest';
-
 	protected $auth = false;
 	public string $path = 'event';
 
@@ -36,7 +34,7 @@ class Event extends Route_Base {
 	public function POST( WP_REST_Request $request ): WP_REST_Response {
 		try {
 			$params = $request->get_json_params();
-			$error = $this->verify_nonce( $request->get_header( self::NONCE_HEADER ), self::NONCE_NAME );
+			$error = $this->verify_nonce( $request->get_header( AnalyticsModule::NONCE_HEADER ), AnalyticsModule::NONCE_NAME );
 
 			if ( ! $error && Analytics_Entry::validate_item( $params['event'], $params['element'] ) ) {
 				$analytics_entry = new Analytics_Entry([
