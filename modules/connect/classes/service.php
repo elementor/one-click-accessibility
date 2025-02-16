@@ -264,27 +264,7 @@ class Service {
 	 * @throws Service_Exception
 	 */
 	public static function refresh_token() {
-		$lock_key = Config::APP_NAME . self::REFRESH_TOKEN_LOCK;
-		$last_token = Data::fetch_option( $lock_key, '' );
-
-		$current_refresh_token = Data::get_refresh_token();
-
-		if ( ! empty( $last_token ) && $last_token === $current_refresh_token ) {
-			sleep( 1 );
-			delete_option( $lock_key );
-			return;
-		}
-
-		delete_option( $lock_key );
-		$locked = Data::insert_option_uniquely( $lock_key, $current_refresh_token );
-		if ( ! $locked ) {
-			sleep( 1 );
-			delete_option( $lock_key );
-			return;
-		}
-
-		self::get_token( GrantTypes::REFRESH_TOKEN, $current_refresh_token );
-		delete_option( $lock_key );
+		self::get_token( GrantTypes::CLIENT_CREDENTIALS, null. true );
 	}
 
 	/**
