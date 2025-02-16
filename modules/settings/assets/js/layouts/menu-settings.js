@@ -112,9 +112,9 @@ const MenuSettings = () => {
 
 	const areAtLeastTwoOptionsEnabled = (settings) => {
 		const enabled = Object.keys(settings)?.filter(
-			(key) => settings[key]?.enabled,
+			(key) => settings[key].enabled,
 		);
-		return enabled && enabled.length > 2;
+		return enabled.length > 2;
 	};
 
 	const handleCloseNotification = () => {
