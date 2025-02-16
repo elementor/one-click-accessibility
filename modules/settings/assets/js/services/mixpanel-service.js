@@ -20,6 +20,7 @@ const init = async () => {
 
 	mixpanel.register({
 		productName: 'app_access',
+		appType: 'Apps',
 		environment: ea11ySettingsData.pluginEnv,
 	});
 
