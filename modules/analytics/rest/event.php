@@ -15,6 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Event extends Route_Base {
+	public const NONCE_HEADER = 'X-WP-Nonce';
+	public const NONCE_NAME = 'wp_rest';
+
 	protected $auth = false;
 	public string $path = 'event';
 
@@ -33,7 +36,9 @@ class Event extends Route_Base {
 	public function POST( WP_REST_Request $request ): WP_REST_Response {
 		try {
 			$params = $request->get_json_params();
-			if ( Analytics_Entry::validate_item( $params['event'], $params['element'] ) ) {
+			$error = $this->verify_nonce( $request->get_header( self::NONCE_HEADER ), self::NONCE_NAME );
+
+			if ( ! $error && Analytics_Entry::validate_item( $params['event'], $params['element'] ) ) {
 				$analytics_entry = new Analytics_Entry([
 					'data' => [
 						Analytics_Table::EVENT => $params['event'],
@@ -46,6 +51,6 @@ class Event extends Route_Base {
 		} catch ( Throwable $t ) {
 			Logger::info( $t->getMessage() );
 		}
-		return new WP_REST_Response( null, 204 );
+		return new WP_REST_Response( null, 200 );
 	}
 }

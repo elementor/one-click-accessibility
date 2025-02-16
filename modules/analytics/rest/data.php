@@ -32,6 +32,12 @@ class Data extends Route_Base {
 	 * @return WP_REST_Response | WP_Error
 	 */
 	public function GET( WP_REST_Request $request ) {
+		$error = $this->verify_capability();
+
+		if ( $error ) {
+			return $error;
+		}
+
 		try {
 			$params = $request->get_query_params();
 			$result = [
