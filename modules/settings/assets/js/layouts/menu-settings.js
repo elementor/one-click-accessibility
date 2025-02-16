@@ -111,19 +111,8 @@ const MenuSettings = () => {
 	};
 
 	const areAtLeastTwoOptionsEnabled = (settings) => {
-		let enabledCount = 0;
-
-		for (const category in settings) {
-			if (settings.hasOwnProperty(category)) {
-				for (const option in settings[category]) {
-					if (settings[category][option]) {
-						enabledCount++;
-					}
-				}
-			}
-		}
-
-		return enabledCount > 2;
+		const count = Object.keys(settings).filter((key) => settings[key].enabled);
+		return count.length > 2;
 	};
 
 	const handleCloseNotification = () => {
