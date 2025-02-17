@@ -25,7 +25,7 @@ const AccessibilityStatementTooltip = () => {
 			<CardContent>
 				<Typography variant="body2" color="text.secondary">
 					{__(
-						'You can now create an accessibility statement and page in seconds—this way visitors know your site is inclusive.',
+						'Create your accessibility statement and page in seconds, reflecting your ongoing commitment to an accessible site.',
 						'pojo-accessibility',
 					)}
 				</Typography>
