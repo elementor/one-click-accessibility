@@ -68,16 +68,13 @@ class Service {
 			throw new Service_Exception( 'Missing deactivation URL' );
 		}
 
+		// ensure a fresh token
+		self::refresh_token();
+
 		$access_token = Data::get_access_token();
 
 		if ( ! $access_token ) {
 			throw new Service_Exception( 'Missing access token' );
-		}
-
-		$refresh_token = Data::get_refresh_token();
-
-		if ( ! $refresh_token ) {
-			throw new Service_Exception( 'Missing refresh token' );
 		}
 
 		self::request($deactivation_url, [
@@ -87,7 +84,7 @@ class Service {
 			],
 		], 204);
 
-		self::get_token( 'refresh_token', $refresh_token );
+		Data::set_connect_mode_data( Data::ACCESS_TOKEN, null );
 	}
 
 	/**
