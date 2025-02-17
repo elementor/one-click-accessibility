@@ -14,9 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Module extends Module_Base {
 
-	public const NONCE_HEADER = 'X-WP-Nonce';
-	public const NONCE_NAME = 'wp_rest';
-
 	/**
 	 * Get module name.
 	 * Retrieve the module name.
@@ -38,14 +35,6 @@ class Module extends Module_Base {
 		return [
 			'Event',
 			'Data',
-		];
-	}
-
-	public static function get_analytics_settings() {
-		// TODO: add condition to check for PRO version
-		return [
-			'header' => self::NONCE_HEADER,
-			'_wpNonce' => wp_create_nonce( self::NONCE_NAME ),
 		];
 	}
 

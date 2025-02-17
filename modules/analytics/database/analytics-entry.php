@@ -58,8 +58,8 @@ class Analytics_Entry extends Entry {
 	 *
 	 * @return array
 	 */
-	public static function get_data_elements_grouped( string $period ): array {
-		$fields = 'element, COUNT(*) AS total';
+	public static function get_data_events_grouped( string $period ): array {
+		$fields = 'event, COUNT(*) AS total';
 		$where = [
 			[
 				'column' => 'created_at',
@@ -68,22 +68,18 @@ class Analytics_Entry extends Entry {
 			],
 		];
 		$order_by = [ 'total' => 'DESC' ];
-		$group_by = 'element';
+		$group_by = 'event';
 		$query = Analytics_Table::build_sql_string( $fields, $where, null, null, '', $order_by, $group_by );
 		return Analytics_Table::db()->get_results( $query );
 	}
 
 	/**
 	 * @param string $event
-	 * @param string $element
 	 *
 	 * @return bool
 	 */
-	public static function validate_item( string $event, string $element ): bool {
-		return (
-			in_array( $event, Analytics_Table::EVENTS, true ) &&
-			in_array( $element, Analytics_Table::ELEMENTS, true )
-		);
+	public static function validate_item( string $event ): bool {
+		return in_array( $event, Analytics_Table::EVENTS, true );
 	}
 
 	/**

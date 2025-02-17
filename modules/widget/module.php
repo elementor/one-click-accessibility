@@ -51,7 +51,6 @@ class Module extends Module_Base {
 				'iconSettings' => get_option( Settings::WIDGET_ICON_SETTINGS ),
 				'toolsSettings' => get_option( Settings::WIDGET_MENU_SETTINGS ),
 				'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
-				'analyticsSettings' => AnalyticsModule::get_analytics_settings(),
 			]
 		);
 	}

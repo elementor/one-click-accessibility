@@ -42,7 +42,7 @@ class Data extends Route_Base {
 			$params = $request->get_query_params();
 			$result = [
 				'dates' => Analytics_Entry::get_data_dates_grouped( $params['period'] ),
-				'elements' => Analytics_Entry::get_data_elements_grouped( $params['period'] ),
+				'elements' => Analytics_Entry::get_data_events_grouped( $params['period'] ),
 			];
 			return $this->respond_success_json( $result );
 		} catch ( Throwable $t ) {
