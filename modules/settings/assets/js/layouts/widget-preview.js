@@ -1,3 +1,4 @@
+import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
@@ -47,11 +48,16 @@ const WidgetPreview = () => {
 					sx={{ paddingBottom: 0 }}
 				/>
 
-				<StyledPreview id={WIDGET_PREVIEW_ID}></StyledPreview>
+				<StyledPreview id={WIDGET_PREVIEW_ID}>
+					<Box id="widget-loader-text">
+						{__('Loading…', 'pojo-accessibility')}
+					</Box>
+				</StyledPreview>
 			</Card>
 			<WidgetLoader
 				onLoad={() => {
 					if (document.getElementById(WIDGET_PREVIEW_ID)) {
+						document.getElementById('widget-loader-text').innerText = '';
 						window?.ea11yWidget?.widget?.open();
 					}
 				}}
