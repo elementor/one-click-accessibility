@@ -67,6 +67,12 @@ const StyledPreviewContainer = styled(Box)`
 	}
 `;
 
+const StyledSwitch = styled(Switch)`
+	input {
+		height: 56px !important;
+	}
+`;
+
 const StatementLink = () => {
 	const [disabled, setDisabled] = useState(true);
 	const [isValidPage, setIsValidPage] = useState(false);
@@ -237,8 +243,8 @@ const StatementLink = () => {
 								label={__('Hide link', 'pojo-accessibility')}
 								labelPlacement="start"
 								control={
-									<Switch
-										color="secondary"
+									<StyledSwitch
+										color="info"
 										size="small"
 										sx={{ marginLeft: 3 }}
 									/>
