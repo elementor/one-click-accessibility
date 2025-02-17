@@ -15,16 +15,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Data extends Route_Base {
+class Statistic extends Route_Base {
 	protected $auth = false;
-	public string $path = 'data';
+	public string $path = 'statistic';
 
 	public function get_methods(): array {
 		return [ 'GET' ];
 	}
 
 	public function get_name(): string {
-		return 'data';
+		return 'statistic';
 	}
 
 	/**

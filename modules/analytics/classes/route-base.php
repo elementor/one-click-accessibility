@@ -32,7 +32,7 @@ class Route_Base extends Route {
 	}
 
 	public function post_permission_callback( \WP_REST_Request $request ): bool {
-		return $this->get_permission_callback( $request );
+		return ! $this->auth || $this->get_permission_callback( $request );
 	}
 
 	public function get_permission_callback( \WP_REST_Request $request ): bool {
