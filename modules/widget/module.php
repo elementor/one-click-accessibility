@@ -5,7 +5,6 @@ namespace EA11y\Modules\Widget;
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Settings\Module as SettingsModule;
-use EA11y\Modules\Analytics\Module as AnalyticsModule;
 use EA11y\Modules\Settings\Classes\Settings;
 use Exception;
 
