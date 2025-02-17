@@ -20,10 +20,11 @@ const init = async () => {
 
 	mixpanel.register({
 		productName: 'app_access',
+		appType: 'Apps',
 		environment: ea11ySettingsData.pluginEnv,
 	});
 
-	mixpanel.identify(ea11ySettingsData?.clientId);
+	mixpanel.identify(ea11ySettingsData?.planData?.user?.id);
 
 	const userData = {
 		$email: ea11ySettingsData?.planData?.user?.email,
