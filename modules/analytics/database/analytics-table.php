@@ -19,8 +19,21 @@ class Analytics_Table extends Table {
 	const VALUE = 'value';
 	const CREATED_AT = 'created_at';
 
-	// TODO: Review lists of events and elements
-	const EVENTS = [ 'bigger_text', 'line_height' ];
+	const EVENTS = [
+		'bigger-text',
+		'bigger-line-height',
+		'text-align',
+		'readable-font',
+		'grayscale',
+		'contrast',
+		'page-structure',
+		'sitemap',
+		'reading-mask',
+		'hide-images',
+		'pause-animations',
+		'highlight-links',
+		'focus-outline',
+	];
 
 	public static $table_name = 'ea11y_analytics';
 
