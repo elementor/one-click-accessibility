@@ -1,12 +1,13 @@
-import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { WidgetLoader } from '@ea11y/components';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { WIDGET_PREVIEW_ID } from '../constants';
+import { WIDGET_PREVIEW_ID } from '../../constants';
+import WidgetPreviewSkeleton from './preview-skeleton';
 
 const StyledPreview = styled(CardContent)`
 	margin-right: auto;
@@ -32,6 +33,8 @@ const StyledPreview = styled(CardContent)`
 `;
 
 const WidgetPreview = () => {
+	const [isLoaded, setIsLoaded] = useState(false);
+
 	return (
 		<>
 			<Card variant="outlined">
@@ -49,15 +52,15 @@ const WidgetPreview = () => {
 				/>
 
 				<StyledPreview id={WIDGET_PREVIEW_ID}>
-					<Box id="widget-loader-text">
-						{__('Loading…', 'pojo-accessibility')}
-					</Box>
+					{!isLoaded && <WidgetPreviewSkeleton />}
 				</StyledPreview>
 			</Card>
+
 			<WidgetLoader
 				onLoad={() => {
+					setIsLoaded(true);
+
 					if (document.getElementById(WIDGET_PREVIEW_ID)) {
-						document.getElementById('widget-loader-text').innerText = '';
 						window?.ea11yWidget?.widget?.open();
 					}
 				}}
