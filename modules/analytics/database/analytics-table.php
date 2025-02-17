@@ -51,7 +51,10 @@ class Analytics_Table extends Table {
 			self::EVENT => [
 				'type'  => Database_Constants::get_col_type( Database_Constants::VARCHAR, 255 ),
 				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::NOT_NULL,
+					Database_Constants::DEFAULT,
+					'\'\'',
+					Database_Constants::COMMENT,
+					'"' . implode( '|', self::EVENTS ) . '"',
 				] ),
 			],
 			self::VALUE => [

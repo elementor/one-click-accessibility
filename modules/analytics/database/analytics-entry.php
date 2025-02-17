@@ -18,11 +18,6 @@ class Analytics_Entry extends Entry {
 	public string $event;
 
 	/**
-	 * @var string
-	 */
-	public string $element;
-
-	/**
 	 * @var string|null
 	 */
 	public ?string $value;
