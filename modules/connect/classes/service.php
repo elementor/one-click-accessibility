@@ -264,7 +264,7 @@ class Service {
 	 * @throws Service_Exception
 	 */
 	public static function refresh_token() {
-		self::get_token( GrantTypes::CLIENT_CREDENTIALS, null. true );
+		self::get_token( GrantTypes::CLIENT_CREDENTIALS, null, true );
 	}
 
 	/**
