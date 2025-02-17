@@ -25,7 +25,8 @@ import { mixpanelService } from '@ea11y/services';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { WIDGET_PREVIEW_ID } from '../constants';
+import { WIDGET_PREVIEW_ID } from '../../constants';
+import WidgetPreviewSkeleton from './preview-skeleton';
 
 const StyledPreviewContainer = styled(Box)`
 	margin-top: ${({ theme }) => theme.spacing(2)};
@@ -67,6 +68,12 @@ const StyledPreviewContainer = styled(Box)`
 	}
 `;
 
+const StyledSwitch = styled(Switch)`
+	input {
+		height: 56px !important;
+	}
+`;
+
 const StatementLink = () => {
 	const [disabled, setDisabled] = useState(true);
 	const [isValidPage, setIsValidPage] = useState(false);
@@ -77,6 +84,8 @@ const StatementLink = () => {
 	} = useSettings();
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
+	const [isWidgetLoaded, setIsWidgetLoaded] = useState(false);
+
 	const pages = useEntityRecords('postType', 'page', { per_page: -1 });
 
 	useEffect(() => {
@@ -237,8 +246,8 @@ const StatementLink = () => {
 								label={__('Hide link', 'pojo-accessibility')}
 								labelPlacement="start"
 								control={
-									<Switch
-										color="secondary"
+									<StyledSwitch
+										color="info"
 										size="small"
 										sx={{ marginLeft: 3 }}
 									/>
@@ -255,9 +264,18 @@ const StatementLink = () => {
 							{__('Preview link in widget', 'pojo-accessibility')}
 						</Typography>
 
-						<StyledPreviewContainer id="ea11y-widget-preview--container">
+						<StyledPreviewContainer
+							id="ea11y-widget-preview--container"
+							sx={{
+								padding: !isWidgetLoaded ? 0 : 'initial',
+							}}
+						>
+							{!isWidgetLoaded && <WidgetPreviewSkeleton />}
+
 							<WidgetLoader
 								onLoad={() => {
+									setIsWidgetLoaded(true);
+
 									if (document.getElementById(WIDGET_PREVIEW_ID)) {
 										window?.ea11yWidget?.widget?.open();
 									}

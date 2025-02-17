@@ -4,8 +4,10 @@ import CardHeader from '@elementor/ui/CardHeader';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { WidgetLoader } from '@ea11y/components';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { WIDGET_PREVIEW_ID } from '../constants';
+import { WIDGET_PREVIEW_ID } from '../../constants';
+import WidgetPreviewSkeleton from './preview-skeleton';
 
 const StyledPreview = styled(CardContent)`
 	margin-right: auto;
@@ -31,6 +33,8 @@ const StyledPreview = styled(CardContent)`
 `;
 
 const WidgetPreview = () => {
+	const [isLoaded, setIsLoaded] = useState(false);
+
 	return (
 		<>
 			<Card variant="outlined">
@@ -47,10 +51,15 @@ const WidgetPreview = () => {
 					sx={{ paddingBottom: 0 }}
 				/>
 
-				<StyledPreview id={WIDGET_PREVIEW_ID}></StyledPreview>
+				<StyledPreview id={WIDGET_PREVIEW_ID}>
+					{!isLoaded && <WidgetPreviewSkeleton />}
+				</StyledPreview>
 			</Card>
+
 			<WidgetLoader
 				onLoad={() => {
+					setIsLoaded(true);
+
 					if (document.getElementById(WIDGET_PREVIEW_ID)) {
 						window?.ea11yWidget?.widget?.open();
 					}
