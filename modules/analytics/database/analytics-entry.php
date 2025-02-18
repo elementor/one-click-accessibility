@@ -43,8 +43,7 @@ class Analytics_Entry extends Entry {
 		];
 		$order_by = [ 'date' => 'DESC' ];
 		$group_by = 'date';
-		$query = Analytics_Table::build_sql_string( $fields, $where, null, null, '', $order_by, $group_by );
-		return Analytics_Table::db()->get_results( $query );
+		return Analytics_Table::select( $fields, $where, null, null, '', $order_by, $group_by );
 	}
 
 	/**
@@ -64,8 +63,7 @@ class Analytics_Entry extends Entry {
 		];
 		$order_by = [ 'total' => 'DESC' ];
 		$group_by = 'event';
-		$query = Analytics_Table::build_sql_string( $fields, $where, null, null, '', $order_by, $group_by );
-		return Analytics_Table::db()->get_results( $query );
+		return Analytics_Table::select( $fields, $where, null, null, '', $order_by, $group_by );
 	}
 
 	/**

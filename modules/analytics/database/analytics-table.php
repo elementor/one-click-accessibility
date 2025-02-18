@@ -74,46 +74,4 @@ class Analytics_Table extends Table {
 			],
 		];
 	}
-
-	/**
-	 * build_sql_string
-	 * add GROUP BY to Table::build_sql_string
-	 *
-	 */
-	public static function build_sql_string( $fields = '*', $where = '1', int $limit = null, int $offset = null, string $join = '', array $order_by = [], $group_by = '' ): string {
-		if ( is_array( $fields ) ) {
-			$fields = implode( ', ', $fields );
-		}
-
-		$db = static::db();
-		$query_string = 'SELECT %s FROM %s %s WHERE %s';
-		$query_string = sprintf( $query_string,
-			$fields,
-			static::table_name(),
-			$join,
-			static::where( $where )
-		);
-
-		if ( is_array( $group_by ) ) {
-			$group_by = implode( ', ', $group_by );
-		}
-
-		if ( $group_by ) {
-			$query_string .= esc_sql( ' GROUP BY ' . $group_by );
-		}
-
-		if ( $order_by ) {
-			$query_string .= static::build_order_by_sql_string( $order_by );
-		}
-
-		if ( $limit ) {
-			$query_string .= $db->prepare( ' LIMIT %d', $limit );
-		}
-
-		if ( $offset ) {
-			$query_string .= $db->prepare( ' OFFSET %d', $offset );
-		}
-
-		return $query_string;
-	}
 }
