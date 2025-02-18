@@ -1,6 +1,6 @@
-=== Ally Web Accessibility – Make Your Website More Accessible ===
+=== Ally - Web Accessibility & Usability ===
 Contributors: elemntor, pojo.me, KingYes, ariel.k, jzaltzberg, bainternet
-Tags: Accessibility, A11y, Toolbar, Tools, wcag, accessible
+Tags: Web Accessibility, Accessibility, A11y, Accessibility statement, wcag
 Requires at least: 4.1
 Tested up to: 6.3
 Requires PHP: 5.4
@@ -37,7 +37,7 @@ Ally Web Accessibility’s features so far:
 
 = Customization Options for Web Creators =
 
-- **Add Accessibility Statement URL**: Web creators can choose where to place the required Accessibility Statement from the current pages of their website.
+- **Add Accessibility Statement URL**: Link an existing Accessibility Statement URL, ensuring it appears directly within the accessibility widget.
 
 - **Generate the Accessibility Statement**: Effortlessly create your Accessibility Statement with our built-in generator without the need to search the web. Simply fill in a form with your details  and a custom Accessibility Statement will be instantly generated and placed on a dedicated page of your website.
 
@@ -51,9 +51,9 @@ Ally Web Accessibility’s features so far:
 
 - **Icon Size**: Choose the size of the accessibility icon: Large, Medium, and Small.
 
-- **Sitemap URL**: A default sitemap link is available in the widget to enhance the visibility of the site structure to end users. The web creator can override the default and set any desired URL.
+- **Sitemap URL**: A default sitemap link is available in the widget to enhance the visibility of the site structure to end users. You can override the default and set any desired sitemap URL.
 
-- **Skip to Main Content**: "Skip to Content"  enables users to quickly navigate to the main content. Set to ‘On’ by default, web creators have the option to edit the anchor ID link to navigate to the best location.
+- **Skip to Main Content**: "Skip to Content" enables users to quickly navigate to the main content. Set to ‘On’ by default, web creators have the option to edit the anchor ID to navigate to the best location.
 
 = Customization Options for Website Visitors =
 Below is a list of features website visitors can control. (Each feature may be enabled/disabled by the web creator during website setup, determining which are shown to website visitors.)
@@ -87,6 +87,14 @@ Below is a list of features website visitors can control. (Each feature may be e
 - **Focus Outline**: Enables users to see which element is currently active as they Tab through the page. Geared for keyboard-only navigation.
 
 - **Skip to Main Content**: When users land on your site, pressing the Tab key brings the ‘Skip to main content’ link into focus. By selecting this link, users can skip directly to the main content, enabling them to quickly navigate to the main content. Useful for keyboard-only and screen-reader users.
+
+=== Get Started Today ===
+== Make your site more accessible with Ally! ==
+For more information about Ally visit our [help center](https://go.elementor.com/acc-wp-repo-learn-more) If you have any questions or need support, feel free to [contact us](https://go.elementor.com/wp-repo-wp-dash-sm-contact-us/).
+
+This plugin requires a connection to an active Elementor account in order to identify the user and provide the user with the purchased service. This connection is triggered manually by the user via the plugin’s settings panel. Learn more about our [terms and conditions](https://go.elementor.com/acc-wp-repo-term-and-conditions). This plugin uses a 3rd party service operated by Elementor.
+
+More great features are on the horizon, so stay tuned!
 
 More great features are on the horizon, so stay tuned!
 
@@ -144,15 +152,15 @@ An accessibility statement is a declaration of your commitment to providing an i
 
 == Screenshots ==
 
-1. Capabilities: Toggle accessibility features on or off as needed.
+1. Design: Customize the button's icon, size, and color and widget branding.
 2. Position Settings: Set widget placement or hide it on desktop and mobile.
-3. Design: Customize the button's icon, size, and color.
+3. Capabilities: Toggle accessibility features on or off as needed.
 4. Accessibility Statement: Add or create a custom accessibility statement.
 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
 
-= 3.0.0  2025-02-xx=
+= 3.0.0  2025-02-18 =
 * 🚀 Introducing Ally Web Accessibility! One Click Accessibility is now Ally Web Accessibility! Discover the new experience: Learn More.
 * New: Brand-New Interface – Redesigned for seamless touch-screen and mobile support.
 * New: Revamped Infrastructure – Overhauled backend to support new and future capabilities.
