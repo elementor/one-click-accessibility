@@ -54,18 +54,14 @@ class Module extends Module_Base {
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			EA11Y_ASSETS_URL . 'images/menu-icon-wp.svg',
-		);
-
-		add_submenu_page(
-			self::SETTING_BASE_SLUG,
-			__( 'Accessibility Settings', 'pojo-accessibility' ),
-			__( 'Settings', 'pojo-accessibility' ),
-			self::SETTING_CAPABILITY,
-			self::SETTING_BASE_SLUG,
-			[ $this, 'render_app' ],
+			    $this->get_menu_icon(),
 		);
 	}
+
+    private function get_menu_icon() : string {
+        $icon_base_64 = 'PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iOCA1IDI1IDI1IiBmaWxsPSJub25lIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgeD0iOCIgeT0iNS41MzMiIGZpbGw9IiNhN2FhYWQiIHJ4PSIxMiIvPgogICAgPHBhdGggZmlsbD0iIzAwMCIgZD0iTTIwLjEyNCAxMy45NDRhMS40MDYgMS40MDYgMCAxIDAgMC0yLjgxMSAxLjQwNiAxLjQwNiAwIDAgMCAwIDIuODExWiIvPgogICAgPHBhdGggZmlsbD0iIzAwMCIgZD0iTTIyLjE4NyAxNC4zMzVjLTEuMzg1LjE0NS0yLjc4OC4xNC00LjIxIDBsLTMuMTMzLS40OTJhLjgxNy44MTcgMCAwIDAtLjg0NC44MTZjMCAuNDQyLjI3OC43NTguNzkzLjgxN2wzLjU2LjQ2OS0uMjkzIDcuMjdhLjc0Ny43NDcgMCAwIDAgMS40OTMuMDU2bC4yMzUtMy4xMTlhLjM3Ni4zNzYgMCAwIDEgLjc1MiAwbC4yMzUgMy4xMmEuNzQ5Ljc0OSAwIDAgMCAxLjQ5My0uMDU3bC0uMjYtNi40MDNhLjg3Ljg3IDAgMCAxIC44NC0uODY4bDIuNjA0LS40NjhjLjUxOC0uMDkzLjc5My0uMzc1Ljc5My0uODE3YS44MTguODE4IDAgMCAwLS44NDQtLjgxOGwtMy4yMTguNDkzLjAwNC4wMDFaIi8+CiAgICA8cGF0aCBmaWxsPSIjYTdhYWFkIiBkPSJtMTYuNzk1IDE2LjI4LTEuNDktLjcyOWMzLjI0Ny4zNjggMy41NjUuNTQzIDUuMDYyLjU3Ni0xLjU0Ny4wODUtMi45MDMuMjY0LTMuNTcyLjE1di4wMDJaIi8+Cjwvc3ZnPg==';
+        return 'data:image/svg+xml;base64,' . $icon_base_64;
+    }
 
 	/**
 	 * Enqueue Scripts and Styles
