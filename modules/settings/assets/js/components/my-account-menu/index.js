@@ -57,7 +57,7 @@ const MyAccountMenu = () => {
 
 	const onDeactivateAndDisconnect = async () => {
 		try {
-			await API.disconnect();
+			await API.deactivate();
 			await API.redirectToConnect();
 
 			await save({
