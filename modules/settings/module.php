@@ -56,15 +56,6 @@ class Module extends Module_Base {
 			[ $this, 'render_app' ],
 			EA11Y_ASSETS_URL . 'images/menu-icon-wp.svg',
 		);
-
-		add_submenu_page(
-			self::SETTING_BASE_SLUG,
-			__( 'Accessibility Settings', 'pojo-accessibility' ),
-			__( 'Settings', 'pojo-accessibility' ),
-			self::SETTING_CAPABILITY,
-			self::SETTING_BASE_SLUG,
-			[ $this, 'render_app' ],
-		);
 	}
 
 	/**
