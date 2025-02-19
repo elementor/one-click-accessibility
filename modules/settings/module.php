@@ -54,18 +54,14 @@ class Module extends Module_Base {
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			EA11Y_ASSETS_URL . 'images/menu-icon-wp.svg',
-		);
-
-		add_submenu_page(
-			self::SETTING_BASE_SLUG,
-			__( 'Accessibility Settings', 'pojo-accessibility' ),
-			__( 'Settings', 'pojo-accessibility' ),
-			self::SETTING_CAPABILITY,
-			self::SETTING_BASE_SLUG,
-			[ $this, 'render_app' ],
+			    $this->get_menu_icon(),
 		);
 	}
+
+    private function get_menu_icon() : string {
+        $svg = file_get_contents( EA11Y_ASSETS_PATH . 'images/menu-icon-wp.svg' );
+        return 'data:image/svg+xml;base64,' . base64_encode( $svg );
+    }
 
 	/**
 	 * Enqueue Scripts and Styles
