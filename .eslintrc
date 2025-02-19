@@ -1,0 +1,66 @@
+{
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:@wordpress/eslint-plugin/recommended-with-formatting",
+    "plugin:import/recommended",
+    "plugin:jsx-a11y/strict",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "babel",
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jquery": true
+  },
+  "globals": {
+    "jQuery": "writable"
+  },
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "requireConfigFile": false
+  },
+  "rules": {
+    "no-console": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "strict": [ "error", "global" ],
+    "curly": "warn",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type"
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": false
+        }
+      }
+    ],
+    "import/newline-after-import": ["error", {
+      "count": 1
+    }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["node_modules"]
+      },
+      "webpack": {
+        "config": "webpack.config.js"
+      }
+    }
+  },
+  "parser": "@babel/eslint-parser"
+}

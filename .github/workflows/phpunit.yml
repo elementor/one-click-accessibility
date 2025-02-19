@@ -1,0 +1,135 @@
+name: PHPUnit
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    name: "WP ${{ matrix.wp }}, multisite: ${{ matrix.ms }}, PHP: ${{ matrix.php }}"
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [7.4, 8.0, 8.1, 8.2]
+        wp: [6.5.x, 6.6.x, latest, nightly]
+        ms: [no, yes]
+        coverage: [no]
+        phpunit: [9]
+        include:
+          # PHP 7.4 is not supported by PHPUnit 9
+          - phpunit: 7
+            php: 7.4
+          # add coverage job
+          - coverage: yes
+            php: 8.0
+            wp: latest
+            ms: no
+            phpunit: 9
+
+    services:
+      mysql:
+        image: mariadb:latest
+        ports:
+          - "3306:3306"
+        env:
+          MYSQL_ROOT_PASSWORD: wordpress
+          MARIADB_INITDB_SKIP_TZINFO: 1
+          MYSQL_USER: wordpress
+          MYSQL_PASSWORD: wordpress
+          MYSQL_DATABASE: wordpress_test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Matrix variables
+        id: matrix
+        run: |
+            echo "::group::Matrix variables"
+            echo "PHP version = ${{ matrix.php }}"
+            echo "WordPress = ${{ matrix.wp }}"
+            echo "Multisite = ${{ matrix.ms }}"
+            echo "Coverage = ${{ matrix.coverage }}"
+            echo "PHPUnit = ${{ matrix.phpunit }}"
+            echo "::endgroup::"
+
+      - name: Decide whether to enable coverage
+        id: coverage
+        run: |
+          if [ "${{ matrix.coverage }}" = "yes" ]; then
+            echo "coverage=pcov" >> $GITHUB_OUTPUT
+            echo 'ini=pcov.directory=inc, pcov.exclude="~/(vendor|tests|node_modules)/~"'
+          else
+            echo "coverage=none" >> $GITHUB_OUTPUT
+            echo "ini=opcache.enable_cli=1, opcache.jit=tracing, opcache.jit_buffer_size=64M" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: ${{ steps.coverage.outputs.coverage }}
+          ini-values: ${{ steps.coverage.outputs.ini }}
+          php-version: ${{ matrix.php }}
+        env:
+          fail-fast: 'true'
+
+      - name: Install PHPUnit
+        run: |
+          wget -q -O /usr/local/bin/phpunit "https://phar.phpunit.de/phpunit-${{ matrix.phpunit }}.phar"
+          chmod +x /usr/local/bin/phpunit
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Set up WordPress and WordPress Test Library
+        uses: bainternet/setup-wordpress-test-library@master
+        with:
+          version: ${{ matrix.wp }}
+
+      - name: Set up multisite mode
+        run: echo "WP_MULTISITE=1" >> $GITHUB_ENV
+        if: matrix.ms == 'yes'
+
+      - name: Update wp-test-config.php
+        run: |
+          if php -r 'exit(PHP_VERSION_ID < 80100);'; then
+            echo "Disabling WP_DEBUG in wp-test-config.php"
+            sed -i "s@define( 'WP_DEBUG', true );@// define( 'WP_DEBUG', true );@" /tmp/wordpress-tests-lib/wp-tests-config.php
+          fi
+
+      - name: Verify MariaDB connection
+        run: |
+          while ! mysqladmin ping -h 127.0.0.1 -P ${{ job.services.mysql.ports[3306] }} --silent; do
+            sleep 1
+          done
+        timeout-minutes: 1
+
+      - name: Run tests
+        run: |
+          OPTIONS=
+          if [ "${{ steps.coverage.outputs.coverage }}" != 'none' ]; then
+            OPTIONS="$OPTIONS --coverage-clover=clover.xml"
+          fi
+          phpunit --order-by=random ${OPTIONS}

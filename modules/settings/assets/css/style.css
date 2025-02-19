@@ -1,0 +1,52 @@
+#wpbody-content {
+	padding-bottom: 0;
+}
+
+/* Hide wp notices */
+.notice, .update-nag {
+	display: none;
+}
+
+body {
+	background: #fff;
+}
+
+.wrap {
+	margin-top: 0;
+}
+
+html:not([dir='rtl']) #ea11y-app {
+    margin-left: -20px;
+    background: white;
+	height: calc(100vh - 32px);
+}
+
+html[dir='rtl'] #ea11y-app {
+	margin-right: -20px;
+    background: white;
+	height: calc( 100vh - 32px );
+}
+
+#ea11y-app * {
+	box-sizing: border-box;
+}
+
+.ea11y-textfield .MuiInputBase-input {
+	height: 40px;
+	padding: 8px 12px;
+	box-shadow: none;
+	border-color: rgba(12, 13, 14, 0.23);
+}
+
+/* Widget Preview in Menu Settings */
+
+#ea11y-widget-preview--container #ea11y-root {
+	display: flex;
+	justify-content: center;
+}
+
+@media (min-width: 480px) {
+	.ea11y-widget-container {
+		max-width: 100% !important;
+	}
+}

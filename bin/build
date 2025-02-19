@@ -1,0 +1,33 @@
+#!/bin/sh
+echo "Web Accessibility build script:"
+echo "basename: [$(basename "$0")]"
+echo "dirname : [$(dirname "$0")]"
+echo "pwd     : [$(pwd)]"
+BUILD_FILE="pojo-accessibility.zip"
+
+#change working dir to the directory containing your package.json and composer.json
+cd "$(dirname "$0")"
+cd ..
+
+# Remove old build file
+echo "Removing old build file..."
+rm -f $BUILD_FILE
+
+# Run npm install
+echo "Running npm install..."
+npm install
+
+# Run npm build
+echo "Running npm install..."
+npm run build
+
+# Run composer install
+echo "Running composer install..."
+composer install --no-dev
+
+# Pack everything excluding dev stuff
+echo "Packing everything excluding .git folder into a zip file..."
+zip -r pojo-accessibility.zip . -x "*.bpg.json" -x "*.babelrc" -x "*ruleset.xml" -x "*webpack.config.js" -x "*phpunit.xml.dist" -x "*.git*" -x "*.DS_Store" -x "node_modules/*" -x "*.gitignore" -x "*.gitmodules" -x "*.editorconfig" -x "*.gitattributes" -x "*.eslintrc" -x "*.eslintignore" -x "*.phpcs.xml.dist" -x "*.phpunit.xml.d" -x "*coverage/*" -x "*assets/dev*" -x ".phpunit.result*" -x "bin*" -x "*tests/*" -x "package.json" -x "composer.json" -x "composer.lock" -x "package-lock.json"
+
+#
+echo "Done."

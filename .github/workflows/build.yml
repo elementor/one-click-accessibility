@@ -1,0 +1,88 @@
+name: Build
+on:
+  pull_request:
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      push_to_slack:
+        description: 'Push to Slack'
+        type: boolean
+        required: true
+        default: 'false'
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+        env:
+          fail-fast: 'true'
+
+      - name: Install Composer dependencies cache
+        uses: ramsey/composer-install@v3
+
+      - name: Install Composer dependencies
+        run:
+          composer install --no-dev
+
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
+      - name: "Debug info: show tooling versions"
+        continue-on-error: true
+        run: |
+          set +e
+          echo "Start debug Info"
+          echo "Date: ${{ steps.date.outputs.date }}"
+          echo "PHP Version: $(php -v)"
+          echo "Composer Version: $(composer --version)"
+          echo "Node Version: $(node --version)"
+          echo "NPM Version: $(npm --version)"
+          echo "GIT Version: $(git --version)"
+          echo "The github context is:"
+          echo "${{ toJson(github) }}"
+          echo "End debug Info"
+          echo "exitcode=$?" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Build Plugin
+        run: |
+          rsync -av --exclude-from=.build-rsync-exclude . one-click-accessibility
+          zip -r one-click-accessibility.zip one-click-accessibility
+
+      - name: Archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: one-click-accessibility
+          path: one-click-accessibility.zip
+          retention-days: 14
+
+      - name: Push to Slack on PR merge
+        if: ${{ github.event.pull_request.merged == true }}
+        run: |
+          curl -F file=@one-click-accessibility.zip -F "initial_comment=One Click Accessibility - A new PR has been pushed to the master branch by ${{ github.actor }}."  title="${{ github.event.pull_request.title }}" -F channels=C07LFCFNGDB -H "Authorization: Bearer ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}" https://slack.com/api/files.upload
+
+      - name: Push to Slack on Manual Trigger
+        if: ${{ github.event.inputs.push_to_slack == 'true'  }}
+        run: |
+          curl -F file=@one-click-accessibility.zip -F "initial_comment=One Click Accessibility - A new build was triggered by ${{ github.actor }}."  title="Manuall ${{ steps.date.outputs.date }}" -F channels=C07LFCFNGDB -H "Authorization: Bearer ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}" https://slack.com/api/files.upload
