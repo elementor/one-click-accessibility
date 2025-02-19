@@ -36,10 +36,11 @@ class Event extends Route_Base {
 
 			foreach ( $params['items'] as $item ) {
 				if ( Analytics_Entry::validate_item( $item['event'] ) ) {
+					$value = array_key_exists( 'value', $item ) ? sanitize_text_field( $item['value'] ) : null;
 					$analytics_entry = new Analytics_Entry([
 						'data' => [
 							Analytics_Table::EVENT => $item['event'],
-							Analytics_Table::VALUE => array_key_exists( 'value', $item ) ? $item['value'] : null,
+							Analytics_Table::VALUE => $value,
 						],
 					]);
 					$analytics_entry->create();
