@@ -67,22 +67,22 @@ jobs:
 
       - name: Build Plugin
         run: |
-          rsync -av --exclude-from=.build-rsync-exclude . one-click-accessibility
-          zip -r one-click-accessibility.zip one-click-accessibility
+          rsync -av --exclude-from=.build-rsync-exclude . pojo-accessibility
+          zip -r pojo-accessibility.zip pojo-accessibility
 
       - name: Archive
         uses: actions/upload-artifact@v4
         with:
-          name: one-click-accessibility
-          path: one-click-accessibility.zip
+          name: pojo-accessibility
+          path: pojo-accessibility.zip
           retention-days: 14
 
       - name: Push to Slack on PR merge
         if: ${{ github.event.pull_request.merged == true }}
         run: |
-          curl -F file=@one-click-accessibility.zip -F "initial_comment=One Click Accessibility - A new PR has been pushed to the master branch by ${{ github.actor }}."  title="${{ github.event.pull_request.title }}" -F channels=C07LFCFNGDB -H "Authorization: Bearer ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}" https://slack.com/api/files.upload
+          curl -F file=@pojo-accessibility.zip -F "initial_comment=Ally - A new PR has been pushed to the master branch by ${{ github.actor }}."  title="${{ github.event.pull_request.title }}" -F channels=C07LFCFNGDB -H "Authorization: Bearer ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}" https://slack.com/api/files.upload
 
       - name: Push to Slack on Manual Trigger
         if: ${{ github.event.inputs.push_to_slack == 'true'  }}
         run: |
-          curl -F file=@one-click-accessibility.zip -F "initial_comment=One Click Accessibility - A new build was triggered by ${{ github.actor }}."  title="Manuall ${{ steps.date.outputs.date }}" -F channels=C07LFCFNGDB -H "Authorization: Bearer ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}" https://slack.com/api/files.upload
+          curl -F file=@pojo-accessibility.zip -F "initial_comment=Ally - A new build was triggered by ${{ github.actor }}."  title="Manuall ${{ steps.date.outputs.date }}" -F channels=C07LFCFNGDB -H "Authorization: Bearer ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}" https://slack.com/api/files.upload

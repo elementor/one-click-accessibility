@@ -417,7 +417,7 @@ class Upgrade {
 							} ).then( ( response ) => {
 								if ( response.ok ) {
 									close();
-									location.href = '<?php echo esc_js( admin_url( 'options-general.php?page=' . Config::ADMIN_PAGE ) ); ?>';
+									location.href = '<?php echo esc_js( admin_url( 'admin.php?page=' . Config::ADMIN_PAGE ) ); ?>';
 								}
 							} );
 						} );
