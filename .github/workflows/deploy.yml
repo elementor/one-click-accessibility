@@ -35,10 +35,10 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
-          name: site-mailer
+          name: pojo-accessibility
       - run: ls -lah
       - name: unzip
-        run: unzip site-mailer.zip
+        run: unzip pojo-accessibility.zip
       - name: Preparing envs
         run: |
           echo "PACKAGE_VERSION=$(cat package.json | jq -r '.version')" >> $GITHUB_ENV
