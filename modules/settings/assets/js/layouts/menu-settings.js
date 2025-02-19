@@ -1,31 +1,21 @@
-import { CardActions, ListItemSecondaryAction } from '@elementor/ui';
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
+import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Divider from '@elementor/ui/Divider';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
-import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
-import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
-import SitemapSettings from '@ea11y/components/sitemap-settings';
+import CapabilitiesItem from '@ea11y/components/capabilities-item';
 import { useSettings, useStorage } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MENU_SETTINGS } from '../constants/menu-settings';
-import { validateUrl } from '../utils';
-
-const StyledSwitch = styled(Switch)`
-	input {
-		height: 56px !important;
-	}
-`;
 
 const StyledCardContent = styled(CardContent)`
 	height: 55vh;
@@ -51,10 +41,6 @@ const StyledCardActions = styled(CardActions)`
 const MenuSettings = () => {
 	const {
 		widgetMenuSettings,
-		setWidgetMenuSettings,
-		setHasChanges,
-		hasError,
-		setHasError,
 		hideMinimumOptionAlert,
 		setHideMinimumOptionAlert,
 	} = useSettings();
@@ -72,43 +58,6 @@ const MenuSettings = () => {
 			});
 		}
 	}, [widgetMenuSettings]);
-
-	const toggleSetting = (category, option) => {
-		setWidgetMenuSettings((prevSettings) => {
-			const newSettings = {
-				...prevSettings,
-				[option]: {
-					...prevSettings[option],
-					enabled: !prevSettings[option]?.enabled,
-				},
-			};
-
-			if (option === 'sitemap') {
-				setHasError({
-					...hasError,
-					sitemap: !prevSettings[option]?.enabled
-						? !validateUrl(prevSettings[option]?.url)
-						: false,
-				});
-			}
-
-			setHasChanges(true);
-
-			if (window?.ea11yWidget?.toolsSettings && window?.ea11yWidget?.widget) {
-				window.ea11yWidget.toolsSettings = newSettings;
-				window?.ea11yWidget?.widget.updateState();
-			}
-
-			if (prevSettings[option]) {
-				mixpanelService.sendEvent('toggle_clicked', {
-					state: prevSettings[option]?.enabled ? 'off' : 'on',
-					type: option,
-				});
-			}
-
-			return newSettings;
-		});
-	};
 
 	const areAtLeastTwoOptionsEnabled = (settings) => {
 		const enabled = Object.keys(settings)?.filter(
@@ -162,39 +111,13 @@ const MenuSettings = () => {
 									Object.entries(parentItem.options).map(
 										([childKey, childValue]) => {
 											return (
-												<ListItem
-													as="div"
+												<CapabilitiesItem
 													key={childKey}
-													disableGutters
-													sx={{ p: '4px' }}
-												>
-													{childKey === 'sitemap' ? (
-														<SitemapSettings sitemap={childValue} />
-													) : (
-														<>
-															<ListItemIcon>{childValue.icon}</ListItemIcon>
-															<ListItemText primary={childValue.title} />
-														</>
-													)}
-
-													<ListItemSecondaryAction sx={{ top: '19px' }}>
-														<StyledSwitch
-															size="medium"
-															color="info"
-															checked={
-																widgetMenuSettings[childKey]?.enabled || false
-															}
-															onChange={() =>
-																toggleSetting(parentKey, childKey)
-															}
-															disabled={
-																widgetMenuSettings[childKey]?.enabled
-																	? disableOptions
-																	: false
-															}
-														/>
-													</ListItemSecondaryAction>
-												</ListItem>
+													childKey={childKey}
+													childValue={childValue}
+													parentKey={parentKey}
+													disableOptions={disableOptions}
+												/>
 											);
 										},
 									)}
