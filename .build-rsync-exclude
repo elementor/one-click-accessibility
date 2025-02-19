@@ -28,6 +28,7 @@ jest.config.js
 .prettierrc
 wp-assets
 .wporg-assets
+README.md
 
 .build-rsync-exclude
 one-click-accessibility/
