@@ -4,7 +4,7 @@ Tags: Web Accessibility, Accessibility, A11y, Accessibility statement, wcag
 Requires at least: 4.1
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 
 Ally Web Accessibility (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
@@ -159,6 +159,8 @@ An accessibility statement is a declaration of your commitment to providing an i
 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
+= 3.0.1 2025-02-20 =
+* Fix: Fixed favicon missing on some sites
 
 = 3.0.0  2025-02-18 =
 * 🚀 Introducing Ally Web Accessibility! One Click Accessibility is now Ally Web Accessibility! Discover the new experience: Learn More.
