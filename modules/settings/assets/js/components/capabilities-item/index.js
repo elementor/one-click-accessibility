@@ -3,12 +3,11 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemSecondaryAction from '@elementor/ui/ListItemSecondaryAction';
 import ListItemText from '@elementor/ui/ListItemText';
-import { CustomSwitch } from '@ea11y/components';
+import { CustomSwitch, ProItemInfotip } from '@ea11y/components';
 import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { validateUrl } from '../../utils';
-import ProItemInfotip from './pro-item-infotip';
 
 const CapabilitiesItem = ({
 	childKey,
