@@ -3,19 +3,12 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemSecondaryAction from '@elementor/ui/ListItemSecondaryAction';
 import ListItemText from '@elementor/ui/ListItemText';
-import Switch from '@elementor/ui/Switch';
-import { styled } from '@elementor/ui/styles';
+import { CustomSwitch } from '@ea11y/components';
 import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { validateUrl } from '../../utils';
 import ProItemInfotip from './pro-item-infotip';
-
-const StyledSwitch = styled(Switch)`
-	input {
-		height: 56px !important;
-	}
-`;
 
 const CapabilitiesItem = ({
 	childKey,
@@ -108,9 +101,7 @@ const CapabilitiesItem = ({
 			)}
 
 			<ListItemSecondaryAction sx={{ top: '19px' }}>
-				<StyledSwitch
-					size="medium"
-					color="info"
+				<CustomSwitch
 					checked={widgetMenuSettings[childKey]?.enabled || false}
 					onChange={() => toggleSetting(parentKey, childKey)}
 					disabled={isDisabled()}

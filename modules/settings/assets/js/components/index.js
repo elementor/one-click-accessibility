@@ -22,3 +22,4 @@ export { default as GeneratedPageInfoTipCard } from './generated-page-infotip-ca
 export { default as PositionSettingsWrapper } from './position-settings-wrapper';
 export { default as CapabilitiesItem } from './capabilities-item';
 export { default as ProItemInfotip } from './capabilities-item/pro-item-infotip';
+export { default as CustomSwitch } from './switch';
