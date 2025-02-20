@@ -1,6 +1,5 @@
 import { InfoCircleIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
-import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import FormLabel from '@elementor/ui/FormLabel';
 import Infotip from '@elementor/ui/Infotip';
@@ -8,15 +7,12 @@ import Switch from '@elementor/ui/Switch';
 import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { validateId } from '../../utils';
 
 const SkipToContentSettings = () => {
-	const { save } = useStorage();
-	const { success, error } = useToastNotification();
-
 	const {
 		skipToContentSettings,
 		setSkipToContentSettings,
@@ -24,6 +20,7 @@ const SkipToContentSettings = () => {
 		setSkipToContentHasChanges,
 		hasError,
 		setHasError,
+		setHasChanges,
 	} = useSettings();
 
 	const toggleSetting = () => {
@@ -38,6 +35,7 @@ const SkipToContentSettings = () => {
 				: false,
 		});
 		setSkipToContentHasChanges(true);
+		setHasChanges(true);
 	};
 
 	const onEditSkipToContent = (event) => {
@@ -53,6 +51,7 @@ const SkipToContentSettings = () => {
 			skipToContent: !isValid,
 		});
 		setSkipToContentHasChanges(isValid);
+		setHasChanges(isValid);
 	};
 
 	const onBlur = () => {
@@ -64,35 +63,35 @@ const SkipToContentSettings = () => {
 		}
 	};
 
-	const saveSettings = async () => {
-		try {
-			const savedData = {
-				ea11y_skip_to_content_settings: skipToContentSettings,
-			};
-
-			await save(savedData);
-
-			success(__('Settings saved!', 'pojo-accessibility'));
-
-			setSkipToContentHasChanges(false);
-
-			mixpanelService.sendEvent('save_button_clicked', {
-				savedData,
-			});
-		} catch (e) {
-			error(__('Failed to save settings!', 'pojo-accessibility'));
-		}
-	};
-
-	const isSubmitDisabled =
-		!skipToContentSettings.anchor ||
-		!skipToContentHasChanges ||
-		hasError.skipToContent;
 	return (
 		<Card variant="outlined" sx={{ padding: 2, marginBlock: 4 }}>
 			<StyledBox>
-				<Typography variant="subtitle1">
+				<Typography
+					variant="subtitle1"
+					alignItems="center"
+					display="flex"
+					gap={1}
+				>
 					{__('Skip to main content', 'pojo-accessibility')}
+					<Infotip
+						content={
+							<Box sx={{ p: 2, maxWidth: '250px' }}>
+								<Typography variant="subtitle2" sx={{ mb: 1 }}>
+									{__('Skip to main content', 'pojo-accessibility')}
+								</Typography>
+								<Typography variant="body2">
+									{__(
+										'This feature allows visitors with visual assistive tools to skip to the main content of each page they’re viewing.',
+										'pojo-accessibility',
+									)}
+								</Typography>
+							</Box>
+						}
+						placement="right"
+						arrow={true}
+					>
+						<InfoCircleIcon fontSize="small" />
+					</Infotip>
 				</Typography>
 				<StyledSwitch
 					size="medium"
@@ -110,7 +109,6 @@ const SkipToContentSettings = () => {
 			<StyledFormItem>
 				<StyledFormLabel htmlFor="skip-to-content-anchor">
 					{__('Content element ID', 'pojo-accessibility')}
-
 					<Infotip
 						content={
 							<Box sx={{ p: 2, maxWidth: '250px' }}>
@@ -119,7 +117,7 @@ const SkipToContentSettings = () => {
 								</Typography>
 								<Typography variant="body2">
 									{__(
-										'This feature allows visitors with visual assistive tools to skip to the main content of each page they’re viewing.',
+										'This is the HTML ID of the main content area on your pages.Changing this is only needed if your theme uses a custom ID instead of the default #main-content.',
 										'pojo-accessibility',
 									)}
 								</Typography>
@@ -153,14 +151,6 @@ const SkipToContentSettings = () => {
 						</Typography>
 					)}
 				</Box>
-				<Button
-					variant="contained"
-					color="info"
-					onClick={saveSettings}
-					disabled={isSubmitDisabled}
-				>
-					{__('Save changes', 'pojo-accessibility')}
-				</Button>
 			</StyledFormItem>
 		</Card>
 	);
@@ -180,9 +170,10 @@ const StyledSwitch = styled(Switch)`
 
 const StyledFormItem = styled(Box)`
 	display: flex;
+	flex-direction: column;
 	gap: 16px;
 	align-items: flex-start;
-	justify-content: end;
+	justify-content: start;
 	padding-top: 16px;
 `;
 
