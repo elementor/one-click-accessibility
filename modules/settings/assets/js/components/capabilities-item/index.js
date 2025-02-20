@@ -1,6 +1,4 @@
 import Box from '@elementor/ui/Box';
-import Chip from '@elementor/ui/Chip';
-import Infotip from '@elementor/ui/Infotip';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemSecondaryAction from '@elementor/ui/ListItemSecondaryAction';
@@ -9,7 +7,6 @@ import Switch from '@elementor/ui/Switch';
 import { styled } from '@elementor/ui/styles';
 import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings } from '@ea11y/hooks';
-import { ProCrownIcon } from '@ea11y/icons';
 import { mixpanelService } from '@ea11y/services';
 import { validateUrl } from '../../utils';
 import ProItemInfotip from './pro-item-infotip';
@@ -35,10 +32,19 @@ const CapabilitiesItem = ({
 		planData,
 	} = useSettings();
 
+	/**
+	 * Check if the feature is enabled in user's plan.
+	 * @return {boolean} true if the feature is enabled.
+	 */
 	const isProEnabled = () => {
 		return planData?.[childKey.replace('-', '_')];
 	};
 
+	/**
+	 * Toggle the menu setting value in the state.
+	 * @param {string} category - parent category.
+	 * @param {string} option   - option key.
+	 */
 	const toggleSetting = (category, option) => {
 		setWidgetMenuSettings((prevSettings) => {
 			const newSettings = {
@@ -76,6 +82,10 @@ const CapabilitiesItem = ({
 		});
 	};
 
+	/**
+	 * Check if the switch is disabled or not.
+	 * @return {boolean} true if the switch is disabled.
+	 */
 	const isDisabled = () => {
 		if (childValue?.pro && !isProEnabled()) {
 			return true;
@@ -92,25 +102,7 @@ const CapabilitiesItem = ({
 					<ListItemIcon>{childValue.icon}</ListItemIcon>
 					<Box display="flex" flexDirection="row" gap={1} alignItems="center">
 						<ListItemText primary={childValue.title} />
-						{childValue?.pro && !isProEnabled() && (
-							<Infotip
-								placement="top"
-								content={<ProItemInfotip />}
-								disableFocusListener
-								PopperProps={{
-									sx: {
-										zIndex: 9999999999, // Custom z-index for the popper
-									},
-								}}
-							>
-								<Chip
-									color="promotion"
-									variant="standard"
-									icon={<ProCrownIcon />}
-									size="small"
-								/>
-							</Infotip>
-						)}
+						{childValue?.pro && !isProEnabled() && <ProItemInfotip />}
 					</Box>
 				</>
 			)}
