@@ -1,13 +1,14 @@
-import { CardActions, ListItemSecondaryAction } from '@elementor/ui';
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
+import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Divider from '@elementor/ui/Divider';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
+import ListItemSecondaryAction from '@elementor/ui/ListItemSecondaryAction';
 import ListItemText from '@elementor/ui/ListItemText';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
