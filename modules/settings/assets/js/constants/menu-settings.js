@@ -10,6 +10,7 @@ import {
 	ReadingPanelIcon,
 	HideImagesIcon,
 	PauseAnimationsIcon,
+	VolumeIcon,
 } from '@ea11y/icons';
 import FocusIcon from '@ea11y/icons/focus-icon';
 import SitemapIcon from '@ea11y/icons/sitemap-icon';
@@ -39,22 +40,14 @@ export const MENU_SETTINGS = {
 			},
 		},
 	},
-	'color-adjustments': {
-		title: __('Color Adjustments', 'pojo-accessibility'),
-		options: {
-			grayscale: {
-				title: __('Greyscale', 'pojo-accessibility'),
-				icon: <GrayscaleIcon sx={iconStyle} />,
-			},
-			contrast: {
-				title: __('Contrast', 'pojo-accessibility'),
-				icon: <ContrastIcon sx={iconStyle} />,
-			},
-		},
-	},
 	'orientation-adjustments': {
 		title: __('Orientation Adjustments', 'pojo-accessibility'),
 		options: {
+			'screen-reader': {
+				title: __('Screen reader', 'pojo-accessibility'),
+				icon: <VolumeIcon sx={iconStyle} />,
+				pro: true,
+			},
 			'page-structure': {
 				title: __('Page structure', 'pojo-accessibility'),
 				icon: <PageStructureIcon sx={iconStyle} />,
@@ -82,6 +75,19 @@ export const MENU_SETTINGS = {
 			'focus-outline': {
 				title: __('Outline focus', 'pojo-accessibility'),
 				icon: <FocusIcon sx={iconStyle} />,
+			},
+		},
+	},
+	'color-adjustments': {
+		title: __('Color Adjustments', 'pojo-accessibility'),
+		options: {
+			grayscale: {
+				title: __('Greyscale', 'pojo-accessibility'),
+				icon: <GrayscaleIcon sx={iconStyle} />,
+			},
+			contrast: {
+				title: __('Contrast', 'pojo-accessibility'),
+				icon: <ContrastIcon sx={iconStyle} />,
 			},
 		},
 	},
