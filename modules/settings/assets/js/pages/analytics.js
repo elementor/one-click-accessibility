@@ -1,3 +1,4 @@
+import Box from '@elementor/ui/Box';
 import { AnalyticsToggle, Charts } from '@ea11y/components/analytics';
 import {
 	StyledBox,
@@ -10,10 +11,17 @@ const Analytics = () => {
 	return (
 		<StyledBox>
 			<StyledContainer>
-				<StyledTitle variant="h4" color="text.primary">
-					{__('Analytics', 'pojo-accessibility')}
-				</StyledTitle>
-				<AnalyticsToggle />
+				<Box
+					display="flex"
+					alignItems="center"
+					justifyContent="space-between"
+					sx={{ mb: 5 }}
+				>
+					<StyledTitle variant="h4" color="text.primary" sx={{ mb: 0 }}>
+						{__('Analytics', 'pojo-accessibility')}
+					</StyledTitle>
+					<AnalyticsToggle />
+				</Box>
 				<Charts />
 			</StyledContainer>
 		</StyledBox>

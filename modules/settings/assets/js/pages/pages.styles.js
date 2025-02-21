@@ -1,4 +1,5 @@
 import Box from '@elementor/ui/Box';
+import CardContent from '@elementor/ui/CardContent';
 import Container from '@elementor/ui/Container';
 import Paper from '@elementor/ui/Paper';
 import Typography from '@elementor/ui/Typography';
@@ -50,4 +51,10 @@ export const StyledStatementContainer = styled(Container)`
 	flex-direction: column;
 	align-items: start;
 	gap: 16px;
+`;
+
+export const StyledCardContent = styled(CardContent)`
+	&:last-child {
+		padding-bottom: 16px;
+	}
 `;

@@ -13,7 +13,10 @@ export const AnalyticsContextProvider = ({ children }) => {
 	const { save } = useStorage();
 	const [showAnalytics, setShowAnalytics] = useState(false);
 	const [period, setPeriod] = useState(30);
-	const [stats, setStats] = useState();
+	const [stats, setStats] = useState({
+		dates: [],
+		elements: [],
+	});
 
 	/**
 	 * Get initial logs list
