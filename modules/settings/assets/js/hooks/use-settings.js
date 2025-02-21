@@ -12,8 +12,7 @@ export function useSettings() {
 export const SettingsProvider = ({ children }) => {
 	const [openSidebar, setOpenSidebar] = useState(true);
 	const [selectedMenu, setSelectedMenu] = useState({
-		// parent: 'design',
-		parent: 'analytics',
+		parent: 'design',
 	});
 
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
