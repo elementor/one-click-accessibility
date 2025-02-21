@@ -8,6 +8,8 @@ import {
 	Notifications,
 	MenuItems,
 	PostConnectModal,
+	UrlMismatchModal,
+	UrlMismatchNotice,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
@@ -20,28 +22,13 @@ import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
 
-const StyledContainer = styled(Box)`
-	width: 100%;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: start;
-`;
-
-const StyledGrid = styled(Grid)`
-	height: 100%;
-
-	display: flex;
-	flex-direction: row;
-`;
-
 const App = () => {
 	const { hasFinishedResolution, loading } = useSavedSettings();
 
-	const { isConnected, isRTL, closePostConnectModal } =
+	const { isConnected, isRTL, closePostConnectModal, isUrlMismatch } =
 		usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
-	const { selectedMenu } = useSettings();
+	const { selectedMenu, showMismatchModal } = useSettings();
 
 	useEffect(() => {
 		mixpanelService.init().then(() => {
@@ -59,13 +46,17 @@ const App = () => {
 	return (
 		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
-				{isConnected !== undefined && !isConnected && <ConnectModal />}
+				{isConnected !== undefined && !isUrlMismatch && !isConnected && (
+					<ConnectModal />
+				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
+				{isUrlMismatch && showMismatchModal && <UrlMismatchModal />}
 
 				<StyledGrid>
 					<Sidebar />
 
 					<StyledContainer>
+						{isUrlMismatch && <UrlMismatchNotice />}
 						<PageContent
 							// Looks the best if we have both checks
 							isLoading={!hasFinishedResolution || loading}
@@ -81,3 +72,18 @@ const App = () => {
 };
 
 export default App;
+
+const StyledContainer = styled(Box)`
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+`;
+
+const StyledGrid = styled(Grid)`
+	height: 100%;
+
+	display: flex;
+	flex-direction: row;
+`;
