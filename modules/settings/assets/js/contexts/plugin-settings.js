@@ -29,6 +29,10 @@ export const PluginSettingsProvider = ({ children }) => {
 					);
 				}
 
+				if ('isUrlMismatch' in settings) {
+					settings.isUrlMismatch = Boolean(settings.isUrlMismatch);
+				}
+
 				setPluginSettings(settings);
 				setLoaded(true);
 			})

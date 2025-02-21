@@ -52,6 +52,8 @@ class Authorize extends Route_Base {
 				$client_id = Service::register_client();
 			}
 
+
+
 			if ( ! Utils::is_valid_home_url() ) {
 				if ( $request->get_param( 'update_redirect_uri' ) ) {
 					Service::update_redirect_uri();

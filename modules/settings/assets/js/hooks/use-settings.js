@@ -135,6 +135,8 @@ export const SettingsProvider = ({ children }) => {
 		setShowAccessibilityGeneratedInfotip,
 	] = useState(false);
 
+	const [showMismatchModal, setShowMismatchModal] = useState(false);
+
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -166,6 +168,8 @@ export const SettingsProvider = ({ children }) => {
 				setAccessibilityStatementData,
 				showAccessibilityGeneratedInfotip,
 				setShowAccessibilityGeneratedInfotip,
+				showMismatchModal,
+				setShowMismatchModal,
 			}}
 		>
 			{children}

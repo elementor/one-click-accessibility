@@ -9,6 +9,8 @@ use EA11y\Classes\{
 use EA11y\Modules\Connect\Classes\{
 	Config, Data
 };
+
+use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
@@ -96,6 +98,7 @@ class Module extends Module_Base {
 				'pluginEnv' => self::get_plugin_env(),
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
+                'isUrlMismatch' => !Connect_Utils::is_valid_home_url(),
 			]
 		);
 	}
@@ -123,6 +126,7 @@ class Module extends Module_Base {
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
+            'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 		];
 	}
 
