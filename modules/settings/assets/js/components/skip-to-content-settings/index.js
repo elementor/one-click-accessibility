@@ -108,7 +108,7 @@ const SkipToContentSettings = () => {
 			</Typography>
 			<StyledFormItem>
 				<StyledFormLabel htmlFor="skip-to-content-anchor">
-					{__('Content element ID', 'pojo-accessibility')}
+					{__('Main content ID', 'pojo-accessibility')}
 					<Infotip
 						content={
 							<Box sx={{ p: 2, maxWidth: '250px' }}>
