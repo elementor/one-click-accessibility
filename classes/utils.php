@@ -23,10 +23,4 @@ class Utils {
 		$installed_plugins = get_plugins();
 		return isset( $installed_plugins[ $file_path ] );
 	}
-
-    public static function is_plugin_page(): bool {
-        $current_screen = get_current_screen();
-        return str_contains( $current_screen->id, 'accessibility-settings' );
-    }
-
 }
