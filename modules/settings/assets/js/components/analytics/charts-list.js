@@ -6,14 +6,21 @@ import Select from '@elementor/ui/Select';
 import SvgIcon from '@elementor/ui/SvgIcon';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { LineChart } from '@ea11y/components/analytics/line-chart';
-import { PieChart } from '@ea11y/components/analytics/pie-chart';
-import { UsageTable } from '@ea11y/components/analytics/usage-table';
+import {
+	LineChart,
+	PieChart,
+	UsageTable,
+} from '@ea11y/components/analytics/charts';
+import {
+	LineChartSkeleton,
+	PieChartSkeleton,
+	UsageTableSkeleton,
+} from '@ea11y/components/analytics/skeleton';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
 
-export const Charts = () => {
-	const { showAnalytics, period, setPeriod } = useAnalyticsContext();
+export const ChartsList = () => {
+	const { showAnalytics, loading, period, setPeriod } = useAnalyticsContext();
 
 	/**
 	 * Change period for statistics select
@@ -55,13 +62,13 @@ export const Charts = () => {
 
 			<Grid container spacing={4}>
 				<Grid item xs={12} lg={6}>
-					<LineChart />
+					{loading ? <LineChartSkeleton /> : <LineChart />}
 				</Grid>
 				<Grid item xs={12} lg={6}>
-					<PieChart />
+					{loading ? <PieChartSkeleton /> : <PieChart />}
 				</Grid>
 				<Grid item xs={12}>
-					<UsageTable />
+					{loading ? <UsageTableSkeleton /> : <UsageTable />}
 				</Grid>
 			</Grid>
 		</Box>

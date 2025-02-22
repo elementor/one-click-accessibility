@@ -12,6 +12,7 @@ const AnalyticsContext = createContext(null);
 export const AnalyticsContextProvider = ({ children }) => {
 	const { save } = useStorage();
 	const [showAnalytics, setShowAnalytics] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [period, setPeriod] = useState(30);
 	const [stats, setStats] = useState({
 		dates: [],
@@ -22,16 +23,23 @@ export const AnalyticsContextProvider = ({ children }) => {
 	 * Get initial logs list
 	 */
 	useEffect(() => {
-		const date = new Date();
-		date.setDate(date.getDate() - period);
-		date.setHours(0, 0, 0, 0);
-		const params = {
-			period: date.toISOString().slice(0, 19).replace('T', ' '),
-		};
-		void API.getStatistic(params).then((data) => {
-			setStats(data);
-		});
-	}, [period]);
+		if (showAnalytics) {
+			setLoading(true);
+			const date = new Date();
+			date.setDate(date.getDate() - period);
+			date.setHours(0, 0, 0, 0);
+			const params = {
+				period: date.toISOString().slice(0, 19).replace('T', ' '),
+			};
+			void API.getStatistic(params).then((data) => {
+				setStats(data);
+				setLoading(false);
+			});
+		} else {
+			// Set disabled state when analytics turned off
+			setLoading(true);
+		}
+	}, [period, showAnalytics]);
 
 	const updateShowAnalytics = async () => {
 		await save({
@@ -49,6 +57,7 @@ export const AnalyticsContextProvider = ({ children }) => {
 				period,
 				setPeriod,
 				stats,
+				loading,
 			}}
 		>
 			{children}

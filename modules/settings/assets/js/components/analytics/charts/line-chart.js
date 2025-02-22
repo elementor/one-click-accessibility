@@ -6,10 +6,11 @@ import CardHeader from '@elementor/ui/CardHeader';
 import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
 import { LineChart as MuiLineChart } from '@mui/x-charts/LineChart';
-import { LineTooltip } from '@ea11y/components/analytics/line-tooltip';
+import { LineTooltip } from '@ea11y/components/analytics/components/line-tooltip';
+import { NoData } from '@ea11y/components/analytics/components/no-data';
 import { dateI18n } from '@wordpress/date';
 import { __ } from '@wordpress/i18n';
-import { useAnalyticsContext } from '../../contexts/analytics-context';
+import { useAnalyticsContext } from '../../../contexts/analytics-context';
 
 export const LineChart = () => {
 	const theme = useTheme();
@@ -18,6 +19,8 @@ export const LineChart = () => {
 		(sum, item) => sum + Number(item.total),
 		0,
 	);
+
+	const showChart = stats.dates.length > 0;
 
 	return (
 		<Card variant="outlined" sx={{ height: '100%' }}>
@@ -42,38 +45,44 @@ export const LineChart = () => {
 					</Box>
 				}
 				subheader={
-					<Typography variant="h3">
-						{totalOpen > 0 ? totalOpen : '--'}
-					</Typography>
+					totalOpen > 0 ? (
+						<Typography variant="h3" sx={{ height: '50px' }}>
+							{totalOpen.toString()}
+						</Typography>
+					) : null
 				}
 				sx={{ pb: 0 }}
 			/>
-
-			<MuiLineChart
-				series={[
-					{
-						type: 'line',
-						curve: 'linear',
-						data: stats.dates.map((item) => item.total),
-						color: theme.palette.info.main,
-					},
-				]}
-				xAxis={[
-					{
-						scaleType: 'point',
-						data: stats.dates.map((item) => item.date),
-						valueFormatter: (item, context) =>
-							context.location === 'tick' ? dateI18n('d.m', item, false) : item,
-					},
-				]}
-				slots={{
-					axisContent: LineTooltip,
-				}}
-				tooltip={{
-					trigger: totalOpen ? 'axis' : 'none',
-				}}
-				height={250}
-			/>
+			{showChart && (
+				<MuiLineChart
+					series={[
+						{
+							type: 'line',
+							curve: 'linear',
+							data: stats.dates.map((item) => item.total),
+							color: theme.palette.info.main,
+						},
+					]}
+					xAxis={[
+						{
+							scaleType: 'point',
+							data: stats.dates.map((item) => item.date),
+							valueFormatter: (item, context) =>
+								context.location === 'tick'
+									? dateI18n('d.m', item, false)
+									: item,
+						},
+					]}
+					slots={{
+						axisContent: LineTooltip,
+					}}
+					tooltip={{
+						trigger: totalOpen ? 'axis' : 'none',
+					}}
+					height={250}
+				/>
+			)}
+			{stats.dates.length === 0 && <NoData />}
 		</Card>
 	);
 };

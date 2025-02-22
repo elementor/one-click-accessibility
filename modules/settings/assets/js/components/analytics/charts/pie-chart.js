@@ -9,19 +9,20 @@ import {
 	PieChart as MuiPieChart,
 	pieArcLabelClasses,
 } from '@mui/x-charts/PieChart';
-import { PieTooltip } from '@ea11y/components/analytics/pie-tooltip';
+import { NoData } from '@ea11y/components/analytics/components/no-data';
+import { PieTooltip } from '@ea11y/components/analytics/components/pie-tooltip';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { FEATURE_MAPPER, CHARTS_COLORS } from '../../constants';
-import { useAnalyticsContext } from '../../contexts/analytics-context';
+import { FEATURE_MAPPER, CHARTS_COLORS } from '../../../constants';
+import { useAnalyticsContext } from '../../../contexts/analytics-context';
 
 export const PieChart = () => {
 	const { stats } = useAnalyticsContext();
 	const containerRef = useRef(null);
-	const [chartWidth, setChartWidth] = useState();
+	const [chartWidth, setChartWidth] = useState(null);
 
 	const onResize = () =>
-		setChartWidth(containerRef.current.offsetWidth / 4 - 32);
+		setChartWidth(Number(containerRef.current.offsetWidth) / 4 - 32);
 
 	useEffect(() => {
 		window.addEventListener('resize', onResize);
@@ -55,6 +56,8 @@ export const PieChart = () => {
 		};
 	});
 
+	const showChart = stats.dates.length > 0 && chartWidth !== null;
+
 	return (
 		<Card variant="outlined" sx={{ height: '100%' }} ref={containerRef}>
 			<CardHeader
@@ -77,8 +80,9 @@ export const PieChart = () => {
 						</Infotip>
 					</Box>
 				}
+				sx={{ pb: 0 }}
 			/>
-			{chartWidth && (
+			{showChart && (
 				<MuiPieChart
 					series={[
 						{
@@ -124,6 +128,7 @@ export const PieChart = () => {
 					height={300}
 				/>
 			)}
+			{stats.elements.length === 0 && <NoData />}
 		</Card>
 	);
 };

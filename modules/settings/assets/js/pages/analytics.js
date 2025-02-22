@@ -1,5 +1,5 @@
 import Box from '@elementor/ui/Box';
-import { AnalyticsToggle, Charts } from '@ea11y/components/analytics';
+import { AnalyticsToggle, ChartsList } from '@ea11y/components/analytics';
 import {
 	StyledBox,
 	StyledContainer,
@@ -22,7 +22,7 @@ const Analytics = () => {
 					</StyledTitle>
 					<AnalyticsToggle />
 				</Box>
-				<Charts />
+				<ChartsList />
 			</StyledContainer>
 		</StyledBox>
 	);

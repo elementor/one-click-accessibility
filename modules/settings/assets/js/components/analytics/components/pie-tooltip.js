@@ -5,7 +5,7 @@ import { styled } from '@elementor/ui/styles';
 export const PieTooltip = (props) => {
 	const { itemData, series } = props;
 	return (
-		<Paper sx={{ padding: 2 }}>
+		<Paper sx={{ p: 2, pb: 1 }}>
 			<StyledTitle
 				variant="body2"
 				color="text.tertiary"

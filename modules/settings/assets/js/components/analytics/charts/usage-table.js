@@ -12,12 +12,13 @@ import Card from '@elementor/ui/Card';
 import CardHeader from '@elementor/ui/CardHeader';
 import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
+import { NoData } from '@ea11y/components/analytics/components/no-data';
 import { StyledCardContent } from '@ea11y/pages/pages.styles';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { FEATURE_MAPPER, TABLE_PER_PAGE } from '../../constants';
-import { useAnalyticsContext } from '../../contexts/analytics-context';
-import { chunkArray } from '../../utils';
+import { FEATURE_MAPPER, TABLE_PER_PAGE } from '../../../constants';
+import { useAnalyticsContext } from '../../../contexts/analytics-context';
+import { chunkArray } from '../../../utils';
 
 export const UsageTable = () => {
 	const { stats } = useAnalyticsContext();
@@ -104,19 +105,7 @@ export const UsageTable = () => {
 						/>
 					</Box>
 				)}
-				{stats.elements.length === 0 && (
-					<Box
-						display="flex"
-						alignItems="center"
-						justifyContent="center"
-						flexDirection="column"
-						sx={{ height: '200px' }}
-					>
-						<Typography variant="body2" color="text.tertiary">
-							{__('No data available', 'pojo-accessibility')}
-						</Typography>
-					</Box>
-				)}
+				{stats.elements.length === 0 && <NoData />}
 			</StyledCardContent>
 		</Card>
 	);
