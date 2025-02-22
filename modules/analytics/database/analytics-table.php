@@ -33,6 +33,7 @@ class Analytics_Table extends Table {
 		'pause-animations',
 		'highlight-links',
 		'focus-outline',
+		'widget-open',
 	];
 
 	public static $table_name = 'ea11y_analytics';
