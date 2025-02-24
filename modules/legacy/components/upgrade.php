@@ -37,6 +37,7 @@ class Upgrade {
 	 */
 	public static function has_legacy_data() : bool {
 		$options = [
+			'pojo_a11y_customizer_options',
 			'pojo_a11y_focusable',
 			'pojo_a11y_skip_to_content_link',
 			'pojo_a11y_skip_to_content_link_element_id',
