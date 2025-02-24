@@ -2,11 +2,12 @@ import Card from '@elementor/ui/Card';
 import CardHeader from '@elementor/ui/CardHeader';
 import Typography from '@elementor/ui/Typography';
 import { CustomSwitch, ProItemInfotip } from '@ea11y/components';
-import { useSettings } from '@ea11y/hooks';
+import { useSettings, useToggleSetting } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 
 const LogoSettings = () => {
-	const { planData } = useSettings();
+	const { widgetMenuSettings, planData } = useSettings();
+	const { toggleMenu } = useToggleSetting();
 
 	/**
 	 * Check if the feature is enabled in user's plan.
@@ -33,7 +34,13 @@ const LogoSettings = () => {
 						)}
 					</Typography>
 				}
-				action={<CustomSwitch disabled={!isProEnabled()} />}
+				action={
+					<CustomSwitch
+						disabled={!isProEnabled()}
+						onChange={() => toggleMenu('pro', 'remove_branding')}
+						checked={widgetMenuSettings?.remove_branding?.enabled || false}
+					/>
+				}
 			/>
 		</Card>
 	);
