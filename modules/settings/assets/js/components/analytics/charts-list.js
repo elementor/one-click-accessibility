@@ -34,7 +34,7 @@ export const ChartsList = () => {
 		<Box display="flex" flexDirection="column" alignItems="start" gap={4}>
 			<Box display="flex" alignItems="center" gap={2}>
 				<Typography variant="subtitle1">
-					{__('Clicks overview for', 'pojo-accessibility')}
+					{__('Display data from', 'pojo-accessibility')}
 				</Typography>
 				<Select
 					disabled={!showAnalytics}

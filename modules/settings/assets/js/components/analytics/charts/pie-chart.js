@@ -68,9 +68,9 @@ export const PieChart = () => {
 						</Typography>
 						<Infotip
 							content={
-								<Typography variant="body2" sx={{ p: 2 }}>
+								<Typography variant="body1" sx={{ p: 2, maxWidth: '300px' }}>
 									{__(
-										'You need to add a link to activate this',
+										"Track which accessibility features visitors use most from your widget so you can better understand your audience's needs.",
 										'pojo-accessibility',
 									)}
 								</Typography>

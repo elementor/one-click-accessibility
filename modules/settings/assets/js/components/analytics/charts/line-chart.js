@@ -32,9 +32,9 @@ export const LineChart = () => {
 						</Typography>
 						<Infotip
 							content={
-								<Typography variant="body2" sx={{ p: 2 }}>
+								<Typography variant="body1" sx={{ p: 2, maxWidth: '300px' }}>
 									{__(
-										'You need to add a link to activate this',
+										'Track how often visitors clicked your accessibility widget to open it so you see how many people are actively seeking accessibility features on your site.',
 										'pojo-accessibility',
 									)}
 								</Typography>

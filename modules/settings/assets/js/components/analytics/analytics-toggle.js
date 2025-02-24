@@ -1,11 +1,12 @@
-import { DialogContentText, DialogHeaderGroup } from '@elementor/ui';
+import { InfoCircleIcon } from '@elementor/icons';
+import { DialogContentText } from '@elementor/ui';
+import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Dialog from '@elementor/ui/Dialog';
 import DialogActions from '@elementor/ui/DialogActions';
 import DialogContent from '@elementor/ui/DialogContent';
-import DialogHeader from '@elementor/ui/DialogHeader';
-import DialogTitle from '@elementor/ui/DialogTitle';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
+import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { useState } from '@wordpress/element';
@@ -41,7 +42,26 @@ export const AnalyticsToggle = () => {
 						sx={{ ml: 2 }}
 					/>
 				}
-				label={__('Track widget data', 'pojo-accessibility')}
+				label={
+					<Box display="flex" alignItems="center" gap={1}>
+						<Typography variant="body1">
+							{__('Track widget data', 'pojo-accessibility')}
+						</Typography>
+
+						<Infotip
+							content={
+								<Typography variant="body1" sx={{ p: 2, maxWidth: '300px' }}>
+									{__(
+										"Enable to track widget data, feature usage, user insights and more to improve your website's accessibility.",
+										'pojo-accessibility',
+									)}
+								</Typography>
+							}
+						>
+							<InfoCircleIcon fontSize="small" />
+						</Infotip>
+					</Box>
+				}
 				labelPlacement="start"
 				sx={{ ml: 0 }}
 			/>
@@ -51,22 +71,18 @@ export const AnalyticsToggle = () => {
 				aria-labelledby="confirm-enable-analytics-title"
 				aria-describedby="confirm-enable-analytics-description"
 			>
-				<DialogHeader onClose={handleClose}>
-					<DialogHeaderGroup>
-						<DialogTitle>Dialog Title</DialogTitle>
-					</DialogHeaderGroup>
-				</DialogHeader>
-
 				<DialogContent>
-					<Typography variant="h5" align="center" sx={{ mb: 3 }}>
-						{__('Confirm tracking data', 'pojo-accessibility')}
-					</Typography>
+					<Box display="flex" gap={1}>
+						<Typography variant="h5" align="center" sx={{ mb: 3 }}>
+							{__('Confirm widget data tracking', 'pojo-accessibility')}
+						</Typography>
+					</Box>
 					<DialogContentText
 						id="confirm-enable-analytics-description"
 						align="center"
 					>
 						{__(
-							'Text about how users confirm to track data, and that their database can support all the writes if they have a site with heavy traffic',
+							'Enabling data tracking let’s you see how users interact with your widget and features. Keep in mind: Real-time data processing may slightly impact a site’s performance, especially on high-traffic websites.',
 							'pojo-accessibility',
 						)}
 					</DialogContentText>
@@ -74,10 +90,10 @@ export const AnalyticsToggle = () => {
 
 				<DialogActions>
 					<Button onClick={handleClose} color="secondary">
-						{__('Close', 'pojo-accessibility')}
+						{__('Not now', 'pojo-accessibility')}
 					</Button>
 					<Button onClick={handleConfirm} variant="contained" color="info">
-						{__('Confirm', 'pojo-accessibility')}
+						{__('Confirm & enable', 'pojo-accessibility')}
 					</Button>
 				</DialogActions>
 			</Dialog>

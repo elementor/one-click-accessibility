@@ -23,22 +23,17 @@ export const AnalyticsContextProvider = ({ children }) => {
 	 * Get initial logs list
 	 */
 	useEffect(() => {
-		if (showAnalytics) {
-			setLoading(true);
-			const date = new Date();
-			date.setDate(date.getDate() - period);
-			date.setHours(0, 0, 0, 0);
-			const params = {
-				period: date.toISOString().slice(0, 19).replace('T', ' '),
-			};
-			void API.getStatistic(params).then((data) => {
-				setStats(data);
-				setLoading(false);
-			});
-		} else {
-			// Set disabled state when analytics turned off
-			setLoading(true);
-		}
+		setLoading(true);
+		const date = new Date();
+		date.setDate(date.getDate() - period);
+		date.setHours(0, 0, 0, 0);
+		const params = {
+			period: date.toISOString().slice(0, 19).replace('T', ' '),
+		};
+		void API.getStatistic(params).then((data) => {
+			setStats(data);
+			setLoading(false);
+		});
 	}, [period, showAnalytics]);
 
 	const updateShowAnalytics = async () => {

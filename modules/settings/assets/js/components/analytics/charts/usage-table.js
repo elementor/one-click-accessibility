@@ -36,9 +36,9 @@ export const UsageTable = () => {
 						</Typography>
 						<Infotip
 							content={
-								<Typography variant="body2" sx={{ p: 2 }}>
+								<Typography variant="body1" sx={{ p: 2, maxWidth: '300px' }}>
 									{__(
-										'You need to add a link to activate this',
+										'Track how often all your widget’s accessibility features are used.',
 										'pojo-accessibility',
 									)}
 								</Typography>
