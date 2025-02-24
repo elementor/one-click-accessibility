@@ -346,7 +346,7 @@ class Module extends Module_Base {
 		}
 	}
 
-	public function remove_admin_footer_text( $text ): string {
+	public function remove_admin_footer_text( $text ) {
 		$screen = get_current_screen();
 
 		if ( self::SETTING_PAGE_SLUG === $screen->base ) {
