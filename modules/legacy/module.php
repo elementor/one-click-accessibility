@@ -6,6 +6,7 @@ use EA11y\Classes\Module_Base;
 use EA11y\Modules\Legacy\Components\Customizer;
 use EA11y\Modules\Legacy\Components\Settings;
 use EA11y\Modules\Legacy\Components\Upgrade;
+use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -59,7 +60,10 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
-		if (  Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() ) {
+		if (
+			( Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() && ! Connect::is_connected() )
+			|| Upgrade::is_reverted()
+		) {
 			return true;
 		}
 		return false;

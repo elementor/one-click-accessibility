@@ -3,9 +3,9 @@
 **Contributors:** elemntor, pojo.me, KingYes, ariel.k, jzaltzberg, bainternet \
 **Tags:** Web Accessibility, Accessibility, A11y, Accessibility statement, wcag \
 **Requires at least:** 4.1 \
-**Tested up to:** 6.3 \
-**Requires PHP:** 5.4 \
-**Stable tag:** 3.0.0 \
+**Tested up to:** 6.7 \
+**Requires PHP:** 7.4 \
+**Stable tag:** 3.0.2 \
 **License:** GPLv2 or later
 
 Ally Web Accessibility (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
@@ -159,26 +159,37 @@ An accessibility statement is a declaration of your commitment to providing an i
 
 ### 1. Design: Customize the button's icon, size, and color and widget branding.
 
-![Design: Customize the button's icon, size, and color and widget branding.](https://ps.w.org/ally---web-accessibility-&-usability/assets/screenshot-1.png)
+![Design: Customize the button's icon, size, and color and widget branding.](https://ps.w.org/pojo-accessibility/assets/screenshot-1.png)
 
 ### 2. Position Settings: Set widget placement or hide it on desktop and mobile.
 
-![Position Settings: Set widget placement or hide it on desktop and mobile.](https://ps.w.org/ally---web-accessibility-&-usability/assets/screenshot-2.png)
+![Position Settings: Set widget placement or hide it on desktop and mobile.](https://ps.w.org/pojo-accessibility/assets/screenshot-2.png)
 
 ### 3. Capabilities: Toggle accessibility features on or off as needed.
 
-![Capabilities: Toggle accessibility features on or off as needed.](https://ps.w.org/ally---web-accessibility-&-usability/assets/screenshot-3.png)
+![Capabilities: Toggle accessibility features on or off as needed.](https://ps.w.org/pojo-accessibility/assets/screenshot-3.png)
 
 ### 4. Accessibility Statement: Add or create a custom accessibility statement.
 
-![Accessibility Statement: Add or create a custom accessibility statement.](https://ps.w.org/ally---web-accessibility-&-usability/assets/screenshot-4.png)
+![Accessibility Statement: Add or create a custom accessibility statement.](https://ps.w.org/pojo-accessibility/assets/screenshot-4.png)
 
 ### 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
-![Widget on Site: This is how the accessibility widget appears on a live website.](https://ps.w.org/ally---web-accessibility-&-usability/assets/screenshot-5.png)
+![Widget on Site: This is how the accessibility widget appears on a live website.](https://ps.w.org/pojo-accessibility/assets/screenshot-5.png)
 
 
 ## Changelog
+
+### 3.0.2 2025-02-25
+
+* New: Added an option to revert to the legacy widget
+* Fix: Media library not loading in some sites
+* Fix: Auto upgrade for old versions with just customizer settings
+
+
+### 3.0.1 2025-02-20
+
+* Fix: Fixed favicon missing on some sites
 
 ### 3.0.0  2025-02-18
 

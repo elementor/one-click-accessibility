@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Upgrade {
 	const UPGRADED_OPTION = 'ea11y_upgraded';
+	const REVERTED_OPTION = 'ea11y_reverted';
 	const AJAX_ACTION = 'ea11y_upgrade';
 	const INTRODUCTION_NOTICE = 'ea11y_introduction_notice';
 	const CONFIRMATION_MODAL = 'ea11y_confirmation_modal';
@@ -28,6 +29,15 @@ class Upgrade {
 	 */
 	public static function upgrade() : void {
 		update_option( self::UPGRADED_OPTION, true );
+		delete_option( self::REVERTED_OPTION );
+	}
+
+	/**
+	 * revert
+	 */
+	public static function revert() : void {
+		update_option( self::REVERTED_OPTION, true );
+		delete_option( self::UPGRADED_OPTION );
 	}
 
 	/**
@@ -37,6 +47,7 @@ class Upgrade {
 	 */
 	public static function has_legacy_data() : bool {
 		$options = [
+			'pojo_a11y_customizer_options',
 			'pojo_a11y_focusable',
 			'pojo_a11y_skip_to_content_link',
 			'pojo_a11y_skip_to_content_link_element_id',
@@ -81,6 +92,14 @@ class Upgrade {
 	 */
 	public static function is_upgraded() : bool {
 		return (bool) get_option( self::UPGRADED_OPTION, false );
+	}
+
+	/**
+	 * is_reverted
+	 * @return bool
+	 */
+	public static function is_reverted() : bool {
+		return (bool) get_option( self::REVERTED_OPTION, false );
 	}
 
 	/**
