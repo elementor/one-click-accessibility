@@ -12,6 +12,7 @@ const AnalyticsContext = createContext(null);
 export const AnalyticsContextProvider = ({ children }) => {
 	const { save } = useStorage();
 	const [showAnalytics, setShowAnalytics] = useState(false);
+	const [isProVersion, setIsProVersion] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [period, setPeriod] = useState(30);
 	const [stats, setStats] = useState({
@@ -41,6 +42,7 @@ export const AnalyticsContextProvider = ({ children }) => {
 			ea11y_analytics_enabled: !showAnalytics,
 		});
 		setShowAnalytics(!showAnalytics);
+		setPeriod(30);
 	};
 
 	return (
@@ -48,6 +50,8 @@ export const AnalyticsContextProvider = ({ children }) => {
 			value={{
 				showAnalytics,
 				setShowAnalytics,
+				isProVersion,
+				setIsProVersion,
 				updateShowAnalytics,
 				period,
 				setPeriod,

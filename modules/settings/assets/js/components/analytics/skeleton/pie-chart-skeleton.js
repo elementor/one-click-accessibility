@@ -6,7 +6,7 @@ import { styled } from '@elementor/ui/styles';
 import { StyledCardContent } from '@ea11y/pages/pages.styles';
 import { useEffect, useRef, useState } from '@wordpress/element';
 
-export const PieChartSkeleton = () => {
+export const PieChartSkeleton = ({ animated }) => {
 	const containerRef = useRef(null);
 	const [chartWidth, setChartWidth] = useState(null);
 
@@ -22,7 +22,13 @@ export const PieChartSkeleton = () => {
 	return (
 		<Card variant="outlined" sx={{ height: '100%' }}>
 			<CardHeader
-				title={<Skeleton width={150} sx={{ padding: '20px' }} />}
+				title={
+					<Skeleton
+						width={150}
+						sx={{ padding: '20px' }}
+						animation={animated ? 'wave' : false}
+					/>
+				}
 				sx={{ height: '60px' }}
 			/>
 			<StyledCardContent ref={containerRef} sx={{ pt: 5 }}>
@@ -37,7 +43,7 @@ export const PieChartSkeleton = () => {
 						variant="circular"
 						width={chartWidth}
 						height={chartWidth}
-						animation="wave"
+						animation={animated ? 'wave' : false}
 					/>
 
 					{/* Legend Skeleton */}
@@ -53,13 +59,13 @@ export const PieChartSkeleton = () => {
 									variant="circular"
 									width={10}
 									height={10}
-									animation="wave"
+									animation={animated ? 'wave' : false}
 								/>
 								<Skeleton
 									variant="rounded"
 									width={chartWidth}
 									height={15}
-									animation="wave"
+									animation={animated ? 'wave' : false}
 								/>
 							</Stack>
 						))}
@@ -83,6 +89,6 @@ const StyledCircle = styled(Skeleton)`
 		height: calc(100% - 30px);
 		border-radius: 50%;
 		background: ${({ theme }) => theme.palette.background.default};
-		z-index: 99999;
+		z-index: 1;
 	}
 `;

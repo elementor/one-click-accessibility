@@ -18,7 +18,7 @@ export const useSavedSettings = () => {
 		setSkipToContentSettings,
 	} = useSettings();
 
-	const { setShowAnalytics } = useAnalyticsContext();
+	const { setShowAnalytics, setIsProVersion } = useAnalyticsContext();
 
 	const result = useSelect((select) => {
 		return {
@@ -59,6 +59,10 @@ export const useSavedSettings = () => {
 			}
 
 			if (result?.data?.ea11y_plan_data) {
+				// TODO: upgrade check for PRO version
+				setIsProVersion(
+					result?.data?.ea11y_plan_data?.plan?.name !== 'Free Trial',
+				);
 				setPlanData(result.data.ea11y_plan_data);
 			}
 

@@ -80,7 +80,7 @@ export const UsageTable = () => {
 									<Box display="flex" alignItems="center" gap={1}>
 										{FEATURE_MAPPER[element.event].icon}
 										<Typography variant="body2">
-											{FEATURE_MAPPER[element.event].title}
+											{FEATURE_MAPPER[element.event].chartsTitle}
 											{element.value ? ` ${element.value}` : ''}
 										</Typography>
 									</Box>

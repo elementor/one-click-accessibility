@@ -9,6 +9,7 @@ import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
+import { mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
@@ -23,12 +24,34 @@ export const AnalyticsToggle = () => {
 		} else {
 			setShowConfirm(true);
 		}
+
+		mixpanelService.sendEvent('toggle_clicked', {
+			state: showAnalytics ? 'off' : 'on',
+			type: 'Enable analytics',
+		});
 	};
 
-	const handleClose = () => setShowConfirm(false);
+	const handleClose = () => {
+		setShowConfirm(false);
+
+		mixpanelService.sendEvent('popup_button_clicked', {
+			data: {
+				popupType: 'analytics_confirm',
+				buttonName: 'Not now',
+			},
+		});
+	};
+
 	const handleConfirm = () => {
 		updateShowAnalytics();
 		setShowConfirm(false);
+
+		mixpanelService.sendEvent('popup_button_clicked', {
+			data: {
+				popupType: 'analytics_confirm',
+				buttonName: 'Confirm',
+			},
+		});
 	};
 
 	return (
@@ -72,11 +95,9 @@ export const AnalyticsToggle = () => {
 				aria-describedby="confirm-enable-analytics-description"
 			>
 				<DialogContent>
-					<Box display="flex" gap={1}>
-						<Typography variant="h5" align="center" sx={{ mb: 3 }}>
-							{__('Confirm widget data tracking', 'pojo-accessibility')}
-						</Typography>
-					</Box>
+					<Typography variant="h5" align="center" sx={{ mb: 3 }}>
+						{__('Confirm widget data tracking', 'pojo-accessibility')}
+					</Typography>
 					<DialogContentText
 						id="confirm-enable-analytics-description"
 						align="center"

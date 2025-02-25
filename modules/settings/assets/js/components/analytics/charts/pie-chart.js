@@ -33,8 +33,17 @@ export const PieChart = () => {
 		onResize();
 	}, [containerRef]);
 
-	const topItems = stats.elements.slice(0, 4); // Top 4 items
-	const otherItems = stats.elements.slice(4); // Items ranked 5 and below
+	// Step 1: Combine totals for the same event
+	const combined = stats.elements?.reduce((acc, { event, total }) => {
+		acc[event] = (acc[event] || 0) + Number(total);
+		return acc;
+	}, {});
+
+	const sortedArray = Object.entries(combined)
+		.map(([event, total]) => ({ event, total }))
+		.sort((a, b) => b.value - a.value);
+	const topItems = sortedArray.slice(0, 4); // Top 3 items
+	const otherItems = sortedArray.slice(4); // Items ranked 4 and below
 
 	const otherTotal = otherItems.reduce(
 		(sum, item) => sum + Number(item.total),
@@ -48,15 +57,15 @@ export const PieChart = () => {
 	const formatted = topItems.map((item, index) => {
 		const percent = parseFloat(((item.total / totalSum) * 100).toFixed(2));
 		return {
-			label: `${FEATURE_MAPPER[item.event].title}${item.value ? ` ${item.value}` : ''}: ${Math.round(percent)}%`,
-			featureTitle: `${FEATURE_MAPPER[item.event].title}${item.value ? ` ${item.value}` : ''}`,
+			label: `${FEATURE_MAPPER[item.event].chartsTitle}: ${Math.round(percent)}%`,
+			featureTitle: FEATURE_MAPPER[item.event].chartsTitle,
 			featureClicks: item.total,
 			color: CHARTS_COLORS[index],
 			value: percent, // Format to 2 decimal places
 		};
 	});
 
-	const showChart = stats.dates.length > 0 && chartWidth !== null;
+	const showChart = stats.elements.length > 0 && chartWidth !== null;
 
 	return (
 		<Card variant="outlined" sx={{ height: '100%' }} ref={containerRef}>
