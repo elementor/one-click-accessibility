@@ -159,6 +159,12 @@ An accessibility statement is a declaration of your commitment to providing an i
 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
+= 3.0.2 2025-02-25 =
+* New: Added an option to revert to the legacy widget
+* Fix: Media library not loading in some sites
+* Fix: Auto upgrade for old versions with just customizer settings
+
+
 = 3.0.1 2025-02-20 =
 * Fix: Fixed favicon missing on some sites
 
