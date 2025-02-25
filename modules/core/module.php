@@ -19,6 +19,7 @@ class Module extends Module_Base {
 			'Pointers',
 			'Notices',
 			'Skip_Link',
+			'Revert_To_Legacy',
 		];
 	}
 
@@ -64,7 +65,6 @@ class Module extends Module_Base {
 	 */
 	public function __construct() {
 		$this->register_components();
-
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
         add_filter( 'plugin_action_links', [ $this, 'add_plugin_links' ], 10, 2 );
 	}

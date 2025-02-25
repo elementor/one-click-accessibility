@@ -5,7 +5,7 @@ Plugin URI: https://elementor.com/
 Description: Improve your website’s accessibility with ease. Customize capabilities such as text resizing, contrast modes, link highlights, and easily generate an accessibility statement to demonstrate your commitment to inclusivity.
 Author: Elementor.com
 Author URI: https://elementor.com/
-Version: 3.0.1
+Version: 3.0.2
 Text Domain: pojo-accessibility
 Domain Path: /languages/
 */
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Legacy
 define( 'POJO_A11Y_CUSTOMIZER_OPTIONS', 'pojo_a11y_customizer_options' );
 
-define( 'EA11Y_VERSION', '3.0.1' );
+define( 'EA11Y_VERSION', '3.0.2' );
 define( 'EA11Y_MAIN_FILE', __FILE__ );
 define( 'EA11Y_BASE', plugin_basename( EA11Y_MAIN_FILE ) );
 define( 'EA11Y_PATH', plugin_dir_path( __FILE__ ) );

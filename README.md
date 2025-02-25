@@ -5,7 +5,7 @@
 **Requires at least:** 4.1 \
 **Tested up to:** 6.7 \
 **Requires PHP:** 7.4 \
-**Stable tag:** 3.0.1 \
+**Stable tag:** 3.0.2 \
 **License:** GPLv2 or later
 
 Ally Web Accessibility (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
@@ -179,6 +179,13 @@ An accessibility statement is a declaration of your commitment to providing an i
 
 
 ## Changelog
+
+### 3.0.2 2025-02-25
+
+* New: Added an option to revert to the legacy widget
+* Fix: Media library not loading in some sites
+* Fix: Auto upgrade for old versions with just customizer settings
+
 
 ### 3.0.1 2025-02-20
 
