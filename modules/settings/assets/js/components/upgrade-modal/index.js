@@ -1,6 +1,5 @@
 import Card from '@elementor/ui/Card';
 import Modal from '@elementor/ui/Modal';
-import Typography from '@elementor/ui/Typography';
 
 const style = {
 	position: 'absolute',
@@ -19,14 +18,7 @@ const UpgradeModal = () => {
 			aria-labelledby="upgrade-modal-title"
 			aria-describedby="upgrade-modal-description"
 		>
-			<Card sx={style}>
-				<Typography id="upgrade-modal-title" variant="h6" component="h2">
-					Text in a modal
-				</Typography>
-				<Typography id="upgrade-modal-description" sx={{ mt: 2 }}>
-					Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-				</Typography>
-			</Card>
+			<Card sx={style} />
 		</Modal>
 	);
 };
