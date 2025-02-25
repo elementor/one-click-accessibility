@@ -59,7 +59,10 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
-		if ( ( Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() ) || Upgrade::is_reverted() ) {
+		if (
+			( Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() )
+			|| Upgrade::is_reverted()
+		) {
 			return true;
 		}
 		return false;
