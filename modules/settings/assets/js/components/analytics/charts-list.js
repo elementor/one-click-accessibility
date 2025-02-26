@@ -98,7 +98,6 @@ export const ChartsList = () => {
 					{__('Display data from', 'pojo-accessibility')}
 				</Typography>
 				<Select
-					disabled={!showAnalytics}
 					onChange={changePeriod}
 					value={period}
 					size="small"
@@ -107,6 +106,7 @@ export const ChartsList = () => {
 							<ChevronDownIcon />
 						</StyledIcon>
 					)}
+					color="secondary"
 					sx={{ width: '270px', position: 'relative' }}
 					variant="outlined"
 				>
