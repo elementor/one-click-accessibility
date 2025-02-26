@@ -29,13 +29,7 @@ const UpgradeModal = () => {
 		>
 			<StyledPaper elevation={24}>
 				<StyledContainer>
-					<Box
-						display="flex"
-						flexDirection="column"
-						justifyContent="center"
-						alignItems="center"
-						gap={5}
-					>
+					<StyledBox>
 						<img
 							src={imageUrl}
 							alt={__('Upgrade image', 'pojo-accessibility')}
@@ -70,7 +64,7 @@ const UpgradeModal = () => {
 						>
 							{__('Upgrade', 'pojo-accessibility')}
 						</Button>
-					</Box>
+					</StyledBox>
 				</StyledContainer>
 			</StyledPaper>
 		</Modal>
@@ -86,4 +80,13 @@ const StyledPaper = styled(Paper)`
 	max-width: calc(100% - 48px);
 	padding: 16px;
 `;
+
+const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 40px;
+`;
+
 export default UpgradeModal;

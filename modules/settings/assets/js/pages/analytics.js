@@ -2,11 +2,7 @@ import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
 import { AnalyticsToggle, ChartsList } from '@ea11y/components/analytics';
 import UpgradeModal from '@ea11y/components/upgrade-modal';
-import {
-	StyledBox,
-	StyledContainer,
-	StyledTitle,
-} from '@ea11y/pages/pages.styles';
+import { StyledContainer, StyledTitle } from '@ea11y/pages/pages.styles';
 import { mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -25,17 +21,12 @@ const Analytics = () => {
 		<>
 			<StyledBox sx={{ position: 'relative' }}>
 				<StyledContainer>
-					<Box
-						display="flex"
-						alignItems="center"
-						justifyContent="space-between"
-						sx={{ mb: 5 }}
-					>
+					<StyledBox>
 						<StyledTitle variant="h4" color="text.primary" sx={{ mb: 0 }}>
 							{__('Analytics', 'pojo-accessibility')}
 						</StyledTitle>
 						<AnalyticsToggle />
-					</Box>
+					</StyledBox>
 					<ChartsList />
 				</StyledContainer>
 				{!isProVersion && (
@@ -57,4 +48,12 @@ const Blur = styled(Box)`
 	backdrop-filter: blur(5px);
 	z-index: 2;
 `;
+
+const StyledBox = styled(Box)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 40px;
+`;
+
 export default Analytics;
