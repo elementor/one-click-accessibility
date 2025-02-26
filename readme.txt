@@ -1,5 +1,5 @@
 === Ally - Web Accessibility & Usability ===
-Contributors: elemntor, pojo.me, KingYes, ariel.k, jzaltzberg, bainternet
+Contributors: elemntor
 Tags: Web Accessibility, Accessibility, A11y, Accessibility statement, wcag
 Requires at least: 4.1
 Tested up to: 6.7
