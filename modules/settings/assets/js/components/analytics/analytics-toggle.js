@@ -1,10 +1,10 @@
-import { InfoCircleIcon } from '@elementor/icons';
-import { DialogContentText } from '@elementor/ui';
+import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Dialog from '@elementor/ui/Dialog';
 import DialogActions from '@elementor/ui/DialogActions';
 import DialogContent from '@elementor/ui/DialogContent';
+import DialogContentText from '@elementor/ui/DialogContentText';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';

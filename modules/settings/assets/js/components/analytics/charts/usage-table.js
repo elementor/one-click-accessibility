@@ -1,16 +1,14 @@
-import { InfoCircleIcon } from '@elementor/icons';
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TablePagination,
-	TableRow,
-} from '@elementor/ui';
+import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
 import CardHeader from '@elementor/ui/CardHeader';
 import Infotip from '@elementor/ui/Infotip';
+import Table from '@elementor/ui/Table';
+import TableBody from '@elementor/ui/TableBody';
+import TableCell from '@elementor/ui/TableCell';
+import TableHead from '@elementor/ui/TableHead';
+import TablePagination from '@elementor/ui/TablePagination';
+import TableRow from '@elementor/ui/TableRow';
 import Typography from '@elementor/ui/Typography';
 import { NoData } from '@ea11y/components/analytics/components/no-data';
 import { StyledCardContent } from '@ea11y/pages/pages.styles';

@@ -1,4 +1,4 @@
-import { InfoCircleIcon } from '@elementor/icons';
+import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import { useTheme } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';

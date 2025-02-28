@@ -31,6 +31,7 @@ export const validateId = (id) => {
 	return pattern.test(id);
 };
 
+// Split array to chunk for display data per page
 export const chunkArray = (array, chunkSize = 10) => {
 	const result = [];
 	for (let i = 0; i < array.length; i += chunkSize) {
