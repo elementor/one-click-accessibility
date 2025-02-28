@@ -4,7 +4,10 @@ import Button from '@elementor/ui/Button';
 import Infotip from '@elementor/ui/Infotip';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { __ } from '@wordpress/i18n';
+import { ADD_VISITS_LINK } from '../constants/index';
+import { openLink } from '../utils';
 
 const QuotaBar = () => {
 	const usage = 12500;
@@ -24,7 +27,7 @@ const QuotaBar = () => {
 		return 'error';
 	};
 	return (
-		<Box display="flex" flexDirection="row" alignItems="start" gap={2} p={2}>
+		<StyledBox>
 			<EyeIcon />
 			<Box display="inline-flex" flexDirection="column" gap={1} width="100%">
 				<Typography
@@ -62,17 +65,37 @@ const QuotaBar = () => {
 				<Typography variant="body2" color="text.tertiary">
 					{`20K(${planUsage}%)`}
 				</Typography>
-				<Button
+				<StyledButton
 					variant="text"
 					size="small"
 					color="info"
-					sx={{ justifyContent: 'flex-start', p: 0 }}
+					onClick={() => openLink(ADD_VISITS_LINK)}
 				>
 					{__('Add visits', 'pojo-accessibility')}
-				</Button>
+				</StyledButton>
 			</Box>
-		</Box>
+		</StyledBox>
 	);
 };
 
 export default QuotaBar;
+
+const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: row;
+	align-items: start;
+	gap: ${({ theme }) => theme.spacing(2)};
+	margin: ${({ theme }) => theme.spacing(2)};
+	padding: ${({ theme }) => theme.spacing(2)};
+	:hover {
+		background-color: ${({ theme }) => theme.palette.action.hover};
+	}
+`;
+
+const StyledButton = styled(Button)`
+	justify-content: flex-start;
+	padding: 0;
+	:hover {
+		background: none;
+	}
+`;
