@@ -1,7 +1,9 @@
 import Box from '@elementor/ui/Box';
+import Divider from '@elementor/ui/Divider';
 import Drawer from '@elementor/ui/Drawer';
 import { MyAccountMenu, SidebarAppBar, SidebarMenu } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
+import { QuotaBar } from '@ea11y/layouts';
 
 const Sidebar = () => {
 	const { openSidebar } = useSettings();
@@ -20,17 +22,21 @@ const Sidebar = () => {
 					transition: 'all 0.3s',
 					height: '100%',
 					justifyContent: 'space-between',
-					padding: 1.5,
 					paddingTop: 0,
 				},
 			}}
 		>
-			<Box>
+			<Box padding={1.5}>
 				<SidebarAppBar />
 				<SidebarMenu />
 			</Box>
+			<Box>
+				<Divider />
+				<QuotaBar />
+				<Divider />
 
-			<MyAccountMenu drawerState={openSidebar} />
+				<MyAccountMenu drawerState={openSidebar} />
+			</Box>
 		</Drawer>
 	);
 };
