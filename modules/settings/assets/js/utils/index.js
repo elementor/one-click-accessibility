@@ -39,3 +39,19 @@ export const validateId = (id) => {
 export const openLink = (url, target = '_blank') => {
 	window.open(url, target);
 };
+
+export const calculatePlanUsage = () => {
+	//TODO: Replace mock data with actual data. Maybe move the logic to the hook.
+	const mockPlanData = {
+		quota: {
+			usage: 10500,
+			quota: 12500,
+		},
+	};
+
+	if (!mockPlanData?.quota?.usage || !mockPlanData?.quota?.quota) {
+		return 0;
+	}
+
+	return (mockPlanData?.quota?.usage / mockPlanData?.quota?.quota) * 100;
+};
