@@ -87,9 +87,6 @@ const StyledBox = styled(Box)`
 	gap: ${({ theme }) => theme.spacing(2)};
 	margin: ${({ theme }) => theme.spacing(2)};
 	padding: ${({ theme }) => theme.spacing(2)};
-	:hover {
-		background-color: ${({ theme }) => theme.palette.action.hover};
-	}
 `;
 
 const StyledButton = styled(Button)`
