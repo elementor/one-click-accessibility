@@ -30,3 +30,12 @@ export const validateId = (id) => {
 	const pattern = /^#[A-Za-z0-9_.-]+$/;
 	return pattern.test(id);
 };
+
+/**
+ * Open URL links
+ * @param {string} url    URL to open
+ * @param {string} target Target to open the URL
+ */
+export const openLink = (url, target = '_blank') => {
+	window.open(url, target);
+};

@@ -27,6 +27,7 @@ import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
 import { HELP_LINK } from '../../constants';
+import { openLink } from '../../utils';
 
 const StyledListItemButton = styled(ListItemButton)`
 	justify-content: center;
@@ -80,7 +81,7 @@ const MyAccountMenu = () => {
 		mixpanelService.sendEvent('help_button_clicked', {
 			source: 'Header',
 		});
-		window.open(HELP_LINK, '_blank');
+		openLink(HELP_LINK);
 	};
 
 	return (
