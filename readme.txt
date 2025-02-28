@@ -7,7 +7,7 @@ Requires PHP: 7.4
 Stable tag: 3.0.2
 License: GPLv2 or later
 
-Ally Web Accessibility (formerly One Click Accessibility) enables you to include easy-to-set accessibility features that make your website more inclusive to visitors regardless of their abilities.
+Ally, the web accessibility plugin (formerly One Click Accessibility), adds easy-to-set features to make your website more inclusive for all visitors.
 
 == Description ==
 
