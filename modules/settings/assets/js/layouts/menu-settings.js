@@ -173,7 +173,10 @@ const MenuSettings = () => {
 													) : (
 														<>
 															<ListItemIcon>{childValue.icon}</ListItemIcon>
-															<ListItemText primary={childValue.title} />
+															<ListItemText
+																primary={childValue.title}
+																id={`ea11y-${childKey}-toggle`}
+															/>
 														</>
 													)}
 
@@ -192,6 +195,9 @@ const MenuSettings = () => {
 																	? disableOptions
 																	: false
 															}
+															inputProps={{
+																'area-labelledby': `ea11y-${childKey}-toggle`,
+															}}
 														/>
 													</ListItemSecondaryAction>
 												</ListItem>

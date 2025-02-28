@@ -42,6 +42,7 @@ const ColorPicker = () => {
 						marginRight={1}
 					></Box>
 					<HexColorInput
+						aria-label={__('Color', 'pojo-accessibility')}
 						color={iconDesign.color}
 						onChange={(value) => {
 							updateIconDesign({ color: value });

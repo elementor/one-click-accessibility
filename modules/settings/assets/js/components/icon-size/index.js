@@ -90,6 +90,9 @@ const IconSize = (props) => {
 
 						<Radio
 							value={option.value}
+							inputProps={{
+								'aria-label': option.value,
+							}}
 							sx={{ opacity: 0, position: 'absolute' }}
 						/>
 					</StyledPaper>

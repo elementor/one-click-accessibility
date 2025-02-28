@@ -48,7 +48,12 @@ const PostConnectModal = () => {
 	};
 
 	return (
-		<Modal open={isOpen}>
+		<Modal
+			open={isOpen}
+			onClose={onClose}
+			aria-labelledby="post-connect-modal-title"
+			aria-describedby="post-connect-modal-description"
+		>
 			<StyledGrid container sx={{ boxShadow: 24 }}>
 				<PostConnectModalIcon />
 
@@ -57,6 +62,7 @@ const PostConnectModal = () => {
 					color="text.primary"
 					marginTop={5}
 					marginBottom={1}
+					id="post-connect-modal-title"
 				>
 					{__("You're all set", 'pojo-accessibility')}
 				</Typography>
@@ -66,6 +72,7 @@ const PostConnectModal = () => {
 					sx={{ width: '500px', maxWidth: '100%' }}
 					color="text.primary"
 					marginBottom={5}
+					id="post-connect-modal-description"
 				>
 					{__(
 						'Ally - Web Accessibility is now connected and ready to use on your site.',
