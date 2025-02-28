@@ -98,6 +98,7 @@ export const ChartsList = () => {
 					{__('Display data from', 'pojo-accessibility')}
 				</Typography>
 				<Select
+					name={__('Period', 'pojo-accessibility')}
 					onChange={changePeriod}
 					value={period}
 					size="small"

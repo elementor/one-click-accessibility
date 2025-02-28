@@ -44,7 +44,7 @@ const Blur = styled(Box)`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	backdrop-filter: blur(5px);
 	z-index: 2;
 `;
@@ -52,7 +52,7 @@ const Blur = styled(Box)`
 const StyledBox = styled(Box)`
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	margin-bottom: 40px;
 `;
 

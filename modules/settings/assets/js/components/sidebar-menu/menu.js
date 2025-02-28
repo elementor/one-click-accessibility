@@ -34,6 +34,13 @@ export const MenuItems = {
 		name: __('Analytics', 'pojo-accessibility'),
 		key: 'analytics',
 		page: <Analytics />,
-		icon: <AnalyticsIcon size="small" sx={{ color: 'common.black' }} />,
+		icon: (
+			<AnalyticsIcon
+				role="img"
+				aria-label={__('Analytics', 'pojo-accessibility')}
+				size="small"
+				sx={{ color: 'common.black' }}
+			/>
+		),
 	},
 };
