@@ -7,3 +7,4 @@ export { default as Sidebar } from './sidebar';
 export { default as PositionSettingsMobile } from './position-settings-mobile';
 export { default as StatementLink } from './statement-link';
 export { default as QuotaBar } from './quota-bar';
+export { default as QuotaNotices } from './quota-notices';
