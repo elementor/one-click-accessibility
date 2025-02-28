@@ -6,28 +6,12 @@ import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { ADD_VISITS_LINK } from '../constants/index';
 import { openLink } from '../utils';
 
 const QuotaBar = () => {
-	const { planUsage, setPlanUsage } = useSettings();
-	//TODO: Replace mock data with actual data. Maybe move the logic to the hook.
-	const mockPlanData = {
-		quota: {
-			usage: 10500,
-			quota: 12500,
-		},
-	};
-	/**
-	 * Calculate the usage in percentage and set it to the state.
-	 */
-	useEffect(() => {
-		const usageInPercentage =
-			(mockPlanData.quota.usage / mockPlanData.quota.quota) * 100;
-		setPlanUsage(usageInPercentage);
-	}, []);
+	const { planUsage } = useSettings();
 
 	/**
 	 * Get the color for the progress bar based on the usage.
