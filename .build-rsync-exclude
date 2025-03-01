@@ -25,9 +25,14 @@ composer.json
 composer.lock
 package-lock.json
 jest.config.js
+.prettierrc
+wp-assets
+.wporg-assets
+README.md
 
 .build-rsync-exclude
 one-click-accessibility/
 one-click-accessibility.zip
+pojo-accessibility.zip
 .svn-assets/
 .husky/
