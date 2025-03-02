@@ -33,7 +33,7 @@ class Module extends Module_Base {
 
 	public static function routes_list() : array {
 		return [
-			'Event',
+			'Events',
 			'Statistic',
 		];
 	}

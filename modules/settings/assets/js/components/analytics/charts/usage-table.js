@@ -24,6 +24,26 @@ export const UsageTable = () => {
 
 	const tablePageData = chunkArray(stats.elements, TABLE_PER_PAGE);
 
+	const getEventTitle = (event, value) => {
+		switch (event) {
+			case 'text-align':
+				return value === 'left'
+					? __('Left align text', 'pojo-accessibility')
+					: __('Right align text', 'pojo-accessibility');
+			case 'contrast':
+				switch (value) {
+					case 'dark':
+						return __('Dark contrast', 'pojo-accessibility');
+					case 'light':
+						return __('Light contrast', 'pojo-accessibility');
+					default:
+						return __('High contrast', 'pojo-accessibility');
+				}
+			default:
+				return `${FEATURE_MAPPER[event].chartsTitle}${value ? ` ${value}` : ''}`;
+		}
+	};
+
 	return (
 		<Card variant="outlined">
 			<CardHeader
@@ -72,14 +92,15 @@ export const UsageTable = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{tablePageData[currentPage]?.map((element) => (
-							<TableRow key={`feature-${element.event}`}>
+						{tablePageData[currentPage]?.map((element, index) => (
+							<TableRow
+								key={`feature-${element.event}-${element.value}_${index}`}
+							>
 								<TableCell>
 									<Box display="flex" alignItems="center" gap={1}>
 										{FEATURE_MAPPER[element.event].icon}
 										<Typography variant="body2">
-											{FEATURE_MAPPER[element.event].chartsTitle}
-											{element.value ? ` ${element.value}` : ''}
+											{getEventTitle(element.event, element.value)}
 										</Typography>
 									</Box>
 								</TableCell>
