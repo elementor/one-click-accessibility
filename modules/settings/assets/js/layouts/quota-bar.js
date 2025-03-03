@@ -6,6 +6,7 @@ import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
+import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { ADD_VISITS_LINK } from '../constants/index';
 import { openLink } from '../utils';
@@ -26,6 +27,17 @@ const QuotaBar = () => {
 		}
 
 		return 'error';
+	};
+
+	/**
+	 * Send an event to Mixpanel when the user clicks on the "Add visits" button and open the link.
+	 */
+	const handleAddVisitsClick = () => {
+		mixpanelService.sendEvent('upgrade_button_clicked', {
+			feature: 'add visits',
+			component: 'quota counter',
+		});
+		openLink(ADD_VISITS_LINK);
 	};
 	return (
 		<StyledBox>
@@ -71,7 +83,7 @@ const QuotaBar = () => {
 					variant="text"
 					size="small"
 					color="info"
-					onClick={() => openLink(ADD_VISITS_LINK)}
+					onClick={handleAddVisitsClick}
 				>
 					{__('Add visits', 'pojo-accessibility')}
 				</StyledButton>
