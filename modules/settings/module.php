@@ -98,7 +98,7 @@ class Module extends Module_Base {
 				'pluginEnv' => self::get_plugin_env(),
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
-                'isUrlMismatch' => !Connect_Utils::is_valid_home_url(),
+                'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 			]
 		);
 	}
