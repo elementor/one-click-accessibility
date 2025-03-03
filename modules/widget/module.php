@@ -43,6 +43,8 @@ class Module extends Module_Base {
 			true
 		);
 
+		$is_analytics_enabled = boolval( get_option( Settings::ANALYTICS_SETTINGS ) );
+
 		wp_localize_script(
 			'ea11y-widget',
 			'ea11yWidget',
@@ -51,7 +53,8 @@ class Module extends Module_Base {
 				'toolsSettings' => get_option( Settings::WIDGET_MENU_SETTINGS ),
 				'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
 				'analytics' => [
-					'enabled' => boolval( get_option( Settings::ANALYTICS_SETTINGS ) ),
+					'enabled' => $is_analytics_enabled,
+					'url' => $is_analytics_enabled ? get_rest_url( null, '/ea11y/v1/analytics/events' ) : null,
 				],
 			]
 		);
