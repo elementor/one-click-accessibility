@@ -8,7 +8,6 @@ import {
 	Notifications,
 	MenuItems,
 	PostConnectModal,
-	UrlMismatchModal,
 	UrlMismatchNotice,
 } from '@ea11y/components';
 import {
@@ -28,7 +27,7 @@ const App = () => {
 	const { isConnected, isRTL, closePostConnectModal, isUrlMismatch } =
 		usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
-	const { selectedMenu, showMismatchModal } = useSettings();
+	const { selectedMenu } = useSettings();
 
 	useEffect(() => {
 		mixpanelService.init().then(() => {
@@ -50,7 +49,6 @@ const App = () => {
 					<ConnectModal />
 				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
-				{isUrlMismatch && showMismatchModal && <UrlMismatchModal />}
 
 				<StyledGrid>
 					<Sidebar />

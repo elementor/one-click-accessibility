@@ -4,15 +4,14 @@ import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ConfirmDialog } from '@ea11y/components';
-import { useModal, useSettings } from '@ea11y/hooks';
+import { useSettings } from '@ea11y/hooks';
 import { AppLogo } from '@ea11y/icons';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import API from '../../api';
 
-const UrlMismatchModal = () => {
-	const { open, close } = useModal(false);
+const UrlMismatchModal = ({ open, close }) => {
 	const { setNotificationMessage, setNotificationType, setShowNotification } =
 		useSettings();
 	const [showNewConnectionConfirmation, setShowNewConnectionConfirmation] =
@@ -61,6 +60,7 @@ const UrlMismatchModal = () => {
 				title={__('Fix mismatched URL', 'pojo-accessibility')}
 				showCancelButton={false}
 				showApproveButton={false}
+				showCloseButton={true}
 				maxWidth="md"
 				fullWidth={true}
 				dividers={true}
