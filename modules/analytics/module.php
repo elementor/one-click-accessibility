@@ -4,6 +4,7 @@ namespace EA11y\Modules\Analytics;
 
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Analytics\Database\Analytics_Table;
+use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Settings\Module as SettingsModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,11 +40,13 @@ class Module extends Module_Base {
 		];
 	}
 
-	public function __construct() {
-		if ( ! SettingsModule::is_analytics_enabled() ) {
-			return;
-		}
+	public static function is_active(): bool {
+		$plan_data = Settings::get( Settings::PLAN_DATA );
+		$is_analytics_enabled = Settings::get( Settings::ANALYTICS_SETTINGS );
+		return 'Free Trial' !== $plan_data->plan->name && $is_analytics_enabled;
+	}
 
+	public function __construct() {
 		$this->register_components();
 		$this->register_routes();
 

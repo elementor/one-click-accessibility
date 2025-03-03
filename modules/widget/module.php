@@ -5,6 +5,7 @@ namespace EA11y\Modules\Widget;
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Settings\Module as SettingsModule;
+use EA11y\Modules\Analytics\Module as AnalyticsModule;
 use EA11y\Modules\Settings\Classes\Settings;
 use Exception;
 
@@ -43,7 +44,7 @@ class Module extends Module_Base {
 			true
 		);
 
-		$is_analytics_enabled = SettingsModule::is_analytics_enabled();
+		$is_analytics_enabled = AnalyticsModule::is_active();
 
 		wp_localize_script(
 			'ea11y-widget',

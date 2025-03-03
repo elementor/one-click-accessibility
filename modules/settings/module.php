@@ -442,12 +442,6 @@ class Module extends Module_Base {
 		return get_transient( Settings::PLAN_DATA . '_refresh' );
 	}
 
-	public static function is_analytics_enabled(): bool {
-		$plan_data = Settings::get( Settings::PLAN_DATA );
-		$is_analytics_enabled = Settings::get( Settings::ANALYTICS_SETTINGS );
-		return 'Free Trial' !== $plan_data->plan->name && $is_analytics_enabled;
-	}
-
 	/**
 	 * Module constructor.
 	 */
