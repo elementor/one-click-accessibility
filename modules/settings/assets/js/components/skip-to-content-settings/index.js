@@ -66,12 +66,7 @@ const SkipToContentSettings = () => {
 	return (
 		<Card variant="outlined" sx={{ padding: 2, marginBlock: 4 }}>
 			<StyledBox>
-				<Typography
-					variant="subtitle1"
-					alignItems="center"
-					display="flex"
-					gap={1}
-				>
+				<StyledTypography variant="subtitle1">
 					{__('Skip to main content', 'pojo-accessibility')}
 					<Infotip
 						content={
@@ -92,7 +87,7 @@ const SkipToContentSettings = () => {
 					>
 						<InfoCircleIcon fontSize="small" />
 					</Infotip>
-				</Typography>
+				</StyledTypography>
 				<StyledSwitch
 					size="medium"
 					color="info"
@@ -117,7 +112,7 @@ const SkipToContentSettings = () => {
 								</Typography>
 								<Typography variant="body2">
 									{__(
-										'This is the HTML ID of the main content area on your pages.Changing this is only needed if your theme uses a custom ID instead of the default #main-content.',
+										'This is the HTML ID of the main content area on your pages. Changing this is only needed if your theme uses a custom ID instead of the default #main-content.',
 										'pojo-accessibility',
 									)}
 								</Typography>
@@ -190,6 +185,12 @@ const StyledTextField = styled(TextField)`
 	input {
 		height: 36px;
 	}
+`;
+
+const StyledTypography = styled(Typography)`
+	display: flex;
+	gap: 8px;
+	align-items: center;
 `;
 
 export default SkipToContentSettings;
