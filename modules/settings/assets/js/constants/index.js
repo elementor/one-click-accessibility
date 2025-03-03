@@ -1,8 +1,8 @@
 export const HELP_LINK = 'https://go.elementor.com/acc-main-help/';
-export const UPGRADE_LINK = 'https://go.elementor.com/';
+export const UPGRADE_LINK = 'https://go.elementor.com/'; //TODO: update link
 export const LEARN_MORE_LINK =
 	'https://go.elementor.com/acc-statement-learn-more/';
-export const ADD_VISITS_LINK = 'https://elementor.com';
+export const ADD_VISITS_LINK = 'https://elementor.com'; //TODO: update link
 
 export const SKELETON_OPTIONS = Object.freeze({
 	SPEED: 2,
