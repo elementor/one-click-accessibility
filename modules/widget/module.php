@@ -43,7 +43,7 @@ class Module extends Module_Base {
 			true
 		);
 
-		$is_analytics_enabled = boolval( get_option( Settings::ANALYTICS_SETTINGS ) );
+		$is_analytics_enabled = SettingsModule::is_analytics_enabled();
 
 		wp_localize_script(
 			'ea11y-widget',

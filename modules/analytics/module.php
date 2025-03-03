@@ -4,6 +4,7 @@ namespace EA11y\Modules\Analytics;
 
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Analytics\Database\Analytics_Table;
+use EA11y\Modules\Settings\Module as SettingsModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -39,7 +40,9 @@ class Module extends Module_Base {
 	}
 
 	public function __construct() {
-		// TODO: add condition to check for PRO version
+		if ( ! SettingsModule::is_analytics_enabled() ) {
+			return;
+		}
 
 		$this->register_components();
 		$this->register_routes();

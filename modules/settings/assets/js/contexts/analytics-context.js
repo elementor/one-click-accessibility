@@ -25,13 +25,7 @@ export const AnalyticsContextProvider = ({ children }) => {
 	 */
 	useEffect(() => {
 		setLoading(true);
-		const date = new Date();
-		date.setDate(date.getDate() - period);
-		date.setHours(0, 0, 0, 0);
-		const params = {
-			period: date.toISOString().slice(0, 19).replace('T', ' '),
-		};
-		void API.getStatistic(params).then((data) => {
+		void API.getStatistic({ period }).then((data) => {
 			setStats(data);
 			setLoading(false);
 		});

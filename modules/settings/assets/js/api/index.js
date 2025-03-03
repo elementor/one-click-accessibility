@@ -148,7 +148,7 @@ class API {
 	/**
 	 * Get data for analytic charts
 	 * @param {Object} props
-	 * @param {string} props.period
+	 * @param {number} props.period
 	 * @return {Promise<{Object}>} statistic
 	 */
 	static async getStatistic({ period }) {
