@@ -76,26 +76,25 @@ class Cache_Compatibility {
 	}
 
 	public function __construct() {
-		// WP Roket
+		// WP Rocket
 		add_filter( 'rocket_exclude_js', [ $this, 'exclude_widget_script_array' ] );
 		add_filter( 'rocket_minify_excluded_external_js', [ $this, 'exclude_widget_script_array' ] );
 
 		// wp_optimize
 		add_filter( 'wp-optimize-minify-blacklist', [ $this, 'exclude_widget_script_array' ] );
-		add_filter('wp-optimize-minify-default-exclusions',  [ $this, 'exclude_widget_script_array' ] );
+		add_filter( 'wp-optimize-minify-default-exclusions',  [ $this, 'exclude_widget_script_array' ] );
 
 		// Autoptimize
 		add_filter( 'autoptimize_filter_js_exclude', [ $this, 'exclude_widget_script_comma_seperated' ] );
-
 		//W3 total cache -
 		add_filter( 'w3tc_minify_js_do_tag_minification', [ $this, 'w3tc_minify_js_do_tag_minification' ], 10, 3 );
 
 		// LiteSpeed Cache
-		add_filter('litespeed_optimize_js_excludes', [ $this, 'exclude_widget_script_array' ] );
+		add_filter( 'litespeed_optimize_js_excludes', [ $this, 'exclude_widget_script_array' ] );
 
 		// Siteground SG Optimize
-		add_filter('sgo_js_minify_exclude', [ $this, 'exclude_widget_script_handle_array' ], 10, 1 );
-		add_filter('sgo_javascript_combine_exclude', [ $this, 'exclude_widget_script_handle_array' ], 10, 1 );
-		add_filter('sgo_javascript_combine_excluded_external_paths', [ $this, 'exclude_widget_script_handle_array' ], 10, 1 );
+		add_filter( 'sgo_js_minify_exclude', [ $this, 'exclude_widget_script_handle_array' ] );
+		add_filter( 'sgo_javascript_combine_exclude', [ $this, 'exclude_widget_script_handle_array' ] );
+		add_filter( 'sgo_javascript_combine_excluded_external_paths', [ $this, 'exclude_widget_script_handle_array' ] );
 	}
 }
