@@ -12,7 +12,7 @@ import {
 	bindMenu,
 } from '@elementor/ui/usePopupState';
 import { useIconPosition } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -83,7 +83,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 		popupState.close();
 
-		mixpanelService.sendEvent('handle_unit_changed', {
+		mixpanelService.sendEvent(eventNames.handleUnitChanged, {
 			positionData: {
 				mode,
 				type,
@@ -110,7 +110,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 				iconPosition[mode]?.exactPosition[type]?.unit,
 			);
 
-			mixpanelService.sendEvent('handle_value_changed', {
+			mixpanelService.sendEvent(eventNames.handleValueChanged, {
 				positionData: {
 					mode,
 					type,
@@ -131,7 +131,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
 
-		mixpanelService.sendEvent('handle_direction_changed', {
+		mixpanelService.sendEvent(eventNames.handleDirectionChanged, {
 			positionData: {
 				mode,
 				type,

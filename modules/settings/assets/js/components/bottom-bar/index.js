@@ -2,7 +2,7 @@ import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 
 const StyledContainer = styled(Box)`
@@ -50,7 +50,7 @@ const BottomBar = () => {
 
 			setHasChanges(false);
 
-			mixpanelService.sendEvent('save_button_clicked', {
+			mixpanelService.sendEvent(eventNames.saveButtonClicked, {
 				savedData,
 			});
 		} catch (e) {

@@ -5,7 +5,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useModal, useStorage } from '@ea11y/hooks';
 import { PostConnectModalIcon } from '@ea11y/icons';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -35,7 +35,7 @@ const PostConnectModal = () => {
 
 	useEffect(() => {
 		if (isOpen) {
-			mixpanelService.sendEvent('connect_success');
+			mixpanelService.sendEvent(eventNames.connectSuccess);
 		}
 	}, [isOpen]);
 
