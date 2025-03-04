@@ -59,7 +59,7 @@ class Module extends Module_Base {
 	 * @return string
 	 */
 	public static function get_widget_url() : string {
-		return apply_filters( 'ea11y_widget_url', 'https://cdn.elementor.com/a11y/widget.js' );
+							return apply_filters( 'ea11y_widget_url', 'https://cdn.elementor.com/a11y/widget.js' );
 	}
 
 	/**
@@ -131,10 +131,17 @@ class Module extends Module_Base {
 		return $option;
 	}
 
+	public static function component_list(): array {
+		return [
+			'Cache_Compatibility',
+		];
+	}
+
 	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
+		$this->register_components();
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_accessibility_widget' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_accessibility_widget_admin' ] );
 	}
