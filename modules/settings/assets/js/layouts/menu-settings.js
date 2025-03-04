@@ -5,6 +5,7 @@ import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Divider from '@elementor/ui/Divider';
+import FormLabel from '@elementor/ui/FormLabel';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
@@ -173,7 +174,9 @@ const MenuSettings = () => {
 													) : (
 														<>
 															<ListItemIcon>{childValue.icon}</ListItemIcon>
-															<ListItemText primary={childValue.title} />
+															<FormLabel htmlFor={`ea11y-${childKey}-toggle`}>
+																<ListItemText primary={childValue.title} />
+															</FormLabel>
 														</>
 													)}
 
@@ -192,6 +195,9 @@ const MenuSettings = () => {
 																	? disableOptions
 																	: false
 															}
+															inputProps={{
+																id: `ea11y-${childKey}-toggle`,
+															}}
 														/>
 													</ListItemSecondaryAction>
 												</ListItem>

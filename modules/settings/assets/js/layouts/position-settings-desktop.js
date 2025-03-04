@@ -74,7 +74,11 @@ const PositionSettingsDesktop = () => {
 							checked={iconPosition.desktop?.enableExactPosition}
 						/>
 
-						<Typography variant="body2" sx={{ marginTop: 2, marginBottom: 1 }}>
+						<Typography
+							id="ea11y-desktop-position-settings"
+							variant="body2"
+							sx={{ marginTop: 2, marginBottom: 1 }}
+						>
 							{__(
 								'Exact positioning, 5 – 500 px are permitted values:',
 								'pojo-accessibility',

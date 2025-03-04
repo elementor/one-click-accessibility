@@ -94,7 +94,12 @@ const MyAccountMenu = () => {
 			>
 				<StyledListItemButton shape="rounded" onClick={handleHelpButtonClick}>
 					<ListItemIcon>
-						<HelpIcon sx={{ color: 'common.black' }} fontSize="small" />
+						<HelpIcon
+							role="img"
+							aria-label={__('Help center', 'pojo-accessibility')}
+							sx={{ color: 'common.black' }}
+							fontSize="small"
+						/>
 					</ListItemIcon>
 
 					<ListItemText
@@ -103,7 +108,10 @@ const MyAccountMenu = () => {
 					/>
 
 					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
-						<ExternalLinkIcon />
+						<ExternalLinkIcon
+							role="img"
+							aria-label={__('Help center', 'pojo-accessibility')}
+						/>
 					</ListItemIcon>
 				</StyledListItemButton>
 				<StyledListItemButton
@@ -112,7 +120,12 @@ const MyAccountMenu = () => {
 					shape="rounded"
 				>
 					<ListItemIcon>
-						<UserIcon sx={{ color: 'common.black' }} fontSize="small" />
+						<UserIcon
+							role="img"
+							aria-label={__('My Account', 'pojo-accessibility')}
+							sx={{ color: 'common.black' }}
+							fontSize="small"
+						/>
 					</ListItemIcon>
 
 					<ListItemText

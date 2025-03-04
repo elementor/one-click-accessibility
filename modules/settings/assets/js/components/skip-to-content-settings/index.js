@@ -91,7 +91,7 @@ const SkipToContentSettings = () => {
 	return (
 		<Card variant="outlined" sx={{ padding: 2, marginBlock: 4 }}>
 			<StyledBox>
-				<Typography variant="subtitle1">
+				<Typography variant="subtitle1" id="ea11y-skip-to-content-toggle">
 					{__('Skip to main content', 'pojo-accessibility')}
 				</Typography>
 				<StyledSwitch
@@ -99,6 +99,9 @@ const SkipToContentSettings = () => {
 					color="info"
 					checked={skipToContentSettings?.enabled || false}
 					onChange={toggleSetting}
+					inputProps={{
+						'area-labelledby': 'ea11y-skip-to-content-toggle',
+					}}
 				/>
 			</StyledBox>
 			<Typography variant="body1">

@@ -62,6 +62,7 @@ const SitemapSettings = ({ sitemap }) => {
 				<ListItemText
 					primary={sitemap?.title}
 					sx={{ flexGrow: 0, marginRight: 1 }}
+					id={`ea11y-sitemap-toggle`}
 				/>
 			</StyledAccordionSummary>
 			<StyledAccordionDetails>
