@@ -16,23 +16,12 @@ import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
 import { SUBSCRIPTION_LINK } from '../../constants/index';
+import { truncateEmail } from '../../helpers/popup-menu';
 
 export const PopupMenu = (menuProps, { closeAction }) => {
 	const { save } = useStorage();
 	const { error } = useToastNotification();
 	const { planData } = useSettings();
-
-	const truncateEmail = (email, maxLength = 24) => {
-		if (email === undefined || email === null) {
-			return '';
-		}
-
-		if (email.length <= maxLength) {
-			return email;
-		}
-
-		return email.slice(0, maxLength - 3) + '...';
-	};
 
 	const onDeactivateAndDisconnect = async () => {
 		try {
