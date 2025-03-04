@@ -1,6 +1,7 @@
 import { EyeIcon, InfoCircleIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
+import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
@@ -12,7 +13,7 @@ import { ADD_VISITS_LINK } from '../constants/index';
 import { openLink } from '../utils';
 
 const QuotaBar = () => {
-	const { planUsage } = useSettings();
+	const { planUsage, openSidebar, setOpenSidebar } = useSettings();
 
 	/**
 	 * Get the color for the progress bar based on the usage.
@@ -39,6 +40,17 @@ const QuotaBar = () => {
 		});
 		openLink(ADD_VISITS_LINK);
 	};
+
+	if (!openSidebar) {
+		return (
+			<IconButton
+				sx={{ justifyContent: 'center', width: '100%', borderRadius: 0 }}
+				onClick={() => setOpenSidebar(true)}
+			>
+				<EyeIcon sx={{ color: 'common.black' }} />
+			</IconButton>
+		);
+	}
 	return (
 		<StyledBox>
 			<EyeIcon />
@@ -98,6 +110,7 @@ const StyledBox = styled(Box)`
 	display: flex;
 	flex-direction: row;
 	align-items: start;
+	justify-content: center;
 	gap: ${({ theme }) => theme.spacing(2)};
 	margin: ${({ theme }) => theme.spacing(2)};
 	padding: ${({ theme }) => theme.spacing(2)};
