@@ -4,9 +4,11 @@ import {
 	ChevronDownIcon,
 	HelpIcon,
 	ExternalLinkIcon,
+	CalendarDollarIcon,
 } from '@elementor/icons';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
+import Chip from '@elementor/ui/Chip';
 import List from '@elementor/ui/List';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
@@ -26,7 +28,7 @@ import { UserArrowIcon } from '@ea11y/icons';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
-import { HELP_LINK } from '../../constants';
+import { HELP_LINK, SUBSCRIPTION_LINK } from '../../constants';
 
 const StyledListItemButton = styled(ListItemButton)`
 	justify-content: center;
@@ -166,6 +168,15 @@ const MyAccountMenu = () => {
 								</Typography>
 							</Tooltip>
 						)}
+						{planData?.plan?.name && (
+							<Chip
+								color="info"
+								variant="standard"
+								label={planData?.plan?.name}
+								size="small"
+								sx={{ width: 'fit-content', marginTop: 0.5 }}
+							/>
+						)}
 					</Box>
 				</MenuItem>
 
@@ -175,6 +186,18 @@ const MyAccountMenu = () => {
 					<Typography color="common.white" marginLeft={1}>
 						{__('Switch account', 'pojo-accessibility')}
 					</Typography>
+				</MenuItem>
+				<MenuItem
+					sx={{ width: '100%', justifyContent: 'space-between' }}
+					onClick={() => window.open(SUBSCRIPTION_LINK)}
+				>
+					<Box display="flex" flexDirection="row">
+						<CalendarDollarIcon sx={{ color: 'common.white' }} />
+						<Typography color="common.white" marginLeft={1}>
+							{__('Subscription', 'pojo-accessibility')}
+						</Typography>
+					</Box>
+					<ExternalLinkIcon sx={{ color: 'common.white' }} />
 				</MenuItem>
 			</Menu>
 		</>
