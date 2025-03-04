@@ -16,9 +16,7 @@ const Sidebar = () => {
 			PaperProps={{
 				sx: {
 					position: 'relative',
-					minWidth: '120px',
-					maxWidth: '300px',
-					width: openSidebar ? '100%' : '0',
+					width: !openSidebar ? '120px' : '260px',
 					transition: 'all 0.3s',
 					height: '100%',
 					justifyContent: 'space-between',
