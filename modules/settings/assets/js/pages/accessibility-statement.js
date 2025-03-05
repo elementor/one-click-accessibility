@@ -17,7 +17,7 @@ import {
 	AccessibilityStatementCreateIcon,
 } from '@ea11y/icons';
 import { StatementLink } from '@ea11y/layouts';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { LEARN_MORE_LINK } from '../constants/index';
@@ -55,7 +55,7 @@ const AccessibilityStatement = () => {
 	const [showStatementLink, setShowStatementLink] = useState(false);
 
 	useEffect(() => {
-		mixpanelService.sendEvent('page_view', {
+		mixpanelService.sendEvent(eventNames.pageView, {
 			page: 'Accessibility statement',
 		});
 	}, []);
@@ -70,7 +70,7 @@ const AccessibilityStatement = () => {
 
 	const onStatementOptionClick = (option) => () => {
 		setStatementOption(option);
-		mixpanelService.sendEvent('statement_flow_selected', {
+		mixpanelService.sendEvent(eventNames.statementFlowSelected, {
 			flowType: option,
 		});
 	};

@@ -16,7 +16,7 @@ import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
 import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings, useStorage } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MENU_SETTINGS } from '../constants/menu-settings';
@@ -101,7 +101,7 @@ const MenuSettings = () => {
 			}
 
 			if (prevSettings[option]) {
-				mixpanelService.sendEvent('toggle_clicked', {
+				mixpanelService.sendEvent(eventNames.toggleClicked, {
 					state: prevSettings[option]?.enabled ? 'off' : 'on',
 					type: option,
 				});

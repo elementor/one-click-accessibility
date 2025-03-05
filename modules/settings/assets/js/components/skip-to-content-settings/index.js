@@ -9,7 +9,7 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { validateId } from '../../utils';
 
@@ -57,7 +57,7 @@ const SkipToContentSettings = () => {
 
 	const onBlur = () => {
 		if (skipToContentHasChanges) {
-			mixpanelService.sendEvent('field_content_updated', {
+			mixpanelService.sendEvent(eventNames.fieldContentUpdated, {
 				fieldName: 'skip-to-content-anchor',
 				value: skipToContentSettings.anchor,
 			});
@@ -76,7 +76,7 @@ const SkipToContentSettings = () => {
 
 			setSkipToContentHasChanges(false);
 
-			mixpanelService.sendEvent('save_button_clicked', {
+			mixpanelService.sendEvent(eventNames.saveButtonClicked, {
 				savedData,
 			});
 		} catch (e) {
