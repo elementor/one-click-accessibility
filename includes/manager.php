@@ -21,6 +21,7 @@ final class Manager {
 			'Settings',
 			'Widget',
 			'Core',
+			'Analytics',
 		];
 	}
 
