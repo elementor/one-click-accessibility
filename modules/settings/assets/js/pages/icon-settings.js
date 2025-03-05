@@ -4,7 +4,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
 import { IconDesignSettings, PositionSettings } from '@ea11y/layouts';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -24,7 +24,7 @@ const StyledContainer = styled(Container)`
 
 const IconSettings = () => {
 	useEffect(() => {
-		mixpanelService.sendEvent('page_view', {
+		mixpanelService.sendEvent(eventNames.pageView, {
 			page: 'Button',
 		});
 	}, []);
