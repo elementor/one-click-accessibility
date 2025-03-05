@@ -2,7 +2,11 @@ import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
 import { AnalyticsToggle, ChartsList } from '@ea11y/components/analytics';
 import UpgradeModal from '@ea11y/components/upgrade-modal';
-import { StyledContainer, StyledTitle } from '@ea11y/pages/pages.styles';
+import {
+	StyledBox,
+	StyledContainer,
+	StyledTitle,
+} from '@ea11y/pages/pages.styles';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -18,24 +22,22 @@ const Analytics = () => {
 	}, []);
 
 	return (
-		<>
-			<StyledBox sx={{ position: 'relative' }}>
-				<StyledContainer>
-					<StyledBox>
-						<StyledTitle variant="h4" color="text.primary" sx={{ mb: 0 }}>
-							{__('Analytics', 'pojo-accessibility')}
-						</StyledTitle>
-						<AnalyticsToggle />
-					</StyledBox>
-					<ChartsList />
-				</StyledContainer>
-				{!isProVersion && (
-					<Blur>
-						<UpgradeModal />
-					</Blur>
-				)}
-			</StyledBox>
-		</>
+		<StyledBox sx={{ position: 'relative' }}>
+			<StyledContainer>
+				<StyledWrap>
+					<StyledTitle variant="h4" color="text.primary" sx={{ mb: 0 }}>
+						{__('Analytics', 'pojo-accessibility')}
+					</StyledTitle>
+					<AnalyticsToggle />
+				</StyledWrap>
+				<ChartsList />
+			</StyledContainer>
+			{isProVersion && (
+				<Blur>
+					<UpgradeModal />
+				</Blur>
+			)}
+		</StyledBox>
 	);
 };
 
@@ -44,12 +46,12 @@ const Blur = styled(Box)`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	backdrop-filter: blur(5px);
 	z-index: 2;
 `;
 
-const StyledBox = styled(Box)`
+const StyledWrap = styled(Box)`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
