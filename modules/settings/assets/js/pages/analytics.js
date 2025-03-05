@@ -32,7 +32,7 @@ const Analytics = () => {
 				</StyledWrap>
 				<ChartsList />
 			</StyledContainer>
-			{isProVersion && (
+			{!isProVersion && (
 				<Blur>
 					<UpgradeModal />
 				</Blur>
