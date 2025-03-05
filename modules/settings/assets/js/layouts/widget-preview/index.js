@@ -2,7 +2,7 @@ import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Typography from '@elementor/ui/Typography';
-import { styled } from '@elementor/ui/styles';
+import { styled, css } from '@elementor/ui/styles';
 import { WidgetLoader } from '@ea11y/components';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -16,8 +16,10 @@ const StyledPreview = styled(CardContent)`
 	padding: 0 24px;
 
 	overflow: auto;
+`;
 
-	& #ea11y-root {
+const shadowRootStyles = css`
+	:host {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -26,13 +28,13 @@ const StyledPreview = styled(CardContent)`
 		transform: scale(70%);
 	}
 
-	& #ea11y-root #ea11y-widget-container {
+	:host #ea11y-widget-container {
 		position: initial;
 		transform: translateY(0);
 	}
 
 	@media screen and (max-height: 850px) {
-		& #ea11y-root {
+		:host {
 			top: -25px;
 			transform: scale(60%);
 		}
@@ -64,6 +66,7 @@ const WidgetPreview = () => {
 			</Card>
 
 			<WidgetLoader
+				shadowRootStyles={shadowRootStyles.styles}
 				onLoad={() => {
 					setIsLoaded(true);
 

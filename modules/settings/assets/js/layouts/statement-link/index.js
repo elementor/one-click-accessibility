@@ -13,7 +13,7 @@ import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { styled } from '@elementor/ui/styles';
+import { styled, css } from '@elementor/ui/styles';
 import {
 	CopyLink,
 	EditLink,
@@ -38,16 +38,19 @@ const StyledPreviewContainer = styled(Box)`
 	position: relative;
 	padding: 25px;
 	overflow: hidden;
+`;
 
-	& .ea11y-widget-container {
+const shadowRootStyles = css`
+	:host .ea11y-widget-container {
 		transform: translateY(0);
+		max-width: 100%;
 	}
 
-	& .ea11y-widget-container--preview {
+	:host .ea11y-widget-container--preview {
 		position: absolute;
 	}
 
-	& .ea11y-widget-content::after {
+	:host .ea11y-widget-content::after {
 		content: '';
 
 		position: absolute;
@@ -61,7 +64,7 @@ const StyledPreviewContainer = styled(Box)`
 	}
 
 	@media screen and (min-width: 480px) {
-		& .ea11y-widget-container--preview {
+		:host .ea11y-widget-container--preview {
 			bottom: 0;
 			right: 0;
 		}
@@ -273,6 +276,7 @@ const StatementLink = () => {
 							{!isWidgetLoaded && <WidgetPreviewSkeleton />}
 
 							<WidgetLoader
+								shadowRootStyles={shadowRootStyles.styles}
 								onLoad={() => {
 									setIsWidgetLoaded(true);
 

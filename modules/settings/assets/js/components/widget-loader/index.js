@@ -2,10 +2,22 @@ import { useSettings } from '@ea11y/hooks';
 import { useEffect } from '@wordpress/element';
 import { WIDGET_PREVIEW_ROOT } from '../../constants';
 
-const WidgetLoader = ({ src, onLoad, onError }) => {
+const WidgetLoader = ({ src, shadowRootStyles, onLoad, onError }) => {
 	const { planData } = useSettings();
 
 	useEffect(() => {
+		const attachShadowRootStyles = () => {
+			if (shadowRootStyles) {
+				const host = document.getElementById(WIDGET_PREVIEW_ROOT);
+
+				if (host && host.shadowRoot) {
+					const style = document.createElement('style');
+					style.textContent = shadowRootStyles;
+					host.shadowRoot.appendChild(style);
+				}
+			}
+		};
+
 		const handleScriptLoad = () => {
 			console.log('External script loaded!');
 		};
@@ -34,6 +46,9 @@ const WidgetLoader = ({ src, onLoad, onError }) => {
 		// Attach onLoad and onError handlers
 		script.onload = () => {
 			console.log(`Script loaded successfully: ${script.src}`);
+
+			attachShadowRootStyles();
+
 			if (onLoad) {
 				onLoad();
 			} else {
