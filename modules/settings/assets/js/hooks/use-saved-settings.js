@@ -18,7 +18,7 @@ export const useSavedSettings = () => {
 		setSkipToContentSettings,
 	} = useSettings();
 
-	const { setShowAnalytics, setIsProVersion } = useAnalyticsContext();
+	const { setIsAnalyticsEnabled, setIsProVersion } = useAnalyticsContext();
 
 	const result = useSelect((select) => {
 		return {
@@ -59,9 +59,8 @@ export const useSavedSettings = () => {
 			}
 
 			if (result?.data?.ea11y_plan_data) {
-				// TODO: upgrade check for PRO version
 				setIsProVersion(
-					result?.data?.ea11y_plan_data?.plan?.name !== 'Free Trial',
+					result?.data?.ea11y_plan_data?.plan?.features?.analytics,
 				);
 				setPlanData(result.data.ea11y_plan_data);
 			}
@@ -82,7 +81,7 @@ export const useSavedSettings = () => {
 			}
 
 			if (result?.data?.ea11y_analytics_enabled) {
-				setShowAnalytics(result?.data?.ea11y_analytics_enabled);
+				setIsAnalyticsEnabled(result?.data?.ea11y_analytics_enabled);
 			}
 		}
 	}, [result.hasFinishedResolution]);

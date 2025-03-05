@@ -43,7 +43,7 @@ class Module extends Module_Base {
 	public static function is_active(): bool {
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 		$is_analytics_enabled = Settings::get( Settings::ANALYTICS_SETTINGS );
-		return 'Free Trial' !== $plan_data->plan->name && $is_analytics_enabled;
+		return $plan_data->plan->features->analytics && $is_analytics_enabled;
 	}
 
 	public function __construct() {

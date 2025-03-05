@@ -9,24 +9,25 @@ import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
 
 export const AnalyticsToggle = () => {
-	const { showAnalytics, updateShowAnalytics } = useAnalyticsContext();
+	const { isAnalyticsEnabled, updateIsAnalyticsEnabled } =
+		useAnalyticsContext();
 	const [showConfirm, setShowConfirm] = useState(false);
 
 	const handleToggle = () => {
-		if (showAnalytics) {
-			updateShowAnalytics();
+		if (isAnalyticsEnabled) {
+			updateIsAnalyticsEnabled();
 		} else {
 			setShowConfirm(true);
 		}
 
-		mixpanelService.sendEvent('toggle_clicked', {
-			state: showAnalytics ? 'off' : 'on',
+		mixpanelService.sendEvent(eventNames.toggleClicked, {
+			state: isAnalyticsEnabled ? 'off' : 'on',
 			type: 'Enable analytics',
 		});
 	};
@@ -34,7 +35,7 @@ export const AnalyticsToggle = () => {
 	const handleClose = () => {
 		setShowConfirm(false);
 
-		mixpanelService.sendEvent('popup_button_clicked', {
+		mixpanelService.sendEvent(eventNames.popupButtonClicked, {
 			data: {
 				popupType: 'analytics_confirm',
 				buttonName: 'Not now',
@@ -43,10 +44,10 @@ export const AnalyticsToggle = () => {
 	};
 
 	const handleConfirm = () => {
-		updateShowAnalytics();
+		updateIsAnalyticsEnabled();
 		setShowConfirm(false);
 
-		mixpanelService.sendEvent('popup_button_clicked', {
+		mixpanelService.sendEvent(eventNames.popupButtonClicked, {
 			data: {
 				popupType: 'analytics_confirm',
 				buttonName: 'Confirm',
@@ -60,7 +61,7 @@ export const AnalyticsToggle = () => {
 				control={
 					<Switch
 						color="info"
-						checked={showAnalytics}
+						checked={isAnalyticsEnabled}
 						onChange={handleToggle}
 						sx={{ ml: 2 }}
 					/>

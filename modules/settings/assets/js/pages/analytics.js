@@ -3,7 +3,7 @@ import { styled } from '@elementor/ui/styles';
 import { AnalyticsToggle, ChartsList } from '@ea11y/components/analytics';
 import UpgradeModal from '@ea11y/components/upgrade-modal';
 import { StyledContainer, StyledTitle } from '@ea11y/pages/pages.styles';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../contexts/analytics-context';
@@ -12,7 +12,7 @@ const Analytics = () => {
 	const { isProVersion } = useAnalyticsContext();
 
 	useEffect(() => {
-		mixpanelService.sendEvent('page_view', {
+		mixpanelService.sendEvent(eventNames.pageView, {
 			page: 'Analytics',
 		});
 	}, []);

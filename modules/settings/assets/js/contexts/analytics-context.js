@@ -11,7 +11,7 @@ const AnalyticsContext = createContext(null);
 
 export const AnalyticsContextProvider = ({ children }) => {
 	const { save } = useStorage();
-	const [showAnalytics, setShowAnalytics] = useState(false);
+	const [isAnalyticsEnabled, setIsAnalyticsEnabled] = useState(false);
 	const [isProVersion, setIsProVersion] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [period, setPeriod] = useState(30);
@@ -24,29 +24,31 @@ export const AnalyticsContextProvider = ({ children }) => {
 	 * Get initial logs list
 	 */
 	useEffect(() => {
-		setLoading(true);
-		void API.getStatistic({ period }).then((data) => {
-			setStats(data);
-			setLoading(false);
-		});
-	}, [period, showAnalytics]);
+		if (isProVersion && isAnalyticsEnabled) {
+			setLoading(true);
+			void API.getStatistic({ period }).then((data) => {
+				setStats(data);
+				setLoading(false);
+			});
+		}
+	}, [period, isAnalyticsEnabled, isProVersion]);
 
-	const updateShowAnalytics = async () => {
+	const updateIsAnalyticsEnabled = async () => {
 		await save({
-			ea11y_analytics_enabled: !showAnalytics,
+			ea11y_analytics_enabled: !isAnalyticsEnabled,
 		});
-		setShowAnalytics(!showAnalytics);
+		setIsAnalyticsEnabled(!isAnalyticsEnabled);
 		setPeriod(30);
 	};
 
 	return (
 		<AnalyticsContext.Provider
 			value={{
-				showAnalytics,
-				setShowAnalytics,
+				isAnalyticsEnabled,
+				setIsAnalyticsEnabled,
 				isProVersion,
 				setIsProVersion,
-				updateShowAnalytics,
+				updateIsAnalyticsEnabled,
 				period,
 				setPeriod,
 				stats,

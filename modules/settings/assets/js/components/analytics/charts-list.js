@@ -18,14 +18,20 @@ import {
 	PieChartSkeleton,
 	UsageTableSkeleton,
 } from '@ea11y/components/analytics/skeleton';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { dateI18n } from '@wordpress/date';
 import { __, sprintf } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
 
 export const ChartsList = () => {
-	const { stats, showAnalytics, isProVersion, loading, period, setPeriod } =
-		useAnalyticsContext();
+	const {
+		stats,
+		isAnalyticsEnabled,
+		isProVersion,
+		loading,
+		period,
+		setPeriod,
+	} = useAnalyticsContext();
 
 	/**
 	 * Change period for statistics select
@@ -33,7 +39,7 @@ export const ChartsList = () => {
 	 */
 	const changePeriod = (event) => {
 		setPeriod(Number(event.target.value));
-		mixpanelService.sendEvent('filter_selected', {
+		mixpanelService.sendEvent(eventNames.filterSelected, {
 			selectedItem: event.target.value,
 		});
 	};
@@ -41,7 +47,7 @@ export const ChartsList = () => {
 	const date = stats.dates.at(-1)?.date && new Date(stats.dates.at(-1)?.date);
 	const availableDate = date && date.setDate(date.getDate() + 30);
 
-	const hideAlert = !isProVersion || (availableDate && showAnalytics);
+	const hideAlert = !isProVersion || (availableDate && isAnalyticsEnabled);
 
 	const isLoading = loading || !availableDate;
 
@@ -53,7 +59,7 @@ export const ChartsList = () => {
 					icon={<InfoCircleFilledIcon />}
 					sx={{ width: '100%' }}
 				>
-					{availableDate && !showAnalytics && (
+					{availableDate && !isAnalyticsEnabled && (
 						<>
 							<AlertTitle sx={{ width: '100%' }}>
 								{sprintf(
@@ -68,7 +74,7 @@ export const ChartsList = () => {
 							)}
 						</>
 					)}
-					{!availableDate && showAnalytics && (
+					{!availableDate && isAnalyticsEnabled && (
 						<>
 							<AlertTitle sx={{ width: '100%' }}>
 								{__('Not enough data', 'pojo-accessibility')}
@@ -79,7 +85,7 @@ export const ChartsList = () => {
 							)}
 						</>
 					)}
-					{!availableDate && !showAnalytics && (
+					{!availableDate && !isAnalyticsEnabled && (
 						<>
 							<AlertTitle sx={{ width: '100%' }}>
 								{__('Need to switch on', 'pojo-accessibility')}

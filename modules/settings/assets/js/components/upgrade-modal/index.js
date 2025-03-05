@@ -6,14 +6,13 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import CrownFilled from '@ea11y/icons/crown-filled';
 import { StyledContainer } from '@ea11y/pages/pages.styles';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import imageUrl from '../../../img/upgrade.png';
 
 const UpgradeModal = () => {
 	const onUpgrade = () => {
-		// TODO: add upgrade event
-		mixpanelService.sendEvent('upgrade_button_clicked', {
+		mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
 			component: 'Upgrade popup',
 			feature: 'Analytic',
 		});
