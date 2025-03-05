@@ -15,7 +15,7 @@ import {
 	useSavedSettings,
 } from '@ea11y/hooks';
 import { Sidebar } from '@ea11y/layouts';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
@@ -46,7 +46,7 @@ const App = () => {
 	useEffect(() => {
 		if (window.ea11ySettingsData?.planData?.user?.id) {
 			mixpanelService.init().then(() => {
-				mixpanelService.sendEvent('page_view', {
+				mixpanelService.sendEvent(eventNames.pageView, {
 					page: 'Button',
 				});
 			});

@@ -6,13 +6,13 @@ import {
 	StyledContainer,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const Menu = () => {
 	useEffect(() => {
-		mixpanelService.sendEvent('page_view', {
+		mixpanelService.sendEvent(eventNames.pageView, {
 			page: 'Capabilities',
 		});
 	}, []);
