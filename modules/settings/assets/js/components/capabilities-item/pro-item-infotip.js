@@ -7,6 +7,7 @@ import CardHeader from '@elementor/ui/CardHeader';
 import Chip from '@elementor/ui/Chip';
 import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { ProCrownIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
 
@@ -48,7 +49,7 @@ const ProItemInfotip = () => {
 				},
 			}}
 		>
-			<Chip
+			<StyledChip
 				color="promotion"
 				variant="standard"
 				icon={<ProCrownIcon />}
@@ -59,3 +60,9 @@ const ProItemInfotip = () => {
 };
 
 export default ProItemInfotip;
+
+const StyledChip = styled(Chip)`
+	.MuiChip-label {
+		padding: 4px;
+	}
+`;
