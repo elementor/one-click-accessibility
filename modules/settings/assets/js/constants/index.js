@@ -11,6 +11,7 @@ export const SKELETON_OPTIONS = Object.freeze({
 export const WIDGET_PREVIEW_ID = 'ea11y-widget-preview--container';
 export const WIDGET_PREVIEW_ROOT = 'ea11y-root';
 
+// As a standard structure use - in feature names.
 export const PRO_FEATURES = {
-	REMOVE_BRANDING: 'remove_elementor_label',
+	REMOVE_BRANDING: 'remove-elementor-label',
 };
