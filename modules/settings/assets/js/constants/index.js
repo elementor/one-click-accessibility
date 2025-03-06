@@ -12,5 +12,5 @@ export const WIDGET_PREVIEW_ID = 'ea11y-widget-preview--container';
 export const WIDGET_PREVIEW_ROOT = 'ea11y-root';
 
 export const PRO_FEATURES = {
-	REMOVE_BRANDING: 'remove_branding',
+	REMOVE_BRANDING: 'remove_elementor_label',
 };
