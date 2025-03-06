@@ -15,7 +15,8 @@ const LogoSettings = () => {
 	 * @return {boolean} true if the feature is enabled.
 	 */
 	const isProEnabled = () => {
-		return planData?.plan?.features?.[PRO_FEATURES?.REMOVE_BRANDING];
+		const key = PRO_FEATURES.REMOVE_BRANDING.replaceAll('-', '_');
+		return planData?.plan?.features?.[key];
 	};
 
 	return (
