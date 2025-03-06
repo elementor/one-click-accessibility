@@ -13,7 +13,9 @@ import { ADD_VISITS_LINK } from '../constants/index';
 import { openLink } from '../utils';
 
 const QuotaBar = () => {
-	const { planUsage, openSidebar, setOpenSidebar } = useSettings();
+	const { planUsage, openSidebar, setOpenSidebar, planData } = useSettings();
+	const plan = planData?.plan;
+	console.log(plan);
 
 	/**
 	 * Get the color for the progress bar based on the usage.
@@ -55,27 +57,32 @@ const QuotaBar = () => {
 		<StyledBox>
 			<EyeIcon />
 			<Box display="inline-flex" flexDirection="column" gap={1} width="100%">
-				<Typography
-					variant="subtitle1"
-					display="flex"
-					alignItems="center"
-					gap={1}
-				>
-					{__('Visits', 'pojo-accessibility')}
-					<Infotip
-						placement="right"
-						content={__(
-							'The number of visits to your website.',
-							'pojo-accessibility',
-						)}
+				<Box display="flex" justifyContent="space-between">
+					<Typography
+						variant="subtitle1"
+						display="flex"
+						alignItems="center"
+						gap={1}
 					>
-						<InfoCircleIcon
-							sx={{
-								fontSize: 'medium',
-							}}
-						/>
-					</Infotip>
-				</Typography>
+						{__('Monthly visits', 'pojo-accessibility')}
+						<Infotip
+							placement="right"
+							content={__(
+								'The number of visits to your website.',
+								'pojo-accessibility',
+							)}
+						>
+							<InfoCircleIcon
+								sx={{
+									fontSize: 'medium',
+								}}
+							/>
+						</Infotip>
+					</Typography>
+					<Typography variant="body2" color="text.secondary">
+						{__('20K', 'pojo-accessibility')}
+					</Typography>
+				</Box>
 				<LinearProgress
 					sx={{
 						'& .MuiLinearProgress-bar': {
@@ -89,7 +96,7 @@ const QuotaBar = () => {
 					color={progressBarColor()}
 				/>
 				<Typography variant="body2" color="text.tertiary">
-					{`20K(${planUsage}%)`}
+					{`20K used (${planUsage}% of the limit)`}
 				</Typography>
 				<StyledButton
 					variant="text"
@@ -97,7 +104,7 @@ const QuotaBar = () => {
 					color="info"
 					onClick={handleAddVisitsClick}
 				>
-					{__('Add visits', 'pojo-accessibility')}
+					{__('Increase limit', 'pojo-accessibility')}
 				</StyledButton>
 			</Box>
 		</StyledBox>
