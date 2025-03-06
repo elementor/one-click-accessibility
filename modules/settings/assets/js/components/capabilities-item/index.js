@@ -29,7 +29,8 @@ const CapabilitiesItem = ({
 	 * @return {boolean} true if the feature is enabled.
 	 */
 	const isProEnabled = () => {
-		return planData?.[childKey.replace('-', '_')];
+		const features = planData?.plan?.features;
+		return features?.[childKey.replace('-', '_')];
 	};
 
 	/**
