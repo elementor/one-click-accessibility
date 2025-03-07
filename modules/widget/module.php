@@ -134,16 +134,22 @@ class Module extends Module_Base {
 
         // Check if the feature is available in the plan
         forEach( $features as $feature ) {
+            $feature_name = str_replace( '_', '-', $feature );
 
             // Assuming feature does not exist in the plan.
             $feature_in_plan_data = 0;
 
-            // Enable feature if it exists in the plan. A contingency to handle downgrading of plans.
+            // Check if it exists in the plan. A contingency to handle downgrading of plans.
             if ( isset( $plan_data->plan->features->{$feature} ) ) {
-                $feature_in_plan_data = $plan_data->plan->features->{$feature};
+                if ($plan_data->plan->features->{$feature} ) {
+                    $feature_in_plan_data = $plan_data->plan->features->{$feature};
+                } else {
+                    // Auto disable plan if it is set to false in the plan data.
+                    $widget_settings[$feature_name]['enabled'] = false;
+                    Settings::set( Settings::WIDGET_MENU_SETTINGS, $widget_settings );
+                }
             }
 
-            $feature_name = str_replace( '_', '-', $feature );
             $feature_in_widget_settings = $widget_settings[$feature_name]['enabled'];
 
              if ( ! $feature_in_plan_data && $feature_in_widget_settings ) {
