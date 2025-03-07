@@ -23,7 +23,7 @@ import {
 } from '@elementor/ui/usePopupState';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
 import { HELP_LINK } from '../../constants';
@@ -65,7 +65,7 @@ const MyAccountMenu = () => {
 				ea11y_close_post_connect_modal: false,
 			});
 
-			mixpanelService.sendEvent('menu_button_clicked', {
+			mixpanelService.sendEvent(eventNames.menuButtonClicked, {
 				buttonName: 'Switch account',
 			});
 		} catch (e) {
@@ -78,7 +78,7 @@ const MyAccountMenu = () => {
 	};
 
 	const handleHelpButtonClick = () => {
-		mixpanelService.sendEvent('help_button_clicked', {
+		mixpanelService.sendEvent(eventNames.helpButtonClicked, {
 			source: 'Header',
 		});
 		openLink(HELP_LINK);
@@ -88,14 +88,19 @@ const MyAccountMenu = () => {
 		<>
 			<List
 				onClick={() => {
-					mixpanelService.sendEvent('menu_button_clicked', {
+					mixpanelService.sendEvent(eventNames.menuButtonClicked, {
 						buttonName: 'My Account',
 					});
 				}}
 			>
 				<StyledListItemButton shape="rounded" onClick={handleHelpButtonClick}>
 					<ListItemIcon>
-						<HelpIcon sx={{ color: 'common.black' }} fontSize="small" />
+						<HelpIcon
+							role="img"
+							aria-label={__('Help center', 'pojo-accessibility')}
+							sx={{ color: 'common.black' }}
+							fontSize="small"
+						/>
 					</ListItemIcon>
 
 					<ListItemText
@@ -104,7 +109,10 @@ const MyAccountMenu = () => {
 					/>
 
 					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
-						<ExternalLinkIcon />
+						<ExternalLinkIcon
+							role="img"
+							aria-label={__('Help center', 'pojo-accessibility')}
+						/>
 					</ListItemIcon>
 				</StyledListItemButton>
 				<StyledListItemButton
@@ -113,7 +121,12 @@ const MyAccountMenu = () => {
 					shape="rounded"
 				>
 					<ListItemIcon>
-						<UserIcon sx={{ color: 'common.black' }} fontSize="small" />
+						<UserIcon
+							role="img"
+							aria-label={__('My Account', 'pojo-accessibility')}
+							sx={{ color: 'common.black' }}
+							fontSize="small"
+						/>
 					</ListItemIcon>
 
 					<ListItemText

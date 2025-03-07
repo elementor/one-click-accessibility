@@ -1,1 +1,1 @@
-export { mixpanelService } from './mixpanel-service';
+export { mixpanelService, eventNames } from './mixpanel-service';
