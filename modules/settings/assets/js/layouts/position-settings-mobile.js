@@ -8,7 +8,7 @@ import {
 	PositionSettingsWrapper,
 } from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 
 const PositionSettingsMobile = () => {
@@ -16,7 +16,7 @@ const PositionSettingsMobile = () => {
 
 	const toggleVisibility = (device) => {
 		updateIconPosition(device, 'hidden', !iconPosition[device].hidden);
-		mixpanelService.sendEvent('toggle_clicked', {
+		mixpanelService.sendEvent(eventNames.toggleClicked, {
 			state: iconPosition[device].hidden ? 'on' : 'off',
 			type: 'Hide on mobile',
 			device,
@@ -29,7 +29,7 @@ const PositionSettingsMobile = () => {
 			'enableExactPosition',
 			!iconPosition[device].enableExactPosition,
 		);
-		mixpanelService.sendEvent('toggle_clicked', {
+		mixpanelService.sendEvent(eventNames.toggleClicked, {
 			state: iconPosition[device].enableExactPosition ? 'on' : 'off',
 			type: 'Exact position',
 			device,
@@ -70,7 +70,11 @@ const PositionSettingsMobile = () => {
 							onChange={() => toggleExactPosition('mobile')}
 							checked={iconPosition.mobile?.enableExactPosition}
 						/>
-						<Typography variant="body2" sx={{ marginTop: 2, marginBottom: 1 }}>
+						<Typography
+							id="ea11y-mobile-position-settings"
+							variant="body2"
+							sx={{ marginTop: 2, marginBottom: 1 }}
+						>
 							{__(
 								'Exact positioning, 5 – 500 px are permitted values:',
 								'pojo-accessibility',

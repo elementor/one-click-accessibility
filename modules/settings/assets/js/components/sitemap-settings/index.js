@@ -13,7 +13,7 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { validateUrl } from '../../utils';
 
@@ -46,7 +46,7 @@ const SitemapSettings = ({ sitemap }) => {
 
 	const onBlur = () => {
 		if (hasChanges) {
-			mixpanelService.sendEvent('field_content_updated', {
+			mixpanelService.sendEvent(eventNames.fieldContentUpdated, {
 				fieldName: 'sitemap-url',
 				value: widgetMenuSettings.sitemap?.url,
 			});
@@ -62,6 +62,7 @@ const SitemapSettings = ({ sitemap }) => {
 				<ListItemText
 					primary={sitemap?.title}
 					sx={{ flexGrow: 0, marginRight: 1 }}
+					id={`ea11y-sitemap-toggle`}
 				/>
 			</StyledAccordionSummary>
 			<StyledAccordionDetails>
