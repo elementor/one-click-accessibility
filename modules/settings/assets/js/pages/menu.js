@@ -5,7 +5,7 @@ import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
 import SkipToContentSettings from '@ea11y/components/skip-to-content-settings';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -17,7 +17,7 @@ const StyledContainer = styled(Container)`
 
 const Menu = () => {
 	useEffect(() => {
-		mixpanelService.sendEvent('page_view', {
+		mixpanelService.sendEvent(eventNames.pageView, {
 			page: 'Capabilities',
 		});
 	}, []);

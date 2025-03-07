@@ -43,6 +43,8 @@ const SidebarAppBar = () => {
 					size="small"
 				>
 					<SquareRoundedChevronsLeft
+						role="img"
+						aria-label={__('Toggle sidebar', 'pojo-accessibility')}
 						sx={{ rotate: !openSidebar ? '180deg' : '0' }}
 					/>
 				</IconButton>

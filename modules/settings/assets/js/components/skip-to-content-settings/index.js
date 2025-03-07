@@ -8,7 +8,7 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { validateId } from '../../utils';
 
@@ -56,7 +56,7 @@ const SkipToContentSettings = () => {
 
 	const onBlur = () => {
 		if (skipToContentHasChanges) {
-			mixpanelService.sendEvent('field_content_updated', {
+			mixpanelService.sendEvent(eventNames.fieldContentUpdated, {
 				fieldName: 'skip-to-content-anchor',
 				value: skipToContentSettings.anchor,
 			});
@@ -66,7 +66,7 @@ const SkipToContentSettings = () => {
 	return (
 		<Card variant="outlined" sx={{ padding: 2, marginBlock: 4 }}>
 			<StyledBox>
-				<StyledTypography variant="subtitle1">
+				<StyledTypography variant="subtitle1" id="ea11y-skip-to-content-toggle">
 					{__('Skip to main content', 'pojo-accessibility')}
 					<Infotip
 						content={
@@ -93,6 +93,9 @@ const SkipToContentSettings = () => {
 					color="info"
 					checked={skipToContentSettings?.enabled || false}
 					onChange={toggleSetting}
+					inputProps={{
+						'area-labelledby': 'ea11y-skip-to-content-toggle',
+					}}
 				/>
 			</StyledBox>
 			<Typography variant="body1">
