@@ -1,4 +1,5 @@
 import Box from '@elementor/ui/Box';
+import FormLabel from '@elementor/ui/FormLabel';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemSecondaryAction from '@elementor/ui/ListItemSecondaryAction';
@@ -6,7 +7,7 @@ import ListItemText from '@elementor/ui/ListItemText';
 import { CustomSwitch, ProItemInfotip } from '@ea11y/components';
 import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { validateUrl } from '../../utils';
 
 const CapabilitiesItem = ({
@@ -65,7 +66,7 @@ const CapabilitiesItem = ({
 			}
 
 			if (prevSettings[option]) {
-				mixpanelService.sendEvent('toggle_clicked', {
+				mixpanelService.sendEvent(eventNames.toggleClicked, {
 					state: prevSettings[option]?.enabled ? 'off' : 'on',
 					type: option,
 				});
@@ -83,6 +84,7 @@ const CapabilitiesItem = ({
 		if (childValue?.pro && !isProEnabled()) {
 			return true;
 		}
+
 		return widgetMenuSettings[childKey]?.enabled ? disableOptions : false;
 	};
 
@@ -94,7 +96,9 @@ const CapabilitiesItem = ({
 				<>
 					<ListItemIcon>{childValue.icon}</ListItemIcon>
 					<Box display="flex" flexDirection="row" gap={1} alignItems="center">
-						<ListItemText primary={childValue.title} />
+						<FormLabel htmlFor={`ea11y-${childKey}-toggle`}>
+							<ListItemText primary={childValue.title} />
+						</FormLabel>
 						{childValue?.pro && !isProEnabled() && <ProItemInfotip />}
 					</Box>
 				</>
