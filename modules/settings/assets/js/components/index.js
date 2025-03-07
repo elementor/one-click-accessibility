@@ -1,6 +1,7 @@
 export { default as ConnectModal } from './connect-modal';
 export { default as Notifications } from './notifications';
 export { default as MyAccountMenu } from './my-account-menu';
+export { default as PopupMenu } from './my-account-menu/popup-menu';
 export { default as SidebarAppBar } from './sidebar-app-bar';
 export { default as SidebarMenu } from './sidebar-menu';
 export { default as IconSize } from './icon-size';
