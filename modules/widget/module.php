@@ -48,7 +48,7 @@ class Module extends Module_Base {
 			'ea11yWidget',
 			[
 				'iconSettings' => get_option( Settings::WIDGET_ICON_SETTINGS ),
-				'toolsSettings' => get_option( Settings::WIDGET_MENU_SETTINGS ),
+				'toolsSettings' => $this->get_tools_settings(),
 				'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
 			]
 		);
@@ -99,7 +99,7 @@ class Module extends Module_Base {
 
 		$widget_state = [
 			'iconSettings' => $this->get_widget_icon_settings(),
-			'toolsSettings' => get_option( 'ea11y_widget_menu_settings' ),
+			'toolsSettings' => $this->get_tools_settings(),
 			'preview' => true,
 			'previewContainer' => '#ea11y-widget-preview--container',
 			'apiKey' => $plan_data->public_api_key,
@@ -114,6 +114,45 @@ class Module extends Module_Base {
 
 		<?php
 	}
+
+    /**
+     * Get widget's tools/menu settings
+     * @return array|mixed
+     */
+    public function get_tools_settings () {
+        // Features to check
+        $features = ['screen_reader', 'remove_elementor_label'];
+
+        // Get the data from the settings
+        $widget_settings = Settings::get( Settings::WIDGET_MENU_SETTINGS );
+        $plan_data = Settings::get( Settings::PLAN_DATA );
+
+        // Return settings if features object in not present in plan data.
+        if ( ! isset( $plan_data->plan->features ) ) {
+            return $widget_settings;
+        }
+
+        // Check if the feature is available in the plan
+        forEach( $features as $feature ) {
+
+            // Assuming feature does not exist in the plan.
+            $feature_in_plan_data = 0;
+
+            // Enable feature if it exists in the plan. A contingency to handle downgrading of plans.
+            if ( isset( $plan_data->plan->features->{$feature} ) ) {
+                $feature_in_plan_data = $plan_data->plan->features->{$feature};
+            }
+
+            $feature_name = str_replace( '_', '-', $feature );
+            $feature_in_widget_settings = $widget_settings[$feature_name]['enabled'];
+
+             if ( ! $feature_in_plan_data && $feature_in_widget_settings ) {
+                 $widget_settings[$feature_name]['enabled'] = false;
+             }
+        }
+
+        return $widget_settings;
+    }
 
 	/**
 	 * Remove person object from the icon settings for frontend.
@@ -135,6 +174,7 @@ class Module extends Module_Base {
 	 * Module constructor.
 	 */
 	public function __construct() {
+
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_accessibility_widget' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_accessibility_widget_admin' ] );
 	}
