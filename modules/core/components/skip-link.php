@@ -72,7 +72,7 @@ class Skip_Link {
 			remove_action( 'wp_footer', 'the_block_template_skip_link' );
 
 			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_skip_link_styles' ] );
-			add_action( 'wp_head', [ $this, 'render_skip_link' ] );
+			add_action( 'wp_body_open', [ $this, 'render_skip_link' ] );
 		}
 	}
 }
