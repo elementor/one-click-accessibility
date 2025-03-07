@@ -66,7 +66,7 @@ const MenuSettings = () => {
 	 */
 	const areAtLeastTwoOptionsEnabled = (settings) => {
 		const enabled = Object.keys(settings)?.filter(
-			(key) => settings[key].enabled,
+			(key) => settings[key].enabled && key !== 'remove-elementor-label',
 		);
 		return enabled.length > 2;
 	};
