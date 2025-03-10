@@ -40,18 +40,34 @@ export const openLink = (url, target = '_blank') => {
 	window.open(url, target);
 };
 
-export const calculatePlanUsage = () => {
+/**
+ * Calculate the plan usage percentage of the plan.
+ * @param {number} allowed
+ * @param {number} used
+ * @return {number} The plan usage percentage.
+ */
+export const calculatePlanUsage = (allowed, used) => {
 	//TODO: Replace mock data with actual data. Maybe move the logic to the hook.
-	const mockPlanData = {
-		quota: {
-			usage: 10500,
-			quota: 12500,
-		},
-	};
 
-	if (!mockPlanData?.quota?.usage || !mockPlanData?.quota?.quota) {
+	if (!used || !allowed) {
 		return 0;
 	}
 
-	return (mockPlanData?.quota?.usage / mockPlanData?.quota?.quota) * 100;
+	return (used / allowed) * 100;
+};
+
+/**
+ * Format the plan value in K and M format
+ * @param {string} value The value to format
+ */
+export const formatPlanValue = (value) => {
+	if (value >= 1000000) {
+		return `${Math.floor(value / 1000000)}M`;
+	}
+
+	if (value >= 1000) {
+		return `${Math.floor(value / 1000)}K`;
+	}
+
+	return value;
 };
