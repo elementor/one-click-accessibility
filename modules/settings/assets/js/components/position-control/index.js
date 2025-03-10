@@ -12,9 +12,9 @@ import {
 	bindMenu,
 } from '@elementor/ui/usePopupState';
 import { useIconPosition } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 const units = ['PX', 'REM', 'EM'];
 
@@ -83,7 +83,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 		popupState.close();
 
-		mixpanelService.sendEvent('handle_unit_changed', {
+		mixpanelService.sendEvent(eventNames.handleUnitChanged, {
 			positionData: {
 				mode,
 				type,
@@ -110,7 +110,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 				iconPosition[mode]?.exactPosition[type]?.unit,
 			);
 
-			mixpanelService.sendEvent('handle_value_changed', {
+			mixpanelService.sendEvent(eventNames.handleValueChanged, {
 				positionData: {
 					mode,
 					type,
@@ -131,7 +131,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
 
-		mixpanelService.sendEvent('handle_direction_changed', {
+		mixpanelService.sendEvent(eventNames.handleDirectionChanged, {
 			positionData: {
 				mode,
 				type,
@@ -143,7 +143,16 @@ const PositionControl = ({ type, disabled, mode }) => {
 	};
 
 	return (
-		<StyledContainer isError={!isValid}>
+		<StyledContainer
+			isError={!isValid}
+			role="group"
+			aria-label={sprintf(
+				// Translators: %1$s - date, %2$s - time
+				__('%1$s icon %2$s settings', 'pojo-accessibility'),
+				mode,
+				type,
+			)}
+		>
 			<StyledTextField
 				size="medium"
 				error={!isValid}
@@ -151,6 +160,14 @@ const PositionControl = ({ type, disabled, mode }) => {
 				disabled={disabled}
 				value={inputValue}
 				onChange={handlePositionChange}
+				inputProps={{
+					'aria-label': sprintf(
+						// Translators: %s - units
+						__('Number of %s', 'pojo-accessibility'),
+						units[unitsIndex],
+					),
+					'aria-describedby': `ea11y-${mode}-position-settings`,
+				}}
 				InputProps={{
 					endAdornment: (
 						<InputAdornment position="end">
@@ -181,6 +198,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 			<Select
 				fullWidth
+				name={__('Direction', 'pojo-accessibility')}
 				variant="outlined"
 				onChange={handlePositionDirection}
 				disabled={disabled}

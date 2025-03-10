@@ -14,7 +14,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
@@ -126,7 +126,7 @@ const StatementGenerator = ({ open, close }) => {
 			await close();
 			await success('Page created', 'pojo-accessibility');
 
-			mixpanelService.sendEvent('statement_page_created');
+			mixpanelService.sendEvent(eventNames.statementPageCreated);
 		} catch (e) {
 			error('Error while creating page', 'pojo-accessibility');
 			console.error(e);
