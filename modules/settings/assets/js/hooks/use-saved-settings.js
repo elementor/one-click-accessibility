@@ -59,7 +59,12 @@ export const useSavedSettings = () => {
 
 			if (result?.data?.ea11y_plan_data) {
 				setPlanData(result.data.ea11y_plan_data);
-				setPlanUsage(calculatePlanUsage()); //TODO: pass the plan data to calculatePlanUsage
+				setPlanUsage(
+					calculatePlanUsage(
+						result?.data?.ea11y_plan_data?.visits?.allowed,
+						result?.data?.ea11y_plan_data?.visits?.used,
+					),
+				);
 			}
 
 			if (result?.data?.ea11y_accessibility_statement_data) {

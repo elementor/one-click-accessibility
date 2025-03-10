@@ -47,8 +47,6 @@ export const openLink = (url, target = '_blank') => {
  * @return {number} The plan usage percentage.
  */
 export const calculatePlanUsage = (allowed, used) => {
-	//TODO: Replace mock data with actual data. Maybe move the logic to the hook.
-
 	if (!used || !allowed) {
 		return 0;
 	}
