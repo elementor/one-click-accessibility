@@ -4,7 +4,7 @@ import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ConfirmDialog } from '@ea11y/components';
-import { useModal, useSettings } from '@ea11y/hooks';
+import { useModal, useToastNotification } from '@ea11y/hooks';
 import { AppLogo } from '@ea11y/icons';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -13,8 +13,7 @@ import API from '../../api';
 
 const UrlMismatchModal = () => {
 	const { open, close } = useModal(true);
-	const { setNotificationMessage, setNotificationType, setShowNotification } =
-		useSettings();
+	const { error } = useToastNotification();
 	const [showNewConnectionConfirmation, setShowNewConnectionConfirmation] =
 		useState(false);
 
@@ -24,9 +23,7 @@ const UrlMismatchModal = () => {
 
 			window.open(connectUrl, '_self').focus();
 		} catch (e) {
-			setNotificationMessage(__('An error occurred.', 'pojo-accessibility'));
-			setNotificationType('error');
-			setShowNotification(true);
+			error(__('An error occurred.', 'pojo-accessibility'));
 		}
 
 		close();
@@ -41,9 +38,7 @@ const UrlMismatchModal = () => {
 				action: 'connect',
 			});
 		} catch (e) {
-			setNotificationMessage(__('An error occurred.', 'pojo-accessibility'));
-			setNotificationType('error');
-			setShowNotification(true);
+			error(__('An error occurred.', 'pojo-accessibility'));
 		}
 
 		close();
