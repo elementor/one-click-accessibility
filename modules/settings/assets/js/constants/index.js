@@ -20,6 +20,7 @@ import {
 } from '@ea11y/icons';
 import FocusIcon from '@ea11y/icons/focus-icon';
 import HideWidgetIcon from '@ea11y/icons/hide-widget-icon';
+import ScreenReaderIcon from '@ea11y/icons/screen-reader-icon';
 import SitemapIcon from '@ea11y/icons/sitemap-icon';
 import StatementIcon from '@ea11y/icons/statement-icon';
 import { __ } from '@wordpress/i18n';
@@ -116,6 +117,11 @@ export const FEATURE_MAPPER = {
 		title: __('Statement', 'pojo-accessibility'),
 		chartsTitle: __('Statement', 'pojo-accessibility'),
 		icon: <StatementIcon />,
+	},
+	'screen-reader': {
+		title: __('Screen reader', 'pojo-accessibility'),
+		chartsTitle: __('Screen reader', 'pojo-accessibility'),
+		icon: <ScreenReaderIcon />,
 	},
 	other: {
 		title: __('Other', 'pojo-accessibility'),

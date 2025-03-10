@@ -33,6 +33,7 @@ class Analytics_Table extends Table {
 		'pause-animations',
 		'highlight-links',
 		'focus-outline',
+		'screen-reader',
 		'widget-open',
 		'hide-widget',
 		'statement',

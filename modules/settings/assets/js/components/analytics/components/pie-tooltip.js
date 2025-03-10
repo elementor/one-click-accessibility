@@ -14,7 +14,7 @@ export const PieTooltip = (props) => {
 				{series.data[itemData.dataIndex].featureTitle}
 			</StyledTitle>
 			<Typography variant="h6">
-				{`${series.data[itemData.dataIndex].featureClicks} (${Math.round(series.data[itemData.dataIndex].value)}%)`}
+				{`${series.data[itemData.dataIndex].featureClicks} (${series.data[itemData.dataIndex].value}%)`}
 			</Typography>
 		</Paper>
 	);

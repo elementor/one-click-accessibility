@@ -2,7 +2,9 @@ import Card from '@elementor/ui/Card';
 import CardHeader from '@elementor/ui/CardHeader';
 import Skeleton from '@elementor/ui/Skeleton';
 import Stack from '@elementor/ui/Stack';
+import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { PieChartTitle } from '@ea11y/components/analytics/components/pie-chart-title';
 import { StyledCardContent } from '@ea11y/pages/pages.styles';
 import { useEffect, useRef, useState } from '@wordpress/element';
 
@@ -23,13 +25,20 @@ export const PieChartSkeleton = ({ animated }) => {
 		<Card variant="outlined" sx={{ height: '100%' }}>
 			<CardHeader
 				title={
-					<Skeleton
-						width={150}
-						sx={{ padding: '20px' }}
-						animation={animated ? 'wave' : false}
-					/>
+					animated ? (
+						<Typography variant="subtitle1">
+							<Skeleton
+								width={150}
+								sx={{ p: 2 }}
+								animation={animated ? 'wave' : false}
+								variant="text"
+							/>
+						</Typography>
+					) : (
+						<PieChartTitle />
+					)
 				}
-				sx={{ height: '60px' }}
+				sx={{ height: '60px', alignItems: 'start' }}
 			/>
 			<StyledCardContent ref={containerRef} sx={{ pt: 5 }}>
 				<Stack

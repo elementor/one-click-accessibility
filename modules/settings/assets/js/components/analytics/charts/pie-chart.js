@@ -1,18 +1,14 @@
-import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
-import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
 import CardHeader from '@elementor/ui/CardHeader';
-import Infotip from '@elementor/ui/Infotip';
-import Typography from '@elementor/ui/Typography';
 import { legendClasses } from '@mui/x-charts/ChartsLegend';
 import {
 	PieChart as MuiPieChart,
 	pieArcLabelClasses,
 } from '@mui/x-charts/PieChart';
 import { NoData } from '@ea11y/components/analytics/components/no-data';
+import { PieChartTitle } from '@ea11y/components/analytics/components/pie-chart-title';
 import { PieTooltip } from '@ea11y/components/analytics/components/pie-tooltip';
 import { useEffect, useRef, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 import { FEATURE_MAPPER, CHARTS_COLORS } from '../../../constants';
 import { useAnalyticsContext } from '../../../contexts/analytics-context';
 
@@ -57,7 +53,7 @@ export const PieChart = () => {
 	const formatted = topItems.map((item, index) => {
 		const percent = parseFloat(((item.total / totalSum) * 100).toFixed(2));
 		return {
-			label: `${FEATURE_MAPPER[item.event].chartsTitle}: ${Math.round(percent)}%`,
+			label: `${FEATURE_MAPPER[item.event].chartsTitle}: ${percent}%`,
 			featureTitle: FEATURE_MAPPER[item.event].chartsTitle,
 			featureClicks: item.total,
 			color: CHARTS_COLORS[index],
@@ -69,28 +65,7 @@ export const PieChart = () => {
 
 	return (
 		<Card variant="outlined" sx={{ height: '100%' }} ref={containerRef}>
-			<CardHeader
-				title={
-					<Box display="flex" gap={1}>
-						<Typography variant="subtitle1">
-							{__('Feature usage', 'pojo-accessibility')}
-						</Typography>
-						<Infotip
-							content={
-								<Typography variant="body1" sx={{ p: 2, maxWidth: '300px' }}>
-									{__(
-										"Track which accessibility features visitors use most from your widget so you can better understand your audience's needs.",
-										'pojo-accessibility',
-									)}
-								</Typography>
-							}
-						>
-							<InfoCircleIcon fontSize="small" />
-						</Infotip>
-					</Box>
-				}
-				sx={{ pb: 0 }}
-			/>
+			<CardHeader title={<PieChartTitle />} sx={{ pb: 0 }} />
 			{showChart && (
 				<MuiPieChart
 					series={[

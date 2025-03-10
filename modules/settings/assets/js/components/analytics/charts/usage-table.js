@@ -1,8 +1,6 @@
-import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
 import CardHeader from '@elementor/ui/CardHeader';
-import Infotip from '@elementor/ui/Infotip';
 import Table from '@elementor/ui/Table';
 import TableBody from '@elementor/ui/TableBody';
 import TableCell from '@elementor/ui/TableCell';
@@ -11,6 +9,7 @@ import TablePagination from '@elementor/ui/TablePagination';
 import TableRow from '@elementor/ui/TableRow';
 import Typography from '@elementor/ui/Typography';
 import { NoData } from '@ea11y/components/analytics/components/no-data';
+import { UsageTableTitle } from '@ea11y/components/analytics/components/usage-table-title';
 import { StyledCardContent } from '@ea11y/pages/pages.styles';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -39,6 +38,15 @@ export const UsageTable = () => {
 					default:
 						return __('High contrast', 'pojo-accessibility');
 				}
+			case 'screen-reader':
+				switch (value) {
+					case 'read-normal':
+						return __('Screen reader', 'pojo-accessibility');
+					case 'read-fast':
+						return __('Screen reader fast', 'pojo-accessibility');
+					default:
+						return __('Screen reader slow', 'pojo-accessibility');
+				}
 			default:
 				return `${FEATURE_MAPPER[event].chartsTitle}${value ? ` ${value}` : ''}`;
 		}
@@ -46,27 +54,7 @@ export const UsageTable = () => {
 
 	return (
 		<Card variant="outlined">
-			<CardHeader
-				title={
-					<Box display="flex" gap={1}>
-						<Typography variant="subtitle1">
-							{__('Feature usage', 'pojo-accessibility')}
-						</Typography>
-						<Infotip
-							content={
-								<Typography variant="body1" sx={{ p: 2, maxWidth: '300px' }}>
-									{__(
-										'Track how often all your widget’s accessibility features are used.',
-										'pojo-accessibility',
-									)}
-								</Typography>
-							}
-						>
-							<InfoCircleIcon fontSize="small" />
-						</Infotip>
-					</Box>
-				}
-			/>
+			<CardHeader title={<UsageTableTitle />} />
 			<StyledCardContent sx={{ minHeight: '450px' }}>
 				<Table>
 					<TableHead>
