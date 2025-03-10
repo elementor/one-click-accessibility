@@ -49,7 +49,7 @@ const UrlMismatchModal = () => {
 
 	return (
 		<>
-			<ConfirmDialog
+			<StyledConfirmDialog
 				open={open}
 				onClose={close}
 				logo={<AppLogo />}
@@ -59,7 +59,6 @@ const UrlMismatchModal = () => {
 				maxWidth="lg"
 				fullWidth={true}
 				dividers={true}
-				sx={{ marginLeft: '10%' }}
 			>
 				<StyledGridContainer>
 					<StyledTitle variant="h4">
@@ -108,7 +107,7 @@ const UrlMismatchModal = () => {
 						</StyledCard>
 					</StyledGridContainer2>
 				</StyledGridContainer>
-			</ConfirmDialog>
+			</StyledConfirmDialog>
 
 			{showNewConnectionConfirmation && (
 				<ConfirmDialog
@@ -194,4 +193,11 @@ const StyledSubtitle = styled(Typography)`
 	margin-bottom: ${({ theme }) => theme.spacing(1)};
 	text-align: center;
 	width: 70%;
+`;
+
+const StyledConfirmDialog = styled(ConfirmDialog)`
+	margin-left: 10%;
+	& .MuiDialogContent-dividers {
+		border-bottom: none;
+	}
 `;
