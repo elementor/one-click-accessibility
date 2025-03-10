@@ -13,7 +13,9 @@ const StyledBox = styled(Box)`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	height: 100%;
+	max-height: 100%;
+	height: auto;
+	min-height: 80%;
 `;
 
 const StyledContainer = styled(Container)`
