@@ -10,12 +10,11 @@ import { useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { ADD_VISITS_LINK } from '../constants/index';
-import { openLink } from '../utils';
+import { formatPlanValue, openLink } from '../utils';
 
 const QuotaBar = () => {
 	const { planUsage, openSidebar, setOpenSidebar, planData } = useSettings();
-	const plan = planData?.plan;
-	console.log(plan);
+	const quotaData = planData?.visits;
 
 	/**
 	 * Get the color for the progress bar based on the usage.
@@ -64,13 +63,18 @@ const QuotaBar = () => {
 						alignItems="center"
 						gap={1}
 					>
-						{__('Monthly visits', 'pojo-accessibility')}
+						{__('Widget loads', 'pojo-accessibility')}
 						<Infotip
 							placement="right"
-							content={__(
-								'The number of visits to your website.',
-								'pojo-accessibility',
-							)}
+							PopperProps={{ sx: { width: '300px' } }}
+							content={
+								<Typography color="text.primary" padding={1}>
+									{__(
+										'This shows how many times your accessibility widget has loaded for unique visitors across all your connected sites this month (each IP/device is counted once per 24 hours). If you’re nearing your plan’s monthly limit, you can upgrade to keep all features available.',
+										'pojo-accessibility',
+									)}
+								</Typography>
+							}
 						>
 							<InfoCircleIcon
 								sx={{
@@ -80,7 +84,7 @@ const QuotaBar = () => {
 						</Infotip>
 					</Typography>
 					<Typography variant="body2" color="text.secondary">
-						{__('20K', 'pojo-accessibility')}
+						{formatPlanValue(quotaData?.allowed)}
 					</Typography>
 				</Box>
 				<LinearProgress
@@ -96,7 +100,7 @@ const QuotaBar = () => {
 					color={progressBarColor()}
 				/>
 				<Typography variant="body2" color="text.tertiary">
-					{`20K used (${planUsage}% of the limit)`}
+					{`${formatPlanValue(quotaData?.used)} loads (${planUsage}% of the limit)`}
 				</Typography>
 				<StyledButton
 					variant="text"
@@ -104,7 +108,7 @@ const QuotaBar = () => {
 					color="info"
 					onClick={handleAddVisitsClick}
 				>
-					{__('Increase limit', 'pojo-accessibility')}
+					{__('Upgrade plan', 'pojo-accessibility')}
 				</StyledButton>
 			</Box>
 		</StyledBox>

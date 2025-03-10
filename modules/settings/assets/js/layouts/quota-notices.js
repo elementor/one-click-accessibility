@@ -36,24 +36,52 @@ const QuotaNotices = () => {
 		return null;
 	}
 
-	if (planUsage >= 80 && planUsage <= 99) {
+	if (planUsage >= 80 && planUsage < 95) {
 		sendQuotaNoticeTriggeredEvent('80%');
 		return (
-			<Alert
-				severity="warning"
-				square
-				action={
-					<AlertAction
-						variant="outlined"
-						onClick={() => handleUpgradeClick('80')}
-					>
-						{__('Upgrade', 'pojo-accessibility')}
-					</AlertAction>
-				}
-			>
+			<Alert severity="warning" square>
 				<AlertTitle>
-					{__("You've used more than 80% of the quota", 'pojo-accessibility')}
+					{__(
+						'You’ve reached 80% of your monthly widget loads',
+						'pojo-accessibility',
+					)}
 				</AlertTitle>
+				{__(
+					'Upgrade now to increase your plan’s monthly widget loads limit and ensure all accessibility features remain fully available for every visitor.',
+					'pojo-accessibility',
+				)}
+				<AlertAction
+					variant="outlined"
+					onClick={() => handleUpgradeClick('80')}
+					sx={{ marginTop: 1 }}
+				>
+					{__('Upgrade now', 'pojo-accessibility')}
+				</AlertAction>
+			</Alert>
+		);
+	}
+
+	if (planUsage >= 95 && planUsage < 100) {
+		sendQuotaNoticeTriggeredEvent('95%');
+		return (
+			<Alert severity="error" square>
+				<AlertTitle>
+					{__(
+						'Only 5% of your monthly widget loads left',
+						'pojo-accessibility',
+					)}
+				</AlertTitle>
+				{__(
+					'Upgrade now to increase your plan’s monthly widget loads limit and ensure all accessibility features remain fully available for every visitor.',
+					'pojo-accessibility',
+				)}
+				<AlertAction
+					variant="outlined"
+					onClick={() => handleUpgradeClick('95')}
+					sx={{ marginTop: 1 }}
+				>
+					{__('Upgrade now', 'pojo-accessibility')}
+				</AlertAction>
 			</Alert>
 		);
 	}
@@ -61,21 +89,21 @@ const QuotaNotices = () => {
 	if (planUsage === 100) {
 		sendQuotaNoticeTriggeredEvent('100%');
 		return (
-			<Alert
-				severity="error"
-				square
-				action={
-					<AlertAction
-						variant="outlined"
-						onClick={() => handleUpgradeClick('100')}
-					>
-						{__('Upgrade', 'pojo-accessibility')}
-					</AlertAction>
-				}
-			>
+			<Alert severity="error" square>
 				<AlertTitle>
-					{__("You've used 100% of the quota.", 'pojo-accessibility')}
+					{__("You've reached your monthly widget loads", 'pojo-accessibility')}
 				</AlertTitle>
+				{__(
+					'Upgrade now to increase your plan’s monthly widget loads limit and ensure all accessibility features remain fully available for every visitor.',
+					'pojo-accessibility',
+				)}
+				<AlertAction
+					variant="outlined"
+					onClick={() => handleUpgradeClick('100')}
+					sx={{ marginTop: 1 }}
+				>
+					{__('Upgrade now', 'pojo-accessibility')}
+				</AlertAction>
 			</Alert>
 		);
 	}
