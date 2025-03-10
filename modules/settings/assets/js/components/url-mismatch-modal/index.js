@@ -4,14 +4,15 @@ import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ConfirmDialog } from '@ea11y/components';
-import { useSettings } from '@ea11y/hooks';
+import { useModal, useSettings } from '@ea11y/hooks';
 import { AppLogo } from '@ea11y/icons';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import API from '../../api';
 
-const UrlMismatchModal = ({ open, close }) => {
+const UrlMismatchModal = () => {
+	const { open, close } = useModal(true);
 	const { setNotificationMessage, setNotificationType, setShowNotification } =
 		useSettings();
 	const [showNewConnectionConfirmation, setShowNewConnectionConfirmation] =
@@ -60,7 +61,6 @@ const UrlMismatchModal = ({ open, close }) => {
 				title={__('Fix mismatched URL', 'pojo-accessibility')}
 				showCancelButton={false}
 				showApproveButton={false}
-				showCloseButton={true}
 				maxWidth="md"
 				fullWidth={true}
 				dividers={true}
@@ -78,6 +78,18 @@ const UrlMismatchModal = ({ open, close }) => {
 						marginBottom={1}
 					>
 						{__('Select the case that applies to you', 'pojo-accessibility')}
+					</Typography>
+					<Typography
+						variant="body1"
+						color="text.secondary"
+						marginBottom={1}
+						textAlign="center"
+						width="70%"
+					>
+						{__(
+							'Your license key does not match your current domain, causing a mismatch. This is most likely due to a change in the domain URL of your site.',
+							'pojo-accessibility',
+						)}
 					</Typography>
 
 					<Grid

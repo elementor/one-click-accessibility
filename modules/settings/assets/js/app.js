@@ -8,7 +8,7 @@ import {
 	Notifications,
 	MenuItems,
 	PostConnectModal,
-	UrlMismatchNotice,
+	UrlMismatchModal,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
@@ -49,12 +49,12 @@ const App = () => {
 					<ConnectModal />
 				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
+				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
 
 				<StyledGrid>
 					<Sidebar />
 
 					<StyledContainer>
-						{isUrlMismatch && <UrlMismatchNotice />}
 						<PageContent
 							// Looks the best if we have both checks
 							isLoading={!hasFinishedResolution || loading}
