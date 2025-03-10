@@ -22,4 +22,3 @@ export { default as GeneratedPageInfoTipCard } from './generated-page-infotip-ca
 export { default as PositionSettingsWrapper } from './position-settings-wrapper';
 export { default as ConfirmDialog } from './confirm-dialog';
 export { default as UrlMismatchModal } from './url-mismatch-modal';
-export { default as UrlMismatchNotice } from './url-mismatch-notice';
