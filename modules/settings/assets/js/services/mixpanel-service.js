@@ -67,4 +67,7 @@ export const eventNames = {
 	statementPageCreated: 'statement_page_created',
 	statementPageSelected: 'statement_page_selected',
 	statementFlowSelected: 'statement_flow_selected',
+	upgradeButtonClicked: 'upgrade_button_clicked',
+	popupButtonClicked: 'popup_button_clicked',
+	filterSelected: 'filter_selected',
 };
