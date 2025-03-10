@@ -1,10 +1,8 @@
 import { InfoCircleIcon } from '@elementor/icons';
-import {
-	Accordion,
-	AccordionDetails,
-	AccordionSummary,
-	AccordionSummaryIcon,
-} from '@elementor/ui';
+import Accordion from '@elementor/ui/Accordion';
+import AccordionDetails from '@elementor/ui/AccordionDetails';
+import AccordionSummary from '@elementor/ui/AccordionSummary';
+import AccordionSummaryIcon from '@elementor/ui/AccordionSummaryIcon';
 import Box from '@elementor/ui/Box';
 import FormLabel from '@elementor/ui/FormLabel';
 import Infotip from '@elementor/ui/Infotip';

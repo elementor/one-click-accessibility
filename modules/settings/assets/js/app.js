@@ -8,6 +8,7 @@ import {
 	Notifications,
 	MenuItems,
 	PostConnectModal,
+	UrlMismatchModal,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
@@ -20,25 +21,10 @@ import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
 
-const StyledContainer = styled(Box)`
-	width: 100%;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: start;
-`;
-
-const StyledGrid = styled(Grid)`
-	height: 100%;
-
-	display: flex;
-	flex-direction: row;
-`;
-
 const App = () => {
 	const { hasFinishedResolution, loading } = useSavedSettings();
 
-	const { isConnected, isRTL, closePostConnectModal } =
+	const { isConnected, isRTL, closePostConnectModal, isUrlMismatch } =
 		usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
@@ -59,8 +45,11 @@ const App = () => {
 	return (
 		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
-				{isConnected !== undefined && !isConnected && <ConnectModal />}
+				{isConnected !== undefined && !isUrlMismatch && !isConnected && (
+					<ConnectModal />
+				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
+				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
 
 				<StyledGrid>
 					<Sidebar />
@@ -81,3 +70,18 @@ const App = () => {
 };
 
 export default App;
+
+const StyledContainer = styled(Box)`
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+`;
+
+const StyledGrid = styled(Grid)`
+	height: 100%;
+
+	display: flex;
+	flex-direction: row;
+`;

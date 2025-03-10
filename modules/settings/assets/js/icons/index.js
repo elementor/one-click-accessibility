@@ -1,4 +1,4 @@
-export { default as ElementorLogo } from './elementor-logo';
+export { default as AppLogo } from './app-logo';
 export { default as SquareRoundedChevronsLeft } from './square-rounded-chevrons-left';
 export { default as WidgetIcon } from './widget';
 export { default as UserArrowIcon } from './user-arrow';
