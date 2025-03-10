@@ -56,54 +56,34 @@ const UrlMismatchModal = () => {
 				title={__('Fix mismatched URL', 'pojo-accessibility')}
 				showCancelButton={false}
 				showApproveButton={false}
-				maxWidth="md"
+				maxWidth="lg"
 				fullWidth={true}
 				dividers={true}
+				sx={{ marginLeft: '10%' }}
 			>
-				<Grid
-					container
-					flexDirection="column"
-					justifyContent="center"
-					alignItems="center"
-				>
-					<Typography
-						variant="h4"
-						color="text.primary"
-						marginTop={5}
-						marginBottom={1}
-					>
+				<StyledGridContainer>
+					<StyledTitle variant="h4">
 						{__('Select the case that applies to you', 'pojo-accessibility')}
-					</Typography>
-					<Typography
-						variant="body1"
-						color="text.secondary"
-						marginBottom={1}
-						textAlign="center"
-						width="70%"
-					>
+					</StyledTitle>
+					<StyledSubtitle variant="body1">
 						{__(
 							'Your license key does not match your current domain, causing a mismatch. This is most likely due to a change in the domain URL of your site.',
 							'pojo-accessibility',
 						)}
-					</Typography>
+					</StyledSubtitle>
 
-					<Grid
-						container
-						justifyContent="space-between"
-						marginTop={10}
-						marginBottom={10}
-					>
+					<StyledGridContainer2>
 						<StyledCard>
-							<StyledTitle variant="h6" marginBottom={3}>
+							<StyledCardTitle variant="h6" marginBottom={3}>
 								{__('Are you updating the URL?', 'pojo-accessibility')}
-							</StyledTitle>
+							</StyledCardTitle>
 
-							<StyledSubtitle variant="body1" marginBottom={3}>
+							<StyledCardSubtitle variant="body1" marginBottom={3}>
 								{__(
 									'Choose this option if you want to just switch to the new URL, for the same site, and keep all previous history.',
 									'pojo-accessibility',
 								)}
-							</StyledSubtitle>
+							</StyledCardSubtitle>
 
 							<Button variant="text" onClick={onUpdateConnectUrl} color="info">
 								{__('Update connected URL', 'pojo-accessibility')}
@@ -111,23 +91,23 @@ const UrlMismatchModal = () => {
 						</StyledCard>
 
 						<StyledCard>
-							<StyledTitle variant="h6" marginBottom={3}>
+							<StyledCardTitle variant="h6" marginBottom={3}>
 								{__('Are you creating a new site?', 'pojo-accessibility')}
-							</StyledTitle>
+							</StyledCardTitle>
 
-							<StyledSubtitle variant="body1" marginBottom={3}>
+							<StyledCardSubtitle variant="body1" marginBottom={3}>
 								{__(
 									'Choose this if you are connecting the plugin to a new site. This will delete all previous history.',
 									'pojo-accessibility',
 								)}
-							</StyledSubtitle>
+							</StyledCardSubtitle>
 
 							<Button variant="text" onClick={showConfirmation} color="info">
 								{__('Connect as a new site', 'pojo-accessibility')}
 							</Button>
 						</StyledCard>
-					</Grid>
-				</Grid>
+					</StyledGridContainer2>
+				</StyledGridContainer>
 			</ConfirmDialog>
 
 			{showNewConnectionConfirmation && (
@@ -177,12 +157,41 @@ const StyledCard = styled(Box)`
 	}
 `;
 
-const StyledTitle = styled(Typography)`
+const StyledCardTitle = styled(Typography)`
 	font-size: 16px;
 	color: ${({ theme }) => theme.palette.text.primary};
 `;
 
-const StyledSubtitle = styled(Typography)`
+const StyledCardSubtitle = styled(Typography)`
 	font-size: 14px;
 	color: ${({ theme }) => theme.palette.text.secondary};
+`;
+
+const StyledGridContainer = styled(Grid)`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-left: ${({ theme }) => theme.spacing(8)};
+	padding-right: ${({ theme }) => theme.spacing(8)};
+`;
+
+const StyledGridContainer2 = styled(Grid)`
+	justify-content: space-between;
+	display: flex;
+	margin-top: 80px;
+	margin-bottom: 80px;
+`;
+
+const StyledTitle = styled(Typography)`
+	color: ${({ theme }) => theme.palette.text.primary};
+	margin-top: ${({ theme }) => theme.spacing(5)};
+	margin-bottom: ${({ theme }) => theme.spacing(1)};
+`;
+
+const StyledSubtitle = styled(Typography)`
+	color: ${({ theme }) => theme.palette.text.secondary};
+	margin-bottom: ${({ theme }) => theme.spacing(1)};
+	text-align: center;
+	width: 70%;
 `;
