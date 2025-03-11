@@ -133,7 +133,7 @@ class Module extends Module_Base {
         }
 
         // Check if the feature is available in the plan
-        forEach( $features as $feature ) {
+        foreach( $features as $feature ) {
             $feature_name = str_replace( '_', '-', $feature );
 
             // Assuming feature does not exist in the plan.
