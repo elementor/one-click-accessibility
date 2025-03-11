@@ -148,6 +148,8 @@ class Module extends Module_Base {
                     $widget_settings[$feature_name]['enabled'] = false;
                     Settings::set( Settings::WIDGET_MENU_SETTINGS, $widget_settings );
                 }
+            } else {
+                continue;
             }
 
             $feature_in_widget_settings = $widget_settings[$feature_name]['enabled'];
