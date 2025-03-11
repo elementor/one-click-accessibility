@@ -74,7 +74,7 @@ const UrlMismatchModal = () => {
 						)}
 					</StyledSubtitle>
 
-					<StyledGridContainer2>
+					<StyledGridContainerContent>
 						<StyledCard>
 							<StyledCardTitle variant="h6" marginBottom={3}>
 								{__('Update the connected URL', 'pojo-accessibility')}
@@ -108,7 +108,7 @@ const UrlMismatchModal = () => {
 								{__('Connect new site', 'pojo-accessibility')}
 							</Button>
 						</StyledCard>
-					</StyledGridContainer2>
+					</StyledGridContainerContent>
 				</StyledGridContainer>
 			</StyledConfirmDialog>
 
@@ -178,7 +178,7 @@ const StyledGridContainer = styled(Grid)`
 	padding-right: ${({ theme }) => theme.spacing(8)};
 `;
 
-const StyledGridContainer2 = styled(Grid)`
+const StyledGridContainerContent = styled(Grid)`
 	justify-content: space-between;
 	display: flex;
 	margin-top: 80px;
