@@ -62,7 +62,10 @@ const UrlMismatchModal = () => {
 			>
 				<StyledGridContainer>
 					<StyledTitle variant="h4">
-						{__('Select the case that applies to you', 'pojo-accessibility')}
+						{__(
+							'Choose how to reconnect Ally to your site',
+							'pojo-accessibility',
+						)}
 					</StyledTitle>
 					<StyledSubtitle variant="body1">
 						{__(
@@ -74,35 +77,35 @@ const UrlMismatchModal = () => {
 					<StyledGridContainer2>
 						<StyledCard>
 							<StyledCardTitle variant="h6" marginBottom={3}>
-								{__('Are you updating the URL?', 'pojo-accessibility')}
+								{__('Update the connected URL', 'pojo-accessibility')}
 							</StyledCardTitle>
 
 							<StyledCardSubtitle variant="body1" marginBottom={3}>
 								{__(
-									'Choose this option if you want to just switch to the new URL, for the same site, and keep all previous history.',
+									'For cases where you’re moving the same site from staging to production or changing from HTTP to HTTPs.',
 									'pojo-accessibility',
 								)}
 							</StyledCardSubtitle>
 
 							<Button variant="text" onClick={onUpdateConnectUrl} color="info">
-								{__('Update connected URL', 'pojo-accessibility')}
+								{__('Update URL', 'pojo-accessibility')}
 							</Button>
 						</StyledCard>
 
 						<StyledCard>
 							<StyledCardTitle variant="h6" marginBottom={3}>
-								{__('Are you creating a new site?', 'pojo-accessibility')}
+								{__('Connect the URL as a new site', 'pojo-accessibility')}
 							</StyledCardTitle>
 
 							<StyledCardSubtitle variant="body1" marginBottom={3}>
 								{__(
-									'Choose this if you are connecting the plugin to a new site. This will delete all previous history.',
+									'For when you want to connect the plugin to a new site entirely—deleting the previous history.',
 									'pojo-accessibility',
 								)}
 							</StyledCardSubtitle>
 
 							<Button variant="text" onClick={showConfirmation} color="info">
-								{__('Connect as a new site', 'pojo-accessibility')}
+								{__('Connect new site', 'pojo-accessibility')}
 							</Button>
 						</StyledCard>
 					</StyledGridContainer2>
