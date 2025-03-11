@@ -9,3 +9,4 @@ export { useNotificationSettings } from './use-notifications';
 export { useSavedSettings } from './use-saved-settings';
 export { useIconPosition } from './use-icon-positioon';
 export { useIconDesign } from './use-icon-design';
+export { useToggleSetting } from './use-toggle-settings';
