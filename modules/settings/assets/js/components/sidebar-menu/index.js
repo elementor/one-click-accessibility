@@ -13,8 +13,16 @@ import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState, Fragment } from '@wordpress/element';
 
 const SidebarMenu = () => {
-	const { openSidebar, selectedMenu, setSelectedMenu } = useSettings();
+	const { openSidebar, selectedMenu, setSelectedMenu, planData } =
+		useSettings();
 	const [expandedItems, setExpandedItems] = useState({ widget: true });
+	const proFeatures = planData?.plan?.features
+		? Object.keys(planData.plan.features).filter(
+				(key) =>
+					Boolean(planData.plan.features[key]) &&
+					planData.plan.features[key] !== 'false',
+			)
+		: null;
 
 	const handleSelectedMenu = (itemName, parentKey, childKey) => {
 		if (childKey) {
@@ -39,6 +47,9 @@ const SidebarMenu = () => {
 			buttonName: itemName,
 		});
 	};
+
+	const showProIcon = (item) =>
+		proFeatures && item.proIcon && !proFeatures.includes(item.proIcon);
 
 	return (
 		<List sx={{ paddingTop: 2.5 }}>
@@ -76,7 +87,7 @@ const SidebarMenu = () => {
 									/>
 								</ListItemIcon>
 							)}
-							{item.proIcon && (
+							{showProIcon(item) && (
 								<ListItemIcon sx={{ marginLeft: 2 }}>
 									<StyledChip
 										color="accent"
