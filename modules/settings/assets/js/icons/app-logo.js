@@ -1,8 +1,8 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-const ElementorLogo = () => {
+const AppLogo = () => {
 	return (
-		<SvgIcon viewBox="0 0 24 24" width="20" height="20" fill="none">
+		<SvgIcon viewBox="0 0 20 20" width="24" height="24" fill="none">
 			<path
 				fill="#000"
 				d="M0 9.998a9.994 9.994 0 0 0 6.171 9.237 9.993 9.993 0 0 0 7.654 0 10.005 10.005 0 0 0 3.244-2.166 10.005 10.005 0 0 0 0-14.142 10.005 10.005 0 0 0-14.142 0A10.004 10.004 0 0 0 0 9.998Z"
@@ -26,4 +26,4 @@ const ElementorLogo = () => {
 	);
 };
 
-export default ElementorLogo;
+export default AppLogo;
