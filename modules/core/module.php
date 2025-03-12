@@ -17,29 +17,26 @@ class Module extends Module_Base {
 	public static function component_list() : array {
 		return [
 			'Pointers',
+			'Notices',
+			'Skip_Link',
+			'Revert_To_Legacy',
 		];
 	}
 
-	public function add_plugin_links( $links, $plugin_file_name ): array {
+	public function add_plugin_links( $links, $plugin_file_name ) : array {
 		if ( ! str_ends_with( $plugin_file_name, '/pojo-accessibility.php' ) ) {
 			return (array) $links;
 		}
 
 		$custom_links = [
-			'dashboard' => sprintf(
+			'settings' => sprintf(
 				'<a href="%s">%s</a>',
 				admin_url( 'admin.php?page=' . Settings::SETTING_BASE_SLUG ),
-				esc_html__( 'Dashboard', 'pojo-accessibility' )
+				esc_html__( 'Settings', 'pojo-accessibility' )
 			),
 		];
 
-		if ( Connect::is_connected() ) {
-			$custom_links['upgrade'] = sprintf(
-				'<a href="%s" style="color: #524CFF; font-weight: 700;" target="_blank" rel="noopener noreferrer">%s</a>',
-				'https://go.elementor.com/sm-panel-wp-dash-upgrade-plugins/',
-				esc_html__( 'Upgrade', 'pojo-accessibility' )
-			);
-		} else {
+		if ( ! Connect::is_connected() ) {
 			$custom_links['connect'] = sprintf(
 				'<a href="%s" style="color: #524CFF; font-weight: 700;">%s</a>',
 				admin_url( 'admin.php?page=' . Settings::SETTING_BASE_SLUG ),
@@ -50,12 +47,25 @@ class Module extends Module_Base {
 		return array_merge( $custom_links, $links );
 	}
 
+	public static function is_active() : bool {
+		return true;
+	}
+
+    public function enqueue_scripts() : void {
+        wp_enqueue_style(
+            'ea11y-global-style',
+            EA11Y_ASSETS_URL . 'css/admin.css',
+            [],
+            EA11Y_VERSION
+        );
+    }
+
 	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
 		$this->register_components();
-
-		add_filter( 'plugin_action_links', [ $this, 'add_plugin_links' ], 10, 2 );
+        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+        add_filter( 'plugin_action_links', [ $this, 'add_plugin_links' ], 10, 2 );
 	}
 }

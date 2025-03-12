@@ -1,14 +1,19 @@
 <?php
-
 namespace EA11y\Modules\Settings;
 
-use EA11y\Classes\Module_Base;
-use EA11y\Classes\Utils;
+use EA11y\Classes\{
+	Module_Base,
+	Utils,
+	Logger
+};
+use EA11y\Modules\Connect\Classes\{
+	Config, Data
+};
+
+use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
-use EA11y\Modules\Connect\Classes\Config;
-use EA11y\Modules\Connect\Classes\Data;
-use EA11y\Classes\Logger;
 use EA11y\Modules\Settings\Classes\Settings;
+use EA11y\Modules\Widget\Module as WidgetModule;
 use Throwable;
 use Exception;
 
@@ -19,8 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 	const SETTING_PREFIX     = 'ea11y_';
 	const SETTING_GROUP      = 'ea11y_settings';
-	const SETTING_BASE_SLUG  = 'accessibility-settings-2'; //TODO: Change this later
+	const SETTING_BASE_SLUG  = 'accessibility-settings'; //TODO: Change this later
 	const SETTING_CAPABILITY = 'manage_options';
+	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
 
 	public function get_name(): string {
 		return 'settings';
@@ -45,32 +51,42 @@ class Module extends Module_Base {
 
 	public function register_page() : void {
 		add_menu_page(
-			__( 'Accessibility New', 'pojo-accessibility' ), //TODO: Change this later
-			__( 'Accessibility New', 'pojo-accessibility' ),
+			__( 'Ally - Web Accessibility', 'pojo-accessibility' ),
+			__( 'Ally', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			'dashicons-universal-access-alt',
+			$this->get_menu_icon(),
 		);
+	}
 
-		add_submenu_page(
-			self::SETTING_BASE_SLUG,
-			__( 'Accessibility Settings', 'pojo-accessibility' ),
-			__( 'Settings', 'pojo-accessibility' ),
-			self::SETTING_CAPABILITY,
-			self::SETTING_BASE_SLUG,
-			[ $this, 'render_app' ],
-		);
+	private function get_menu_icon() : string {
+		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 383 383">
+                    <path fill="#a7aaad" d="M191.47,0C85.73,0,0,85.73,0,191.47s85.73,191.47,191.47,191.47,191.47-85.73,191.47-191.47S297.22,0,191.47,0ZM191.47,64.82c15.33,0,27.75,12.42,27.75,27.75s-12.42,27.75-27.75,27.75-27.75-12.42-27.75-27.75,12.42-27.75,27.75-27.75ZM296.71,150.59l-51.42,9.25c-9.25.3-16.6,7.89-16.6,17.14l5.14,126.4c0,8.16-6.6,14.76-14.76,14.76-7.72,0-14.12-5.96-14.72-13.65l-4.65-61.58c-.3-3.88-3.54-6.88-7.42-6.88s-7.12,2.99-7.42,6.88l-4.65,61.58c-.57,7.69-7,13.65-14.71,13.65-8.16,0-14.77-6.6-14.77-14.76l5.52-137.01,40.04-2.92-63.61-6.75-46.45-6.13c-10.16-1.16-15.66-7-15.66-16.12s7.57-16.42,16.67-16.12l61.85,9.72c28.07,2.77,55.77,2.84,83.1,0l63.51-9.74v.02c9.1-.3,16.64,7.02,16.64,16.15s-5.42,14.32-15.65,16.12Z"/>
+                </svg>';
+
+		return 'data:image/svg+xml;base64,' . base64_encode( $svg );
 	}
 
 	/**
 	 * Enqueue Scripts and Styles
 	 */
 	public function enqueue_scripts( $hook ) : void {
-		//TODO: Update page name
-		if ( 'toplevel_page_accessibility-settings-2' !== $hook ) {
+		if ( self::SETTING_PAGE_SLUG !== $hook ) {
 			return;
 		}
+
+		if ( version_compare( get_bloginfo( 'version' ), '6.6', '<' ) ) {
+			wp_register_script(
+				'react-jsx-runtime',
+				EA11Y_ASSETS_URL . 'lib/react-jsx-runtime.js',
+				[ 'react' ],
+				'18.3.0',
+				true
+			);
+		}
+
+		self::refresh_plan_data();
 
 		wp_enqueue_style(
 			'ea11y-admin-fonts',
@@ -84,8 +100,23 @@ class Module extends Module_Base {
 		wp_localize_script(
 			'admin',
 			'ea11ySettingsData',
-			[ 'wpRestNonce' => wp_create_nonce( 'wp_rest' ) ]
+			[
+				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
+				'planData' => Settings::get( Settings::PLAN_DATA ),
+				'pluginEnv' => self::get_plugin_env(),
+				'widgetUrl' => WidgetModule::get_widget_url(),
+				'adminUrl' => admin_url(),
+                'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+			]
 		);
+	}
+
+	/**
+	 * Get Mixpanel project Token
+	 * @return string
+	 */
+	private static function get_plugin_env() : string {
+		return apply_filters( 'ea11y_plugin_env', 'production' );
 	}
 
 	public static function routes_list() : array {
@@ -99,11 +130,11 @@ class Module extends Module_Base {
 	 * @return array
 	 */
 	public static function get_plugin_settings(): array {
-
 		return [
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
+            'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 		];
 	}
 
@@ -115,16 +146,40 @@ class Module extends Module_Base {
 			return;
 		}
 
+		self::register_site_with_data();
+	}
+
+	/**
+	 * Register the website and save the plan data.
+	 * @return void
+	 */
+	public static function register_site_with_data() : void {
 		$register_response = Utils::get_api_client()->make_request(
 			'POST',
 			'site/register'
 		);
 
+		if ( is_wp_error( $register_response ) ) {
+			Logger::error( esc_html( $register_response->get_error_message() ) );
+		} else {
+			self::save_plan_data( $register_response );
+		}
+	}
+
+	/**
+	 * Save plan data to plan_data option
+	 * @param $register_response
+	 *
+	 * @return void
+	 */
+	public static function save_plan_data( $register_response ) : void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
-			Data::set_subscription_id( $register_response->id );
-			update_option( Settings::PLAN_DATA, $register_response );
+			$decoded_response = $register_response;
+			Data::set_subscription_id( $decoded_response->plan->subscription_id );
+			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
-			$this->set_default_settings();
+			self::set_default_settings();
+			self::set_plan_data_refresh_transient();
 		} else {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
 			update_option( Settings::IS_VALID_PLAN_DATA, false );
@@ -132,66 +187,140 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * Refresh the plan data after 12 hours
+	 * @return void
+	 */
+	public static function refresh_plan_data() : void {
+
+		if ( ! Connect::is_connected() ) {
+				return;
+		}
+
+		// Refresh only if refresh transient is expired
+		if ( self::get_plan_data_refresh_transient() ) {
+			return;
+		}
+
+		$plan_data = Settings::get( Settings::PLAN_DATA );
+
+		// Return if plan data does not have public_api_key
+		if ( ! $plan_data->public_api_key ) {
+			Logger::error( 'Cannot refresh the plan data. No public API key found.' );
+			self::register_site_with_data();
+			return;
+		}
+
+		$response = Utils::get_api_client()->make_request(
+			'GET',
+			'site/info',
+			[ 'api_key' => $plan_data->public_api_key ]
+		);
+
+		if ( ! is_wp_error( $response ) ) {
+			Settings::set( Settings::PLAN_DATA, $response );
+			Settings::set( Settings::IS_VALID_PLAN_DATA, true );
+			self::set_plan_data_refresh_transient();
+		} else {
+			Logger::error( esc_html( $response->get_error_message() ) );
+			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
+		}
+	}
+
+	/**
 	 * Set default values after successful registration.
 	 * @return void
 	 */
-	private function set_default_settings() : void {
+	private static function set_default_settings() : void {
 		$widget_menu_settings = [
-			'content-adjustments' => [
-				'text-size' => true,
-				'line-height' => true,
-				'align-text' => true,
-				'readable-font' => true,
+			'bigger-text' => [
+				'enabled' => true,
 			],
-			'color-adjustments' => [
-				'greyscale' => true,
-				'contrast' => true,
+			'bigger-line-height' => [
+				'enabled' => true,
 			],
-			'orientation-adjustments' => [
-				'page-structure' => true,
-				'site-map' => true,
-				'reading-panel' => true,
-				'hide-images' => true,
-				'pause-animations' => true,
-				'highlight-links' => true,
+			'text-align' => [
+				'enabled' => true,
+			],
+			'readable-font' => [
+				'enabled' => true,
+			],
+			'grayscale' => [
+				'enabled' => true,
+			],
+			'contrast' => [
+				'enabled' => true,
+			],
+			'page-structure' => [
+				'enabled' => true,
+			],
+			'sitemap' => [
+				'enabled' => false,
+				'url' => home_url( '/wp-sitemap.xml' ),
+			],
+			'reading-mask' => [
+				'enabled' => true,
+			],
+			'hide-images' => [
+				'enabled' => true,
+			],
+			'pause-animations' => [
+				'enabled' => true,
+			],
+			'highlight-links' => [
+				'enabled' => true,
+			],
+			'focus-outline' => [
+				'enabled' => true,
 			],
 		];
 
 		$widget_icon_settings = [
-			'desktop' => [
-				'hidden' => false,
-				'enableExactPosition' => false,
-				'exactPosition' => [
-					'horizontal' => [
-						'direction' => 'to-left',
-						'value' => 10,
-						'unit' => 'px',
-					],
-					'vertical' => [
-						'direction' => 'higher',
-						'value' => 10,
-						'unit' => 'px',
-					],
-				],
-				'position' => 'top-left',
+			'style' => [
+				'icon' => 'person',
+				'size' => 'medium',
+				'color' => '#2563eb',
 			],
-			'mobile' => [
-				'hidden' => false,
-				'enableExactPosition' => false,
-				'exactPosition' => [
-					'horizontal' => [
-						'direction' => 'to-right',
-						'value' => 10,
-						'unit' => 'px',
+			'position' => [
+				'desktop' => [
+					'hidden' => false,
+					'enableExactPosition' => false,
+					'exactPosition' => [
+						'horizontal' => [
+							'direction' => 'right',
+							'value' => 10,
+							'unit' => 'px',
+						],
+						'vertical' => [
+							'direction' => 'bottom',
+							'value' => 10,
+							'unit' => 'px',
+						],
 					],
-					'vertical' => [
-						'direction' => 'lower',
-						'value' => 10,
-						'unit' => 'px',
-					],
+					'position' => is_rtl() ? 'bottom-left' : 'bottom-right',
 				],
-				'position' => 'top-left',
+				'mobile' => [
+					'hidden' => false,
+					'enableExactPosition' => false,
+					'exactPosition' => [
+						'horizontal' => [
+							'direction' => 'right',
+							'value' => 10,
+							'unit' => 'px',
+						],
+						'vertical' => [
+							'direction' => 'bottom',
+							'value' => 10,
+							'unit' => 'px',
+						],
+					],
+					'position' => is_rtl() ? 'bottom-left' : 'bottom-right',
+				],
 			],
+		];
+
+		$skip_to_content_setting = [
+			'enabled' => true,
+			'anchor' => '#content',
 		];
 
 		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
@@ -200,6 +329,10 @@ class Module extends Module_Base {
 
 		if ( ! get_option( Settings::WIDGET_ICON_SETTINGS ) ) {
 			update_option( Settings::WIDGET_ICON_SETTINGS, $widget_icon_settings );
+		}
+
+		if ( ! get_option( Settings::SKIP_TO_CONTENT ) ) {
+			update_option( Settings::SKIP_TO_CONTENT, $skip_to_content_setting );
 		}
 	}
 
@@ -210,8 +343,7 @@ class Module extends Module_Base {
 	 * @return void
 	 */
 	public function check_plan_data( $current_screen ) : void {
-		//TODO: Update page name
-		if ( 'toplevel_page_accessibility-settings-2' !== $current_screen->base ) {
+		if ( self::SETTING_PAGE_SLUG !== $current_screen->base ) {
 			return;
 		}
 
@@ -221,15 +353,20 @@ class Module extends Module_Base {
 				'site/register'
 			);
 
-			if ( $register_response && ! is_wp_error( $register_response ) ) {
-				Data::set_subscription_id( $register_response->id );
-				update_option( Settings::PLAN_DATA, $register_response );
-				update_option( Settings::IS_VALID_PLAN_DATA, true );
-			} else {
-				Logger::error( esc_html( $register_response->get_error_message() ) );
-				update_option( Settings::IS_VALID_PLAN_DATA, false );
-			}
+			self::save_plan_data( $register_response );
+			self::set_plan_data_refresh_transient();
 		}
+	}
+
+	public function remove_admin_footer_text( $text ) {
+		$screen = get_current_screen();
+
+		if ( self::SETTING_PAGE_SLUG === $screen->base ) {
+			remove_filter( 'update_footer', 'core_update_footer' );
+			return '';
+		}
+
+		return $text;
 	}
 
 	/**
@@ -260,7 +397,25 @@ class Module extends Module_Base {
 					],
 				],
 			],
+			'skip_to_content_settings' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
+			],
 			'plan_data' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
+			],
+			'accessibility_statement_data' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [
@@ -275,6 +430,9 @@ class Module extends Module_Base {
 			'hide_minimum_active_options_alert' => [
 				'type' => 'boolean',
 			],
+			'show_accessibility_generated_page_infotip' => [
+				'type' => 'boolean',
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {
@@ -285,14 +443,24 @@ class Module extends Module_Base {
 		}
 	}
 
+	public static function set_plan_data_refresh_transient(): void {
+		set_transient( Settings::PLAN_DATA . '_refresh', true, HOUR_IN_SECONDS * 12 );
+	}
+
+	public static function get_plan_data_refresh_transient(): bool {
+		return get_transient( Settings::PLAN_DATA . '_refresh' );
+	}
+
 	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
 		$this->register_routes();
 		$this->register_components( self::component_list() );
+
+		add_filter( 'admin_footer_text', [ $this, 'remove_admin_footer_text' ] );
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 9 );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );

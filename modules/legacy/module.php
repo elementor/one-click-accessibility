@@ -5,6 +5,8 @@ namespace EA11y\Modules\Legacy;
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Legacy\Components\Customizer;
 use EA11y\Modules\Legacy\Components\Settings;
+use EA11y\Modules\Legacy\Components\Upgrade;
+use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,6 +24,7 @@ class Module extends Module_Base {
 			'Customizer',
 			'Settings',
 			'Admin',
+			'Upgrade',
 		];
 	}
 
@@ -54,6 +57,16 @@ class Module extends Module_Base {
 		 * @var Settings $settings
 		 */
 		return Plugin::instance()->modules_manager->get_modules( 'Legacy' )->get_component( 'Settings' );
+	}
+
+	public static function is_active(): bool {
+		if (
+			( Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() && ! Connect::is_connected() )
+			|| Upgrade::is_reverted()
+		) {
+			return true;
+		}
+		return false;
 	}
 
 	/**

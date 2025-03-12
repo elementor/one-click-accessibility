@@ -1,34 +1,62 @@
-import { CardActions } from '@elementor/ui';
 import Alert from '@elementor/ui/Alert';
+import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
+import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Divider from '@elementor/ui/Divider';
+import FormLabel from '@elementor/ui/FormLabel';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
+import ListItemSecondaryAction from '@elementor/ui/ListItemSecondaryAction';
 import ListItemText from '@elementor/ui/ListItemText';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
+import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings, useStorage } from '@ea11y/hooks';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MENU_SETTINGS } from '../constants/menu-settings';
+import { validateUrl } from '../utils';
 
-// Customization for the WP admin global CSS.
-const StyledSwitch = styled(Switch)(() => ({
-	input: {
-		height: '56px',
-	},
-}));
+const StyledSwitch = styled(Switch)`
+	input {
+		height: 56px !important;
+	}
+`;
+
+const StyledCardContent = styled(CardContent)`
+	height: 55vh;
+	overflow: auto;
+	margin-bottom: 61.5px;
+	padding: 0 ${({ theme }) => theme.spacing(2)};
+`;
+
+const StyledCardActions = styled(CardActions)`
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+
+	padding: 0;
+	background: ${({ theme }) => theme.palette.background.paper};
+
+	& .MuiBox-root {
+		padding: ${({ theme }) => theme.spacing(1.5)}
+			${({ theme }) => theme.spacing(2)};
+	}
+`;
 
 const MenuSettings = () => {
 	const {
 		widgetMenuSettings,
 		setWidgetMenuSettings,
 		setHasChanges,
+		hasError,
+		setHasError,
 		hideMinimumOptionAlert,
 		setHideMinimumOptionAlert,
 	} = useSettings();
@@ -40,44 +68,55 @@ const MenuSettings = () => {
 			setDisableOptions(true);
 		} else {
 			setDisableOptions(false);
+
 			save({ a11y_hide_minimum_active_options_alert: false }).then(() => {
 				setHideMinimumOptionAlert(false);
 			});
 		}
 	}, [widgetMenuSettings]);
-	// Function to toggle the value of a setting
+
 	const toggleSetting = (category, option) => {
 		setWidgetMenuSettings((prevSettings) => {
 			const newSettings = {
 				...prevSettings,
-				[category]: {
-					...prevSettings[category],
-					[option]: !prevSettings[category][option],
+				[option]: {
+					...prevSettings[option],
+					enabled: !prevSettings[option]?.enabled,
 				},
 			};
 
-			setHasChanges(true); // Mark as changed
+			if (option === 'sitemap') {
+				setHasError({
+					...hasError,
+					sitemap: !prevSettings[option]?.enabled
+						? !validateUrl(prevSettings[option]?.url)
+						: false,
+				});
+			}
+
+			setHasChanges(true);
+
+			if (window?.ea11yWidget?.toolsSettings && window?.ea11yWidget?.widget) {
+				window.ea11yWidget.toolsSettings = newSettings;
+				window?.ea11yWidget?.widget.updateState();
+			}
+
+			if (prevSettings[option]) {
+				mixpanelService.sendEvent(eventNames.toggleClicked, {
+					state: prevSettings[option]?.enabled ? 'off' : 'on',
+					type: option,
+				});
+			}
+
 			return newSettings;
 		});
 	};
 
-	// Function to check if at least two options are enabled
 	const areAtLeastTwoOptionsEnabled = (settings) => {
-		let enabledCount = 0;
-
-		// Iterate through each category in settings
-		for (const category in settings) {
-			if (settings.hasOwnProperty(category)) {
-				// Count enabled options in the current category
-				for (const option in settings[category]) {
-					if (settings[category][option]) {
-						enabledCount++;
-					}
-				}
-			}
-		}
-
-		return enabledCount > 2; // Return true if at least two options are enabled
+		const enabled = Object.keys(settings)?.filter(
+			(key) => settings[key].enabled,
+		);
+		return enabled.length > 2;
 	};
 
 	const handleCloseNotification = () => {
@@ -85,83 +124,98 @@ const MenuSettings = () => {
 			setHideMinimumOptionAlert(true);
 		});
 	};
+
+	const sectionsCount = Object.entries(MENU_SETTINGS).length;
+
 	return (
 		<Card variant="outlined">
 			<CardHeader
 				title={__('Feature Menu', 'pojo-accessibility')}
-				subheader={__(
-					'Choose which accessibility features and capabilities you want to include.',
-					'pojo-accessibility',
-				)}
+				subheader={
+					<Typography variant="body2">
+						{__(
+							'Choose which accessibility features and capabilities you want to include.',
+							'pojo-accessibility',
+						)}
+					</Typography>
+				}
 			/>
+
 			{disableOptions && !hideMinimumOptionAlert && (
 				<Alert severity="info" sx={{ m: 2 }} onClose={handleCloseNotification}>
 					{__('At least two option must remain active', 'pojo-accessibility')}
 				</Alert>
 			)}
-			<CardContent
-				sx={{ height: '50vh', overflow: 'auto', marginBottom: '100px' }}
-			>
-				<List>
-					{Object.entries(MENU_SETTINGS).map(([parentKey, parentItem]) => {
+
+			<StyledCardContent>
+				<List as="div">
+					{Object.entries(MENU_SETTINGS).map(([parentKey, parentItem], i) => {
 						return (
-							<div key={parentKey}>
-								<ListItem disableGutters>
+							<Box key={parentKey}>
+								<ListItem as="div" disableGutters>
 									<ListItemText>
 										<Typography variant="subtitle2">
 											{parentItem.title}
 										</Typography>
 									</ListItemText>
 								</ListItem>
+
 								{parentItem.options &&
 									Object.entries(parentItem.options).map(
 										([childKey, childValue]) => {
 											return (
 												<ListItem
+													as="div"
 													key={childKey}
 													disableGutters
 													sx={{ p: '4px' }}
-													secondaryAction={
+												>
+													{childKey === 'sitemap' ? (
+														<SitemapSettings sitemap={childValue} />
+													) : (
+														<>
+															<ListItemIcon>{childValue.icon}</ListItemIcon>
+															<FormLabel htmlFor={`ea11y-${childKey}-toggle`}>
+																<ListItemText primary={childValue.title} />
+															</FormLabel>
+														</>
+													)}
+
+													<ListItemSecondaryAction sx={{ top: '19px' }}>
 														<StyledSwitch
 															size="medium"
 															color="info"
 															checked={
-																widgetMenuSettings[parentKey]?.[childKey] ||
-																false
+																widgetMenuSettings[childKey]?.enabled || false
 															}
 															onChange={() =>
 																toggleSetting(parentKey, childKey)
 															}
 															disabled={
-																widgetMenuSettings[parentKey]?.[childKey]
+																widgetMenuSettings[childKey]?.enabled
 																	? disableOptions
 																	: false
 															}
+															inputProps={{
+																id: `ea11y-${childKey}-toggle`,
+															}}
 														/>
-													}
-												>
-													<ListItemIcon>{childValue.icon}</ListItemIcon>
-													<ListItemText primary={childValue.title} />
+													</ListItemSecondaryAction>
 												</ListItem>
 											);
 										},
 									)}
-								<Divider sx={{ my: 2 }} />
-							</div>
+
+								{i + 1 < sectionsCount && <Divider sx={{ my: 2 }} />}
+							</Box>
 						);
 					})}
 				</List>
-			</CardContent>
-			<CardActions
-				sx={{
-					position: 'absolute',
-					bottom: 0,
-					width: '100%',
-					background: 'white',
-				}}
-			>
+			</StyledCardContent>
+
+			<StyledCardActions>
 				<BottomBar />
-			</CardActions>
+			</StyledCardActions>
 		</Card>
 	);
 };

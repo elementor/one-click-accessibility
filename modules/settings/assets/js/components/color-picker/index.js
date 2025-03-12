@@ -4,12 +4,19 @@ import FormLabel from '@elementor/ui/FormLabel';
 import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
+import { useDebouncedCallback } from 'use-debounce';
 import { useIconDesign } from '@ea11y/hooks';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import './style.css';
 
 const ColorPicker = () => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
+	const debounced = useDebouncedCallback((value) => {
+		mixpanelService.sendEvent(eventNames.colorChanged, {
+			color: value,
+		});
+	}, 1000);
 
 	return (
 		<FormControl fullWidth>
@@ -21,7 +28,10 @@ const ColorPicker = () => {
 			<Grid padding={1} border={1} borderColor="divider" borderRadius={1}>
 				<HexColorPicker
 					color={iconDesign.color}
-					onChange={(value) => updateIconDesign({ color: value })}
+					onChange={(value) => {
+						updateIconDesign({ color: value });
+						debounced(value);
+					}}
 					className="widget-settings-color-picker"
 				/>
 				<Grid marginTop={2} display="flex">
@@ -32,8 +42,12 @@ const ColorPicker = () => {
 						marginRight={1}
 					></Box>
 					<HexColorInput
+						aria-label={__('Color', 'pojo-accessibility')}
 						color={iconDesign.color}
-						onChange={(value) => updateIconDesign({ color: value })}
+						onChange={(value) => {
+							updateIconDesign({ color: value });
+							debounced(value);
+						}}
 						style={{
 							width: '100%',
 							border: '1px solid rgba(0, 0, 0, 0.12)',

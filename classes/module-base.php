@@ -2,6 +2,7 @@
 
 namespace EA11y\Classes;
 
+use EA11y\Modules\Legacy\Module as LegacyModule;
 use ReflectionClass;
 use ReflectionException;
 
@@ -101,8 +102,8 @@ abstract class Module_Base {
 	 * @static
 	 * @return bool
 	 */
-	public static function is_active() {
-		return true;
+	public static function is_active(): bool {
+		return ! LegacyModule::is_active();
 	}
 
 	/**

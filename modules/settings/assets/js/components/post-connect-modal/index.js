@@ -2,63 +2,84 @@ import Button from '@elementor/ui/Button';
 import Grid from '@elementor/ui/Grid';
 import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { useModal, useStorage } from '@ea11y/hooks';
 import { PostConnectModalIcon } from '@ea11y/icons';
+import { eventNames, mixpanelService } from '@ea11y/services';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+
+const StyledGrid = styled(Grid)`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	width: 600px;
+	max-width: 100%;
+	height: 530px;
+	background-color: ${({ theme }) => theme.palette.background.paper};
+	padding: 20px;
+	text-align: center;
+	border-radius: 4px;
+`;
 
 const PostConnectModal = () => {
 	const { isOpen, close } = useModal();
 	const { save } = useStorage();
 
+	useEffect(() => {
+		if (isOpen) {
+			mixpanelService.sendEvent(eventNames.connectSuccess);
+		}
+	}, [isOpen]);
+
 	const onClose = async () => {
 		await save({
 			ea11y_close_post_connect_modal: true,
 		});
+
 		close();
 	};
 
 	return (
-		<Modal open={isOpen}>
-			<Grid
-				container
-				direction="column"
-				alignItems="center"
-				justifyContent="center"
-				sx={{
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-					transform: 'translate(-50%, -50%)',
-					width: 600,
-					maxWidth: '100%',
-					height: 530,
-					backgroundColor: 'background.paper',
-					boxShadow: 24,
-					p: '20px',
-					textAlign: 'center',
-					borderRadius: '4px',
-				}}
-			>
+		<Modal
+			open={isOpen}
+			onClose={onClose}
+			aria-labelledby="post-connect-modal-title"
+			aria-describedby="post-connect-modal-description"
+		>
+			<StyledGrid container sx={{ boxShadow: 24 }}>
 				<PostConnectModalIcon />
+
 				<Typography
 					variant="h5"
 					color="text.primary"
 					marginTop={5}
 					marginBottom={1}
+					id="post-connect-modal-title"
 				>
-					{__("You're all set", 'site-mailer')}
+					{__("You're all set", 'pojo-accessibility')}
 				</Typography>
+
 				<Typography
 					variant="body2"
 					sx={{ width: '500px', maxWidth: '100%' }}
 					color="text.primary"
 					marginBottom={5}
+					id="post-connect-modal-description"
 				>
 					{__(
-						'The One Click Accessibility widget is now active and ready to use on your site!',
-						'site-mailer',
+						'Ally - Web Accessibility is now connected and ready to use on your site.',
+						'pojo-accessibility',
 					)}
 				</Typography>
+
 				<Button
 					variant="contained"
 					sx={{ padding: '8px 22px', width: '300px' }}
@@ -67,7 +88,7 @@ const PostConnectModal = () => {
 				>
 					{__('Done', 'pojo-accessibility')}
 				</Button>
-			</Grid>
+			</StyledGrid>
 		</Modal>
 	);
 };

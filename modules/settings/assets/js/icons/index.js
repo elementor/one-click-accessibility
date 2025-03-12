@@ -1,4 +1,4 @@
-export { default as ElementorLogo } from './elementor-logo';
+export { default as AppLogo } from './app-logo';
 export { default as SquareRoundedChevronsLeft } from './square-rounded-chevrons-left';
 export { default as WidgetIcon } from './widget';
 export { default as UserArrowIcon } from './user-arrow';
@@ -19,3 +19,5 @@ export { default as PauseAnimationsIcon } from './pause-animations';
 export { default as ReadableFontIcon } from './readable-font';
 export { default as PostConnectModalIcon } from './post-connect-modal-icon';
 export { default as ConnectModalIcon } from './connect-modal-icon';
+export { default as AccessibilityStatementCreateIcon } from './accessibility-statement-create';
+export { default as AccessibilityStatementExistingIcon } from './accessibility-statement-existing';

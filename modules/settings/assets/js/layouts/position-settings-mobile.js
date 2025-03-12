@@ -2,8 +2,13 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
+import {
+	AlignmentMatrixControl,
+	PositionControl,
+	PositionSettingsWrapper,
+} from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 
 const PositionSettingsMobile = () => {
@@ -11,6 +16,11 @@ const PositionSettingsMobile = () => {
 
 	const toggleVisibility = (device) => {
 		updateIconPosition(device, 'hidden', !iconPosition[device].hidden);
+		mixpanelService.sendEvent(eventNames.toggleClicked, {
+			state: iconPosition[device].hidden ? 'on' : 'off',
+			type: 'Hide on mobile',
+			device,
+		});
 	};
 
 	const toggleExactPosition = (device) => {
@@ -19,6 +29,11 @@ const PositionSettingsMobile = () => {
 			'enableExactPosition',
 			!iconPosition[device].enableExactPosition,
 		);
+		mixpanelService.sendEvent(eventNames.toggleClicked, {
+			state: iconPosition[device].enableExactPosition ? 'on' : 'off',
+			type: 'Exact position',
+			device,
+		});
 	};
 
 	const hideOnMobileLabel = (
@@ -44,12 +59,7 @@ const PositionSettingsMobile = () => {
 				checked={iconPosition.mobile.hidden}
 			/>
 			{!iconPosition.mobile.hidden && (
-				<Box
-					display="grid"
-					gridTemplateColumns="repeat(2,1fr)"
-					gap={5}
-					padding={2}
-				>
+				<PositionSettingsWrapper>
 					<AlignmentMatrixControl mode="mobile" />
 					<Box>
 						<FormControlLabel
@@ -60,6 +70,16 @@ const PositionSettingsMobile = () => {
 							onChange={() => toggleExactPosition('mobile')}
 							checked={iconPosition.mobile?.enableExactPosition}
 						/>
+						<Typography
+							id="ea11y-mobile-position-settings"
+							variant="body2"
+							sx={{ marginTop: 2, marginBottom: 1 }}
+						>
+							{__(
+								'Exact positioning, 5 – 500 px are permitted values:',
+								'pojo-accessibility',
+							)}
+						</Typography>
 						<PositionControl
 							type="horizontal"
 							mode="mobile"
@@ -71,7 +91,7 @@ const PositionSettingsMobile = () => {
 							disabled={!iconPosition.mobile?.enableExactPosition}
 						/>
 					</Box>
-				</Box>
+				</PositionSettingsWrapper>
 			)}
 		</>
 	);

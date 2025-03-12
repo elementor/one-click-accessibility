@@ -2,20 +2,24 @@ import HelpIcon from '@elementor/icons/HelpIcon';
 import AppBar from '@elementor/ui/AppBar';
 import Link from '@elementor/ui/Link';
 import Toolbar from '@elementor/ui/Toolbar';
+import { styled } from '@elementor/ui/styles';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { HELP_LINK } from '../../constants';
 
+const StyledToolbar = styled(Toolbar)`
+	justify-content: end;
+	align-items: center;
+	flex-direction: row;
+	background-color: ${({ theme }) => theme.palette.background.default};
+	gap: 10px;
+	border-bottom: 1px solid ${({ theme }) => theme.palette.divider};
+`;
+
 const AdminTopBar = () => {
-	const toolBarStyle = {
-		justifyContent: 'end',
-		alignItems: 'center',
-		backgroundColor: 'background.default',
-		gap: '10px',
-		borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-	};
 	return (
 		<AppBar position="static">
-			<Toolbar direction="row" sx={toolBarStyle} padding={2}>
+			<StyledToolbar variant="dense">
 				<Link
 					color="secondary"
 					underline="hover"
@@ -23,10 +27,15 @@ const AdminTopBar = () => {
 					target="_blank"
 					sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
 					aria-label={__('Help', 'pojo-accessibility')}
+					onClick={() =>
+						mixpanelService.sendEvent(eventNames.helpButtonClicked, {
+							source: 'Header',
+						})
+					}
 				>
 					<HelpIcon />
 				</Link>
-			</Toolbar>
+			</StyledToolbar>
 		</AppBar>
 	);
 };

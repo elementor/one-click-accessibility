@@ -1,7 +1,18 @@
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
+import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
+
+const StyledContainer = styled(Box)`
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+
+	padding: ${({ theme }) => theme.spacing(2)};
+	border-top: 1px solid ${({ theme }) => theme.palette.divider};
+`;
 
 const BottomBar = () => {
 	const {
@@ -10,58 +21,56 @@ const BottomBar = () => {
 		iconDesign,
 		iconPosition,
 		hasChanges,
+		hasError,
 		setHasChanges,
 	} = useSettings();
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 
 	const saveSettings = async () => {
-		if (selectedMenu.parent === 'widget' && selectedMenu.child === 'menu') {
-			try {
-				await save({
-					ea11y_widget_menu_settings: widgetMenuSettings,
-				});
-				success('Settings saved!');
-				setHasChanges(false);
-			} catch (e) {
-				error('Failed to save settings!');
-			}
-		} else if (
-			selectedMenu.parent === 'widget' &&
-			selectedMenu.child === 'iconSettings'
-		) {
-			try {
-				await save({
-					ea11y_widget_icon_settings: {
-						style: iconDesign,
-						position: iconPosition,
-					},
-				});
+		let savedData = {};
 
-				success('Settings saved!');
-				setHasChanges(false);
-			} catch (e) {
-				error('Failed to save settings!');
-			}
+		if (selectedMenu.parent === 'capabilities') {
+			savedData = {
+				ea11y_widget_menu_settings: widgetMenuSettings,
+			};
+		} else if (selectedMenu.parent === 'design') {
+			savedData = {
+				ea11y_widget_icon_settings: {
+					style: iconDesign,
+					position: iconPosition,
+				},
+			};
+		}
+
+		try {
+			await save(savedData);
+
+			success(__('Settings saved!', 'pojo-accessibility'));
+
+			setHasChanges(false);
+
+			mixpanelService.sendEvent(eventNames.saveButtonClicked, {
+				savedData,
+			});
+		} catch (e) {
+			error(__('Failed to save settings!', 'pojo-accessibility'));
 		}
 	};
+
 	return (
-		<Box
-			display="flex"
-			justifyContent="end"
-			p={2}
-			width="100%"
-			borderTop="1px solid rgba(0, 0, 0, 0.12)"
-		>
+		<StyledContainer>
 			<Button
 				variant="contained"
 				color="info"
 				onClick={saveSettings}
-				disabled={!hasChanges}
+				disabled={
+					!hasChanges || Object.keys(hasError).some((key) => hasError[key])
+				}
 			>
-				{__('Save Changes', 'pojo-accessibility')}
+				{__('Save changes', 'pojo-accessibility')}
 			</Button>
-		</Box>
+		</StyledContainer>
 	);
 };
 

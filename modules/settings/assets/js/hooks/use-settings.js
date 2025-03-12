@@ -12,34 +12,64 @@ export function useSettings() {
 export const SettingsProvider = ({ children }) => {
 	const [openSidebar, setOpenSidebar] = useState(true);
 	const [selectedMenu, setSelectedMenu] = useState({
-		parent: 'widget',
-		child: 'iconSettings',
+		parent: 'design',
 	});
+
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
-		'content-adjustments': {
-			'text-size': true,
-			'line-height': true,
-			'align-text': true,
-			'readable-font': true,
+		'bigger-text': {
+			enabled: true,
 		},
-		'color-adjustments': {
-			greyscale: true,
-			contrast: true,
+		'bigger-line-height': {
+			enabled: true,
 		},
-		'orientation-adjustments': {
-			'page-structure': true,
-			'site-map': true,
-			'reading-panel': true,
-			'hide-images': true,
-			'pause-animations': true,
-			'highlight-links': true,
+		'text-align': {
+			enabled: true,
 		},
+		'readable-font': {
+			enabled: true,
+		},
+		grayscale: {
+			enabled: true,
+		},
+		contrast: {
+			enabled: true,
+		},
+		'page-structure': {
+			enabled: true,
+		},
+		sitemap: {
+			enabled: false,
+		},
+		'reading-mask': {
+			enabled: true,
+		},
+		'hide-images': {
+			enabled: true,
+		},
+		'pause-animations': {
+			enabled: true,
+		},
+		'highlight-links': {
+			enabled: true,
+		},
+		'focus-outline': {
+			enabled: true,
+		},
+	});
+
+	const [skipToContentSettings, setSkipToContentSettings] = useState({
+		enabled: true,
 	});
 
 	const [planData, setPlanData] = useState(null);
 
 	// Track settings changes to enable/disable Save Changes button
 	const [hasChanges, setHasChanges] = useState(false);
+	const [skipToContentHasChanges, setSkipToContentHasChanges] = useState(false);
+	const [hasError, setHasError] = useState({
+		sitemap: false,
+		skipToContent: false,
+	});
 	const [hideMinimumOptionAlert, setHideMinimumOptionAlert] = useState(false);
 	const [iconDesign, setIconDesign] = useState({
 		icon: 'person',
@@ -54,12 +84,12 @@ export const SettingsProvider = ({ children }) => {
 			enableExactPosition: false,
 			exactPosition: {
 				horizontal: {
-					direction: 'to-left',
+					direction: 'left',
 					value: 10,
 					unit: 'px',
 				},
 				vertical: {
-					direction: 'higher',
+					direction: 'top',
 					value: 10,
 					unit: 'px',
 				},
@@ -71,12 +101,12 @@ export const SettingsProvider = ({ children }) => {
 			enableExactPosition: false,
 			exactPosition: {
 				horizontal: {
-					direction: 'to-right',
+					direction: 'right',
 					value: 10,
 					unit: 'px',
 				},
 				vertical: {
-					direction: 'lower',
+					direction: 'bottom',
 					value: 10,
 					unit: 'px',
 				},
@@ -84,6 +114,27 @@ export const SettingsProvider = ({ children }) => {
 			position: 'top-left',
 		},
 	});
+
+	const [companyData, setCompanyData] = useState({
+		company_name: '',
+		company_website: '',
+		company_email: '',
+		current_date: new Date().toLocaleDateString(),
+	});
+
+	const [accessibilityStatementData, setAccessibilityStatementData] = useState({
+		statement: null,
+		pageId: null,
+		createdOn: null,
+		link: null,
+		hideLink: false,
+	});
+
+	const [
+		showAccessibilityGeneratedInfotip,
+		setShowAccessibilityGeneratedInfotip,
+	] = useState(false);
+
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -93,6 +144,10 @@ export const SettingsProvider = ({ children }) => {
 				setSelectedMenu,
 				widgetMenuSettings,
 				setWidgetMenuSettings,
+				skipToContentSettings,
+				setSkipToContentSettings,
+				skipToContentHasChanges,
+				setSkipToContentHasChanges,
 				hideMinimumOptionAlert,
 				setHideMinimumOptionAlert,
 				iconPosition,
@@ -101,8 +156,16 @@ export const SettingsProvider = ({ children }) => {
 				setIconDesign,
 				hasChanges,
 				setHasChanges,
+				hasError,
+				setHasError,
 				planData,
 				setPlanData,
+				companyData,
+				setCompanyData,
+				accessibilityStatementData,
+				setAccessibilityStatementData,
+				showAccessibilityGeneratedInfotip,
+				setShowAccessibilityGeneratedInfotip,
 			}}
 		>
 			{children}

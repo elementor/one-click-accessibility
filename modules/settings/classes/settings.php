@@ -13,6 +13,7 @@ class Settings {
 	public const PLAN_DATA = 'ea11y_plan_data';
 	public const WIDGET_ICON_SETTINGS = 'ea11y_widget_icon_settings';
 	public const WIDGET_MENU_SETTINGS = 'ea11y_widget_menu_settings';
+	public const SKIP_TO_CONTENT = 'ea11y_skip_to_content_settings';
 
 	/**
 	 * Returns plugin settings data by option name
@@ -22,7 +23,19 @@ class Settings {
 	 * @return mixed
 	 */
 	public static function get( string $option_name ) {
-		return get_option( $option_name );
+		switch ( $option_name ) {
+			case self::PLAN_DATA:
+				$value = get_option( $option_name );
+
+				if ( is_string( $value ) ) {
+					return json_decode( $value );
+				}
+
+				return $value;
+
+			default:
+				return get_option( $option_name );
+		}
 	}
 
 	/**
@@ -33,7 +46,7 @@ class Settings {
 	 *
 	 * @return bool
 	 */
-	public static function set( string $option_name, $value ): bool {
+	public static function set( string $option_name, $value ) : bool {
 		return update_option( $option_name, $value, false );
 	}
 }

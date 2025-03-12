@@ -2,8 +2,13 @@ import Box from '@elementor/ui/Box';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { AlignmentMatrixControl, PositionControl } from '@ea11y/components';
+import {
+	AlignmentMatrixControl,
+	PositionControl,
+	PositionSettingsWrapper,
+} from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 
 const PositionSettingsDesktop = () => {
@@ -11,6 +16,12 @@ const PositionSettingsDesktop = () => {
 
 	const toggleVisibility = (device) => {
 		updateIconPosition(device, 'hidden', !iconPosition[device].hidden);
+
+		mixpanelService.sendEvent(eventNames.toggleClicked, {
+			state: iconPosition[device].hidden ? 'on' : 'off',
+			type: 'Hide on desktop',
+			device,
+		});
 	};
 
 	const toggleExactPosition = (device) => {
@@ -19,6 +30,12 @@ const PositionSettingsDesktop = () => {
 			'enableExactPosition',
 			!iconPosition[device].enableExactPosition,
 		);
+
+		mixpanelService.sendEvent(eventNames.toggleClicked, {
+			state: iconPosition[device].enableExactPosition ? 'on' : 'off',
+			type: 'Exact position',
+			device,
+		});
 	};
 
 	const hideOnDesktopLabel = (
@@ -44,14 +61,9 @@ const PositionSettingsDesktop = () => {
 				checked={iconPosition.desktop.hidden}
 			/>
 			{!iconPosition.desktop.hidden && (
-				<Box
-					display="grid"
-					gridTemplateColumns="repeat(2,1fr)"
-					justifyContent="space-evenly"
-					padding={2}
-					gap={5}
-				>
+				<PositionSettingsWrapper>
 					<AlignmentMatrixControl mode="desktop" />
+
 					<Box>
 						<FormControlLabel
 							label={exactPositionLabel}
@@ -61,18 +73,31 @@ const PositionSettingsDesktop = () => {
 							onChange={() => toggleExactPosition('desktop')}
 							checked={iconPosition.desktop?.enableExactPosition}
 						/>
+
+						<Typography
+							id="ea11y-desktop-position-settings"
+							variant="body2"
+							sx={{ marginTop: 2, marginBottom: 1 }}
+						>
+							{__(
+								'Exact positioning, 5 – 500 px are permitted values:',
+								'pojo-accessibility',
+							)}
+						</Typography>
+
 						<PositionControl
 							type="horizontal"
 							mode="desktop"
 							disabled={!iconPosition.desktop?.enableExactPosition}
 						/>
+
 						<PositionControl
 							type="vertical"
 							mode="desktop"
 							disabled={!iconPosition.desktop?.enableExactPosition}
 						/>
 					</Box>
-				</Box>
+				</PositionSettingsWrapper>
 			)}
 		</>
 	);

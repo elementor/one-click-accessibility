@@ -12,41 +12,59 @@ import {
 	bindMenu,
 } from '@elementor/ui/usePopupState';
 import { useIconPosition } from '@ea11y/hooks';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 const units = ['PX', 'REM', 'EM'];
 
 const horizontalOptions = [
-	{ value: 'to-left', label: __('To the left', 'pojo-accessibility') },
-	{ value: 'to-right', label: __('To the right', 'pojo-accessibility') },
+	{ value: 'left', label: __('To the left', 'pojo-accessibility') },
+	{ value: 'right', label: __('To the right', 'pojo-accessibility') },
 ];
 
 const verticalOptions = [
-	{ value: 'higher', label: __('Higher', 'pojo-accessibility') },
-	{ value: 'lower', label: __('Lower', 'pojo-accessibility') },
+	{ value: 'top', label: __('Higher', 'pojo-accessibility') },
+	{ value: 'bottom', label: __('Lower', 'pojo-accessibility') },
 ];
 
-// Customization for the WP admin global CSS.
-const StyledTextField = styled(TextField)(() => ({
-	width: '200px',
-	'.wp-admin & .MuiInputBase-input, & .MuiInputBase-input:focus': {
-		backgroundColor: 'initial',
-		boxShadow: 'none',
-		border: 0,
-		color: 'inherit',
-		outline: 0,
-		padding: '16.5px 14px 16.5px 14px',
-		'&.MuiInputBase-inputSizeSmall': {
-			padding: '8.5px 14px 8.5px 14px',
-		},
-		height: '56px',
-	},
-}));
+const StyledContainer = styled(Box)`
+	display: flex;
+	gap: ${({ theme }) => theme.spacing(1)};
+	margin-top: ${({ theme }) => theme.spacing(2)};
+	margin-bottom: ${({ theme, isError }) =>
+		isError ? theme.spacing(4) : 'initial'};
+
+	transition: all 100ms ease-in-out;
+`;
+
+const StyledTextField = styled(TextField)`
+	width: 200px;
+	height: 56px;
+
+	.wp-admin & .MuiInputBase-input,
+	& .MuiInputBase-input:focus {
+		height: 56px;
+		background-color: initial;
+		box-shadow: none;
+		border: 0;
+		color: inherit;
+		outline: 0;
+		padding: 16.5px 14px 16.5px 14px;
+
+		&.MuiInputBase-inputSizeSmall {
+			padding: 8.5px 14px 8.5px 14px;
+		}
+	}
+`;
 
 const PositionControl = ({ type, disabled, mode }) => {
 	const { iconPosition, updateExactPosition } = useIconPosition();
 	const [unitsIndex, setUnitsIndex] = useState(0);
+	const [inputValue, setInputValue] = useState(
+		iconPosition[mode]?.exactPosition[type]?.value,
+	);
+	const [isValid, setIsValid] = useState(inputValue >= 5 && inputValue <= 550);
 	const popupState = usePopupState({
 		variant: 'popover',
 		popupId: 'position-settings',
@@ -54,40 +72,102 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 	const handleMenuItemClick = (index) => {
 		setUnitsIndex(index);
+
 		updateExactPosition(
 			mode,
 			type,
-			iconPosition[mode].exactPosition[type].direction,
-			iconPosition[mode].exactPosition[type].value,
+			iconPosition[mode]?.exactPosition[type]?.direction,
+			iconPosition[mode]?.exactPosition[type]?.value,
 			units[index],
 		);
+
 		popupState.close();
+
+		mixpanelService.sendEvent(eventNames.handleUnitChanged, {
+			positionData: {
+				mode,
+				type,
+				unit: units[index],
+				value: iconPosition[mode]?.exactPosition[type]?.direction,
+				direction: iconPosition[mode]?.exactPosition[type]?.value,
+			},
+		});
 	};
+
 	const handlePositionChange = (event) => {
-		updateExactPosition(
-			mode,
-			type,
-			iconPosition[mode].exactPosition[type].direction,
-			event.target.value,
-			iconPosition[mode].exactPosition[type].unit,
-		);
+		const value = parseInt(event.target.value, 10) || 0;
+		const valueIsValid = value >= 5 && value <= 550;
+
+		setInputValue(event.target.value);
+		setIsValid(valueIsValid);
+
+		if (valueIsValid) {
+			updateExactPosition(
+				mode,
+				type,
+				iconPosition[mode]?.exactPosition[type]?.direction,
+				value,
+				iconPosition[mode]?.exactPosition[type]?.unit,
+			);
+
+			mixpanelService.sendEvent(eventNames.handleValueChanged, {
+				positionData: {
+					mode,
+					type,
+					value,
+					unit: iconPosition[mode]?.exactPosition[type]?.unit,
+					direction: iconPosition[mode]?.exactPosition[type]?.value,
+				},
+			});
+		}
 	};
+
 	const handlePositionDirection = (event) => {
 		updateExactPosition(
 			mode,
 			type,
 			event.target.value,
-			iconPosition[mode].exactPosition[type].value,
-			iconPosition[mode].exactPosition[type].unit,
+			iconPosition[mode]?.exactPosition[type]?.value,
+			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
+
+		mixpanelService.sendEvent(eventNames.handleDirectionChanged, {
+			positionData: {
+				mode,
+				type,
+				value: iconPosition[mode]?.exactPosition[type]?.value,
+				unit: iconPosition[mode]?.exactPosition[type]?.unit,
+				direction: event.target.value,
+			},
+		});
 	};
+
 	return (
-		<Box display="flex" gap={1} marginTop={2}>
+		<StyledContainer
+			isError={!isValid}
+			role="group"
+			aria-label={sprintf(
+				// Translators: %1$s - date, %2$s - time
+				__('%1$s icon %2$s settings', 'pojo-accessibility'),
+				mode,
+				type,
+			)}
+		>
 			<StyledTextField
 				size="medium"
+				error={!isValid}
+				helperText={!isValid ? 'Invalid value' : ''}
 				disabled={disabled}
-				value={iconPosition[mode]?.exactPosition?.[type].value}
+				value={inputValue}
 				onChange={handlePositionChange}
+				inputProps={{
+					'aria-label': sprintf(
+						// Translators: %s - units
+						__('Number of %s', 'pojo-accessibility'),
+						units[unitsIndex],
+					),
+					'aria-describedby': `ea11y-${mode}-position-settings`,
+				}}
 				InputProps={{
 					endAdornment: (
 						<InputAdornment position="end">
@@ -100,6 +180,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 							>
 								{units[unitsIndex]}
 							</Button>
+
 							<Menu MenuListProps={{ dense: true }} {...bindMenu(popupState)}>
 								{units.map((unit, index) => (
 									<MenuItem
@@ -114,8 +195,11 @@ const PositionControl = ({ type, disabled, mode }) => {
 					),
 				}}
 			/>
+
 			<Select
 				fullWidth
+				name={__('Direction', 'pojo-accessibility')}
+				variant="outlined"
 				onChange={handlePositionDirection}
 				disabled={disabled}
 				value={iconPosition[mode]?.exactPosition?.[type].direction}
@@ -147,7 +231,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 							</MenuItem>
 						))}
 			</Select>
-		</Box>
+		</StyledContainer>
 	);
 };
 

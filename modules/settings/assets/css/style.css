@@ -1,3 +1,12 @@
+#wpbody-content {
+	padding-bottom: 0;
+}
+
+/* Hide wp notices */
+.notice, .update-nag {
+	display: none;
+}
+
 body {
 	background: #fff;
 }
@@ -27,4 +36,17 @@ html[dir='rtl'] #ea11y-app {
 	padding: 8px 12px;
 	box-shadow: none;
 	border-color: rgba(12, 13, 14, 0.23);
+}
+
+/* Widget Preview in Menu Settings */
+
+#ea11y-widget-preview--container #ea11y-root {
+	display: flex;
+	justify-content: center;
+}
+
+@media (min-width: 480px) {
+	.ea11y-widget-container {
+		max-width: 100% !important;
+	}
 }

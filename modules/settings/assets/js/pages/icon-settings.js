@@ -1,21 +1,47 @@
+import Box from '@elementor/ui/Box';
 import Container from '@elementor/ui/Container';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
 import { IconDesignSettings, PositionSettings } from '@ea11y/layouts';
+import { eventNames, mixpanelService } from '@ea11y/services';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+`;
+
+const StyledContainer = styled(Container)`
+	overflow: auto;
+	max-height: 100%;
+	padding: ${({ theme }) => theme.spacing(4)};
+`;
+
 const IconSettings = () => {
+	useEffect(() => {
+		mixpanelService.sendEvent(eventNames.pageView, {
+			page: 'Button',
+		});
+	}, []);
+
 	return (
-		<>
-			<Container p={1} sx={{ overflow: 'auto', maxHeight: '100%', padding: 4 }}>
+		<StyledBox>
+			<StyledContainer>
 				<Typography variant="h4" fontWeight="400" marginBottom={4}>
-					{__('Design & position', 'pojo-accessibility')}
+					{__('Button', 'pojo-accessibility')}
 				</Typography>
+
 				<IconDesignSettings marginBottom={4} />
+
 				<PositionSettings />
-			</Container>
+			</StyledContainer>
 			<BottomBar />
-		</>
+		</StyledBox>
 	);
 };
 
