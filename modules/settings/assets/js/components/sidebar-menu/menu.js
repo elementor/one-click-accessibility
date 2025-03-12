@@ -50,6 +50,7 @@ export const MenuItems = {
 		name: __('Analytics', 'pojo-accessibility'),
 		key: 'analytics',
 		page: <Analytics />,
+		proIcon: true,
 		icon: (
 			<AnalyticsIcon
 				role="img"

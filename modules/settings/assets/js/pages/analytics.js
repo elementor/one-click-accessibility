@@ -25,7 +25,11 @@ const Analytics = () => {
 		<StyledBox sx={{ position: 'relative' }}>
 			<StyledContainer>
 				<StyledWrap>
-					<StyledTitle variant="h4" color="text.primary" sx={{ mb: 0 }}>
+					<StyledTitle
+						variant="h4"
+						color="text.primary"
+						sx={{ mb: 0, position: 'relative', zIndex: 3 }}
+					>
 						{__('Analytics', 'pojo-accessibility')}
 					</StyledTitle>
 					<AnalyticsToggle />

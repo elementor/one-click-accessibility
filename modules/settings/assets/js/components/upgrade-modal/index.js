@@ -40,7 +40,10 @@ const UpgradeModal = () => {
 								align="center"
 								sx={{ mb: 1 }}
 							>
-								{__('Upgrade to see the data', 'pojo-accessibility')}
+								{__(
+									'Get a clear view of your accessibility data',
+									'pojo-accessibility',
+								)}
 							</Typography>
 							<Typography
 								variant="body2"
@@ -48,7 +51,7 @@ const UpgradeModal = () => {
 								align="center"
 							>
 								{__(
-									'Get deep insights into your user behavior, engagement metrics, and more with our Premium plan.',
+									'Upgrade to a premium plan to unlock your accessibility analytics. Track key metrics, understand user engagement, and gain insights to for improvements.',
 									'pojo-accessibility',
 								)}
 							</Typography>
@@ -61,7 +64,7 @@ const UpgradeModal = () => {
 							sx={{ width: 300 }}
 							onClick={onUpgrade}
 						>
-							{__('Upgrade', 'pojo-accessibility')}
+							{__('Upgrade now', 'pojo-accessibility')}
 						</Button>
 					</StyledBox>
 				</StyledContainer>

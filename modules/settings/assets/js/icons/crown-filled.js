@@ -1,7 +1,7 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-const CrownFilled = (props, { size }) => (
-	<SvgIcon viewBox="0 0 21 15" fontSize={size} {...props}>
+const CrownFilled = (props) => (
+	<SvgIcon viewBox="0 0 21 15" fontSize={props.size} {...props}>
 		<path
 			fillRule="evenodd"
 			clipRule="evenodd"

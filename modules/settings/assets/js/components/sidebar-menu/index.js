@@ -1,11 +1,14 @@
-import { ChevronDownIcon } from '@elementor/icons';
+import ChevronDownIcon from '@elementor/icons/ChevronDownIcon';
+import { Chip } from '@elementor/ui';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
+import { styled } from '@elementor/ui/styles';
 import { MenuItems } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
+import CrownFilled from '@ea11y/icons/crown-filled';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState, Fragment } from '@wordpress/element';
 
@@ -19,6 +22,8 @@ const SidebarMenu = () => {
 		} else {
 			setSelectedMenu({ parent: parentKey, child: null });
 		}
+
+		window.location.hash = parentKey;
 
 		mixpanelService.sendEvent(eventNames.menuButtonClicked, {
 			buttonName: itemName,
@@ -71,6 +76,15 @@ const SidebarMenu = () => {
 									/>
 								</ListItemIcon>
 							)}
+							{item.proIcon && (
+								<ListItemIcon sx={{ marginLeft: 2 }}>
+									<StyledChip
+										color="accent"
+										variant="standard"
+										icon={<CrownFilled size="tiny" />}
+									/>
+								</ListItemIcon>
+							)}
 						</ListItemButton>
 					</ListItem>
 
@@ -102,5 +116,12 @@ const SidebarMenu = () => {
 		</List>
 	);
 };
+
+const StyledChip = styled(Chip)`
+	height: 26px;
+	width: 26px;
+	border-radius: 50%;
+	justify-content: space-around;
+`;
 
 export default SidebarMenu;

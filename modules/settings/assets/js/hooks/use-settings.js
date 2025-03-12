@@ -1,4 +1,9 @@
-import { useState, createContext, useContext } from '@wordpress/element';
+import {
+	useState,
+	createContext,
+	useContext,
+	useEffect,
+} from '@wordpress/element';
 
 /**
  * Context Component.
@@ -12,8 +17,12 @@ export function useSettings() {
 export const SettingsProvider = ({ children }) => {
 	const [openSidebar, setOpenSidebar] = useState(true);
 	const [selectedMenu, setSelectedMenu] = useState({
-		parent: 'design',
+		parent: '',
 	});
+
+	useEffect(() => {
+		setSelectedMenu({ parent: window.location.hash.replace('#', '') });
+	}, []);
 
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
 		'bigger-text': {
