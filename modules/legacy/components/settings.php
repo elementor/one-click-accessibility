@@ -24,6 +24,9 @@ class Settings {
 	protected $_sections = [];
 	protected $_defaults = [];
 	protected $_pages = [];
+	public $_page_title = '';
+	public $_page_menu_title = '';
+	public $_menu_parent = '';
 
 
 	/**
@@ -224,7 +227,7 @@ class Settings {
 			'id'          => 'pojo_a11y_toolbar_button_sitemap_link',
 			'title'       => __( 'Sitemap Link', 'pojo-accessibility' ),
 			'type'        => self::FIELD_TEXT,
-			'placeholder' => 'http://your-domain.com/sitemap',
+			'placeholder' => 'https://your-domain.com/sitemap',
 			'desc'        => __( 'Link for sitemap page in your website. Leave blank to disable.',
 				'pojo-accessibility' ),
 			'class'       => $toolbar_options_classes . ' pojo-settings-child-row',
@@ -243,7 +246,7 @@ class Settings {
 			'id'          => 'pojo_a11y_toolbar_button_help_link',
 			'title'       => __( 'Help Link', 'pojo-accessibility' ),
 			'type'        => self::FIELD_TEXT,
-			'placeholder' => 'http://your-domain.com/help',
+			'placeholder' => 'https://your-domain.com/help',
 			'desc'        => __( 'Link for help page in your website. Leave blank to disable.', 'pojo-accessibility' ),
 			'class'       => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'         => '',
@@ -261,7 +264,7 @@ class Settings {
 			'id'          => 'pojo_a11y_toolbar_button_feedback_link',
 			'title'       => __( 'Feedback Link', 'pojo-accessibility' ),
 			'type'        => self::FIELD_TEXT,
-			'placeholder' => 'http://your-domain.com/feedback',
+			'placeholder' => 'https://your-domain.com/feedback',
 			'desc'        => __( 'Link for feedback page in your website. Leave blank to disable.',
 				'pojo-accessibility' ),
 			'class'       => $toolbar_options_classes . ' pojo-settings-child-row',

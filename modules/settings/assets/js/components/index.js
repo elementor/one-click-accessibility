@@ -20,3 +20,5 @@ export { default as CopyLink } from './copy-link';
 export { default as EditLink } from './edit-link';
 export { default as GeneratedPageInfoTipCard } from './generated-page-infotip-card';
 export { default as PositionSettingsWrapper } from './position-settings-wrapper';
+export { default as ConfirmDialog } from './confirm-dialog';
+export { default as UrlMismatchModal } from './url-mismatch-modal';
