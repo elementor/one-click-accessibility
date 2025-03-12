@@ -1,9 +1,9 @@
 <?php
 
-namespace EA11y\Modules\Wizard\Database;
+namespace EA11y\Modules\Scanner\Database;
 
 use EA11y\Classes\Database\Entry;
-use EA11y\Modules\Wizard\exceptions\Missing_Page_Id;
+use EA11y\Modules\Scanner\exceptions\Missing_Page_Id;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly

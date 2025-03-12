@@ -1,9 +1,9 @@
 <?php
 
-namespace EA11y\Modules\Wizard;
+namespace EA11y\Modules\Scanner;
 
 use EA11y\Classes\Module_Base;
-use EA11y\Modules\Wizard\Database\Scans_Table;
+use EA11y\Modules\Scanner\Database\Scans_Table;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 
 	public function get_name(): string {
-		return 'wizard';
+		return 'scanner';
 	}
 
 	public function __construct() {

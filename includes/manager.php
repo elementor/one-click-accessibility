@@ -22,6 +22,7 @@ final class Manager {
 			'Widget',
 			'Core',
 			'Remediation',
+			'Scanner',
 		];
 	}
 

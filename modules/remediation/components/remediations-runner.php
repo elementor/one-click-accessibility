@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Remediations_Runner
  */
 class Remediations_Runner {
-	public $remediations = [];
+	public array $remediations = [];
 
 	public function get_remediation_classes() : array {
 		static $classes = null;

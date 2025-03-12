@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Wizard\exceptions;
+namespace EA11y\Modules\Scanner\exceptions;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly

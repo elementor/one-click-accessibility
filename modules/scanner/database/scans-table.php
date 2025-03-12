@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Wizard\Database;
+namespace EA11y\Modules\Scanner\Database;
 
 use EA11y\Classes\Database\{
 	Table,
