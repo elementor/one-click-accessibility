@@ -177,11 +177,11 @@ class Client {
 			return $this->request( $method, $endpoint, $args );
 		}
 
-        // If there is mismatch then trigger the mismatch flow explicitly.
-        if ( ! $this->refreshed && ! empty( $body->message ) && ( false !== strpos( $body->message, 'site url mismatch' ) ) ) {
-            Data::set_home_url("https://wrongurl");
-            return new WP_Error( 401, 'site url mismatch' );
-        }
+		// If there is mismatch then trigger the mismatch flow explicitly.
+		if ( ! $this->refreshed && ! empty( $body->message ) && ( false !== strpos( $body->message, 'site url mismatch' ) ) ) {
+			Data::set_home_url( 'https://wrongurl' );
+			return new WP_Error( 401, 'site url mismatch' );
+		}
 
 		if ( ! in_array( $response_code, [ 200, 201 ], true ) ) {
 			// In case $as_array = true.
