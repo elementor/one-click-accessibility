@@ -4,7 +4,7 @@ import AlertTitle from '@elementor/ui/AlertTitle';
 import { useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
-import { UPGRADE_LINK } from '../constants/index';
+import { GOLINKS } from '../constants/index';
 import { openLink } from '../utils';
 
 const QuotaNotices = () => {
@@ -19,7 +19,7 @@ const QuotaNotices = () => {
 			feature: 'quota notice ' + type,
 			component: 'upgrade button',
 		});
-		openLink(UPGRADE_LINK);
+		openLink(GOLINKS[`UPGRADE_${type}`]);
 	};
 
 	/**
