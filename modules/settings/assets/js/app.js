@@ -30,12 +30,14 @@ const App = () => {
 	const { selectedMenu } = useSettings();
 
 	useEffect(() => {
-		mixpanelService.init().then(() => {
-			mixpanelService.sendEvent(eventNames.pageView, {
-				page: 'Button',
+		if (window.ea11ySettingsData?.planData?.user?.id) {
+			mixpanelService.init().then(() => {
+				mixpanelService.sendEvent(eventNames.pageView, {
+					page: 'Button',
+				});
 			});
-		});
-	}, []);
+		}
+	}, [window.ea11ySettingsData?.planData?.user?.id]);
 
 	const selectedParent = MenuItems[selectedMenu?.parent];
 	const selectedChild = selectedMenu?.child

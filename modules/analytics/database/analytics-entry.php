@@ -39,9 +39,15 @@ class Analytics_Entry extends Entry {
 				'column' => 'created_at',
 				'value' => $period,
 				'operator' => '>',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => 'event',
+				'value' => 'widget-open',
+				'operator' => '=',
 			],
 		];
-		$order_by = [ 'date' => 'DESC' ];
+		$order_by = [ 'date' => 'ASC' ];
 		$group_by = 'date';
 		return Analytics_Table::select( $fields, $where, null, null, '', $order_by, $group_by );
 	}
@@ -53,16 +59,22 @@ class Analytics_Entry extends Entry {
 	 * @return array
 	 */
 	public static function get_data_events_grouped( string $period ): array {
-		$fields = 'event, COUNT(*) AS total';
+		$fields = 'event, value, COUNT(*) AS total';
 		$where = [
 			[
 				'column' => 'created_at',
 				'value' => $period,
 				'operator' => '>',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => 'event',
+				'value' => 'widget-open',
+				'operator' => '<>',
 			],
 		];
 		$order_by = [ 'total' => 'DESC' ];
-		$group_by = 'event';
+		$group_by = [ 'event', 'value' ];
 		return Analytics_Table::select( $fields, $where, null, null, '', $order_by, $group_by );
 	}
 

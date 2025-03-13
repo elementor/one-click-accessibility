@@ -30,3 +30,12 @@ export const validateId = (id) => {
 	const pattern = /^#[A-Za-z0-9_.-]+$/;
 	return pattern.test(id);
 };
+
+// Split array to chunk for display data per page
+export const chunkArray = (array, chunkSize = 10) => {
+	const result = [];
+	for (let i = 0; i < array.length; i += chunkSize) {
+		result.push(array.slice(i, i + chunkSize));
+	}
+	return result;
+};

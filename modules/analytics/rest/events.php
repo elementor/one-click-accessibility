@@ -14,16 +14,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Event extends Route_Base {
+class Events extends Route_Base {
 	protected $auth = false;
-	public string $path = 'event';
+	public string $path = 'events';
 
 	public function get_methods(): array {
 		return [ 'POST' ];
 	}
 
 	public function get_name(): string {
-		return 'event';
+		return 'events';
 	}
 
 	/**
@@ -32,9 +32,9 @@ class Event extends Route_Base {
 	 */
 	public function POST( WP_REST_Request $request ): WP_REST_Response {
 		try {
-			$params = $request->get_json_params();
-
-			foreach ( $params['items'] as $item ) {
+			$raw_data = $request->get_body();
+			$events = json_decode( $raw_data, true );
+			foreach ( $events as $item ) {
 				if ( Analytics_Entry::validate_item( $item['event'] ) ) {
 					$value = array_key_exists( 'value', $item ) ? sanitize_text_field( $item['value'] ) : null;
 					$analytics_entry = new Analytics_Entry([
@@ -49,6 +49,6 @@ class Event extends Route_Base {
 		} catch ( Throwable $t ) {
 			Logger::info( $t->getMessage() );
 		}
-		return new WP_REST_Response( null, 200 );
+		return new WP_REST_Response( null, 204 );
 	}
 }

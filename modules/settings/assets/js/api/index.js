@@ -144,6 +144,20 @@ class API {
 		const link = await this.initConnect();
 		window.open(link, '_self').focus();
 	}
+
+	/**
+	 * Get data for analytic charts
+	 * @param {Object} props
+	 * @param {number} props.period
+	 * @return {Promise<{Object}>} statistic
+	 */
+	static async getStatistic({ period }) {
+		const path = addQueryArgs(`${v1Prefix}/analytics/statistic`, { period });
+		return API.request({
+			method: 'GET',
+			path,
+		});
+	}
 }
 
 export default API;

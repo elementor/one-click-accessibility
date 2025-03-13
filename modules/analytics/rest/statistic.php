@@ -2,10 +2,10 @@
 
 namespace EA11y\Modules\Analytics\Rest;
 
-use EA11y\Classes\Logger;
+use DateTime;
 use EA11y\Modules\Analytics\Classes\Route_Base;
 use EA11y\Modules\Analytics\Database\Analytics_Entry;
-use EA11y\Modules\Analytics\Database\Analytics_Table;
+
 use Throwable;
 use WP_Error;
 use WP_REST_Request;
@@ -38,12 +38,23 @@ class Statistic extends Route_Base {
 			return $error;
 		}
 
+		$enabled_periods = [ 0, 1, 7, 30 ];
+		$params = $request->get_query_params();
+		$period = sanitize_text_field( $params['period'] );
+		if ( ! in_array( $period, $enabled_periods, true ) ) {
+			$this->respond_error_json([
+				'message' => esc_html__( 'Bad request.', 'pojo-accessibility' ),
+				'code' => 400,
+			]);
+		}
+
 		try {
-			$params = $request->get_query_params();
-			$period = sanitize_text_field( $params['period'] );
+			$date = new DateTime();
+			$date->modify( "-$period days" )->setTime( 0, 0, 0, 0 );
+			$date_from = $date->format( 'Y-m-d H:i:s' );
 			$result = [
-				'dates' => Analytics_Entry::get_data_dates_grouped( $period ),
-				'elements' => Analytics_Entry::get_data_events_grouped( $period ),
+				'dates' => Analytics_Entry::get_data_dates_grouped( $date_from ),
+				'elements' => Analytics_Entry::get_data_events_grouped( $date_from ),
 			];
 			return $this->respond_success_json( $result );
 		} catch ( Throwable $t ) {

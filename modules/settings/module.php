@@ -430,6 +430,9 @@ class Module extends Module_Base {
 			'hide_minimum_active_options_alert' => [
 				'type' => 'boolean',
 			],
+			'analytics_enabled' => [
+				'type' => 'boolean',
+			],
 			'show_accessibility_generated_page_infotip' => [
 				'type' => 'boolean',
 			],
