@@ -50,7 +50,11 @@ const ConnectModal = () => {
 	const { redirectToConnect } = useAuth();
 
 	return (
-		<Modal open={isOpen}>
+		<Modal
+			open={isOpen}
+			aria-labelledby="connect-modal-title"
+			aria-describedby="connect-modal-description"
+		>
 			<StyledGrid container sx={{ boxShadow: 24 }}>
 				<ConnectModalIcon />
 
@@ -59,11 +63,17 @@ const ConnectModal = () => {
 					color="text.primary"
 					marginTop={5}
 					marginBottom={1}
+					id="connect-modal-title"
 				>
 					{__("Let's improve your site's accessibility", 'pojo-accessibility')}
 				</Typography>
 
-				<Typography variant="body2" color="text.primary" width={400}>
+				<Typography
+					variant="body2"
+					color="text.primary"
+					width={400}
+					id="connect-modal-description"
+				>
 					{__(
 						'Make your site more inclusive with Ally - Web Accessibility.',
 						'pojo-accessibility',

@@ -1,7 +1,7 @@
 import { InfoCircleIcon } from '@elementor/icons';
-import { CardActions } from '@elementor/ui';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
+import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Infotip from '@elementor/ui/Infotip';

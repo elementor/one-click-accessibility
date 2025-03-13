@@ -6,7 +6,7 @@ import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
 import { MenuItems } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState, Fragment } from '@wordpress/element';
 
 const SidebarMenu = () => {
@@ -20,7 +20,7 @@ const SidebarMenu = () => {
 			setSelectedMenu({ parent: parentKey, child: null });
 		}
 
-		mixpanelService.sendEvent('menu_button_clicked', {
+		mixpanelService.sendEvent(eventNames.menuButtonClicked, {
 			buttonName: itemName,
 		});
 	};
@@ -30,7 +30,7 @@ const SidebarMenu = () => {
 			...prev,
 			[itemKey]: !prev[itemKey], // Toggle the expanded state for the clicked item
 		}));
-		mixpanelService.sendEvent('menu_button_clicked', {
+		mixpanelService.sendEvent(eventNames.menuButtonClicked, {
 			buttonName: itemName,
 		});
 	};

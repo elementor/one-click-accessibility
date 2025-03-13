@@ -1,13 +1,15 @@
-import { CardActions, ListItemSecondaryAction } from '@elementor/ui';
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
+import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Divider from '@elementor/ui/Divider';
+import FormLabel from '@elementor/ui/FormLabel';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
+import ListItemSecondaryAction from '@elementor/ui/ListItemSecondaryAction';
 import ListItemText from '@elementor/ui/ListItemText';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
@@ -15,7 +17,7 @@ import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
 import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings, useStorage } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MENU_SETTINGS } from '../constants/menu-settings';
@@ -100,7 +102,7 @@ const MenuSettings = () => {
 			}
 
 			if (prevSettings[option]) {
-				mixpanelService.sendEvent('toggle_clicked', {
+				mixpanelService.sendEvent(eventNames.toggleClicked, {
 					state: prevSettings[option]?.enabled ? 'off' : 'on',
 					type: option,
 				});
@@ -173,7 +175,9 @@ const MenuSettings = () => {
 													) : (
 														<>
 															<ListItemIcon>{childValue.icon}</ListItemIcon>
-															<ListItemText primary={childValue.title} />
+															<FormLabel htmlFor={`ea11y-${childKey}-toggle`}>
+																<ListItemText primary={childValue.title} />
+															</FormLabel>
 														</>
 													)}
 
@@ -192,6 +196,9 @@ const MenuSettings = () => {
 																	? disableOptions
 																	: false
 															}
+															inputProps={{
+																id: `ea11y-${childKey}-toggle`,
+															}}
 														/>
 													</ListItemSecondaryAction>
 												</ListItem>

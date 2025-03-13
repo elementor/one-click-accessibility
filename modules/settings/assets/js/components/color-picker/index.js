@@ -6,14 +6,14 @@ import Typography from '@elementor/ui/Typography';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 import { useDebouncedCallback } from 'use-debounce';
 import { useIconDesign } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import './style.css';
 
 const ColorPicker = () => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 	const debounced = useDebouncedCallback((value) => {
-		mixpanelService.sendEvent('color_changed', {
+		mixpanelService.sendEvent(eventNames.colorChanged, {
 			color: value,
 		});
 	}, 1000);
@@ -42,6 +42,7 @@ const ColorPicker = () => {
 						marginRight={1}
 					></Box>
 					<HexColorInput
+						aria-label={__('Color', 'pojo-accessibility')}
 						color={iconDesign.color}
 						onChange={(value) => {
 							updateIconDesign({ color: value });

@@ -22,6 +22,7 @@ const init = async () => {
 		productName: 'app_access',
 		appType: 'Apps',
 		environment: ea11ySettingsData.pluginEnv,
+		is_trial: plan?.name === 'Free Trial',
 	});
 
 	mixpanel.identify(ea11ySettingsData?.planData?.user?.id);
@@ -46,4 +47,24 @@ const sendEvent = (name, event) => {
 export const mixpanelService = {
 	init,
 	sendEvent,
+};
+
+export const eventNames = {
+	pageView: 'page_view',
+	helpButtonClicked: 'help_button_clicked',
+	toggleClicked: 'toggle_clicked',
+	positionButtonClicked: 'position_button_clicked',
+	saveButtonClicked: 'save_button_clicked',
+	colorChanged: 'color_changed',
+	iconTypeSelected: 'icon_type_selected',
+	sizeTypeClicked: 'size_type_clicked',
+	menuButtonClicked: 'menu_button_clicked',
+	handleUnitChanged: 'handle_unit_changed',
+	handleValueChanged: 'handle_value_changed',
+	handleDirectionChanged: 'handle_direction_changed',
+	connectSuccess: 'connect_success',
+	fieldContentUpdated: 'field_content_updated',
+	statementPageCreated: 'statement_page_created',
+	statementPageSelected: 'statement_page_selected',
+	statementFlowSelected: 'statement_flow_selected',
 };

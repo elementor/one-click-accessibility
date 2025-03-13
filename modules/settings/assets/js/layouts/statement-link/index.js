@@ -21,7 +21,7 @@ import {
 	GeneratedPageInfoTipCard,
 } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -125,7 +125,7 @@ const StatementLink = () => {
 				link: page[0]?.link,
 			});
 
-			mixpanelService.sendEvent('statement_page_selected', {
+			mixpanelService.sendEvent(eventNames.statementPageSelected, {
 				page: page[0]?.link,
 			});
 		}
@@ -136,7 +136,7 @@ const StatementLink = () => {
 			...accessibilityStatementData,
 			hideLink: !accessibilityStatementData.hideLink,
 		});
-		mixpanelService.sendEvent('toggle_clicked', {
+		mixpanelService.sendEvent(eventNames.toggleClicked, {
 			state: accessibilityStatementData.hideLink ? 'on' : 'off',
 			type: 'Hide link',
 		});

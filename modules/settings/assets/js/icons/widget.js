@@ -1,8 +1,8 @@
 import SvgIcon from '@elementor/ui/SvgIcon';
 
-const WidgetIcon = ({ size }) => {
+const WidgetIcon = (props, { size }) => {
 	return (
-		<SvgIcon viewBox="0 0 20 20" fontSize={size}>
+		<SvgIcon viewBox="0 0 20 20" fontSize={size} {...props}>
 			<g id="widget">
 				<path
 					id="Vector"
