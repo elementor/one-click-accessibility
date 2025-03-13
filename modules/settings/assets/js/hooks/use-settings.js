@@ -21,7 +21,9 @@ export const SettingsProvider = ({ children }) => {
 	});
 
 	useEffect(() => {
-		setSelectedMenu({ parent: window.location.hash.replace('#', '') });
+		setSelectedMenu({
+			parent: window.location.hash.replace('#', '') || 'design',
+		});
 	}, []);
 
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
