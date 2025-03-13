@@ -4,6 +4,7 @@ import Tooltip from '@elementor/ui/Tooltip';
 import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
+import { openLink } from '../../utils';
 
 const EditLink = () => {
 	const { accessibilityStatementData } = useSettings();
@@ -13,7 +14,7 @@ const EditLink = () => {
 			post: accessibilityStatementData?.pageId,
 			action: 'edit',
 		});
-		window.open(url, '_blank');
+		openLink(url);
 	};
 
 	return (

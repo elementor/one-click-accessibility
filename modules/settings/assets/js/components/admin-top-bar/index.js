@@ -5,7 +5,7 @@ import Toolbar from '@elementor/ui/Toolbar';
 import { styled } from '@elementor/ui/styles';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
-import { HELP_LINK } from '../../constants';
+import { GOLINKS } from '../../constants';
 
 const StyledToolbar = styled(Toolbar)`
 	justify-content: end;
@@ -23,7 +23,7 @@ const AdminTopBar = () => {
 				<Link
 					color="secondary"
 					underline="hover"
-					href={HELP_LINK}
+					href={GOLINKS.HELP}
 					target="_blank"
 					sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
 					aria-label={__('Help', 'pojo-accessibility')}
