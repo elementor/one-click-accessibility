@@ -9,7 +9,7 @@ import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
-import { ADD_VISITS_LINK } from '../constants/index';
+import { GOLINKS } from '../constants/index';
 import { formatPlanValue, openLink } from '../utils';
 
 const QuotaBar = () => {
@@ -39,7 +39,7 @@ const QuotaBar = () => {
 			feature: 'add visits',
 			component: 'quota counter',
 		});
-		openLink(ADD_VISITS_LINK);
+		openLink(GOLINKS.ADD_VISITS);
 	};
 
 	if (!openSidebar) {
