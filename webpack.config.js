@@ -4,6 +4,11 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 // add your entry points here
 const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
+	remediation: path.resolve(
+		process.cwd(),
+		'modules/remediation/assets/js',
+		'index.js',
+	),
 };
 
 // React JSX Runtime Polyfill
@@ -64,5 +69,6 @@ module.exports = [
 			extensions: ['.js', '.jsx'],
 		},
 	},
+
 	reactJSXRuntimePolyfill,
 ];
