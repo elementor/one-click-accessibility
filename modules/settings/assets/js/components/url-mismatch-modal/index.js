@@ -19,9 +19,12 @@ const UrlMismatchModal = () => {
 
 	const onUpdateConnectUrl = async () => {
 		try {
-			const connectUrl = await API.initConnect('update');
+			const response = await API.initConnect('update');
 
-			window.open(connectUrl, '_self').focus();
+			// Reload the URL if update redirect URI is successful.
+			if (response?.success) {
+				window.location.reload();
+			}
 		} catch (e) {
 			error(__('An error occurred.', 'pojo-accessibility'));
 		}
