@@ -9,19 +9,35 @@ export const MenuItems = {
 		name: __('Design', 'pojo-accessibility'),
 		key: 'design',
 		page: <IconSettings />,
-		icon: <WidgetIcon />,
+		icon: (
+			<WidgetIcon role="img" aria-label={__('Design', 'pojo-accessibility')} />
+		),
 	},
 	capabilities: {
 		name: __('Capabilities', 'pojo-accessibility'),
 		key: 'capabilities',
 		page: <Menu />,
-		icon: <SettingsIcon size="small" sx={{ color: 'common.black' }} />,
+		icon: (
+			<SettingsIcon
+				role="img"
+				aria-label={__('Capabilities', 'pojo-accessibility')}
+				size="small"
+				sx={{ color: 'common.black' }}
+			/>
+		),
 	},
 	accessibilityStatement: {
 		name: __('Statement', 'pojo-accessibility'),
 		key: 'accessibility-statement',
 		page: <AccessibilityStatement />,
-		icon: <PagesIcon size="small" sx={{ color: 'common.black' }} />,
+		icon: (
+			<PagesIcon
+				role="img"
+				aria-label={__('Statement', 'pojo-accessibility')}
+				size="small"
+				sx={{ color: 'common.black' }}
+			/>
+		),
 		infotip: <AccessibilityStatementTooltip />,
 	},
 };

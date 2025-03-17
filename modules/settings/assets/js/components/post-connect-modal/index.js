@@ -5,7 +5,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useModal, useStorage } from '@ea11y/hooks';
 import { PostConnectModalIcon } from '@ea11y/icons';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -35,7 +35,7 @@ const PostConnectModal = () => {
 
 	useEffect(() => {
 		if (isOpen) {
-			mixpanelService.sendEvent('connect_success');
+			mixpanelService.sendEvent(eventNames.connectSuccess);
 		}
 	}, [isOpen]);
 
@@ -48,7 +48,12 @@ const PostConnectModal = () => {
 	};
 
 	return (
-		<Modal open={isOpen}>
+		<Modal
+			open={isOpen}
+			onClose={onClose}
+			aria-labelledby="post-connect-modal-title"
+			aria-describedby="post-connect-modal-description"
+		>
 			<StyledGrid container sx={{ boxShadow: 24 }}>
 				<PostConnectModalIcon />
 
@@ -57,6 +62,7 @@ const PostConnectModal = () => {
 					color="text.primary"
 					marginTop={5}
 					marginBottom={1}
+					id="post-connect-modal-title"
 				>
 					{__("You're all set", 'pojo-accessibility')}
 				</Typography>
@@ -66,6 +72,7 @@ const PostConnectModal = () => {
 					sx={{ width: '500px', maxWidth: '100%' }}
 					color="text.primary"
 					marginBottom={5}
+					id="post-connect-modal-description"
 				>
 					{__(
 						'Ally - Web Accessibility is now connected and ready to use on your site.',

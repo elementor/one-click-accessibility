@@ -30,6 +30,13 @@ const StyledPreview = styled(CardContent)`
 		position: initial;
 		transform: translateY(0);
 	}
+
+	@media screen and (max-height: 850px) {
+		& #ea11y-root {
+			top: -25px;
+			transform: scale(60%);
+		}
+	}
 `;
 
 const WidgetPreview = () => {

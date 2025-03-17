@@ -5,7 +5,7 @@ import Toolbar from '@elementor/ui/Toolbar';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import { ElementorLogo, SquareRoundedChevronsLeft } from '@ea11y/icons';
+import { AppLogo, SquareRoundedChevronsLeft } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
 
 const StyledHeading = styled(Box)`
@@ -27,7 +27,7 @@ const SidebarAppBar = () => {
 				sx={{ justifyContent: 'space-between' }}
 			>
 				<StyledHeading>
-					<ElementorLogo />
+					<AppLogo />
 					<Typography
 						variant="h6"
 						marginLeft={0.5}
@@ -43,6 +43,8 @@ const SidebarAppBar = () => {
 					size="small"
 				>
 					<SquareRoundedChevronsLeft
+						role="img"
+						aria-label={__('Toggle sidebar', 'pojo-accessibility')}
 						sx={{ rotate: !openSidebar ? '180deg' : '0' }}
 					/>
 				</IconButton>
