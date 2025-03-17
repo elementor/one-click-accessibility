@@ -26,7 +26,8 @@ import { UserArrowIcon } from '@ea11y/icons';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
-import { HELP_LINK } from '../../constants';
+import { GOLINKS } from '../../constants';
+import { openLink } from '../../utils';
 
 const StyledListItemButton = styled(ListItemButton)`
 	justify-content: center;
@@ -80,7 +81,7 @@ const MyAccountMenu = () => {
 		mixpanelService.sendEvent(eventNames.helpButtonClicked, {
 			source: 'Header',
 		});
-		window.open(HELP_LINK, '_blank');
+		openLink(GOLINKS.HELP);
 	};
 
 	return (
