@@ -1,4 +1,5 @@
 import Box from '@elementor/ui/Box';
+import { BottomBar } from '@ea11y/components';
 import SkipToContentSettings from '@ea11y/components/skip-to-content-settings';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
 import {
@@ -31,6 +32,7 @@ const Menu = () => {
 
 				<SkipToContentSettings />
 			</StyledContainer>
+			<BottomBar />
 		</StyledBox>
 	);
 };

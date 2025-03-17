@@ -22,7 +22,7 @@ import {
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { LEARN_MORE_LINK } from '../constants/index';
+import { GOLINKS } from '../constants/index';
 import { injectTemplateVars } from '../utils';
 
 const AccessibilityStatement = () => {
@@ -93,7 +93,7 @@ const AccessibilityStatement = () => {
 							{
 								link: ({ children }) => (
 									<Link
-										href={LEARN_MORE_LINK}
+										href={GOLINKS.LEARN_MORE_STATEMENT}
 										target="_blank"
 										rel="noopener noreferrer"
 										color="secondary"

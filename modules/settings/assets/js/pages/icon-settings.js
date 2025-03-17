@@ -20,7 +20,7 @@ const IconSettings = () => {
 		<StyledBox>
 			<StyledContainer>
 				<StyledTitle variant="h4" color="text.primary">
-					{__('Button', 'pojo-accessibility')}
+					{__('Design', 'pojo-accessibility')}
 				</StyledTitle>
 
 				<IconDesignSettings marginBottom={4} />

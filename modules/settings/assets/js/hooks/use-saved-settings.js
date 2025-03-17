@@ -3,6 +3,7 @@ import { store as coreDataStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { useAnalyticsContext } from '../contexts/analytics-context';
+import { calculatePlanUsage } from '../utils';
 
 export const useSavedSettings = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -13,6 +14,7 @@ export const useSavedSettings = () => {
 		setIconDesign,
 		setIconPosition,
 		setPlanData,
+		setPlanUsage,
 		setAccessibilityStatementData,
 		setShowAccessibilityGeneratedInfotip,
 		setSkipToContentSettings,
@@ -63,6 +65,12 @@ export const useSavedSettings = () => {
 					result?.data?.ea11y_plan_data?.plan?.features?.analytics,
 				);
 				setPlanData(result.data.ea11y_plan_data);
+				setPlanUsage(
+					calculatePlanUsage(
+						result?.data?.ea11y_plan_data?.visits?.allowed,
+						result?.data?.ea11y_plan_data?.visits?.used,
+					),
+				);
 			}
 
 			if (result?.data?.ea11y_accessibility_statement_data) {
