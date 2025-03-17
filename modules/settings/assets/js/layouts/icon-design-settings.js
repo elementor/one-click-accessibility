@@ -21,12 +21,12 @@ const IconDesignSettings = (props) => {
 		<Grid padding={2} border={1} borderColor="divider" {...props}>
 			<Box marginBottom={2}>
 				<Typography variant="subtitle1">
-					{__('Design', 'pojo-accessibility')}
+					{__('Style', 'pojo-accessibility')}
 				</Typography>
 
 				<Typography variant="body2">
 					{__(
-						"Customize your accessibility button's color, icon, and size to match your brand.",
+						"Customize your widget's color, icon, and size to match your brand.",
 						'pojo-accessibility',
 					)}
 				</Typography>
