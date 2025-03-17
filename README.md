@@ -180,7 +180,7 @@ An accessibility statement is a declaration of your commitment to providing an i
 
 ## Changelog
 
-### 3.0.3 2025-03-11
+### 3.0.3 2025-03-17
 
 * New: Added an option to manage URL change
 * New: added Danish language support to widget
