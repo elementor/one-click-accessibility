@@ -22,15 +22,15 @@ export const MENU_SETTINGS = {
 		title: __('Content Adjustments', 'pojo-accessibility'),
 		options: {
 			'bigger-text': {
-				title: __('Adjust text size', 'pojo-accessibility'),
+				title: __('Bigger text', 'pojo-accessibility'),
 				icon: <TextSizeIcon sx={iconStyle} />,
 			},
 			'bigger-line-height': {
-				title: __('Adjust line height', 'pojo-accessibility'),
+				title: __('Bigger line height', 'pojo-accessibility'),
 				icon: <LineHeightIcon sx={iconStyle} />,
 			},
 			'text-align': {
-				title: __('Align text', 'pojo-accessibility'),
+				title: __('Text align', 'pojo-accessibility'),
 				icon: <AlignLeftIcon sx={iconStyle} />,
 			},
 			'readable-font': {
@@ -43,7 +43,7 @@ export const MENU_SETTINGS = {
 		title: __('Color Adjustments', 'pojo-accessibility'),
 		options: {
 			grayscale: {
-				title: __('Greyscale', 'pojo-accessibility'),
+				title: __('Grayscale', 'pojo-accessibility'),
 				icon: <GrayscaleIcon sx={iconStyle} />,
 			},
 			contrast: {

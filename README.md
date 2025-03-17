@@ -183,12 +183,12 @@ An accessibility statement is a declaration of your commitment to providing an i
 ### 3.0.3 2025-03-17
 
 * New: Added an option to manage URL change
-* New: added Danish language support to widget
-* New: added compatibility with popular caching plugins
+* New: Added Danish language support to widget
+* New: Added compatibility with popular caching plugins: WP Rocket, W3 Total Cache, and LiteSpeed Cache
 * Tweak: Improved connect flow
 * Tweak: Admin panel UI widget preview improvements
 * Tweak: Improved Admin panel UI accessibility
-* Fix: PHP notice on legacy admin pages in +PHP8.2
+* Fix: PHP notice on legacy admin pages in PHP 8.2+
 
 ### 3.0.2 2025-02-25
 

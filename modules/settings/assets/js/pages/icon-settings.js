@@ -35,7 +35,7 @@ const IconSettings = () => {
 		<StyledBox>
 			<StyledContainer>
 				<Typography variant="h4" fontWeight="400" marginBottom={4}>
-					{__('Button', 'pojo-accessibility')}
+					{__('Design', 'pojo-accessibility')}
 				</Typography>
 
 				<IconDesignSettings marginBottom={4} />
