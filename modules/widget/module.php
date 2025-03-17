@@ -137,7 +137,7 @@ class Module extends Module_Base {
             $feature_name = str_replace( '_', '-', $feature );
 
             // Assuming feature does not exist in the plan.
-            $feature_in_plan_data = 0;
+            $feature_in_plan_data = false;
 
             // Check if it exists in the plan. A contingency to handle downgrading of plans.
             if ( isset( $plan_data->plan->features->{$feature} ) ) {
@@ -152,7 +152,7 @@ class Module extends Module_Base {
                 continue;
             }
 
-            $feature_in_widget_settings = $widget_settings[$feature_name]['enabled'];
+            $feature_in_widget_settings = isset( $widget_settings[$feature_name] );
 
              if ( ! $feature_in_plan_data && $feature_in_widget_settings ) {
                  $widget_settings[$feature_name]['enabled'] = false;
