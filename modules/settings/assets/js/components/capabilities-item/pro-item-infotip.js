@@ -10,8 +10,41 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ProCrownIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
+import { GOLINKS, PRO_FEATURES } from '../../constants/index';
+import { openLink } from '../../utils/index';
 
-const ProItemInfotip = () => {
+const ProItemInfotip = ({
+	children,
+	childKey,
+	source,
+	enabled,
+	childValue,
+	showIcon = false,
+}) => {
+	/*
+	 * Handle the upgrade button click.
+	 */
+	const handleUpgradeButton = () => {
+		if ('screen-reader' === childKey && 'icon' === source) {
+			openLink(GOLINKS.SCREEN_READER_ICON);
+		}
+
+		if ('screen-reader' === childKey && 'toggle' === source) {
+			openLink(GOLINKS.SCREEN_READER_TOGGLE);
+		}
+
+		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'icon' === source) {
+			openLink(GOLINKS.ALLY_LABEL_ICON);
+		}
+
+		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'toggle' === source) {
+			openLink(GOLINKS.ALLY_LABEL_TOGGLE);
+		}
+	};
+
+	/*
+	 * The content of the infotip.
+	 */
 	const infotipContent = (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
 			<CardHeader
@@ -31,12 +64,21 @@ const ProItemInfotip = () => {
 					color="promotion"
 					variant="contained"
 					startIcon={<CrownIcon />}
+					onClick={handleUpgradeButton}
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</Button>
 			</CardActions>
 		</Card>
 	);
+
+	if (!childValue?.pro && 'pro' !== childValue) {
+		return children;
+	}
+
+	if ((childValue?.pro || 'pro' === childValue) && enabled) {
+		return children;
+	}
 
 	return (
 		<Infotip
@@ -49,12 +91,15 @@ const ProItemInfotip = () => {
 				},
 			}}
 		>
-			<StyledChip
-				color="promotion"
-				variant="standard"
-				icon={<ProCrownIcon />}
-				size="small"
-			/>
+			{showIcon && (
+				<StyledChip
+					color="promotion"
+					variant="standard"
+					icon={<ProCrownIcon />}
+					size="small"
+				/>
+			)}
+			{children}
 		</Infotip>
 	);
 };

@@ -99,17 +99,32 @@ const CapabilitiesItem = ({
 						<FormLabel htmlFor={`ea11y-${childKey}-toggle`}>
 							<ListItemText primary={childValue.title} />
 						</FormLabel>
-						{childValue?.pro && !isProEnabled() && <ProItemInfotip />}
+						{childValue?.pro && !isProEnabled() && (
+							<ProItemInfotip
+								source="icon"
+								childKey={childKey}
+								childValue={childValue}
+								enabled={isProEnabled()}
+								showIcon={true}
+							/>
+						)}
 					</Box>
 				</>
 			)}
 
 			<ListItemSecondaryAction sx={{ top: '19px' }}>
-				<CustomSwitch
-					checked={widgetMenuSettings[childKey]?.enabled || false}
-					onChange={() => toggleSetting(parentKey, childKey)}
-					disabled={isDisabled()}
-				/>
+				<ProItemInfotip
+					source="toggle"
+					childKey={childKey}
+					childValue={childValue}
+					enabled={isProEnabled()}
+				>
+					<CustomSwitch
+						checked={widgetMenuSettings[childKey]?.enabled || false}
+						onChange={() => toggleSetting(parentKey, childKey)}
+						disabled={isDisabled()}
+					/>
+				</ProItemInfotip>
 			</ListItemSecondaryAction>
 		</ListItem>
 	);

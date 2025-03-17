@@ -24,8 +24,15 @@ const LogoSettings = () => {
 			<CardHeader
 				title={
 					<>
-						{__('Elementor logo', 'pojo-accessibility')}{' '}
-						{!isProEnabled() && <ProItemInfotip />}
+						{__('Ally by Elementor logo', 'pojo-accessibility')}
+						{!isProEnabled() && (
+							<ProItemInfotip
+								childKey={PRO_FEATURES.REMOVE_BRANDING}
+								childValue="pro"
+								source="icon"
+								showIcon={true}
+							/>
+						)}
 					</>
 				}
 				subheader={
@@ -37,14 +44,21 @@ const LogoSettings = () => {
 					</Typography>
 				}
 				action={
-					<CustomSwitch
-						disabled={!isProEnabled()}
-						onChange={() => toggleMenu('pro', PRO_FEATURES?.REMOVE_BRANDING)}
-						checked={
-							widgetMenuSettings?.[PRO_FEATURES?.REMOVE_BRANDING]?.enabled ||
-							false
-						}
-					/>
+					<ProItemInfotip
+						childKey={PRO_FEATURES.REMOVE_BRANDING}
+						childValue="pro"
+						source="toggle"
+						enabled={isProEnabled()}
+					>
+						<CustomSwitch
+							disabled={!isProEnabled()}
+							onChange={() => toggleMenu('pro', PRO_FEATURES?.REMOVE_BRANDING)}
+							checked={
+								widgetMenuSettings?.[PRO_FEATURES?.REMOVE_BRANDING]?.enabled ||
+								false
+							}
+						/>
+					</ProItemInfotip>
 				}
 			/>
 		</Card>
