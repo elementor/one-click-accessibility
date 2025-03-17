@@ -5,6 +5,7 @@ namespace EA11y\Modules\Widget;
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Settings\Module as SettingsModule;
+use EA11y\Modules\Analytics\Module as AnalyticsModule;
 use EA11y\Modules\Settings\Classes\Settings;
 use Exception;
 
@@ -43,6 +44,8 @@ class Module extends Module_Base {
 			true
 		);
 
+		$is_analytics_enabled = AnalyticsModule::is_active();
+
 		wp_localize_script(
 			'ea11y-widget',
 			'ea11yWidget',
@@ -50,6 +53,10 @@ class Module extends Module_Base {
 				'iconSettings' => get_option( Settings::WIDGET_ICON_SETTINGS ),
 				'toolsSettings' => $this->get_tools_settings(),
 				'accessibilityStatementURL' => $this->get_accessibility_statement_url(),
+				'analytics' => [
+					'enabled' => $is_analytics_enabled,
+					'url' => $is_analytics_enabled ? get_rest_url( null, '/ea11y/v1/analytics/events' ) : null,
+				],
 			]
 		);
 	}

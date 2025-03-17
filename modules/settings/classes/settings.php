@@ -14,6 +14,7 @@ class Settings {
 	public const WIDGET_ICON_SETTINGS = 'ea11y_widget_icon_settings';
 	public const WIDGET_MENU_SETTINGS = 'ea11y_widget_menu_settings';
 	public const SKIP_TO_CONTENT = 'ea11y_skip_to_content_settings';
+	public const ANALYTICS_SETTINGS = 'ea11y_analytics_enabled';
 
 	/**
 	 * Returns plugin settings data by option name
