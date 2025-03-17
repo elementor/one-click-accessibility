@@ -1,6 +1,7 @@
 import { SettingsProvider, NotificationsProvider } from '@ea11y/hooks';
 import { StrictMode, Fragment, createRoot } from '@wordpress/element';
 import App from './app';
+import { AnalyticsContextProvider } from './contexts/analytics-context';
 import { PluginSettingsProvider } from './contexts/plugin-settings';
 
 const rootNode = document.getElementById('ea11y-app');
@@ -16,7 +17,9 @@ root.render(
 		<NotificationsProvider>
 			<SettingsProvider>
 				<PluginSettingsProvider>
-					<App />
+					<AnalyticsContextProvider>
+						<App />
+					</AnalyticsContextProvider>
 				</PluginSettingsProvider>
 			</SettingsProvider>
 		</NotificationsProvider>
