@@ -23,5 +23,4 @@ class Utils {
 		$installed_plugins = get_plugins();
 		return isset( $installed_plugins[ $file_path ] );
 	}
-
 }

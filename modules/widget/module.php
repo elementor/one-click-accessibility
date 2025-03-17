@@ -131,10 +131,17 @@ class Module extends Module_Base {
 		return $option;
 	}
 
+	public static function component_list(): array {
+		return [
+			'Cache_Compatibility',
+		];
+	}
+
 	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
+		$this->register_components();
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_accessibility_widget' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_accessibility_widget_admin' ] );
 	}

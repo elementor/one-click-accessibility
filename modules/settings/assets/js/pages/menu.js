@@ -2,6 +2,7 @@ import Box from '@elementor/ui/Box';
 import Container from '@elementor/ui/Container';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { BottomBar } from '@ea11y/components';
 import SkipToContentSettings from '@ea11y/components/skip-to-content-settings';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
 import { eventNames, mixpanelService } from '@ea11y/services';
@@ -22,18 +23,21 @@ const Menu = () => {
 	}, []);
 
 	return (
-		<StyledContainer>
-			<Typography variant="h4" fontWeight="400" marginBottom={4}>
-				{__('Capabilities', 'pojo-accessibility')}
-			</Typography>
+		<>
+			<StyledContainer>
+				<Typography variant="h4" fontWeight="400" marginBottom={4}>
+					{__('Capabilities', 'pojo-accessibility')}
+				</Typography>
 
-			<Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
-				<MenuSettings />
-				<WidgetPreview />
-			</Box>
+				<Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
+					<MenuSettings />
+					<WidgetPreview />
+				</Box>
 
-			<SkipToContentSettings />
-		</StyledContainer>
+				<SkipToContentSettings />
+			</StyledContainer>
+			<BottomBar />
+		</>
 	);
 };
 

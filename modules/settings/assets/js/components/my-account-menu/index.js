@@ -19,7 +19,8 @@ import { PopupMenu } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
-import { HELP_LINK } from '../../constants';
+import { GOLINKS } from '../../constants';
+import { openLink } from '../../utils';
 
 const MyAccountMenu = () => {
 	const { openSidebar } = useSettings();
@@ -33,7 +34,7 @@ const MyAccountMenu = () => {
 		mixpanelService.sendEvent(eventNames.helpButtonClicked, {
 			source: 'Header',
 		});
-		window.open(HELP_LINK, '_blank');
+		openLink(GOLINKS.HELP);
 	};
 
 	return (
