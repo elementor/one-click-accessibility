@@ -1,7 +1,6 @@
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
-import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Divider from '@elementor/ui/Divider';
