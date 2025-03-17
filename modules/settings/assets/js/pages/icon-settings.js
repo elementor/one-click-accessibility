@@ -13,7 +13,9 @@ const StyledBox = styled(Box)`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	height: 100%;
+	max-height: 100%;
+	height: auto;
+	min-height: 80%;
 `;
 
 const StyledContainer = styled(Container)`
@@ -33,7 +35,7 @@ const IconSettings = () => {
 		<StyledBox>
 			<StyledContainer>
 				<Typography variant="h4" fontWeight="400" marginBottom={4}>
-					{__('Button', 'pojo-accessibility')}
+					{__('Design', 'pojo-accessibility')}
 				</Typography>
 
 				<IconDesignSettings marginBottom={4} />

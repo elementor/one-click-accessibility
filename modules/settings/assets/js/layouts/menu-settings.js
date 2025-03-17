@@ -1,7 +1,6 @@
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
-import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Divider from '@elementor/ui/Divider';
@@ -10,7 +9,7 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemText from '@elementor/ui/ListItemText';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { BottomBar, CapabilitiesItem } from '@ea11y/components';
+import { CapabilitiesItem } from '@ea11y/components';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { LogoSettings } from '@ea11y/layouts';
 import { useEffect, useState } from '@wordpress/element';
@@ -20,22 +19,8 @@ import { MENU_SETTINGS } from '../constants/menu-settings';
 const StyledCardContent = styled(CardContent)`
 	height: 55vh;
 	overflow: auto;
-	margin-bottom: 61.5px;
+	margin-bottom: ${({ theme }) => theme.spacing(2)};
 	padding: 0 ${({ theme }) => theme.spacing(2)};
-`;
-
-const StyledCardActions = styled(CardActions)`
-	position: absolute;
-	width: 100%;
-	bottom: 0;
-
-	padding: 0;
-	background: ${({ theme }) => theme.palette.background.paper};
-
-	& .MuiBox-root {
-		padding: ${({ theme }) => theme.spacing(1.5)}
-			${({ theme }) => theme.spacing(2)};
-	}
 `;
 
 const MenuSettings = () => {
@@ -66,7 +51,7 @@ const MenuSettings = () => {
 	 */
 	const areAtLeastTwoOptionsEnabled = (settings) => {
 		const enabled = Object.keys(settings)?.filter(
-			(key) => settings[key].enabled && key !== 'remove-elementor-label',
+			(key) => settings[key].enabled,
 		);
 		return enabled.length > 2;
 	};
@@ -141,10 +126,6 @@ const MenuSettings = () => {
 						})}
 					</List>
 				</StyledCardContent>
-
-				<StyledCardActions>
-					<BottomBar />
-				</StyledCardActions>
 			</Card>
 			<LogoSettings />
 		</Box>

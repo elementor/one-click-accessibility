@@ -1,5 +1,5 @@
 import API from '../api';
-import { UPGRADE_LINK } from '../constants';
+import { GOLINKS } from '../constants';
 
 export const useAuth = () => {
 	const { subscriptionId } = 123;
@@ -15,7 +15,7 @@ export const useAuth = () => {
 	};
 
 	const getUpgradeLink = () => {
-		const url = new URL(UPGRADE_LINK);
+		const url = new URL(GOLINKS.UPGRADE);
 
 		url.searchParams.append('subscription_id', subscriptionId);
 

@@ -8,37 +8,23 @@ import {
 	Notifications,
 	MenuItems,
 	PostConnectModal,
+	UrlMismatchModal,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
 	useSettings,
 	useSavedSettings,
 } from '@ea11y/hooks';
-import { Sidebar } from '@ea11y/layouts';
+import { QuotaNotices, Sidebar } from '@ea11y/layouts';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
 
-const StyledContainer = styled(Box)`
-	width: 100%;
-
-	display: flex;
-	flex-direction: column;
-	justify-content: start;
-`;
-
-const StyledGrid = styled(Grid)`
-	height: 100%;
-
-	display: flex;
-	flex-direction: row;
-`;
-
 const App = () => {
 	const { hasFinishedResolution, loading } = useSavedSettings();
 
-	const { isConnected, isRTL, closePostConnectModal } =
+	const { isConnected, isRTL, closePostConnectModal, isUrlMismatch } =
 		usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
@@ -59,13 +45,17 @@ const App = () => {
 	return (
 		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
-				{isConnected !== undefined && !isConnected && <ConnectModal />}
+				{isConnected !== undefined && !isUrlMismatch && !isConnected && (
+					<ConnectModal />
+				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
+				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
 
 				<StyledGrid>
 					<Sidebar />
 
 					<StyledContainer>
+						<QuotaNotices />
 						<PageContent
 							// Looks the best if we have both checks
 							isLoading={!hasFinishedResolution || loading}
@@ -81,3 +71,18 @@ const App = () => {
 };
 
 export default App;
+
+const StyledContainer = styled(Box)`
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+`;
+
+const StyledGrid = styled(Grid)`
+	height: 100%;
+
+	display: flex;
+	flex-direction: row;
+`;
