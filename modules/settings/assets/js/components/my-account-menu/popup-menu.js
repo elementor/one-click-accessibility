@@ -66,17 +66,11 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 				</Avatar>
 
 				<Box display="flex" flexDirection="column" gap={0}>
-					{planData?.user?.email.length < 24 ? (
+					<Tooltip title={planData?.user?.email}>
 						<Typography variant="caption" color="common.white">
-							{planData?.user?.email}
+							{truncateEmail(planData?.user?.email)}
 						</Typography>
-					) : (
-						<Tooltip title={planData?.user?.email}>
-							<Typography variant="caption" color="common.white">
-								{truncateEmail(planData?.user?.email)}
-							</Typography>
-						</Tooltip>
-					)}
+					</Tooltip>
 					{planData?.plan?.name && (
 						<Chip
 							color="info"
