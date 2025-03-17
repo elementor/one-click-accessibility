@@ -11,23 +11,24 @@ export const MENU_SETTINGS = {
 			'readable-font': FEATURE_MAPPER['readable-font'],
 		},
 	},
-	'color-adjustments': {
-		title: __('Color Adjustments', 'pojo-accessibility'),
-		options: {
-			grayscale: FEATURE_MAPPER.grayscale,
-			contrast: FEATURE_MAPPER.contrast,
-		},
-	},
 	'orientation-adjustments': {
 		title: __('Orientation Adjustments', 'pojo-accessibility'),
 		options: {
 			'page-structure': FEATURE_MAPPER['page-structure'],
+			'screen-reader': FEATURE_MAPPER['screen-reader'],
 			sitemap: FEATURE_MAPPER.sitemap,
 			'reading-mask': FEATURE_MAPPER['reading-mask'],
 			'hide-images': FEATURE_MAPPER['hide-images'],
 			'pause-animations': FEATURE_MAPPER['pause-animations'],
 			'highlight-links': FEATURE_MAPPER['highlight-links'],
 			'focus-outline': FEATURE_MAPPER['focus-outline'],
+		},
+	},
+	'color-adjustments': {
+		title: __('Color Adjustments', 'pojo-accessibility'),
+		options: {
+			grayscale: FEATURE_MAPPER.grayscale,
+			contrast: FEATURE_MAPPER.contrast,
 		},
 	},
 };
