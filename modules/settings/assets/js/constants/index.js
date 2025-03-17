@@ -25,10 +25,7 @@ import SitemapIcon from '@ea11y/icons/sitemap-icon';
 import StatementIcon from '@ea11y/icons/statement-icon';
 import { __ } from '@wordpress/i18n';
 
-export const HELP_LINK = 'https://go.elementor.com/acc-main-help/';
-export const UPGRADE_LINK = 'https://go.elementor.com/';
-export const LEARN_MORE_LINK =
-	'https://go.elementor.com/acc-statement-learn-more/';
+export const SUBSCRIPTION_LINK = 'https://my.elementor.com';
 
 export const SKELETON_OPTIONS = Object.freeze({
 	SPEED: 2,

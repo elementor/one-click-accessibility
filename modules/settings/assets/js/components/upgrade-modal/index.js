@@ -9,7 +9,7 @@ import { StyledContainer } from '@ea11y/pages/pages.styles';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import imageUrl from '../../../img/upgrade.png';
-import { UPGRADE_LINK } from '../../constants';
+import { GOLINKS } from '../../constants';
 
 const UpgradeModal = () => {
 	const onUpgrade = () => {
@@ -58,7 +58,7 @@ const UpgradeModal = () => {
 							</Typography>
 						</Box>
 						<Button
-							href={UPGRADE_LINK}
+							href={GOLINKS.UPGRADE}
 							size="large"
 							color="accent"
 							startIcon={<CrownFilled />}
