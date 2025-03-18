@@ -42,11 +42,9 @@ class Module extends Module_Base {
 
 	public static function is_active(): bool {
 		$plan_data = Settings::get( Settings::PLAN_DATA );
-		$is_analytics_enabled = Settings::get( Settings::ANALYTICS_SETTINGS );
 		return (
 			isset( $plan_data->plan->features->analytics ) &&
-			$plan_data->plan->features->analytics &&
-			$is_analytics_enabled
+			$plan_data->plan->features->analytics
 		);
 	}
 

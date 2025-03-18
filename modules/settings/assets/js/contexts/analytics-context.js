@@ -24,7 +24,7 @@ export const AnalyticsContextProvider = ({ children }) => {
 	 * Get initial logs list
 	 */
 	useEffect(() => {
-		if (isProVersion && isAnalyticsEnabled) {
+		if (isProVersion) {
 			setLoading(true);
 			void API.getStatistic({ period }).then((data) => {
 				setStats(data);
