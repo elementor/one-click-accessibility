@@ -59,6 +59,7 @@ const UpgradeModal = () => {
 						</Box>
 						<Button
 							href={GOLINKS.UPGRADE}
+							target="_blank"
 							size="large"
 							color="accent"
 							startIcon={<CrownFilled />}
