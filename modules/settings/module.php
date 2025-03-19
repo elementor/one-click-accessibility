@@ -106,7 +106,7 @@ class Module extends Module_Base {
 				'pluginEnv' => self::get_plugin_env(),
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
-                'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 			]
 		);
 	}
@@ -134,7 +134,7 @@ class Module extends Module_Base {
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
-            'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 		];
 	}
 
@@ -447,11 +447,15 @@ class Module extends Module_Base {
 	}
 
 	public static function set_plan_data_refresh_transient(): void {
-		set_transient( Settings::PLAN_DATA . '_refresh', true, HOUR_IN_SECONDS * 12 );
+		set_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT, true, HOUR_IN_SECONDS * 12 );
 	}
 
 	public static function get_plan_data_refresh_transient(): bool {
-		return get_transient( Settings::PLAN_DATA . '_refresh' );
+		return get_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT );
+	}
+
+	public static function delete_plan_data_refresh_transient(): bool {
+		return delete_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT );
 	}
 
 	/**
