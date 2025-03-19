@@ -50,7 +50,7 @@ const QuotaBar = () => {
 				sx={{ justifyContent: 'center', width: '100%', borderRadius: 0 }}
 				onClick={() => setOpenSidebar(true)}
 			>
-				<EyeIcon sx={{ color: 'common.black' }} />
+				<EyeIcon sx={{ color: 'common.black', marginRight: 1 }} />
 			</IconButton>
 		);
 	}
