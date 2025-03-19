@@ -56,7 +56,7 @@ class Authorize extends Route_Base {
 			if ( ! Utils::is_valid_home_url() ) {
 				if ( $request->get_param( 'update_redirect_uri' ) ) {
 					Service::update_redirect_uri();
-                    delete_transient( Settings::PLAN_DATA . '_refresh' );
+					delete_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT );
 					// Return a success message if the redirect URI was updated. No need to authorize again.
 					return $this->respond_success_json( [ 'success' => true ] );
 				} else {
