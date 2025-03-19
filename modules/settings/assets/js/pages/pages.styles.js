@@ -10,7 +10,8 @@ export const StyledBox = styled(Box)`
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	height: 100%;
+	max-height: 100%;
+	min-height: 50%;
 `;
 
 export const StyledContainer = styled(Container)`
