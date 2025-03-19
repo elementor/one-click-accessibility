@@ -4,9 +4,10 @@ import Button from '@elementor/ui/Button';
 import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
 import LinearProgress from '@elementor/ui/LinearProgress';
+import Skeleton from '@elementor/ui/Skeleton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { useSettings } from '@ea11y/hooks';
+import { useSavedSettings, useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';
@@ -14,6 +15,7 @@ import { formatPlanValue, openLink } from '../utils';
 
 const QuotaBar = () => {
 	const { planUsage, openSidebar, setOpenSidebar, planData } = useSettings();
+	const { loading } = useSavedSettings();
 	const quotaData = planData?.visits;
 
 	/**
@@ -52,6 +54,15 @@ const QuotaBar = () => {
 			</IconButton>
 		);
 	}
+
+	if (loading) {
+		return (
+			<StyledBox>
+				<Skeleton width="100%" height={100} />
+			</StyledBox>
+		);
+	}
+
 	return (
 		<StyledBox>
 			<EyeIcon />
@@ -83,9 +94,11 @@ const QuotaBar = () => {
 							/>
 						</Infotip>
 					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						{formatPlanValue(quotaData?.allowed)}
-					</Typography>
+					{quotaData?.allowed && (
+						<Typography variant="body2" color="text.secondary">
+							{formatPlanValue(quotaData?.allowed)}
+						</Typography>
+					)}
 				</Box>
 				<LinearProgress
 					sx={{
@@ -99,17 +112,21 @@ const QuotaBar = () => {
 					valueBuffer={100}
 					color={progressBarColor()}
 				/>
-				<Typography variant="body2" color="text.tertiary">
-					{`${formatPlanValue(quotaData?.used)} loads (${planUsage}% of the limit)`}
-				</Typography>
-				<StyledButton
-					variant="text"
-					size="small"
-					color="info"
-					onClick={handleAddVisitsClick}
-				>
-					{__('Upgrade plan', 'pojo-accessibility')}
-				</StyledButton>
+				{quotaData && (
+					<>
+						<Typography variant="body2" color="text.tertiary">
+							{`${formatPlanValue(quotaData?.used)} loads (${planUsage}% of the limit)`}
+						</Typography>
+						<StyledButton
+							variant="text"
+							size="small"
+							color="info"
+							onClick={handleAddVisitsClick}
+						>
+							{__('Upgrade plan', 'pojo-accessibility')}
+						</StyledButton>
+					</>
+				)}
 			</Box>
 		</StyledBox>
 	);
