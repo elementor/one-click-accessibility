@@ -83,9 +83,11 @@ const QuotaBar = () => {
 							/>
 						</Infotip>
 					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						{formatPlanValue(quotaData?.allowed)}
-					</Typography>
+					{quotaData?.allowed && (
+						<Typography variant="body2" color="text.secondary">
+							{formatPlanValue(quotaData?.allowed)}
+						</Typography>
+					)}
 				</Box>
 				<LinearProgress
 					sx={{
@@ -99,17 +101,21 @@ const QuotaBar = () => {
 					valueBuffer={100}
 					color={progressBarColor()}
 				/>
-				<Typography variant="body2" color="text.tertiary">
-					{`${formatPlanValue(quotaData?.used)} loads (${planUsage}% of the limit)`}
-				</Typography>
-				<StyledButton
-					variant="text"
-					size="small"
-					color="info"
-					onClick={handleAddVisitsClick}
-				>
-					{__('Upgrade plan', 'pojo-accessibility')}
-				</StyledButton>
+				{quotaData && (
+					<>
+						<Typography variant="body2" color="text.tertiary">
+							{`${formatPlanValue(quotaData?.used)} loads (${planUsage}% of the limit)`}
+						</Typography>
+						<StyledButton
+							variant="text"
+							size="small"
+							color="info"
+							onClick={handleAddVisitsClick}
+						>
+							{__('Upgrade plan', 'pojo-accessibility')}
+						</StyledButton>
+					</>
+				)}
 			</Box>
 		</StyledBox>
 	);
