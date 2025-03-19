@@ -95,7 +95,7 @@ const CapabilitiesItem = ({
 			) : (
 				<>
 					<ListItemIcon>{childValue.icon}</ListItemIcon>
-					<Box display="flex" flexDirection="row" gap={1} alignItems="center">
+					<Box display="flex" flexDirection="row" alignItems="center">
 						<FormLabel htmlFor={`ea11y-${childKey}-toggle`}>
 							<ListItemText primary={childValue.title} />
 						</FormLabel>
