@@ -72,7 +72,10 @@ const SidebarMenu = () => {
 
 							<ListItemText primary={item.name} hidden={!openSidebar} />
 
-							{/* Show infotip */ item?.infotip}
+							{
+								/* Show infotip */
+								item?.infotip && openSidebar && item?.infotip
+							}
 
 							{item?.children && (
 								<ListItemIcon
