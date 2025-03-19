@@ -13,6 +13,7 @@ use EA11y\Modules\Connect\Module as Connect;
 use Throwable;
 use WP_REST_Request;
 use EA11y\Modules\Settings\Classes\Settings;
+use EA11y\Modules\Settings\Module as SettingsBase;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -56,7 +57,8 @@ class Authorize extends Route_Base {
 			if ( ! Utils::is_valid_home_url() ) {
 				if ( $request->get_param( 'update_redirect_uri' ) ) {
 					Service::update_redirect_uri();
-					delete_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT );
+					SettingsBase::delete_plan_data_refresh_transient();
+
 					// Return a success message if the redirect URI was updated. No need to authorize again.
 					return $this->respond_success_json( [ 'success' => true ] );
 				} else {
@@ -70,6 +72,8 @@ class Authorize extends Route_Base {
 			$authorize_url = Utils::get_authorize_url( $client_id );
 
 			$authorize_url = apply_filters( 'ea11y_connect_authorize_url', $authorize_url );
+
+			SettingsBase::delete_plan_data_refresh_transient();
 
 			return $this->respond_success_json( $authorize_url );
 		} catch ( Throwable $t ) {
