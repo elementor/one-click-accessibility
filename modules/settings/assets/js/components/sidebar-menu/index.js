@@ -74,7 +74,7 @@ const SidebarMenu = () => {
 
 							{
 								/* Show infotip */
-								item?.infotip && openSidebar && item?.infotip
+								openSidebar && item?.infotip
 							}
 
 							{item?.children && (
