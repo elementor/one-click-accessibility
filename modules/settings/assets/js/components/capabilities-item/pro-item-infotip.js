@@ -107,6 +107,7 @@ const ProItemInfotip = ({
 export default ProItemInfotip;
 
 const StyledChip = styled(Chip)`
+	margin-left: ${({ theme }) => theme.spacing(1)};
 	.MuiChip-label {
 		padding: 4px;
 	}
