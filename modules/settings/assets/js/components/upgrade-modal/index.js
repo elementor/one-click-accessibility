@@ -58,7 +58,7 @@ const UpgradeModal = () => {
 							</Typography>
 						</Box>
 						<Button
-							href={GOLINKS.UPGRADE}
+							href={GOLINKS.ANALYTICS_POPUP}
 							size="large"
 							color="accent"
 							startIcon={<CrownFilled />}
