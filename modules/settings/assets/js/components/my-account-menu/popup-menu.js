@@ -25,7 +25,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 
 	const onDeactivateAndDisconnect = async () => {
 		try {
-			await API.disconnect();
+			await API.deactivate();
 			await API.redirectToConnect();
 
 			await save({
