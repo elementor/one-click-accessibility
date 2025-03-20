@@ -44,21 +44,20 @@ const QuotaBar = () => {
 		openLink(GOLINKS.ADD_VISITS);
 	};
 
-	if (!openSidebar) {
-		return (
-			<IconButton
-				sx={{ justifyContent: 'center', width: '100%', borderRadius: 0 }}
-				onClick={() => setOpenSidebar(true)}
-			>
-				<EyeIcon sx={{ color: 'common.black' }} />
-			</IconButton>
-		);
-	}
-
 	if (loading) {
 		return (
 			<StyledBox>
-				<Skeleton width="100%" height={100} />
+				<Skeleton width="100%" height={91} />
+			</StyledBox>
+		);
+	}
+
+	if (!openSidebar) {
+		return (
+			<StyledBox>
+				<IconButton onClick={() => setOpenSidebar(true)} sx={{ padding: 0 }}>
+					<EyeIcon sx={{ color: 'common.black', marginRight: 1 }} />
+				</IconButton>
 			</StyledBox>
 		);
 	}
@@ -73,6 +72,7 @@ const QuotaBar = () => {
 						display="flex"
 						alignItems="center"
 						gap={1}
+						noWrap
 					>
 						{__('Widget loads', 'pojo-accessibility')}
 						<Infotip
@@ -114,7 +114,7 @@ const QuotaBar = () => {
 				/>
 				{quotaData && (
 					<>
-						<Typography variant="body2" color="text.tertiary">
+						<Typography variant="body2" color="text.tertiary" noWrap>
 							{`${formatPlanValue(quotaData?.used)} loads (${planUsage}% of the limit)`}
 						</Typography>
 						<StyledButton
@@ -142,6 +142,7 @@ const StyledBox = styled(Box)`
 	gap: ${({ theme }) => theme.spacing(2)};
 	margin: ${({ theme }) => theme.spacing(2)};
 	padding: ${({ theme }) => theme.spacing(2)};
+	height: 120px;
 `;
 
 const StyledButton = styled(Button)`
