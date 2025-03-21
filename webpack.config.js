@@ -64,5 +64,6 @@ module.exports = [
 			extensions: ['.js', '.jsx'],
 		},
 	},
+
 	reactJSXRuntimePolyfill,
 ];
