@@ -15,7 +15,7 @@ import {
 	useSettings,
 	useSavedSettings,
 } from '@ea11y/hooks';
-import { Sidebar } from '@ea11y/layouts';
+import { QuotaNotices, Sidebar } from '@ea11y/layouts';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
@@ -30,12 +30,14 @@ const App = () => {
 	const { selectedMenu } = useSettings();
 
 	useEffect(() => {
-		mixpanelService.init().then(() => {
-			mixpanelService.sendEvent(eventNames.pageView, {
-				page: 'Button',
+		if (window.ea11ySettingsData?.planData?.user?.id) {
+			mixpanelService.init().then(() => {
+				mixpanelService.sendEvent(eventNames.pageView, {
+					page: 'Button',
+				});
 			});
-		});
-	}, []);
+		}
+	}, [window.ea11ySettingsData?.planData?.user?.id]);
 
 	const selectedParent = MenuItems[selectedMenu?.parent];
 	const selectedChild = selectedMenu?.child
@@ -55,6 +57,7 @@ const App = () => {
 					<Sidebar />
 
 					<StyledContainer>
+						<QuotaNotices />
 						<PageContent
 							// Looks the best if we have both checks
 							isLoading={!hasFinishedResolution || loading}

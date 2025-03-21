@@ -18,6 +18,7 @@ const BottomBar = () => {
 	const {
 		selectedMenu,
 		widgetMenuSettings,
+		skipToContentSettings,
 		iconDesign,
 		iconPosition,
 		hasChanges,
@@ -33,6 +34,7 @@ const BottomBar = () => {
 		if (selectedMenu.parent === 'capabilities') {
 			savedData = {
 				ea11y_widget_menu_settings: widgetMenuSettings,
+				ea11y_skip_to_content_settings: skipToContentSettings,
 			};
 		} else if (selectedMenu.parent === 'design') {
 			savedData = {

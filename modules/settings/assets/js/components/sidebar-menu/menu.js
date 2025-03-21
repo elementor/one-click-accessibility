@@ -1,6 +1,12 @@
 import { PagesIcon, SettingsIcon } from '@elementor/icons';
 import { WidgetIcon } from '@ea11y/icons';
-import { AccessibilityStatement, Menu, IconSettings } from '@ea11y/pages';
+import AnalyticsIcon from '@ea11y/icons/analytics-icon';
+import {
+	AccessibilityStatement,
+	Menu,
+	IconSettings,
+	Analytics,
+} from '@ea11y/pages';
 import { __ } from '@wordpress/i18n';
 import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 
@@ -39,5 +45,19 @@ export const MenuItems = {
 			/>
 		),
 		infotip: <AccessibilityStatementTooltip />,
+	},
+	analytics: {
+		name: __('Analytics', 'pojo-accessibility'),
+		key: 'analytics',
+		page: <Analytics />,
+		proIcon: 'analytics',
+		icon: (
+			<AnalyticsIcon
+				role="img"
+				aria-label={__('Analytics', 'pojo-accessibility')}
+				size="small"
+				sx={{ color: 'common.black' }}
+			/>
+		),
 	},
 };

@@ -2,6 +2,7 @@
 
 namespace EA11y\Modules\Connect\Rest;
 
+use EA11y\Modules\Settings\Module as Settings;
 use EA11y\Modules\Connect\Classes\{
 	Route_Base,
 	Service,
@@ -31,6 +32,7 @@ class Disconnect extends Route_Base {
 		try {
 			Service::refresh_token();
 			Service::disconnect();
+			Settings::delete_plan_data_refresh_transient();
 
 			return $this->respond_success_json();
 		} catch ( Throwable $t ) {
