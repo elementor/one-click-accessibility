@@ -51,21 +51,21 @@ class Module extends Module_Base {
 		return true;
 	}
 
-    public function enqueue_scripts() : void {
-        wp_enqueue_style(
-            'ea11y-global-style',
-            EA11Y_ASSETS_URL . 'css/admin.css',
-            [],
-            EA11Y_VERSION
-        );
-    }
+	public function enqueue_scripts() : void {
+		wp_enqueue_style(
+			'ea11y-global-style',
+			EA11Y_ASSETS_URL . 'css/admin.css',
+			[],
+			EA11Y_VERSION
+		);
+	}
 
 	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
 		$this->register_components();
-        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-        add_filter( 'plugin_action_links', [ $this, 'add_plugin_links' ], 10, 2 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_filter( 'plugin_action_links', [ $this, 'add_plugin_links' ], 10, 2 );
 	}
 }
