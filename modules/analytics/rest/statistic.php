@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Statistic extends Route_Base {
-	protected $auth = false;
+	protected $auth = true;
 	public string $path = 'statistic';
 
 	public function get_methods(): array {
