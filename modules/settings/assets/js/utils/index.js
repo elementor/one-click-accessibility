@@ -60,7 +60,7 @@ export const calculatePlanUsage = (allowed, used) => {
 		return 0;
 	}
 
-	return Math.round((used / allowed) * 100 * 10) / 10;
+	return parseFloat(((used / allowed) * 100).toFixed(1));
 };
 
 /**
