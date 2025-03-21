@@ -6,3 +6,7 @@
   opacity: 1;
   filter: none;
 }
+
+.error-elementor {
+  border-left-color: #93003F;
+}
