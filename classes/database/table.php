@@ -327,10 +327,13 @@ class Table {
 	 * @param array $order_by an array of column => direction (asc|desc) to sort the results by.
 	 * Optional.
 	 * Defaults to an empty array (Default sort).
+	 * @param string|array $group_by A table CROUP BY clause.
+	 *  Optional.
+	 *  Defaults to an empty string (no group)
 	 *
 	 * @return string The SQL SELECT statement built according to the function parameters.
 	 */
-	private static function build_sql_string( $fields = '*', $where = '1', int $limit = null, int $offset = null, string $join = '', array $order_by = [] ): string {
+	private static function build_sql_string( $fields = '*', $where = '1', int $limit = null, int $offset = null, string $join = '', array $order_by = [], $group_by = '' ): string {
 		if ( is_array( $fields ) ) {
 			$fields = implode( ', ', $fields );
 		}
@@ -343,6 +346,14 @@ class Table {
 			$join,
 			static::where( $where )
 		);
+
+		if ( is_array( $group_by ) ) {
+			$group_by = implode( ', ', $group_by );
+		}
+
+		if ( $group_by ) {
+			$query_string .= esc_sql( ' GROUP BY ' . $group_by );
+		}
 
 		if ( $order_by ) {
 			$query_string .= static::build_order_by_sql_string( $order_by );
@@ -397,12 +408,15 @@ class Table {
 	 * @param array $order_by an array of column => direction (asc|desc) to sort the results by.
 	 * Optional.
 	 * Defaults to an empty array (Default sort).
+	 * @param string|array $group_by A table CROUP BY clause.
+	 * Optional.
+	 * Defaults to an empty string (no group)
 	 *
 	 * @return array|object|\stdClass[]|null On success, an array of objects. Null on error.
 	 */
-	public static function select( $fields = '*', $where = '1', int $limit = null, int $offset = null, $join = '', array $order_by = [] ) {
+	public static function select( $fields = '*', $where = '1', int $limit = null, int $offset = null, $join = '', array $order_by = [], $group_by = '' ) {
 		// TODO: handle $wpdb->last_error
-		$query = static::build_sql_string( $fields, $where, $limit, $offset, $join, $order_by );
+		$query = static::build_sql_string( $fields, $where, $limit, $offset, $join, $order_by, $group_by );
 		return static::db()->get_results( $query );
 	}
 

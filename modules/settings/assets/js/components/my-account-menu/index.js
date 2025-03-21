@@ -5,82 +5,36 @@ import {
 	HelpIcon,
 	ExternalLinkIcon,
 } from '@elementor/icons';
-import Avatar from '@elementor/ui/Avatar';
-import Box from '@elementor/ui/Box';
 import List from '@elementor/ui/List';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
-import Menu from '@elementor/ui/Menu';
-import MenuItem from '@elementor/ui/MenuItem';
-import Tooltip from '@elementor/ui/Tooltip';
-import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import {
 	bindMenu,
 	bindTrigger,
 	usePopupState,
 } from '@elementor/ui/usePopupState';
-import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
-import { UserArrowIcon } from '@ea11y/icons';
+import { PopupMenu } from '@ea11y/components';
+import { useSettings } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
-import API from '../../api';
-import { HELP_LINK } from '../../constants';
-
-const StyledListItemButton = styled(ListItemButton)`
-	justify-content: center;
-	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(3)}`};
-`;
+import { GOLINKS } from '../../constants';
+import { openLink } from '../../utils';
 
 const MyAccountMenu = () => {
-	const { openSidebar, planData } = useSettings();
-	const { save } = useStorage();
-	const { error } = useToastNotification();
+	const { openSidebar } = useSettings();
 
 	const accountMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'myAccountMenu',
 	});
 
-	const truncateEmail = (email, maxLength = 24) => {
-		if (email === undefined || email === null) {
-			return '';
-		}
-
-		if (email.length <= maxLength) {
-			return email;
-		}
-
-		return email.slice(0, maxLength - 3) + '...';
-	};
-
-	const onDeactivateAndDisconnect = async () => {
-		try {
-			await API.deactivate();
-			await API.redirectToConnect();
-
-			await save({
-				ea11y_close_post_connect_modal: false,
-			});
-
-			mixpanelService.sendEvent(eventNames.menuButtonClicked, {
-				buttonName: 'Switch account',
-			});
-		} catch (e) {
-			error(
-				__('Failed to switch account. Please try again.', 'pojo-accessibility'),
-			);
-
-			console.error(e);
-		}
-	};
-
 	const handleHelpButtonClick = () => {
 		mixpanelService.sendEvent(eventNames.helpButtonClicked, {
 			source: 'Header',
 		});
-		window.open(HELP_LINK, '_blank');
+		openLink(GOLINKS.HELP);
 	};
 
 	return (
@@ -93,7 +47,11 @@ const MyAccountMenu = () => {
 				}}
 			>
 				<StyledListItemButton shape="rounded" onClick={handleHelpButtonClick}>
-					<ListItemIcon>
+					<ListItemIcon
+						sx={{
+							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '6px',
+						}}
+					>
 						<HelpIcon
 							role="img"
 							aria-label={__('Help center', 'pojo-accessibility')}
@@ -105,6 +63,7 @@ const MyAccountMenu = () => {
 					<ListItemText
 						primary={__('Help center', 'pojo-accessibility')}
 						hidden={!openSidebar}
+						sx={{ whiteSpace: 'nowrap' }}
 					/>
 
 					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
@@ -119,7 +78,11 @@ const MyAccountMenu = () => {
 					selected={accountMenuState.isOpen}
 					shape="rounded"
 				>
-					<ListItemIcon>
+					<ListItemIcon
+						sx={{
+							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '6px',
+						}}
+					>
 						<UserIcon
 							role="img"
 							aria-label={__('My Account', 'pojo-accessibility')}
@@ -131,6 +94,7 @@ const MyAccountMenu = () => {
 					<ListItemText
 						primary={__('My Account', 'pojo-accessibility')}
 						hidden={!openSidebar}
+						sx={{ whiteSpace: 'nowrap' }}
 					/>
 
 					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
@@ -142,56 +106,17 @@ const MyAccountMenu = () => {
 					</ListItemIcon>
 				</StyledListItemButton>
 			</List>
-
-			<Menu
+			<PopupMenu
 				{...bindMenu(accountMenuState)}
-				anchorOrigin={{
-					vertical: 'top',
-					horizontal: 'center',
-				}}
-				transformOrigin={{
-					vertical: 'bottom',
-					horizontal: 'center',
-				}}
-				PaperProps={{
-					sx: {
-						backgroundColor: 'text.primary',
-					},
-				}}
-			>
-				<MenuItem
-					onClick={accountMenuState.close}
-					sx={{ gap: 1, width: '240px' }}
-				>
-					<Avatar>
-						<UserIcon sx={{ color: 'common.white' }} />
-					</Avatar>
-
-					<Box display="flex" flexDirection="column" gap={0}>
-						{planData?.user?.email.length < 24 ? (
-							<Typography variant="caption" color="common.white">
-								{planData?.user?.email}
-							</Typography>
-						) : (
-							<Tooltip title={planData?.user?.email}>
-								<Typography variant="caption" color="common.white">
-									{truncateEmail(planData?.user?.email)}
-								</Typography>
-							</Tooltip>
-						)}
-					</Box>
-				</MenuItem>
-
-				<MenuItem onClick={onDeactivateAndDisconnect}>
-					<UserArrowIcon sx={{ color: 'common.white' }} />
-
-					<Typography color="common.white" marginLeft={1}>
-						{__('Switch account', 'pojo-accessibility')}
-					</Typography>
-				</MenuItem>
-			</Menu>
+				closeAction={accountMenuState.close}
+			/>
 		</>
 	);
 };
 
 export default MyAccountMenu;
+
+const StyledListItemButton = styled(ListItemButton)`
+	justify-content: center;
+	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(3)}`};
+`;

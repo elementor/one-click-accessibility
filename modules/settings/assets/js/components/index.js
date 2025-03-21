@@ -1,6 +1,7 @@
 export { default as ConnectModal } from './connect-modal';
 export { default as Notifications } from './notifications';
 export { default as MyAccountMenu } from './my-account-menu';
+export { default as PopupMenu } from './my-account-menu/popup-menu';
 export { default as SidebarAppBar } from './sidebar-app-bar';
 export { default as SidebarMenu } from './sidebar-menu';
 export { default as IconSize } from './icon-size';
@@ -20,5 +21,8 @@ export { default as CopyLink } from './copy-link';
 export { default as EditLink } from './edit-link';
 export { default as GeneratedPageInfoTipCard } from './generated-page-infotip-card';
 export { default as PositionSettingsWrapper } from './position-settings-wrapper';
+export { default as CapabilitiesItem } from './capabilities-item';
+export { default as ProItemInfotip } from './capabilities-item/pro-item-infotip';
+export { default as CustomSwitch } from './switch';
 export { default as ConfirmDialog } from './confirm-dialog';
 export { default as UrlMismatchModal } from './url-mismatch-modal';

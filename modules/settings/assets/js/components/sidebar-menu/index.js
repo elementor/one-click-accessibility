@@ -1,17 +1,28 @@
-import { ChevronDownIcon } from '@elementor/icons';
+import ChevronDownIcon from '@elementor/icons/ChevronDownIcon';
+import { Chip } from '@elementor/ui';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
+import { styled } from '@elementor/ui/styles';
 import { MenuItems } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
+import CrownFilled from '@ea11y/icons/crown-filled';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState, Fragment } from '@wordpress/element';
 
 const SidebarMenu = () => {
-	const { openSidebar, selectedMenu, setSelectedMenu } = useSettings();
+	const { openSidebar, selectedMenu, setSelectedMenu, planData } =
+		useSettings();
 	const [expandedItems, setExpandedItems] = useState({ widget: true });
+	const proFeatures = planData?.plan?.features
+		? Object.keys(planData.plan.features).filter(
+				(key) =>
+					Boolean(planData.plan.features[key]) &&
+					planData.plan.features[key] !== 'false',
+			)
+		: null;
 
 	const handleSelectedMenu = (itemName, parentKey, childKey) => {
 		if (childKey) {
@@ -19,6 +30,8 @@ const SidebarMenu = () => {
 		} else {
 			setSelectedMenu({ parent: parentKey, child: null });
 		}
+
+		window.location.hash = parentKey;
 
 		mixpanelService.sendEvent(eventNames.menuButtonClicked, {
 			buttonName: itemName,
@@ -34,6 +47,9 @@ const SidebarMenu = () => {
 			buttonName: itemName,
 		});
 	};
+
+	const showProIcon = (item) =>
+		proFeatures && item.proIcon && !proFeatures.includes(item.proIcon);
 
 	return (
 		<List sx={{ paddingTop: 2.5 }}>
@@ -52,11 +68,22 @@ const SidebarMenu = () => {
 								(!selectedMenu?.child || !openSidebar)
 							}
 						>
-							<ListItemIcon>{item.icon}</ListItemIcon>
+							<ListItemIcon
+								sx={{
+									/*For smoother sidebar*/ padding: openSidebar
+										? 'auto'
+										: '4px',
+								}}
+							>
+								{item.icon}
+							</ListItemIcon>
 
 							<ListItemText primary={item.name} hidden={!openSidebar} />
 
-							{/* Show infotip */ item?.infotip}
+							{
+								/* Show infotip */
+								openSidebar && item?.infotip
+							}
 
 							{item?.children && (
 								<ListItemIcon
@@ -68,6 +95,15 @@ const SidebarMenu = () => {
 									<ChevronDownIcon
 										fontSize="small"
 										sx={{ rotate: expandedItems[key] ? '180deg' : '0' }}
+									/>
+								</ListItemIcon>
+							)}
+							{showProIcon(item) && (
+								<ListItemIcon>
+									<StyledChip
+										color="accent"
+										variant="standard"
+										icon={<CrownFilled size="tiny" />}
 									/>
 								</ListItemIcon>
 							)}
@@ -102,5 +138,12 @@ const SidebarMenu = () => {
 		</List>
 	);
 };
+
+const StyledChip = styled(Chip)`
+	height: 26px;
+	width: 26px;
+	border-radius: 50%;
+	justify-content: space-around;
+`;
 
 export default SidebarMenu;

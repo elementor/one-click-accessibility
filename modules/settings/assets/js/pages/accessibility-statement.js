@@ -1,15 +1,12 @@
 import { ChevronLeftIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
-import Container from '@elementor/ui/Container';
 import FormControl from '@elementor/ui/FormControl';
 import FormLabel from '@elementor/ui/FormLabel';
 import Link from '@elementor/ui/Link';
-import Paper from '@elementor/ui/Paper';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
-import { styled } from '@elementor/ui/styles';
 import { StatementGenerator } from '@ea11y/components';
 import { useModal, useSettings } from '@ea11y/hooks';
 import {
@@ -17,34 +14,16 @@ import {
 	AccessibilityStatementCreateIcon,
 } from '@ea11y/icons';
 import { StatementLink } from '@ea11y/layouts';
+import {
+	StyledStatementContainer,
+	StyledStatementPaper,
+	StyledTitle,
+} from '@ea11y/pages/pages.styles';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { LEARN_MORE_LINK } from '../constants/index';
+import { GOLINKS } from '../constants/index';
 import { injectTemplateVars } from '../utils';
-
-const StyledPaper = styled(Paper)`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 24px;
-	width: 376px;
-	min-height: 264px;
-	border-radius: ${({ theme }) => theme.shape.borderRadius};
-	box-shadow: ${({ theme }) => theme.shadows[0]};
-	cursor: pointer;
-
-	:hover {
-		box-shadow: 0 0 15px 0 rgba(37, 99, 235, 0.15);
-		border-color: ${({ theme }) => theme.palette.info.main};
-	}
-`;
-
-const StyledTitle = styled(Typography)`
-	font-weight: 400;
-	letter-spacing: 0.25px;
-`;
 
 const AccessibilityStatement = () => {
 	const { accessibilityStatementData } = useSettings();
@@ -100,19 +79,8 @@ const AccessibilityStatement = () => {
 				flexDirection="column"
 				justifyContent="space-between"
 			>
-				<Container
-					p={1}
-					sx={{
-						overflow: 'auto',
-						maxHeight: '100%',
-						padding: 4,
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'start',
-						gap: 2,
-					}}
-				>
-					<StyledTitle variant="h4" color="text.primary">
+				<StyledStatementContainer>
+					<StyledTitle variant="h4" color="text.primary" sx={{ mb: 0 }}>
 						{__('Accessibility statement', 'pojo-accessibility')}
 					</StyledTitle>
 
@@ -125,7 +93,7 @@ const AccessibilityStatement = () => {
 							{
 								link: ({ children }) => (
 									<Link
-										href={LEARN_MORE_LINK}
+										href={GOLINKS.LEARN_MORE_STATEMENT}
 										target="_blank"
 										rel="noopener noreferrer"
 										color="secondary"
@@ -190,7 +158,7 @@ const AccessibilityStatement = () => {
 										width: '100%',
 									}}
 								>
-									<StyledPaper
+									<StyledStatementPaper
 										key="generate-accessibility-statement"
 										variant="outlined"
 										onClick={onStatementOptionClick('generate')}
@@ -212,9 +180,9 @@ const AccessibilityStatement = () => {
 											value="generate"
 											sx={{ opacity: 0, position: 'absolute' }}
 										/>
-									</StyledPaper>
+									</StyledStatementPaper>
 
-									<StyledPaper
+									<StyledStatementPaper
 										key="existing-accessibility-statement"
 										variant="outlined"
 										onClick={onStatementOptionClick('existing')}
@@ -236,7 +204,7 @@ const AccessibilityStatement = () => {
 											value="existing"
 											sx={{ opacity: 0, position: 'absolute' }}
 										/>
-									</StyledPaper>
+									</StyledStatementPaper>
 								</RadioGroup>
 							</FormControl>
 						</>
@@ -257,7 +225,7 @@ const AccessibilityStatement = () => {
 							<StatementLink />
 						</>
 					)}
-				</Container>
+				</StyledStatementContainer>
 
 				{!accessibilityStatementData?.pageId && !showStatementLink && (
 					<Box

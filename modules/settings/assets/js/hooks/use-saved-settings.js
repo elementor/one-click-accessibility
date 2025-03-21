@@ -2,6 +2,8 @@ import { useSettings } from '@ea11y/hooks';
 import { store as coreDataStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
+import { useAnalyticsContext } from '../contexts/analytics-context';
+import { calculatePlanUsage } from '../utils';
 
 export const useSavedSettings = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -12,10 +14,13 @@ export const useSavedSettings = () => {
 		setIconDesign,
 		setIconPosition,
 		setPlanData,
+		setPlanUsage,
 		setAccessibilityStatementData,
 		setShowAccessibilityGeneratedInfotip,
 		setSkipToContentSettings,
 	} = useSettings();
+
+	const { setIsAnalyticsEnabled, setIsProVersion } = useAnalyticsContext();
 
 	const result = useSelect((select) => {
 		return {
@@ -56,7 +61,16 @@ export const useSavedSettings = () => {
 			}
 
 			if (result?.data?.ea11y_plan_data) {
+				setIsProVersion(
+					result?.data?.ea11y_plan_data?.plan?.features?.analytics,
+				);
 				setPlanData(result.data.ea11y_plan_data);
+				setPlanUsage(
+					calculatePlanUsage(
+						result?.data?.ea11y_plan_data?.visits?.allowed,
+						result?.data?.ea11y_plan_data?.visits?.used,
+					),
+				);
 			}
 
 			if (result?.data?.ea11y_accessibility_statement_data) {
@@ -72,6 +86,10 @@ export const useSavedSettings = () => {
 
 			if (result?.data?.ea11y_skip_to_content_settings) {
 				setSkipToContentSettings(result?.data?.ea11y_skip_to_content_settings);
+			}
+
+			if (result?.data?.ea11y_analytics_enabled) {
+				setIsAnalyticsEnabled(result?.data?.ea11y_analytics_enabled);
 			}
 		}
 	}, [result.hasFinishedResolution]);
