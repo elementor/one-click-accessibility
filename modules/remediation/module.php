@@ -6,6 +6,7 @@ use EA11y\Classes\Utils;
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Remediation\Database\Page_Table;
+use EA11y\Modules\Settings\Classes\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -37,31 +38,37 @@ class Module extends Module_Base {
 	}
 
 	/**
-	 * Enqueue Scripts
+	 * Get widget URL
+	 * @return string
 	 */
-	public function enqueue_scripts() : void {
+	public static function get_scanner_wizard_url() : string {
+		return apply_filters( 'ea11y_scanner_wizard_url', 'https://cdn.elementor.com/a11y/scanner.js' );
+	}
 
-		if ( is_admin() || ! is_admin_bar_showing() ) {
+	public function enqueue_scanner_wizard() {
+		if ( ! Connect::is_connected() ) {
 			return;
 		}
 
-		if ( version_compare( get_bloginfo( 'version' ), '6.6', '<' ) ) {
-			wp_register_script(
-				'react-jsx-runtime',
-				EA11Y_ASSETS_URL . 'lib/react-jsx-runtime.js',
-				[ 'react' ],
-				'18.3.0',
-				true
-			);
+		$plan_data = Settings::get( Settings::PLAN_DATA );
+
+		if ( ! isset( $plan_data->public_api_key ) ) {
+			return;
 		}
 
-		Utils\Assets::enqueue_app_assets( 'remediation', false );
+		wp_enqueue_script(
+			'ea11y-scanner-wizard',
+			self::get_scanner_wizard_url() . '?api_key=' . $plan_data->public_api_key,
+			[],
+			EA11Y_VERSION,
+			true
+		);
 	}
 
 	public function __construct() {
 		Page_Table::install();
 		$this->register_routes();
 		$this->register_components();
-		$this->enqueue_scripts();
+		$this->enqueue_scanner_wizard();
 	}
 }

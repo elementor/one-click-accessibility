@@ -18,8 +18,17 @@ class Top_Bar_Link {
 			EA11Y_ASSETS_URL . '/css/top-bar-link.css',
 			[],
 			EA11Y_VERSION
-		);
-	}
+		); ?>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				const topBarLink = document.querySelector('#wp-admin-bar-ea11y-remediation a');
+				topBarLink.addEventListener('click', (event) => {
+					event.preventDefault();
+					console.log(event);
+				})
+			});
+		</script>
+	<?php }
 
 	public function add_bar_link() {
 		add_action( 'admin_bar_menu', function ( \WP_Admin_Bar $wp_admin_bar ) {
