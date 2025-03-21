@@ -41,13 +41,10 @@ class Module extends Module_Base {
 	}
 
 	public static function register_required_routes() {
-		if ( is_admin() ) {
-			new Statistic();
-		}
+		new Statistic();
 	}
 
 	public static function is_active(): bool {
-		self::register_required_routes();
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 		return (
 			isset( $plan_data->plan->features->analytics ) &&
