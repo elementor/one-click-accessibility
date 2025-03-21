@@ -4,9 +4,10 @@ import Button from '@elementor/ui/Button';
 import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
 import LinearProgress from '@elementor/ui/LinearProgress';
+import Skeleton from '@elementor/ui/Skeleton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { useSettings } from '@ea11y/hooks';
+import { useSavedSettings, useSettings } from '@ea11y/hooks';
 import { mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';
@@ -14,6 +15,7 @@ import { formatPlanValue, openLink } from '../utils';
 
 const QuotaBar = () => {
 	const { planUsage, openSidebar, setOpenSidebar, planData } = useSettings();
+	const { loading } = useSavedSettings();
 	const quotaData = planData?.visits;
 
 	/**
@@ -42,16 +44,24 @@ const QuotaBar = () => {
 		openLink(GOLINKS.ADD_VISITS);
 	};
 
-	if (!openSidebar) {
+	if (loading) {
 		return (
-			<IconButton
-				sx={{ justifyContent: 'center', width: '100%', borderRadius: 0 }}
-				onClick={() => setOpenSidebar(true)}
-			>
-				<EyeIcon sx={{ color: 'common.black' }} />
-			</IconButton>
+			<StyledBox>
+				<Skeleton width="100%" height={91} />
+			</StyledBox>
 		);
 	}
+
+	if (!openSidebar) {
+		return (
+			<StyledBox>
+				<IconButton onClick={() => setOpenSidebar(true)} sx={{ padding: 0 }}>
+					<EyeIcon sx={{ color: 'common.black', marginRight: 1 }} />
+				</IconButton>
+			</StyledBox>
+		);
+	}
+
 	return (
 		<StyledBox>
 			<EyeIcon />
@@ -62,6 +72,7 @@ const QuotaBar = () => {
 						display="flex"
 						alignItems="center"
 						gap={1}
+						noWrap
 					>
 						{__('Widget loads', 'pojo-accessibility')}
 						<Infotip
@@ -83,9 +94,11 @@ const QuotaBar = () => {
 							/>
 						</Infotip>
 					</Typography>
-					<Typography variant="body2" color="text.secondary">
-						{formatPlanValue(quotaData?.allowed)}
-					</Typography>
+					{quotaData?.allowed && (
+						<Typography variant="body2" color="text.secondary">
+							{formatPlanValue(quotaData?.allowed)}
+						</Typography>
+					)}
 				</Box>
 				<LinearProgress
 					sx={{
@@ -99,17 +112,21 @@ const QuotaBar = () => {
 					valueBuffer={100}
 					color={progressBarColor()}
 				/>
-				<Typography variant="body2" color="text.tertiary">
-					{`${formatPlanValue(quotaData?.used)} loads (${planUsage}% of the limit)`}
-				</Typography>
-				<StyledButton
-					variant="text"
-					size="small"
-					color="info"
-					onClick={handleAddVisitsClick}
-				>
-					{__('Upgrade plan', 'pojo-accessibility')}
-				</StyledButton>
+				{quotaData && (
+					<>
+						<Typography variant="body2" color="text.tertiary" noWrap>
+							{`${formatPlanValue(quotaData?.used)} loads (${planUsage}% of the limit)`}
+						</Typography>
+						<StyledButton
+							variant="text"
+							size="small"
+							color="info"
+							onClick={handleAddVisitsClick}
+						>
+							{__('Upgrade plan', 'pojo-accessibility')}
+						</StyledButton>
+					</>
+				)}
 			</Box>
 		</StyledBox>
 	);
@@ -125,6 +142,7 @@ const StyledBox = styled(Box)`
 	gap: ${({ theme }) => theme.spacing(2)};
 	margin: ${({ theme }) => theme.spacing(2)};
 	padding: ${({ theme }) => theme.spacing(2)};
+	height: 120px;
 `;
 
 const StyledButton = styled(Button)`

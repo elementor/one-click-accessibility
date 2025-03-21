@@ -68,11 +68,22 @@ const SidebarMenu = () => {
 								(!selectedMenu?.child || !openSidebar)
 							}
 						>
-							<ListItemIcon>{item.icon}</ListItemIcon>
+							<ListItemIcon
+								sx={{
+									/*For smoother sidebar*/ padding: openSidebar
+										? 'auto'
+										: '4px',
+								}}
+							>
+								{item.icon}
+							</ListItemIcon>
 
 							<ListItemText primary={item.name} hidden={!openSidebar} />
 
-							{/* Show infotip */ item?.infotip}
+							{
+								/* Show infotip */
+								openSidebar && item?.infotip
+							}
 
 							{item?.children && (
 								<ListItemIcon
@@ -88,7 +99,7 @@ const SidebarMenu = () => {
 								</ListItemIcon>
 							)}
 							{showProIcon(item) && (
-								<ListItemIcon sx={{ marginLeft: 2 }}>
+								<ListItemIcon>
 									<StyledChip
 										color="accent"
 										variant="standard"

@@ -47,7 +47,11 @@ const MyAccountMenu = () => {
 				}}
 			>
 				<StyledListItemButton shape="rounded" onClick={handleHelpButtonClick}>
-					<ListItemIcon>
+					<ListItemIcon
+						sx={{
+							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '6px',
+						}}
+					>
 						<HelpIcon
 							role="img"
 							aria-label={__('Help center', 'pojo-accessibility')}
@@ -59,6 +63,7 @@ const MyAccountMenu = () => {
 					<ListItemText
 						primary={__('Help center', 'pojo-accessibility')}
 						hidden={!openSidebar}
+						sx={{ whiteSpace: 'nowrap' }}
 					/>
 
 					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
@@ -73,7 +78,11 @@ const MyAccountMenu = () => {
 					selected={accountMenuState.isOpen}
 					shape="rounded"
 				>
-					<ListItemIcon>
+					<ListItemIcon
+						sx={{
+							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '6px',
+						}}
+					>
 						<UserIcon
 							role="img"
 							aria-label={__('My Account', 'pojo-accessibility')}
@@ -85,6 +94,7 @@ const MyAccountMenu = () => {
 					<ListItemText
 						primary={__('My Account', 'pojo-accessibility')}
 						hidden={!openSidebar}
+						sx={{ whiteSpace: 'nowrap' }}
 					/>
 
 					<ListItemIcon sx={{ display: !openSidebar ? 'none' : 'default' }}>
