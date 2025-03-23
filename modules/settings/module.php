@@ -447,7 +447,7 @@ class Module extends Module_Base {
 	}
 
 	public static function set_plan_data_refresh_transient(): void {
-		set_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT, true, HOUR_IN_SECONDS * 12 );
+		set_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT, true, MINUTE_IN_SECONDS * 15 );
 	}
 
 	public static function get_plan_data_refresh_transient(): bool {
