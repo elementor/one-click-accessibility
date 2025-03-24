@@ -9,6 +9,7 @@ import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ProCrownIcon } from '@ea11y/icons';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS, PRO_FEATURES } from '../../constants/index';
 import { openLink } from '../../utils/index';
@@ -27,19 +28,62 @@ const ProItemInfotip = ({
 	const handleUpgradeButton = () => {
 		if ('screen-reader' === childKey && 'icon' === source) {
 			openLink(GOLINKS.SCREEN_READER_ICON);
+			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+				feature: 'screen reader',
+				component: 'pro icon',
+			});
 		}
 
 		if ('screen-reader' === childKey && 'toggle' === source) {
 			openLink(GOLINKS.SCREEN_READER_TOGGLE);
+			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+				feature: 'screen reader',
+				component: 'toggle',
+			});
 		}
 
 		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'icon' === source) {
 			openLink(GOLINKS.ALLY_LABEL_ICON);
+			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+				feature: 'ally label',
+				component: 'pro icon',
+			});
 		}
 
 		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'toggle' === source) {
 			openLink(GOLINKS.ALLY_LABEL_TOGGLE);
+			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+				feature: 'ally label',
+				component: 'toggle',
+			});
 		}
+	};
+
+	const handleOnOpenEvent = () => {
+		let feature = '';
+		let component = '';
+
+		if ('screen-reader' === childKey && 'toggle' === source) {
+			feature = 'screen reader';
+			component = 'toggle';
+		} else if ('screen-reader' === childKey && 'icon' === source) {
+			feature = 'screen reader';
+			component = 'icon';
+		} else if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'icon' === source) {
+			feature = 'ally label';
+			component = 'pro icon';
+		} else if (
+			PRO_FEATURES.REMOVE_BRANDING === childKey &&
+			'toggle' === source
+		) {
+			feature = 'ally label';
+			component = 'toggle';
+		}
+
+		mixpanelService.sendEvent(eventNames.upgradeTooltipTriggered, {
+			feature,
+			component,
+		});
 	};
 
 	/*
@@ -90,6 +134,7 @@ const ProItemInfotip = ({
 					zIndex: 9999999999, // Custom z-index for the popper
 				},
 			}}
+			onOpen={handleOnOpenEvent}
 		>
 			{showIcon && (
 				<StyledChip
