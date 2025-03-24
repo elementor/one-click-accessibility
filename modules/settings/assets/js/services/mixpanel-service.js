@@ -70,4 +70,5 @@ export const eventNames = {
 	upgradeButtonClicked: 'upgrade_button_clicked',
 	popupButtonClicked: 'popup_button_clicked',
 	filterSelected: 'filter_selected',
+	upgradeTooltipTriggered: 'upgrade_tooltip_triggered',
 };
