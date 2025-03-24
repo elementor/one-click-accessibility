@@ -29,7 +29,7 @@ class Quota_100 extends Notice_Base {
 		);
 	}
 
-	public function maybe_add_quota_80_notice() : void {
+	public function maybe_add_quota_100_notice() : void {
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 
 		if ( ! $plan_data ) {
@@ -49,7 +49,7 @@ class Quota_100 extends Notice_Base {
 	}
 
 	public function __construct() {
-		add_action( 'current_screen', [ $this, 'maybe_add_quota_80_notice' ] );
+		add_action( 'current_screen', [ $this, 'maybe_add_quota_100_notice' ] );
 		parent::__construct();
 	}
 }

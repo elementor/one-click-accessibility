@@ -466,7 +466,7 @@ class Module extends Module_Base {
 	 *
 	 * @return string
 	 */
-	public static function get_upgrade_link($campaign) : string {
+	public static function get_upgrade_link( $campaign ) : string {
 		return add_query_arg([
 			'utm_source' => $campaign,
 			'utm_medium' => 'wp-dash',
@@ -481,7 +481,7 @@ class Module extends Module_Base {
 	public function register_notices( Notices $notice_manager ) {
 		$notices = [
 			'Quota_80',
-            'Quota_100',
+			'Quota_100',
 		];
 
 		foreach ( $notices as $notice ) {
@@ -490,18 +490,18 @@ class Module extends Module_Base {
 		}
 	}
 
-    /**
-     * @return float
-     */
-    public static function get_plan_usage () : float {
-        $plan_data = Settings::get( Settings::PLAN_DATA );
+	/**
+	 * @return float
+	 */
+	public static function get_plan_usage() : float {
+		$plan_data = Settings::get( Settings::PLAN_DATA );
 
-        if ( ! $plan_data ) {
-            return 0;
-        }
+		if ( ! $plan_data ) {
+			return 0;
+		}
 
-        return round($plan_data->visits->used / $plan_data->visits->allowed * 100, 2);
-    }
+		return round( $plan_data->visits->used / $plan_data->visits->allowed * 100, 2 );
+	}
 
 	/**
 	 * Module constructor.
