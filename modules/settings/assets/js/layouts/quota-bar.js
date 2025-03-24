@@ -8,7 +8,7 @@ import Skeleton from '@elementor/ui/Skeleton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';
 import { formatPlanValue, openLink } from '../utils';
@@ -37,7 +37,7 @@ const QuotaBar = () => {
 	 * Send an event to Mixpanel when the user clicks on the "Add visits" button and open the link.
 	 */
 	const handleAddVisitsClick = () => {
-		mixpanelService.sendEvent('upgrade_button_clicked', {
+		mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
 			feature: 'add visits',
 			component: 'quota counter',
 		});
