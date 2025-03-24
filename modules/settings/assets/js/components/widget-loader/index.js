@@ -30,6 +30,7 @@ const WidgetLoader = ({ src, onLoad, onError }) => {
 		}
 
 		script.async = true;
+		script.referrerPolicy = 'origin';
 
 		// Attach onLoad and onError handlers
 		script.onload = () => {
