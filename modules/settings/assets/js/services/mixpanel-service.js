@@ -22,7 +22,7 @@ const init = async () => {
 		productName: 'app_access',
 		appType: 'Apps',
 		environment: ea11ySettingsData.pluginEnv,
-		is_trial: plan?.name === 'Free Trial',
+		is_trial: Boolean(plan?.name?.toLowerCase().includes('free')),
 	});
 
 	mixpanel.identify(ea11ySettingsData?.planData?.user?.id);
