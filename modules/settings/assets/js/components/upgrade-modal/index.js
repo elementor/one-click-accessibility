@@ -42,7 +42,7 @@ const UpgradeModal = () => {
 								sx={{ mb: 1 }}
 							>
 								{__(
-									'Get a clear view of your accessibility data',
+									'Discover how visitors use your widget',
 									'pojo-accessibility',
 								)}
 							</Typography>
@@ -52,7 +52,7 @@ const UpgradeModal = () => {
 								align="center"
 							>
 								{__(
-									'Upgrade to a premium plan to unlock your accessibility analytics. Track key metrics, understand user engagement, and gain insights to for improvements.',
+									"Upgrade to a premium plan to access a clear view of your widget's analytics. Track key metrics, understand engagement, and gain insights for improvements.",
 									'pojo-accessibility',
 								)}
 							</Typography>
