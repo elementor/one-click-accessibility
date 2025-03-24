@@ -460,7 +460,7 @@ class Module extends Module_Base {
 	}
 
 	/**
-	 * get_learn_more_link
+	 * get_upgrade_link
 	 *
 	 * @param $campaign
 	 *
@@ -468,9 +468,9 @@ class Module extends Module_Base {
 	 */
 	public static function get_upgrade_link( $campaign ) : string {
 		return add_query_arg([
-			'utm_source' => $campaign,
+			'utm_source' => $campaign . '-upgrade',
 			'utm_medium' => 'wp-dash',
-		], 'https://go.elementor.com/' );
+		], 'https://go.elementor.com/' . $campaign );
 	}
 
 	/**
