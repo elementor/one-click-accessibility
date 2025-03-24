@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Remediation\Components;
+namespace EA11y\Modules\Scanner\components;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -19,15 +19,6 @@ class Top_Bar_Link {
 			[],
 			EA11Y_VERSION
 		); ?>
-		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				const topBarLink = document.querySelector('#wp-admin-bar-ea11y-remediation a');
-				topBarLink.addEventListener('click', (event) => {
-					event.preventDefault();
-					console.log(event);
-				})
-			});
-		</script>
 	<?php }
 
 	public function add_bar_link() {

@@ -4,6 +4,7 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 // add your entry points here
 const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
+	scanner: path.resolve(process.cwd(), 'modules/scanner/assets/js', 'index.js'),
 };
 
 // React JSX Runtime Polyfill
@@ -59,6 +60,10 @@ module.exports = [
 				'@ea11y/services': path.resolve(
 					__dirname,
 					'modules/settings/assets/js/services',
+				),
+				'@ea11y-apps/scanner': path.resolve(
+					__dirname,
+					'modules/scanner/assets/js',
 				),
 			},
 			extensions: ['.js', '.jsx'],
