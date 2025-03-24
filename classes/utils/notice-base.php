@@ -100,7 +100,7 @@ class Notice_Base {
 		return true;
 	}
 
-	public function  is_dismissed() : bool {
+	public function is_dismissed() : bool {
 		if ( $this->per_user ) {
 			$dismissed = get_user_meta( get_current_user_id(), self::DISMISSED_NOTICES, true );
 		} else {
@@ -115,16 +115,16 @@ class Notice_Base {
 		update_option( self::DISMISSED_NOTICES, $dismissed, false );
 	}
 
-    public function undismiss(): void {
-        $dismissed = get_option( self::DISMISSED_NOTICES, [] );
+	public function undismiss(): void {
+		$dismissed = get_option( self::DISMISSED_NOTICES, [] );
 
-        if ( ! in_array( $this->get_id(), $dismissed ) ) {
-            return;
-        }
+		if ( ! in_array( $this->get_id(), $dismissed ) ) {
+			return;
+		}
 
-        $dismissed = array_diff($dismissed, [$this->get_id()]);
-        update_option( self::DISMISSED_NOTICES, $dismissed, false );
-    }
+		$dismissed = array_diff( $dismissed, [ $this->get_id() ] );
+		update_option( self::DISMISSED_NOTICES, $dismissed, false );
+	}
 
 	public function dismiss_per_user(): void {
 		$user_id = get_current_user_id();
@@ -147,7 +147,7 @@ class Notice_Base {
 			wp_send_json_error( [ 'message' => 'Invalid nonce' ] );
 		}
 
-		if ($this->per_user) {
+		if ( $this->per_user ) {
 			$this->dismiss_per_user();
 		} else {
 			$this->dismiss();
