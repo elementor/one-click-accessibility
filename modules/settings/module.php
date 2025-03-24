@@ -1,6 +1,7 @@
 <?php
 namespace EA11y\Modules\Settings;
 
+use EA11y\Modules\Core\Components\Notices;
 use EA11y\Classes\{
 	Module_Base,
 	Utils,
@@ -459,6 +460,50 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * get_learn_more_link
+	 *
+	 * @param $campaign
+	 *
+	 * @return string
+	 */
+	public static function get_upgrade_link( $campaign ) : string {
+		return add_query_arg([
+			'utm_source' => $campaign,
+			'utm_medium' => 'wp-dash',
+		], 'https://go.elementor.com/' );
+	}
+
+	/**
+	 * register_notices
+	 *
+	 * @param Notices $notice_manager
+	 */
+	public function register_notices( Notices $notice_manager ) {
+		$notices = [
+			'Quota_80',
+			'Quota_100',
+		];
+
+		foreach ( $notices as $notice ) {
+			$class_name = 'EA11y\Modules\Settings\Notices\\' . $notice;
+			$notice_manager->register_notice( new $class_name() );
+		}
+	}
+
+	/**
+	 * @return float
+	 */
+	public static function get_plan_usage() : float {
+		$plan_data = Settings::get( Settings::PLAN_DATA );
+
+		if ( ! $plan_data ) {
+			return 0;
+		}
+
+		return round( $plan_data->visits->used / $plan_data->visits->allowed * 100, 2 );
+	}
+
+	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
@@ -471,5 +516,7 @@ class Module extends Module_Base {
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
+		// Register notices
+		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 	}
 }
