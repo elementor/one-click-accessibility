@@ -74,14 +74,14 @@ const QuotaBar = () => {
 						gap={1}
 						noWrap
 					>
-						{__('Widget loads', 'pojo-accessibility')}
+						{__('Visits/month', 'pojo-accessibility')}
 						<Infotip
 							placement="right"
 							PopperProps={{ sx: { width: '300px' } }}
 							content={
 								<Typography color="text.primary" padding={1}>
 									{__(
-										'This shows how many times your accessibility widget has loaded for unique visitors across all your connected sites this month (each IP/device is counted once per 24 hours). If you’re nearing your plan’s monthly limit, you can upgrade to keep all features available.',
+										'This shows how many times your accessibility widget has loaded for unique visitors across all your connected sites this monthly cycle (each IP/device is counted once per 24 hours). If you’re nearing your plan’s monthly limit, you can upgrade to keep all features available.',
 										'pojo-accessibility',
 									)}
 								</Typography>
