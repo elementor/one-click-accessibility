@@ -500,6 +500,10 @@ class Module extends Module_Base {
 			return 0;
 		}
 
+		if ( ! isset( $plan_data->visits ) ) {
+			return 0;
+		}
+
 		return round( $plan_data->visits->used / $plan_data->visits->allowed * 100, 2 );
 	}
 
