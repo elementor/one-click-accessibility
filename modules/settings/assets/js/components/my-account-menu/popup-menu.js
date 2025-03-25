@@ -12,7 +12,7 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
 import { SUBSCRIPTION_LINK } from '../../constants/index';
@@ -32,7 +32,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 				ea11y_close_post_connect_modal: false,
 			});
 
-			mixpanelService.sendEvent('menu_button_clicked', {
+			mixpanelService.sendEvent(eventNames.menuButtonClicked, {
 				buttonName: 'Switch account',
 			});
 		} catch (e) {
