@@ -1,39 +1,33 @@
 === Ally - Web Accessibility & Usability ===
 Contributors: elemntor
-Tags: Web Accessibility, Accessibility, A11y, Accessibility statement, wcag
-Requires at least: 4.1
+Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
+Requires at least: 6.5
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 3.0.3
+Stable tag: 3.1.0
 License: GPLv2 or later
 
-Ally, the web accessibility plugin (formerly One Click Accessibility), adds easy-to-set features to make your website more inclusive for all visitors.
+Ally is a web accessibility plugin that enhances usability, offers custom controls, and auto-generates accessibility statements to help meet WCAG guidelines.
 
 == Description ==
 
-Ally Web Accessibility is a plugin aimed to help web creators design websites that align with global accessibility standards. With regulations like the European Accessibility Act set to take effect in 2025 - there is a growing shift towards a greater focus on accessibility.
+Ally (formerly One Click Accessibility) is a powerful web accessibility plugin designed to enhance usability and help websites align with WCAG guidelines. It enables custom accessibility controls and provides an auto-generated Accessibility Statement, supporting website owners in making their sites more inclusive.
 
-Our Ally Web Accessibility plugin replaces the One Click Accessibility plugin and introduces a newly designed interface with an optimized editing experience.
+=== Why does web accessibility matter?
+- **Who Needs It?** Every website owner—businesses, creators, and agencies.
+- **Who is Responsible?** Website owners are legally and ethically responsible for accessibility. The web creator—who designs and builds the site—must implement and adjust accessibility features to ensure compliance with WCAG guidelines and provide an inclusive experience for all users.
+- **Why Now?** Rising legal requirements (WCAG, EAA) and better user experience.
+- **Why Should You Care?**  An accessible website isn't just ethical; it's good business. By prioritizing inclusivity, you improve user experience for everyone, boost your search engine rankings, and attract a wider audience.
 
 === It’s the Law
 
 As accessibility standards continue to evolve and become mandatory, it’s important to start making website adjustments to comply with fast-approaching global regulations. Among its other capabilities, this plugin lets you instantly generate your website's Accessibility Statement, which is now mandatory in most locales.
 
-The Ally Web Accessibility plugin is not a substitute for a thorough accessibility audit and is NOT intended to completely make your website legally compliant. However, with it, you’re one step closer to making your website inclusive to more visitors, including those with visual, auditory or cognitive challenges.
+The Ally plugin is not a substitute for a thorough accessibility audit and is NOT intended to completely make your website legally compliant. However, with it, you’re one step closer to making your website inclusive to more visitors, including those with visual, auditory or cognitive challenges.
 
 Ensuring that your website complies with all applicable accessibility requirements is your responsibility. We recommend working with qualified accessibility professionals to help achieve full compliance.
 
-=== Why Prioritize Accessibility
-
-Every user deserves a seamless online experience, regardless of their abilities. An accessible website isn't just ethical; it's good business. By prioritizing inclusivity, you improve user experience for everyone, boost your search engine rankings, and attract a wider audience.
-
-=== Putting Your Visitors in Control
-
-Accessible websites allow people with various disabilities to access your website using assistive technologies where visitors can adjust design elements to fit their needs, such as increasing font sizes, adjusting color contrasts, pausing animations, and more.
-
-== Features: ==
-
-Ally Web Accessibility’s features so far:
+== Key Features & Benefits: ==
 
 = Customization Options for Web Creators =
 
@@ -88,6 +82,26 @@ Below is a list of features website visitors can control. (Each feature may be e
 
 - **Skip to Main Content**: When users land on your site, pressing the Tab key brings the ‘Skip to main content’ link into focus. By selecting this link, users can skip directly to the main content, enabling them to quickly navigate to the main content. Useful for keyboard-only and screen-reader users.
 
+= Premium features =
+These features will be available in Ally’s paid plans:
+
+- **Screen Reader Compatibility** – Enhances support for screen reader software, ensuring visually impaired users can navigate and interact with your website more efficiently.
+
+- **White Labeling** – Remove the Elementor logo from the widget interface, allowing full customization to match your brand’s identity and maintain a professional, cohesive look.
+
+- **Widget Usage Analytics** – Gain insights into how visitors interact with the usability features on your site, helping you optimize the user experience and measure accessibility impact.
+
+= Roadmap: Expanding Accessibility Features =
+Ally is continuously evolving to provide better accessibility tools. Future updates include:
+
+- **Accessibility Scanner** – Accessibility Scanner (Coming Soon) – Detects and identifies compliance gaps across your site.
+
+- **Remediation Wizard** – Remediation Wizard (Coming Soon) – A step-by-step guide to fixing accessibility gaps, with prompts and questions to help users understand and address the issues manually or automatically
+
+- **Additional Enhancements** – Ongoing improvements based on best practices and user feedback.
+
+These updates will help website owners and creators take greater steps toward accessibility with evolving regulations.
+
 === Get Started Today ===
 == Make your site more accessible with Ally! ==
 For more information about Ally visit our [help center](https://go.elementor.com/acc-wp-repo-learn-more) If you have any questions or need support, feel free to [contact us](https://go.elementor.com/wp-repo-wp-dash-sm-contact-us/).
@@ -121,9 +135,9 @@ More great features are on the horizon, so stay tuned!
 
 == Frequently Asked Questions ==
 
-= What is Ally - Web Accessibility widget? =
+= What is the Ally plugin? =
 
-The Ally - Web Accessibility widget is a free, easy-to-use plugin designed to enhance website usability for individuals with disabilities. It is designed to help web creators make their websites more inclusive, and works seamlessly on all WordPress and Elementor websites.
+The accessibility plugin is a free, easy-to-use plugin designed to enhance website usability for individuals with disabilities. It is designed to help web creators make their websites more inclusive, and works seamlessly on all WordPress and Elementor websites.
 
 = Can I customize the widget's appearance? =
 
@@ -159,6 +173,20 @@ An accessibility statement is a declaration of your commitment to providing an i
 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
+= 3.1.0 2025-03-25 =
+* New: Screen Reader – Improved accessibility with screen reader compatibility.
+* New: Widget Usage Analytics – Track and analyze widget usage effectively.
+* New: "My Account" Link – Easily access your account with a new direct link.
+* New: Plan Quota Display – Admin panel now shows plan quotas.
+* New: White Label capabilities
+* Tweak: Various text and UI improvements.
+* Tweak: The last settings tab is now remembered when navigating.
+* Tweak: Sticky "Save Settings" Button
+* Fix: Settings Screen Display Issue – Resolved UI inconsistencies.
+* Fix: URL Mismatch Flow .
+* Fix: Force referer header in widget script tag
+
+
 = 3.0.3 2025-03-17 =
 * New: Added an option to manage URL change
 * New: Added Danish language support to widget
