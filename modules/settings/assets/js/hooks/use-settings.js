@@ -1,4 +1,9 @@
-import { useState, createContext, useContext } from '@wordpress/element';
+import {
+	useState,
+	createContext,
+	useContext,
+	useEffect,
+} from '@wordpress/element';
 
 /**
  * Context Component.
@@ -12,8 +17,14 @@ export function useSettings() {
 export const SettingsProvider = ({ children }) => {
 	const [openSidebar, setOpenSidebar] = useState(true);
 	const [selectedMenu, setSelectedMenu] = useState({
-		parent: 'design',
+		parent: '',
 	});
+
+	useEffect(() => {
+		setSelectedMenu({
+			parent: window.location.hash.replace('#', '') || 'design',
+		});
+	}, []);
 
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
 		'bigger-text': {
@@ -135,6 +146,8 @@ export const SettingsProvider = ({ children }) => {
 		setShowAccessibilityGeneratedInfotip,
 	] = useState(false);
 
+	const [planUsage, setPlanUsage] = useState(0);
+
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -166,6 +179,8 @@ export const SettingsProvider = ({ children }) => {
 				setAccessibilityStatementData,
 				showAccessibilityGeneratedInfotip,
 				setShowAccessibilityGeneratedInfotip,
+				planUsage,
+				setPlanUsage,
 			}}
 		>
 			{children}

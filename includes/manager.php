@@ -21,6 +21,7 @@ final class Manager {
 			'Settings',
 			'Widget',
 			'Core',
+			'Analytics',
 		];
 	}
 
@@ -36,6 +37,9 @@ final class Manager {
 			$class_name = __NAMESPACE__ . '\\Modules\\' . $class_name . '\Module';
 
 			/** @var Module_Base $class_name */
+			if ( method_exists( $class_name, 'register_required_routes' ) ) {
+				$class_name::register_required_routes();
+			}
 			if ( $class_name::is_active() ) {
 				$this->modules[ $module_name ] = $class_name::instance();
 			}

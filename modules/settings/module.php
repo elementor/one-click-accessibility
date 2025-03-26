@@ -1,6 +1,7 @@
 <?php
 namespace EA11y\Modules\Settings;
 
+use EA11y\Modules\Core\Components\Notices;
 use EA11y\Classes\{
 	Module_Base,
 	Utils,
@@ -106,7 +107,7 @@ class Module extends Module_Base {
 				'pluginEnv' => self::get_plugin_env(),
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
-                'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 			]
 		);
 	}
@@ -134,7 +135,7 @@ class Module extends Module_Base {
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
-            'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 		];
 	}
 
@@ -430,6 +431,9 @@ class Module extends Module_Base {
 			'hide_minimum_active_options_alert' => [
 				'type' => 'boolean',
 			],
+			'analytics_enabled' => [
+				'type' => 'boolean',
+			],
 			'show_accessibility_generated_page_infotip' => [
 				'type' => 'boolean',
 			],
@@ -444,11 +448,63 @@ class Module extends Module_Base {
 	}
 
 	public static function set_plan_data_refresh_transient(): void {
-		set_transient( Settings::PLAN_DATA . '_refresh', true, HOUR_IN_SECONDS * 12 );
+		set_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT, true, MINUTE_IN_SECONDS * 15 );
 	}
 
 	public static function get_plan_data_refresh_transient(): bool {
-		return get_transient( Settings::PLAN_DATA . '_refresh' );
+		return get_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT );
+	}
+
+	public static function delete_plan_data_refresh_transient(): bool {
+		return delete_transient( Settings::PLAN_DATA_REFRESH_TRANSIENT );
+	}
+
+	/**
+	 * get_upgrade_link
+	 *
+	 * @param $campaign
+	 *
+	 * @return string
+	 */
+	public static function get_upgrade_link( $campaign ) : string {
+		return add_query_arg([
+			'utm_source' => $campaign . '-upgrade',
+			'utm_medium' => 'wp-dash',
+		], 'https://go.elementor.com/' . $campaign );
+	}
+
+	/**
+	 * register_notices
+	 *
+	 * @param Notices $notice_manager
+	 */
+	public function register_notices( Notices $notice_manager ) {
+		$notices = [
+			'Quota_80',
+			'Quota_100',
+		];
+
+		foreach ( $notices as $notice ) {
+			$class_name = 'EA11y\Modules\Settings\Notices\\' . $notice;
+			$notice_manager->register_notice( new $class_name() );
+		}
+	}
+
+	/**
+	 * @return float
+	 */
+	public static function get_plan_usage() : float {
+		$plan_data = Settings::get( Settings::PLAN_DATA );
+
+		if ( ! $plan_data ) {
+			return 0;
+		}
+
+		if ( ! isset( $plan_data->visits ) ) {
+			return 0;
+		}
+
+		return round( $plan_data->visits->used / $plan_data->visits->allowed * 100, 2 );
 	}
 
 	/**
@@ -464,5 +520,7 @@ class Module extends Module_Base {
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
+		// Register notices
+		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 	}
 }
