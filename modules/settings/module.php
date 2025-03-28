@@ -7,9 +7,7 @@ use EA11y\Classes\{
 	Utils,
 	Logger
 };
-use EA11y\Modules\Connect\Classes\{
-	Config, Data
-};
+use EA11y\Modules\Connect\Classes\{Config, Data, Exceptions\Service_Exception, GrantTypes, Service};
 
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
@@ -104,6 +102,7 @@ class Module extends Module_Base {
 			[
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
 				'planData' => Settings::get( Settings::PLAN_DATA ),
+				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
 				'pluginEnv' => self::get_plugin_env(),
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
@@ -164,6 +163,9 @@ class Module extends Module_Base {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
 		} else {
 			self::save_plan_data( $register_response );
+			if ( isset( $register_response->scopes ) ) {
+				Settings::set( Settings::PLAN_SCOPE, $register_response->scopes );
+			}
 		}
 	}
 
@@ -203,12 +205,17 @@ class Module extends Module_Base {
 		}
 
 		$plan_data = Settings::get( Settings::PLAN_DATA );
+		$plan_scope = Settings::get( Settings::PLAN_SCOPE );
 
 		// Return if plan data does not have public_api_key
 		if ( ! $plan_data->public_api_key ) {
 			Logger::error( 'Cannot refresh the plan data. No public API key found.' );
 			self::register_site_with_data();
 			return;
+		}
+
+		if ( ! $plan_scope ) {
+			self::load_plan_scope();
 		}
 
 		$response = Utils::get_api_client()->make_request(
@@ -224,6 +231,19 @@ class Module extends Module_Base {
 		} else {
 			Logger::error( esc_html( $response->get_error_message() ) );
 			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
+		}
+	}
+
+	/**
+	 * Load scopes if they don't set.
+	 * @return void
+	 */
+	private static function load_plan_scope() {
+		try {
+			$token = Service::get_token( GrantTypes::REFRESH_TOKEN, Data::get_refresh_token() );
+			Settings::set( Settings::PLAN_SCOPE, $token['scope'] );
+		} catch ( Throwable $t ) {
+			Logger::error( $t->getMessage() );
 		}
 	}
 

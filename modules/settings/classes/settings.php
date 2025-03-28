@@ -11,6 +11,7 @@ class Settings {
 
 	public const IS_VALID_PLAN_DATA = 'ea11y_is_valid_plan_data';
 	public const PLAN_DATA = 'ea11y_plan_data';
+	public const PLAN_SCOPE = 'ea11y_plan_scope';
 	public const WIDGET_ICON_SETTINGS = 'ea11y_widget_icon_settings';
 	public const WIDGET_MENU_SETTINGS = 'ea11y_widget_menu_settings';
 	public const SKIP_TO_CONTENT = 'ea11y_skip_to_content_settings';
