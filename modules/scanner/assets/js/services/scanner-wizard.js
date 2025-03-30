@@ -14,11 +14,11 @@ const load = async () => {
 		script.async = true;
 
 		script.onload = () => {
-			resolve(true); // Resolve the promise
+			return resolve(true); // Resolve the promise
 		};
 
 		script.onerror = () => {
-			reject(new Error(`Failed to load script: ${scannerUrl}`)); // Reject the promise
+			return reject(new Error(`Failed to load script: ${scannerUrl}`)); // Reject the promise
 		};
 
 		document.body.appendChild(script);
