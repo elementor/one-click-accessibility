@@ -1,13 +1,9 @@
 import App from '@ea11y-apps/scanner/app';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
+import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/utils/constants';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 
-const topBarLink = document.querySelector(
-	'#wp-admin-bar-ea11y-scanner-wizard a',
-);
-const ROOT_ID = 'scanner-wizard-widget';
-
-topBarLink.addEventListener('click', (event) => {
+TOP_BAR_LINK.addEventListener('click', (event) => {
 	event.preventDefault();
 	const rootNode = document.getElementById(ROOT_ID);
 

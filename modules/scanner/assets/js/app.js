@@ -4,6 +4,7 @@ import Container from '@elementor/ui/Container';
 import Paper from '@elementor/ui/Paper';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { Header } from '@ea11y-apps/scanner/components/header';
 import { useEffect, useState } from '@wordpress/element';
 
 const App = () => {
@@ -19,8 +20,8 @@ const App = () => {
 
 	return (
 		<StyledPaper>
+			<Header />
 			<Container>
-				<Typography variant="subtitle1">Scanner Wizard</Typography>
 				{results?.map((item, index) => (
 					<Card key={index} sx={{ mb: 1 }}>
 						<CardContent>
@@ -39,10 +40,10 @@ const App = () => {
 
 const StyledPaper = styled(Paper)`
 	position: fixed;
-	top: 60px;
-	right: 30px;
-	width: 300px;
-	height: 600px;
+	top: 32px;
+	right: 0;
+	width: 360px;
+	height: calc(100vh - 32px);
 	overflow-y: auto;
 `;
 export default App;
