@@ -2,8 +2,10 @@ import App from '@ea11y-apps/scanner/app';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 
-const topBarLink = document.querySelector('#wp-admin-bar-ea11y-remediation a');
-const ROOT_ID = 'remediation-widget';
+const topBarLink = document.querySelector(
+	'#wp-admin-bar-ea11y-scanner-wizard a',
+);
+const ROOT_ID = 'scanner-wizard-widget';
 
 topBarLink.addEventListener('click', (event) => {
 	event.preventDefault();

@@ -1,3 +1,5 @@
+import Card from '@elementor/ui/Card';
+import CardContent from '@elementor/ui/CardContent';
 import Container from '@elementor/ui/Container';
 import Paper from '@elementor/ui/Paper';
 import Typography from '@elementor/ui/Typography';
@@ -7,20 +9,28 @@ import { useEffect, useState } from '@wordpress/element';
 const App = () => {
 	const [results, setResults] = useState();
 	useEffect(() => {
-		window.ace.check(document, ['WCAG_2_1']).then((data) => {
-			setResults(data?.results);
-			console.log(data.summary);
+		window.ace.check(document).then((data) => {
+			const filtredResults = data?.results.filter(
+				(item) => item.level !== 'pass',
+			);
+			setResults(filtredResults);
 		});
-	}, [window]);
+	}, []);
 
 	return (
 		<StyledPaper>
 			<Container>
 				<Typography variant="subtitle1">Scanner Wizard</Typography>
 				{results?.map((item, index) => (
-					<Typography key={index} variant="body1">
-						{item.ruleId} - {item.level}
-					</Typography>
+					<Card key={index} sx={{ mb: 1 }}>
+						<CardContent>
+							<Typography variant="body1">
+								{item.ruleId} - {item.level}
+							</Typography>
+							<Typography variant="body2">{item.message}</Typography>
+							<Typography variant="caption">{item.snippet}</Typography>
+						</CardContent>
+					</Card>
 				))}
 			</Container>
 		</StyledPaper>
