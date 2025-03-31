@@ -27,3 +27,4 @@ export { default as ProItemInfotip } from './capabilities-item/pro-item-infotip'
 export { default as CustomSwitch } from './switch';
 export { default as ConfirmDialog } from './confirm-dialog';
 export { default as UrlMismatchModal } from './url-mismatch-modal';
+export { default as WidgetIcon } from './widget-icon';

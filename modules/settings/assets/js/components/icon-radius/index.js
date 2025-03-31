@@ -34,10 +34,11 @@ const IconRadius = () => {
 	};
 
 	const handleChange = (event) => {
+		console.log(units[unitsIndex].toLowerCase());
 		updateIconDesign({
 			cornerRadius: {
 				radius: event.target.value,
-				unit: units[unitsIndex],
+				unit: units[unitsIndex].toLowerCase(),
 			},
 		});
 	};
