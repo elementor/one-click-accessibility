@@ -41,6 +41,8 @@
 		"@elementor/design-tokens": "^1.1.4",
 		"@elementor/icons": "^1.20.0",
 		"@elementor/ui": "^1.29.1",
+		"@emotion/cache": "^11.14.0",
+		"@emotion/react": "^11.14.0",
 		"@mui/x-charts": "^7.27.0",
 		"@wordpress/api-fetch": "^7.10.0",
 		"@wordpress/core-data": "^7.10.0",
