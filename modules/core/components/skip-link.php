@@ -18,7 +18,7 @@ class Skip_Link {
 	public function enqueue_skip_link_styles() {
 		wp_enqueue_style(
 			'ea11y-skip-link',
-			EA11Y_ASSETS_URL . '/css/skip-link.css',
+			EA11Y_ASSETS_URL . 'build/skip-link.css',
 			[],
 			EA11Y_VERSION
 		);
