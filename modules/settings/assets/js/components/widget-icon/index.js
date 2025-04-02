@@ -1,4 +1,5 @@
 import Box from '@elementor/ui/Box';
+import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
 import { cloneElement } from '@wordpress/element';
 
@@ -38,19 +39,15 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 	}
 
 	return (
-		<Box
+		<IconWrapper
 			sx={{
 				backgroundColor: iconDesign?.color,
-				padding: 1,
 				borderRadius: cornerRadius,
 				width: 'text' === type ? size * 1.9 : size,
 				height: size,
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
 			}}
 		>
-			<Box
+			<IconInnerWrapper
 				sx={{
 					border: borderWidth,
 					borderColor: strokeColor,
@@ -58,15 +55,25 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 					padding: size >= 50 ? '12px' : 1,
 					width: 'text' === type ? size * 1.9 - 10 : size - 10,
 					height: size - 10,
-					display: 'inline-flex',
-					justifyContent: 'center',
-					alignItems: 'center',
 				}}
 			>
 				{cloneElement(icon, { size: iconSize / 2.5 })}
-			</Box>
-		</Box>
+			</IconInnerWrapper>
+		</IconWrapper>
 	);
 };
 
 export default WidgetIcon;
+
+const IconWrapper = styled(Box)`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: ${({ theme }) => theme.spacing(1)};
+`;
+
+const IconInnerWrapper = styled(Box)`
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+`;
