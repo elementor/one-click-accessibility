@@ -5,9 +5,9 @@ import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { WidgetIcon } from '@ea11y/components';
 import { useIconDesign } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
-import { cloneElement } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import options from '../../helpers/accessibility-options';
 
@@ -46,15 +46,14 @@ const IconSelect = (props) => {
 							borderWidth: iconDesign.icon === option.value ? 2 : 1,
 						}}
 					>
-						{option.icon &&
-							cloneElement(option.icon, {
-								sx: {
-									color: iconDesign.color,
-									fontSize: 44,
-									height: 44,
-									width: 'auto',
-								},
-							})}
+						<WidgetIcon
+							icon={option.icon}
+							size={44}
+							radius={100}
+							color={iconDesign?.color}
+							control="select"
+							type={option.value}
+						/>
 						<Radio
 							value={option.value}
 							inputProps={{

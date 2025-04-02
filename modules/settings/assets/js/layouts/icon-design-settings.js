@@ -2,7 +2,12 @@ import Box from '@elementor/ui/Box';
 import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { ColorPicker, IconSelect, IconSize } from '@ea11y/components';
+import {
+	ColorPicker,
+	IconRadius,
+	IconSelect,
+	IconSize,
+} from '@ea11y/components';
 import { __ } from '@wordpress/i18n';
 
 const StyledGrid = styled(Grid)`
@@ -41,6 +46,9 @@ const IconDesignSettings = (props) => {
 				<Box>
 					<ColorPicker />
 				</Box>
+			</StyledGrid>
+			<StyledGrid>
+				<IconRadius />
 			</StyledGrid>
 		</Grid>
 	);
