@@ -4,7 +4,7 @@ import { cloneElement } from '@wordpress/element';
 
 const WidgetIcon = ({ icon, size, radius, control, type }) => {
 	const { iconDesign } = useSettings();
-	const strokeColor = `lch(from ${iconDesign?.color || '#fff'} calc((50 - l) * 100) 0 0)`;
+	const strokeColor = `lch(from ${iconDesign?.color || '#2563EB'} calc((50 - l) * 100) 0 0)`;
 	let cornerRadius =
 		radius || iconDesign?.cornerRadius?.radius + iconDesign?.cornerRadius?.unit;
 	let innerRadius =
