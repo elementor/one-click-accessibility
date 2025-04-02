@@ -48,7 +48,7 @@ const IconSelect = (props) => {
 					>
 						<WidgetIcon
 							icon={option.icon}
-							size={50}
+							size={44}
 							radius={100}
 							color={iconDesign?.color}
 							control="select"

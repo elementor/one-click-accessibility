@@ -18,7 +18,7 @@ import { useIconDesign } from '@ea11y/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-const units = ['PX', 'REM', 'EM'];
+const units = ['PX', '%'];
 
 const IconRadius = () => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
@@ -59,6 +59,7 @@ const IconRadius = () => {
 									color="inherit"
 									sx={{ font: 'inherit', minWidth: 'initial' }}
 									{...bindTrigger(popupState)}
+									disabled
 								>
 									{units[unitsIndex]}
 								</Button>

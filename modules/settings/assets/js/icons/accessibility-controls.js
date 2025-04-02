@@ -5,7 +5,7 @@ function AccessibilityControlsIcon({ size }, props) {
 	const { iconDesign } = useSettings();
 	const strokeColor = `lch(from ${iconDesign?.color || '#fff'} calc((50 - l) * 100) 0 0)`;
 	return (
-		<SvgIcon viewBox="0 0 24 24" fill="none" sx={{ fontSize: size }} {...props}>
+		<SvgIcon viewBox="0 0 22 22" fill="none" sx={{ fontSize: size }} {...props}>
 			<path
 				fillRule="evenodd"
 				clipRule="evenodd"
