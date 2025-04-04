@@ -8,7 +8,7 @@ import Skeleton from '@elementor/ui/Skeleton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
-import { mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';
 import { formatPlanValue, openLink } from '../utils';
@@ -37,7 +37,7 @@ const QuotaBar = () => {
 	 * Send an event to Mixpanel when the user clicks on the "Add visits" button and open the link.
 	 */
 	const handleAddVisitsClick = () => {
-		mixpanelService.sendEvent('upgrade_button_clicked', {
+		mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
 			feature: 'add visits',
 			component: 'quota counter',
 		});
@@ -74,14 +74,14 @@ const QuotaBar = () => {
 						gap={1}
 						noWrap
 					>
-						{__('Widget loads', 'pojo-accessibility')}
+						{__('Visits/month', 'pojo-accessibility')}
 						<Infotip
 							placement="right"
 							PopperProps={{ sx: { width: '300px' } }}
 							content={
 								<Typography color="text.primary" padding={1}>
 									{__(
-										'This shows how many times your accessibility widget has loaded for unique visitors across all your connected sites this month (each IP/device is counted once per 24 hours). If you’re nearing your plan’s monthly limit, you can upgrade to keep all features available.',
+										'This shows how many times your accessibility widget has loaded for unique visitors across all your connected sites this monthly cycle (each IP/device is counted once per 24 hours). If you’re nearing your plan’s monthly limit, you can upgrade to keep all features available.',
 										'pojo-accessibility',
 									)}
 								</Typography>

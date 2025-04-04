@@ -191,6 +191,14 @@ class Module extends Module_Base {
 		];
 	}
 
+	public function script_loader_tag( $tag, $handle, $src ) {
+		if ( 'ea11y-widget' === $handle ) {
+			$tag = str_replace( '><', 'referrerPolicy="origin"><', $tag );
+		}
+
+		return $tag;
+	}
+
 	/**
 	 * Module constructor.
 	 */
@@ -199,5 +207,7 @@ class Module extends Module_Base {
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_accessibility_widget' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_accessibility_widget_admin' ] );
+		// Add referrer policy to widget script tag
+		add_filter( 'script_loader_tag', [ $this, 'script_loader_tag' ], 10, 3 );
 	}
 }
