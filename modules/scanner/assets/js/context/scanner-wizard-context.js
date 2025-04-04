@@ -7,11 +7,14 @@ import {
 
 const ScannerWizardContext = createContext({
 	results: {},
+	resolved: 0,
+	setResolved: () => {},
 	getResults: () => {},
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
 	const [results, setResults] = useState();
+	const [resolved, setResolved] = useState(0);
 
 	const getResults = () => {
 		window.ace.check(document).then((data) => {
@@ -24,7 +27,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	}, []);
 
 	return (
-		<ScannerWizardContext.Provider value={{ results, getResults }}>
+		<ScannerWizardContext.Provider
+			value={{ results, resolved, setResolved, getResults }}
+		>
 			{children}
 		</ScannerWizardContext.Provider>
 	);

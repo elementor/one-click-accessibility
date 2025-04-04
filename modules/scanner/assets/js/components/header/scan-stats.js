@@ -12,14 +12,17 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { __ } from '@wordpress/i18n';
 
 export const ScanStats = () => {
-	const { results, getResults } = useScannerWizardContext();
+	const { results, resolved, getResults } = useScannerWizardContext();
+	const violation = results?.summary?.counts?.violation;
+	const percent = violation !== 0 ? (violation / 100) * resolved : 100;
+	const displayPercent = results ? Math.round(percent) : 0;
 	console.log(results);
 	return (
 		<Box>
 			<Box display="flex" gap="12px">
 				<StyledLegend legendColor={ColorBlue200}>
 					<Typography variant="subtitle2" sx={{ mr: '4px' }}>
-						{results?.summary?.counts?.violation}
+						{results ? violation : ''}
 					</Typography>
 					<Typography variant="body2">
 						{__('Total Issues', 'pojo-accessibility')}
@@ -27,7 +30,7 @@ export const ScanStats = () => {
 				</StyledLegend>
 				<StyledLegend legendColor={ColorBlue600}>
 					<Typography variant="subtitle2" sx={{ mr: '4px' }}>
-						10
+						{resolved}
 					</Typography>
 					<Typography variant="body2">
 						{__('Solved', 'pojo-accessibility')}
@@ -35,7 +38,7 @@ export const ScanStats = () => {
 				</StyledLegend>
 			</Box>
 			<Box display="flex" gap="12px" alignItems="center">
-				<Typography variant="subtitle2">33%</Typography>
+				<Typography variant="subtitle2">{displayPercent}%</Typography>
 				<LinearProgress
 					color="info"
 					sx={{
@@ -49,7 +52,7 @@ export const ScanStats = () => {
 						animation: 'none',
 						flexGrow: 1,
 					}}
-					value={33}
+					value={displayPercent}
 					variant="determinate"
 				/>
 				<Button

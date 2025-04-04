@@ -41,6 +41,10 @@ const initApp = () => {
 	});
 
 	const shadowTheme = createTheme({
+		cssVariables: {
+			rootSelector: ':host',
+			colorSchemeSelector: 'class',
+		},
 		components: {
 			MuiPopover: {
 				defaultProps: {
@@ -57,13 +61,30 @@ const initApp = () => {
 					container: shadowRootElement,
 				},
 			},
+			MuiTooltip: {
+				defaultProps: {
+					PopperProps: {
+						container: shadowRootElement,
+					},
+					slotProps: {
+						popper: {
+							disablePortal: false, // in out theme, this defaults to true for the MuiPopper component
+							container: shadowRootElement,
+						},
+					},
+				},
+			},
 		},
 	});
 
 	createRoot(shadowRootElement).render(
 		<AppWrapper>
 			<CacheProvider value={cache}>
-				<ThemeProvider theme={shadowTheme} colorScheme="light">
+				<ThemeProvider
+					theme={shadowTheme}
+					colorScheme="light"
+					colorSchemeNode={shadowRootElement}
+				>
 					<App />
 				</ThemeProvider>
 			</CacheProvider>
