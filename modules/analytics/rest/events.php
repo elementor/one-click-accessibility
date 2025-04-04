@@ -6,6 +6,7 @@ use EA11y\Classes\Logger;
 use EA11y\Modules\Analytics\Classes\Route_Base;
 use EA11y\Modules\Analytics\Database\Analytics_Entry;
 use EA11y\Modules\Analytics\Database\Analytics_Table;
+use EA11y\Modules\Settings\Classes\Settings;
 use Throwable;
 use WP_REST_Request;
 use WP_REST_Response;
@@ -31,6 +32,7 @@ class Events extends Route_Base {
 	 * @return WP_REST_Response
 	 */
 	public function POST( WP_REST_Request $request ): WP_REST_Response {
+
 		try {
 			$raw_data = $request->get_body();
 			$events = json_decode( $raw_data, true );
@@ -49,6 +51,7 @@ class Events extends Route_Base {
 		} catch ( Throwable $t ) {
 			Logger::info( $t->getMessage() );
 		}
+
 		return new WP_REST_Response( null, 204 );
 	}
 }

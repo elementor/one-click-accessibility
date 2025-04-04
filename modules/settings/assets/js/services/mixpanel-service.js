@@ -22,7 +22,7 @@ const init = async () => {
 		productName: 'app_access',
 		appType: 'Apps',
 		environment: ea11ySettingsData.pluginEnv,
-		is_trial: plan?.name === 'Free Trial',
+		is_trial: Boolean(plan?.name?.toLowerCase().includes('free')),
 	});
 
 	mixpanel.identify(ea11ySettingsData?.planData?.user?.id);
@@ -70,4 +70,5 @@ export const eventNames = {
 	upgradeButtonClicked: 'upgrade_button_clicked',
 	popupButtonClicked: 'popup_button_clicked',
 	filterSelected: 'filter_selected',
+	upgradeTooltipTriggered: 'upgrade_tooltip_triggered',
 };

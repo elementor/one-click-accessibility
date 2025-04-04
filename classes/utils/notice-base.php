@@ -58,7 +58,7 @@ class Notice_Base {
 	public string $content;
 
 	/**
-	 * should be one of 'info', 'warning', 'error', 'success'
+	 * should be one of 'info', 'warning', 'error', 'success', 'error-elementor'
 	 * @var string
 	 */
 	public string $type;
@@ -100,7 +100,7 @@ class Notice_Base {
 		return true;
 	}
 
-	public function  is_dismissed() : bool {
+	public function is_dismissed() : bool {
 		if ( $this->per_user ) {
 			$dismissed = get_user_meta( get_current_user_id(), self::DISMISSED_NOTICES, true );
 		} else {
@@ -109,13 +109,24 @@ class Notice_Base {
 		return in_array( $this->get_id(), (array) $dismissed );
 	}
 
-	public function dismiss() {
+	public function dismiss(): void {
 		$dismissed = get_option( self::DISMISSED_NOTICES, [] );
 		$dismissed[] = $this->get_id();
 		update_option( self::DISMISSED_NOTICES, $dismissed, false );
 	}
 
-	public function dismiss_per_user() {
+	public function undismiss(): void {
+		$dismissed = get_option( self::DISMISSED_NOTICES, [] );
+
+		if ( ! in_array( $this->get_id(), $dismissed ) ) {
+			return;
+		}
+
+		$dismissed = array_diff( $dismissed, [ $this->get_id() ] );
+		update_option( self::DISMISSED_NOTICES, $dismissed, false );
+	}
+
+	public function dismiss_per_user(): void {
 		$user_id = get_current_user_id();
 		if ( ! $user_id ) {
 			wp_send_json_error( [ 'message' => 'Invalid user' ] );
@@ -136,7 +147,7 @@ class Notice_Base {
 			wp_send_json_error( [ 'message' => 'Invalid nonce' ] );
 		}
 
-		if ($this->per_user) {
+		if ( $this->per_user ) {
 			$this->dismiss_per_user();
 		} else {
 			$this->dismiss();
@@ -208,7 +219,7 @@ class Notice_Base {
 			throw new \Exception( 'Notice content is required' );
 		}
 
-		if ( ! in_array( $this->type, [ 'info', 'warning', 'error', 'success' ] ) ) {
+		if ( ! in_array( $this->type, [ 'info', 'warning', 'error', 'success', 'error-elementor' ] ) ) {
 			throw new \Exception( 'Invalid notice type' );
 		}
 	}
