@@ -1,17 +1,33 @@
 import Paper from '@elementor/ui/Paper';
 import { styled } from '@elementor/ui/styles';
 import { Header } from '@ea11y-apps/scanner/components/header';
-import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
-import { Main } from '@ea11y-apps/scanner/layouts/main';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import {
+	AltTextLayout,
+	MainLayout,
+	ManualLayout,
+} from '@ea11y-apps/scanner/layouts';
+import { BLOCKS } from '@ea11y-apps/scanner/utils/constants';
 
 const App = () => {
+	const { openedBlock } = useScannerWizardContext();
+
+	const getBlock = () => {
+		switch (openedBlock) {
+			case BLOCKS.main:
+				return <MainLayout />;
+			case BLOCKS.altText:
+				return <AltTextLayout />;
+			default:
+				return <ManualLayout />;
+		}
+	};
+
 	return (
-		<ScannerWizardContextProvider>
-			<StyledPaper>
-				<Header />
-				<Main />
-			</StyledPaper>
-		</ScannerWizardContextProvider>
+		<StyledPaper>
+			<Header />
+			{getBlock()}
+		</StyledPaper>
 	);
 };
 

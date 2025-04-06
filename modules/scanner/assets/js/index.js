@@ -2,6 +2,7 @@ import { createTheme, ThemeProvider } from '@elementor/ui/styles';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import App from '@ea11y-apps/scanner/app';
+import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/utils/constants';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
@@ -85,7 +86,9 @@ const initApp = () => {
 					colorScheme="light"
 					colorSchemeNode={shadowRootElement}
 				>
-					<App />
+					<ScannerWizardContextProvider>
+						<App />
+					</ScannerWizardContextProvider>
 				</ThemeProvider>
 			</CacheProvider>
 		</AppWrapper>,

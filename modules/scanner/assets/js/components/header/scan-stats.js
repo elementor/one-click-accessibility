@@ -16,7 +16,7 @@ export const ScanStats = () => {
 	const violation = results?.summary?.counts?.violation;
 	const percent = violation !== 0 ? (violation / 100) * resolved : 100;
 	const displayPercent = results ? Math.round(percent) : 0;
-	console.log(results);
+
 	return (
 		<Box>
 			<Box display="flex" gap="12px">

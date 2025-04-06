@@ -6,11 +6,14 @@ import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { Breadcrumbs } from '@ea11y-apps/scanner/components/header/breadcrumbs';
 import { ScanStats } from '@ea11y-apps/scanner/components/header/scan-stats';
-import { ROOT_ID } from '@ea11y-apps/scanner/utils/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/utils/constants';
 import { __ } from '@wordpress/i18n';
 
 export const Header = () => {
+	const { openedBlock } = useScannerWizardContext();
 	const onClose = () => {
 		const widget = document.getElementById(ROOT_ID);
 		widget.remove();
@@ -27,9 +30,15 @@ export const Header = () => {
 						<XIcon />
 					</IconButton>
 				</Box>
-				<ScanStats />
+				{openedBlock === BLOCKS.main && <ScanStats />}
 			</StyledContent>
 			<Divider />
+			<StyledContent>
+				<Typography variant="body1">
+					{window?.ea11yScannerData?.currentPageTitle}
+				</Typography>
+				{openedBlock !== BLOCKS.main && <Breadcrumbs />}
+			</StyledContent>
 		</StyledCard>
 	);
 };
@@ -43,9 +52,10 @@ const StyledCard = styled(Card)`
 const StyledContent = styled(CardContent)`
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
-	padding: 16px 12px;
+	gap: ${({ theme }) => theme.spacing(1.5)};
+	padding: ${({ theme }) => theme.spacing(2)}
+		${({ theme }) => theme.spacing(1.5)};
 	&:last-child {
-		padding-bottom: 12px;
+		padding-bottom: ${({ theme }) => theme.spacing(1.5)};
 	}
 `;
