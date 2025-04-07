@@ -4,6 +4,7 @@ import { CacheProvider } from '@emotion/react';
 import App from '@ea11y-apps/scanner/app';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
+import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/utils/constants';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 
@@ -12,7 +13,7 @@ TOP_BAR_LINK.addEventListener('click', (event) => {
 	const rootNode = document.getElementById(ROOT_ID);
 
 	if (rootNode) {
-		rootNode.remove();
+		closeWidget(rootNode);
 	} else {
 		scannerWizard
 			.load()
@@ -26,6 +27,7 @@ TOP_BAR_LINK.addEventListener('click', (event) => {
 const initApp = () => {
 	const rootNode = document.createElement('div');
 	rootNode.id = ROOT_ID;
+	document.body.style.marginRight = '360px';
 	document.body.appendChild(rootNode);
 
 	const shadowContainer = rootNode.attachShadow({ mode: 'open' });

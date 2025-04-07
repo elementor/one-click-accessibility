@@ -9,6 +9,7 @@ import { styled } from '@elementor/ui/styles';
 import { Breadcrumbs } from '@ea11y-apps/scanner/components/header/breadcrumbs';
 import { ScanStats } from '@ea11y-apps/scanner/components/header/scan-stats';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/utils/constants';
 import { __ } from '@wordpress/i18n';
 
@@ -16,7 +17,7 @@ export const Header = () => {
 	const { openedBlock } = useScannerWizardContext();
 	const onClose = () => {
 		const widget = document.getElementById(ROOT_ID);
-		widget.remove();
+		closeWidget(widget);
 	};
 
 	return (
