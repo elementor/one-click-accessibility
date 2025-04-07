@@ -8,10 +8,10 @@ use EA11y\Classes\{
 	Logger
 };
 use EA11y\Modules\Connect\Classes\{
-  Config, 
+  Config,
   Data,
   Exceptions\Service_Exception,
-  GrantTypes, 
+  GrantTypes,
   Service,
 };
 
@@ -220,10 +220,6 @@ class Module extends Module_Base {
 			return;
 		}
 
-		if ( ! $plan_scope ) {
-			self::load_plan_scope();
-		}
-
 		$response = Utils::get_api_client()->make_request(
 			'GET',
 			'site/info',
@@ -237,19 +233,6 @@ class Module extends Module_Base {
 		} else {
 			Logger::error( esc_html( $response->get_error_message() ) );
 			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
-		}
-	}
-
-	/**
-	 * Load scopes if they don't set.
-	 * @return void
-	 */
-	private static function load_plan_scope() {
-		try {
-			$token = Service::get_token( GrantTypes::REFRESH_TOKEN, Data::get_refresh_token() );
-			Settings::set( Settings::PLAN_SCOPE, $token['scope'] );
-		} catch ( Throwable $t ) {
-			Logger::error( $t->getMessage() );
 		}
 	}
 
