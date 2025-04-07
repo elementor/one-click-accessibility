@@ -7,13 +7,7 @@ use EA11y\Classes\{
 	Utils,
 	Logger
 };
-use EA11y\Modules\Connect\Classes\{
-  Config,
-  Data,
-  Exceptions\Service_Exception,
-  GrantTypes,
-  Service,
-};
+use EA11y\Modules\Connect\Classes\{Config, Data};
 
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
