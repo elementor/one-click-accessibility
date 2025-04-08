@@ -15,7 +15,8 @@ import {
 	bindMenu,
 } from '@elementor/ui/usePopupState';
 import { useIconDesign } from '@ea11y/hooks';
-import { useState } from '@wordpress/element';
+import { eventNames, mixpanelService } from '@ea11y/services';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const units = ['PX', '%'];
@@ -23,6 +24,27 @@ const units = ['PX', '%'];
 const IconRadius = () => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 	const [unitsIndex, setUnitsIndex] = useState(0);
+
+	useEffect(() => {
+		// Run only if cornerRadius is not saved & is not set.
+		if (
+			(iconDesign?.cornerRadius?.radius ||
+				iconDesign?.cornerRadius?.radius === 0) &&
+			window?.ea11yWidget?.iconSettings?.style?.cornerRadius
+		) {
+			return;
+		}
+
+		const radius = iconDesign?.icon === 'text' ? 8 : 32;
+
+		updateIconDesign({
+			cornerRadius: {
+				radius,
+				unit: units[unitsIndex].toLowerCase(),
+			},
+		});
+	}, [iconDesign?.icon]);
+
 	const popupState = usePopupState({
 		variant: 'popover',
 		popupId: 'textfield-inner-selection',
@@ -33,12 +55,18 @@ const IconRadius = () => {
 		popupState.close();
 	};
 
-	const handleChange = (event) => {
+	const handleChange = (event, source, currentValue) => {
 		updateIconDesign({
 			cornerRadius: {
 				radius: event.target.value,
 				unit: units[unitsIndex].toLowerCase(),
 			},
+		});
+
+		mixpanelService.sendEvent(eventNames.radiusChanged, {
+			previous_radius_value: parseInt(currentValue),
+			new_radius_value: parseInt(event.target.value),
+			interaction_type: source,
 		});
 	};
 	return (
@@ -76,14 +104,17 @@ const IconRadius = () => {
 							</InputAdornment>
 						),
 					}}
-					onChange={handleChange}
+					onChange={(e) =>
+						handleChange(e, 'input', iconDesign?.cornerRadius?.radius)
+					}
 					type="number"
 					value={iconDesign?.cornerRadius?.radius || 0}
 				/>
 				<Slider
 					color="info"
-					defaultValue={50}
-					onChange={handleChange}
+					onChange={(e) =>
+						handleChange(e, 'slider', iconDesign?.cornerRadius?.radius)
+					}
 					value={iconDesign?.cornerRadius?.radius || 0}
 					min={0}
 					max={100}
