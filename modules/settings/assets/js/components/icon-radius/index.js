@@ -17,7 +17,7 @@ import {
 import { useIconDesign } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 const units = ['PX', '%'];
 
@@ -81,14 +81,38 @@ const IconRadius = () => {
 		});
 	};
 	return (
-		<FormControl>
-			<FormLabel id="icon-size-radio-buttons-group-label" color="secondary">
+		<FormControl
+			id="icon-radius-controls-group"
+			aria-label="Widget icon radius control"
+			aria-describedby="Set corner radius for the icon from 0px to 32px using input or slider. Default corner radius value for icon is 32px and for text icon it is 8px."
+			aria-labelledby="icon-radius-controls-group-label"
+		>
+			<FormLabel
+				id="icon-radius-controls-group-label"
+				color="secondary"
+				aria-label="Widget icon radius control"
+			>
 				<Typography variant="subtitle2" marginBottom={1}>
 					{__('Corner radius', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
 			<StyledBox>
 				<StyledTextField
+					name="icon radius input field"
+					inputProps={{
+						'aria-label': sprintf(
+							// Translators: %s - units
+							__(
+								'Numbered input for corner radius in %s.',
+								'pojo-accessibility',
+							),
+							units[unitsIndex],
+						),
+						'aria-describedby':
+							'Set corner radius for the icon from 0px to 32px.',
+						role: 'textbox',
+						'aria-labelledby': 'icon-radius-controls-group-label',
+					}}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
@@ -103,11 +127,21 @@ const IconRadius = () => {
 									}}
 									{...bindTrigger(popupState)}
 									disabled
+									aria-label="Corner radius unit"
+									aria-describedby="Select corner radius unit in pixels."
+									role="button"
 								>
 									{units[unitsIndex]}
 								</Button>
 
-								<Menu MenuListProps={{ dense: true }} {...bindMenu(popupState)}>
+								<Menu
+									MenuListProps={{ dense: true }}
+									{...bindMenu(popupState)}
+									aria-label="Select corner radius unit"
+									role="menu"
+									aria-disabled="true"
+									aria-describedby="Corner radius unit is pixels."
+								>
 									{units.map((unit, index) => (
 										<MenuItem
 											key={unit}
@@ -134,6 +168,12 @@ const IconRadius = () => {
 					min={0}
 					max={32}
 					marks={marks}
+					name="icon radius slider"
+					aria-label="Slider for corner radius"
+					aria-describedby="Set corner radius for the icon from 0px to 32px."
+					role="slider"
+					aria-valuemin={0}
+					aria-valuemax={32}
 				/>
 			</StyledBox>
 		</FormControl>
