@@ -21,6 +21,17 @@ import { __ } from '@wordpress/i18n';
 
 const units = ['PX', '%'];
 
+const marks = [
+	{
+		value: 0,
+		label: '0',
+	},
+	{
+		value: 32,
+		label: '32',
+	},
+];
+
 const IconRadius = () => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 	const [unitsIndex, setUnitsIndex] = useState(0);
@@ -76,7 +87,7 @@ const IconRadius = () => {
 					{__('Corner radius', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
-			<Box display="flex" flexDirection="row" alignItems="center" gap={2}>
+			<StyledBox>
 				<StyledTextField
 					InputProps={{
 						endAdornment: (
@@ -84,7 +95,12 @@ const IconRadius = () => {
 								<Button
 									size="small"
 									color="inherit"
-									sx={{ font: 'inherit', minWidth: 'initial' }}
+									sx={{
+										font: 'inherit',
+										minWidth: 'initial',
+										width: '15px',
+										fontSize: '14px',
+									}}
 									{...bindTrigger(popupState)}
 									disabled
 								>
@@ -107,7 +123,6 @@ const IconRadius = () => {
 					onChange={(e) =>
 						handleChange(e, 'input', iconDesign?.cornerRadius?.radius)
 					}
-					type="number"
 					value={iconDesign?.cornerRadius?.radius || 0}
 				/>
 				<Slider
@@ -117,9 +132,10 @@ const IconRadius = () => {
 					}
 					value={iconDesign?.cornerRadius?.radius || 0}
 					min={0}
-					max={100}
+					max={32}
+					marks={marks}
 				/>
-			</Box>
+			</StyledBox>
 		</FormControl>
 	);
 };
@@ -128,7 +144,7 @@ export default IconRadius;
 
 // Customization for the WP admin global CSS.
 const StyledTextField = styled(TextField)`
-	width: 180px;
+	width: 105px;
 	.wp-admin & .MuiInputBase-input,
 	& .MuiInputBase-input:focus {
 		background-color: initial;
@@ -136,10 +152,17 @@ const StyledTextField = styled(TextField)`
 		border: 0;
 		color: inherit;
 		outline: 0;
-		padding: 16.5px 14px 16.5px 14px;
+		padding: 10px 10px 10px 10px;
 		&.MuiInputBase-inputSizeSmall {
-			padding: 8.5px 14px 8.5px 14px;
+			padding: 8.5px 8px 8.5px 8px;
 		}
 		height: 60px;
 	}
+`;
+
+const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: ${({ theme }) => theme.spacing(4)};
 `;
