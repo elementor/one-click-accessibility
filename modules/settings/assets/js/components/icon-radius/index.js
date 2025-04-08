@@ -138,6 +138,7 @@ const IconRadius = () => {
 					{__('Corner radius', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
+
 			<StyledBox>
 				<StyledTextField
 					color="info"
@@ -215,6 +216,7 @@ const IconRadius = () => {
 					}
 					value={iconDesign?.cornerRadius?.radius || 0}
 				/>
+
 				<Slider
 					color="info"
 					onChange={(e) =>
