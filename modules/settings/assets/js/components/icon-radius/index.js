@@ -19,7 +19,7 @@ import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
-const units = ['PX', '%'];
+const units = ['PX'];
 
 const marks = [
 	{
@@ -122,14 +122,17 @@ const IconRadius = () => {
 	return (
 		<FormControl
 			id="icon-radius-controls-group"
-			aria-label="Widget icon radius control"
-			aria-describedby="Set corner radius for the icon from 0px to 32px using input or slider. Default corner radius value for icon is 32px and for text icon it is 8px."
+			aria-label={__('Widget icon radius control', 'pojo-accessibility')}
+			aria-describedby={__(
+				'Set corner radius for the icon from 0px to 32px using input or slider. Default corner radius value for icon is 32px and for text icon it is 8px.',
+				'pojo-accessibility',
+			)}
 			aria-labelledby="icon-radius-controls-group-label"
 		>
 			<FormLabel
 				id="icon-radius-controls-group-label"
 				color="secondary"
-				aria-label="Widget icon radius control"
+				aria-label={__('Widget icon radius control', 'pojo-accessibility')}
 			>
 				<Typography variant="subtitle2" marginBottom={1}>
 					{__('Corner radius', 'pojo-accessibility')}
@@ -138,7 +141,7 @@ const IconRadius = () => {
 			<StyledBox>
 				<StyledTextField
 					color="info"
-					name="icon radius input field"
+					name={__('icon radius input field', 'pojo-accessibility')}
 					error={!isValid}
 					helperText={!isValid ? 'Max: 32PX' : ''}
 					inputProps={{
@@ -150,8 +153,10 @@ const IconRadius = () => {
 							),
 							units[unitsIndex],
 						),
-						'aria-describedby':
+						'aria-describedby': __(
 							'Set corner radius for the icon from 0px to 32px.',
+							'pojo-accessibility',
+						),
 						role: 'textbox',
 						'aria-labelledby': 'icon-radius-controls-group-label',
 					}}
@@ -169,8 +174,11 @@ const IconRadius = () => {
 									}}
 									{...bindTrigger(popupState)}
 									disabled
-									aria-label="Corner radius unit"
-									aria-describedby="Select corner radius unit in pixels."
+									aria-label={__('Corner radius unit', 'pojo-accessibility')}
+									aria-describedby={__(
+										'Select corner radius unit in pixels.',
+										'pojo-accessibility',
+									)}
 									role="button"
 								>
 									{units[unitsIndex]}
@@ -179,10 +187,16 @@ const IconRadius = () => {
 								<Menu
 									MenuListProps={{ dense: true }}
 									{...bindMenu(popupState)}
-									aria-label="Select corner radius unit"
+									aria-label={__(
+										'Select corner radius unit',
+										'pojo-accessibility',
+									)}
 									role="menu"
 									aria-disabled="true"
-									aria-describedby="Corner radius unit is pixels."
+									aria-describedby={__(
+										'Corner radius unit is pixels.',
+										'pojo-accessibility',
+									)}
 								>
 									{units.map((unit, index) => (
 										<MenuItem
@@ -210,9 +224,12 @@ const IconRadius = () => {
 					min={0}
 					max={32}
 					marks={marks}
-					name="icon radius slider"
-					aria-label="Slider for corner radius"
-					aria-describedby="Set corner radius for the icon from 0px to 32px."
+					name={__('icon radius slider', 'pojo-accessibility')}
+					aria-label={__('Slider for corner radius', 'pojo-accessibility')}
+					aria-describedby={__(
+						'Set corner radius for the icon from 0px to 32px.',
+						'pojo-accessibility',
+					)}
 					role="slider"
 					aria-valuemin={0}
 					aria-valuemax={32}
