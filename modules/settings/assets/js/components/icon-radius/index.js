@@ -98,6 +98,7 @@ const IconRadius = () => {
 			</FormLabel>
 			<StyledBox>
 				<StyledTextField
+					color="info"
 					name="icon radius input field"
 					inputProps={{
 						'aria-label': sprintf(
