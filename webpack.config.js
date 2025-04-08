@@ -1,10 +1,12 @@
 const path = require('path');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 
 // add your entry points here
 const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
 	scanner: path.resolve(process.cwd(), 'modules/scanner/assets/js', 'index.js'),
+	'skip-link': path.resolve(process.cwd(), 'assets/css', 'skip-link.css'),
 };
 
 // React JSX Runtime Polyfill
@@ -34,6 +36,7 @@ module.exports = [
 		output: {
 			...defaultConfig.output,
 			path: path.resolve(process.cwd(), 'assets/build'),
+			clean: true,
 		},
 		resolve: {
 			alias: {
@@ -68,7 +71,14 @@ module.exports = [
 			},
 			extensions: ['.js', '.jsx'],
 		},
+		optimization: {
+			...defaultConfig.optimization,
+			minimize: true,
+			minimizer: [
+				...defaultConfig.optimization.minimizer,
+				new CssMinimizerPlugin(), // Minimize CSS
+			],
+		},
 	},
-
 	reactJSXRuntimePolyfill,
 ];
