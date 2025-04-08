@@ -39,7 +39,7 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 	}
 
 	return (
-		<IconWrapper
+		<StyledIconWrapper
 			sx={{
 				backgroundColor: iconDesign?.color,
 				borderRadius: cornerRadius,
@@ -47,7 +47,7 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 				height: size,
 			}}
 		>
-			<IconInnerWrapper
+			<StyledIconInnerWrapper
 				sx={{
 					border: borderWidth,
 					borderColor: strokeColor,
@@ -58,21 +58,21 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 				}}
 			>
 				{cloneElement(icon, { size: iconSize / 2.5 })}
-			</IconInnerWrapper>
-		</IconWrapper>
+			</StyledIconInnerWrapper>
+		</StyledIconWrapper>
 	);
 };
 
 export default WidgetIcon;
 
-const IconWrapper = styled(Box)`
+const StyledIconWrapper = styled(Box)`
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	padding: ${({ theme }) => theme.spacing(1)};
 `;
 
-const IconInnerWrapper = styled(Box)`
+const StyledIconInnerWrapper = styled(Box)`
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
