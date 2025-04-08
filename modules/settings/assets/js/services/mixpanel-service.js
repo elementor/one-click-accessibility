@@ -71,4 +71,5 @@ export const eventNames = {
 	popupButtonClicked: 'popup_button_clicked',
 	filterSelected: 'filter_selected',
 	upgradeTooltipTriggered: 'upgrade_tooltip_triggered',
+	radiusChanged: 'radius_changed',
 };
