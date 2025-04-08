@@ -35,6 +35,7 @@ const marks = [
 const IconRadius = () => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 	const [unitsIndex, setUnitsIndex] = useState(0);
+	const [isValid, setIsValid] = useState(true);
 
 	useEffect(() => {
 		// Run only if cornerRadius is not saved & is not set.
@@ -56,6 +57,44 @@ const IconRadius = () => {
 		});
 	}, [iconDesign?.icon]);
 
+	useEffect(() => {
+		const radius = iconDesign?.cornerRadius?.radius;
+
+		if (isNaN(radius)) {
+			setIsValid(false);
+			updateIconDesign({
+				cornerRadius: {
+					radius: 0,
+					unit: units[unitsIndex].toLowerCase(),
+				},
+			});
+		}
+
+		if (radius > 32 || radius < 0) {
+			setIsValid(false);
+
+			if (radius > 32) {
+				updateIconDesign({
+					cornerRadius: {
+						radius: 32,
+						unit: units[unitsIndex].toLowerCase(),
+					},
+				});
+			} else if (radius < 0) {
+				updateIconDesign({
+					cornerRadius: {
+						radius: 0,
+						unit: units[unitsIndex].toLowerCase(),
+					},
+				});
+			}
+		}
+
+		if (radius >= 0 && radius <= 32) {
+			setIsValid(true);
+		}
+	}, [iconDesign?.cornerRadius?.radius]);
+
 	const popupState = usePopupState({
 		variant: 'popover',
 		popupId: 'textfield-inner-selection',
@@ -69,7 +108,7 @@ const IconRadius = () => {
 	const handleChange = (event, source, currentValue) => {
 		updateIconDesign({
 			cornerRadius: {
-				radius: event.target.value,
+				radius: parseInt(event.target.value),
 				unit: units[unitsIndex].toLowerCase(),
 			},
 		});
@@ -100,6 +139,8 @@ const IconRadius = () => {
 				<StyledTextField
 					color="info"
 					name="icon radius input field"
+					error={!isValid}
+					helperText={!isValid ? 'Max: 32PX' : ''}
 					inputProps={{
 						'aria-label': sprintf(
 							// Translators: %s - units
