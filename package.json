@@ -26,6 +26,7 @@
 		"@wordpress/env": "^10.10.0",
 		"@wordpress/eslint-plugin": "^21.3.0",
 		"@wordpress/scripts": "^30.3.0",
+		"css-minimizer-webpack-plugin": "^7.0.2",
 		"eslint": "^8.57.1",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-import-resolver-webpack": "^0.13.9",
