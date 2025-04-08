@@ -15,7 +15,7 @@ class Top_Bar_Link {
 	public function enqueue_skip_link_styles() {
 		wp_enqueue_style(
 			'ea11y-top-bar-link',
-			EA11Y_ASSETS_URL . '/css/top-bar-link.css',
+			EA11Y_ASSETS_URL . 'build/top-bar-link.css',
 			[],
 			EA11Y_VERSION
 		); ?>
