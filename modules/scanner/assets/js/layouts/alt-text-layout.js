@@ -1,22 +1,21 @@
-import Card from '@elementor/ui/Card';
-import CardContent from '@elementor/ui/CardContent';
-import Typography from '@elementor/ui/Typography';
+import { AltTextForm } from '@ea11y-apps/scanner/components/alt-text-form';
+import { AltTextNavigation } from '@ea11y-apps/scanner/components/alt-text-navigation';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
+import { useState } from '@wordpress/element';
 
 export const AltTextLayout = () => {
 	const { sortedViolations } = useScannerWizardContext();
-	console.log(sortedViolations.altText);
+	const [current, setCurrent] = useState(0);
+
 	return (
 		<StyledContent>
-			{sortedViolations.altText.map((item, index) => (
-				<Card key={`${item.ruleId}-${index}`} sx={{ mb: 2 }}>
-					<CardContent>
-						<Typography variant="subtitle1">{item.category}</Typography>
-						<Typography variant="body1">{item.message}</Typography>
-					</CardContent>
-				</Card>
-			))}
+			<AltTextForm items={sortedViolations.altText} current={current} />
+			<AltTextNavigation
+				total={sortedViolations.altText.length}
+				current={current}
+				setCurrent={setCurrent}
+			/>
 		</StyledContent>
 	);
 };
