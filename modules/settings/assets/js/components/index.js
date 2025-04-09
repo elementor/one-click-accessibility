@@ -6,6 +6,7 @@ export { default as SidebarAppBar } from './sidebar-app-bar';
 export { default as SidebarMenu } from './sidebar-menu';
 export { default as IconSize } from './icon-size';
 export { default as IconSelect } from './icon-select';
+export { default as IconRadius } from './icon-radius';
 export { default as ColorPicker } from './color-picker';
 export { default as AlignmentMatrixControl } from './alignment-matrix-control';
 export { default as PositionControl } from './position-control';
@@ -26,3 +27,4 @@ export { default as ProItemInfotip } from './capabilities-item/pro-item-infotip'
 export { default as CustomSwitch } from './switch';
 export { default as ConfirmDialog } from './confirm-dialog';
 export { default as UrlMismatchModal } from './url-mismatch-modal';
+export { default as WidgetIcon } from './widget-icon';
