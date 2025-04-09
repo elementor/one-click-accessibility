@@ -62,8 +62,7 @@ class Module extends Module_Base {
 	/**
 	 * Enqueue Scripts
 	 */
-	public function enqueue_scripts() : void {
-		global $post;
+	public function enqueue_assets() : void {
 		if ( is_admin() || ! is_admin_bar_showing() ) {
 			return;
 		}
@@ -77,6 +76,13 @@ class Module extends Module_Base {
 				true
 			);
 		}
+
+		wp_enqueue_style(
+			'ea11y-ea11-scanner-wizard',
+			EA11Y_ASSETS_URL . 'build/ea11-scanner-wizard.css',
+			[],
+			EA11Y_VERSION
+		);
 
 		Utils\Assets::enqueue_app_assets( 'scanner', false );
 		wp_localize_script(
@@ -96,6 +102,6 @@ class Module extends Module_Base {
 		Scans_Table::install();
 		$this->register_components();
 
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets'] );
 	}
 }

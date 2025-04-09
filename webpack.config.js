@@ -7,7 +7,11 @@ const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
 	scanner: path.resolve(process.cwd(), 'modules/scanner/assets/js', 'index.js'),
 	'skip-link': path.resolve(process.cwd(), 'assets/css', 'skip-link.css'),
-	'top-bar-link': path.resolve(process.cwd(), 'assets/css', 'top-bar-link.css'),
+	'ea11-scanner-wizard': path.resolve(
+		process.cwd(),
+		'assets/css',
+		'ea11-scanner-wizard.css',
+	),
 };
 
 // React JSX Runtime Polyfill

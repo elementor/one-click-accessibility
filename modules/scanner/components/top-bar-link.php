@@ -12,15 +12,6 @@ class Top_Bar_Link {
 		return 'top-bar-link';
 	}
 
-	public function enqueue_skip_link_styles() {
-		wp_enqueue_style(
-			'ea11y-top-bar-link',
-			EA11Y_ASSETS_URL . 'build/top-bar-link.css',
-			[],
-			EA11Y_VERSION
-		); ?>
-	<?php }
-
 	public function add_bar_link() {
 		add_action( 'admin_bar_menu', function ( \WP_Admin_Bar $wp_admin_bar ) {
 			// TODO: Add correct capability

@@ -4,7 +4,9 @@ export const TOP_BAR_LINK = document.querySelector(
 	'#wp-admin-bar-ea11y-scanner-wizard a',
 );
 
-export const ROOT_ID = 'scanner-wizard-widget';
+export const ROOT_ID = 'ea11y-scanner-wizard-widget';
+
+export const CURRENT_ELEMENT_CLASS = 'ea11y-scanner-current-element';
 
 export const BLOCKS = {
 	main: 'main',

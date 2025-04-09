@@ -66,35 +66,37 @@ export const AltTextForm = ({ items, current }) => {
 					</FormHelperText>
 				</Box>
 			</StyledLabel>
-			<StyledAlert color="info" icon={<InfoCircleIcon color="info" />}>
-				{__(
-					'Short description will help those who cannot see it.',
-					'pojo-accessibility',
-				)}
-			</StyledAlert>
 			<StyledPaper color="secondary" elevation={0} square>
 				<Image src={items[current].node?.src} sx={{ maxHeight: '140px' }} />
 			</StyledPaper>
 			{!data?.[current]?.makeDecorative ? (
-				<TextField
-					placeholder={__(
-						'Add or generate the description here',
-						'pojo-accessibility',
-					)}
-					color="secondary"
-					value={data?.[current]?.altText ?? ''}
-					onChange={handleChange}
-					fullWidth
-					InputProps={{
-						endAdornment: (
-							<InputAdornment position="end">
-								<IconButton size="small">
-									<AIIcon />
-								</IconButton>
-							</InputAdornment>
-						),
-					}}
-				/>
+				<>
+					<StyledAlert color="info" icon={<InfoCircleIcon color="info" />}>
+						{__(
+							'Short description will help those who cannot see it.',
+							'pojo-accessibility',
+						)}
+					</StyledAlert>
+					<TextField
+						placeholder={__(
+							'Add or generate the description here',
+							'pojo-accessibility',
+						)}
+						color="secondary"
+						value={data?.[current]?.altText ?? ''}
+						onChange={handleChange}
+						fullWidth
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position="end">
+									<IconButton size="small">
+										<AIIcon />
+									</IconButton>
+								</InputAdornment>
+							),
+						}}
+					/>
+				</>
 			) : (
 				<Box display="flex" gap={1}>
 					<CircleCheckFilledIcon color="success" />

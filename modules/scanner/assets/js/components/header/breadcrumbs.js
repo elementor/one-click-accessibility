@@ -12,6 +12,7 @@ import {
 	BLOCK_TITLES,
 	BLOCKS,
 } from '@ea11y-apps/scanner/utils/constants';
+import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { __ } from '@wordpress/i18n';
 
 export const Breadcrumbs = () => {
@@ -19,6 +20,7 @@ export const Breadcrumbs = () => {
 		useScannerWizardContext();
 
 	const handleClick = () => {
+		removeExistingFocus();
 		setOpenedBlock(BLOCKS.main);
 	};
 
