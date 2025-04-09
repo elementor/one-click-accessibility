@@ -7,7 +7,10 @@ const init = async () => {
 	const { ea11ySettingsData } = window;
 	const plan = ea11ySettingsData?.planData?.plan;
 
-	if (!ea11ySettingsData?.planScope?.includes(SHARE_USAGE_DATA)) {
+	if (
+		!ea11ySettingsData?.planData?.scopes?.includes(SHARE_USAGE_DATA) &&
+		!ea11ySettingsData?.planScope?.includes(SHARE_USAGE_DATA)
+	) {
 		return;
 	}
 
