@@ -7,7 +7,10 @@ const init = async () => {
 	const { ea11ySettingsData } = window;
 	const plan = ea11ySettingsData?.planData?.plan;
 
-	if (!ea11ySettingsData?.planData?.scopes?.includes(SHARE_USAGE_DATA)) {
+	if (
+		!ea11ySettingsData?.planData?.scopes?.includes(SHARE_USAGE_DATA) &&
+		!ea11ySettingsData?.planScope?.includes(SHARE_USAGE_DATA)
+	) {
 		return;
 	}
 
@@ -23,6 +26,8 @@ const init = async () => {
 		appType: 'Apps',
 		environment: ea11ySettingsData.pluginEnv,
 		is_trial: Boolean(plan?.name?.toLowerCase().includes('free')),
+		plan_type: plan?.name,
+		subscription_id: plan?.subscription_id,
 	});
 
 	mixpanel.identify(ea11ySettingsData?.planData?.user?.id);
@@ -71,4 +76,5 @@ export const eventNames = {
 	popupButtonClicked: 'popup_button_clicked',
 	filterSelected: 'filter_selected',
 	upgradeTooltipTriggered: 'upgrade_tooltip_triggered',
+	radiusChanged: 'radius_changed',
 };
