@@ -205,7 +205,6 @@ class Module extends Module_Base {
 		}
 
 		$plan_data = Settings::get( Settings::PLAN_DATA );
-		$plan_scope = Settings::get( Settings::PLAN_SCOPE );
 
 		// Return if plan data does not have public_api_key
 		if ( ! $plan_data->public_api_key ) {
