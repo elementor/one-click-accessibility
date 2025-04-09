@@ -7,9 +7,7 @@ use EA11y\Classes\{
 	Utils,
 	Logger
 };
-use EA11y\Modules\Connect\Classes\{
-	Config, Data
-};
+use EA11y\Modules\Connect\Classes\{Config, Data};
 
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
@@ -104,6 +102,7 @@ class Module extends Module_Base {
 			[
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
 				'planData' => Settings::get( Settings::PLAN_DATA ),
+				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
 				'pluginEnv' => self::get_plugin_env(),
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
@@ -164,6 +163,9 @@ class Module extends Module_Base {
 			Logger::error( esc_html( $register_response->get_error_message() ) );
 		} else {
 			self::save_plan_data( $register_response );
+			if ( isset( $register_response->scopes ) ) {
+				Settings::set( Settings::PLAN_SCOPE, $register_response->scopes );
+			}
 		}
 	}
 
