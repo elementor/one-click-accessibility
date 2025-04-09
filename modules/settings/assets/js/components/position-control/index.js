@@ -155,6 +155,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 		>
 			<StyledTextField
 				size="medium"
+				color="info"
 				error={!isValid}
 				helperText={!isValid ? 'Invalid value' : ''}
 				disabled={disabled}
@@ -198,6 +199,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 			<Select
 				fullWidth
+				color="info"
 				name={__('Direction', 'pojo-accessibility')}
 				variant="outlined"
 				onChange={handlePositionDirection}
