@@ -33,7 +33,7 @@ class Ally_Trigger extends Data_Tag {
 				const registerAllyAction = () => {
 					elementorFrontend.utils.urlActions.addAction( 'allyWidget:open', settings => {
 						if( window?.ea11yWidget?.widget?.open ){
-							window.ea11yWidget.widget.open()ף
+							window.ea11yWidget.widget.open();
 						}
 					} );
 				};
