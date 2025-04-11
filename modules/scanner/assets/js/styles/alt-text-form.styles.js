@@ -15,7 +15,6 @@ export const StyledLabel = styled(InputLabel)`
 	align-items: start;
 	overflow: visible;
 	gap: ${({ theme }) => theme.spacing(0.5)};
-	padding-top: ${({ theme }) => theme.spacing(1)};
 `;
 
 export const StyledAlert = styled(Alert)`
@@ -31,4 +30,8 @@ export const StyledPaper = styled(Paper)`
 	justify-content: center;
 	align-items: center;
 	height: 140px;
+	& > * {
+		max-height: 100%;
+		width: auto;
+	}
 `;

@@ -20,17 +20,18 @@ export const BLOCKS = {
 
 export const BLOCK_TITLES = {
 	altText: __('Alternative Text', 'pojo-accessibility'),
-	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
-	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
-	keyboardAssistiveTech: __(
-		'Keyboard and Assistive Technologies',
-		'pojo-accessibility',
-	),
-	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
-	other: __('Other Accessibility Issues', 'pojo-accessibility'),
+	dynamicContent: __('ARIA roles & attributes', 'pojo-accessibility'),
+	formsInputsError: __('Forms & labels', 'pojo-accessibility'),
+	keyboardAssistiveTech: __('Keyboard & focus', 'pojo-accessibility'),
+	pageStructureNav: __('Responsive & zoom', 'pojo-accessibility'),
+	other: __('Uncategorized issues', 'pojo-accessibility'),
 };
 
 export const BLOCK_INFO = {
+	altText: __(
+		'Alt text helps visually impaired visitors using screen readers know what images show.',
+		'pojo-accessibility',
+	),
 	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
 	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
 	keyboardAssistiveTech: __(

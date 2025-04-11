@@ -1,15 +1,7 @@
 import { CURRENT_ELEMENT_CLASS } from '@ea11y-apps/scanner/utils/constants';
 
-export const focusOnElement = (domPath) => {
+export const focusOnElement = (element) => {
 	removeExistingFocus();
-	const result = document.evaluate(
-		domPath,
-		document,
-		null,
-		XPathResult.FIRST_ORDERED_NODE_TYPE,
-		null,
-	);
-	const element = result.singleNodeValue;
 	element.classList.add(CURRENT_ELEMENT_CLASS);
 	element.scrollIntoView({ behavior: 'smooth', block: 'center' });
 };

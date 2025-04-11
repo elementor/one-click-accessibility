@@ -1,7 +1,6 @@
 import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
-import { Badge } from '@elementor/ui';
+import { Chip } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
-import Divider from '@elementor/ui/Divider';
 import Infotip from '@elementor/ui/Infotip';
 import Link from '@elementor/ui/Link';
 import Typography from '@elementor/ui/Typography';
@@ -56,15 +55,15 @@ export const Breadcrumbs = () => {
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>
 					)}
-					<Badge
-						badgeContent={sortedViolations[openedBlock].length}
+					<Chip
+						label={sortedViolations[openedBlock].length}
 						color="secondary"
 						variant="standard"
-						sx={{ ml: 1.5 }}
+						size="small"
+						sx={{ fontWeight: 500 }}
 					/>
 				</Box>
 			</BreadcrumbsBox>
-			<Divider />
 		</Box>
 	);
 };
@@ -73,5 +72,4 @@ const BreadcrumbsBox = styled(Box)`
 	display: flex;
 	align-items: center;
 	gap: ${({ theme }) => theme.spacing(1)};
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
 `;

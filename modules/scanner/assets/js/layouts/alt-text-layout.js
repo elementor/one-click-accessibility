@@ -10,7 +10,7 @@ export const AltTextLayout = () => {
 	const [current, setCurrent] = useState(0);
 
 	useEffect(() => {
-		focusOnElement(sortedViolations.altText[current].path.dom);
+		focusOnElement(sortedViolations.altText[current].node);
 	}, [current]);
 
 	return (

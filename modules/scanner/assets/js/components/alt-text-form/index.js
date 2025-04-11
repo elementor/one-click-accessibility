@@ -6,16 +6,17 @@ import Button from '@elementor/ui/Button';
 import Checkbox from '@elementor/ui/Checkbox';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import IconButton from '@elementor/ui/IconButton';
-import Image from '@elementor/ui/Image';
+
 import InputAdornment from '@elementor/ui/InputAdornment';
 import TextField from '@elementor/ui/TextField';
+import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { ImagePreview } from '@ea11y-apps/scanner/components/image-preview';
 import {
 	StyledAlert,
 	StyledBox,
 	StyledLabel,
-	StyledPaper,
 } from '@ea11y-apps/scanner/styles/alt-text-form.styles';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -41,15 +42,26 @@ export const AltTextForm = ({ items, current }) => {
 		setData(updData);
 	};
 
+	console.log(items[current]);
+
 	const isSubmitDisabled =
 		!data?.[current]?.makeDecorative && !data?.[current]?.altText;
 
 	return (
 		<StyledBox>
+			<StyledAlert color="info" icon={<InfoCircleIcon color="info" />}>
+				{__(
+					'Short description will help those who cannot see it.',
+					'pojo-accessibility',
+				)}
+			</StyledAlert>
+
+			<ImagePreview element={items[current].node} />
+
 			<StyledLabel>
 				<Checkbox
 					checked={data?.[current]?.makeDecorative ?? false}
-					color="accent"
+					color="info"
 					sx={{ margin: '-7px 0 0 -10px' }}
 					size="small"
 					onChange={handleCheck}
@@ -66,37 +78,46 @@ export const AltTextForm = ({ items, current }) => {
 					</FormHelperText>
 				</Box>
 			</StyledLabel>
-			<StyledPaper color="secondary" elevation={0} square>
-				<Image src={items[current].node?.src} sx={{ maxHeight: '140px' }} />
-			</StyledPaper>
 			{!data?.[current]?.makeDecorative ? (
-				<>
-					<StyledAlert color="info" icon={<InfoCircleIcon color="info" />}>
-						{__(
-							'Short description will help those who cannot see it.',
-							'pojo-accessibility',
-						)}
-					</StyledAlert>
-					<TextField
-						placeholder={__(
-							'Add or generate the description here',
-							'pojo-accessibility',
-						)}
-						color="secondary"
-						value={data?.[current]?.altText ?? ''}
-						onChange={handleChange}
-						fullWidth
-						InputProps={{
-							endAdornment: (
-								<InputAdornment position="end">
+				<TextField
+					placeholder={__(
+						'Add or generate the description here',
+						'pojo-accessibility',
+					)}
+					color="secondary"
+					value={data?.[current]?.altText ?? ''}
+					onChange={handleChange}
+					fullWidth
+					multiline
+					InputProps={{
+						endAdornment: (
+							<InputAdornment position="end">
+								<Tooltip
+									title={__(
+										'Generate an Alt text description with AI.',
+										'pojo-accessibility',
+									)}
+									PopperProps={{
+										disablePortal: true,
+									}}
+									componentsProps={{
+										tooltip: {
+											sx: {
+												maxWidth: '101px',
+												whiteSpace: 'normal',
+												lineHeight: 1.4,
+											},
+										},
+									}}
+								>
 									<IconButton size="small">
-										<AIIcon />
+										<AIIcon color="info" />
 									</IconButton>
-								</InputAdornment>
-							),
-						}}
-					/>
-				</>
+								</Tooltip>
+							</InputAdornment>
+						),
+					}}
+				/>
 			) : (
 				<Box display="flex" gap={1}>
 					<CircleCheckFilledIcon color="success" />
@@ -111,7 +132,7 @@ export const AltTextForm = ({ items, current }) => {
 				fullWidth
 				disabled={isSubmitDisabled}
 			>
-				{__('Apply', 'pojo-accessibility')}
+				{__('Resolve', 'pojo-accessibility')}
 			</Button>
 		</StyledBox>
 	);

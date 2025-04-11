@@ -1,3 +1,4 @@
+import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
@@ -14,6 +15,7 @@ const ScannerWizardContext = createContext({
 	results: {},
 	resolved: 0,
 	openedBlock: '',
+	loading: null,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
 	setOpenedBlock: () => {},
 	setResolved: () => {},
@@ -27,20 +29,30 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	);
 	const [resolved, setResolved] = useState(0);
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
+	const [loading, setLoading] = useState(true);
 
 	const getResults = () => {
-		window.ace.check(document).then((data) => {
-			const filtered = data.results.filter(
-				(item) => item.level === 'violation',
-			);
-			const sorted = sortViolations(filtered);
-			setResults(data);
-			setSortedViolations(sorted);
-		});
+		setLoading(true);
+		window.ace
+			.check(document)
+			.then((data) => {
+				const filtered = data.results.filter(
+					(item) => item.level === 'violation',
+				);
+				const sorted = sortViolations(filtered);
+				setResults(data);
+				setSortedViolations(sorted);
+			})
+			.finally(() => setLoading(false));
 	};
 
 	useEffect(() => {
-		getResults();
+		scannerWizard
+			.load()
+			.then(() => {
+				getResults();
+			})
+			.catch((e) => console.error(e));
 	}, []);
 
 	return (
@@ -49,6 +61,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				results,
 				resolved,
 				openedBlock,
+				loading,
 				sortedViolations,
 				setOpenedBlock,
 				setResolved,
