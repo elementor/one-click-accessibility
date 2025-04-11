@@ -42,8 +42,6 @@ export const AltTextForm = ({ items, current }) => {
 		setData(updData);
 	};
 
-	console.log(items[current]);
-
 	const isSubmitDisabled =
 		!data?.[current]?.makeDecorative && !data?.[current]?.altText;
 
