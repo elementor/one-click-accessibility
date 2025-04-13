@@ -188,6 +188,7 @@ class Module extends Module_Base {
 	public static function component_list(): array {
 		return [
 			'Cache_Compatibility',
+			'Gutenberg_Link',
 		];
 	}
 
