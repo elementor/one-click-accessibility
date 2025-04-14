@@ -1,12 +1,5 @@
-import { __ } from '@wordpress/i18n';
-
 export const Logo = () => (
-	<svg
-		width="24"
-		height="24"
-		fill="none"
-		aria-label={__('Elementor Logo', 'pojo-accessibility')}
-	>
+	<svg width="24" height="24" fill="none" role="presentation">
 		<g clipPath="url(#a)">
 			<path
 				fillRule="evenodd"
