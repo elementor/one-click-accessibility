@@ -79,7 +79,7 @@ class Module extends Module_Base {
 
 		wp_enqueue_style(
 			'ea11y-ea11-scanner-wizard',
-			EA11Y_ASSETS_URL . 'build/ea11-scanner-wizard.css',
+			EA11Y_ASSETS_URL . 'build/ea11y-scanner-wizard.css',
 			[],
 			EA11Y_VERSION
 		);

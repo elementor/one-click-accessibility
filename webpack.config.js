@@ -7,10 +7,10 @@ const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
 	scanner: path.resolve(process.cwd(), 'modules/scanner/assets/js', 'index.js'),
 	'skip-link': path.resolve(process.cwd(), 'assets/css', 'skip-link.css'),
-	'ea11-scanner-wizard': path.resolve(
+	'ea11y-scanner-wizard': path.resolve(
 		process.cwd(),
 		'assets/css',
-		'ea11-scanner-wizard.css',
+		'ea11y-scanner-wizard.css',
 	),
 };
 

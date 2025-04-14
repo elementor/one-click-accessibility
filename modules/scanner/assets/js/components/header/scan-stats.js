@@ -1,5 +1,4 @@
 import RefreshIcon from '@elementor/icons/RefreshIcon';
-import { useTheme } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import LinearProgress from '@elementor/ui/LinearProgress';
@@ -10,7 +9,6 @@ import { StyledSkeleton } from '@ea11y-apps/scanner/styles/app.styles';
 import { __ } from '@wordpress/i18n';
 
 export const ScanStats = () => {
-	const theme = useTheme();
 	const { results, resolved, loading, getResults } = useScannerWizardContext();
 	const violation = results?.summary?.counts?.violation;
 	const percent = violation !== 0 ? (violation / 100) * resolved : 100;
@@ -36,19 +34,8 @@ export const ScanStats = () => {
 					</Box>
 				) : (
 					<>
-						<LinearProgress
+						<StyledLinearProgress
 							color="success"
-							sx={{
-								'& .MuiLinearProgress-bar': {
-									animation: 'none',
-								},
-								'& .MuiLinearProgress-bar1Determinate': {
-									backgroundColor: theme.palette.success.light,
-								},
-								backgroundColor: theme.palette.grey['50'],
-								animation: 'none',
-								flexGrow: 1,
-							}}
 							value={displayPercent}
 							variant="determinate"
 						/>
@@ -88,3 +75,15 @@ const StyledLegend = styled(Box, {
 			loading ? theme.palette.grey['50'] : theme.palette.success.light};
 	}
 `;
+
+const StyledLinearProgress = styled(LinearProgress)(({ theme }) => ({
+	'& .MuiLinearProgress-bar': {
+		animation: 'none',
+	},
+	'& .MuiLinearProgress-bar1Determinate': {
+		backgroundColor: theme.palette.success.light,
+	},
+	backgroundColor: theme.palette.grey['50'],
+	animation: 'none',
+	flexGrow: 1,
+}));
