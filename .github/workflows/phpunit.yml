@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         php: [7.4, 8.0, 8.1, 8.2]
-        wp: [6.5.x, 6.6.x, 6.7.x, latest, nightly]
+        wp: [6.5.x, 6.6.x, 6.7.x, 6.8.x, nightly]
         ms: [no, yes]
         coverage: [no]
         phpunit: [9]
