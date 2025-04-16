@@ -104,7 +104,7 @@ jobs:
         run: npm run build
 
       - name: Set up WordPress and WordPress Test Library
-        uses: bainternet/setup-wordpress-test-library@dc2bd0b6faa519cd910edf3ff1825a06975cb2d4
+        uses: bainternet/setup-wordpress-test-library@master
         with:
           version: ${{ matrix.wp }}
 
