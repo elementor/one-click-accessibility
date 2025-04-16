@@ -6,10 +6,10 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
 	scanner: path.resolve(process.cwd(), 'modules/scanner/assets/js', 'index.js'),
-	'skip-link': path.resolve(process.cwd(), 'assets/css', 'skip-link.css'),
+	'skip-link': path.resolve(process.cwd(), 'assets/dev/css', 'skip-link.css'),
 	'ea11y-scanner-wizard': path.resolve(
 		process.cwd(),
-		'assets/css',
+		'assets/dev/css',
 		'ea11y-scanner-wizard.css',
 	),
 };
