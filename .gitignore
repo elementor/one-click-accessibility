@@ -11,6 +11,7 @@ npm-debug.log
 bin/.env
 */node_modules
 !assets/dev/*
+assets/js/
 coverage/
 .phpunit.result.cache
 .editorconfig
