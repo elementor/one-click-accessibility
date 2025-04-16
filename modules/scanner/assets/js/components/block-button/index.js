@@ -56,7 +56,7 @@ const StyledButtonContainer = styled(Box)`
 `;
 
 const StyledButton = styled(Button)`
-	font-weight: 300;
+	font-weight: 400;
 	justify-content: start;
 	padding: ${({ theme }) => theme.spacing(1.5)};
 `;

@@ -11,6 +11,34 @@ class Utils {
 		return home_url( $wp->request );
 	}
 
+	public static function get_current_page_title() {
+		global $post;
+		if ( is_home() ) {
+			$title = esc_html__( 'Blog', 'pojo-accessibility' );
+		} elseif ( is_front_page() ) {
+			$title = get_the_title( get_option( 'page_on_front' ) );
+		} elseif ( is_category() ) {
+			$title = single_cat_title( '', false );
+		} elseif ( is_tag() ) {
+			$title = single_tag_title( '', false );
+		} elseif ( is_tax() ) {
+			$term = get_queried_object();
+			$title = $term->name ?? '';
+		} elseif ( is_post_type_archive() ) {
+			$title = post_type_archive_title( '', false );
+		} elseif ( is_author() ) {
+			$title = get_the_author();
+		} elseif ( is_date() ) {
+			$title = get_the_date();
+		} elseif ( is_archive() ) {
+			$title = get_the_archive_title();
+		} else {
+			$title = get_the_title( $post->ID );
+		}
+
+		return $title;
+	}
+
 	public static function get_current_object_id(): int {
 		global $wp_query;
 		return $wp_query->get_queried_object_id();

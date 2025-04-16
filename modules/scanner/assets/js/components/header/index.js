@@ -51,7 +51,7 @@ export const Header = () => {
 			<StyledContent>
 				<Box display="flex" alignItems="center" gap={1}>
 					<Typography variant="body1">
-						{window?.ea11yScannerData?.currentPageTitle}
+						{window?.ea11yScannerData?.pageData?.title}
 					</Typography>
 					{showChip && (
 						<Chip

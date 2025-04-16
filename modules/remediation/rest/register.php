@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Remediation\rest;
+namespace EA11y\Modules\Remediation\Rest;
 
 use EA11y\Modules\Remediation\Classes\Route_Base;
 use EA11y\Modules\Remediation\Database\Page_Entry;

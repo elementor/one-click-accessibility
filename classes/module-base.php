@@ -257,7 +257,7 @@ abstract class Module_Base {
 	 */
 	public function register_routes() {
 		$namespace = static::namespace_name();
-		$routes_ids = self::routes_list();
+		$routes_ids = static::routes_list();
 
 		foreach ( $routes_ids as $route_id ) {
 			$class_name = $namespace . '\\Rest\\' . $route_id;

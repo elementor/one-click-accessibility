@@ -1,3 +1,4 @@
+import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
 	BLOCKS,
@@ -42,6 +43,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				const sorted = sortViolations(filtered);
 				setResults(data);
 				setSortedViolations(sorted);
+				if (window?.ea11yScannerData?.pageData?.unregistered) {
+					void APIScanner.registerPage();
+				}
 			})
 			.finally(() => setLoading(false));
 	};
