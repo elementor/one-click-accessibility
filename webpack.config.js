@@ -45,6 +45,7 @@ module.exports = [
 		},
 		resolve: {
 			alias: {
+				'@ea11y-apps/global': path.resolve(__dirname, 'assets/dev/js'),
 				'@ea11y/hooks': path.resolve(
 					__dirname,
 					'modules/settings/assets/js/hooks/',

@@ -14,7 +14,7 @@ import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
-import API from '../../api/index';
+import APISettings from '../../api/index';
 import { SUBSCRIPTION_LINK } from '../../constants/index';
 import { truncateEmail } from '../../helpers/popup-menu';
 
@@ -25,8 +25,8 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 
 	const onDeactivateAndDisconnect = async () => {
 		try {
-			await API.deactivate();
-			await API.redirectToConnect();
+			await APISettings.deactivate();
+			await APISettings.redirectToConnect();
 
 			await save({
 				ea11y_close_post_connect_modal: false,
