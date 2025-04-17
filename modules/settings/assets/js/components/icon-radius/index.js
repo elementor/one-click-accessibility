@@ -47,7 +47,7 @@ const IconRadius = () => {
 			return;
 		}
 
-		const radius = iconDesign?.icon === 'text' ? 8 : 32;
+		const radius = iconDesign?.icon === 'text' ? 4 : 32;
 
 		updateIconDesign({
 			cornerRadius: {
