@@ -53,6 +53,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install SVN
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y subversion
+          which svn
+          svn --version
+
       - name: Matrix variables
         id: matrix
         run: |
@@ -104,7 +111,7 @@ jobs:
         run: npm run build
 
       - name: Set up WordPress and WordPress Test Library
-        uses: bainternet/setup-wordpress-test-library@master
+        uses: sjinks/setup-wordpress-test-library@master
         with:
           version: ${{ matrix.wp }}
 
