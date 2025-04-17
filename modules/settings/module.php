@@ -282,10 +282,6 @@ class Module extends Module_Base {
 				'icon' => 'person',
 				'size' => 'medium',
 				'color' => '#2563eb',
-				'cornerRadius' => [
-					'radius' => 32,
-					'unit' => 'px',
-				],
 			],
 			'position' => [
 				'desktop' => [
