@@ -18,6 +18,7 @@ class Remediations_Runner {
 			$classes = apply_filters( 'ea11y_remediations_classes', [
 				'ATTRIBUTE' => 'Attribute',
 				'ELEMENT'   => 'Element',
+				'REPLACE' => 'Replace',
 			] );
 		}
 		return $classes;
