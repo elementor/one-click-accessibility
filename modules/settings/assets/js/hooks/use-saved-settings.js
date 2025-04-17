@@ -49,7 +49,8 @@ export const useSavedSettings = () => {
 			if (result?.data?.ea11y_widget_icon_settings?.style) {
 				const iconStyle = result.data.ea11y_widget_icon_settings.style;
 				if (!iconStyle?.cornerRadius) {
-					iconStyle.cornerRadius = { unit: 'px', radius: 32 };
+					const radius = iconStyle.icon === 'text' ? 8 : 32;
+					iconStyle.cornerRadius = { unit: 'px', radius };
 				}
 				setIconDesign(iconStyle);
 			}

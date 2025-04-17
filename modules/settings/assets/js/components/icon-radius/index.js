@@ -38,7 +38,7 @@ const IconRadius = () => {
 	const [isValid, setIsValid] = useState(true);
 
 	useEffect(() => {
-		// Run only if cornerRadius is not saved & is not set.
+		// Run only if cornerRadius is not saved and is not set.
 		if (
 			(iconDesign?.cornerRadius?.radius ||
 				iconDesign?.cornerRadius?.radius === 0) &&
