@@ -13,6 +13,8 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 		iconDesign?.cornerRadius?.radius - 3 + iconDesign?.cornerRadius?.unit;
 	let iconSize = size;
 	let borderWidth = 1;
+	let innerBoxHeight = size;
+	let innerBoxWidth = size;
 
 	// Override values for text icon in select control
 	if (control === 'select' && type === 'text') {
@@ -38,6 +40,23 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 		borderWidth = 1;
 	}
 
+	// Calculate inner size separately
+	if (size === 64) {
+		innerBoxWidth = size - 16;
+		innerBoxHeight = size - 16;
+		if (type === 'text') {
+			innerBoxWidth = size * 1.9 - 16;
+			innerBoxHeight = size - 16;
+		}
+	} else {
+		innerBoxWidth = size - 10;
+		innerBoxHeight = size - 10;
+		if (type === 'text') {
+			innerBoxWidth = size * 1.9 - 10;
+			innerBoxHeight = size - 10;
+		}
+	}
+
 	return (
 		<StyledIconWrapper
 			sx={{
@@ -53,8 +72,8 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 					borderColor: strokeColor,
 					borderRadius: innerRadius,
 					padding: size >= 50 ? '12px' : 1,
-					width: 'text' === type ? size * 1.9 - 10 : size - 10,
-					height: size - 10,
+					width: innerBoxWidth,
+					height: innerBoxHeight,
 				}}
 			>
 				{cloneElement(icon, { size: iconSize / 2.5 })}
