@@ -19,6 +19,7 @@ import {
 	EditLink,
 	WidgetLoader,
 	GeneratedPageInfoTipCard,
+	PageSelect,
 } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
@@ -197,6 +198,7 @@ const StatementLink = () => {
 									}}
 									open={showAccessibilityGeneratedInfotip}
 								>
+									<PageSelect />
 									<Select
 										variant="outlined"
 										onChange={(e) => changePage(e.target.value)}
@@ -205,6 +207,11 @@ const StatementLink = () => {
 										color="info"
 										size="small"
 										sx={{ minWidth: '242px' }}
+										placeholder={
+											pages?.hasResolved
+												? __('Select a page', 'pojo-accessibility')
+												: 'Loading...'
+										}
 									>
 										{pages?.hasResolved && pages?.records.length > 0 ? (
 											pages?.records.map((page) => (
