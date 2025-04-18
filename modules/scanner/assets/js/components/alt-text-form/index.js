@@ -13,37 +13,26 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { ImagePreview } from '@ea11y-apps/scanner/components/image-preview';
+import { useAltTextForm } from '@ea11y-apps/scanner/hooks/useAltTextForm';
 import {
 	StyledAlert,
 	StyledBox,
 	StyledLabel,
 } from '@ea11y-apps/scanner/styles/alt-text-form.styles';
-import { useState } from '@wordpress/element';
+import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
 
-export const AltTextForm = ({ items, current }) => {
-	const [data, setData] = useState([]);
+export const AltTextForm = ({ items, current, setCurrent }) => {
+	const { data, isSubmitDisabled, handleChange, handleCheck, handleSubmit } =
+		useAltTextForm({
+			current,
+			item: items[current],
+		});
 
-	const handleCheck = (e) => {
-		const updData = [...data];
-		updData[current] = {
-			...(data?.[current] || {}),
-			makeDecorative: e.target.checked,
-		};
-		setData(updData);
+	const onSubmit = async () => {
+		await handleSubmit();
+		setCurrent(current + 1);
 	};
-
-	const handleChange = (e) => {
-		const updData = [...data];
-		updData[current] = {
-			...(data?.[current] || {}),
-			altText: e.target.value,
-		};
-		setData(updData);
-	};
-
-	const isSubmitDisabled =
-		!data?.[current]?.makeDecorative && !data?.[current]?.altText;
 
 	return (
 		<StyledBox>
@@ -129,6 +118,7 @@ export const AltTextForm = ({ items, current }) => {
 				color="info"
 				fullWidth
 				disabled={isSubmitDisabled}
+				onClick={onSubmit}
 			>
 				{__('Resolve', 'pojo-accessibility')}
 			</Button>
@@ -137,19 +127,7 @@ export const AltTextForm = ({ items, current }) => {
 };
 
 AltTextForm.propTypes = {
-	items: PropTypes.arrayOf(
-		PropTypes.shape({
-			ruleId: PropTypes.string.isRequired,
-			value: PropTypes.arrayOf(PropTypes.number).isRequired,
-			path: PropTypes.shape({
-				dom: PropTypes.string.isRequired,
-				aria: PropTypes.string.isRequired,
-				selector: PropTypes.string.isRequired,
-			}).isRequired,
-			category: PropTypes.string.isRequired,
-			level: PropTypes.string.isRequired,
-			node: PropTypes.node,
-		}),
-	).isRequired,
+	items: PropTypes.arrayOf(scannerItem).isRequired,
 	current: PropTypes.number.isRequired,
+	setCurrent: PropTypes.func.isRequired,
 };

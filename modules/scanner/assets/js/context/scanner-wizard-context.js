@@ -18,9 +18,11 @@ const ScannerWizardContext = createContext({
 	openedBlock: '',
 	loading: null,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
+	altTextData: [],
 	setOpenedBlock: () => {},
 	setResolved: () => {},
 	getResults: () => {},
+	setAltTextData: () => {},
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
@@ -31,6 +33,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [resolved, setResolved] = useState(0);
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
+	const [altTextData, setAltTextData] = useState([]);
 
 	const getResults = () => {
 		setLoading(true);
@@ -43,6 +46,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				const sorted = sortViolations(filtered);
 				setResults(data);
 				setSortedViolations(sorted);
+				setResolved(0);
 				if (window?.ea11yScannerData?.pageData?.unregistered) {
 					void APIScanner.registerPage();
 				}
@@ -67,9 +71,11 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				openedBlock,
 				loading,
 				sortedViolations,
+				altTextData,
 				setOpenedBlock,
 				setResolved,
 				getResults,
+				setAltTextData,
 			}}
 		>
 			{children}

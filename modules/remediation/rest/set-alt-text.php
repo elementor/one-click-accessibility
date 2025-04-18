@@ -36,16 +36,17 @@ class Set_Alt_Text extends Route_Base {
 				return $error;
 			}
 
-			$attachment_id = $request->get_param( 'attachment_id' );
-			$alt_text = $request->get_param( 'alt_text' );
+			$url = esc_url_raw( $request->get_param( 'url' ) );
+			$alt_text = sanitize_text_field( $request->get_param( 'alt_text' ) );
 
-			if ( ! $attachment_id || ! $alt_text ) {
+			if ( ! $url || ! $alt_text ) {
 				return $this->respond_error_json( [
 					'message' => 'Missing required parameters',
 					'code' => 'missing_parameters',
 				] );
 			}
 
+			$attachment_id = attachment_url_to_postid( $url );
 			$attachment = get_post( $attachment_id );
 			if ( ! $attachment ) {
 				return $this->respond_error_json( [

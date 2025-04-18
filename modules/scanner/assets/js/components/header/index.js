@@ -25,6 +25,8 @@ export const Header = () => {
 	};
 
 	const showChip = !loading && openedBlock === BLOCKS.main && violation;
+	const showDivider =
+		!loading && (openedBlock === BLOCKS.main || openedBlock === BLOCKS.altText);
 
 	return (
 		<StyledCard square={true} variant="elevation" elevation={0}>
@@ -63,7 +65,7 @@ export const Header = () => {
 					)}
 				</Box>
 				{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}
-				{!loading && <Divider />}
+				{showDivider && <Divider />}
 			</StyledContent>
 		</StyledCard>
 	);

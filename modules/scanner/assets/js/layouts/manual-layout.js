@@ -1,21 +1,34 @@
-import Card from '@elementor/ui/Card';
-import CardContent from '@elementor/ui/CardContent';
+import AccordionDetails from '@elementor/ui/AccordionDetails';
+import AccordionSummary from '@elementor/ui/AccordionSummary';
 import Typography from '@elementor/ui/Typography';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
-import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
+import { StyledAccordion } from '@ea11y-apps/scanner/styles/manual-fixes.style';
 
 export const ManualLayout = () => {
 	const { openedBlock, sortedViolations } = useScannerWizardContext();
+	console.log(sortedViolations[openedBlock]);
 	return (
-		<StyledContent>
+		<>
 			{sortedViolations[openedBlock].map((item, index) => (
-				<Card key={`${item.ruleId}-${index}`} sx={{ mb: 2 }}>
-					<CardContent>
+				<StyledAccordion
+					key={`${item.ruleId}-${index}`}
+					elevation={0}
+					square
+					disableGutters
+				>
+					<AccordionSummary
+						aria-controls={`manual-panel-${index}`}
+						id={`manual-panel-${index}`}
+						sx={{ minHeight: '44px' }}
+					>
+						<Typography>{item.ruleId}</Typography>
+					</AccordionSummary>
+					<AccordionDetails>
 						<Typography variant="subtitle1">{item.category}</Typography>
 						<Typography variant="body1">{item.message}</Typography>
-					</CardContent>
-				</Card>
+					</AccordionDetails>
+				</StyledAccordion>
 			))}
-		</StyledContent>
+		</>
 	);
 };

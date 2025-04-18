@@ -15,7 +15,11 @@ export const AltTextLayout = () => {
 
 	return (
 		<StyledContent>
-			<AltTextForm items={sortedViolations.altText} current={current} />
+			<AltTextForm
+				items={sortedViolations.altText}
+				current={current}
+				setCurrent={setCurrent}
+			/>
 			<AltTextNavigation
 				total={sortedViolations.altText.length}
 				current={current}

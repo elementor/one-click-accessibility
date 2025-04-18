@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
 export const ScanStats = () => {
 	const { results, resolved, loading, getResults } = useScannerWizardContext();
 	const violation = results?.summary?.counts?.violation;
-	const percent = violation !== 0 ? (violation / 100) * resolved : 100;
+	const percent = violation !== 0 ? (resolved / violation) * 100 : 100;
 	const displayPercent = results ? Math.round(percent) : 0;
 
 	return (

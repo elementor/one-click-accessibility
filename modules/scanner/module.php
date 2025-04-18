@@ -78,6 +78,7 @@ class Module extends Module_Base {
 					'object_type' => Remediation_Utils::get_current_object_type(),
 					'object_type_name' => Remediation_Utils::get_current_object_type_name(),
 					'unregistered' => ! $page->exists(),
+					'entry_id' => $page->id,
 				],
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 			]
