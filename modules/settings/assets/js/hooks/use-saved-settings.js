@@ -47,7 +47,12 @@ export const useSavedSettings = () => {
 			}
 
 			if (result?.data?.ea11y_widget_icon_settings?.style) {
-				setIconDesign(result.data.ea11y_widget_icon_settings.style);
+				const iconStyle = result.data.ea11y_widget_icon_settings.style;
+				if (!iconStyle?.cornerRadius) {
+					const radius = iconStyle.icon === 'text' ? 4 : 32;
+					iconStyle.cornerRadius = { unit: 'px', radius };
+				}
+				setIconDesign(iconStyle);
 			}
 
 			if (result?.data?.ea11y_hide_minimum_active_options_alert) {
