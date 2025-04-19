@@ -86,6 +86,10 @@ export const SettingsProvider = ({ children }) => {
 		icon: 'person',
 		size: 'medium',
 		color: '#2563eb',
+		cornerRadius: {
+			radius: 32,
+			unit: 'px',
+		},
 	});
 
 	// Icon Position
