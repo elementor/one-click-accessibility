@@ -54,6 +54,7 @@ class Settings {
 				'disable'         => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_toolbar_display' ],
 		];
 
 		$toolbar_options_classes = 'pojo-a11y-toolbar-button';
@@ -65,6 +66,7 @@ class Settings {
 			'desc'  => __( 'Title top of the toolbar (recommended).', 'pojo-accessibility' ),
 			'class' => $toolbar_options_classes,
 			'std'   => __( 'Accessibility Tools', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -77,6 +79,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -85,6 +88,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row no-border',
 			'std'   => __( 'Increase Text', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -93,6 +97,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'   => __( 'Decrease Text', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -105,6 +110,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -113,6 +119,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'   => __( 'Grayscale', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -125,6 +132,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -133,6 +141,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'   => __( 'High Contrast', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -145,6 +154,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -153,6 +163,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'   => __( 'Negative Contrast', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -165,6 +176,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -173,6 +185,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'   => __( 'Light Background', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -185,6 +198,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -193,6 +207,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'   => __( 'Links Underline', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -205,6 +220,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -213,6 +229,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'   => __( 'Readable Font', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -221,6 +238,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes,
 			'std'   => __( 'Sitemap', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -228,10 +246,10 @@ class Settings {
 			'title'       => __( 'Sitemap Link', 'pojo-accessibility' ),
 			'type'        => self::FIELD_TEXT,
 			'placeholder' => 'https://your-domain.com/sitemap',
-			'desc'        => __( 'Link for sitemap page in your website. Leave blank to disable.',
-				'pojo-accessibility' ),
+			'desc'        => __( 'Link for sitemap page in your website. Leave blank to disable.', 'pojo-accessibility' ),
 			'class'       => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'         => '',
+			'sanitize_callback' => 'sanitize_url',
 		];
 
 		$fields[] = [
@@ -240,6 +258,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes,
 			'std'   => __( 'Help', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -250,6 +269,7 @@ class Settings {
 			'desc'        => __( 'Link for help page in your website. Leave blank to disable.', 'pojo-accessibility' ),
 			'class'       => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'         => '',
+			'sanitize_callback' => 'sanitize_url',
 		];
 
 		$fields[] = [
@@ -258,6 +278,7 @@ class Settings {
 			'type'  => self::FIELD_TEXT,
 			'class' => $toolbar_options_classes,
 			'std'   => __( 'Feedback', 'pojo-accessibility' ),
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -265,10 +286,10 @@ class Settings {
 			'title'       => __( 'Feedback Link', 'pojo-accessibility' ),
 			'type'        => self::FIELD_TEXT,
 			'placeholder' => 'https://your-domain.com/feedback',
-			'desc'        => __( 'Link for feedback page in your website. Leave blank to disable.',
-				'pojo-accessibility' ),
+			'desc'        => __( 'Link for feedback page in your website. Leave blank to disable.', 'pojo-accessibility' ),
 			'class'       => $toolbar_options_classes . ' pojo-settings-child-row',
 			'std'         => '',
+			'sanitize_callback' => 'sanitize_url',
 		];
 
 		$sections[] = [
@@ -305,6 +326,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'disable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -317,6 +339,7 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -325,6 +348,7 @@ class Settings {
 			'placeholder' => 'content',
 			'type'        => self::FIELD_TEXT,
 			'std'         => 'content',
+			'sanitize_callback' => 'sanitize_text_field',
 		];
 
 		$fields[] = [
@@ -338,32 +362,33 @@ class Settings {
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'disable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
 			'id'      => 'pojo_a11y_add_role_links',
 			'title'   => __( 'Add landmark roles to all links', 'pojo-accessibility' ),
 			'type'    => self::FIELD_SELECT,
-			'desc'    => __( 'This option will add <code>role="link"</code> to all links on the page.',
-				'pojo-accessibility' ),
+			'desc'    => __( 'This option will add <code>role="link"</code> to all links on the page.', 'pojo-accessibility' ),
 			'options' => [
 				'enable'  => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
 			'id'      => 'pojo_a11y_save',
 			'title'   => __( 'Sitewide Accessibility', 'pojo-accessibility' ),
-			'desc'    => __( 'Consistent accessibility throughout your site visit. Site remembers you and stays accessible.',
-				'pojo-accessibility' ),
+			'desc'    => __( 'Consistent accessibility throughout your site visit. Site remembers you and stays accessible.', 'pojo-accessibility' ),
 			'type'    => self::FIELD_SELECT,
 			'options' => [
 				'enable'  => __( 'Enable', 'pojo-accessibility' ),
 				'disable' => __( 'Disable', 'pojo-accessibility' ),
 			],
 			'std'     => 'enable',
+			'sanitize_callback' => [ $this, 'sanitize_enabled_disabled' ],
 		];
 
 		$fields[] = [
@@ -382,6 +407,7 @@ class Settings {
 				'720' => __( '1 Month', 'pojo-accessibility' ),
 			],
 			'std'     => '12',
+			'sanitize_callback' => [ $this, 'sanitize_expiration' ],
 		];
 
 		$sections[] = [
@@ -542,6 +568,30 @@ class Settings {
 
 	public static function field_html( $input ) {
 		return stripslashes( wp_filter_post_kses( addslashes( $input ) ) );
+	}
+
+	public function sanitize_toolbar_display( $input ) {
+		if ( empty( $input ) ) {
+			return $input;
+		}
+
+		return in_array( $input, [ 'enable', 'visible-desktop', 'visible-tablet', 'visible-phone', 'hidden-desktop', 'hidden-tablet', 'hidden-phone', 'disable' ] ) ? $input : 'enable';
+	}
+
+	public function sanitize_enabled_disabled( $input ) {
+		if ( empty( $input ) ) {
+			return $input;
+		}
+
+		return in_array( $input, [ 'enable', 'disable' ] ) ? $input : '';
+	}
+
+	public function sanitize_expiration( $input ) {
+		if ( empty( $input ) ) {
+			$input = [];
+		}
+
+		return in_array( $input, [ '1' , '6' , '12', '24', '48', '72' , '168', '720' ] ) ? $input : '12';
 	}
 
 	public static function field_checkbox_list( $input ) {
