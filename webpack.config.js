@@ -63,10 +63,6 @@ module.exports = [
 					__dirname,
 					'modules/settings/assets/js/services',
 				),
-				'@ea11y-apps/scanner': path.resolve(
-					__dirname,
-					'modules/scanner/assets/js',
-				),
 			},
 			extensions: ['.js', '.jsx'],
 		},
