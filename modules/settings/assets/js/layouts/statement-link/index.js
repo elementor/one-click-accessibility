@@ -8,7 +8,6 @@ import FormControl from '@elementor/ui/FormControl';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import FormLabel from '@elementor/ui/FormLabel';
-import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
@@ -16,7 +15,6 @@ import {
 	CopyLink,
 	EditLink,
 	WidgetLoader,
-	GeneratedPageInfoTipCard,
 	PageSelect,
 } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
@@ -75,11 +73,8 @@ const StyledSwitch = styled(Switch)`
 const StatementLink = () => {
 	const [disabled, setDisabled] = useState(true);
 	const [isValidPage, setIsValidPage] = useState(false);
-	const {
-		accessibilityStatementData,
-		setAccessibilityStatementData,
-		showAccessibilityGeneratedInfotip,
-	} = useSettings();
+	const { accessibilityStatementData, setAccessibilityStatementData } =
+		useSettings();
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 	const [isWidgetLoaded, setIsWidgetLoaded] = useState(false);
@@ -166,20 +161,7 @@ const StatementLink = () => {
 								fullWidth
 								alignItems="center"
 							>
-								<Infotip
-									placement="right-start"
-									content={<GeneratedPageInfoTipCard />}
-									disableHoverListener
-									disableFocusListener
-									PopperProps={{
-										sx: {
-											zIndex: 9999999999, // Custom z-index for the popper
-										},
-									}}
-									open={showAccessibilityGeneratedInfotip}
-								>
-									<PageSelect />
-								</Infotip>
+								<PageSelect />
 
 								{accessibilityStatementData?.link && (
 									<>

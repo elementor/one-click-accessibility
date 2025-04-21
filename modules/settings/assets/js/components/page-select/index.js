@@ -1,6 +1,8 @@
 import Autocomplete from '@elementor/ui/Autocomplete';
+import Infotip from '@elementor/ui/Infotip';
 import TextField from '@elementor/ui/TextField';
 import { styled } from '@elementor/ui/styles';
+import { GeneratedPageInfoTipCard } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEntityRecords } from '@wordpress/core-data';
@@ -9,8 +11,11 @@ import { __ } from '@wordpress/i18n';
 
 const PageSelect = (props) => {
 	const [userInput, setUserInput] = useState('');
-	const { accessibilityStatementData, setAccessibilityStatementData } =
-		useSettings();
+	const {
+		accessibilityStatementData,
+		setAccessibilityStatementData,
+		showAccessibilityGeneratedInfotip,
+	} = useSettings();
 
 	// Fetch initial default pages (e.g., first 10)
 	const defaultPages = useEntityRecords('postType', 'page', {
@@ -86,25 +91,38 @@ const PageSelect = (props) => {
 	};
 
 	return (
-		<Autocomplete
-			{...props}
-			options={options}
-			renderInput={(params) => inputField(params)}
-			sx={{ width: 300 }}
-			onChange={(e, value) => {
-				changePage(value);
+		<Infotip
+			placement="right-start"
+			content={<GeneratedPageInfoTipCard />}
+			disableHoverListener
+			disableFocusListener
+			PopperProps={{
+				sx: {
+					zIndex: 99999999999, // Custom z-index for the popper
+				},
 			}}
-			getOptionLabel={(option) => option.label || ''}
-			loading={isSearching}
-			loadingText={__('Searching…', 'pojo-accessibility')}
-			noOptionsText={
-				isSearching
-					? __('Searching…', 'pojo-accessibility')
-					: __('No pages found', 'pojo-accessibility')
-			}
-			clearOnBlur={false}
-			value={accessibilityStatementData}
-		/>
+			open={showAccessibilityGeneratedInfotip}
+		>
+			<Autocomplete
+				{...props}
+				options={options}
+				renderInput={(params) => inputField(params)}
+				sx={{ width: 300 }}
+				onChange={(e, value) => {
+					changePage(value);
+				}}
+				getOptionLabel={(option) => option.label || ''}
+				loading={isSearching}
+				loadingText={__('Searching…', 'pojo-accessibility')}
+				noOptionsText={
+					isSearching
+						? __('Searching…', 'pojo-accessibility')
+						: __('No pages found', 'pojo-accessibility')
+				}
+				clearOnBlur={false}
+				value={accessibilityStatementData}
+			/>
+		</Infotip>
 	);
 };
 
