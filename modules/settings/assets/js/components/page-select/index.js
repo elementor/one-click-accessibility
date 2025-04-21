@@ -1,12 +1,16 @@
 import Autocomplete from '@elementor/ui/Autocomplete';
 import TextField from '@elementor/ui/TextField';
 import { styled } from '@elementor/ui/styles';
+import { useSettings } from '@ea11y/hooks';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useMemo, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const PageSelect = (props) => {
 	const [userInput, setUserInput] = useState('');
+	const { accessibilityStatementData, setAccessibilityStatementData } =
+		useSettings();
 
 	// Fetch initial default pages (e.g., first 10)
 	const defaultPages = useEntityRecords('postType', 'page', {
@@ -41,6 +45,8 @@ const PageSelect = (props) => {
 		return currentRecords.map((page) => ({
 			label: page.title.rendered,
 			id: page.id,
+			link: page.link,
+			pageId: page.id,
 		}));
 	}, [currentRecords]);
 
@@ -55,12 +61,29 @@ const PageSelect = (props) => {
 			placeholder={__('Search for a page', 'pojo-accessibility')}
 			onChange={(e) => {
 				const value = e.target.value;
-				console.log('Input text', value);
 				setUserInput(value);
 			}}
 			color="info"
 		/>
 	);
+
+	/**
+	 * Change the page when the user selects an option
+	 * @param {Object} value Object containing the selected page data
+	 */
+	const changePage = (value) => {
+		setAccessibilityStatementData({
+			...accessibilityStatementData,
+			pageId: value?.id,
+			link: value?.link,
+			id: value?.id,
+			label: value?.label,
+		});
+
+		mixpanelService.sendEvent(eventNames.statementPageSelected, {
+			page: value?.link,
+		});
+	};
 
 	return (
 		<Autocomplete
@@ -69,7 +92,7 @@ const PageSelect = (props) => {
 			renderInput={(params) => inputField(params)}
 			sx={{ width: 300 }}
 			onChange={(e, value) => {
-				console.log(value);
+				changePage(value);
 			}}
 			getOptionLabel={(option) => option.label || ''}
 			loading={isSearching}
@@ -80,7 +103,7 @@ const PageSelect = (props) => {
 					: __('No pages found', 'pojo-accessibility')
 			}
 			clearOnBlur={false}
-			isOptionEqualToValue={(option, value) => option.id === value.id}
+			value={accessibilityStatementData}
 		/>
 	);
 };

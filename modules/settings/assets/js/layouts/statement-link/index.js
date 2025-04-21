@@ -9,8 +9,6 @@ import FormControlLabel from '@elementor/ui/FormControlLabel';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import FormLabel from '@elementor/ui/FormLabel';
 import Infotip from '@elementor/ui/Infotip';
-import MenuItem from '@elementor/ui/MenuItem';
-import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
@@ -23,7 +21,6 @@ import {
 } from '@ea11y/components';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
-import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { WIDGET_PREVIEW_ID } from '../../constants';
@@ -87,8 +84,6 @@ const StatementLink = () => {
 	const { success, error } = useToastNotification();
 	const [isWidgetLoaded, setIsWidgetLoaded] = useState(false);
 
-	const pages = useEntityRecords('postType', 'page', { per_page: -1 });
-
 	useEffect(() => {
 		if (window?.ea11yWidget) {
 			if (accessibilityStatementData.hideLink) {
@@ -116,21 +111,6 @@ const StatementLink = () => {
 		// Disable button on load
 		setDisabled(true);
 	}, []);
-
-	const changePage = (id) => {
-		const page = pages.records.filter((record) => record.id === id);
-		if (page.length > 0) {
-			setAccessibilityStatementData({
-				...accessibilityStatementData,
-				pageId: page[0]?.id,
-				link: page[0]?.link,
-			});
-
-			mixpanelService.sendEvent(eventNames.statementPageSelected, {
-				page: page[0]?.link,
-			});
-		}
-	};
 
 	const onHideLink = () => {
 		setAccessibilityStatementData({
@@ -199,32 +179,6 @@ const StatementLink = () => {
 									open={showAccessibilityGeneratedInfotip}
 								>
 									<PageSelect />
-									<Select
-										variant="outlined"
-										onChange={(e) => changePage(e.target.value)}
-										value={accessibilityStatementData?.pageId}
-										error={!isValidPage}
-										color="info"
-										size="small"
-										sx={{ minWidth: '242px' }}
-										placeholder={
-											pages?.hasResolved
-												? __('Select a page', 'pojo-accessibility')
-												: 'Loading...'
-										}
-									>
-										{pages?.hasResolved && pages?.records.length > 0 ? (
-											pages?.records.map((page) => (
-												<MenuItem value={page.id} key={page.id}>
-													{page.title.rendered}
-												</MenuItem>
-											))
-										) : (
-											<MenuItem value={0} key={0}>
-												{__('No pages found', 'pojo-accessibility')}
-											</MenuItem>
-										)}
-									</Select>
 								</Infotip>
 
 								{accessibilityStatementData?.link && (
