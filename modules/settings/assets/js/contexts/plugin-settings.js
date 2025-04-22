@@ -1,4 +1,4 @@
-import { useToastNotification } from '@ea11y/hooks';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import {
 	createContext,
 	useCallback,

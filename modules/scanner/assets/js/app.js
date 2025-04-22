@@ -1,5 +1,7 @@
 import Paper from '@elementor/ui/Paper';
 import { styled } from '@elementor/ui/styles';
+import { Notifications } from '@ea11y/components';
+import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 import { Header } from '@ea11y-apps/scanner/components/header';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
@@ -10,6 +12,7 @@ import {
 import { BLOCKS } from '@ea11y-apps/scanner/utils/constants';
 
 const App = () => {
+	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { openedBlock } = useScannerWizardContext();
 
 	const getBlock = () => {
@@ -27,6 +30,7 @@ const App = () => {
 		<StyledPaper>
 			<Header />
 			{getBlock()}
+			<Notifications message={notificationMessage} type={notificationType} />
 		</StyledPaper>
 	);
 };

@@ -13,4 +13,27 @@ export class APIScanner extends API {
 			},
 		});
 	}
+
+	static async submitAltText(url, text) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/remediation/set-alt-text`,
+			data: {
+				url,
+				alt_text: text,
+				wp_rest: window?.ea11yScannerData?.wpRestNonce,
+			},
+		});
+	}
+
+	static async generateAltText(image) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/scanner/generate-alt-text`,
+			data: {
+				image,
+				wp_rest: window?.ea11yScannerData?.wpRestNonce,
+			},
+		});
+	}
 }

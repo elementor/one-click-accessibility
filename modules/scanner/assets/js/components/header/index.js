@@ -44,7 +44,10 @@ export const Header = () => {
 							</Typography>
 						</Box>
 
-						<IconButton onClick={onClose}>
+						<IconButton
+							onClick={onClose}
+							aria-label={__('Close', 'pojo-accessibility')}
+						>
 							<XIcon />
 						</IconButton>
 					</Box>

@@ -12,7 +12,8 @@ import TextField from '@elementor/ui/TextField';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import { ImagePreview } from '@ea11y-apps/scanner/components/image-preview';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/useAltTextForm';
 import {
 	StyledAlert,
@@ -23,15 +24,26 @@ import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
 
 export const AltTextForm = ({ items, current, setCurrent }) => {
-	const { data, isSubmitDisabled, handleChange, handleCheck, handleSubmit } =
-		useAltTextForm({
-			current,
-			item: items[current],
-		});
+	const { error } = useToastNotification();
+	const {
+		data,
+		isSubmitDisabled,
+		handleChange,
+		handleCheck,
+		handleSubmit,
+		generateAltText,
+	} = useAltTextForm({
+		current,
+		item: items[current],
+	});
 
 	const onSubmit = async () => {
-		await handleSubmit();
-		setCurrent(current + 1);
+		try {
+			await handleSubmit();
+			setCurrent(current + 1);
+		} catch (e) {
+			error(__('An error occurred.', 'pojo-accessibility'));
+		}
 	};
 
 	return (
@@ -71,6 +83,10 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 						'Add or generate the description here',
 						'pojo-accessibility',
 					)}
+					aria-label={__(
+						'Add or generate the description here',
+						'pojo-accessibility',
+					)}
 					color="secondary"
 					value={data?.[current]?.altText ?? ''}
 					onChange={handleChange}
@@ -89,6 +105,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 									}}
 									componentsProps={{
 										tooltip: {
+											id: 'ai-btn-description',
 											sx: {
 												maxWidth: '101px',
 												whiteSpace: 'normal',
@@ -97,7 +114,11 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 										},
 									}}
 								>
-									<IconButton size="small">
+									<IconButton
+										size="small"
+										aria-labelledby="ai-btn-description"
+										onClick={generateAltText}
+									>
 										<AIIcon color="info" />
 									</IconButton>
 								</Tooltip>

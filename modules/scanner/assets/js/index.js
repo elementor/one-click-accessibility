@@ -1,6 +1,7 @@
 import { createTheme, ThemeProvider } from '@elementor/ui/styles';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
+import { NotificationsProvider } from '@ea11y-apps/global/hooks/use-notifications';
 import App from '@ea11y-apps/scanner/app';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
@@ -82,9 +83,11 @@ const initApp = () => {
 					colorScheme="light"
 					colorSchemeNode={shadowRootElement}
 				>
-					<ScannerWizardContextProvider>
-						<App />
-					</ScannerWizardContextProvider>
+					<NotificationsProvider>
+						<ScannerWizardContextProvider>
+							<App />
+						</ScannerWizardContextProvider>
+					</NotificationsProvider>
 				</ThemeProvider>
 			</CacheProvider>
 		</AppWrapper>,

@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Remediation\rest;
+namespace EA11y\Modules\Remediation\Rest;
 
 use EA11y\Modules\Remediation\Classes\Route_Base;
 use Throwable;
@@ -39,7 +39,7 @@ class Set_Alt_Text extends Route_Base {
 			$url = esc_url_raw( $request->get_param( 'url' ) );
 			$alt_text = sanitize_text_field( $request->get_param( 'alt_text' ) );
 
-			if ( ! $url || ! $alt_text ) {
+			if ( ! $url ) {
 				return $this->respond_error_json( [
 					'message' => 'Missing required parameters',
 					'code' => 'missing_parameters',

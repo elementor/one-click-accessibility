@@ -38,6 +38,7 @@ export const ScanStats = () => {
 							color="success"
 							value={displayPercent}
 							variant="determinate"
+							aria-label={__('Resolved progress', 'pojo-accessibility')}
 						/>
 						<Button
 							variant="outlined"

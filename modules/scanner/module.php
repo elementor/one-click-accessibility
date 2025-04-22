@@ -19,6 +19,12 @@ class Module extends Module_Base {
 		return 'scanner';
 	}
 
+	public static function routes_list(): array {
+		return [
+			'Generate_Alt_Text',
+		];
+	}
+
 	public static function component_list(): array {
 		return [
 			'Top_Bar_Link',
@@ -88,6 +94,7 @@ class Module extends Module_Base {
 
 	public function __construct() {
 		Scans_Table::install();
+		$this->register_routes();
 		$this->register_components();
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
