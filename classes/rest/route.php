@@ -374,7 +374,11 @@ abstract class Route {
 	}
 
 	public function verify_nonce_and_capability( $nonce = '', $name = '', $capability = 'manage_options' ) {
-		$this->verify_nonce( $nonce, $name );
+        $valid = $this->verify_nonce( $nonce, $name );
+
+        if ( is_wp_error( $valid ) ) {
+            return $valid;
+        }
 
 		if ( ! current_user_can( $capability ) ) {
 			return $this->respond_error_json([
