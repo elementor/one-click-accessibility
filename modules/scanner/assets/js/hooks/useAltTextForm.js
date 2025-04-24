@@ -1,12 +1,20 @@
 import PropTypes from 'prop-types';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
-import { imageToBase64 } from '@ea11y-apps/scanner/utils/image-to-base64';
+import { splitDescriptions } from '@ea11y-apps/scanner/utils/split-ai-response';
+import { svgNodeToPngBase64 } from '@ea11y-apps/scanner/utils/svg-node-to-png-base64';
+import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 export const useAltTextForm = ({ current, item }) => {
 	const { altTextData, setAltTextData, resolved, setResolved } =
 		useScannerWizardContext();
+	const { error } = useToastNotification();
+
+	const [loadingAiText, setLoadingAiText] = useState(false);
+	//const [aiText, setAiText] = useState([]);
 
 	const isSubmitDisabled =
 		(!altTextData?.[current]?.makeDecorative &&
@@ -59,11 +67,32 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const generateAltText = async () => {
-		const base64Image = imageToBase64(item.node);
-		return await APIScanner.generateAltText(base64Image);
+		setLoadingAiText(true);
+
+		const data = item.node?.src
+			? { image: item.node?.src }
+			: { svg: await svgNodeToPngBase64(item.node) };
+
+		try {
+			const response = await APIScanner.generateAltText(data);
+			const descriptions = splitDescriptions(response.data);
+			//setAiText(descriptions);
+			if (descriptions[0]) {
+				updateData({
+					altText: descriptions[0],
+					resolved: false,
+				});
+			}
+		} catch (e) {
+			console.log(e);
+			error(__('An error occurred.', 'pojo-accessibility'));
+		} finally {
+			setLoadingAiText(false);
+		}
 	};
 
 	return {
+		loadingAiText,
 		data: altTextData,
 		isSubmitDisabled,
 		handleCheck,

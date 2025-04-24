@@ -18,6 +18,14 @@ export const BLOCKS = {
 	other: 'other',
 };
 
+export const MANUAL_GROUPS = {
+	dynamicContent: [],
+	formsInputsError: [],
+	keyboardAssistiveTech: [],
+	pageStructureNav: [],
+	other: [],
+};
+
 export const BLOCK_TITLES = {
 	altText: __('Alternative Text', 'pojo-accessibility'),
 	dynamicContent: __('ARIA roles & attributes', 'pojo-accessibility'),

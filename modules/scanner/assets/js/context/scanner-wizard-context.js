@@ -3,6 +3,7 @@ import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
+	MANUAL_GROUPS,
 } from '@ea11y-apps/scanner/utils/constants';
 import { sortViolations } from '@ea11y-apps/scanner/utils/sort-violations';
 import {
@@ -19,10 +20,12 @@ const ScannerWizardContext = createContext({
 	loading: null,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
 	altTextData: [],
+	manualData: {},
 	setOpenedBlock: () => {},
 	setResolved: () => {},
 	getResults: () => {},
 	setAltTextData: () => {},
+	setManualData: () => {},
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
@@ -34,6 +37,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
 	const [altTextData, setAltTextData] = useState([]);
+	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 
 	const getResults = () => {
 		setLoading(true);
@@ -72,10 +76,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				loading,
 				sortedViolations,
 				altTextData,
+				manualData,
 				setOpenedBlock,
 				setResolved,
 				getResults,
 				setAltTextData,
+				setManualData,
 			}}
 		>
 			{children}

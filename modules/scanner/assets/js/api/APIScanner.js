@@ -9,7 +9,6 @@ export class APIScanner extends API {
 			path: `${v1Prefix}/remediation/register`,
 			data: {
 				...window?.ea11yScannerData?.pageData,
-				wp_rest: window?.ea11yScannerData?.wpRestNonce,
 			},
 		});
 	}
@@ -21,19 +20,15 @@ export class APIScanner extends API {
 			data: {
 				url,
 				alt_text: text,
-				wp_rest: window?.ea11yScannerData?.wpRestNonce,
 			},
 		});
 	}
 
-	static async generateAltText(image) {
+	static async generateAltText(data) {
 		return APIScanner.request({
 			method: 'POST',
 			path: `${v1Prefix}/scanner/generate-alt-text`,
-			data: {
-				image,
-				wp_rest: window?.ea11yScannerData?.wpRestNonce,
-			},
+			data,
 		});
 	}
 }

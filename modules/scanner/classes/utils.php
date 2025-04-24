@@ -2,46 +2,37 @@
 
 namespace EA11y\Modules\Scanner\Classes;
 
+use Exception;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 class Utils {
-	public static function sanitize_base64_image( $data_url ) {
-		// Match base64 image data URI with MIME type
-		if ( ! preg_match( '/^data:(image\/(png|jpeg|gif|webp|svg\+xml));base64,/', $data_url, $matches ) ) {
-			return false;
+	/**
+	 * @throws Exception
+	 */
+	public static function create_tmp_file_from_png_base64( $base64_string ): string {
+		// Check if the base64 string starts with 'data:image/png;base64,'
+		if ( preg_match( '/^data:image\/png;base64,(.+)$/', $base64_string, $matches ) ) {
+			$base64_data = $matches[1];
+		} else {
+			throw new Exception( 'Invalid base64 PNG format' );
 		}
 
-		$mime_type = $matches[1];
-		$base64_data = substr( $data_url, strpos( $data_url, ',' ) + 1 );
-		$decoded_data = base64_decode( $base64_data, true );
+		// Decode the base64 data
+		$image_data = base64_decode( $base64_data );
 
-		if ( false === $decoded_data ) {
-			return false; // Not valid base64
+		if ( false === $image_data ) {
+			throw new Exception( 'Failed to decode base64 PNG' );
 		}
 
-		// Special handling for SVG
-		if ( strpos( $mime_type, 'svg' ) !== false ) {
-			// Load as XML and remove scripts/styles
-			libxml_use_internal_errors( true );
-			$xml = simplexml_load_string( $decoded_data, 'SimpleXMLElement', LIBXML_NOENT | LIBXML_NOCDATA | LIBXML_NONET );
-			if ( ! $xml ) {
-				return false;
-			}
+		// Save the image to a temporary file
+		$tmp_path = tempnam( sys_get_temp_dir(), 'png_' ) . '.png';
+		file_put_contents( $tmp_path, $image_data );
 
-			$svg_string = $xml->asXML();
-
-			// Basic cleaning: remove scripts and on* attributes
-			$svg_string = preg_replace( '/<script.*?>.*?<\/script>/is', '', $svg_string );
-			$svg_string = preg_replace( '/on\w+=".*?"/is', '', $svg_string );
-
-			// Re-encode cleaned SVG
-			$safe_svg_base64 = base64_encode( $svg_string );
-			return 'data:image/svg+xml;base64,' . $safe_svg_base64;
-		}
-
-		return $data_url; // Valid base64 image
+		return $tmp_path;
 	}
+
 
 }

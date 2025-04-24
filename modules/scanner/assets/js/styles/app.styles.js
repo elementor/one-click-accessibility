@@ -1,3 +1,4 @@
+import Alert from '@elementor/ui/Alert';
 import CardContent from '@elementor/ui/CardContent';
 import Skeleton from '@elementor/ui/Skeleton';
 import { styled } from '@elementor/ui/styles';
@@ -8,4 +9,12 @@ export const StyledContent = styled(CardContent)`
 
 export const StyledSkeleton = styled(Skeleton)`
 	transform: scale(1);
+`;
+
+export const StyledAlert = styled(Alert)`
+	align-items: center;
+	& .MuiAlert-icon,
+	& .MuiAlert-content {
+		padding-top: 0;
+	}
 `;

@@ -37,20 +37,31 @@ class Generate_Alt_Text extends Route_Base {
 				return $error;
 			}
 
-			$image = Utils::sanitize_base64_image( $request->get_param( 'image' ) );
+			$image = $request->get_param( 'image' );
+			$svg = $request->get_param( 'svg' );
 
-			if ( ! $image ) {
+			if ( ! ( $image || $svg ) ) {
 				return $this->respond_error_json( [
-					'message' => 'Wrong image format',
-					'code' => 'internal_server_error',
+					'message' => 'Missing required parameters',
+					'code' => 'missing_parameters',
 				] );
 			}
 
-			return Global_Utils::get_api_client()->make_request(
+			$src = $image ?? Utils::create_tmp_file_from_png_base64( $svg );
+
+			$result =  Global_Utils::get_api_client()->make_request(
 				'POST',
 				'ai/image-alt',
-				[ 'image' => $image ]
+				[],
+				[],
+				false,
+				$src
 			);
+
+			return $this->respond_success_json( [
+				'message' => 'Alt text generated',
+				'data' => $result->response,
+			] );
 
 		} catch ( Throwable $t ) {
 			return $this->respond_error_json( [

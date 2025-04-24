@@ -16,10 +16,10 @@ import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/useAltTextForm';
 import {
-	StyledAlert,
 	StyledBox,
 	StyledLabel,
 } from '@ea11y-apps/scanner/styles/alt-text-form.styles';
+import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
 
@@ -27,6 +27,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 	const { error } = useToastNotification();
 	const {
 		data,
+		loadingAiText,
 		isSubmitDisabled,
 		handleChange,
 		handleCheck,
@@ -92,6 +93,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 					onChange={handleChange}
 					fullWidth
 					multiline
+					disabled={loadingAiText}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
@@ -118,6 +120,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 										size="small"
 										aria-labelledby="ai-btn-description"
 										onClick={generateAltText}
+										disabled={loadingAiText}
 									>
 										<AIIcon color="info" />
 									</IconButton>
