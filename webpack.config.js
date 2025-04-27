@@ -6,6 +6,11 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
 	'skip-link': path.resolve(process.cwd(), 'assets/css', 'skip-link.css'),
+	'gutenberg-custom-link': path.resolve(
+		process.cwd(),
+		'modules/widget/assets/js',
+		'ally-gutenberg-block.js',
+	),
 };
 
 // React JSX Runtime Polyfill
