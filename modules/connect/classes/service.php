@@ -32,6 +32,7 @@ class Service {
 			'method' => 'POST',
 			'headers' => [
 				'Content-Type' => 'application/json',
+				'x-elementor-app-type' => 'APP_ACCESS',
 			],
 			'body' => wp_json_encode([
 				'redirect_uri' => Utils::get_redirect_uri(),
@@ -81,6 +82,7 @@ class Service {
 			'method' => 'DELETE',
 			'headers' => [
 				'Authorization' => "Bearer {$access_token}",
+				'x-elementor-app-type' => 'APP_ACCESS',
 			],
 		], 204);
 
@@ -111,6 +113,7 @@ class Service {
 			'headers' => [
 				'Content-Type' => 'application/json',
 				'Authorization' => "Bearer {$access_token}",
+				'x-elementor-app-type' => 'APP_ACCESS',
 			],
 		], 204 );
 
@@ -182,6 +185,7 @@ class Service {
 			'method' => 'POST',
 			'headers' => [
 				'x-elementor-apps' => Config::APP_NAME,
+				'x-elementor-app-type' => 'APP_ACCESS',
 				'Authorization' => 'Basic ' . base64_encode( "{$client_id}:{$client_secret}" ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			],
 			'body' => $body,
@@ -261,7 +265,7 @@ class Service {
 	 * @throws Service_Exception
 	 */
 	public static function refresh_token() {
-		self::get_token( GrantTypes::CLIENT_CREDENTIALS, null. true );
+		self::get_token( GrantTypes::CLIENT_CREDENTIALS, null . true );
 	}
 
 	/**
@@ -287,6 +291,7 @@ class Service {
 			'headers' => [
 				'Content-Type' => 'application/json',
 				'Authorization' => "Bearer {$access_token}",
+				'x-elementor-app-type' => 'APP_ACCESS',
 			],
 			'body' => wp_json_encode( [
 				'redirect_uri' => Utils::get_redirect_uri(),
