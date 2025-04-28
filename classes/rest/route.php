@@ -34,6 +34,12 @@ abstract class Route {
 	protected $namespace = 'ea11y/v1';
 
 	/**
+	 * Should the endpoint override an existing one?
+	 * @var bool
+	 */
+	protected bool $override = false;
+
+	/**
 	 * @var array The valid HTTP methods. The list represents the general REST methods. Do not modify.
 	 */
 	private $valid_http_methods = [
