@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Service {
 	const REFRESH_TOKEN_LOCK = '_connect_refresh_token';
+	const APP_TYPE = 'APP_ACCESS';
 
 	/**
 	 * Registers new client and returns client ID
@@ -32,7 +33,6 @@ class Service {
 			'method' => 'POST',
 			'headers' => [
 				'Content-Type' => 'application/json',
-				'x-elementor-app-type' => 'APP_ACCESS',
 			],
 			'body' => wp_json_encode([
 				'redirect_uri' => Utils::get_redirect_uri(),
@@ -82,7 +82,6 @@ class Service {
 			'method' => 'DELETE',
 			'headers' => [
 				'Authorization' => "Bearer {$access_token}",
-				'x-elementor-app-type' => 'APP_ACCESS',
 			],
 		], 204);
 
@@ -113,7 +112,6 @@ class Service {
 			'headers' => [
 				'Content-Type' => 'application/json',
 				'Authorization' => "Bearer {$access_token}",
-				'x-elementor-app-type' => 'APP_ACCESS',
 			],
 		], 204 );
 
@@ -185,7 +183,6 @@ class Service {
 			'method' => 'POST',
 			'headers' => [
 				'x-elementor-apps' => Config::APP_NAME,
-				'x-elementor-app-type' => 'APP_ACCESS',
 				'Authorization' => 'Basic ' . base64_encode( "{$client_id}:{$client_secret}" ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			],
 			'body' => $body,
@@ -243,6 +240,9 @@ class Service {
 	 */
 	public static function request( string $url, array $args, int $valid_response_code = 200 ): ?array {
 		$args['timeout'] = 30;
+		$args['headers'] = array_replace_recursive( [
+			'x-elementor-app-type' => self::APP_TYPE,
+		], $args['headers'] ?? [] );
 
 		$response = wp_remote_request( $url, $args );
 
@@ -291,7 +291,6 @@ class Service {
 			'headers' => [
 				'Content-Type' => 'application/json',
 				'Authorization' => "Bearer {$access_token}",
-				'x-elementor-app-type' => 'APP_ACCESS',
 			],
 			'body' => wp_json_encode( [
 				'redirect_uri' => Utils::get_redirect_uri(),
