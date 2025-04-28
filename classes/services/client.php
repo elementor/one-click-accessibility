@@ -73,6 +73,7 @@ class Client {
 		$headers = array_replace_recursive( [
 			'x-elementor-a11y' => EA11Y_VERSION,
 			'x-elementor-apps' => 'a11y',
+            'x-elementor-app-type' => 'APP_ACCESS'
 		], $headers );
 
 		$headers = array_replace_recursive(
