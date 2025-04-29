@@ -75,6 +75,8 @@ class Module extends Module_Base {
 			return;
 		}
 
+		wp_enqueue_media();
+
 		if ( version_compare( get_bloginfo( 'version' ), '6.6', '<' ) ) {
 			wp_register_script(
 				'react-jsx-runtime',
