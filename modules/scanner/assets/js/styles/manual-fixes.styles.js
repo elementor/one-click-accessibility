@@ -1,6 +1,7 @@
 import Accordion from '@elementor/ui/Accordion';
 import AccordionDetails from '@elementor/ui/AccordionDetails';
 import AccordionSummary from '@elementor/ui/AccordionSummary';
+import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 
 export const StyledAccordion = styled(Accordion)`
@@ -30,4 +31,8 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 	display: flex;
 	flex-direction: column;
 	gap: ${({ theme }) => theme.spacing(2)};
+`;
+
+export const SectionTitle = styled(Typography)`
+	font-weight: bold;
 `;

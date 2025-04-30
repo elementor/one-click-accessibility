@@ -22,7 +22,7 @@ TOP_BAR_LINK.addEventListener('click', (event) => {
 const initApp = () => {
 	const rootNode = document.createElement('div');
 	rootNode.id = ROOT_ID;
-	document.body.style.marginRight = '360px';
+	document.body.style.marginRight = '420px';
 	document.body.appendChild(rootNode);
 
 	const shadowContainer = rootNode.attachShadow({ mode: 'open' });

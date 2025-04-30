@@ -18,6 +18,7 @@ const ScannerWizardContext = createContext({
 	resolved: 0,
 	openedBlock: '',
 	loading: null,
+	isError: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
 	altTextData: [],
 	manualData: {},
@@ -26,6 +27,7 @@ const ScannerWizardContext = createContext({
 	getResults: () => {},
 	setAltTextData: () => {},
 	setManualData: () => {},
+	isResolved: () => {},
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
@@ -36,6 +38,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [resolved, setResolved] = useState(0);
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 
@@ -50,10 +53,15 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				const sorted = sortViolations(filtered);
 				setResults(data);
 				setSortedViolations(sorted);
+				setAltTextData([]);
+				setManualData(structuredClone(MANUAL_GROUPS));
 				setResolved(0);
 				if (window?.ea11yScannerData?.pageData?.unregistered) {
 					void APIScanner.registerPage();
 				}
+			})
+			.catch(() => {
+				setIsError(true);
 			})
 			.finally(() => setLoading(false));
 	};
@@ -64,8 +72,17 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			.then(() => {
 				getResults();
 			})
-			.catch((e) => console.error(e));
+			.catch(() => setIsError(true));
 	}, []);
+
+	const isResolved = (block) =>
+		block === BLOCKS.altText
+			? (altTextData?.length === sortedViolations[block]?.length &&
+					altTextData.every((data) => data?.resolved)) ||
+				sortedViolations[block]?.length === 0
+			: (manualData[block]?.length === sortedViolations[block]?.length &&
+					manualData[block].every((data) => data.resolved)) ||
+				sortedViolations[block]?.length === 0;
 
 	return (
 		<ScannerWizardContext.Provider
@@ -74,6 +91,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				resolved,
 				openedBlock,
 				loading,
+				isError,
 				sortedViolations,
 				altTextData,
 				manualData,
@@ -82,6 +100,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				getResults,
 				setAltTextData,
 				setManualData,
+				isResolved,
 			}}
 		>
 			{children}

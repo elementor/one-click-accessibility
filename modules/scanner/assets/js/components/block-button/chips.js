@@ -1,0 +1,25 @@
+import { Chip } from '@elementor/ui';
+import PropTypes from 'prop-types';
+import { BLOCKS } from '@ea11y-apps/scanner/utils/constants';
+import { __ } from '@wordpress/i18n';
+
+export const Chips = ({ block }) =>
+	block === BLOCKS.altText ? (
+		<Chip
+			size="small"
+			color="info"
+			variant="standard"
+			label={__('Resolve with Ally', 'pojo-accessibility')}
+		/>
+	) : (
+		<Chip
+			size="small"
+			color="secondary"
+			variant="standard"
+			label={__('Resolve manually', 'pojo-accessibility')}
+		/>
+	);
+
+Chips.propTypes = {
+	block: PropTypes.string.isRequired,
+};

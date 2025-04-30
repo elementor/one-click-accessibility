@@ -55,13 +55,15 @@ export const Breadcrumbs = () => {
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>
 					)}
-					<Chip
-						label={sortedViolations[openedBlock].length}
-						color="secondary"
-						variant="standard"
-						size="small"
-						sx={{ fontWeight: 500 }}
-					/>
+					{sortedViolations[openedBlock].length > 0 && (
+						<Chip
+							label={sortedViolations[openedBlock].length}
+							color="secondary"
+							variant="standard"
+							size="small"
+							sx={{ fontWeight: 500 }}
+						/>
+					)}
 				</Box>
 			</BreadcrumbsBox>
 		</Box>

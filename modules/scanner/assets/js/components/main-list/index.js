@@ -14,24 +14,15 @@ export const MainList = () => {
 
 	return manualExist || scannerFixExist ? (
 		<StyledBlockButtonsBox>
-			{scannerFixExist && (
-				<BlockButton
-					title={BLOCK_TITLES.altText}
-					count={sortedViolations.altText.length}
-					block={BLOCKS.altText}
-				/>
-			)}
-			{Object.keys(sortedViolations).flatMap((key) => {
-				if (key !== BLOCKS.altText && sortedViolations[key]?.length) {
-					return (
-						<BlockButton
-							title={BLOCK_TITLES[key]}
-							count={sortedViolations[key].length}
-							block={BLOCKS[key]}
-						/>
-					);
-				}
-				return [];
+			{Object.keys(sortedViolations).map((key) => {
+				return (
+					<BlockButton
+						key={key}
+						title={BLOCK_TITLES[key]}
+						count={sortedViolations[key].length}
+						block={BLOCKS[key]}
+					/>
+				);
 			})}
 		</StyledBlockButtonsBox>
 	) : null;

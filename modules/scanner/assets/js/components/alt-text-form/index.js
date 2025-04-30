@@ -49,7 +49,11 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 
 	return (
 		<StyledBox>
-			<StyledAlert color="info" icon={<InfoCircleIcon color="info" />}>
+			<StyledAlert
+				color="info"
+				icon={<InfoCircleIcon color="info" />}
+				sx={{ pr: 2 }}
+			>
 				{__(
 					'Short description will help those who cannot see it.',
 					'pojo-accessibility',
