@@ -35,10 +35,17 @@ class Authorize extends Route_Base {
 	}
 
 	public function POST( WP_REST_Request $request ) {
-		$this->verify_nonce_and_capability(
+		$valid = $this->verify_nonce_and_capability(
 			$request->get_param( self::NONCE_NAME ),
 			self::NONCE_NAME
 		);
+
+		if ( is_wp_error( $valid ) ) {
+			return $this->respond_error_json( [
+				'message' => $valid->get_error_message(),
+				'code' => 'forbidden',
+			] );
+		}
 
 		if ( Connect::is_connected() && Utils::is_valid_home_url() ) {
 			return $this->respond_error_json( [

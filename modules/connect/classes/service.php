@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Service {
 	const REFRESH_TOKEN_LOCK = '_connect_refresh_token';
+	const APP_TYPE = 'APP_ACCESS';
 
 	/**
 	 * Registers new client and returns client ID
@@ -239,6 +240,9 @@ class Service {
 	 */
 	public static function request( string $url, array $args, int $valid_response_code = 200 ): ?array {
 		$args['timeout'] = 30;
+		$args['headers'] = array_replace_recursive( [
+			'x-elementor-app-type' => self::APP_TYPE,
+		], $args['headers'] ?? [] );
 
 		$response = wp_remote_request( $url, $args );
 
@@ -261,7 +265,7 @@ class Service {
 	 * @throws Service_Exception
 	 */
 	public static function refresh_token() {
-		self::get_token( GrantTypes::CLIENT_CREDENTIALS, null. true );
+		self::get_token( GrantTypes::CLIENT_CREDENTIALS, null . true );
 	}
 
 	/**
