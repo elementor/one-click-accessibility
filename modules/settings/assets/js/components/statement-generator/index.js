@@ -106,6 +106,8 @@ const StatementGenerator = ({ open, close }) => {
 			await setAccessibilityStatementData({
 				statement: parsedContent,
 				pageId: response.id,
+				id: response.id,
+				label: 'Accessibility statement',
 				createdOn: response.date,
 				link: response.link,
 			});
@@ -114,8 +116,10 @@ const StatementGenerator = ({ open, close }) => {
 				ea11y_accessibility_statement_data: {
 					statement: parsedContent,
 					pageId: response.id,
+					id: response.id,
 					createdOn: response.date,
 					link: response.link,
+					label: 'Accessibility statement',
 				},
 				ea11y_show_accessibility_generated_page_infotip: true,
 			});
