@@ -20,20 +20,16 @@ const getSvgSize = (svg) => {
 	};
 };
 
-export const svgNodeToPngBase64 = (svgNode) => {
+export const convertSvgToPngBase64 = (url) => {
 	return new Promise((resolve, reject) => {
-		const { width, height } = getSvgSize(svgNode);
-		const svgString = new XMLSerializer().serializeToString(svgNode);
-		const svgBlob = new Blob([svgString], { type: 'image/svg+xml' });
-		const url = URL.createObjectURL(svgBlob);
 		const img = new Image();
 
 		img.onload = () => {
 			const canvas = document.createElement('canvas');
-			canvas.width = width;
-			canvas.height = height;
+			canvas.width = img.width;
+			canvas.height = img.height;
 			const ctx = canvas.getContext('2d');
-			ctx.drawImage(img, 0, 0, width, height);
+			ctx.drawImage(img, 0, 0, img.width, img.height);
 			URL.revokeObjectURL(url);
 
 			const base64 = canvas.toDataURL('image/png');
@@ -43,4 +39,21 @@ export const svgNodeToPngBase64 = (svgNode) => {
 		img.onerror = reject;
 		img.src = url;
 	});
+};
+
+export const svgNodeToPngBase64 = (svgNode) => {
+	const svgString = new XMLSerializer().serializeToString(svgNode);
+	const svgBlob = new Blob([svgString], { type: 'image/svg+xml' });
+	const url = URL.createObjectURL(svgBlob);
+
+	return convertSvgToPngBase64(url);
+};
+
+export const svgSrcToPngBase64 = (svgNode) => {
+	const { width, height } = getSvgSize(svgNode);
+	const svgString = new XMLSerializer().serializeToString(svgNode);
+	const svgBlob = new Blob([svgString], { type: 'image/svg+xml' });
+	const url = URL.createObjectURL(svgBlob);
+
+	return convertSvgToPngBase64(url, width, height);
 };

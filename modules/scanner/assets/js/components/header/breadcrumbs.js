@@ -5,12 +5,12 @@ import Infotip from '@elementor/ui/Infotip';
 import Link from '@elementor/ui/Link';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	BLOCK_INFO,
 	BLOCK_TITLES,
 	BLOCKS,
-} from '@ea11y-apps/scanner/utils/constants';
+} from '@ea11y-apps/scanner/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { __ } from '@wordpress/i18n';
 

@@ -24,6 +24,14 @@ export class APIScanner extends API {
 		});
 	}
 
+	static async submitRemediation(data) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/remediation/add-remediation`,
+			data,
+		});
+	}
+
 	static async generateAltText(data) {
 		return APIScanner.request({
 			method: 'POST',

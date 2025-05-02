@@ -6,11 +6,13 @@ import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
 	SectionTitle,
 	StyledAccordionDetails,
+	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
@@ -35,17 +37,19 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 			<StyledAccordionDetails>
 				<Box>
 					<SectionTitle variant="body1">
-						{__('What’s the issue?', 'pojo-accessibility')}
+						{__('What’s the issue', 'pojo-accessibility')}
 					</SectionTitle>
-					<Typography variant="body1">{item.message}</Typography>
+					<Typography variant="body1">
+						{uxMessaging[item.ruleId]?.whatsTheIssue ?? item.message}
+					</Typography>
 				</Box>
 				<Box>
 					<SectionTitle variant="body1" sx={{ mb: 0.5 }}>
-						{__('Where is it?', 'pojo-accessibility')}
+						{__('Where is it', 'pojo-accessibility')}
 					</SectionTitle>
 					<StyledAlert color="info" icon={false}>
 						<Box display="flex" gap={0.5} alignItems="start">
-							<Typography variant="body1">{item.snippet}</Typography>
+							<StyledSnippet variant="body1">{item.snippet}</StyledSnippet>
 							<Box>
 								<Tooltip
 									placement="left"
@@ -72,12 +76,48 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 						</Box>
 					</StyledAlert>
 				</Box>
-				<Box>
-					<SectionTitle variant="body1">
-						{__('How to fix it:', 'pojo-accessibility')}
-					</SectionTitle>
-					<Typography variant="body1">{item.message}</Typography>
-				</Box>
+				{uxMessaging[item.ruleId] && (
+					<>
+						<Box>
+							<SectionTitle variant="body1">
+								{__('Why it matters', 'pojo-accessibility')}
+							</SectionTitle>
+							<Typography variant="body1">
+								{uxMessaging[item.ruleId].whyItMatters}
+							</Typography>
+						</Box>
+						<Box>
+							<SectionTitle variant="body1">
+								{__('How to resolve', 'pojo-accessibility')}
+							</SectionTitle>
+							<Typography variant="body1">
+								{uxMessaging[item.ruleId].howToResolve}
+							</Typography>
+						</Box>
+						<Box>
+							<SectionTitle variant="body1">
+								{__('See an example', 'pojo-accessibility')}
+							</SectionTitle>
+							<Typography variant="body1" sx={{ mb: 2 }}>
+								{`${__('Issue:', 'pojo-accessibility')} ${uxMessaging[item.ruleId].seeAnExample.issue}`}
+							</Typography>
+							{uxMessaging[item.ruleId].seeAnExample.resolution.map(
+								(resolution, index) => (
+									<Typography
+										variant="body1"
+										key={`resolution-${index}`}
+										sx={{ mb: 2 }}
+									>
+										{index === 0
+											? `${__('Resolution:', 'pojo-accessibility')} `
+											: ''}
+										{resolution}
+									</Typography>
+								),
+							)}
+						</Box>
+					</>
+				)}
 			</StyledAccordionDetails>
 			<AccordionActions>
 				<Button

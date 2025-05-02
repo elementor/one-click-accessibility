@@ -1,10 +1,10 @@
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
-import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
 	MANUAL_GROUPS,
-} from '@ea11y-apps/scanner/utils/constants';
+} from '@ea11y-apps/scanner/constants';
+import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import { sortViolations } from '@ea11y-apps/scanner/utils/sort-violations';
 import {
 	createContext,
@@ -13,7 +13,7 @@ import {
 	useState,
 } from '@wordpress/element';
 
-const ScannerWizardContext = createContext({
+export const ScannerWizardContext = createContext({
 	results: {},
 	resolved: 0,
 	openedBlock: '',

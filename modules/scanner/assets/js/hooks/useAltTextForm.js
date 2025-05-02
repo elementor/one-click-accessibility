@@ -4,7 +4,10 @@ import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { splitDescriptions } from '@ea11y-apps/scanner/utils/split-ai-response';
-import { svgNodeToPngBase64 } from '@ea11y-apps/scanner/utils/svg-node-to-png-base64';
+import {
+	convertSvgToPngBase64,
+	svgNodeToPngBase64,
+} from '@ea11y-apps/scanner/utils/svg-to-png-base64';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -14,7 +17,8 @@ export const useAltTextForm = ({ current, item }) => {
 	const { error } = useToastNotification();
 
 	const [loadingAiText, setLoadingAiText] = useState(false);
-	//const [aiText, setAiText] = useState([]);
+	const [aiText, setAiText] = useState([]);
+	const [aiTextIndex, setAiTextIndex] = useState(0);
 
 	const isSubmitDisabled =
 		(!altTextData?.[current]?.makeDecorative &&
@@ -33,6 +37,24 @@ export const useAltTextForm = ({ current, item }) => {
 		setAltTextData(updData);
 	};
 
+	const getAttributeData = () => {
+		if (altTextData?.[current]?.makeDecorative) {
+			return {
+				attribute_name: 'role',
+				attribute_value: 'presentation',
+			};
+		}
+		return item.node.tagName === 'svg'
+			? {
+					attribute_name: 'aria-label',
+					attribute_value: altTextData?.[current]?.altText,
+				}
+			: {
+					attribute_name: 'alt',
+					attribute_value: altTextData?.[current]?.altText,
+				};
+	};
+
 	const updateAltText = async () => {
 		const match = item.node.className.toString().match(/wp-image-(\d+)/);
 		const altText = !altTextData?.[current]?.makeDecorative
@@ -41,6 +63,16 @@ export const useAltTextForm = ({ current, item }) => {
 
 		if (match && item.node.tagName !== 'svg') {
 			await APIScanner.submitAltText(item.node.src, altText);
+		} else {
+			await APIScanner.submitRemediation({
+				url: window?.ea11yScannerData?.pageData.url,
+				remediation: {
+					...getAttributeData(),
+					action: 'add',
+					xpath: item.path.dom,
+					type: 'ATTRIBUTE',
+				},
+			});
 		}
 	};
 
@@ -66,17 +98,22 @@ export const useAltTextForm = ({ current, item }) => {
 		}
 	};
 
-	const generateAltText = async () => {
+	const getPayload = async () => {
+		if (item.node?.src) {
+			return item.node.src.toLowerCase().endsWith('.svg')
+				? { svg: await convertSvgToPngBase64(item.node.src) }
+				: { image: item.node.src };
+		}
+		return { svg: await svgNodeToPngBase64(item.node) };
+	};
+
+	const getAiText = async () => {
 		setLoadingAiText(true);
-
-		const data = item.node?.src
-			? { image: item.node?.src }
-			: { svg: await svgNodeToPngBase64(item.node) };
-
+		const data = await getPayload();
 		try {
 			const response = await APIScanner.generateAltText(data);
 			const descriptions = splitDescriptions(response.data);
-			//setAiText(descriptions);
+			setAiText(descriptions);
 			if (descriptions[0]) {
 				updateData({
 					altText: descriptions[0],
@@ -88,6 +125,22 @@ export const useAltTextForm = ({ current, item }) => {
 			error(__('An error occurred.', 'pojo-accessibility'));
 		} finally {
 			setLoadingAiText(false);
+		}
+	};
+
+	const generateAltText = async () => {
+		if (aiText?.length) {
+			const index = aiTextIndex + 1;
+			console.log(aiText, index);
+			if (aiText[index]) {
+				updateData({
+					altText: aiText[index],
+					resolved: false,
+				});
+				setAiTextIndex(index);
+			}
+		} else {
+			await getAiText();
 		}
 	};
 

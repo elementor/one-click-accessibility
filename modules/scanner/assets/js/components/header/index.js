@@ -10,10 +10,10 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { Breadcrumbs } from '@ea11y-apps/scanner/components/header/breadcrumbs';
 import { ScanStats } from '@ea11y-apps/scanner/components/header/scan-stats';
+import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { Logo } from '@ea11y-apps/scanner/images';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
-import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/utils/constants';
 import { __ } from '@wordpress/i18n';
 
 export const Header = () => {

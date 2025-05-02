@@ -3,6 +3,7 @@ import Radio from '@elementor/ui/Radio';
 import Typography from '@elementor/ui/Typography';
 import { ManualFixForm } from '@ea11y-apps/scanner/components/manual-fix-form';
 import { ResolvedState } from '@ea11y-apps/scanner/components/resolved-state';
+import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	StyledAccordion,
@@ -63,7 +64,7 @@ export const ManualLayout = () => {
 								aria-label={__('Resolved', 'pojo-accessibility')}
 							/>
 							<Typography variant="body2" sx={{ mr: 0.5 }} noWrap>
-								{item.message}
+								{uxMessaging[item.ruleId]?.violationName ?? item.category}
 							</Typography>
 						</StyledAccordionSummary>
 						<ManualFixForm item={item} current={index} setOpen={setOpenIndex} />

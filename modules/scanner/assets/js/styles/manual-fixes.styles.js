@@ -31,8 +31,14 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 	display: flex;
 	flex-direction: column;
 	gap: ${({ theme }) => theme.spacing(2)};
+	padding-bottom: 0;
 `;
 
 export const SectionTitle = styled(Typography)`
 	font-weight: bold;
+`;
+
+export const StyledSnippet = styled(Typography)`
+	width: 320px;
+	word-break: break-word;
 `;

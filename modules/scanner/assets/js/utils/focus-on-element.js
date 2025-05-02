@@ -1,4 +1,4 @@
-import { CURRENT_ELEMENT_CLASS } from '@ea11y-apps/scanner/utils/constants';
+import { CURRENT_ELEMENT_CLASS } from '@ea11y-apps/scanner/constants';
 
 export const focusOnElement = (element) => {
 	removeExistingFocus();

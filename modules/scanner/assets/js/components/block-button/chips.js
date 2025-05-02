@@ -1,6 +1,6 @@
 import { Chip } from '@elementor/ui';
 import PropTypes from 'prop-types';
-import { BLOCKS } from '@ea11y-apps/scanner/utils/constants';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { __ } from '@wordpress/i18n';
 
 export const Chips = ({ block }) =>

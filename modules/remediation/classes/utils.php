@@ -116,4 +116,30 @@ class Utils {
 	public static function get_hash( $url ) : string {
 		return md5( $url );
 	}
+
+	public static function sanitize_object_for_sql_json( $input ) {
+		// Convert object to array if needed
+		if ( is_object( $input ) ) {
+			$input = (array) $input;
+		}
+
+		// Recursively sanitize
+		array_walk_recursive($input, function ( &$value ) {
+			if ( is_string( $value ) ) {
+				$value = sanitize_text_field( $value );
+			}
+		});
+
+		return $input;
+	}
+
+	public static function get_current_url(): string {
+		$host = isset( $_SERVER['HTTP_HOST'] ) ? wp_unslash( $_SERVER['HTTP_HOST'] ) : '';
+		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+		$protocol    = is_ssl() ? 'https://' : 'http://';
+
+		return esc_url_raw( $protocol . $host . $request_uri );
+	}
+
+
 }

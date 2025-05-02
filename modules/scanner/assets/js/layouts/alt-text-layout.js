@@ -1,9 +1,9 @@
 import { AltTextForm } from '@ea11y-apps/scanner/components/alt-text-form';
 import { AltTextNavigation } from '@ea11y-apps/scanner/components/alt-text-navigation';
 import { ResolvedState } from '@ea11y-apps/scanner/components/resolved-state';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
-import { BLOCKS } from '@ea11y-apps/scanner/utils/constants';
 import { focusOnElement } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect, useState } from '@wordpress/element';
 

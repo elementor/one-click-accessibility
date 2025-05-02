@@ -1,8 +1,8 @@
 import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
 import { BlockButton } from '@ea11y-apps/scanner/components/block-button';
+import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
-import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/utils/constants';
 
 export const MainList = () => {
 	const { sortedViolations } = useScannerWizardContext();

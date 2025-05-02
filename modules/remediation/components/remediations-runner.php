@@ -2,6 +2,8 @@
 
 namespace EA11y\Modules\Remediation\Components;
 
+use EA11y\Modules\Remediation\Classes\Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -31,7 +33,7 @@ class Remediations_Runner {
 		return true;
 	}
 
-	private function start() {
+	public function start() {
 		ob_start( [ $this, 'run_remediations' ] );
 	}
 
@@ -45,7 +47,7 @@ class Remediations_Runner {
 		return $class;
 	}
 
-	private function run_remediations( $buffer ) {
+	public function run_remediations( $buffer ) {
 		$dom = new \DOMDocument();
 		$dom->loadHTML( $buffer, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 		$classes = $this->get_remediation_classes();
@@ -64,6 +66,7 @@ class Remediations_Runner {
 		if ( is_admin() ) {
 			return;
 		}
+
 		if ( $this->should_run_remediation() ) {
 			add_action( 'template_redirect', [ $this, 'start' ] );
 		}

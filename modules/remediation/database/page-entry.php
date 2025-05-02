@@ -60,11 +60,15 @@ class Page_Entry extends Entry {
 	 * @return Page_Entry
 	 */
 	public function append_remediation( array $remediation ) : Page_Entry {
-		if ( ! is_array( $this->entry_data[ Page_Table::REMEDIATIONS ] ) ) {
-			$this->entry_data[ Page_Table::REMEDIATIONS ] = [];
+		$remediations = json_decode( $this->entry_data[ Page_Table::REMEDIATIONS ] );
+		if ( ! is_array( $remediations ) ) {
+			$remediations = [];
 		}
-		$this->entry_data[ Page_Table::REMEDIATIONS ][] = $remediation;
+
+		$remediations[] = $remediation;
+		$this->entry_data[ Page_Table::REMEDIATIONS ] = wp_json_encode( $remediations );
 		$this->save();
+
 		return $this;
 	}
 
