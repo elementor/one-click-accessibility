@@ -38,7 +38,5 @@ class Module extends Module_Base {
 		Page_Table::install();
 		$this->register_routes();
 		$this->register_components();
-		add_action( 'template_redirect', [ $this, 'start' ] );
-
 	}
 }
