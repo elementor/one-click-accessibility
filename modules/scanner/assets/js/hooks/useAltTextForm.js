@@ -17,8 +17,6 @@ export const useAltTextForm = ({ current, item }) => {
 	const { error } = useToastNotification();
 
 	const [loadingAiText, setLoadingAiText] = useState(false);
-	const [aiText, setAiText] = useState([]);
-	const [aiTextIndex, setAiTextIndex] = useState(0);
 
 	const isSubmitDisabled =
 		(!altTextData?.[current]?.makeDecorative &&
@@ -37,22 +35,27 @@ export const useAltTextForm = ({ current, item }) => {
 		setAltTextData(updData);
 	};
 
-	const getAttributeData = () => {
+	const makeAttributeData = () => {
 		if (altTextData?.[current]?.makeDecorative) {
+			item.node.setAttribute('role', 'presentation');
 			return {
 				attribute_name: 'role',
 				attribute_value: 'presentation',
 			};
 		}
-		return item.node.tagName === 'svg'
-			? {
-					attribute_name: 'aria-label',
-					attribute_value: altTextData?.[current]?.altText,
-				}
-			: {
-					attribute_name: 'alt',
-					attribute_value: altTextData?.[current]?.altText,
-				};
+		if (item.node.tagName === 'svg') {
+			item.node.setAttribute('aria-label', altTextData?.[current]?.altText);
+			return {
+				attribute_name: 'aria-label',
+				attribute_value: altTextData?.[current]?.altText,
+			};
+		}
+
+		item.node.setAttribute('alt', altTextData?.[current]?.altText);
+		return {
+			attribute_name: 'alt',
+			attribute_value: altTextData?.[current]?.altText,
+		};
 	};
 
 	const updateAltText = async () => {
@@ -67,7 +70,7 @@ export const useAltTextForm = ({ current, item }) => {
 			await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
-					...getAttributeData(),
+					...makeAttributeData(),
 					action: 'add',
 					xpath: item.path.dom,
 					type: 'ATTRIBUTE',
@@ -113,10 +116,11 @@ export const useAltTextForm = ({ current, item }) => {
 		try {
 			const response = await APIScanner.generateAltText(data);
 			const descriptions = splitDescriptions(response.data);
-			setAiText(descriptions);
 			if (descriptions[0]) {
 				updateData({
 					altText: descriptions[0],
+					aiText: descriptions,
+					aiTextIndex: 0,
 					resolved: false,
 				});
 			}
@@ -129,15 +133,15 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const generateAltText = async () => {
-		if (aiText?.length) {
-			const index = aiTextIndex + 1;
-			console.log(aiText, index);
-			if (aiText[index]) {
+		if (altTextData?.[current]?.aiText?.length) {
+			const index = altTextData?.[current]?.aiTextIndex + 1;
+
+			if (altTextData?.[current]?.aiText[index]) {
 				updateData({
-					altText: aiText[index],
+					altText: altTextData?.[current]?.aiText[index],
+					aiTextIndex: index,
 					resolved: false,
 				});
-				setAiTextIndex(index);
 			}
 		} else {
 			await getAiText();

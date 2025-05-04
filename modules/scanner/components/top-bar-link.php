@@ -36,9 +36,7 @@ class Top_Bar_Link {
 	 * Module constructor.
 	 */
 	public function __construct() {
-		// TODO: add correct condition for load styles and link
 		if ( is_admin_bar_showing() ) {
-			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_skip_link_styles' ] );
 			$this->add_bar_link();
 		}
 	}

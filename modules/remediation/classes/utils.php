@@ -7,8 +7,8 @@ class Utils {
 	 * get current page url
 	 */
 	public static function get_current_page_url(): ?string {
-		global $wp;
-		return home_url( $wp->request );
+		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+		return rtrim( home_url( $request_uri ), '/' );
 	}
 
 	public static function get_current_page_title() {
@@ -132,14 +132,4 @@ class Utils {
 
 		return $input;
 	}
-
-	public static function get_current_url(): string {
-		$host = isset( $_SERVER['HTTP_HOST'] ) ? wp_unslash( $_SERVER['HTTP_HOST'] ) : '';
-		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
-		$protocol    = is_ssl() ? 'https://' : 'http://';
-
-		return esc_url_raw( $protocol . $host . $request_uri );
-	}
-
-
 }

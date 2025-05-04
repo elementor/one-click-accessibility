@@ -78,14 +78,23 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			.catch(() => setIsError(true));
 	}, []);
 
-	const isResolved = (block) =>
-		block === BLOCKS.altText
+	const isResolved = (block) => {
+		const indexes = Array.from(
+			{
+				length: sortedViolations[block]?.length || 0,
+			},
+			(_, i) => i,
+		);
+		return block === BLOCKS.altText
 			? (altTextData?.length === sortedViolations[block]?.length &&
+					indexes.every((index) => index in altTextData) &&
 					altTextData.every((data) => data?.resolved)) ||
-				sortedViolations[block]?.length === 0
+					sortedViolations[block]?.length === 0
 			: (manualData[block]?.length === sortedViolations[block]?.length &&
-					manualData[block].every((data) => data.resolved)) ||
-				sortedViolations[block]?.length === 0;
+					indexes.every((index) => index in manualData[block]) &&
+					manualData[block].every((data) => data?.resolved)) ||
+					sortedViolations[block]?.length === 0;
+	};
 
 	return (
 		<ScannerWizardContext.Provider

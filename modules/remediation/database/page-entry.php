@@ -3,6 +3,7 @@
 namespace EA11y\Modules\Remediation\Database;
 
 use EA11y\Classes\Database\Entry;
+use EA11y\Classes\Logger;
 use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Exceptions\Missing_URL;
 
@@ -18,7 +19,7 @@ class Page_Entry extends Entry {
 	/**
 	 * @var array $remediations holds array of remediation to preform on page
 	 */
-	private array $remediation;
+	private array $remediations;
 	/**
 	 * @var string $hash holds md5 of page url
 	 */
@@ -72,8 +73,20 @@ class Page_Entry extends Entry {
 		return $this;
 	}
 
+	/**
+	 *  get_remediation
+	 *
+	 * @return array $remediation
+	 */
+	public function get_remediations() : array {
+		if ( key_exists( Page_Table::REMEDIATIONS, $this->entry_data ) ) {
+			return json_decode( $this->entry_data[ Page_Table::REMEDIATIONS ], true );
+		}
+		return [];
+	}
+
 	public function to_json() : string {
-		return json_encode( $this->entry_data );
+		return wp_json_encode( $this->entry_data );
 	}
 
 }
