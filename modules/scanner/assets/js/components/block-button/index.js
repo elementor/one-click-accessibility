@@ -3,7 +3,7 @@ import { Chip } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import { Chips } from '@ea11y-apps/scanner/components/block-button/chips';
+import { ResolveChip } from '@ea11y-apps/scanner/components/block-button/resolve-chip';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	StyledButton,
@@ -41,7 +41,7 @@ export const BlockButton = ({ title, count, block }) => {
 				{resolved ? (
 					<CircleCheckFilledIcon color="success" />
 				) : (
-					<Chips block={block} />
+					<ResolveChip block={block} />
 				)}
 			</StyledButtonContainer>
 		</StyledButton>

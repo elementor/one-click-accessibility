@@ -6,7 +6,7 @@ use DOMDocument;
 use DOMElement;
 use DOMXPath;
 
-class Remedation_Base {
+class Remediation_Base {
 	public static string $type = 'remediation';
 
 	public DOMDocument $dom;

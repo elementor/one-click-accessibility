@@ -22,6 +22,7 @@ export const ScannerWizardContext = createContext({
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
 	altTextData: [],
 	manualData: {},
+	violation: null,
 	setOpenedBlock: () => {},
 	setResolved: () => {},
 	getResults: () => {},
@@ -41,6 +42,8 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [isError, setIsError] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
+
+	const violation = results?.summary?.counts?.violation;
 
 	const getResults = () => {
 		setLoading(true);
@@ -95,6 +98,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				sortedViolations,
 				altTextData,
 				manualData,
+				violation,
 				setOpenedBlock,
 				setResolved,
 				getResults,

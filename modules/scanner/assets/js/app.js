@@ -3,10 +3,10 @@ import Paper from '@elementor/ui/Paper';
 import { styled } from '@elementor/ui/styles';
 import { Notifications } from '@ea11y/components';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
-import { ErrorState } from '@ea11y-apps/scanner/components/error-state';
+import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
 import { Header } from '@ea11y-apps/scanner/components/header';
 import { Loader } from '@ea11y-apps/scanner/components/main-list/loader';
-import { ResolvedState } from '@ea11y-apps/scanner/components/resolved-state';
+import { ResolvedMessage } from '@ea11y-apps/scanner/components/resolved-message';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
@@ -17,13 +17,12 @@ import {
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
-	const { results, resolved, openedBlock, isError, loading } =
+	const { violation, resolved, openedBlock, isError, loading } =
 		useScannerWizardContext();
-	const violation = results?.summary?.counts?.violation;
 
 	const getBlock = () => {
 		if (isError) {
-			return <ErrorState />;
+			return <ErrorMessage />;
 		}
 		if (loading) {
 			return <Loader />;
@@ -40,9 +39,9 @@ const App = () => {
 
 	return (
 		<StyledPaper>
-			<ErrorBoundary fallback={<ErrorState />}>
+			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
-				{violation !== resolved ? getBlock() : <ResolvedState isMain />}
+				{violation !== resolved ? getBlock() : <ResolvedMessage isMain />}
 				<Notifications message={notificationMessage} type={notificationType} />
 			</ErrorBoundary>
 		</StyledPaper>

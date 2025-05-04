@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { __ } from '@wordpress/i18n';
 
-export const Chips = ({ block }) =>
+export const ResolveChip = ({ block }) =>
 	block === BLOCKS.altText ? (
 		<Chip
 			size="small"
@@ -20,6 +20,6 @@ export const Chips = ({ block }) =>
 		/>
 	);
 
-Chips.propTypes = {
+ResolveChip.propTypes = {
 	block: PropTypes.string.isRequired,
 };

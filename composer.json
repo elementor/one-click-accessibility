@@ -30,7 +30,8 @@
     "ext-json": "*",
     "ext-fileinfo": "*",
     "ext-curl": "*",
-    "ext-exif": "*"
+    "ext-exif": "*",
+    "ext-dom": "*"
   },
   "config": {
     "allow-plugins": {

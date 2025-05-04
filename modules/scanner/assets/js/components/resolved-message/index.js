@@ -5,7 +5,7 @@ import { ResolvedImage } from '@ea11y-apps/scanner/images';
 import { StateContainer } from '@ea11y-apps/scanner/styles/app.styles';
 import { __ } from '@wordpress/i18n';
 
-export const ResolvedState = ({ isMain }) => (
+export const ResolvedMessage = ({ isMain }) => (
 	<StateContainer>
 		<ResolvedImage />
 		<Box sx={{ maxWidth: '250px' }}>
@@ -35,6 +35,6 @@ export const ResolvedState = ({ isMain }) => (
 	</StateContainer>
 );
 
-ResolvedState.propTypes = {
+ResolvedMessage.propTypes = {
 	isMain: PropTypes.bool,
 };

@@ -2,7 +2,6 @@ import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
 import Radio from '@elementor/ui/Radio';
 import Typography from '@elementor/ui/Typography';
 import { ManualFixForm } from '@ea11y-apps/scanner/components/manual-fix-form';
-import { ResolvedState } from '@ea11y-apps/scanner/components/resolved-state';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
@@ -15,6 +14,7 @@ import {
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { ResolvedMessage } from '../components/resolved-message';
 
 export const ManualLayout = () => {
 	const { openedBlock, sortedViolations, manualData, isResolved } =
@@ -41,7 +41,7 @@ export const ManualLayout = () => {
 	return (
 		<>
 			{isResolved(openedBlock) ? (
-				<ResolvedState />
+				<ResolvedMessage />
 			) : (
 				sortedViolations[openedBlock].map((item, index) => (
 					<StyledAccordion

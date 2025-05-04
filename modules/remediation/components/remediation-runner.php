@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class Remediations_Runner
+ * Class Remediation_Runner
  */
-class Remediations_Runner {
+class Remediation_Runner {
 	public array $remediations = [];
 
 	public function get_remediation_classes() : array {

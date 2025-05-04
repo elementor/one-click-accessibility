@@ -9,9 +9,10 @@ import { StyledSkeleton } from '@ea11y-apps/scanner/styles/app.styles';
 import { __ } from '@wordpress/i18n';
 
 export const ScanStats = () => {
-	const { results, resolved, loading, getResults } = useScannerWizardContext();
-	const violation = results?.summary?.counts?.violation;
-	const percent = violation !== 0 ? (resolved / violation) * 100 : 100;
+	const { violation, results, resolved, loading, getResults } =
+		useScannerWizardContext();
+	const percent =
+		violation !== 0 ? Math.min((resolved / violation) * 100, 100) : 100;
 	const displayPercent = results ? Math.round(percent) : 0;
 
 	return (
@@ -38,7 +39,7 @@ export const ScanStats = () => {
 							color="success"
 							value={displayPercent}
 							variant="determinate"
-							aria-label={__('Resolved progress', 'pojo-accessibility')}
+							role="presentation"
 						/>
 						<Button
 							variant="outlined"

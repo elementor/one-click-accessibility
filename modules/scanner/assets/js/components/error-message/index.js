@@ -4,7 +4,7 @@ import { ErrorImage } from '@ea11y-apps/scanner/images';
 import { StateContainer } from '@ea11y-apps/scanner/styles/app.styles';
 import { __ } from '@wordpress/i18n';
 
-export const ErrorState = () => (
+export const ErrorMessage = () => (
 	<StateContainer>
 		<ErrorImage />
 		<Box sx={{ maxWidth: '300px' }}>
