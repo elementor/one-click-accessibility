@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-use Elementor\WPNotificationsPackage\V110\Notifications as Notifications_SDK;
+use Elementor\WPNotificationsPackage\V120\Notifications as Notifications_SDK;
 
 class Notificator {
 	private ?Notifications_SDK $notificator = null;
@@ -18,10 +18,13 @@ class Notificator {
 	public function __construct() {
 		require_once EA11Y_PATH . '/vendor/autoload.php';
 
-		$this->notificator = new Notifications_SDK(
-			'ally',
-			EA11Y_VERSION,
-			'ally'
-		);
+		$this->notificator = new Notifications_SDK([
+			'app_name' => 'ally',
+			'app_version' => EA11Y_VERSION,
+			'short_app_name' => 'ally',
+			'app_data' => [
+				'plugin_basename' => EA11Y_BASE,
+			],
+		]);
 	}
 }
