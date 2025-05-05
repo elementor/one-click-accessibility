@@ -50,10 +50,11 @@ const App = () => {
 
 const StyledPaper = styled(Paper)`
 	position: fixed;
-	top: 32px;
+	top: 0;
+	/* @noflip */
 	right: 0;
 	width: 420px;
-	height: calc(100vh - 32px);
+	height: 100vh;
 	overflow-y: auto;
 	z-index: 99999;
 `;

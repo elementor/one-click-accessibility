@@ -1,6 +1,8 @@
 import { createTheme, ThemeProvider } from '@elementor/ui/styles';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
+import { prefixer } from 'stylis';
+import rtlPlugin from 'stylis-plugin-rtl';
 import { NotificationsProvider } from '@ea11y-apps/global/hooks/use-notifications';
 import App from '@ea11y-apps/scanner/app';
 import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/constants';
@@ -21,12 +23,21 @@ TOP_BAR_LINK.addEventListener('click', (event) => {
 });
 
 const initApp = () => {
+	const adminBar = document.querySelector('#wpadminbar');
+	window.ea11yScannerData = {
+		...window.ea11yScannerData,
+		adminBar,
+	};
+	adminBar.remove();
+
 	const rootNode = document.createElement('aside');
+
 	rootNode.id = ROOT_ID;
 	rootNode.setAttribute(
 		'aria-label',
 		__('Accessibility Scanner', 'pojo-accessibility'),
 	);
+
 	document.body.style.marginRight = '420px';
 	document.body.appendChild(rootNode);
 
@@ -41,6 +52,7 @@ const initApp = () => {
 		key: 'css',
 		prepend: true,
 		container: shadowContainer,
+		stylisPlugins: [prefixer, rtlPlugin],
 	});
 
 	const shadowTheme = createTheme({

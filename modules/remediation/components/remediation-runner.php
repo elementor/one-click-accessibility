@@ -3,6 +3,7 @@
 namespace EA11y\Modules\Remediation\Components;
 
 use DOMDocument;
+use EA11y\Classes\Logger;
 use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use Throwable;
@@ -62,11 +63,11 @@ class Remediation_Runner {
 	}
 
 	public function run_remediations( $buffer ): string {
-		if ( $this->page_data['html'] && $this->page->is_valid_hash() ) {
+		if ( ! is_user_logged_in() && $this->page_data['html'] && $this->page->is_valid_hash() ) {
 			return $this->page_data['html'];
 		}
 		$dom = $this->generate_remediation_dom( $buffer );
-		if ( ! is_admin_bar_showing() ) {
+		if ( ! is_user_logged_in() ) {
 			$this->page->update_html( $dom );
 		}
 		return $dom;
@@ -76,6 +77,14 @@ class Remediation_Runner {
 		$dom = new DOMDocument();
 		$dom->loadHTML( $buffer, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR );
 
+		//Remove admin-bar for correct replace
+		$admin_bar = $dom->getElementById( 'wpadminbar' );
+		if ( $admin_bar ) {
+			$parent = $admin_bar->parentNode;
+			$next_sibling = $admin_bar->nextSibling;
+			$removed_admin_bar = $parent->removeChild( $admin_bar );
+		}
+
 		$classes = $this->get_remediation_classes();
 		foreach ( $this->page_data['remediations'] as $remediation ) {
 			if ( ! isset( $classes[ strtoupper( $remediation['type'] ) ] ) ) {
@@ -84,6 +93,12 @@ class Remediation_Runner {
 			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
 			$dom = $remediation_class->dom;
+		}
+
+		if ( isset( $removed_admin_bar, $parent ) ) {
+			isset( $next_sibling ) && $next_sibling
+				? $parent->insertBefore( $removed_admin_bar, $next_sibling )
+				: $parent->appendChild( $removed_admin_bar );
 		}
 
 		return $dom->saveHTML();

@@ -31,7 +31,8 @@
     "ext-fileinfo": "*",
     "ext-curl": "*",
     "ext-exif": "*",
-    "ext-dom": "*"
+    "ext-dom": "*",
+    "ext-libxml": "*"
   },
   "config": {
     "allow-plugins": {

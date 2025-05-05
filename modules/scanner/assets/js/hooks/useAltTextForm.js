@@ -134,15 +134,17 @@ export const useAltTextForm = ({ current, item }) => {
 
 	const generateAltText = async () => {
 		if (altTextData?.[current]?.aiText?.length) {
-			const index = altTextData?.[current]?.aiTextIndex + 1;
+			const index =
+				altTextData?.[current]?.aiTextIndex + 1 <
+				altTextData?.[current]?.aiText?.length
+					? altTextData?.[current]?.aiTextIndex + 1
+					: 0;
 
-			if (altTextData?.[current]?.aiText[index]) {
-				updateData({
-					altText: altTextData?.[current]?.aiText[index],
-					aiTextIndex: index,
-					resolved: false,
-				});
-			}
+			updateData({
+				altText: altTextData?.[current]?.aiText[index],
+				aiTextIndex: index,
+				resolved: false,
+			});
 		} else {
 			await getAiText();
 		}
