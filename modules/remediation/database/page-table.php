@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Page_Table extends Table {
 	// override base's const:
 	const DB_VERSION = '1';
-	const DB_VERSION_FLAG_NAME = 'ea11y_page_db_version';
+	const DB_VERSION_FLAG_NAME = 'ea11y_page_remediations_db_version';
 
 	const ID = 'id';
 	const URL = 'url';
@@ -42,7 +42,7 @@ class Page_Table extends Table {
 				'key' => Database_Constants::get_primary_key_string( self::ID ),
 			],
 			self::URL => [
-				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
+				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 2048 ),
 				'flags' => Database_Constants::build_flags_string( [
 					Database_Constants::DEFAULT,
 					'\'\'',

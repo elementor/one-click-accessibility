@@ -1,8 +1,10 @@
-import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
+import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
-} from '@ea11y-apps/scanner/utils/constants';
+	MANUAL_GROUPS,
+} from '@ea11y-apps/scanner/constants';
+import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import { sortViolations } from '@ea11y-apps/scanner/utils/sort-violations';
 import {
 	createContext,
@@ -11,15 +13,22 @@ import {
 	useState,
 } from '@wordpress/element';
 
-const ScannerWizardContext = createContext({
+export const ScannerWizardContext = createContext({
 	results: {},
 	resolved: 0,
 	openedBlock: '',
 	loading: null,
+	isError: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
+	altTextData: [],
+	manualData: {},
+	violation: null,
 	setOpenedBlock: () => {},
 	setResolved: () => {},
 	getResults: () => {},
+	setAltTextData: () => {},
+	setManualData: () => {},
+	isResolved: () => {},
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
@@ -30,6 +39,11 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [resolved, setResolved] = useState(0);
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
+	const [altTextData, setAltTextData] = useState([]);
+	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
+
+	const violation = results?.summary?.counts?.violation;
 
 	const getResults = () => {
 		setLoading(true);
@@ -42,6 +56,15 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				const sorted = sortViolations(filtered);
 				setResults(data);
 				setSortedViolations(sorted);
+				setAltTextData([]);
+				setManualData(structuredClone(MANUAL_GROUPS));
+				setResolved(0);
+				if (window?.ea11yScannerData?.pageData?.unregistered) {
+					void APIScanner.registerPage();
+				}
+			})
+			.catch(() => {
+				setIsError(true);
 			})
 			.finally(() => setLoading(false));
 	};
@@ -52,8 +75,26 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			.then(() => {
 				getResults();
 			})
-			.catch((e) => console.error(e));
+			.catch(() => setIsError(true));
 	}, []);
+
+	const isResolved = (block) => {
+		const indexes = Array.from(
+			{
+				length: sortedViolations[block]?.length || 0,
+			},
+			(_, i) => i,
+		);
+		return block === BLOCKS.altText
+			? (altTextData?.length === sortedViolations[block]?.length &&
+					indexes.every((index) => index in altTextData) &&
+					altTextData.every((data) => data?.resolved)) ||
+					sortedViolations[block]?.length === 0
+			: (manualData[block]?.length === sortedViolations[block]?.length &&
+					indexes.every((index) => index in manualData[block]) &&
+					manualData[block].every((data) => data?.resolved)) ||
+					sortedViolations[block]?.length === 0;
+	};
 
 	return (
 		<ScannerWizardContext.Provider
@@ -62,10 +103,17 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				resolved,
 				openedBlock,
 				loading,
+				isError,
 				sortedViolations,
+				altTextData,
+				manualData,
+				violation,
 				setOpenedBlock,
 				setResolved,
 				getResults,
+				setAltTextData,
+				setManualData,
+				isResolved,
 			}}
 		>
 			{children}

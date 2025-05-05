@@ -2,7 +2,7 @@
 
 namespace EA11y\Modules\Remediation\Actions;
 
-use EA11y\Modules\Remediation\Components\Remedation_Base;
+use EA11y\Modules\Remediation\Classes\Remediation_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class Attribute
  */
-class Element extends Remedation_Base {
+class Element extends Remediation_Base {
 
 	public static string $type = 'element';
 

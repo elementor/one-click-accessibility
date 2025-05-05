@@ -10,21 +10,24 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { Breadcrumbs } from '@ea11y-apps/scanner/components/header/breadcrumbs';
 import { ScanStats } from '@ea11y-apps/scanner/components/header/scan-stats';
-import { Logo } from '@ea11y-apps/scanner/components/icons/logo';
+import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { Logo } from '@ea11y-apps/scanner/images';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
-import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/utils/constants';
 import { __ } from '@wordpress/i18n';
 
 export const Header = () => {
-	const { openedBlock, results, loading } = useScannerWizardContext();
+	const { openedBlock, results, loading, isError } = useScannerWizardContext();
 	const violation = results?.summary?.counts?.violation;
 	const onClose = () => {
 		const widget = document.getElementById(ROOT_ID);
 		closeWidget(widget);
 	};
 
-	const showChip = !loading && openedBlock === BLOCKS.main && violation;
+	const showChip =
+		!isError && !loading && openedBlock === BLOCKS.main && violation;
+	const showDivider =
+		!loading && (openedBlock === BLOCKS.main || openedBlock === BLOCKS.altText);
 
 	return (
 		<StyledCard square={true} variant="elevation" elevation={0}>
@@ -42,7 +45,10 @@ export const Header = () => {
 							</Typography>
 						</Box>
 
-						<IconButton onClick={onClose}>
+						<IconButton
+							onClick={onClose}
+							aria-label={__('Close', 'pojo-accessibility')}
+						>
 							<XIcon />
 						</IconButton>
 					</Box>
@@ -51,7 +57,7 @@ export const Header = () => {
 			<StyledContent>
 				<Box display="flex" alignItems="center" gap={1}>
 					<Typography variant="body1">
-						{window?.ea11yScannerData?.currentPageTitle}
+						{window?.ea11yScannerData?.pageData?.title}
 					</Typography>
 					{showChip && (
 						<Chip
@@ -62,8 +68,10 @@ export const Header = () => {
 						/>
 					)}
 				</Box>
-				{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}
-				{!loading && <Divider />}
+				{!isError && (
+					<>{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}</>
+				)}
+				{showDivider && <Divider />}
 			</StyledContent>
 		</StyledCard>
 	);

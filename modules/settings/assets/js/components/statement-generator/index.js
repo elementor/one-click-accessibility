@@ -13,11 +13,12 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
-import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { useSettings, useStorage } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import API from '../../api';
+import APISettings from '../../api';
 import { Statement } from '../../helpers/accessibility-statement';
 import {
 	parseContent,
@@ -98,7 +99,7 @@ const StatementGenerator = ({ open, close }) => {
 	const createPage = async () => {
 		const parsedContent = parseContent(Statement, companyData);
 		try {
-			const response = await API.addPage({
+			const response = await APISettings.addPage({
 				title: 'Accessibility statement',
 				content: parsedContent,
 				status: 'publish',

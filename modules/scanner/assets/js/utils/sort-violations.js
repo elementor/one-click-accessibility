@@ -1,7 +1,7 @@
 import {
 	INITIAL_SORTED_VIOLATIONS,
 	VIOLATION_TYPES,
-} from '@ea11y-apps/scanner/utils/constants';
+} from '@ea11y-apps/scanner/constants';
 
 export const sortViolations = (violations) => {
 	const sorted = structuredClone(INITIAL_SORTED_VIOLATIONS);

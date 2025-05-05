@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Remediation\rest;
+namespace EA11y\Modules\Remediation\Rest;
 
 use EA11y\Modules\Remediation\Classes\Route_Base;
 use EA11y\Modules\Remediation\Database\Page_Entry;
@@ -37,12 +37,23 @@ class Register extends Route_Base {
 				return $error;
 			}
 
+			$url = esc_url_raw( $request->get_param( 'url' ) );
+			$page = new Page_Entry([
+				'by' => 'url',
+				'value' => $url,
+			]);
+
+			// Prevent creating duplicate entry
+			if ( $page->exists() ) {
+				return new WP_REST_Response( null, 204 );
+			}
+
 			$page = new Page_Entry( [
 				'data' => [
-					Page_Table::URL => $request->get_param( 'url' ),
-					Page_Table::OBJECT_ID => $request->get_param( 'object_id' ) ?? 0,
-					Page_Table::OBJECT_TYPE => $request->get_param( 'object_type' ) ?? '',
-					Page_Table::OBJECT_TYPE_NAME => $request->get_param( 'object_type_name' ) ?? '',
+					Page_Table::URL => $url,
+					Page_Table::OBJECT_ID => sanitize_text_field( $request->get_param( 'object_id' ) ) ?? 0,
+					Page_Table::OBJECT_TYPE => sanitize_text_field( $request->get_param( 'object_type' ) ) ?? '',
+					Page_Table::OBJECT_TYPE_NAME => sanitize_text_field( $request->get_param( 'object_type_name' ) ) ?? '',
 				],
 			] );
 

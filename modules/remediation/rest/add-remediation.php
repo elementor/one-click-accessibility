@@ -3,6 +3,7 @@
 namespace EA11y\Modules\Remediation\rest;
 
 use EA11y\Modules\Remediation\Classes\Route_Base;
+use EA11y\Modules\Remediation\Classes\Utils;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
@@ -44,7 +45,8 @@ class Add_Remediation extends Route_Base {
 				] );
 			}
 
-			$page->append_remediation( $request->get_param( 'remediation' ) );
+			$remediation = Utils::sanitize_object_for_sql_json( $request->get_param( 'remediation' ) );
+			$page->append_remediation( $remediation );
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation added',

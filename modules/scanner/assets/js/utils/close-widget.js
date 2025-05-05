@@ -4,4 +4,5 @@ export const closeWidget = (widget) => {
 	removeExistingFocus();
 	widget.remove();
 	document.body.style.removeProperty('margin-right');
+	document.body.prepend(window.ea11yScannerData.adminBar);
 };

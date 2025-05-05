@@ -1,4 +1,4 @@
-import API from '../api';
+import APISettings from '../api';
 import { GOLINKS } from '../constants';
 
 export const useAuth = () => {
@@ -11,7 +11,7 @@ export const useAuth = () => {
 	};
 
 	const getConnectLink = async () => {
-		return API.initConnect();
+		return APISettings.initConnect();
 	};
 
 	const getUpgradeLink = () => {

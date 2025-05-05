@@ -30,7 +30,7 @@ class Module extends Module_Base {
 
 	public static function component_list(): array {
 		return [
-			'Remediations_Runner',
+			'Remediation_Runner',
 		];
 	}
 

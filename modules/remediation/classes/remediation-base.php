@@ -1,12 +1,12 @@
 <?php
 
-namespace EA11y\Modules\Remediation\Components;
+namespace EA11y\Modules\Remediation\Classes;
 
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
 
-class Remedation_Base {
+class Remediation_Base {
 	public static string $type = 'remediation';
 
 	public DOMDocument $dom;
@@ -25,9 +25,9 @@ class Remedation_Base {
 	 *
 	 * @return \DOMElement|\DOMNameSpaceNode|\DOMNode|null
 	 */
-	public function get_element_by_xpath( $xpath ) {
+	public function get_element_by_xpath( $query ) {
 		$xpath = new DOMXPath( $this->dom );
-		$elements = $xpath->query( $xpath );
+		$elements = $xpath->query( $query );
 
 		if ( $elements->length > 0 ) {
 			return $elements->item( 0 );
@@ -60,6 +60,6 @@ class Remedation_Base {
 	public function __construct( DOMDocument $dom, $data ) {
 		$this->dom = $dom;
 		$this->data = $data;
-		return $this->run();
+		$this->run();
 	}
 }

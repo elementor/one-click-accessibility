@@ -7,8 +7,36 @@ class Utils {
 	 * get current page url
 	 */
 	public static function get_current_page_url(): ?string {
-		global $wp;
-		return home_url( $wp->request );
+		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+		return rtrim( home_url( $request_uri ), '/' );
+	}
+
+	public static function get_current_page_title() {
+		global $post;
+		if ( is_home() ) {
+			$title = esc_html__( 'Blog', 'pojo-accessibility' );
+		} elseif ( is_front_page() ) {
+			$title = get_the_title( get_option( 'page_on_front' ) );
+		} elseif ( is_category() ) {
+			$title = single_cat_title( '', false );
+		} elseif ( is_tag() ) {
+			$title = single_tag_title( '', false );
+		} elseif ( is_tax() ) {
+			$term = get_queried_object();
+			$title = $term->name ?? '';
+		} elseif ( is_post_type_archive() ) {
+			$title = post_type_archive_title( '', false );
+		} elseif ( is_author() ) {
+			$title = get_the_author();
+		} elseif ( is_date() ) {
+			$title = get_the_date();
+		} elseif ( is_archive() ) {
+			$title = get_the_archive_title();
+		} else {
+			$title = get_the_title( $post->ID );
+		}
+
+		return $title;
 	}
 
 	public static function get_current_object_id(): int {
@@ -81,11 +109,23 @@ class Utils {
 		return 'unknown';
 	}
 
-	public static function get_current_page_hash() : string {
-		return self::get_hash( self::get_current_page_url() );
+	public static function get_hash( $text ) : string {
+		return md5( $text );
 	}
 
-	public static function get_hash( $url ) : string {
-		return md5( $url );
+	public static function sanitize_object_for_sql_json( $input ) {
+		// Convert object to array if needed
+		if ( is_object( $input ) ) {
+			$input = (array) $input;
+		}
+
+		// Recursively sanitize
+		array_walk_recursive($input, function ( &$value ) {
+			if ( is_string( $value ) ) {
+				$value = sanitize_text_field( $value );
+			}
+		});
+
+		return $input;
 	}
 }

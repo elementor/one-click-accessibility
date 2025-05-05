@@ -1,11 +1,15 @@
 import { createTheme, ThemeProvider } from '@elementor/ui/styles';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
+import { prefixer } from 'stylis';
+import rtlPlugin from 'stylis-plugin-rtl';
+import { NotificationsProvider } from '@ea11y-apps/global/hooks/use-notifications';
 import App from '@ea11y-apps/scanner/app';
+import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/constants';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
-import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/utils/constants';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 TOP_BAR_LINK.addEventListener('click', (event) => {
 	event.preventDefault();
@@ -19,9 +23,22 @@ TOP_BAR_LINK.addEventListener('click', (event) => {
 });
 
 const initApp = () => {
-	const rootNode = document.createElement('div');
+	const adminBar = document.querySelector('#wpadminbar');
+	window.ea11yScannerData = {
+		...window.ea11yScannerData,
+		adminBar,
+	};
+	adminBar.remove();
+
+	const rootNode = document.createElement('aside');
+
 	rootNode.id = ROOT_ID;
-	document.body.style.marginRight = '360px';
+	rootNode.setAttribute(
+		'aria-label',
+		__('Accessibility Scanner', 'pojo-accessibility'),
+	);
+
+	document.body.style.marginRight = '420px';
 	document.body.appendChild(rootNode);
 
 	const shadowContainer = rootNode.attachShadow({ mode: 'open' });
@@ -35,6 +52,7 @@ const initApp = () => {
 		key: 'css',
 		prepend: true,
 		container: shadowContainer,
+		stylisPlugins: [prefixer, rtlPlugin],
 	});
 
 	const shadowTheme = createTheme({
@@ -82,9 +100,11 @@ const initApp = () => {
 					colorScheme="light"
 					colorSchemeNode={shadowRootElement}
 				>
-					<ScannerWizardContextProvider>
-						<App />
-					</ScannerWizardContextProvider>
+					<NotificationsProvider>
+						<ScannerWizardContextProvider>
+							<App />
+						</ScannerWizardContextProvider>
+					</NotificationsProvider>
 				</ThemeProvider>
 			</CacheProvider>
 		</AppWrapper>,

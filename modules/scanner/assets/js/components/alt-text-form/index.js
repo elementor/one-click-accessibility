@@ -12,42 +12,48 @@ import TextField from '@elementor/ui/TextField';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import { ImagePreview } from '@ea11y-apps/scanner/components/image-preview';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
+import { useAltTextForm } from '@ea11y-apps/scanner/hooks/useAltTextForm';
 import {
-	StyledAlert,
 	StyledBox,
 	StyledLabel,
 } from '@ea11y-apps/scanner/styles/alt-text-form.styles';
-import { useState } from '@wordpress/element';
+import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
+import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
 
-export const AltTextForm = ({ items, current }) => {
-	const [data, setData] = useState([]);
+export const AltTextForm = ({ items, current, setCurrent }) => {
+	const { error } = useToastNotification();
+	const {
+		data,
+		loadingAiText,
+		isSubmitDisabled,
+		handleChange,
+		handleCheck,
+		handleSubmit,
+		generateAltText,
+	} = useAltTextForm({
+		current,
+		item: items[current],
+	});
 
-	const handleCheck = (e) => {
-		const updData = [...data];
-		updData[current] = {
-			...(data?.[current] || {}),
-			makeDecorative: e.target.checked,
-		};
-		setData(updData);
+	const onSubmit = async () => {
+		try {
+			await handleSubmit();
+			setCurrent(current + 1);
+		} catch (e) {
+			error(__('An error occurred.', 'pojo-accessibility'));
+		}
 	};
-
-	const handleChange = (e) => {
-		const updData = [...data];
-		updData[current] = {
-			...(data?.[current] || {}),
-			altText: e.target.value,
-		};
-		setData(updData);
-	};
-
-	const isSubmitDisabled =
-		!data?.[current]?.makeDecorative && !data?.[current]?.altText;
 
 	return (
 		<StyledBox>
-			<StyledAlert color="info" icon={<InfoCircleIcon color="info" />}>
+			<StyledAlert
+				color="info"
+				icon={<InfoCircleIcon color="info" />}
+				sx={{ pr: 2 }}
+			>
 				{__(
 					'Short description will help those who cannot see it.',
 					'pojo-accessibility',
@@ -82,11 +88,16 @@ export const AltTextForm = ({ items, current }) => {
 						'Add or generate the description here',
 						'pojo-accessibility',
 					)}
+					aria-label={__(
+						'Add or generate the description here',
+						'pojo-accessibility',
+					)}
 					color="secondary"
 					value={data?.[current]?.altText ?? ''}
 					onChange={handleChange}
 					fullWidth
 					multiline
+					disabled={loadingAiText}
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
@@ -100,6 +111,7 @@ export const AltTextForm = ({ items, current }) => {
 									}}
 									componentsProps={{
 										tooltip: {
+											id: 'ai-btn-description',
 											sx: {
 												maxWidth: '101px',
 												whiteSpace: 'normal',
@@ -108,7 +120,12 @@ export const AltTextForm = ({ items, current }) => {
 										},
 									}}
 								>
-									<IconButton size="small">
+									<IconButton
+										size="small"
+										aria-labelledby="ai-btn-description"
+										onClick={generateAltText}
+										disabled={loadingAiText}
+									>
 										<AIIcon color="info" />
 									</IconButton>
 								</Tooltip>
@@ -129,6 +146,7 @@ export const AltTextForm = ({ items, current }) => {
 				color="info"
 				fullWidth
 				disabled={isSubmitDisabled}
+				onClick={onSubmit}
 			>
 				{__('Resolve', 'pojo-accessibility')}
 			</Button>
@@ -137,19 +155,7 @@ export const AltTextForm = ({ items, current }) => {
 };
 
 AltTextForm.propTypes = {
-	items: PropTypes.arrayOf(
-		PropTypes.shape({
-			ruleId: PropTypes.string.isRequired,
-			value: PropTypes.arrayOf(PropTypes.number).isRequired,
-			path: PropTypes.shape({
-				dom: PropTypes.string.isRequired,
-				aria: PropTypes.string.isRequired,
-				selector: PropTypes.string.isRequired,
-			}).isRequired,
-			category: PropTypes.string.isRequired,
-			level: PropTypes.string.isRequired,
-			node: PropTypes.node,
-		}),
-	).isRequired,
+	items: PropTypes.arrayOf(scannerItem).isRequired,
 	current: PropTypes.number.isRequired,
+	setCurrent: PropTypes.func.isRequired,
 };

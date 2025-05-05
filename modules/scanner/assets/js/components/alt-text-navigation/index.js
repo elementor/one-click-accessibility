@@ -5,18 +5,19 @@ import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
+import { isRtl } from '@ea11y-apps/scanner/utils/is-rtl';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const AltTextNavigation = ({ total, current, setCurrent }) => {
 	return (
 		<StyledBox>
 			<StyledNavigation>
-				<IconButton
+				<StyledIconButton
 					onClick={() => setCurrent(--current)}
 					disabled={current === 0}
 				>
 					<ChevronLeftIcon />
-				</IconButton>
+				</StyledIconButton>
 				<Typography variant="body1">
 					{sprintf(
 						// Translators: %1$s - current, %2$s - total
@@ -25,12 +26,12 @@ export const AltTextNavigation = ({ total, current, setCurrent }) => {
 						total,
 					)}
 				</Typography>
-				<IconButton
+				<StyledIconButton
 					onClick={() => setCurrent(++current)}
 					disabled={current === total - 1}
 				>
 					<ChevronRightIcon />
-				</IconButton>
+				</StyledIconButton>
 			</StyledNavigation>
 		</StyledBox>
 	);
@@ -51,6 +52,10 @@ const StyledNavigation = styled(Box)`
 	justify-content: space-between;
 	align-items: center;
 	gap: ${({ theme }) => theme.spacing(2)};
+`;
+
+const StyledIconButton = styled(IconButton)`
+	${isRtl() ? 'transform: rotate(180deg)' : ''}
 `;
 
 AltTextNavigation.propTypes = {

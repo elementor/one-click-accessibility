@@ -15,16 +15,33 @@ export const BLOCKS = {
 	formsInputsError: 'formsInputsError',
 	keyboardAssistiveTech: 'keyboardAssistiveTech',
 	pageStructureNav: 'pageStructureNav',
+	tables: 'tables',
+	colorContrast: 'colorContrast',
 	other: 'other',
+};
+
+export const MANUAL_GROUPS = {
+	dynamicContent: [],
+	formsInputsError: [],
+	keyboardAssistiveTech: [],
+	pageStructureNav: [],
+	tables: [],
+	colorContrast: [],
+	other: [],
 };
 
 export const BLOCK_TITLES = {
 	altText: __('Alternative Text', 'pojo-accessibility'),
-	dynamicContent: __('ARIA roles & attributes', 'pojo-accessibility'),
-	formsInputsError: __('Forms & labels', 'pojo-accessibility'),
-	keyboardAssistiveTech: __('Keyboard & focus', 'pojo-accessibility'),
-	pageStructureNav: __('Responsive & zoom', 'pojo-accessibility'),
-	other: __('Uncategorized issues', 'pojo-accessibility'),
+	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
+	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
+	keyboardAssistiveTech: __(
+		'Keyboard & Assistive Technologies',
+		'pojo-accessibility',
+	),
+	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
+	tables: __('Tables', 'pojo-accessibility'),
+	colorContrast: __('Color Contrast & Style', 'pojo-accessibility'),
+	other: __('Other Accessibility Issues', 'pojo-accessibility'),
 };
 
 export const BLOCK_INFO = {
@@ -35,10 +52,12 @@ export const BLOCK_INFO = {
 	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
 	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
 	keyboardAssistiveTech: __(
-		'Keyboard and Assistive Technologies',
+		'Keyboard & Assistive Technologies',
 		'pojo-accessibility',
 	),
 	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
+	tables: __('Tables', 'pojo-accessibility'),
+	colorContrast: __('Color Contrast & Style', 'pojo-accessibility'),
 	other: __('Other Accessibility Issues', 'pojo-accessibility'),
 };
 
@@ -48,6 +67,8 @@ export const INITIAL_SORTED_VIOLATIONS = {
 	formsInputsError: [],
 	keyboardAssistiveTech: [],
 	pageStructureNav: [],
+	tables: [],
+	colorContrast: [],
 	other: [],
 };
 
@@ -56,10 +77,6 @@ export const VIOLATION_TYPES = {
 		'applet_alt_exists',
 		'applet_alt_exists',
 		'img_alt_redundant',
-		'img_alt_redundant',
-		'img_alt_redundant',
-		'img_alt_valid',
-		'img_alt_valid',
 		'img_alt_valid',
 		'img_alt_null',
 		'area_alt_exists',
@@ -94,6 +111,7 @@ export const VIOLATION_TYPES = {
 		'aria_attribute_valid',
 	],
 	formsInputsError: [
+		'label_content_exists',
 		'input_checkboxes_grouped',
 		'fieldset_label_valid',
 		'form_label_unique',
@@ -150,6 +168,12 @@ export const VIOLATION_TYPES = {
 		'list_children_valid',
 		'table_aria_descendants',
 	],
+	tables: [
+		'table_caption_empty',
+		'table_caption_nested',
+		'table_summary_redundant',
+	],
+	colorContrast: ['text_spacing_valid', 'text_contrast_sufficient'],
 	other: [
 		'element_orientation_unlocked',
 		'meta_redirect_optional',

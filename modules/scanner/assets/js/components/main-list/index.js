@@ -1,8 +1,8 @@
 import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
 import { BlockButton } from '@ea11y-apps/scanner/components/block-button';
+import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
-import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/utils/constants';
 
 export const MainList = () => {
 	const { sortedViolations } = useScannerWizardContext();
@@ -14,24 +14,15 @@ export const MainList = () => {
 
 	return manualExist || scannerFixExist ? (
 		<StyledBlockButtonsBox>
-			{scannerFixExist && (
-				<BlockButton
-					title={BLOCK_TITLES.altText}
-					count={sortedViolations.altText.length}
-					block={BLOCKS.altText}
-				/>
-			)}
-			{Object.keys(sortedViolations).flatMap((key) => {
-				if (key !== BLOCKS.altText && sortedViolations[key]?.length) {
-					return (
-						<BlockButton
-							title={BLOCK_TITLES[key]}
-							count={sortedViolations[key].length}
-							block={BLOCKS[key]}
-						/>
-					);
-				}
-				return [];
+			{Object.keys(sortedViolations).map((key) => {
+				return (
+					<BlockButton
+						key={key}
+						title={BLOCK_TITLES[key]}
+						count={sortedViolations[key].length}
+						block={BLOCKS[key]}
+					/>
+				);
 			})}
 		</StyledBlockButtonsBox>
 	) : null;

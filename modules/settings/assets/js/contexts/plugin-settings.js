@@ -1,4 +1,4 @@
-import { useToastNotification } from '@ea11y/hooks';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import {
 	createContext,
 	useCallback,
@@ -7,7 +7,7 @@ import {
 	useState,
 } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import API from '../api';
+import APISettings from '../api';
 
 const PluginSettingsContext = createContext({});
 
@@ -17,7 +17,7 @@ export const PluginSettingsProvider = ({ children }) => {
 	const [loaded, setLoaded] = useState(false);
 
 	const refreshPluginSettings = useCallback(() => {
-		API.getPluginSettings()
+		APISettings.getPluginSettings()
 			.then((settings) => {
 				if ('isConnected' in settings) {
 					settings.isConnected = Boolean(settings.isConnected);
