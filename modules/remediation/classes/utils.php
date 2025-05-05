@@ -109,12 +109,8 @@ class Utils {
 		return 'unknown';
 	}
 
-	public static function get_current_page_hash() : string {
-		return self::get_hash( self::get_current_page_url() );
-	}
-
-	public static function get_hash( $url ) : string {
-		return md5( $url );
+	public static function get_hash( $text ) : string {
+		return md5( $text );
 	}
 
 	public static function sanitize_object_for_sql_json( $input ) {

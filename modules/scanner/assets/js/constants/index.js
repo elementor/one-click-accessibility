@@ -35,7 +35,7 @@ export const BLOCK_TITLES = {
 	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
 	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
 	keyboardAssistiveTech: __(
-		'Keyboard and Assistive Technologies',
+		'Keyboard & Assistive Technologies',
 		'pojo-accessibility',
 	),
 	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
@@ -52,7 +52,7 @@ export const BLOCK_INFO = {
 	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
 	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
 	keyboardAssistiveTech: __(
-		'Keyboard and Assistive Technologies',
+		'Keyboard & Assistive Technologies',
 		'pojo-accessibility',
 	),
 	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),

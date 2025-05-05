@@ -2,6 +2,7 @@
 
 namespace EA11y\Modules\Remediation\Database;
 
+use DOMDocument;
 use EA11y\Classes\Database\Entry;
 use EA11y\Classes\Logger;
 use EA11y\Modules\Remediation\Classes\Utils;
@@ -45,9 +46,6 @@ class Page_Entry extends Entry {
 		if ( empty( $this->entry_data[ Page_Table::URL ] ) ) {
 			throw new Missing_URL();
 		}
-		if ( empty( $this->hash ) ) {
-			$this->hash = Utils::get_hash( $this->entry_data[ Page_Table::URL ] );
-		}
 		$this->entry_data[ Page_Table::REMEDIATIONS ] = (array) $this->entry_data[ Page_Table::REMEDIATIONS ];
 
 		parent::create( $id );
@@ -74,15 +72,48 @@ class Page_Entry extends Entry {
 	}
 
 	/**
-	 *  get_remediation
+	 *  append_remediation
 	 *
-	 * @return array $remediation
+	 * @param string $html
+	 * @return Page_Entry|null
 	 */
-	public function get_remediations() : array {
-		if ( key_exists( Page_Table::REMEDIATIONS, $this->entry_data ) ) {
-			return json_decode( $this->entry_data[ Page_Table::REMEDIATIONS ], true );
+	public function update_html( string $html ) : ?Page_Entry {
+		if ( ! $html ) {
+			return null;
 		}
-		return [];
+
+		$this->entry_data[ Page_Table::HASH ] = Utils::get_hash( $this->entry_data[ Page_Table::REMEDIATIONS ] );
+		$this->entry_data[ Page_Table::FULL_HTML ] = $html;
+
+		$this->save();
+
+		return $this;
+	}
+
+	/**
+	 *  get_page_data
+	 *
+	 * @return array $data
+	 */
+	public function get_page_data() : array {
+		return [
+			'remediations' => key_exists( Page_Table::REMEDIATIONS, $this->entry_data )
+				? json_decode( $this->entry_data[ Page_Table::REMEDIATIONS ], true )
+				: [],
+			'html' => key_exists( Page_Table::FULL_HTML, $this->entry_data )
+				? $this->entry_data[ Page_Table::FULL_HTML ]
+				: '',
+		];
+	}
+
+	/**
+	 *  is_valid_hash
+	 *
+	 * @return bool
+	 */
+	public function is_valid_hash() : bool {
+		$current_hash = Utils::get_hash( $this->entry_data[ Page_Table::REMEDIATIONS ] );
+		return ! empty( $this->entry_data[ Page_Table::HASH ] ) && $this->entry_data[ Page_Table::HASH ] === $current_hash;
 	}
 
 	public function to_json() : string {
