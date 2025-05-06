@@ -32,7 +32,8 @@
     "ext-curl": "*",
     "ext-exif": "*",
     "ext-dom": "*",
-    "ext-libxml": "*"
+    "ext-libxml": "*",
+    "elementor/wp-notifications-package": "^1.2.0"
   },
   "config": {
     "allow-plugins": {

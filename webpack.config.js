@@ -12,6 +12,11 @@ const entryPoints = {
 		'assets/dev/css',
 		'ea11y-scanner-wizard.css',
 	),
+	'gutenberg-custom-link': path.resolve(
+		process.cwd(),
+		'modules/widget/assets/js',
+		'ally-gutenberg-block.js',
+	),
 };
 
 // React JSX Runtime Polyfill
@@ -86,5 +91,6 @@ module.exports = [
 			],
 		},
 	},
+
 	reactJSXRuntimePolyfill,
 ];

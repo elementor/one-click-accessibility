@@ -188,6 +188,7 @@ class Module extends Module_Base {
 	public static function component_list(): array {
 		return [
 			'Cache_Compatibility',
+			'Gutenberg_Link',
 		];
 	}
 
@@ -200,6 +201,14 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * register_dynamic_tag
+	 * @param \Elementor\Core\DynamicTags\Manager $dynamic_tags_manager
+	 */
+	function register_dynamic_tag( $dynamic_tags_manager ) {
+		$dynamic_tags_manager->register( new Components\Ally_Trigger() );
+	}
+
+	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
@@ -209,5 +218,8 @@ class Module extends Module_Base {
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_accessibility_widget_admin' ] );
 		// Add referrer policy to widget script tag
 		add_filter( 'script_loader_tag', [ $this, 'script_loader_tag' ], 10, 3 );
+
+		// elementor dynamic tag
+		add_action( 'elementor/dynamic_tags/register', [ $this, 'register_dynamic_tag' ] );
 	}
 }

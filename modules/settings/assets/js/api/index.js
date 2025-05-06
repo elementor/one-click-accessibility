@@ -102,6 +102,13 @@ class APISettings extends API {
 			path,
 		});
 	}
+
+	static async getNotifications() {
+		return API.request({
+			method: 'GET',
+			path: `${v1Prefix}/whats-new`,
+		});
+	}
 }
 
 export default APISettings;
