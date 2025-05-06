@@ -45,7 +45,7 @@ class Add_Remediation extends Route_Base {
 				] );
 			}
 
-			$remediation = Utils::sanitize_object_for_sql_json( $request->get_param( 'remediation' ) );
+			$remediation = Utils::sanitize_object( $request->get_param( 'remediation' ) );
 			$page->append_remediation( $remediation );
 
 			return $this->respond_success_json( [

@@ -45,23 +45,34 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const violation = results?.summary?.counts?.violation;
 
+	const registerPage = async (data, sorted) => {
+		try {
+			if (window?.ea11yScannerData?.pageData?.unregistered) {
+				await APIScanner.registerPage(
+					window?.ea11yScannerData?.pageData,
+					data.summary,
+				);
+			}
+			setResults(data);
+			setSortedViolations(sorted);
+			setAltTextData([]);
+			setManualData(structuredClone(MANUAL_GROUPS));
+			setResolved(0);
+		} catch (e) {
+			setIsError(true);
+		}
+	};
+
 	const getResults = () => {
 		setLoading(true);
 		window.ace
 			.check(document)
-			.then((data) => {
+			.then(async (data) => {
 				const filtered = data.results.filter(
 					(item) => item.level === 'violation',
 				);
 				const sorted = sortViolations(filtered);
-				setResults(data);
-				setSortedViolations(sorted);
-				setAltTextData([]);
-				setManualData(structuredClone(MANUAL_GROUPS));
-				setResolved(0);
-				if (window?.ea11yScannerData?.pageData?.unregistered) {
-					void APIScanner.registerPage();
-				}
+				await registerPage(data, sorted);
 			})
 			.catch(() => {
 				setIsError(true);

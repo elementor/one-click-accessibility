@@ -113,7 +113,7 @@ class Utils {
 		return md5( $text );
 	}
 
-	public static function sanitize_object_for_sql_json( $input ) {
+	public static function sanitize_object( $input ) {
 		// Convert object to array if needed
 		if ( is_object( $input ) ) {
 			$input = (array) $input;
