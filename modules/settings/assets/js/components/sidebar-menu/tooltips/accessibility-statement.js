@@ -22,6 +22,7 @@ const AccessibilityStatementTooltip = () => {
 			<CardHeader
 				title={__('Accessibility statement generator', 'pojo-accessibility')}
 			/>
+
 			<CardContent>
 				<Typography variant="body2" color="text.secondary">
 					{__(
@@ -30,11 +31,13 @@ const AccessibilityStatementTooltip = () => {
 					)}
 				</Typography>
 			</CardContent>
+
 			<CardActions>
 				<Button
 					size="small"
 					variant="contained"
 					color="info"
+					tabIndex="0"
 					onClick={() => {
 						if ('accessibility-statement' !== selectedMenu) {
 							setSelectedMenu('accessibility-statement');
@@ -48,7 +51,7 @@ const AccessibilityStatementTooltip = () => {
 	);
 
 	return (
-		<Infotip placement="right" content={TooltipCard}>
+		<Infotip placement="right" content={TooltipCard} tabIndex="0">
 			<InfoCircleIcon color="info" sx={{ ml: 1 }} />
 		</Infotip>
 	);
