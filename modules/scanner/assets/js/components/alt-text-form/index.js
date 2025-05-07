@@ -121,18 +121,18 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 										},
 									}}
 								>
-									{loadingAiText ? (
-										<CircularProgress color="info" size={34} />
-									) : (
-										<IconButton
-											size="small"
-											aria-labelledby="ai-btn-description"
-											onClick={generateAltText}
-											disabled={loadingAiText}
-										>
+									<IconButton
+										size="small"
+										aria-labelledby="ai-btn-description"
+										onClick={generateAltText}
+										disabled={loadingAiText}
+									>
+										{loadingAiText ? (
+											<CircularProgress color="info" size={24} />
+										) : (
 											<AIIcon color="info" />
-										</IconButton>
-									)}
+										)}
+									</IconButton>
 								</Tooltip>
 							</InputAdornment>
 						),
