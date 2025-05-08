@@ -5,6 +5,7 @@ import { styled } from '@elementor/ui/styles';
 import { WidgetIcon } from '@ea11y/components';
 import { useIconDesign } from '@ea11y/hooks';
 import { useEffect, useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import { getOptionByValue } from '../../helpers/accessibility-options';
 
 const IconOptionWrapper = ({ iconType, option, clickHandler }) => {
@@ -12,11 +13,8 @@ const IconOptionWrapper = ({ iconType, option, clickHandler }) => {
 	const [showCustomLabel, setShowCustomLabel] = useState(false);
 
 	useEffect(() => {
-		if (option.value === 'custom' && iconType === 'select') {
-			setShowCustomLabel(true);
-		} else {
-			setShowCustomLabel(false);
-		}
+		const isCustom = option.value === 'custom' && iconType === 'select';
+		setShowCustomLabel(isCustom);
 	}, []);
 	const icon =
 		'select' === iconType
@@ -49,7 +47,9 @@ const IconOptionWrapper = ({ iconType, option, clickHandler }) => {
 				borderWidth: selectVerifier === option.value ? 2 : 1,
 			}}
 		>
-			{showCustomLabel && <StyledChip label="Custom" size="small" />}
+			{showCustomLabel && (
+				<StyledChip label={__('Custom', 'pojo-accessibility')} size="small" />
+			)}
 			<WidgetIcon
 				icon={icon}
 				size={size}

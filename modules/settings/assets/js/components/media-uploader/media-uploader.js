@@ -42,12 +42,12 @@ const MediaUploader = () => {
 
 	const openCustomMediaFrame = () => {
 		const frame = window.wp.media({
-			title: 'Select SVG Icon',
+			title: __('Select SVG Icon', 'pojo-accessibility'),
 			library: {
 				type: 'image/svg+xml',
 			},
 			button: {
-				text: 'Use this SVG',
+				text: __('Use this SVG', 'pojo-accessibility'),
 			},
 			multiple: false,
 		});

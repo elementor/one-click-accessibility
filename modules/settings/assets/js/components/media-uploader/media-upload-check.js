@@ -1,7 +1,7 @@
 import CircularProgress from '@elementor/ui/CircularProgress';
 import { useSelect } from '@wordpress/data';
 
-export default function MediaUploadCheck(props) {
+const MediaUploadCheck = (props) => {
 	const { fallback = null, children } = props;
 
 	const { checkingPermissions, hasUploadPermissions } = useSelect((select) => {
@@ -21,4 +21,6 @@ export default function MediaUploadCheck(props) {
 			{!checkingPermissions && hasUploadPermissions ? children : fallback}
 		</>
 	);
-}
+};
+
+export default MediaUploadCheck;
