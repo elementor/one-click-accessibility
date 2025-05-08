@@ -46,7 +46,11 @@ class Page_Entry extends Entry {
 		if ( empty( $this->entry_data[ Page_Table::URL ] ) ) {
 			throw new Missing_URL();
 		}
+		$date_time = gmdate( 'Y-m-d H:i:s' );
+
 		$this->entry_data[ Page_Table::REMEDIATIONS ] = (array) $this->entry_data[ Page_Table::REMEDIATIONS ];
+		$this->entry_data[ Page_Table::CREATED_AT ] = $date_time;
+		$this->entry_data[ Page_Table::UPDATED_AT ] = $date_time;
 
 		parent::create( $id );
 	}
@@ -65,7 +69,9 @@ class Page_Entry extends Entry {
 		}
 
 		$remediations[] = $remediation;
+		$date_time = gmdate( 'Y-m-d H:i:s' );
 		$this->entry_data[ Page_Table::REMEDIATIONS ] = wp_json_encode( $remediations );
+		$this->entry_data[ Page_Table::UPDATED_AT ] = $date_time;
 		$this->save();
 
 		return $this;
@@ -82,7 +88,7 @@ class Page_Entry extends Entry {
 			return null;
 		}
 
-		$this->entry_data[ Page_Table::HASH ] = Utils::get_hash( $this->entry_data[ Page_Table::REMEDIATIONS ] );
+		$this->entry_data[ Page_Table::HASH ] = Utils::get_hash( $this->entry_data[ Page_Table::UPDATED_AT ] );
 		$this->entry_data[ Page_Table::FULL_HTML ] = $html;
 
 		$this->save();
@@ -112,7 +118,7 @@ class Page_Entry extends Entry {
 	 * @return bool
 	 */
 	public function is_valid_hash() : bool {
-		$current_hash = Utils::get_hash( $this->entry_data[ Page_Table::REMEDIATIONS ] );
+		$current_hash = Utils::get_hash( $this->entry_data[ Page_Table::UPDATED_AT ] );
 		return ! empty( $this->entry_data[ Page_Table::HASH ] ) && $this->entry_data[ Page_Table::HASH ] === $current_hash;
 	}
 

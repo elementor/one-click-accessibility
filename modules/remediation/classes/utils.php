@@ -112,20 +112,4 @@ class Utils {
 	public static function get_hash( $text ) : string {
 		return md5( $text );
 	}
-
-	public static function sanitize_object_for_sql_json( $input ) {
-		// Convert object to array if needed
-		if ( is_object( $input ) ) {
-			$input = (array) $input;
-		}
-
-		// Recursively sanitize
-		array_walk_recursive($input, function ( &$value ) {
-			if ( is_string( $value ) ) {
-				$value = sanitize_text_field( $value );
-			}
-		});
-
-		return $input;
-	}
 }

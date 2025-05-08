@@ -23,4 +23,20 @@ class Utils {
 		$installed_plugins = get_plugins();
 		return isset( $installed_plugins[ $file_path ] );
 	}
+
+	public static function sanitize_object( $input ) {
+		// Convert an object to array if needed
+		if ( is_object( $input ) ) {
+			$input = (array) $input;
+		}
+
+		// Recursively sanitize
+		array_walk_recursive($input, function ( &$value ) {
+			if ( is_string( $value ) ) {
+				$value = sanitize_text_field( $value );
+			}
+		});
+
+		return $input;
+	}
 }

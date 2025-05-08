@@ -8,6 +8,7 @@ import App from '@ea11y-apps/scanner/app';
 import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/constants';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
+import { isRtl } from '@ea11y-apps/scanner/utils/is-rtl';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -52,7 +53,7 @@ const initApp = () => {
 		key: 'css',
 		prepend: true,
 		container: shadowContainer,
-		stylisPlugins: [prefixer, rtlPlugin],
+		stylisPlugins: isRtl() ? [prefixer, rtlPlugin] : [],
 	});
 
 	const shadowTheme = createTheme({
