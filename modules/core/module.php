@@ -20,6 +20,7 @@ class Module extends Module_Base {
 			'Notices',
 			'Skip_Link',
 			'Revert_To_Legacy',
+			'Svg',
 		];
 	}
 

@@ -1,31 +1,107 @@
+import { UploadIcon } from '@elementor/icons';
 import Button from '@elementor/ui/Button';
-import { MediaUpload } from '@wordpress/block-editor';
-import { useState } from '@wordpress/element';
+import { ConfirmDialog } from '@ea11y/components';
+import { useIconDesign, useStorage } from '@ea11y/hooks';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import API from '../../api';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 import MediaUploadCheck from './media-upload-check';
 
 const MediaUploader = () => {
-	const [mediaId, setMediaId] = useState(null);
-	const [mediaUrl, setMediaUrl] = useState(null);
+	const [showUnfilteredDialog, setShowUnfilteredDialog] = useState(false);
+	const { iconDesign, updateIconDesign } = useIconDesign();
+	const { unfilteredUploads } = usePluginSettingsContext();
+	const { save } = useStorage();
+	const [uploadButtonText, setUploadButtonText] = useState(
+		__('Add custom icon', 'pojo-accessibility'),
+	);
 
-	console.log(mediaUrl);
+	useEffect(() => {
+		if (iconDesign?.custom?.url) {
+			setUploadButtonText(__('Change custom icon', 'pojo-accessibility'));
+		}
+	}, []);
+
+	const handleSelectCustomIcon = async (mediaData) => {
+		const svg = await API.getMedia(mediaData.url);
+
+		const iconData = {
+			icon: 'custom',
+			custom: {
+				...iconDesign.custom,
+				id: mediaData.id,
+				url: mediaData.url,
+				mime: mediaData.mime,
+				svg,
+			},
+		};
+
+		updateIconDesign(iconData);
+	};
+
+	const openCustomMediaFrame = () => {
+		const frame = window.wp.media({
+			title: 'Select SVG Icon',
+			library: {
+				type: 'image/svg+xml',
+			},
+			button: {
+				text: 'Use this SVG',
+			},
+			multiple: false,
+		});
+
+		frame.on('select', async () => {
+			const media = frame.state().get('selection').first().toJSON();
+
+			// Inject your SVG handling here
+			await handleSelectCustomIcon(media);
+		});
+
+		// Inject custom source info
+		frame.uploader.options.uploader.params = {
+			upload_source: 'ea11y-custom-icon',
+		};
+
+		frame.open();
+	};
+
+	const handleOpen = () => {
+		if (!unfilteredUploads) {
+			setShowUnfilteredDialog(true);
+			return;
+		}
+		openCustomMediaFrame();
+	};
 
 	return (
-		<MediaUploadCheck>
-			<MediaUpload
-				onSelect={(media) => {
-					console.log('selected ' + media);
-					setMediaUrl(media.url);
-					setMediaId(media.id);
+		<>
+			<MediaUploadCheck>
+				<Button color="info" onClick={handleOpen} startIcon={<UploadIcon />}>
+					{uploadButtonText}
+				</Button>
+			</MediaUploadCheck>
+
+			<ConfirmDialog
+				open={showUnfilteredDialog}
+				title={__('Allow SVG upload', 'pojo-accessibility')}
+				approveText={__('Allow SVG upload', 'pojo-accessibility')}
+				onApprove={async () => {
+					await save({
+						ea11y_unfiltered_files_upload: true,
+					});
+					setShowUnfilteredDialog(false);
+					window.location.reload();
 				}}
-				value={mediaId}
-				render={({ open }) => (
-					<Button onClick={open}>
-						{__('Add custom icon', 'pojo-accessibility')}
-					</Button>
+				onCancel={() => setShowUnfilteredDialog(false)}
+			>
+				{__(
+					'To upload SVG files, you need to enable unfiltered uploads.',
+					'pojo-accessibility',
 				)}
-			/>
-		</MediaUploadCheck>
+			</ConfirmDialog>
+		</>
 	);
 };
 

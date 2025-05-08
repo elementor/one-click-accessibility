@@ -27,7 +27,10 @@
   },
   "require": {
     "firebase/php-jwt": "^6.10",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-libxml": "*",
+    "ext-zlib": "*",
+    "ext-dom": "*"
   },
   "config": {
     "allow-plugins": {

@@ -1,5 +1,6 @@
 import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
+import { CustomIcon } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { cloneElement } from '@wordpress/element';
 
@@ -76,7 +77,8 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 					height: innerBoxHeight,
 				}}
 			>
-				{cloneElement(icon, { size: iconSize / 2.5 })}
+				{type !== 'custom' && cloneElement(icon, { size: iconSize / 2.5 })}
+				{type === 'custom' && <CustomIcon size={iconSize / 2.5} />}
 			</StyledIconInnerWrapper>
 		</StyledIconWrapper>
 	);
