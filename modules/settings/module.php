@@ -1,13 +1,19 @@
 <?php
 namespace EA11y\Modules\Settings;
 
-use EA11y\Modules\Core\Components\{Notices, Svg};
+use EA11y\Modules\Core\Components\{
+  Notices,
+	Svg
+};
 use EA11y\Classes\{
 	Module_Base,
 	Utils,
 	Logger
 };
-use EA11y\Modules\Connect\Classes\{Config, Data};
+use EA11y\Modules\Connect\Classes\{
+  Config,
+	Data
+};
 
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
@@ -23,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 	const SETTING_PREFIX     = 'ea11y_';
 	const SETTING_GROUP      = 'ea11y_settings';
-	const SETTING_BASE_SLUG  = 'accessibility-settings'; //TODO: Change this later
+	const SETTING_BASE_SLUG  = 'accessibility-settings';
 	const SETTING_CAPABILITY = 'manage_options';
 	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
 

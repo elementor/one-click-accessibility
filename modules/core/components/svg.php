@@ -23,43 +23,43 @@ class Svg {
 	}
 
     /**
-     * Get Mime Type
-     *
-     * Returns the file type's mime type
-     *
-     * @access public
-     *
-     * @return string mime type
-     */
+    * Get Mime Type
+    *
+    * Returns the file type's mime type
+    *
+    * @access public
+    *
+    * @return string mime type
+    */
     public function get_mime_type(): string {
         return 'image/svg+xml';
     }
 
-	/**
-	 * Is Unfiltered Uploads Enabled?
-	 *
-	 * @access public
-	 *
-	 * @return bool
-	 */
+    /**
+    * Is Unfiltered Uploads Enabled?
+    *
+    * @access public
+    *
+    * @return bool
+    */
 	public static function are_unfiltered_uploads_enabled(): bool {
 		$enabled = (bool) get_option( self::UNFILTERED_FILE_UPLOADS_KEY );
 
-		/**
-		 * Allow Unfiltered Files Upload.
-		 *
-		 * Determines whether to enable unfiltered file uploads.
-		 *
-		 * @param bool $enabled Whether upload is enabled or not.
-		 */
+        /**
+        * Allow Unfiltered Files Upload.
+        *
+        * Determines whether to enable unfiltered file uploads.
+        *
+        * @param bool $enabled Whether upload is enabled or not.
+        */
 		return apply_filters( 'ea11y/files/allow_unfiltered_upload', $enabled );
 	}
 
-	/**
-	 * Set Unfiltered Files Upload
-	 *
-	 * @access public
-	 */
+    /**
+    * Set Unfiltered Files Upload
+    *
+    * @access public
+    */
 	public function enable_unfiltered_files_upload(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
@@ -71,16 +71,16 @@ class Svg {
         add_filter( 'upload_mimes', [ $this, 'add_svg_to_upload_list' ] );
 	}
 
-	/**
-	 * Handle EA11Y WP Media Upload
-	 *
-	 * Runs on the 'wp_handle_upload_prefilter' filter.
-	 *
-	 * @access public
-	 *
-	 * @param $file
-	 * @return mixed
-	 */
+    /**
+    * Handle EA11Y WP Media Upload
+    *
+    * Runs on the 'wp_handle_upload_prefilter' filter.
+    *
+    * @access public
+    *
+    * @param $file
+    * @return mixed
+    */
 	public function handle_ea11y_wp_media_upload( $file ) {
 
 		if ( ! self::are_unfiltered_uploads_enabled() ) {
@@ -102,9 +102,9 @@ class Svg {
 	}
 
     /**
-     * @param  $mimes
-     * @return mixed
-     */
+    * @param  $mimes
+    * @return mixed
+    */
     public function add_svg_to_upload_list ($mimes) {
         if ( ! current_user_can( 'manage_options' ) ) {
             return $mimes;
@@ -120,36 +120,36 @@ class Svg {
     }
 
     /**
-     * Sanitize SVG
-     *
-     * @access public
-     *
-     * @param $filename
-     * @return bool
-     */
+    * Sanitize SVG
+    *
+    * @access public
+    *
+    * @param $filename
+    * @return bool
+    */
     public function sanitize_svg( $filename ): bool {
         return ( new SVG_Sanitizer() )->sanitize_file( $filename );
     }
 
     /**
-     * Is EA11Y WP Media Upload
-     *
-     * Checks whether the current request is a request to upload files into the WP Media Library via EA11Y.
-     *
-     * @access private
-     *
-     * @return bool
-     */
+    * Is EA11Y WP Media Upload
+    *
+    * Checks whether the current request is a request to upload files into the WP Media Library via EA11Y.
+    *
+    * @access private
+    *
+    * @return bool
+    */
     private function is_ea11y_wp_media_upload() : bool {
         return isset( $_REQUEST['upload_source'] ) && 'ea11y-custom-icon' === $_REQUEST['upload_source'];
     }
 
     /**
-     * Check if the mime type for the uploaded file is allowed in the WordPress upload list.
-     *
-     * @param $file_mime_type
-     * @return bool
-     */
+    * Check if the mime type for the uploaded file is allowed in the WordPress upload list.
+    *
+    * @param $file_mime_type
+    * @return bool
+    */
     private function is_file_type_allowed($file_mime_type): bool {
         $allowed_file_types = get_allowed_mime_types();
 
@@ -164,13 +164,13 @@ class Svg {
     }
 
     /**
-     * Validate File
-     *
-     * @access public
-     *
-     * @param $file
-     * @return bool|\WP_Error
-     */
+    * Validate File
+    *
+    * @access public
+    *
+    * @param $file
+    * @return bool|\WP_Error
+    */
     public function validate_file( $file ) {
 
         if ( ! $this->is_file_type_allowed($file['type'])) {
