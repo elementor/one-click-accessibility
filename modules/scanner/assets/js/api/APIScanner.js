@@ -14,6 +14,17 @@ export class APIScanner extends API {
 		});
 	}
 
+	static async addScanResults(url, summary) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/scanner/scan-results`,
+			data: {
+				url,
+				summary,
+			},
+		});
+	}
+
 	static async submitAltText(url, text) {
 		return APIScanner.request({
 			method: 'POST',

@@ -22,6 +22,7 @@ class Module extends Module_Base {
 	public static function routes_list(): array {
 		return [
 			'Generate_Alt_Text',
+			'Scan_Results',
 		];
 	}
 

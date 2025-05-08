@@ -67,7 +67,7 @@ class Register extends Route_Base {
 				[
 					'api_key' => $plan_data->public_api_key,
 					'page_url' => $url,
-					'summary' => Utils::sanitize_object( $request->get_param( 'summary' ) ),
+					'summary' => Global_Utils::sanitize_object( $request->get_param( 'summary' ) ),
 				],
 				[],
 				true,

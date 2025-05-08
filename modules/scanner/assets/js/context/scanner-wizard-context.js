@@ -63,6 +63,19 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		}
 	};
 
+	const addScanResults = async (data) => {
+		try {
+			const initialScan = await APIScanner.addScanResults(
+				window?.ea11yScannerData?.pageData?.url,
+				data.summary,
+			);
+			console.log(initialScan);
+		} catch (e) {
+			console.error(e);
+			setIsError(true);
+		}
+	};
+
 	const getResults = () => {
 		setLoading(true);
 		window.ace
@@ -73,6 +86,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				);
 				const sorted = sortViolations(filtered);
 				await registerPage(data, sorted);
+				await addScanResults(data);
 			})
 			.catch(() => {
 				setIsError(true);

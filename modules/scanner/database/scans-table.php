@@ -20,8 +20,7 @@ class Scans_Table extends Table {
 	const DB_VERSION_FLAG_NAME = 'ea11y_scan_db_version';
 
 	const ID = 'id';
-	const PAGE_ID = 'page_id';
-	const RESULTS = 'results';
+	const URL = 'url';
 	const SUMMARY = 'summary';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
@@ -39,20 +38,13 @@ class Scans_Table extends Table {
 				] ),
 				'key' => Database_Constants::get_primary_key_string( self::ID ),
 			],
-			self::PAGE_ID => [
-				'type' => Database_Constants::get_col_type( Database_Constants::INT, 11 ),
-				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::UNSIGNED,
-					Database_Constants::NOT_NULL,
-				] ),
-				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::PAGE_ID ),
-			],
-			self::RESULTS => [
-				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
+			self::URL => [
+				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 2048 ),
 				'flags' => Database_Constants::build_flags_string( [
 					Database_Constants::DEFAULT,
 					'\'\'',
 				] ),
+				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::URL ),
 			],
 			self::SUMMARY => [
 				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
