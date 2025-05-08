@@ -1,5 +1,4 @@
 import Box from '@elementor/ui/Box';
-import Button from '@elementor/ui/Button';
 import Grid from '@elementor/ui/Grid';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
@@ -7,6 +6,7 @@ import ListItemText from '@elementor/ui/ListItemText';
 import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import Button from '@ea11y/components/button';
 import ConnectModalCheckIcon from '@ea11y/components/connect-modal/check-icon';
 import { useAuth, useModal } from '@ea11y/hooks';
 import { ConnectModalIcon } from '@ea11y/icons';
@@ -50,12 +50,16 @@ const ConnectModal = () => {
 	const { redirectToConnect } = useAuth();
 
 	return (
-		<Modal
-			open={isOpen}
-			aria-labelledby="connect-modal-title"
-			aria-describedby="connect-modal-description"
-		>
-			<StyledGrid container sx={{ boxShadow: 24 }}>
+		<Modal open={isOpen}>
+			<StyledGrid
+				container
+				tabindex="0"
+				sx={{ boxShadow: 24 }}
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="connect-modal-title"
+				aria-describedby="connect-modal-description"
+			>
 				<ConnectModalIcon />
 
 				<Typography

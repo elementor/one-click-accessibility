@@ -1,8 +1,8 @@
-import Button from '@elementor/ui/Button';
 import Grid from '@elementor/ui/Grid';
 import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import Button from '@ea11y/components/button';
 import { useModal, useStorage } from '@ea11y/hooks';
 import { PostConnectModalIcon } from '@ea11y/icons';
 import { eventNames, mixpanelService } from '@ea11y/services';
@@ -48,13 +48,15 @@ const PostConnectModal = () => {
 	};
 
 	return (
-		<Modal
-			open={isOpen}
-			onClose={onClose}
-			aria-labelledby="post-connect-modal-title"
-			aria-describedby="post-connect-modal-description"
-		>
-			<StyledGrid container sx={{ boxShadow: 24 }}>
+		<Modal open={isOpen} onClose={onClose}>
+			<StyledGrid
+				container
+				sx={{ boxShadow: 24 }}
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="post-connect-modal-title"
+				aria-describedby="post-connect-modal-description"
+			>
 				<PostConnectModalIcon />
 
 				<Typography

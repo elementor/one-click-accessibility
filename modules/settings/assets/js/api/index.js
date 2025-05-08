@@ -170,6 +170,13 @@ class API {
 			data,
 		});
 	}
+
+	static async getNotifications() {
+		return API.request({
+			method: 'GET',
+			path: `${v1Prefix}/whats-new`,
+		});
+	}
 }
 
 export default API;

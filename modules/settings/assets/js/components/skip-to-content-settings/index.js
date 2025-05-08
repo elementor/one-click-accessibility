@@ -63,23 +63,35 @@ const SkipToContentSettings = () => {
 		}
 	};
 
+	const titleTooltipText = __(
+		'This feature allows visitors with visual assistive tools to skip to the main content of each page they’re viewing.',
+		'pojo-accessibility',
+	);
+
+	const idTooltipText = __(
+		'This is the HTML ID of the main content area on your pages. Changing this is only needed if your theme uses a custom ID instead of the default #main-content.',
+		'pojo-accessibility',
+	);
+
 	return (
 		<Card variant="outlined" sx={{ padding: 2, marginBlock: 4 }}>
 			<StyledBox>
-				<StyledTypography variant="subtitle1" id="ea11y-skip-to-content-toggle">
+				<StyledTypography
+					variant="subtitle1"
+					id="ea11y-skip-to-content-toggle"
+					aria-description={titleTooltipText}
+				>
 					{__('Skip to main content', 'pojo-accessibility')}
+
 					<Infotip
+						tabIndex="0"
 						content={
 							<Box sx={{ p: 2, maxWidth: '250px' }}>
 								<Typography variant="subtitle2" sx={{ mb: 1 }}>
 									{__('Skip to main content', 'pojo-accessibility')}
 								</Typography>
-								<Typography variant="body2">
-									{__(
-										'This feature allows visitors with visual assistive tools to skip to the main content of each page they’re viewing.',
-										'pojo-accessibility',
-									)}
-								</Typography>
+
+								<Typography variant="body2">{titleTooltipText}</Typography>
 							</Box>
 						}
 						placement="right"
@@ -88,6 +100,7 @@ const SkipToContentSettings = () => {
 						<InfoCircleIcon fontSize="small" />
 					</Infotip>
 				</StyledTypography>
+
 				<StyledSwitch
 					size="medium"
 					color="info"
@@ -98,27 +111,30 @@ const SkipToContentSettings = () => {
 					}}
 				/>
 			</StyledBox>
+
 			<Typography variant="body1">
 				{__(
 					'Add skip to content link when using keyboard',
 					'pojo-accessibility',
 				)}
 			</Typography>
+
 			<StyledFormItem>
-				<StyledFormLabel htmlFor="skip-to-content-anchor">
+				<StyledFormLabel
+					htmlFor="skip-to-content-anchor"
+					aria-description={idTooltipText}
+				>
 					{__('Main content ID', 'pojo-accessibility')}
+
 					<Infotip
+						tabIndex="0"
 						content={
 							<Box sx={{ p: 2, maxWidth: '250px' }}>
 								<Typography variant="subtitle2" sx={{ mb: 1 }}>
 									{__('Skip to main content', 'pojo-accessibility')}
 								</Typography>
-								<Typography variant="body2">
-									{__(
-										'This is the HTML ID of the main content area on your pages. Changing this is only needed if your theme uses a custom ID instead of the default #main-content.',
-										'pojo-accessibility',
-									)}
-								</Typography>
+
+								<Typography variant="body2">{idTooltipText}</Typography>
 							</Box>
 						}
 						placement="right"
@@ -127,6 +143,7 @@ const SkipToContentSettings = () => {
 						<InfoCircleIcon fontSize="small" />
 					</Infotip>
 				</StyledFormLabel>
+
 				<Box>
 					<StyledTextField
 						id="skip-to-content-anchor"
@@ -138,6 +155,7 @@ const SkipToContentSettings = () => {
 						size="small"
 						variant="outlined"
 					/>
+
 					{hasError.skipToContent && (
 						<Typography
 							as="p"
