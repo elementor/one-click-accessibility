@@ -56,6 +56,8 @@ class Notices {
 		}
 		add_action( 'admin_notices', [ $this, 'show_notices' ] );
 		add_action( 'wp_ajax_' . self::AJAX_ACTION, [ $this, 'handle_dismiss' ] );
-		do_action( 'ea11y_register_notices', $this );
+		add_action('init', function () {
+			do_action( 'ea11y_register_notices', $this );
+		});
 	}
 }
