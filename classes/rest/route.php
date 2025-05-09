@@ -34,11 +34,6 @@ abstract class Route {
 	protected $namespace = 'ea11y/v1';
 
 	/**
-	 * @var bool
-	 */
-	protected $override = false;
-
-	/**
 	 * @var array The valid HTTP methods. The list represents the general REST methods. Do not modify.
 	 */
 	private $valid_http_methods = [
