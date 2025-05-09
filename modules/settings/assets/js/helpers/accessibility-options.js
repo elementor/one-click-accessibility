@@ -33,6 +33,11 @@ const options = [
 		icon: <AccessibilityTextIcon sx={optionStyle} />,
 		label: __('Accessibility Text Badge Icon', 'pojo-accessibility'),
 	},
+	{
+		value: 'custom',
+		icon: <AccessibilityTextIcon sx={optionStyle} />,
+		label: __('Accessibility Custom Icon', 'pojo-accessibility'),
+	},
 ];
 
 // Export the options object

@@ -1,13 +1,19 @@
 <?php
 namespace EA11y\Modules\Settings;
 
-use EA11y\Modules\Core\Components\Notices;
+use EA11y\Modules\Core\Components\{
+  Notices,
+	Svg
+};
 use EA11y\Classes\{
 	Module_Base,
 	Utils,
 	Logger
 };
-use EA11y\Modules\Connect\Classes\{Config, Data};
+use EA11y\Modules\Connect\Classes\{
+  Config,
+	Data
+};
 
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
@@ -23,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 	const SETTING_PREFIX     = 'ea11y_';
 	const SETTING_GROUP      = 'ea11y_settings';
-	const SETTING_BASE_SLUG  = 'accessibility-settings'; //TODO: Change this later
+	const SETTING_BASE_SLUG  = 'accessibility-settings';
 	const SETTING_CAPABILITY = 'manage_options';
 	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
 
@@ -75,6 +81,8 @@ class Module extends Module_Base {
 			return;
 		}
 
+		wp_enqueue_media();
+
 		if ( version_compare( get_bloginfo( 'version' ), '6.6', '<' ) ) {
 			wp_register_script(
 				'react-jsx-runtime',
@@ -122,6 +130,7 @@ class Module extends Module_Base {
 	public static function routes_list() : array {
 		return [
 			'Get_Settings',
+			'Get_Media',
 		];
 	}
 
@@ -135,6 +144,7 @@ class Module extends Module_Base {
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
 			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 		];
 	}
 
@@ -439,6 +449,9 @@ class Module extends Module_Base {
 			'show_accessibility_generated_page_infotip' => [
 				'type' => 'boolean',
 			],
+			'unfiltered_files_upload' => [
+				'type' => 'boolean',
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {
@@ -507,6 +520,14 @@ class Module extends Module_Base {
 		}
 
 		return round( $plan_data->visits->used / $plan_data->visits->allowed * 100, 2 );
+	}
+
+	/**
+	 * @param $url
+	 * @return string|\WP_Error
+	 */
+	public static function get_media( $url ) {
+		return wp_remote_get( $url );
 	}
 
 	/**

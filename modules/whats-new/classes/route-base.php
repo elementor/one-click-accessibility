@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Route_Base extends Route {
 	protected $auth = true;
 	protected string $path = '';
+	protected bool $override = false;
 
 	public function get_methods(): array {
 		return [];

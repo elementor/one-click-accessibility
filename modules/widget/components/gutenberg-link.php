@@ -30,6 +30,6 @@ class Gutenberg_Link {
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'enqueue_custom_link_block_assets' ] );
-		add_filter( 'render_block_ally/custom-link', [ $this, 'enqueue_custom_link_block_frontend'] );
+		add_filter( 'render_block_ally/custom-link', [ $this, 'enqueue_custom_link_block_frontend' ] );
 	}
 }
