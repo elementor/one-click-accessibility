@@ -2,6 +2,7 @@ import { UploadIcon } from '@elementor/icons';
 import Button from '@elementor/ui/Button';
 import { ConfirmDialog } from '@ea11y/components';
 import { useIconDesign, useStorage } from '@ea11y/hooks';
+import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
@@ -38,6 +39,12 @@ const MediaUploader = () => {
 		};
 
 		updateIconDesign(iconData);
+
+		if (iconDesign?.custom?.url) {
+			mixpanelService.sendEvent(eventNames.customIconUpdated);
+		} else {
+			mixpanelService.sendEvent(eventNames.customIconAdded);
+		}
 	};
 
 	const openCustomMediaFrame = () => {
@@ -68,6 +75,12 @@ const MediaUploader = () => {
 	};
 
 	const handleOpen = () => {
+		if (iconDesign?.custom?.url) {
+			mixpanelService.sendEvent(eventNames.updateCustomIconClicked);
+		} else {
+			mixpanelService.sendEvent(eventNames.addCustomIconClicked);
+		}
+
 		if (!unfilteredUploads) {
 			setShowUnfilteredDialog(true);
 			return;
