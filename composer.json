@@ -28,6 +28,9 @@
   "require": {
     "firebase/php-jwt": "^6.10",
     "ext-json": "*",
+    "ext-libxml": "*",
+    "ext-zlib": "*",
+    "ext-dom": "*",
     "elementor/wp-notifications-package": "^1.2.0"
   },
   "config": {

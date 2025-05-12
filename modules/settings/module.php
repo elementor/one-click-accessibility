@@ -1,13 +1,19 @@
 <?php
 namespace EA11y\Modules\Settings;
 
-use EA11y\Modules\Core\Components\Notices;
+use EA11y\Modules\Core\Components\{
+	Notices,
+	Svg
+};
 use EA11y\Classes\{
 	Module_Base,
 	Utils,
 	Logger
 };
-use EA11y\Modules\Connect\Classes\{Config, Data};
+use EA11y\Modules\Connect\Classes\{
+	Config,
+	Data
+};
 
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
@@ -23,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 	const SETTING_PREFIX     = 'ea11y_';
 	const SETTING_GROUP      = 'ea11y_settings';
-	const SETTING_BASE_SLUG  = 'accessibility-settings'; //TODO: Change this later
+	const SETTING_BASE_SLUG  = 'accessibility-settings';
 	const SETTING_CAPABILITY = 'manage_options';
 	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
 
@@ -61,8 +67,8 @@ class Module extends Module_Base {
 
 	private function get_menu_icon() : string {
 		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 383 383">
-                    <path fill="#a7aaad" d="M191.47,0C85.73,0,0,85.73,0,191.47s85.73,191.47,191.47,191.47,191.47-85.73,191.47-191.47S297.22,0,191.47,0ZM191.47,64.82c15.33,0,27.75,12.42,27.75,27.75s-12.42,27.75-27.75,27.75-27.75-12.42-27.75-27.75,12.42-27.75,27.75-27.75ZM296.71,150.59l-51.42,9.25c-9.25.3-16.6,7.89-16.6,17.14l5.14,126.4c0,8.16-6.6,14.76-14.76,14.76-7.72,0-14.12-5.96-14.72-13.65l-4.65-61.58c-.3-3.88-3.54-6.88-7.42-6.88s-7.12,2.99-7.42,6.88l-4.65,61.58c-.57,7.69-7,13.65-14.71,13.65-8.16,0-14.77-6.6-14.77-14.76l5.52-137.01,40.04-2.92-63.61-6.75-46.45-6.13c-10.16-1.16-15.66-7-15.66-16.12s7.57-16.42,16.67-16.12l61.85,9.72c28.07,2.77,55.77,2.84,83.1,0l63.51-9.74v.02c9.1-.3,16.64,7.02,16.64,16.15s-5.42,14.32-15.65,16.12Z"/>
-                </svg>';
+										<path fill="#a7aaad" d="M191.47,0C85.73,0,0,85.73,0,191.47s85.73,191.47,191.47,191.47,191.47-85.73,191.47-191.47S297.22,0,191.47,0ZM191.47,64.82c15.33,0,27.75,12.42,27.75,27.75s-12.42,27.75-27.75,27.75-27.75-12.42-27.75-27.75,12.42-27.75,27.75-27.75ZM296.71,150.59l-51.42,9.25c-9.25.3-16.6,7.89-16.6,17.14l5.14,126.4c0,8.16-6.6,14.76-14.76,14.76-7.72,0-14.12-5.96-14.72-13.65l-4.65-61.58c-.3-3.88-3.54-6.88-7.42-6.88s-7.12,2.99-7.42,6.88l-4.65,61.58c-.57,7.69-7,13.65-14.71,13.65-8.16,0-14.77-6.6-14.77-14.76l5.52-137.01,40.04-2.92-63.61-6.75-46.45-6.13c-10.16-1.16-15.66-7-15.66-16.12s7.57-16.42,16.67-16.12l61.85,9.72c28.07,2.77,55.77,2.84,83.1,0l63.51-9.74v.02c9.1-.3,16.64,7.02,16.64,16.15s-5.42,14.32-15.65,16.12Z"/>
+								</svg>';
 
 		return 'data:image/svg+xml;base64,' . base64_encode( $svg );
 	}
@@ -74,6 +80,8 @@ class Module extends Module_Base {
 		if ( self::SETTING_PAGE_SLUG !== $hook ) {
 			return;
 		}
+
+		wp_enqueue_media();
 
 		if ( version_compare( get_bloginfo( 'version' ), '6.6', '<' ) ) {
 			wp_register_script(
@@ -122,6 +130,7 @@ class Module extends Module_Base {
 	public static function routes_list() : array {
 		return [
 			'Get_Settings',
+			'Get_Media',
 		];
 	}
 
@@ -135,6 +144,7 @@ class Module extends Module_Base {
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'isRTL' => is_rtl(),
 			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 		];
 	}
 
@@ -439,6 +449,9 @@ class Module extends Module_Base {
 			'show_accessibility_generated_page_infotip' => [
 				'type' => 'boolean',
 			],
+			'unfiltered_files_upload' => [
+				'type' => 'boolean',
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {
@@ -507,6 +520,14 @@ class Module extends Module_Base {
 		}
 
 		return round( $plan_data->visits->used / $plan_data->visits->allowed * 100, 2 );
+	}
+
+	/**
+	 * @param $url
+	 * @return string|\WP_Error
+	 */
+	public static function get_media( $url ) {
+		return wp_remote_get( $url );
 	}
 
 	/**

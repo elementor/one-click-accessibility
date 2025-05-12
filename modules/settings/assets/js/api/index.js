@@ -159,6 +159,18 @@ class API {
 		});
 	}
 
+	/**
+	 * @param {string} data URL string for the selected icon.
+	 * @return {Promise<any>} {}
+	 */
+	static async getMedia(data) {
+		return API.request({
+			method: 'POST',
+			path: `${v1Prefix}/settings/get-media`,
+			data,
+		});
+	}
+
 	static async getNotifications() {
 		return API.request({
 			method: 'GET',
