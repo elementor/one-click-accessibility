@@ -5,6 +5,7 @@ namespace EA11y\Modules\Scanner\Rest;
 use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Scanner\Classes\Route_Base;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
+use EA11y\Modules\Scanner\Database\Scans_Table;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
@@ -40,8 +41,14 @@ class Scan_Results extends Route_Base {
 			$url = esc_url_raw( $request->get_param( 'url' ) );
 			$summary = Global_Utils::sanitize_object( $request->get_param( 'summary' ) );
 
-			$scan = new Scan_Entry();
-			$scan->add_record( $url, $summary );
+			$scan = new Scan_Entry([
+				'data' => [
+					Scans_Table::URL => $url,
+					Scans_Table::SUMMARY => wp_json_encode( $summary ),
+				],
+			]);
+
+			$scan->save();
 
 			return $this->respond_success_json( [
 				'message' => 'Scan results added',

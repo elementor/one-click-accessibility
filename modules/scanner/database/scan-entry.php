@@ -19,19 +19,22 @@ class Scan_Entry extends Entry {
 	}
 
 	/**
-	 *  add_record
+	 *  get_initial_scan_result
 	 * @param string $url
-	 * @param array $summary
 	 *
-	 * @return Scan_Entry
+	 * @return array
 	 */
-	public function add_record( string $url, array $summary ) : Scan_Entry {
-
-		$this->entry_data[ Scans_Table::URL ] = $url;
-		$this->entry_data[ Scans_Table::SUMMARY ] = wp_json_encode( $summary );
-		$this->save();
-
-		return $this;
+	public static function get_initial_scan_result( string $url ) : array {
+		$where = [
+			[
+				'column' => Scans_Table::URL,
+				'value' => $url,
+				'operator' => '=',
+			],
+		];
+		$order_by = [ 'id' => 'asc' ];
+		$entries = Scans_Table::select( 'summary', $where, 1, null, '', $order_by );
+		return isset( $entries[0] ) ? json_decode( $entries[0]->summary, true ) : [];
 	}
 
 	/**

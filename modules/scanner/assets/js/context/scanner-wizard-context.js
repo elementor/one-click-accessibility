@@ -43,7 +43,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 
-	const violation = results?.summary?.counts?.violation;
+	const initialViolations =
+		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
+	const violation = Math.max(
+		initialViolations,
+		results?.summary?.counts?.violation ?? 0,
+	);
 
 	const registerPage = async (data, sorted) => {
 		try {
@@ -57,7 +62,11 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			setSortedViolations(sorted);
 			setAltTextData([]);
 			setManualData(structuredClone(MANUAL_GROUPS));
-			setResolved(0);
+			setResolved(
+				initialViolations > data.summary?.counts?.violation
+					? initialViolations - data.summary?.counts?.violation
+					: 0,
+			);
 		} catch (e) {
 			setIsError(true);
 		}
@@ -65,11 +74,10 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const addScanResults = async (data) => {
 		try {
-			const initialScan = await APIScanner.addScanResults(
+			await APIScanner.addScanResults(
 				window?.ea11yScannerData?.pageData?.url,
 				data.summary,
 			);
-			console.log(initialScan);
 		} catch (e) {
 			console.error(e);
 			setIsError(true);

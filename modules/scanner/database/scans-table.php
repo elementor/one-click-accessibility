@@ -21,6 +21,7 @@ class Scans_Table extends Table {
 
 	const ID = 'id';
 	const URL = 'url';
+	const RESULTS = 'results';
 	const SUMMARY = 'summary';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
@@ -45,6 +46,13 @@ class Scans_Table extends Table {
 					'\'\'',
 				] ),
 				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::URL ),
+			],
+			self::RESULTS => [
+				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					'\'\'',
+				] ),
 			],
 			self::SUMMARY => [
 				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
