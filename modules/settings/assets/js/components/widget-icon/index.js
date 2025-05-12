@@ -49,12 +49,19 @@ const WidgetIcon = ({ icon, size, radius, control, type }) => {
 			innerBoxWidth = size * 1.9 - 16;
 			innerBoxHeight = size - 16;
 		}
-	} else {
-		innerBoxWidth = size - 10;
-		innerBoxHeight = size - 10;
+	} else if (size === 44) {
+		innerBoxWidth = size - 14;
+		innerBoxHeight = size - 14;
 		if (type === 'text') {
-			innerBoxWidth = size * 1.9 - 10;
-			innerBoxHeight = size - 10;
+			innerBoxWidth = size * 1.9 - 14;
+			innerBoxHeight = size - 14;
+		}
+	} else {
+		innerBoxWidth = size - 12;
+		innerBoxHeight = size - 12;
+		if (type === 'text') {
+			innerBoxWidth = size * 1.9 - 12;
+			innerBoxHeight = size - 12;
 		}
 	}
 
