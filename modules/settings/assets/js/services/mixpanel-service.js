@@ -77,4 +77,8 @@ export const eventNames = {
 	filterSelected: 'filter_selected',
 	upgradeTooltipTriggered: 'upgrade_tooltip_triggered',
 	radiusChanged: 'radius_changed',
+	addCustomIconClicked: 'add_custom_icon_clicked',
+	updateCustomIconClicked: 'update_custom_icon_clicked',
+	customIconAdded: 'custom_icon_added',
+	customIconUpdated: 'custom_icon_updated',
 };
