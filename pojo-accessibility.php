@@ -32,10 +32,6 @@ final class Pojo_Accessibility {
 	 */
 	public static $instance = null;
 
-	public function i18n() {
-		load_plugin_textdomain( 'pojo-accessibility' );
-	}
-
 	/**
 	 * Throw error on object clone
 	 * The whole idea of the singleton design pattern is that there is a single
@@ -84,9 +80,6 @@ final class Pojo_Accessibility {
 	}
 
 	private function __construct() {
-		// Load translation
-		add_action( 'init', [ $this, 'i18n' ] );
-
 		// Init Plugin
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 	}
