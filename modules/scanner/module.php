@@ -5,6 +5,7 @@ namespace EA11y\Modules\Scanner;
 use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
+use EA11y\Modules\Scanner\Database\Scan_Entry;
 use EA11y\Modules\Scanner\Database\Scans_Table;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Remediation\Classes\Utils as Remediation_Utils;
@@ -22,6 +23,7 @@ class Module extends Module_Base {
 	public static function routes_list(): array {
 		return [
 			'Generate_Alt_Text',
+			'Scan_Results',
 		];
 	}
 
@@ -43,7 +45,7 @@ class Module extends Module_Base {
 	 * Enqueue Scripts
 	 */
 	public function enqueue_assets() : void {
-		if ( is_admin() || ! is_admin_bar_showing() ) {
+		if ( ! current_user_can( 'manage_options' ) || is_admin() || ! is_admin_bar_showing() ) {
 			return;
 		}
 
@@ -66,9 +68,11 @@ class Module extends Module_Base {
 
 		Utils\Assets::enqueue_app_assets( 'scanner', false );
 
+		$url = Remediation_Utils::get_current_page_url();
+
 		$page = new Page_Entry([
 			'by' => 'url',
-			'value' => Remediation_Utils::get_current_page_url(),
+			'value' => $url,
 		]);
 
 		wp_localize_script(
@@ -77,8 +81,9 @@ class Module extends Module_Base {
 			[
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
 				'scannerUrl' => self::get_scanner_wizard_url(),
+				'initialScanResult' => Scan_Entry::get_initial_scan_result( $url ),
 				'pageData' => [
-					'url' => Remediation_Utils::get_current_page_url(),
+					'url' => $url,
 					'title' => Remediation_Utils::get_current_page_title(),
 					'object_id' => Remediation_Utils::get_current_object_id(),
 					'object_type' => Remediation_Utils::get_current_object_type(),

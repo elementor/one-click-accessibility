@@ -3,7 +3,7 @@
 namespace EA11y\Modules\Scanner\Database;
 
 use EA11y\Classes\Database\Entry;
-use EA11y\Modules\Scanner\exceptions\Missing_Page_Id;
+use EA11y\Modules\Remediation\Exceptions\Missing_URL;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -19,6 +19,25 @@ class Scan_Entry extends Entry {
 	}
 
 	/**
+	 *  get_initial_scan_result
+	 * @param string $url
+	 *
+	 * @return array
+	 */
+	public static function get_initial_scan_result( string $url ) : array {
+		$where = [
+			[
+				'column' => Scans_Table::URL,
+				'value' => $url,
+				'operator' => '=',
+			],
+		];
+		$order_by = [ 'id' => 'asc' ];
+		$entries = Scans_Table::select( 'summary', $where, 1, null, '', $order_by );
+		return isset( $entries[0] ) ? json_decode( $entries[0]->summary, true ) : [];
+	}
+
+	/**
 	 * Create
 	 * used to ensure:
 	 *      the remediation is an array
@@ -27,11 +46,11 @@ class Scan_Entry extends Entry {
 	 *
 	 * @param string $id
 	 *
-	 * @throws Missing_Page_Id
+	 * @throws Missing_URL
 	 */
 	public function create( string $id = 'id' ) {
-		if ( empty( $this->entry_data[ page::URL ] ) ) {
-			throw new Missing_Page_Id();
+		if ( empty( $this->entry_data[ Scans_Table::URL ] ) ) {
+			throw new Missing_URL();
 		}
 
 		parent::create( $id );

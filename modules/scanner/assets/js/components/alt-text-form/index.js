@@ -4,6 +4,7 @@ import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Checkbox from '@elementor/ui/Checkbox';
+import CircularProgress from '@elementor/ui/CircularProgress';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import IconButton from '@elementor/ui/IconButton';
 
@@ -126,7 +127,11 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 										onClick={generateAltText}
 										disabled={loadingAiText}
 									>
-										<AIIcon color="info" />
+										{loadingAiText ? (
+											<CircularProgress color="info" size={24} />
+										) : (
+											<AIIcon color="info" />
+										)}
 									</IconButton>
 								</Tooltip>
 							</InputAdornment>

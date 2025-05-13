@@ -22,7 +22,6 @@ final class Manager {
 			'Widget',
 			'Core',
 			'Analytics',
-			'Analytics',
 			'whats-new',
 			'Remediation',
 			'Scanner',

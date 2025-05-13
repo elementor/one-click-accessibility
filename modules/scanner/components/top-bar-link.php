@@ -14,8 +14,7 @@ class Top_Bar_Link {
 
 	public function add_bar_link() {
 		add_action( 'admin_bar_menu', function ( \WP_Admin_Bar $wp_admin_bar ) {
-			// TODO: Add correct capability
-			if ( is_admin() ) {
+			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
 			// Define the SVG icon
@@ -36,8 +35,6 @@ class Top_Bar_Link {
 	 * Module constructor.
 	 */
 	public function __construct() {
-		if ( is_admin_bar_showing() ) {
-			$this->add_bar_link();
-		}
+		$this->add_bar_link();
 	}
 }

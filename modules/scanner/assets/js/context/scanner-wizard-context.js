@@ -43,25 +43,58 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 
-	const violation = results?.summary?.counts?.violation;
+	const initialViolations =
+		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
+	const violation = Math.max(
+		initialViolations,
+		results?.summary?.counts?.violation ?? 0,
+	);
+
+	const registerPage = async (data, sorted) => {
+		try {
+			if (window?.ea11yScannerData?.pageData?.unregistered) {
+				await APIScanner.registerPage(
+					window?.ea11yScannerData?.pageData,
+					data.summary,
+				);
+			}
+			setResults(data);
+			setSortedViolations(sorted);
+			setAltTextData([]);
+			setManualData(structuredClone(MANUAL_GROUPS));
+			setResolved(
+				initialViolations > data.summary?.counts?.violation
+					? initialViolations - data.summary?.counts?.violation
+					: 0,
+			);
+		} catch (e) {
+			setIsError(true);
+		}
+	};
+
+	const addScanResults = async (data) => {
+		try {
+			await APIScanner.addScanResults(
+				window?.ea11yScannerData?.pageData?.url,
+				data.summary,
+			);
+		} catch (e) {
+			console.error(e);
+			setIsError(true);
+		}
+	};
 
 	const getResults = () => {
 		setLoading(true);
 		window.ace
 			.check(document)
-			.then((data) => {
+			.then(async (data) => {
 				const filtered = data.results.filter(
 					(item) => item.level === 'violation',
 				);
 				const sorted = sortViolations(filtered);
-				setResults(data);
-				setSortedViolations(sorted);
-				setAltTextData([]);
-				setManualData(structuredClone(MANUAL_GROUPS));
-				setResolved(0);
-				if (window?.ea11yScannerData?.pageData?.unregistered) {
-					void APIScanner.registerPage();
-				}
+				await registerPage(data, sorted);
+				await addScanResults(data);
 			})
 			.catch(() => {
 				setIsError(true);

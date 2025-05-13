@@ -46,19 +46,37 @@ export const BLOCK_TITLES = {
 
 export const BLOCK_INFO = {
 	altText: __(
-		'Alt text helps visually impaired visitors using screen readers know what images show.',
+		"Clearly describe images so people using screen readers understand what's displayed.",
 		'pojo-accessibility',
 	),
-	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
-	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
+	dynamicContent: __(
+		'Label interactive content clearly, helping screen reader users navigate dynamic elements.',
+		'pojo-accessibility',
+	),
+	formsInputsError: __(
+		"Clearly label form fields and errors so people know exactly what's needed.",
+		'pojo-accessibility',
+	),
 	keyboardAssistiveTech: __(
-		'Keyboard & Assistive Technologies',
+		'Make sure people can fully use your site with only a keyboard, no mouse required.',
 		'pojo-accessibility',
 	),
-	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
-	tables: __('Tables', 'pojo-accessibility'),
-	colorContrast: __('Color Contrast & Style', 'pojo-accessibility'),
-	other: __('Other Accessibility Issues', 'pojo-accessibility'),
+	pageStructureNav: __(
+		'Use headings and clear structure to help people easily navigate your content.',
+		'pojo-accessibility',
+	),
+	tables: __(
+		'Give tables clear headers and captions so everyone can easily understand the data.',
+		'pojo-accessibility',
+	),
+	colorContrast: __(
+		'Choose colors with strong contrast to ensure your text is readable for everyone.',
+		'pojo-accessibility',
+	),
+	other: __(
+		'Find and resolve additional accessibility issues to ensure your site works for everyone.',
+		'pojo-accessibility',
+	),
 };
 
 export const INITIAL_SORTED_VIOLATIONS = {
