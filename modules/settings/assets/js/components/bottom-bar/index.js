@@ -1,6 +1,6 @@
 import Box from '@elementor/ui/Box';
-import Button from '@elementor/ui/Button';
 import { styled } from '@elementor/ui/styles';
+import Button from '@ea11y/components/button';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useToastNotification } from '@ea11y-apps/global/hooks';

@@ -33,6 +33,10 @@ export const PluginSettingsProvider = ({ children }) => {
 					settings.isUrlMismatch = Boolean(settings.isUrlMismatch);
 				}
 
+				if ('unfilteredUploads' in settings) {
+					settings.unfilteredUploads = Boolean(settings.unfilteredUploads);
+				}
+
 				setPluginSettings(settings);
 				setLoaded(true);
 			})

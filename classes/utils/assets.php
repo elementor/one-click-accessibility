@@ -120,7 +120,7 @@ class Assets {
 		wp_enqueue_script(
 			$handle,
 			$url . $handle . '.js',
-			array_merge( $script_asset['dependencies'], [ 'wp-util' ] ),
+			array_merge( $script_asset['dependencies'], [ 'wp-util', 'wp-block-editor', 'wp-components' ] ),
 			$script_asset['version'],
 			true,
 		);

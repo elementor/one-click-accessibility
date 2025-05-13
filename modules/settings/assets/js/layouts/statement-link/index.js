@@ -1,5 +1,4 @@
 import Box from '@elementor/ui/Box';
-import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
@@ -17,6 +16,7 @@ import {
 	WidgetLoader,
 	PageSelect,
 } from '@ea11y/components';
+import Button from '@ea11y/components/button';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useToastNotification } from '@ea11y-apps/global/hooks';

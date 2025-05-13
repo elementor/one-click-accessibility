@@ -1,5 +1,4 @@
 import Box from '@elementor/ui/Box';
-import Button from '@elementor/ui/Button';
 import Dialog from '@elementor/ui/Dialog';
 import DialogActions from '@elementor/ui/DialogActions';
 import DialogContent from '@elementor/ui/DialogContent';
@@ -13,6 +12,7 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
+import Button from '@ea11y/components/button';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
@@ -30,6 +30,7 @@ import {
 // Customization for the WP admin global CSS.
 const StyledTextField = styled(TextField)`
 	width: 100%;
+
 	.wp-admin & .MuiInputBase-input,
 	& .MuiInputBase-input:focus {
 		background-color: initial;
@@ -154,12 +155,14 @@ const StatementGenerator = ({ open, close }) => {
 						{__('Statement generator', 'pojo-accessibility')}
 					</DialogTitle>
 				</DialogHeader>
+
 				<DialogContent dividers>
 					<Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={8}>
 						<Box>
 							<Typography variant="subtitle1" color="text.primary">
 								{__('Enter your company info', 'pojo-accessibility')}
 							</Typography>
+
 							<Typography
 								variant="body2"
 								color="text.secondary"
@@ -170,12 +173,15 @@ const StatementGenerator = ({ open, close }) => {
 									'pojo-accessibility',
 								)}
 							</Typography>
+
 							<FormControl fullWidth>
-								<FormLabel>
+								<FormLabel htmlFor="ea11y-statement-generator-company-name">
 									{__('Company name', 'pojo-accessibility')}
 								</FormLabel>
+
 								<StyledTextField
 									type="text"
+									id="ea11y-statement-generator-company-name"
 									variant="outlined"
 									size="small"
 									color="secondary"
@@ -187,18 +193,22 @@ const StatementGenerator = ({ open, close }) => {
 									}
 									error={isValidName === false}
 								/>
+
 								{!isValidName && (
 									<FormHelperText>
 										{__('Company name cannot be empty', 'pojo-accessibility')}
 									</FormHelperText>
 								)}
 							</FormControl>
+
 							<FormControl fullWidth>
-								<FormLabel>
+								<FormLabel htmlFor="ea11y-statement-generator-company-website">
 									{__('Company website', 'pojo-accessibility')}
 								</FormLabel>
+
 								<StyledTextField
 									type="text"
+									id="ea11y-statement-generator-company-website"
 									variant="outlined"
 									size="small"
 									color="secondary"
@@ -210,18 +220,22 @@ const StatementGenerator = ({ open, close }) => {
 									}
 									error={isValidDomain === false}
 								/>
+
 								{!isValidDomain && (
 									<FormHelperText>
 										{__('Please enter a valid domain', 'pojo-accessibility')}
 									</FormHelperText>
 								)}
 							</FormControl>
+
 							<FormControl fullWidth>
-								<FormLabel>
+								<FormLabel htmlFor="ea11y-statement-generator-business-website">
 									{__('Business email', 'pojo-accessibility')}
 								</FormLabel>
+
 								<StyledTextField
 									type="text"
+									id="ea11y-statement-generator-business-website"
 									variant="outlined"
 									size="small"
 									color="secondary"
@@ -233,6 +247,7 @@ const StatementGenerator = ({ open, close }) => {
 									}
 									error={isValidEmail === false}
 								/>
+
 								{!isValidEmail && (
 									<FormHelperText>
 										{__('Please enter a valid email', 'pojo-accessibility')}
@@ -240,6 +255,7 @@ const StatementGenerator = ({ open, close }) => {
 								)}
 							</FormControl>
 						</Box>
+
 						<Box>
 							<Typography
 								variant="subtitle1"
@@ -251,6 +267,7 @@ const StatementGenerator = ({ open, close }) => {
 									'pojo-accessibility',
 								)}
 							</Typography>
+
 							<Box
 								border={1}
 								borderColor="divider"
@@ -270,6 +287,7 @@ const StatementGenerator = ({ open, close }) => {
 					<Button onClick={handleClose} color="secondary">
 						{__('Cancel', 'pojo-accessibility')}
 					</Button>
+
 					<Button
 						onClick={createPage}
 						variant="contained"

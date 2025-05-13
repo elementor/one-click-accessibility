@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Gutenberg_Link {
 
 	public function enqueue_custom_link_block_assets() {
-		Assets::enqueue_app_assets( 'gutenberg-custom-link' );
+		Assets::enqueue_app_assets( 'gutenberg-custom-link', false );
 	}
 
 	public function enqueue_custom_link_block_frontend( $block_content ) {
@@ -30,6 +30,6 @@ class Gutenberg_Link {
 
 	public function __construct() {
 		add_action( 'init', [ $this, 'enqueue_custom_link_block_assets' ] );
-		add_filter( 'render_block_ally/custom-link', [ $this, 'enqueue_custom_link_block_frontend'] );
+		add_filter( 'render_block_ally/custom-link', [ $this, 'enqueue_custom_link_block_frontend' ] );
 	}
 }

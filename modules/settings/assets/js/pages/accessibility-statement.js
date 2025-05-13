@@ -1,6 +1,5 @@
 import { ChevronLeftIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
-import Button from '@elementor/ui/Button';
 import FormControl from '@elementor/ui/FormControl';
 import FormLabel from '@elementor/ui/FormLabel';
 import Link from '@elementor/ui/Link';
@@ -8,6 +7,7 @@ import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { StatementGenerator } from '@ea11y/components';
+import Button from '@ea11y/components/button';
 import { useModal, useSettings } from '@ea11y/hooks';
 import {
 	AccessibilityStatementExistingIcon,
