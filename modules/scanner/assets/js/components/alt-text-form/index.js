@@ -1,10 +1,10 @@
 import AIIcon from '@elementor/icons/AIIcon';
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
 import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
-import { CircularProgress } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Checkbox from '@elementor/ui/Checkbox';
+import CircularProgress from '@elementor/ui/CircularProgress';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import IconButton from '@elementor/ui/IconButton';
 

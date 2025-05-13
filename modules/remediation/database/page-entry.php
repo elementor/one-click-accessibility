@@ -68,7 +68,14 @@ class Page_Entry extends Entry {
 			$remediations = [];
 		}
 
-		$remediations[] = $remediation;
+		$index = array_search( $remediation['xpath'], array_column( $remediations, 'xpath' ), true );
+
+		if ( false !== $index ) {
+			$remediations[ $index ] = $remediation;
+		} else {
+			$remediations[] = $remediation;
+		}
+
 		$date_time = gmdate( 'Y-m-d H:i:s' );
 		$this->entry_data[ Page_Table::REMEDIATIONS ] = wp_json_encode( $remediations );
 		$this->entry_data[ Page_Table::UPDATED_AT ] = $date_time;
