@@ -10,6 +10,7 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
 import { eventNames, mixpanelService } from '@ea11y/services';
@@ -17,6 +18,13 @@ import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
 import { SUBSCRIPTION_LINK } from '../../constants/index';
 import { truncateEmail } from '../../helpers/popup-menu';
+
+const StyledMenuItem = styled(MenuItem)`
+	&.MuiMenuItem-gutters:focus,
+	&.MuiMenuItem-gutters:focus-visible {
+		box-shadow: inset 0 0 0 3px #5e9ed6;
+	}
+`;
 
 export const PopupMenu = (menuProps, { closeAction }) => {
 	const { save } = useStorage();
@@ -60,7 +68,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 				},
 			}}
 		>
-			<MenuItem onClick={closeAction} sx={{ gap: 1, width: '240px' }}>
+			<StyledMenuItem onClick={closeAction} sx={{ gap: 1, width: '240px' }}>
 				<Avatar>
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
@@ -71,6 +79,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 							{truncateEmail(planData?.user?.email)}
 						</Typography>
 					</Tooltip>
+
 					{planData?.plan?.name && (
 						<Chip
 							color="info"
@@ -81,27 +90,30 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 						/>
 					)}
 				</Box>
-			</MenuItem>
+			</StyledMenuItem>
 
-			<MenuItem onClick={onDeactivateAndDisconnect}>
+			<StyledMenuItem onClick={onDeactivateAndDisconnect}>
 				<UserArrowIcon sx={{ color: 'common.white' }} />
 
 				<Typography color="common.white" marginLeft={1}>
 					{__('Switch account', 'pojo-accessibility')}
 				</Typography>
-			</MenuItem>
-			<MenuItem
+			</StyledMenuItem>
+
+			<StyledMenuItem
 				sx={{ width: '100%', justifyContent: 'space-between' }}
 				onClick={() => window.open(SUBSCRIPTION_LINK)}
 			>
 				<Box display="flex" flexDirection="row">
 					<CalendarDollarIcon sx={{ color: 'common.white' }} />
+
 					<Typography color="common.white" marginLeft={1}>
 						{__('Subscription', 'pojo-accessibility')}
 					</Typography>
 				</Box>
+
 				<ExternalLinkIcon sx={{ color: 'common.white' }} />
-			</MenuItem>
+			</StyledMenuItem>
 		</Menu>
 	);
 };

@@ -1,15 +1,14 @@
 import FormControl from '@elementor/ui/FormControl';
 import FormLabel from '@elementor/ui/FormLabel';
-import Paper from '@elementor/ui/Paper';
-import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { WidgetIcon } from '@ea11y/components';
+import { IconOptionWrapper } from '@ea11y/components';
 import { useIconDesign } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import options from '../../helpers/accessibility-options';
+import MediaUploader from '../media-uploader/media-uploader';
 
 const IconSelect = (props) => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
@@ -23,11 +22,15 @@ const IconSelect = (props) => {
 
 	return (
 		<FormControl>
-			<FormLabel id="icon-select-radio-buttons-group-label" color="secondary">
+			<StyledFormLabel
+				id="icon-select-radio-buttons-group-label"
+				color="secondary"
+			>
 				<Typography variant="subtitle2" marginBottom={1}>
 					{__('Icon', 'pojo-accessibility')}
 				</Typography>
-			</FormLabel>
+				<MediaUploader />
+			</StyledFormLabel>
 
 			<StyledRadioGroup
 				{...props}
@@ -36,32 +39,12 @@ const IconSelect = (props) => {
 				value={iconDesign.icon}
 			>
 				{options.map((option) => (
-					<StyledPaper
+					<IconOptionWrapper
 						key={option.value}
-						variant="outlined"
-						onClick={selectIcon(option.value)}
-						sx={{
-							borderColor:
-								iconDesign.icon === option.value ? 'info.main' : 'divider',
-							borderWidth: iconDesign.icon === option.value ? 2 : 1,
-						}}
-					>
-						<WidgetIcon
-							icon={option.icon}
-							size={44}
-							radius={100}
-							color={iconDesign?.color}
-							control="select"
-							type={option.value}
-						/>
-						<Radio
-							value={option.value}
-							inputProps={{
-								'aria-label': option.label,
-							}}
-							sx={{ opacity: 0, position: 'absolute' }}
-						/>
-					</StyledPaper>
+						iconType="select"
+						option={option}
+						clickHandler={selectIcon}
+					/>
 				))}
 			</StyledRadioGroup>
 		</FormControl>
@@ -71,28 +54,18 @@ const IconSelect = (props) => {
 export default IconSelect;
 
 const StyledRadioGroup = styled(RadioGroup)`
+	display: grid;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	gap: ${({ theme }) => theme.spacing(2)};
+	grid-template-columns: repeat(4, 1fr);
+`;
+
+const StyledFormLabel = styled(FormLabel)`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	gap: ${({ theme }) => theme.spacing(2)};
-`;
-const StyledPaper = styled(Paper)`
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	gap: 12px;
 	align-items: center;
-	justify-content: center;
-	padding: 24px;
-	min-width: 10px;
-	width: 100px;
-	min-height: 100px;
-	border-radius: ${({ theme }) => theme.shape.borderRadius};
-	box-shadow: ${({ theme }) => theme.shadows[0]};
-	cursor: pointer;
-
-	:hover {
-		box-shadow: 0 0 15px 0 rgba(37, 99, 235, 0.15);
-		border-color: ${({ theme }) => theme.palette.info.main};
-	}
+	justify-content: space-between;
 `;

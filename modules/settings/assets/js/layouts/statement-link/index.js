@@ -1,5 +1,4 @@
 import Box from '@elementor/ui/Box';
-import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
@@ -8,9 +7,6 @@ import FormControl from '@elementor/ui/FormControl';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import FormLabel from '@elementor/ui/FormLabel';
-import Infotip from '@elementor/ui/Infotip';
-import MenuItem from '@elementor/ui/MenuItem';
-import Select from '@elementor/ui/Select';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
@@ -18,11 +14,11 @@ import {
 	CopyLink,
 	EditLink,
 	WidgetLoader,
-	GeneratedPageInfoTipCard,
+	PageSelect,
 } from '@ea11y/components';
+import Button from '@ea11y/components/button';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
-import { useEntityRecords } from '@wordpress/core-data';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { WIDGET_PREVIEW_ID } from '../../constants';
@@ -77,16 +73,11 @@ const StyledSwitch = styled(Switch)`
 const StatementLink = () => {
 	const [disabled, setDisabled] = useState(true);
 	const [isValidPage, setIsValidPage] = useState(false);
-	const {
-		accessibilityStatementData,
-		setAccessibilityStatementData,
-		showAccessibilityGeneratedInfotip,
-	} = useSettings();
+	const { accessibilityStatementData, setAccessibilityStatementData } =
+		useSettings();
 	const { save } = useStorage();
 	const { success, error } = useToastNotification();
 	const [isWidgetLoaded, setIsWidgetLoaded] = useState(false);
-
-	const pages = useEntityRecords('postType', 'page', { per_page: -1 });
 
 	useEffect(() => {
 		if (window?.ea11yWidget) {
@@ -115,21 +106,6 @@ const StatementLink = () => {
 		// Disable button on load
 		setDisabled(true);
 	}, []);
-
-	const changePage = (id) => {
-		const page = pages.records.filter((record) => record.id === id);
-		if (page.length > 0) {
-			setAccessibilityStatementData({
-				...accessibilityStatementData,
-				pageId: page[0]?.id,
-				link: page[0]?.link,
-			});
-
-			mixpanelService.sendEvent(eventNames.statementPageSelected, {
-				page: page[0]?.link,
-			});
-		}
-	};
 
 	const onHideLink = () => {
 		setAccessibilityStatementData({
@@ -185,40 +161,7 @@ const StatementLink = () => {
 								fullWidth
 								alignItems="center"
 							>
-								<Infotip
-									placement="right-start"
-									content={<GeneratedPageInfoTipCard />}
-									disableHoverListener
-									disableFocusListener
-									PopperProps={{
-										sx: {
-											zIndex: 9999999999, // Custom z-index for the popper
-										},
-									}}
-									open={showAccessibilityGeneratedInfotip}
-								>
-									<Select
-										variant="outlined"
-										onChange={(e) => changePage(e.target.value)}
-										value={accessibilityStatementData?.pageId}
-										error={!isValidPage}
-										color="info"
-										size="small"
-										sx={{ minWidth: '242px' }}
-									>
-										{pages?.hasResolved && pages?.records.length > 0 ? (
-											pages?.records.map((page) => (
-												<MenuItem value={page.id} key={page.id}>
-													{page.title.rendered}
-												</MenuItem>
-											))
-										) : (
-											<MenuItem value={0} key={0}>
-												{__('No pages found', 'pojo-accessibility')}
-											</MenuItem>
-										)}
-									</Select>
-								</Infotip>
+								<PageSelect />
 
 								{accessibilityStatementData?.link && (
 									<>

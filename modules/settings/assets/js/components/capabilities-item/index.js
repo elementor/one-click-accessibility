@@ -95,10 +95,12 @@ const CapabilitiesItem = ({
 			) : (
 				<>
 					<ListItemIcon>{childValue.icon}</ListItemIcon>
+
 					<Box display="flex" flexDirection="row" alignItems="center">
 						<FormLabel htmlFor={`ea11y-${childKey}-toggle`}>
 							<ListItemText primary={childValue.title} />
 						</FormLabel>
+
 						{childValue?.pro && !isProEnabled() && (
 							<ProItemInfotip
 								source="icon"
@@ -120,6 +122,7 @@ const CapabilitiesItem = ({
 					enabled={isProEnabled()}
 				>
 					<CustomSwitch
+						id={`ea11y-${childKey}-toggle`}
 						checked={widgetMenuSettings[childKey]?.enabled || false}
 						onChange={() => toggleSetting(parentKey, childKey)}
 						disabled={isDisabled()}

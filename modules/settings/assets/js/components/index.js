@@ -28,3 +28,6 @@ export { default as CustomSwitch } from './switch';
 export { default as ConfirmDialog } from './confirm-dialog';
 export { default as UrlMismatchModal } from './url-mismatch-modal';
 export { default as WidgetIcon } from './widget-icon';
+export { default as CustomIcon } from './custom-icon';
+export { default as IconOptionWrapper } from './icon-option-wrapper';
+export { default as PageSelect } from './page-select';

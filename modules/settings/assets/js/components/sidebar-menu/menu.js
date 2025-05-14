@@ -16,7 +16,11 @@ export const MenuItems = {
 		key: 'design',
 		page: <IconSettings />,
 		icon: (
-			<WidgetIcon role="img" aria-label={__('Design', 'pojo-accessibility')} />
+			<WidgetIcon
+				role="img"
+				aria-label={__('Design', 'pojo-accessibility')}
+				aria-hidden={false}
+			/>
 		),
 	},
 	capabilities: {
@@ -27,6 +31,7 @@ export const MenuItems = {
 			<SettingsIcon
 				role="img"
 				aria-label={__('Capabilities', 'pojo-accessibility')}
+				aria-hidden={false}
 				size="small"
 				sx={{ color: 'common.black' }}
 			/>
@@ -40,6 +45,7 @@ export const MenuItems = {
 			<PagesIcon
 				role="img"
 				aria-label={__('Statement', 'pojo-accessibility')}
+				aria-hidden={false}
 				size="small"
 				sx={{ color: 'common.black' }}
 			/>
@@ -55,6 +61,7 @@ export const MenuItems = {
 			<AnalyticsIcon
 				role="img"
 				aria-label={__('Analytics', 'pojo-accessibility')}
+				aria-hidden={false}
 				size="small"
 				sx={{ color: 'common.black' }}
 			/>

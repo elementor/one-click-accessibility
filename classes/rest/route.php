@@ -70,7 +70,6 @@ abstract class Route {
 			return;
 		}
 
-		//$callbacks = false;
 		$callbacks = [];
 		foreach ( (array) $methods as $method ) {
 			if ( ! in_array( $method, $this->valid_http_methods, true ) ) {
