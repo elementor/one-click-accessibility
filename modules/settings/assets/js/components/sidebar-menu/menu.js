@@ -11,6 +11,28 @@ import { __ } from '@wordpress/i18n';
 import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 
 export const MenuItems = {
+	scanner: {
+		name: __('Scanner', 'pojo-accessibility'),
+		key: 'scanner',
+		type: 'heading',
+	},
+	scanOverview: {
+		name: __('Scan overview', 'pojo-accessibility'),
+		key: 'scan-overview',
+		page: <IconSettings />,
+		icon: (
+			<WidgetIcon
+				role="img"
+				aria-label={__('Scan overview', 'pojo-accessibility')}
+				aria-hidden={false}
+			/>
+		),
+	},
+	widget: {
+		name: __('Widget', 'pojo-accessibility'),
+		key: 'widget',
+		type: 'heading',
+	},
 	design: {
 		name: __('Design', 'pojo-accessibility'),
 		key: 'design',
