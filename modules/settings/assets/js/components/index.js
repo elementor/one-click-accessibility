@@ -31,3 +31,4 @@ export { default as WidgetIcon } from './widget-icon';
 export { default as CustomIcon } from './custom-icon';
 export { default as IconOptionWrapper } from './icon-option-wrapper';
 export { default as PageSelect } from './page-select';
+export { default as MenuItem } from './sidebar-menu/menu-item';
