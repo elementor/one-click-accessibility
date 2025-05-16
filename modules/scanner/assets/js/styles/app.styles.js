@@ -8,7 +8,7 @@ import { styled } from '@elementor/ui/styles';
 
 export const StyledPaper = styled(Paper)`
 	position: relative;
-	width: 420px;
+	width: 425px;
 	min-height: 100vh;
 	height: fit-content;
 `;

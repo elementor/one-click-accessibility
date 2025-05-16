@@ -1,3 +1,4 @@
+import CheckIcon from '@elementor/icons/CheckIcon';
 import CopyIcon from '@elementor/icons/CopyIcon';
 import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import XIcon from '@elementor/icons/XIcon';
@@ -10,6 +11,7 @@ import Link from '@elementor/ui/Link';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { ResolveWithAi } from '@ea11y-apps/scanner/components/manual-fix-form/resolve-with-ai';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
@@ -21,11 +23,10 @@ import {
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
-import { useRef, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ManualFixForm = ({ item, current, setOpen }) => {
-	const itemRef = useRef();
 	const { copied, markResolved, copyToClipboard } = useManualFixForm({
 		item,
 		current,
@@ -52,7 +53,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 
 	return (
 		<>
-			<StyledAccordionDetails ref={itemRef}>
+			<StyledAccordionDetails>
 				<Box>
 					<Box display="flex" gap={1} alignItems="center">
 						<SectionTitle variant="body1">
@@ -114,11 +115,12 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 						</Box>
 					</StyledAlert>
 				</Box>
+				<ResolveWithAi current={current} item={item} />
 				{uxMessaging[item.ruleId] && (
 					<>
 						<Box>
 							<SectionTitle variant="body1">
-								{__('How to resolve', 'pojo-accessibility')}
+								{__('How to resolve it', 'pojo-accessibility')}
 							</SectionTitle>
 							<Typography variant="body1">
 								{uxMessaging[item.ruleId].howToResolve}
@@ -137,10 +139,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 												justifyContent="space-between"
 												alignItems="start"
 											>
-												<Typography
-													variant="subtitle1"
-													sx={{ mb: 3, textTransform: 'none' }}
-												>
+												<Typography variant="subtitle1" sx={{ mb: 3 }}>
 													{__('See an example', 'pojo-accessibility')}
 												</Typography>
 												<IconButton
@@ -213,8 +212,9 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 				<Button
 					size="small"
 					color="info"
-					variant="contained"
+					variant="outlined"
 					onClick={handleMarkResolved}
+					startIcon={<CheckIcon />}
 				>
 					{__('Mark as resolved', 'pojo-accessibility')}
 				</Button>
