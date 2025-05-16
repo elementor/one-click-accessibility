@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Deactivate_And_Disconnect extends Route_Base {
 	public string $path = 'deactivate_and_disconnect';
+	public const NONCE_NAME = 'wp_rest';
 
 	public function get_methods(): array {
 		return [ 'POST' ];
@@ -30,6 +31,18 @@ class Deactivate_And_Disconnect extends Route_Base {
 	}
 
 	public function POST( WP_REST_Request $request ) {
+		$valid = $this->verify_nonce_and_capability(
+			$request->get_param( self::NONCE_NAME ),
+			self::NONCE_NAME
+		);
+
+		if ( is_wp_error( $valid ) ) {
+			return $this->respond_error_json( [
+				'message' => $valid->get_error_message(),
+				'code' => 'forbidden',
+			] );
+		}
+
 		try {
 			if ( $request->get_param( 'clear_session' ) ) {
 				Data::clear_session( true );
