@@ -4,7 +4,7 @@ Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
 Requires at least: 6.5
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.2.0
+Stable tag: 3.3.0
 License: GPLv2 or later
 
 Ally is a web accessibility plugin that enhances usability, offers custom controls, and auto-generates accessibility statements to help meet WCAG guidelines.
@@ -173,11 +173,20 @@ An accessibility statement is a declaration of your commitment to providing an i
 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
+= 3.3.0 - 2025-05-14 =
+* New: Custom Icon support for the Ally widget
+* New: Custom Link Gutenberg block to trigger Ally widget
+* New: Elementor Dynamic Tags to trigger Ally widget
+* New: Added "What's new" section in the admin panel
+* Tweak: Improved accessibility statement page selector
+* Fix: Notice on loading translations too early
+
+
 = 3.2.0 - 2025-04-20 =
-New: Added border radius controls for the new icon widget
-Tweak: Added Hungarian translations to the new widget
-Fix: Improved German translations in the new widget
-Fix: Enhanced sanitization in the legacy widget to prevent potential security issues
+* New: Added border radius controls for the new icon widget
+* Tweak: Added Hungarian translations to the new widget
+* Fix: Improved German translations in the new widget
+* Fix: Enhanced sanitization in the legacy widget to prevent potential security issues
 
 = 3.1.0 2025-03-25 =
 * New: Screen Reader – Improved accessibility with screen reader compatibility.
