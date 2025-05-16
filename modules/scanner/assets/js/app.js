@@ -1,6 +1,4 @@
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
-import Paper from '@elementor/ui/Paper';
-import { styled } from '@elementor/ui/styles';
 import { Notifications } from '@ea11y/components';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
@@ -14,6 +12,7 @@ import {
 	MainLayout,
 	ManualLayout,
 } from '@ea11y-apps/scanner/layouts';
+import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
@@ -48,14 +47,4 @@ const App = () => {
 	);
 };
 
-const StyledPaper = styled(Paper)`
-	position: fixed;
-	top: 0;
-	/* @noflip */
-	right: 0;
-	width: 420px;
-	height: 100vh;
-	overflow-y: auto;
-	z-index: 99999;
-`;
 export default App;

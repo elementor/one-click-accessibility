@@ -6,6 +6,13 @@ import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
 import { styled } from '@elementor/ui/styles';
 
+export const StyledPaper = styled(Paper)`
+	position: relative;
+	width: 420px;
+	min-height: 100vh;
+	height: fit-content;
+`;
+
 export const StyledContent = styled(CardContent)`
 	padding: 0 ${({ theme }) => theme.spacing(1.5)};
 `;
@@ -40,6 +47,10 @@ export const StyledButtonContainer = styled(Paper)`
 	align-items: center;
 	width: 100%;
 	padding: ${({ theme }) => theme.spacing(1.5)};
+
+	&:hover {
+		background-color: ${({ theme }) => theme.palette.action.hover};
+	}
 `;
 
 export const StyledButton = styled(Button)`

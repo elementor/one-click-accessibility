@@ -1,4 +1,5 @@
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
+import Box from '@elementor/ui/Box';
 import Radio from '@elementor/ui/Radio';
 import Typography from '@elementor/ui/Typography';
 import { ManualFixForm } from '@ea11y-apps/scanner/components/manual-fix-form';
@@ -39,7 +40,7 @@ export const ManualLayout = () => {
 	};
 
 	return (
-		<>
+		<Box sx={{ pb: 8 }}>
 			{isResolved(openedBlock) ? (
 				<ResolvedMessage />
 			) : (
@@ -71,6 +72,6 @@ export const ManualLayout = () => {
 					</StyledAccordion>
 				))
 			)}
-		</>
+		</Box>
 	);
 };
