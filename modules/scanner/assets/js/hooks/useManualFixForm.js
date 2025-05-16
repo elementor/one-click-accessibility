@@ -24,6 +24,10 @@ export const useManualFixForm = ({ item, current }) => {
 		});
 	};
 
+	const getAISuggestion = () => {
+		console.log('request');
+	};
+
 	const markResolved = () => {
 		updateData({ resolved: true });
 		setResolved(resolved + 1);
@@ -39,6 +43,7 @@ export const useManualFixForm = ({ item, current }) => {
 		copied,
 		markResolved,
 		copyToClipboard,
+		getAISuggestion,
 	};
 };
 

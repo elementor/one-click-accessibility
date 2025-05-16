@@ -92,6 +92,7 @@ class Module extends Module_Base {
 					'entry_id' => $page->id,
 				],
 				'planData' => Settings::get( Settings::PLAN_DATA ),
+				'isRTL' => is_rtl(),
 			]
 		);
 	}
