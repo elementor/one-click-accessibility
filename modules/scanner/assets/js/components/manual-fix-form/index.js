@@ -48,7 +48,6 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 	const handleMarkResolved = () => {
 		closeExample();
 		markResolved();
-		handleSkip();
 	};
 
 	return (
@@ -94,14 +93,17 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 							<StyledSnippet variant="body1">{item.snippet}</StyledSnippet>
 							<Box>
 								<Tooltip
-									placement="left"
+									arrow
+									placement="bottom"
 									title={
 										copied
 											? __('Copied!', 'pojo-accessibility')
 											: __('Copy', 'pojo-accessibility')
 									}
 									id="copy-icon"
-									arrow
+									PopperProps={{
+										disablePortal: true,
+									}}
 								>
 									<IconButton
 										size="medium"

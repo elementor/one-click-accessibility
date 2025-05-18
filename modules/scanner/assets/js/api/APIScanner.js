@@ -51,4 +51,12 @@ export class APIScanner extends API {
 			data,
 		});
 	}
+
+	static async resolveWithAI(data) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/scanner/resolve-with-ai`,
+			data,
+		});
+	}
 }

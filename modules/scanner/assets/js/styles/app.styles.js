@@ -21,6 +21,14 @@ export const StyledSkeleton = styled(Skeleton)`
 	transform: scale(1);
 `;
 
+const disabledState = `
+		opacity: .7;
+		cursor: not-allowed;
+		& * {
+			pointer-events: none;
+		}
+	`;
+
 export const StyledAlert = styled(Alert)`
 	align-items: center;
 	padding-right: ${({ theme }) => theme.spacing(0.5)};
@@ -29,6 +37,7 @@ export const StyledAlert = styled(Alert)`
 		padding-top: 0;
 		display: flex;
 	}
+	${({ disabled }) => (disabled ? disabledState : '')}
 `;
 
 export const StateContainer = styled(Box)`

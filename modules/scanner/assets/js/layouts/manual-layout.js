@@ -9,35 +9,19 @@ import {
 	StyledAccordion,
 	StyledAccordionSummary,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
-import {
-	focusOnElement,
-	removeExistingFocus,
-} from '@ea11y-apps/scanner/utils/focus-on-element';
-import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { ResolvedMessage } from '../components/resolved-message';
 
 export const ManualLayout = () => {
-	const { openedBlock, sortedViolations, manualData, isResolved } =
-		useScannerWizardContext();
-
-	const [openIndex, setOpenIndex] = useState(null);
-
-	useEffect(() => {
-		if (
-			openIndex !== null &&
-			sortedViolations[openedBlock]?.length &&
-			openIndex < sortedViolations[openedBlock]?.length
-		) {
-			focusOnElement(sortedViolations[openedBlock][openIndex].node);
-		} else {
-			removeExistingFocus();
-		}
-	}, [openIndex]);
-
-	const handleOpen = (index) => (event, isExpanded) => {
-		setOpenIndex(isExpanded ? index : null);
-	};
+	const {
+		openIndex,
+		setOpenIndex,
+		handleOpen,
+		openedBlock,
+		sortedViolations,
+		manualData,
+		isResolved,
+	} = useScannerWizardContext();
 
 	return (
 		<Box sx={{ pb: 8 }}>

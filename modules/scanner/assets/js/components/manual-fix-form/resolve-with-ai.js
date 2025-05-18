@@ -13,7 +13,6 @@ import Infotip from '@elementor/ui/Infotip';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
@@ -28,33 +27,35 @@ import { __ } from '@wordpress/i18n';
 
 export const ResolveWithAi = ({ item, current }) => {
 	const { manualData, openedBlock } = useScannerWizardContext();
-	const { getAISuggestion, copyToClipboard, copied } = useManualFixForm({
+	const {
+		getAISuggestion,
+		copyToClipboard,
+		resolveIssue,
+		copied,
+		aiResponseLoading,
+		resolving,
+	} = useManualFixForm({
 		item,
 		current,
 	});
 
 	const [openUpgrade, setOpenUpgrade] = useState(false);
-	const [loading, setLoading] = useState(false);
 
-	//TODO: replace with correct feature
 	const isAIEnabled =
-		window.ea11yScannerData?.planData?.plan?.features?.analytics;
+		window.ea11yScannerData?.planData?.plan?.features?.ai_credits > 0;
 	const aiSuggestion = manualData[openedBlock][current]?.aiSuggestion;
 
 	const handleButtonClick = async () => {
 		if (isAIEnabled) {
-			try {
-				setLoading(true);
-				await getAISuggestion();
-			} finally {
-				setLoading(false);
-			}
+			await getAISuggestion();
 		} else {
 			setOpenUpgrade(true);
 		}
 	};
 
 	const closeUpgrade = () => setOpenUpgrade(false);
+
+	const disabled = aiResponseLoading || resolving;
 
 	return aiSuggestion ? (
 		<Box>
@@ -73,13 +74,10 @@ export const ResolveWithAi = ({ item, current }) => {
 										variant="subtitle1"
 										sx={{ mb: 1, textTransform: 'none' }}
 									>
-										{__(
-											"What's the issue and why it matters?",
-											'pojo-accessibility',
-										)}
+										{__('How AI resolves this?', 'pojo-accessibility')}
 									</Typography>
 									<Typography variant="body2">
-										{uxMessaging[item.ruleId].whyItMatters}
+										{aiSuggestion.explanation}
 									</Typography>
 								</InfotipBox>
 							}
@@ -87,26 +85,29 @@ export const ResolveWithAi = ({ item, current }) => {
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>
 					</Box>
-					<StyledAlert color="info" icon={false}>
+					<StyledAlert color="info" icon={false} disabled={disabled}>
 						<Box display="flex" gap={0.5} alignItems="start">
 							<StyledSnippet variant="body1" sx={{ width: '290px' }}>
-								{item.snippet}
+								{aiSuggestion.snippet}
 							</StyledSnippet>
 							<Box>
 								<Tooltip
-									placement="left"
+									arrow
+									placement="bottom"
 									title={
 										copied
 											? __('Copied!', 'pojo-accessibility')
 											: __('Copy', 'pojo-accessibility')
 									}
-									id="copy-icon"
-									arrow
+									id="copy-icon-ai"
+									PopperProps={{
+										disablePortal: true,
+									}}
 								>
 									<IconButton
 										size="medium"
 										onClick={copyToClipboard(item.snippet)}
-										aria-labelledby="copy-icon"
+										aria-labelledby="copy-icon-ai"
 									>
 										<CopyIcon />
 									</IconButton>
@@ -116,10 +117,26 @@ export const ResolveWithAi = ({ item, current }) => {
 					</StyledAlert>
 				</CardContent>
 				<CardActions sx={{ p: 2 }}>
-					<Button size="small" color="secondary" variant="text">
+					<Button
+						size="small"
+						color="secondary"
+						variant="text"
+						onClick={handleButtonClick}
+						disabled={disabled}
+						loading={aiResponseLoading}
+						loadingPosition="start"
+					>
 						{__('Retry', 'pojo-accessibility')}
 					</Button>
-					<Button size="small" color="info" variant="contained">
+					<Button
+						size="small"
+						color="info"
+						variant="contained"
+						disabled={disabled}
+						loading={resolving}
+						loadingPosition="start"
+						onClick={resolveIssue}
+					>
 						{__('Apply fix', 'pojo-accessibility')}
 					</Button>
 				</CardActions>
@@ -183,8 +200,8 @@ export const ResolveWithAi = ({ item, current }) => {
 					color={isAIEnabled ? 'info' : 'promotion'}
 					startIcon={<AIIcon />}
 					fullWidth
-					disabled={loading}
-					loading={loading}
+					disabled={aiResponseLoading}
+					loading={aiResponseLoading}
 					onClick={handleButtonClick}
 				>
 					{__('Let AI resolve it for you', 'pojo-accessibility')}

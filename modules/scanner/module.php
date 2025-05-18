@@ -24,6 +24,7 @@ class Module extends Module_Base {
 		return [
 			'Generate_Alt_Text',
 			'Scan_Results',
+			'Resolve_With_AI',
 		];
 	}
 
