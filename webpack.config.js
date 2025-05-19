@@ -5,6 +5,7 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 // add your entry points here
 const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
+	fonts: path.resolve(process.cwd(), 'assets/css', 'fonts.css'),
 	'skip-link': path.resolve(process.cwd(), 'assets/css', 'skip-link.css'),
 	'gutenberg-custom-link': path.resolve(
 		process.cwd(),
