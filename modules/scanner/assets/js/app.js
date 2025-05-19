@@ -19,6 +19,8 @@ const App = () => {
 	const { violation, resolved, openedBlock, isError, loading } =
 		useScannerWizardContext();
 
+	const showResolvedMessage = violation && resolved && violation === resolved;
+
 	const getBlock = () => {
 		if (isError) {
 			return <ErrorMessage />;
@@ -40,7 +42,7 @@ const App = () => {
 		<StyledPaper>
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
-				{violation !== resolved ? getBlock() : <ResolvedMessage isMain />}
+				{showResolvedMessage ? <ResolvedMessage isMain /> : getBlock()}
 				<Notifications message={notificationMessage} type={notificationType} />
 			</ErrorBoundary>
 		</StyledPaper>

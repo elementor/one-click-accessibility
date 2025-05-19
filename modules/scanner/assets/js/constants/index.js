@@ -8,6 +8,15 @@ export const ROOT_ID = 'ea11y-scanner-wizard-widget';
 
 export const CURRENT_ELEMENT_CLASS = 'ea11y-scanner-current-element';
 
+export const UPGRADE_URL = '#';
+export const COMPARE_PLAN_URL = '#';
+
+export const IS_AI_ENABLED = !window.ea11yScannerData?.planData?.plan?.name
+	?.toLowerCase()
+	.includes('free');
+export const IS_AI_QUOTA =
+	window.ea11yScannerData?.planData?.plan?.features?.ai_credits > 0;
+
 export const BLOCKS = {
 	main: 'main',
 	altText: 'altText',

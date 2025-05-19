@@ -1,8 +1,6 @@
 import AIIcon from '@elementor/icons/AIIcon';
 import CopyIcon from '@elementor/icons/CopyIcon';
-import CrownIcon from '@elementor/icons/CrownIcon';
 import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
-import XIcon from '@elementor/icons/XIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
@@ -13,12 +11,13 @@ import Infotip from '@elementor/ui/Infotip';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { UpgradeInfoTip } from '@ea11y-apps/scanner/components/upgrade-info-tip';
+import { IS_AI_ENABLED, IS_AI_QUOTA } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
 	InfotipBox,
-	InfotipFooter,
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
@@ -40,13 +39,10 @@ export const ResolveWithAi = ({ item, current }) => {
 	});
 
 	const [openUpgrade, setOpenUpgrade] = useState(false);
-
-	const isAIEnabled =
-		window.ea11yScannerData?.planData?.plan?.features?.ai_credits > 0;
 	const aiSuggestion = manualData[openedBlock][current]?.aiSuggestion;
 
 	const handleButtonClick = async () => {
-		if (isAIEnabled) {
+		if (IS_AI_ENABLED && IS_AI_QUOTA) {
 			await getAISuggestion();
 		} else {
 			setOpenUpgrade(true);
@@ -66,24 +62,26 @@ export const ResolveWithAi = ({ item, current }) => {
 						<Typography variant="subtitle1">
 							{__('Resolve with AI', 'pojo-accessibility')}
 						</Typography>
-						<Infotip
-							placement="top"
-							content={
-								<InfotipBox>
-									<Typography
-										variant="subtitle1"
-										sx={{ mb: 1, textTransform: 'none' }}
-									>
-										{__('How AI resolves this?', 'pojo-accessibility')}
-									</Typography>
-									<Typography variant="body2">
-										{aiSuggestion.explanation}
-									</Typography>
-								</InfotipBox>
-							}
-						>
-							<InfoCircleIcon fontSize="small" />
-						</Infotip>
+						{aiSuggestion.explanation && (
+							<Infotip
+								placement="top"
+								content={
+									<InfotipBox>
+										<Typography
+											variant="subtitle1"
+											sx={{ mb: 1, textTransform: 'none' }}
+										>
+											{__('How AI resolves this?', 'pojo-accessibility')}
+										</Typography>
+										<Typography variant="body2">
+											{aiSuggestion.explanation}
+										</Typography>
+									</InfotipBox>
+								}
+							>
+								<InfoCircleIcon fontSize="small" />
+							</Infotip>
+						)}
 					</Box>
 					<StyledAlert color="info" icon={false} disabled={disabled}>
 						<Box display="flex" gap={0.5} alignItems="start">
@@ -144,60 +142,10 @@ export const ResolveWithAi = ({ item, current }) => {
 		</Box>
 	) : (
 		<Box>
-			<Infotip
-				placement="top"
-				onClose={closeUpgrade}
-				open={openUpgrade}
-				disableFocusListener
-				disableHoverListener
-				disableTouchListener
-				content={
-					<InfotipBox>
-						<Box
-							display="flex"
-							justifyContent="space-between"
-							alignItems="start"
-						>
-							<Typography variant="subtitle1" sx={{ mb: 3 }}>
-								{__(
-									'Resolve issues automatically with AI',
-									'pojo-accessibility',
-								)}
-							</Typography>
-							<IconButton
-								onClick={closeUpgrade}
-								size="small"
-								edge="end"
-								sx={{ mt: -1 }}
-							>
-								<XIcon />
-							</IconButton>
-						</Box>
-						<Typography variant="body2" sx={{ mb: 2 }}>
-							{__(
-								"Upgrade your plan to skip the manual work and have Ally's AI auto-resolve accessibility issues for you.",
-								'pojo-accessibility',
-							)}
-						</Typography>
-						<InfotipFooter>
-							<Button
-								size="small"
-								color="promotion"
-								variant="contained"
-								href="#"
-								target="_blank"
-								rel="noreferrer"
-								startIcon={<CrownIcon />}
-							>
-								{__('Upgrade now', 'pojo-accessibility')}
-							</Button>
-						</InfotipFooter>
-					</InfotipBox>
-				}
-			>
+			<UpgradeInfoTip closeUpgrade={closeUpgrade} openUpgrade={openUpgrade}>
 				<Button
 					variant="contained"
-					color={isAIEnabled ? 'info' : 'promotion'}
+					color={IS_AI_ENABLED && IS_AI_QUOTA ? 'info' : 'promotion'}
 					startIcon={<AIIcon />}
 					fullWidth
 					disabled={aiResponseLoading}
@@ -206,7 +154,7 @@ export const ResolveWithAi = ({ item, current }) => {
 				>
 					{__('Let AI resolve it for you', 'pojo-accessibility')}
 				</Button>
-			</Infotip>
+			</UpgradeInfoTip>
 		</Box>
 	);
 };

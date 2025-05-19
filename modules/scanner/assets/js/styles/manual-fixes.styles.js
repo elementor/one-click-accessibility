@@ -47,6 +47,7 @@ export const StyledSnippet = styled(Typography)`
 export const InfotipBox = styled(Box)`
 	padding: ${({ theme }) => theme.spacing(2)};
 	max-width: 368px;
+	white-space: normal;
 `;
 
 export const InfotipFooter = styled(Box)`
