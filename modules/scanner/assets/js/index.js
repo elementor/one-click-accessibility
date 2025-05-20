@@ -1,12 +1,12 @@
 import DirectionProvider from '@elementor/ui/DirectionProvider';
-import { ThemeProvider, createTheme } from '@elementor/ui/styles';
+import { createTheme, ThemeProvider } from '@elementor/ui/styles';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { NotificationsProvider } from '@ea11y-apps/global/hooks/use-notifications';
 import App from '@ea11y-apps/scanner/app';
-import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/constants';
+import { isRTL, ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/constants';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
@@ -24,7 +24,6 @@ TOP_BAR_LINK.addEventListener('click', (event) => {
 });
 
 const initApp = () => {
-	const isRTL = Boolean(window.ea11yScannerData?.isRTL);
 	const adminBar = document.querySelector('#wpadminbar');
 	window.ea11yScannerData = {
 		...window.ea11yScannerData,

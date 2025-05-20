@@ -5,9 +5,8 @@ import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
+import { isRTL } from '@ea11y-apps/scanner/constants';
 import { __, sprintf } from '@wordpress/i18n';
-
-const isRTL = Boolean(window.ea11yScannerData?.isRTL);
 
 export const AltTextNavigation = ({ total, current, setCurrent }) => {
 	return (

@@ -11,6 +11,8 @@ export const CURRENT_ELEMENT_CLASS = 'ea11y-scanner-current-element';
 export const UPGRADE_URL = '#';
 export const COMPARE_PLAN_URL = '#';
 
+export const isRTL = Boolean(window.ea11yScannerData?.isRTL);
+
 export const IS_AI_ENABLED = !window.ea11yScannerData?.planData?.plan?.name
 	?.toLowerCase()
 	.includes('free');
