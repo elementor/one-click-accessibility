@@ -1,5 +1,4 @@
 import Box from '@elementor/ui/Box';
-import Divider from '@elementor/ui/Divider';
 import Drawer from '@elementor/ui/Drawer';
 import { MyAccountMenu, SidebarAppBar, SidebarMenu } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
@@ -29,10 +28,7 @@ const Sidebar = () => {
 				<SidebarMenu />
 			</Box>
 			<Box>
-				<Divider />
 				<QuotaBar />
-				<Divider />
-
 				<MyAccountMenu drawerState={openSidebar} />
 			</Box>
 		</Drawer>
