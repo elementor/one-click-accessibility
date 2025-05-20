@@ -76,3 +76,9 @@ export const StyledButton = styled(Button)`
 	justify-content: start;
 	padding: 0;
 `;
+
+export const UpgradeContentContainer = styled(Box)`
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+`;

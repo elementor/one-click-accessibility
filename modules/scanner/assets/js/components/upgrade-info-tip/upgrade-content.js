@@ -1,5 +1,4 @@
 import XIcon from '@elementor/icons/XIcon';
-import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
@@ -10,6 +9,7 @@ import {
 	IS_AI_ENABLED,
 	UPGRADE_URL,
 } from '@ea11y-apps/scanner/constants';
+import { UpgradeContentContainer } from '@ea11y-apps/scanner/styles/app.styles';
 import {
 	InfotipBox,
 	InfotipFooter,
@@ -18,7 +18,7 @@ import { __ } from '@wordpress/i18n';
 
 export const UpgradeContent = ({ closeUpgrade }) => (
 	<InfotipBox>
-		<Box display="flex" justifyContent="space-between" alignItems="start">
+		<UpgradeContentContainer>
 			<Typography variant="subtitle1" sx={{ mb: 3 }}>
 				{IS_AI_ENABLED
 					? __("You've reached the monthly limit", 'pojo-accessibility')
@@ -34,7 +34,7 @@ export const UpgradeContent = ({ closeUpgrade }) => (
 					<XIcon />
 				</IconButton>
 			)}
-		</Box>
+		</UpgradeContentContainer>
 		<Typography variant="body2" sx={{ mb: 2 }}>
 			{IS_AI_ENABLED
 				? __(
