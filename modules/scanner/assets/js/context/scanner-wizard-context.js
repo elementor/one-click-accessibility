@@ -132,7 +132,10 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			.then(() => {
 				getResults();
 			})
-			.catch(() => setIsError(true));
+			.catch(() => {
+				setIsError(true);
+				setLoading(false);
+			});
 	}, []);
 
 	const isResolved = (block) => {

@@ -50,6 +50,15 @@ export const StateContainer = styled(Box)`
 	padding-bottom: ${({ theme }) => theme.spacing(6)};
 `;
 
+export const QuotaMessageContainer = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: ${({ theme }) => theme.spacing(2)};
+	margin-bottom: ${({ theme }) => theme.spacing(2)};
+`;
+
 export const StyledButtonContainer = styled(Paper)`
 	display: flex;
 	justify-content: space-between;

@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
-import { IS_AI_ENABLED, IS_AI_QUOTA } from '@ea11y-apps/scanner/constants';
+import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/useAltTextForm';
 import {
 	StyledBox,
@@ -105,7 +105,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								{IS_AI_ENABLED && IS_AI_QUOTA ? (
+								{IS_AI_ENABLED && AI_QUOTA_LIMIT ? (
 									<Tooltip
 										placement="top-end"
 										title={__(

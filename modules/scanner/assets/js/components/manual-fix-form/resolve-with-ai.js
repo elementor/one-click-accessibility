@@ -12,7 +12,7 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { UpgradeInfoTip } from '@ea11y-apps/scanner/components/upgrade-info-tip';
-import { IS_AI_ENABLED, IS_AI_QUOTA } from '@ea11y-apps/scanner/constants';
+import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
@@ -42,7 +42,7 @@ export const ResolveWithAi = ({ item, current }) => {
 	const aiSuggestion = manualData[openedBlock][current]?.aiSuggestion;
 
 	const handleButtonClick = async () => {
-		if (IS_AI_ENABLED && IS_AI_QUOTA) {
+		if (IS_AI_ENABLED && AI_QUOTA_LIMIT) {
 			await getAISuggestion();
 		} else {
 			setOpenUpgrade(true);
@@ -145,7 +145,7 @@ export const ResolveWithAi = ({ item, current }) => {
 			<UpgradeInfoTip closeUpgrade={closeUpgrade} openUpgrade={openUpgrade}>
 				<Button
 					variant="contained"
-					color={IS_AI_ENABLED && IS_AI_QUOTA ? 'info' : 'promotion'}
+					color={IS_AI_ENABLED && AI_QUOTA_LIMIT ? 'info' : 'promotion'}
 					startIcon={<AIIcon />}
 					fullWidth
 					disabled={aiResponseLoading}

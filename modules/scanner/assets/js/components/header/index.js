@@ -10,7 +10,11 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { Breadcrumbs } from '@ea11y-apps/scanner/components/header/breadcrumbs';
 import { ScanStats } from '@ea11y-apps/scanner/components/header/scan-stats';
-import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/constants';
+import {
+	BLOCKS,
+	PAGE_QUOTA_LIMIT,
+	ROOT_ID,
+} from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { Logo } from '@ea11y-apps/scanner/images';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
@@ -25,9 +29,19 @@ export const Header = () => {
 	};
 
 	const showChip =
-		!isError && !loading && openedBlock === BLOCKS.main && violation;
+		PAGE_QUOTA_LIMIT &&
+		!isError &&
+		!loading &&
+		openedBlock === BLOCKS.main &&
+		violation;
 	const showDivider =
-		!loading && (openedBlock === BLOCKS.main || openedBlock === BLOCKS.altText);
+		!loading &&
+		(!PAGE_QUOTA_LIMIT ||
+			isError ||
+			openedBlock === BLOCKS.main ||
+			openedBlock === BLOCKS.altText);
+
+	const showMainBlock = !isError && !PAGE_QUOTA_LIMIT;
 
 	return (
 		<StyledCard square={true} variant="elevation" elevation={0}>
@@ -68,7 +82,7 @@ export const Header = () => {
 						/>
 					)}
 				</Box>
-				{!isError && (
+				{showMainBlock && (
 					<>{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}</>
 				)}
 				{showDivider && <Divider />}
