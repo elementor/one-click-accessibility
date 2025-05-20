@@ -35,22 +35,21 @@ const QuotaBar = ({ type, quotaData }) => {
 					alignItems="center"
 				>
 					{QuotaBarData[type]?.title}
-					<StyledInfotip
+					<Infotip
 						placement="right"
-						PopperProps={{ sx: { width: '300px' } }}
+						PopperProps={{ sx: { width: '300px' }, disablePortal: true }}
 						content={
 							<Typography color="text.primary" padding={1}>
 								{QuotaBarData[type]?.infotipDescription}
 							</Typography>
 						}
-						open={true}
 					>
 						<InfoCircleIcon
 							sx={{
 								fontSize: 'medium',
 							}}
 						/>
-					</StyledInfotip>
+					</Infotip>
 				</Typography>
 				{quotaData?.allowed && (
 					<Box display="flex" flexDirection="row" gap={0.5} alignItems="center">
@@ -89,11 +88,4 @@ const StyledOuterWrapper = styled(Box)`
 	gap: ${({ theme }) => theme.spacing(1)};
 	width: 100%;
 	margin-bottom: ${({ theme }) => theme.spacing(1)};
-`;
-
-const StyledInfotip = styled(Infotip)`
-	overflow: visible;
-	& .MuiTooltip-tooltip {
-		overflow: visible;
-	}
 `;

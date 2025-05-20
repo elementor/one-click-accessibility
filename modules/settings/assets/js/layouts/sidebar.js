@@ -20,6 +20,7 @@ const Sidebar = () => {
 					height: '100%',
 					justifyContent: 'space-between',
 					paddingTop: 0,
+					overflow: 'visible',
 				},
 			}}
 		>

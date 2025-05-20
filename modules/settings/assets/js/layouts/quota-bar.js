@@ -64,7 +64,7 @@ const QuotaBar = () => {
 	return (
 		<StyledBox>
 			<StyledCardGroup>
-				<Card elevation={0}>
+				<Card elevation={0} sx={{ overflow: 'visible' }}>
 					<StyledCardActionArea onClick={toggleOpen}>
 						<StyledCardHeader
 							title={<QuotaTitle />}
