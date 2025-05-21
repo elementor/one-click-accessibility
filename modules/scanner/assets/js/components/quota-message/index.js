@@ -21,7 +21,7 @@ export const QuotaMessage = () => {
 					{sprintf(
 						// Translators: $s - page limit
 						__(
-							'You’ve reached your %s-page limit. Upgrade now to scan more pages, resolve more issues, and keep your site inclusive.',
+							'Your current plan allows scanning up to %s unique URLs. Upgrade to scan more and keep your site accessible.',
 							'pojo-accessibility',
 						),
 						PAGE_PER_PLAN,

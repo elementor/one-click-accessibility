@@ -57,6 +57,7 @@ export const QuotaMessageContainer = styled(Box)`
 	justify-content: center;
 	gap: ${({ theme }) => theme.spacing(2)};
 	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	padding-inline: ${({ theme }) => theme.spacing(2)};
 `;
 
 export const StyledButtonContainer = styled(Paper)`

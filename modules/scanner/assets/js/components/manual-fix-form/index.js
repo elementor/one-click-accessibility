@@ -206,7 +206,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 				<Button
 					size="small"
 					color="secondary"
-					variant="outlined"
+					variant="text"
 					onClick={handleSkip}
 				>
 					{__('Skip for now', 'pojo-accessibility')}

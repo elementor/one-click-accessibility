@@ -115,17 +115,27 @@ export const ResolveWithAi = ({ item, current }) => {
 					</StyledAlert>
 				</CardContent>
 				<CardActions sx={{ p: 2 }}>
-					<Button
-						size="small"
-						color="secondary"
-						variant="text"
-						onClick={handleButtonClick}
-						disabled={disabled}
-						loading={aiResponseLoading}
-						loadingPosition="start"
+					<Tooltip
+						arrow
+						placement="bottom"
+						title={__('Generate another solution', 'pojo-accessibility')}
+						id="copy-icon-ai"
+						PopperProps={{
+							disablePortal: true,
+						}}
 					>
-						{__('Retry', 'pojo-accessibility')}
-					</Button>
+						<Button
+							size="small"
+							color="secondary"
+							variant="text"
+							onClick={handleButtonClick}
+							disabled={disabled}
+							loading={aiResponseLoading}
+							loadingPosition="start"
+						>
+							{__('Retry', 'pojo-accessibility')}
+						</Button>
+					</Tooltip>
 					<Button
 						size="small"
 						color="info"
