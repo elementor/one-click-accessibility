@@ -1,6 +1,7 @@
 import Accordion from '@elementor/ui/Accordion';
 import AccordionDetails from '@elementor/ui/AccordionDetails';
 import AccordionSummary from '@elementor/ui/AccordionSummary';
+import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 
@@ -41,4 +42,16 @@ export const SectionTitle = styled(Typography)`
 export const StyledSnippet = styled(Typography)`
 	width: 320px;
 	word-break: break-word;
+`;
+
+export const InfotipBox = styled(Box)`
+	padding: ${({ theme }) => theme.spacing(2)};
+	max-width: 368px;
+	white-space: normal;
+`;
+
+export const InfotipFooter = styled(Box)`
+	display: flex;
+	justify-content: flex-end;
+	margin-top: ${({ theme }) => theme.spacing(2)};
 `;

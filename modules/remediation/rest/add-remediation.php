@@ -45,8 +45,19 @@ class Add_Remediation extends Route_Base {
 				] );
 			}
 
-			$remediation = Global_Utils::sanitize_object( $request->get_param( 'remediation' ) );
+			$remediation = $request->get_param( 'remediation' );
+			$api_id = sanitize_text_field( $request->get_param( 'apiId' ) );
 			$page->append_remediation( $remediation );
+
+			if ( $api_id ) {
+				Global_Utils::get_api_client()->make_request(
+					'POST',
+					'ai/resolve/' . $api_id,
+					[],
+					[],
+					true,
+				);
+			}
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation added',

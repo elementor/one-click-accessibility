@@ -5,7 +5,7 @@ import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
-import { isRtl } from '@ea11y-apps/scanner/utils/is-rtl';
+import { isRTL } from '@ea11y-apps/scanner/constants';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const AltTextNavigation = ({ total, current, setCurrent }) => {
@@ -55,7 +55,7 @@ const StyledNavigation = styled(Box)`
 `;
 
 const StyledIconButton = styled(IconButton)`
-	${isRtl() ? 'transform: rotate(180deg)' : ''}
+	${isRTL ? 'transform: rotate(180deg)' : ''}
 `;
 
 AltTextNavigation.propTypes = {

@@ -4,10 +4,8 @@ namespace EA11y\Modules\Remediation\Rest;
 
 use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Remediation\Classes\Route_Base;
-use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Page_Table;
-use EA11y\Modules\Settings\Classes\Settings;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
@@ -60,12 +58,10 @@ class Register extends Route_Base {
 				],
 			] );
 
-			$plan_data = Settings::get( Settings::PLAN_DATA );
 			$response = Global_Utils::get_api_client()->make_request(
 				'POST',
 				'scanned-page/store',
 				[
-					'api_key' => $plan_data->public_api_key,
 					'page_url' => $url,
 					'summary' => Global_Utils::sanitize_object( $request->get_param( 'summary' ) ),
 				],

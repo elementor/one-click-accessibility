@@ -1,3 +1,4 @@
+import DirectionProvider from '@elementor/ui/DirectionProvider';
 import { createTheme, ThemeProvider } from '@elementor/ui/styles';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
@@ -5,10 +6,9 @@ import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { NotificationsProvider } from '@ea11y-apps/global/hooks/use-notifications';
 import App from '@ea11y-apps/scanner/app';
-import { ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/constants';
+import { isRTL, ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/constants';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
-import { isRtl } from '@ea11y-apps/scanner/utils/is-rtl';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -39,7 +39,11 @@ const initApp = () => {
 		__('Accessibility Scanner', 'pojo-accessibility'),
 	);
 
-	document.body.style.marginRight = '420px';
+	if (isRTL) {
+		rootNode.setAttribute('dir', 'rtl');
+	}
+
+	document.body.style[isRTL ? 'marginLeft' : 'marginRight'] = '425px';
 	document.body.appendChild(rootNode);
 
 	const shadowContainer = rootNode.attachShadow({ mode: 'open' });
@@ -53,60 +57,25 @@ const initApp = () => {
 		key: 'css',
 		prepend: true,
 		container: shadowContainer,
-		stylisPlugins: isRtl() ? [prefixer, rtlPlugin] : [],
+		stylisPlugins: isRTL ? [prefixer, rtlPlugin] : [],
 	});
 
-	const shadowTheme = createTheme({
-		cssVariables: {
-			rootSelector: ':host',
-			colorSchemeSelector: 'class',
-		},
-		components: {
-			MuiPopover: {
-				defaultProps: {
-					container: shadowRootElement,
-				},
-			},
-			MuiPopper: {
-				defaultProps: {
-					container: shadowRootElement,
-				},
-			},
-			MuiModal: {
-				defaultProps: {
-					container: shadowRootElement,
-				},
-			},
-			MuiTooltip: {
-				defaultProps: {
-					PopperProps: {
-						container: shadowRootElement,
-					},
-					slotProps: {
-						popper: {
-							disablePortal: false, // in out theme, this defaults to true for the MuiPopper component
-							container: shadowRootElement,
-						},
-					},
-				},
-			},
-		},
+	const theme = createTheme({
+		direction: isRTL ? 'rtl' : 'ltr',
 	});
 
 	createRoot(shadowRootElement).render(
 		<AppWrapper>
 			<CacheProvider value={cache}>
-				<ThemeProvider
-					theme={shadowTheme}
-					colorScheme="light"
-					colorSchemeNode={shadowRootElement}
-				>
-					<NotificationsProvider>
-						<ScannerWizardContextProvider>
-							<App />
-						</ScannerWizardContextProvider>
-					</NotificationsProvider>
-				</ThemeProvider>
+				<DirectionProvider rtl={isRTL}>
+					<ThemeProvider colorScheme="light" theme={theme}>
+						<NotificationsProvider>
+							<ScannerWizardContextProvider>
+								<App />
+							</ScannerWizardContextProvider>
+						</NotificationsProvider>
+					</ThemeProvider>
+				</DirectionProvider>
 			</CacheProvider>
 		</AppWrapper>,
 	);

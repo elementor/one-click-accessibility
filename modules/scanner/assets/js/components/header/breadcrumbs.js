@@ -43,15 +43,11 @@ export const Breadcrumbs = () => {
 					</Typography>
 					{BLOCK_INFO[openedBlock] && (
 						<Infotip
-							placement="top"
 							content={
 								<Typography variant="body2" sx={{ p: 2, maxWidth: '300px' }}>
 									{BLOCK_INFO[openedBlock]}
 								</Typography>
 							}
-							PopperProps={{
-								disablePortal: true,
-							}}
 						>
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>

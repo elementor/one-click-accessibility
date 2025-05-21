@@ -5,6 +5,10 @@ import {
 	MANUAL_GROUPS,
 } from '@ea11y-apps/scanner/constants';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
+import {
+	focusOnElement,
+	removeExistingFocus,
+} from '@ea11y-apps/scanner/utils/focus-on-element';
 import { sortViolations } from '@ea11y-apps/scanner/utils/sort-violations';
 import {
 	createContext,
@@ -23,12 +27,15 @@ export const ScannerWizardContext = createContext({
 	altTextData: [],
 	manualData: {},
 	violation: null,
+	openIndex: null,
 	setOpenedBlock: () => {},
 	setResolved: () => {},
 	getResults: () => {},
 	setAltTextData: () => {},
 	setManualData: () => {},
 	isResolved: () => {},
+	handleOpen: () => {},
+	setOpenIndex: () => {},
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
@@ -42,6 +49,23 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [isError, setIsError] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
+	const [openIndex, setOpenIndex] = useState(null);
+
+	useEffect(() => {
+		if (
+			openIndex !== null &&
+			sortedViolations[openedBlock]?.length &&
+			openIndex < sortedViolations[openedBlock]?.length
+		) {
+			focusOnElement(sortedViolations[openedBlock][openIndex].node);
+		} else {
+			removeExistingFocus();
+		}
+	}, [openIndex]);
+
+	const handleOpen = (index) => (event, isExpanded) => {
+		setOpenIndex(isExpanded ? index : null);
+	};
 
 	const initialViolations =
 		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
@@ -108,7 +132,10 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			.then(() => {
 				getResults();
 			})
-			.catch(() => setIsError(true));
+			.catch(() => {
+				setIsError(true);
+				setLoading(false);
+			});
 	}, []);
 
 	const isResolved = (block) => {
@@ -146,7 +173,10 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				getResults,
 				setAltTextData,
 				setManualData,
+				openIndex,
+				setOpenIndex,
 				isResolved,
+				handleOpen,
 			}}
 		>
 			{children}

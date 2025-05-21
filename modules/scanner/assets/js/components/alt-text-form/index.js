@@ -7,6 +7,7 @@ import Checkbox from '@elementor/ui/Checkbox';
 import CircularProgress from '@elementor/ui/CircularProgress';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import IconButton from '@elementor/ui/IconButton';
+import Infotip from '@elementor/ui/Infotip';
 
 import InputAdornment from '@elementor/ui/InputAdornment';
 import TextField from '@elementor/ui/TextField';
@@ -15,6 +16,8 @@ import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
+import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
+import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/useAltTextForm';
 import {
 	StyledBox,
@@ -102,38 +105,62 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								<Tooltip
-									title={__(
-										'Generate an Alt text description with AI.',
-										'pojo-accessibility',
-									)}
-									PopperProps={{
-										disablePortal: true,
-									}}
-									componentsProps={{
-										tooltip: {
-											id: 'ai-btn-description',
-											sx: {
-												maxWidth: '101px',
-												whiteSpace: 'normal',
-												lineHeight: 1.4,
-											},
-										},
-									}}
-								>
-									<IconButton
-										size="small"
-										aria-labelledby="ai-btn-description"
-										onClick={generateAltText}
-										disabled={loadingAiText}
-									>
-										{loadingAiText ? (
-											<CircularProgress color="info" size={24} />
-										) : (
-											<AIIcon color="info" />
+								{IS_AI_ENABLED && AI_QUOTA_LIMIT ? (
+									<Tooltip
+										placement="top-end"
+										title={__(
+											'Generate an Alt text description with AI.',
+											'pojo-accessibility',
 										)}
-									</IconButton>
-								</Tooltip>
+										PopperProps={{
+											disablePortal: true,
+										}}
+										slotProps={{
+											tooltip: {
+												id: 'ai-btn-description',
+												sx: {
+													maxWidth: '101px',
+													whiteSpace: 'normal',
+													lineHeight: 1.4,
+												},
+											},
+										}}
+									>
+										<IconButton
+											size="small"
+											aria-labelledby="ai-btn-description"
+											onClick={generateAltText}
+											disabled={loadingAiText}
+										>
+											{loadingAiText ? (
+												<CircularProgress color="info" size={24} />
+											) : (
+												<AIIcon color="info" />
+											)}
+										</IconButton>
+									</Tooltip>
+								) : (
+									<Infotip
+										placement="top-end"
+										slotProps={{
+											tooltip: {
+												id: 'ai-btn-description',
+											},
+										}}
+										PopperProps={{
+											disablePortal: true,
+										}}
+										content={<UpgradeContent />}
+									>
+										<IconButton
+											size="small"
+											aria-labelledby="ai-btn-description"
+											onClick={generateAltText}
+										>
+											<AIIcon color="promotion" />
+										</IconButton>
+									</Infotip>
+								)}
 							</InputAdornment>
 						),
 					}}

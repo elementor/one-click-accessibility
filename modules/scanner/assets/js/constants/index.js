@@ -8,6 +8,27 @@ export const ROOT_ID = 'ea11y-scanner-wizard-widget';
 
 export const CURRENT_ELEMENT_CLASS = 'ea11y-scanner-current-element';
 
+export const UPGRADE_URL = '#';
+export const COMPARE_PLAN_URL = '#';
+
+export const isRTL = Boolean(window.ea11yScannerData?.isRTL);
+
+export const IS_AI_ENABLED = !window.ea11yScannerData?.planData?.plan?.name
+	?.toLowerCase()
+	.includes('free');
+export const AI_QUOTA_LIMIT =
+	window.ea11yScannerData?.planData?.aiCredits?.allowed -
+		window.ea11yScannerData?.planData?.aiCredits?.used >
+	0;
+
+export const PAGE_PER_PLAN =
+	window.ea11yScannerData?.planData?.scannedPages?.allowed;
+
+export const PAGE_QUOTA_LIMIT =
+	window.ea11yScannerData?.planData?.scannedPages?.allowed -
+		window.ea11yScannerData?.planData?.scannedPages?.used >
+	0;
+
 export const BLOCKS = {
 	main: 'main',
 	altText: 'altText',

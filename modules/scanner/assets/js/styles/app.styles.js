@@ -6,6 +6,13 @@ import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
 import { styled } from '@elementor/ui/styles';
 
+export const StyledPaper = styled(Paper)`
+	position: relative;
+	width: 425px;
+	min-height: 100vh;
+	height: fit-content;
+`;
+
 export const StyledContent = styled(CardContent)`
 	padding: 0 ${({ theme }) => theme.spacing(1.5)};
 `;
@@ -13,6 +20,14 @@ export const StyledContent = styled(CardContent)`
 export const StyledSkeleton = styled(Skeleton)`
 	transform: scale(1);
 `;
+
+const disabledState = `
+		opacity: .7;
+		cursor: not-allowed;
+		& * {
+			pointer-events: none;
+		}
+	`;
 
 export const StyledAlert = styled(Alert)`
 	align-items: center;
@@ -22,6 +37,7 @@ export const StyledAlert = styled(Alert)`
 		padding-top: 0;
 		display: flex;
 	}
+	${({ disabled }) => (disabled ? disabledState : '')}
 `;
 
 export const StateContainer = styled(Box)`
@@ -34,16 +50,36 @@ export const StateContainer = styled(Box)`
 	padding-bottom: ${({ theme }) => theme.spacing(6)};
 `;
 
+export const QuotaMessageContainer = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: ${({ theme }) => theme.spacing(2)};
+	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	padding-inline: ${({ theme }) => theme.spacing(2)};
+`;
+
 export const StyledButtonContainer = styled(Paper)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
 	padding: ${({ theme }) => theme.spacing(1.5)};
+
+	&:hover {
+		background-color: ${({ theme }) => theme.palette.action.hover};
+	}
 `;
 
 export const StyledButton = styled(Button)`
 	font-weight: 400;
 	justify-content: start;
 	padding: 0;
+`;
+
+export const UpgradeContentContainer = styled(Box)`
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
 `;

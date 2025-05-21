@@ -2,9 +2,10 @@
 
 namespace EA11y\Modules\Scanner\Rest;
 
+use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Scanner\Classes\Route_Base;
 use EA11y\Modules\Scanner\Classes\Utils;
-use EA11y\Classes\Utils as Global_Utils;
+use EA11y\Modules\Settings\Classes\Settings;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
@@ -13,15 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Generate_Alt_Text extends Route_Base {
-	public string $path = 'generate-alt-text';
+class Resolve_With_AI extends Route_Base {
+	public string $path = 'resolve-with-ai';
 
 	public function get_methods(): array {
 		return [ 'POST' ];
 	}
 
 	public function get_name(): string {
-		return 'generate-alt-text';
+		return 'resolve-with-ai';
 	}
 
 	/**
@@ -37,38 +38,31 @@ class Generate_Alt_Text extends Route_Base {
 				return $error;
 			}
 
-			$image = $request->get_param( 'image' );
-			$svg = $request->get_param( 'svg' );
-
-			if ( ! ( $image || $svg ) ) {
-				return $this->respond_error_json( [
-					'message' => 'Missing required parameters',
-					'code' => 'missing_parameters',
-				] );
-			}
-
-			$src = $image ?? Utils::create_tmp_file_from_png_base64( $svg );
+			$snippet = $request->get_param( 'snippet' );
+			$violation = $request->get_param( 'violation' );
 
 			$result = Global_Utils::get_api_client()->make_request(
 				'POST',
-				'ai/image-alt',
+				'ai/remediate',
+				[
+					'snippet' => $snippet,
+					'violation' => $violation,
+				],
 				[],
-				[],
-				false,
-				$src
+				true,
 			);
 
 			if ( is_wp_error( $result ) ) {
 				return $this->respond_error_json( [
-					'message' => 'Failed to generate Alt Text',
+					'message' => 'Failed to resolve with AI',
 					'code' => 'internal_server_error',
 				] );
 			}
 
 			return $this->respond_success_json( [
-				'message' => 'Alt text generated',
+				'message' => 'Resolved with AI',
 				'data' => [
-					'response' => $result->response,
+					'response' => json_decode( $result->response ),
 					'apiId' => $result->apiId,
 				],
 			] );

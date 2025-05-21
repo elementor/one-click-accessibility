@@ -75,6 +75,7 @@ export const useAltTextForm = ({ current, item }) => {
 					xpath: item.path.dom,
 					type: 'ATTRIBUTE',
 				},
+				apiId: altTextData?.[current]?.apiId,
 			});
 		}
 	};
@@ -82,6 +83,7 @@ export const useAltTextForm = ({ current, item }) => {
 	const handleCheck = (e) => {
 		updateData({
 			makeDecorative: e.target.checked,
+			apiId: null,
 			resolved: false,
 		});
 	};
@@ -89,6 +91,7 @@ export const useAltTextForm = ({ current, item }) => {
 	const handleChange = (e) => {
 		updateData({
 			altText: e.target.value,
+			apiId: null,
 			resolved: false,
 		});
 	};
@@ -114,12 +117,13 @@ export const useAltTextForm = ({ current, item }) => {
 		setLoadingAiText(true);
 		const data = await getPayload();
 		try {
-			const response = await APIScanner.generateAltText(data);
-			const descriptions = splitDescriptions(response.data);
+			const result = await APIScanner.generateAltText(data);
+			const descriptions = splitDescriptions(result.data.response);
 			if (descriptions[0]) {
 				updateData({
 					altText: descriptions[0],
 					aiText: descriptions,
+					apiId: result.data.apiId,
 					aiTextIndex: 0,
 					resolved: false,
 				});
