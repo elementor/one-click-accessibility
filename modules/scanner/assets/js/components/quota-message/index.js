@@ -2,7 +2,7 @@ import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
 import CrownFilled from '@ea11y/icons/crown-filled';
 import { PAGE_PER_PLAN, UPGRADE_URL } from '@ea11y-apps/scanner/constants';
-import quotaImage from '@ea11y-apps/scanner/images/quota-image.png';
+import { QuotaImage } from '@ea11y-apps/scanner/images/quota-image';
 import {
 	QuotaMessageContainer,
 	StateContainer,
@@ -12,7 +12,7 @@ import { __, sprintf } from '@wordpress/i18n';
 export const QuotaMessage = () => {
 	return (
 		<StateContainer>
-			<img src={quotaImage ?? ''} role="presentation" alt="" width={375} />
+			<QuotaImage />
 			<QuotaMessageContainer>
 				<Typography variant="h5" align="center">
 					{__('Scan and improve more pages', 'pojo-accessibility')}

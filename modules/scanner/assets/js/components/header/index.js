@@ -41,7 +41,7 @@ export const Header = () => {
 			openedBlock === BLOCKS.main ||
 			openedBlock === BLOCKS.altText);
 
-	const showMainBlock = !isError && !PAGE_QUOTA_LIMIT;
+	const showMainBlock = !isError && PAGE_QUOTA_LIMIT;
 
 	return (
 		<StyledCard square={true} variant="elevation" elevation={0}>
