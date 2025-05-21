@@ -12,7 +12,7 @@ const entryPoints = {
 		'ea11y-scanner-wizard.css',
 	),
 	fonts: path.resolve(process.cwd(), 'assets/css', 'fonts.css'),
-	'skip-link': path.resolve(process.cwd(), 'assets/css', 'skip-link.css'),
+	'skip-link': path.resolve(process.cwd(), 'assets/dev/css', 'skip-link.css'),
 	'gutenberg-custom-link': path.resolve(
 		process.cwd(),
 		'modules/widget/assets/js',
