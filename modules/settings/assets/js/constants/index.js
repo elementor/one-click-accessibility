@@ -7,6 +7,7 @@ import {
 } from '@elementor/design-tokens/primitives';
 import AlignLeftIcon from '@elementor/icons/AlignLeftIcon';
 import LinkIcon from '@elementor/icons/LinkIcon';
+import WorldIcon from '@elementor/icons/WorldIcon';
 import {
 	ContrastIcon,
 	GrayscaleIcon,
@@ -139,6 +140,12 @@ export const FEATURE_MAPPER = {
 		title: __('Screen reader', 'pojo-accessibility'),
 		chartsTitle: __('Screen reader', 'pojo-accessibility'),
 		icon: <ScreenReaderIcon />,
+		pro: true,
+	},
+	'language-selector': {
+		title: __('Language selector', 'pojo-accessibility'),
+		chartsTitle: __('Language selector', 'pojo-accessibility'),
+		icon: <WorldIcon sx={ICON_STYLE} />,
 		pro: true,
 	},
 	other: {
