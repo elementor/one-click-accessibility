@@ -5,11 +5,10 @@ import Infotip from '@elementor/ui/Infotip';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
 import { QuotaBarData } from '@ea11y/components/quota-bar/data';
-import { useSettings } from '@ea11y/hooks';
 import { formatPlanValue } from '../../utils/index';
 
 const QuotaBar = ({ type, quotaData }) => {
-	const { planUsage } = useSettings();
+	const planUsage = Math.round((quotaData?.used / quotaData?.allowed) * 100);
 
 	/**
 	 * Get the color for the progress bar based on the usage.
@@ -33,6 +32,7 @@ const QuotaBar = ({ type, quotaData }) => {
 					color="text.secondary"
 					display="flex"
 					alignItems="center"
+					sx={{ fontSize: '12px' }}
 				>
 					{QuotaBarData[type]?.title}
 					<Infotip
@@ -53,14 +53,14 @@ const QuotaBar = ({ type, quotaData }) => {
 				</Typography>
 				{quotaData?.allowed && (
 					<Box display="flex" flexDirection="row" gap={0.5} alignItems="center">
-						<Typography variant="body2" color="text.primary">
+						<Typography
+							variant="body2"
+							color="text.primary"
+							sx={{ fontSize: '12px' }}
+						>
 							{formatPlanValue(quotaData?.used)}/
 							{formatPlanValue(quotaData?.allowed)}
 						</Typography>
-						<Typography
-							variant="body2"
-							color="text.secondary"
-						>{`(${planUsage}%)`}</Typography>
 					</Box>
 				)}
 			</Box>
