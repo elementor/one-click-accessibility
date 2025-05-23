@@ -1,11 +1,13 @@
 import { ChevronUpIcon, CrownIcon, EyeIcon } from '@elementor/icons';
-import { CardActionArea, CardGroup, Collapse } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
+import CardActionArea from '@elementor/ui/CardActionArea';
 import CardContent from '@elementor/ui/CardContent';
+import CardGroup from '@elementor/ui/CardGroup';
 import CardHeader from '@elementor/ui/CardHeader';
 import Chip from '@elementor/ui/Chip';
+import Collapse from '@elementor/ui/Collapse';
 import IconButton from '@elementor/ui/IconButton';
 import Rotate from '@elementor/ui/Rotate';
 import Skeleton from '@elementor/ui/Skeleton';
