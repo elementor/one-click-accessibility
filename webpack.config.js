@@ -11,6 +11,11 @@ const entryPoints = {
 		'modules/widget/assets/js',
 		'ally-gutenberg-block.js',
 	),
+	reviews: path.resolve(
+		process.cwd(),
+		'modules/reviews/assets/src',
+		'reviews.js',
+	),
 };
 
 // React JSX Runtime Polyfill
@@ -72,6 +77,7 @@ module.exports = [
 					__dirname,
 					'modules/scanner/assets/js',
 				),
+				'@ea11y/globals': path.resolve(__dirname, 'assets/js/globals/'),
 			},
 			extensions: ['.js', '.jsx'],
 		},

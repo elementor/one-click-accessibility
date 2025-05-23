@@ -23,6 +23,7 @@ final class Manager {
 			'Core',
 			'Analytics',
 			'whats-new',
+			'Reviews',
 		];
 	}
 
