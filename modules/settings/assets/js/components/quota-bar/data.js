@@ -4,21 +4,21 @@ export const QuotaBarData = {
 	visits: {
 		title: __('Widget loads', 'pojo-accessibility'),
 		infotipDescription: __(
-			'This shows how many times your accessibility widget has loaded for unique visitors across all your connected sites this monthly cycle (each IP/device is counted once per 24 hours). If you’re nearing your plan’s monthly limit, you can upgrade to keep all features available.',
+			'This is how many times your widget loads for each unique IP/device in a 24-hour span across your sites this month. Upgrade if you’re nearing your limit to keep all features available.',
 			'pojo-accessibility',
 		),
 	},
 	scanner: {
 		title: __('Pages scanned', 'pojo-accessibility'),
 		infotipDescription: __(
-			'This shows how many times your accessibility widget has loaded for unique visitors across all your connected sites this monthly cycle (each IP/device is counted once per 24 hours). If you’re nearing your plan’s monthly limit, you can upgrade to keep all features available.',
+			'This is how many URLs (like site pages, blog posts, or product pages) you’ve scanned for accessibility this month. Upgrade if you’re nearing your limit to keep scanning more.',
 			'pojo-accessibility',
 		),
 	},
 	ai: {
 		title: __('AI credits', 'pojo-accessibility'),
 		infotipDescription: __(
-			'This shows how many times your accessibility widget has loaded for unique visitors across all your connected sites this monthly cycle (each IP/device is counted once per 24 hours). If you’re nearing your plan’s monthly limit, you can upgrade to keep all features available.',
+			'This is how many AI credits you’ve used to resolve issues or to generate content. Upgrade if you’re nearing your plan limit to keep full functionality.',
 			'pojo-accessibility',
 		),
 	},
