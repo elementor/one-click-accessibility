@@ -9,7 +9,10 @@ import Chip from '@elementor/ui/Chip';
 import IconButton from '@elementor/ui/IconButton';
 import Skeleton from '@elementor/ui/Skeleton';
 import { styled } from '@elementor/ui/styles';
-import { QuotaBar as QuotaBarComponent } from '@ea11y/components';
+import {
+	QuotaBar as QuotaBarComponent,
+	QuotaIndicator,
+} from '@ea11y/components';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
@@ -26,7 +29,7 @@ const QuotaBar = () => {
 	const toggleOpen = () => setOpen((prev) => !prev);
 
 	/**
-	 * Send an event to Mixpanel when the user clicks on the "Add visits" button and open the link.
+	 * Send an event to the Mixpanel when the user clicks on the "Add visits" button and open the link.
 	 */
 	const handleAddVisitsClick = () => {
 		mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
@@ -40,6 +43,7 @@ const QuotaBar = () => {
 		<Box display="flex" alignItems="center" gap={1}>
 			{__('Current Plan', 'pojo-accessibility')}
 			<Chip variant="filled" label={planData?.plan?.name} size="tiny" />
+			<QuotaIndicator data={planData} isQuotaBoxOpen={open} />
 		</Box>
 	);
 

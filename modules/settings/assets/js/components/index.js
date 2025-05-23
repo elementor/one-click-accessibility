@@ -32,3 +32,4 @@ export { default as CustomIcon } from './custom-icon';
 export { default as IconOptionWrapper } from './icon-option-wrapper';
 export { default as PageSelect } from './page-select';
 export { default as QuotaBar } from './quota-bar';
+export { default as QuotaIndicator } from './quota-bar/quota-indicator';
