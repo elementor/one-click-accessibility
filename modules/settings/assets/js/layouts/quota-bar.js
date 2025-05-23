@@ -1,4 +1,4 @@
-import { ChevronDownIcon, CrownIcon, EyeIcon } from '@elementor/icons';
+import { ChevronUpIcon, CrownIcon, EyeIcon } from '@elementor/icons';
 import { CardActionArea, CardGroup, Collapse } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
@@ -7,6 +7,7 @@ import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Chip from '@elementor/ui/Chip';
 import IconButton from '@elementor/ui/IconButton';
+import Rotate from '@elementor/ui/Rotate';
 import Skeleton from '@elementor/ui/Skeleton';
 import { styled } from '@elementor/ui/styles';
 import {
@@ -72,7 +73,11 @@ const QuotaBar = () => {
 					<StyledCardActionArea onClick={toggleOpen}>
 						<StyledCardHeader
 							title={<QuotaTitle />}
-							action={<ChevronDownIcon />}
+							action={
+								<Rotate in={open}>
+									<ChevronUpIcon />
+								</Rotate>
+							}
 							disableActionOffset
 						/>
 					</StyledCardActionArea>
