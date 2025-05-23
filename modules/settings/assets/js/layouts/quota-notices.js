@@ -42,12 +42,12 @@ const QuotaNotices = () => {
 			<Alert severity="warning" square>
 				<AlertTitle>
 					{__(
-						'You’ve reached 80% of your widget monthly visits',
+						'You’ve reached 80% of your monthly plan usage',
 						'pojo-accessibility',
 					)}
 				</AlertTitle>
 				{__(
-					'Upgrade now to increase your plans monthly widget visits limit and ensure all accessibility features remain available for every visitor.',
+					'Upgrade now to increase your limit and ensure all accessibility features stay fully available for every visitor.',
 					'pojo-accessibility',
 				)}
 				<AlertAction
@@ -66,13 +66,10 @@ const QuotaNotices = () => {
 		return (
 			<Alert severity="error" square>
 				<AlertTitle>
-					{__(
-						'Only 5% of your monthly widget visits are left',
-						'pojo-accessibility',
-					)}
+					{__('Only 5% of your monthly plan usage left', 'pojo-accessibility')}
 				</AlertTitle>
 				{__(
-					"Upgrade now to increase your plan's monthly widget visits limit and ensure all accessibility features remain available for every visitor.",
+					'Upgrade now to increase your limit and keep all accessibility features running smoothly for every visitor.',
 					'pojo-accessibility',
 				)}
 				<AlertAction
@@ -91,13 +88,10 @@ const QuotaNotices = () => {
 		return (
 			<Alert severity="error" square>
 				<AlertTitle>
-					{__(
-						"You've reached your widget monthly visits",
-						'pojo-accessibility',
-					)}
+					{__("You've reached your monthly plan usage", 'pojo-accessibility')}
 				</AlertTitle>
 				{__(
-					"Upgrade now to increase your plan's monthly widget visits limit and ensure all accessibility features remain available for every visitor.",
+					'Upgrade now to raise your limit and maintain complete access to all accessibility features for every visitor.',
 					'pojo-accessibility',
 				)}
 				<AlertAction
