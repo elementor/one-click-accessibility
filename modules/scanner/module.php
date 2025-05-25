@@ -4,11 +4,11 @@ namespace EA11y\Modules\Scanner;
 
 use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
+use EA11y\Modules\Remediation\Classes\Utils as Remediation_Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
 use EA11y\Modules\Scanner\Database\Scans_Table;
 use EA11y\Modules\Settings\Classes\Settings;
-use EA11y\Modules\Remediation\Classes\Utils as Remediation_Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -31,6 +31,7 @@ class Module extends Module_Base {
 	public static function component_list(): array {
 		return [
 			'Top_Bar_Link',
+			'List_Column',
 		];
 	}
 

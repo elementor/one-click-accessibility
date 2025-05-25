@@ -2,9 +2,7 @@
 
 namespace EA11y\Modules\Remediation\Database;
 
-use DOMDocument;
 use EA11y\Classes\Database\Entry;
-use EA11y\Classes\Logger;
 use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Exceptions\Missing_URL;
 
@@ -16,11 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Page_Entry
  */
 class Page_Entry extends Entry {
-
-	/**
-	 * @var array $remediations holds array of remediation to preform on page
-	 */
-	private array $remediations;
 	/**
 	 * @var string $hash holds md5 of page url
 	 */
@@ -34,7 +27,6 @@ class Page_Entry extends Entry {
 	 * Create
 	 *
 	 * used to ensure:
-	 *      the remediation is an array
 	 *      the hash is set
 	 *      URL is set
 	 *
@@ -47,8 +39,6 @@ class Page_Entry extends Entry {
 			throw new Missing_URL();
 		}
 		$date_time = gmdate( 'Y-m-d H:i:s' );
-
-		$this->entry_data[ Page_Table::REMEDIATIONS ] = (array) $this->entry_data[ Page_Table::REMEDIATIONS ];
 		$this->entry_data[ Page_Table::CREATED_AT ] = $date_time;
 		$this->entry_data[ Page_Table::UPDATED_AT ] = $date_time;
 
@@ -56,36 +46,7 @@ class Page_Entry extends Entry {
 	}
 
 	/**
-	 *  append_remediation
-	 *
-	 * @param array $remediation
-	 *
-	 * @return Page_Entry
-	 */
-	public function append_remediation( array $remediation ) : Page_Entry {
-		$remediations = json_decode( $this->entry_data[ Page_Table::REMEDIATIONS ] );
-		if ( ! is_array( $remediations ) ) {
-			$remediations = [];
-		}
-
-		$index = array_search( $remediation['xpath'], array_column( $remediations, 'xpath' ), true );
-
-		if ( false !== $index ) {
-			$remediations[ $index ] = $remediation;
-		} else {
-			$remediations[] = $remediation;
-		}
-
-		$date_time = gmdate( 'Y-m-d H:i:s' );
-		$this->entry_data[ Page_Table::REMEDIATIONS ] = wp_json_encode( $remediations );
-		$this->entry_data[ Page_Table::UPDATED_AT ] = $date_time;
-		$this->save();
-
-		return $this;
-	}
-
-	/**
-	 *  append_remediation
+	 * update_html
 	 *
 	 * @param string $html
 	 * @return Page_Entry|null
@@ -106,17 +67,12 @@ class Page_Entry extends Entry {
 	/**
 	 *  get_page_data
 	 *
-	 * @return array $data
+	 * @return string $html
 	 */
-	public function get_page_data() : array {
-		return [
-			'remediations' => key_exists( Page_Table::REMEDIATIONS, $this->entry_data )
-				? json_decode( $this->entry_data[ Page_Table::REMEDIATIONS ], true )
-				: [],
-			'html' => key_exists( Page_Table::FULL_HTML, $this->entry_data )
-				? $this->entry_data[ Page_Table::FULL_HTML ]
-				: '',
-		];
+	public function get_page_html() : ?string {
+		return key_exists( Page_Table::FULL_HTML, $this->entry_data )
+			? $this->entry_data[ Page_Table::FULL_HTML ]
+			: '';
 	}
 
 	/**

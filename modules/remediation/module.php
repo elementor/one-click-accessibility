@@ -5,6 +5,7 @@ namespace EA11y\Modules\Remediation;
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Remediation\Database\Page_Table;
+use EA11y\Modules\Remediation\Database\Remediation_Table;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -36,6 +37,7 @@ class Module extends Module_Base {
 
 	public function __construct() {
 		Page_Table::install();
+		Remediation_Table::install();
 		$this->register_routes();
 		$this->register_components();
 	}

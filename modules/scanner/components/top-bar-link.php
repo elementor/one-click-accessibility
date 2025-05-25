@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Scanner\components;
+namespace EA11y\Modules\Scanner\Components;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -13,6 +13,9 @@ class Top_Bar_Link {
 	}
 
 	public function add_bar_link() {
+		if ( is_admin() ) {
+			return;
+		}
 		add_action( 'admin_bar_menu', function ( \WP_Admin_Bar $wp_admin_bar ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
@@ -32,7 +35,7 @@ class Top_Bar_Link {
 	}
 
 	/**
-	 * Module constructor.
+	 * Component constructor.
 	 */
 	public function __construct() {
 		$this->add_bar_link();

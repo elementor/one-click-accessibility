@@ -2,6 +2,7 @@
 
 namespace EA11y\Modules\Remediation\Actions;
 
+use DOMDocument;
 use EA11y\Modules\Remediation\Classes\Remediation_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,15 +16,27 @@ class Attribute extends Remediation_Base {
 
 	public static string $type = 'attribute';
 
-	public function run() : \DOMDocument {
+	public function run() : ?DOMDocument {
 		$element_node = $this->get_element_by_xpath( $this->data['xpath'] );
 		if ( ! $element_node ) {
-			return $this->dom;
+			return null;
 		}
 		switch ( $this->data['action'] ) {
 			case 'update':
 			case 'add':
 				$element_node->setAttribute( $this->data['attribute_name'], $this->data['attribute_value'] );
+				//Disable duplicates attr for image
+				$exclusions = [
+					'alt'  => 'role',
+					'role' => 'alt',
+				];
+
+				$attr = $this->data['attribute_name'];
+
+				if ( isset( $exclusions[ $attr ] ) ) {
+					$element_node->removeAttribute( $exclusions[ $attr ] );
+				}
+
 				break;
 			case 'remove':
 				$element_node->removeAttribute( $this->data['attribute_name'] );
