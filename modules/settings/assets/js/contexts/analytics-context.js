@@ -1,4 +1,4 @@
-import { useStorage } from '@ea11y/hooks';
+import { useStorage } from '@ea11y/globals';
 import {
 	createContext,
 	useContext,
