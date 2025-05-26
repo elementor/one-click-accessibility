@@ -1,8 +1,8 @@
 import { UploadIcon } from '@elementor/icons';
 import Button from '@elementor/ui/Button';
 import { ConfirmDialog } from '@ea11y/components';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useIconDesign, useStorage } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';

@@ -8,6 +8,7 @@ import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { StatementGenerator } from '@ea11y/components';
 import Button from '@ea11y/components/button';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useModal, useSettings } from '@ea11y/hooks';
 import {
 	AccessibilityStatementExistingIcon,
@@ -19,7 +20,6 @@ import {
 	StyledStatementPaper,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';

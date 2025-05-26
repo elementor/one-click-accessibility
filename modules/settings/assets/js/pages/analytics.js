@@ -2,12 +2,12 @@ import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
 import { AnalyticsToggle, ChartsList } from '@ea11y/components/analytics';
 import UpgradeModal from '@ea11y/components/upgrade-modal';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import {
 	StyledBox,
 	StyledContainer,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../contexts/analytics-context';

@@ -6,8 +6,8 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 import { useDebouncedCallback } from 'use-debounce';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useIconDesign } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import './style.css';
 

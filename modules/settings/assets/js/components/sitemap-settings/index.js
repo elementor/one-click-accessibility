@@ -10,8 +10,8 @@ import ListItemText from '@elementor/ui/ListItemText';
 import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { validateUrl } from '../../utils';
 

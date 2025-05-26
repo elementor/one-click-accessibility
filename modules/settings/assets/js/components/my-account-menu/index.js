@@ -17,10 +17,10 @@ import {
 } from '@elementor/ui/usePopupState';
 import { PopupMenu } from '@ea11y/components';
 import WhatsNewDrawer from '@ea11y/components/whats-new/drawer';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useSettings } from '@ea11y/hooks';
 import { useWhatsNew } from '@ea11y/hooks/use-whats-new';
 import SpeakerphoneIcon from '@ea11y/icons/speakerphone-icon';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../../constants';
 import { openLink } from '../../utils';

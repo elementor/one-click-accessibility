@@ -69,10 +69,6 @@ module.exports = [
 					__dirname,
 					'modules/settings/assets/js/pages/',
 				),
-				'@ea11y/services': path.resolve(
-					__dirname,
-					'modules/settings/assets/js/services',
-				),
 				'@ea11y-apps/scanner': path.resolve(
 					__dirname,
 					'modules/scanner/assets/js',

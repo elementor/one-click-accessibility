@@ -1,8 +1,8 @@
 import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
 import Button from '@ea11y/components/button';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { __ } from '@wordpress/i18n';
 
 const StyledContainer = styled(Box)`

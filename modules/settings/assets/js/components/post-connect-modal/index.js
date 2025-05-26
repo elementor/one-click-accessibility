@@ -3,9 +3,9 @@ import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import Button from '@ea11y/components/button';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useModal, useStorage } from '@ea11y/hooks';
 import { PostConnectModalIcon } from '@ea11y/icons';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 

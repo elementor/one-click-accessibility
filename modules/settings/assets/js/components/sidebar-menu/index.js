@@ -7,9 +7,9 @@ import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
 import { styled } from '@elementor/ui/styles';
 import { MenuItems } from '@ea11y/components';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useSettings } from '@ea11y/hooks';
 import CrownFilled from '@ea11y/icons/crown-filled';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState, Fragment } from '@wordpress/element';
 
 const SidebarMenu = () => {
