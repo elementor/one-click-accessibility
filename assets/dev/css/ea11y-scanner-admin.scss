@@ -1,0 +1,59 @@
+#accessibility_status, .accessibility_status {
+  width: 300px;
+}
+
+.accessibility_status.column-accessibility_status {
+  vertical-align: middle;
+
+  .accessibility_status_content {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+
+    &__stats {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-grow: 3;
+    }
+
+    &__summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    &__text {
+      // Optional extra styling for the fixed count
+    }
+
+    &__percentage {
+      background-color: #e2e3e5;
+      color: #000;
+      border-radius: 12px;
+      padding: 2px 6px;
+    }
+
+    &__bar {
+      background-color: #e2e3e5;
+      height: 6px;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    &__bar-fill {
+      background-color: #555;
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    &__actions {
+      // Space for button
+    }
+  }
+
+}
+

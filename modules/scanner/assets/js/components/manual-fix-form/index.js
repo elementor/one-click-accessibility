@@ -12,7 +12,9 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { ResolveWithAi } from '@ea11y-apps/scanner/components/manual-fix-form/resolve-with-ai';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
@@ -27,6 +29,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ManualFixForm = ({ item, current, setOpen }) => {
+	const { openedBlock } = useScannerWizardContext();
 	const { copied, markResolved, copyToClipboard } = useManualFixForm({
 		item,
 		current,
@@ -117,7 +120,9 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 						</Box>
 					</StyledAlert>
 				</Box>
-				<ResolveWithAi current={current} item={item} />
+				{openedBlock !== BLOCKS.colorContrast && (
+					<ResolveWithAi current={current} item={item} />
+				)}
 				{uxMessaging[item.ruleId] && (
 					<>
 						<Box>

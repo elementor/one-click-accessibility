@@ -8,8 +8,10 @@ class Utils {
 	 */
 	public static function get_current_page_url(): ?string {
 		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
-		return rtrim( home_url( $request_uri ), '/' );
+		$path = wp_parse_url( $request_uri, PHP_URL_PATH ); // removes query string
+		return rtrim( home_url( $path ), '/' );
 	}
+
 
 	public static function get_current_page_title() {
 		global $post;

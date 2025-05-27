@@ -99,6 +99,15 @@ class Module extends Module_Base {
 		);
 	}
 
+	public function enqueue_admin_styles() : void {
+		wp_enqueue_style(
+			'ea11y-scanner-admin-style',
+			EA11Y_ASSETS_URL . 'build/ea11y-scanner-admin.css',
+			[],
+			EA11Y_VERSION
+		);
+	}
+
 
 	public function __construct() {
 		Scans_Table::install();
@@ -106,5 +115,6 @@ class Module extends Module_Base {
 		$this->register_components();
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_styles' ] );
 	}
 }

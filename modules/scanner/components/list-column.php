@@ -2,6 +2,9 @@
 
 namespace EA11y\Modules\Scanner\Components;
 
+use EA11y\Classes\Database\Exceptions\Missing_Table_Exception;
+use EA11y\Modules\Remediation\Database\Page_Entry;
+use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
 
@@ -47,37 +50,71 @@ class List_Column {
 		return $content;
 	}
 
+	private function get_current_page( string $url ): bool {
+		try {
+			$page = new Page_Entry( [
+				'by' => Page_Table::URL,
+				'value' => $url,
+			] );
+			return $page->exists();
+		} catch ( Missing_Table_Exception $e ) {
+			return false;
+		}
+	}
+
 	private function render_column_accessibility( string $url ) {
 		$url_trimmed = rtrim( $url, '/' );
-		$initial_scanner_results = Scan_Entry::get_initial_scan_result( $url_trimmed );
-		$violation = $initial_scanner_results['counts']['violation'] ?? 0;
-		$count = Remediation_Entry::get_page_remediations( $url_trimmed, true );
-		$resolved = $count[0]->total;
-		$stats = ! ! $initial_scanner_results['counts'] ? '
-			<div style="display: flex; gap: 6px; flex-direction: column; flex-grow: 3;">
-				<div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
-					<span>' . esc_html( sprintf( __( '%1$s/%2$s fixed', 'pojo-accessibility' ), $resolved, $violation ) ) . '</span>
-					<span style="background-color: #e2e3e5; color: #000; font-weight: 600; border-radius: 12px; padding: 2px 6px;">63%</span>
-				</div>
-				<div style="background-color: #e2e3e5; height: 6px; border-radius: 3px; overflow: hidden;">
-					<div style="background-color: #555; width: 63%; height: 100%;"></div>
-				</div>
-			</div>
-		' : '—';
-		$scan_button = ! ! $initial_scanner_results['counts'] ? '
-			<a href="' . esc_url( $url ) . '?open-ea11y-assistant=1" class="button button-primary">' . esc_html__( 'Resolve issues', 'pojo-accessibility' ) . '</a>
-		' : '
-			<a href="' . esc_url( $url ) . '?open-ea11y-assistant=1" class="button">' . esc_html__( 'Scan page', 'pojo-accessibility' ) . '</a>
-		';
+		$scan_results = Scan_Entry::get_initial_scan_result( $url_trimmed );
+		$violation = $scan_results['counts']['violation'] ?? 0;
 
-		echo '
-			<div style="display: flex; gap: 16px; justify-content: space-between; width: 350px; align-items: center;">
-				' . $stats . '
-				<div>
-					' . $scan_button . '
+		$count = Remediation_Entry::get_page_remediations( $url_trimmed, true );
+		$resolved = $count[0]->total ?? 0;
+
+		$has_scan_data = $this->get_current_page( $url_trimmed );
+		$passed = $has_scan_data && $resolved === $violation;
+
+		$percentage = $violation > 0
+			? rtrim( rtrim( number_format( ( $resolved / $violation ) * 100, 2, '.', '' ), '0' ), '.' )
+			: '0';
+
+		$separator = strpos( $url, '?' ) !== false ? '&' : '?';
+		$assistant_url = esc_url( $url . $separator . 'open-ea11y-assistant=1' );
+
+		$chip = $passed
+			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/check-passed.svg' ) . '" alt="" style="width:18px; height:18px;" />'
+			: '<span class="accessibility_status_content__percentage">' . esc_html( $percentage ) . '%</span>';
+
+		$stats = $has_scan_data ?
+			'<div class="accessibility_status_content__stats">
+				<div class="accessibility_status_content__summary">
+					<span class="accessibility_status_content__text">' . esc_html( sprintf( __( '%1$s/%2$s fixed', 'pojo-accessibility' ), $resolved, $violation ) ) . '</span>
+					' . $chip . '
 				</div>
-			</div>
-		';
+				<div class="accessibility_status_content__bar">
+					<div class="accessibility_status_content__bar-fill" style="width: ' . esc_attr( $percentage ) . '%;"></div>
+				</div>
+			</div>'
+			: '—';
+
+		$button_text = $has_scan_data ? esc_html__( 'Resolve issues', 'pojo-accessibility' ) : esc_html__( 'New scan', 'pojo-accessibility' );
+		$button_text  = $passed ? esc_html__( 'New scan', 'pojo-accessibility' ) : $button_text;
+		$button_class = $has_scan_data && ! $passed ? 'button button-primary' : 'button';
+		$button_icon  = $passed
+			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/refresh-scan.svg' ) . '" alt="" style="width:16px; height:16px; vertical-align:text-top; margin-left:8px;" />'
+			: '';
+
+		$scan_button = sprintf(
+			'<a href="%1$s" class="%2$s" target="_blank" rel="noreferrer">%3$s%4$s</a>',
+			$assistant_url,
+			$button_class,
+			$button_text,
+			$button_icon
+		);
+
+		echo '<div class="accessibility_status_content">
+			' . $stats . '
+			<div class="accessibility_status_content__actions">' . $scan_button . '</div>
+		</div>';
 	}
 
 	/**

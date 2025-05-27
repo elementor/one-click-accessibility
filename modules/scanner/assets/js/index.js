@@ -6,11 +6,23 @@ import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { NotificationsProvider } from '@ea11y-apps/global/hooks/use-notifications';
 import App from '@ea11y-apps/scanner/app';
-import { isRTL, ROOT_ID, TOP_BAR_LINK } from '@ea11y-apps/scanner/constants';
+import {
+	isRTL,
+	ROOT_ID,
+	SCANNER_URL_PARAM,
+	TOP_BAR_LINK,
+} from '@ea11y-apps/scanner/constants';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+
+document.addEventListener('DOMContentLoaded', function () {
+	const params = new URLSearchParams(window.location.search);
+	if (params.get(SCANNER_URL_PARAM) === '1') {
+		initApp();
+	}
+});
 
 TOP_BAR_LINK.addEventListener('click', (event) => {
 	event.preventDefault();
