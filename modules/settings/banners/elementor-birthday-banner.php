@@ -15,7 +15,7 @@ class Elementor_Birthday_Banner {
 	const POINTER_NONCE_KEY = 'ea11y-pointer-dismissed';
 
 	public static function is_sale_time(): bool {
-		$sale_start_time = gmmktime( 0, 0, 0, 6, 10, 2025 );
+		$sale_start_time = gmmktime( 16, 0, 0, 6, 10, 2025 );
 		$sale_end_time = gmmktime( 23, 59, 59, 6, 17, 2025 );
 
 		$now_time = gmdate( 'U' );
