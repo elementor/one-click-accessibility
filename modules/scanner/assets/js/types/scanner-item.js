@@ -8,6 +8,7 @@ export const scannerItem = PropTypes.shape({
 		aria: PropTypes.string.isRequired,
 		selector: PropTypes.string.isRequired,
 	}).isRequired,
+	reasonCategory: PropTypes.string.isRequired,
 	category: PropTypes.string.isRequired,
 	level: PropTypes.string.isRequired,
 	node: PropTypes.node,

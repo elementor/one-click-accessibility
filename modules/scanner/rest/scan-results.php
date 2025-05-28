@@ -3,6 +3,8 @@
 namespace EA11y\Modules\Scanner\Rest;
 
 use EA11y\Classes\Utils as Global_Utils;
+use EA11y\Modules\Remediation\Database\Page_Entry;
+use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Scanner\Classes\Route_Base;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
 use EA11y\Modules\Scanner\Database\Scans_Table;
@@ -47,6 +49,12 @@ class Scan_Results extends Route_Base {
 					Scans_Table::SUMMARY => wp_json_encode( $summary ),
 				],
 			]);
+
+			$page = new Page_Entry( [
+				'by' => Page_Table::URL,
+				'value' => $url,
+			] );
+			$page->update_stats( $summary['counts']['violation'] );
 
 			$scan->save();
 

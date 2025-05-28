@@ -5,8 +5,6 @@ namespace EA11y\Modules\Scanner\Components;
 use EA11y\Classes\Database\Exceptions\Missing_Table_Exception;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Page_Table;
-use EA11y\Modules\Remediation\Database\Remediation_Entry;
-use EA11y\Modules\Scanner\Database\Scan_Entry;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -50,27 +48,24 @@ class List_Column {
 		return $content;
 	}
 
-	private function get_current_page( string $url ): bool {
+	private function get_current_page( string $url ): ?Page_Entry {
 		try {
-			$page = new Page_Entry( [
+			return new Page_Entry( [
 				'by' => Page_Table::URL,
 				'value' => $url,
 			] );
-			return $page->exists();
 		} catch ( Missing_Table_Exception $e ) {
-			return false;
+			return null;
 		}
 	}
 
 	private function render_column_accessibility( string $url ) {
 		$url_trimmed = rtrim( $url, '/' );
-		$scan_results = Scan_Entry::get_initial_scan_result( $url_trimmed );
-		$violation = $scan_results['counts']['violation'] ?? 0;
+		$page = $this->get_current_page( $url_trimmed );
+		$has_scan_data = $page->exists();
+		$violation = $page->__get( Page_Table::VIOLATIONS );
+		$resolved = $page->__get( Page_Table::RESOLVED );
 
-		$count = Remediation_Entry::get_page_remediations( $url_trimmed, true );
-		$resolved = $count[0]->total ?? 0;
-
-		$has_scan_data = $this->get_current_page( $url_trimmed );
 		$passed = $has_scan_data && $resolved === $violation;
 
 		$percentage = $violation > 0

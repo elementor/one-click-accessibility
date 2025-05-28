@@ -73,6 +73,7 @@ export const useAltTextForm = ({ current, item }) => {
 					...makeAttributeData(),
 					action: 'add',
 					xpath: item.path.dom,
+					category: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
 					type: 'ATTRIBUTE',
 				},
 				apiId: altTextData?.[current]?.apiId,

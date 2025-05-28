@@ -83,7 +83,7 @@ class Module extends Module_Base {
 			[
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
 				'scannerUrl' => self::get_scanner_wizard_url(),
-				'initialScanResult' => Scan_Entry::get_initial_scan_result( $url ),
+				'initialScanResult' => Scan_Entry::get_scan_result( $url ),
 				'pageData' => [
 					'url' => $url,
 					'title' => Remediation_Utils::get_current_page_title(),

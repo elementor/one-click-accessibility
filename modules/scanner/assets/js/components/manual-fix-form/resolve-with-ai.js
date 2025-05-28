@@ -85,7 +85,7 @@ export const ResolveWithAi = ({ item, current }) => {
 					</Box>
 					<StyledAlert color="info" icon={false} disabled={disabled}>
 						<Box display="flex" gap={0.5} alignItems="start">
-							<StyledSnippet variant="body1" sx={{ width: '290px' }}>
+							<StyledSnippet variant="body2" sx={{ width: '290px' }}>
 								{aiSuggestion.snippet}
 							</StyledSnippet>
 							<Box>
@@ -103,11 +103,11 @@ export const ResolveWithAi = ({ item, current }) => {
 									}}
 								>
 									<IconButton
-										size="medium"
+										size="tiny"
 										onClick={copyToClipboard(item.snippet)}
 										aria-labelledby="copy-icon-ai"
 									>
-										<CopyIcon />
+										<CopyIcon fontSize="tiny" />
 									</IconButton>
 								</Tooltip>
 							</Box>
@@ -155,6 +155,7 @@ export const ResolveWithAi = ({ item, current }) => {
 			<UpgradeInfoTip closeUpgrade={closeUpgrade} openUpgrade={openUpgrade}>
 				<Button
 					variant="contained"
+					size="small"
 					color={IS_AI_ENABLED && AI_QUOTA_LIMIT ? 'info' : 'promotion'}
 					startIcon={<AIIcon />}
 					fullWidth

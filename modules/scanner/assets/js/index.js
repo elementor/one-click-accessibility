@@ -48,7 +48,7 @@ const initApp = () => {
 	rootNode.id = ROOT_ID;
 	rootNode.setAttribute(
 		'aria-label',
-		__('Accessibility Scanner', 'pojo-accessibility'),
+		__('Accessibility Assistant', 'pojo-accessibility'),
 	);
 
 	if (isRTL) {

@@ -4,6 +4,7 @@ namespace EA11y\Modules\Remediation\rest;
 
 use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Remediation\Classes\Route_Base;
+use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use EA11y\Modules\Remediation\Database\Remediation_Table;
 use Throwable;
@@ -52,9 +53,13 @@ class Add_Remediation extends Route_Base {
 			$remediation = new Remediation_Entry( [
 				'data' => [
 					Remediation_Table::URL => $url,
+					Remediation_Table::CATEGORY => $remediation_data['category'],
 					Remediation_Table::CONTENT => wp_json_encode( $remediation_data ),
 				],
 			] );
+
+			$date_time = gmdate( 'Y-m-d H:i:s' );
+			$page->__set( Page_Table::UPDATED_AT, $date_time );
 
 			$remediation->save();
 			$page->save();

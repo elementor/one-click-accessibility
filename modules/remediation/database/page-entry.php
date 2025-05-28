@@ -38,9 +38,6 @@ class Page_Entry extends Entry {
 		if ( empty( $this->entry_data[ Page_Table::URL ] ) ) {
 			throw new Missing_URL();
 		}
-		$date_time = gmdate( 'Y-m-d H:i:s' );
-		$this->entry_data[ Page_Table::CREATED_AT ] = $date_time;
-		$this->entry_data[ Page_Table::UPDATED_AT ] = $date_time;
 
 		parent::create( $id );
 	}
@@ -58,6 +55,25 @@ class Page_Entry extends Entry {
 
 		$this->entry_data[ Page_Table::HASH ] = Utils::get_hash( $this->entry_data[ Page_Table::UPDATED_AT ] );
 		$this->entry_data[ Page_Table::FULL_HTML ] = $html;
+
+		$this->save();
+
+		return $this;
+	}
+
+	/**
+	 * update_stats
+	 *
+	 * @param int $violations
+	 * @return Page_Entry|null
+	 */
+	public function update_stats( int $violations ) : ?Page_Entry {
+		if ( ! $this->entry_data[ Page_Table::VIOLATIONS ] ) {
+			$this->entry_data[ Page_Table::VIOLATIONS ] = $violations;
+			$this->entry_data[ Page_Table::RESOLVED ] = 0;
+		} else {
+			$this->entry_data[ Page_Table::RESOLVED ] = $this->entry_data[ Page_Table::VIOLATIONS ] - $violations;
+		}
 
 		$this->save();
 

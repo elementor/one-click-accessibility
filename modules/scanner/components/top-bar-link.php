@@ -28,7 +28,7 @@ class Top_Bar_Link {
 
 			$wp_admin_bar->add_node( [
 				'id' => 'ea11y-scanner-wizard',
-				'title' => $svg_icon . esc_html__( 'Accessibility Checker', 'pojo-accessibility' ),
+				'title' => $svg_icon . esc_html__( 'Accessibility Assistant', 'pojo-accessibility' ),
 				'href' => '#', // Click event is handled by JS.
 			] );
 		}, 200 );

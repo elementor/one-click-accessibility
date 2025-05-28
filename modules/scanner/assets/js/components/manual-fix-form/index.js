@@ -20,7 +20,6 @@ import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
 	InfotipBox,
 	InfotipFooter,
-	SectionTitle,
 	StyledAccordionDetails,
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
@@ -58,9 +57,9 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 			<StyledAccordionDetails>
 				<Box>
 					<Box display="flex" gap={1} alignItems="center">
-						<SectionTitle variant="body1">
+						<Typography variant="subtitle2">
 							{__('What’s the issue', 'pojo-accessibility')}
-						</SectionTitle>
+						</Typography>
 						<Infotip
 							placement="top"
 							content={
@@ -83,17 +82,17 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>
 					</Box>
-					<Typography variant="body1">
+					<Typography variant="body2">
 						{uxMessaging[item.ruleId]?.whatsTheIssue ?? item.message}
 					</Typography>
 				</Box>
 				<Box>
-					<SectionTitle variant="body1" sx={{ mb: 0.5 }}>
+					<Typography variant="subtitle2" sx={{ mb: 0.5 }}>
 						{__('Where is it', 'pojo-accessibility')}
-					</SectionTitle>
+					</Typography>
 					<StyledAlert color="error" icon={false}>
 						<Box display="flex" gap={0.5} alignItems="start">
-							<StyledSnippet variant="body1">{item.snippet}</StyledSnippet>
+							<StyledSnippet variant="body2">{item.snippet}</StyledSnippet>
 							<Box>
 								<Tooltip
 									arrow
@@ -109,11 +108,11 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 									}}
 								>
 									<IconButton
-										size="medium"
+										size="tiny"
 										onClick={copyToClipboard(item.snippet)}
 										aria-labelledby="copy-icon"
 									>
-										<CopyIcon />
+										<CopyIcon fontSize="tiny" />
 									</IconButton>
 								</Tooltip>
 							</Box>
@@ -126,10 +125,10 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 				{uxMessaging[item.ruleId] && (
 					<>
 						<Box>
-							<SectionTitle variant="body1">
+							<Typography variant="subtitle2">
 								{__('How to resolve it', 'pojo-accessibility')}
-							</SectionTitle>
-							<Typography variant="body1">
+							</Typography>
+							<Typography variant="body2">
 								{uxMessaging[item.ruleId].howToResolve}
 								<Infotip
 									arrow
@@ -159,19 +158,24 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 												</IconButton>
 											</Box>
 
-											<SectionTitle variant="body1">
+											<Typography variant="subtitle2">
 												{__('Issue:', 'pojo-accessibility')}
-											</SectionTitle>
-											<Typography variant="body1" sx={{ mb: 2 }}>
+											</Typography>
+											<Typography
+												variant="body2"
+												color="secondary"
+												sx={{ mb: 2 }}
+											>
 												{uxMessaging[item.ruleId].seeAnExample.issue}
 											</Typography>
-											<SectionTitle variant="body1">
+											<Typography variant="subtitle2">
 												{__('Resolution:', 'pojo-accessibility')}
-											</SectionTitle>
+											</Typography>
 											{uxMessaging[item.ruleId].seeAnExample.resolution.flatMap(
 												(resolution, index) => (
 													<Typography
-														variant="body1"
+														variant="body2"
+														color="secondary"
 														key={`resolution-${index}`}
 														sx={{ mb: 2 }}
 													>

@@ -35,12 +35,8 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 	padding-bottom: 0;
 `;
 
-export const SectionTitle = styled(Typography)`
-	font-weight: bold;
-`;
-
 export const StyledSnippet = styled(Typography)`
-	width: 320px;
+	width: 335px;
 	word-break: break-word;
 `;
 

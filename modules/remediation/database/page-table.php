@@ -20,6 +20,8 @@ class Page_Table extends Table {
 	const OBJECT_TYPE_NAME = 'object_type_name';
 	const HASH = 'hash';
 	const FULL_HTML = 'full_html';
+	const VIOLATIONS = 'violations';
+	const RESOLVED = 'resolved';
 	const STATUS = 'status';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
@@ -75,6 +77,20 @@ class Page_Table extends Table {
 			],
 			self::FULL_HTML => [
 				'type' => Database_Constants::get_col_type( Database_Constants::LONGTEXT ),
+			],
+			self::VIOLATIONS => [
+				'type' => Database_Constants::get_col_type( Database_Constants::INT, 11 ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					0,
+				] ),
+			],
+			self::RESOLVED => [
+				'type' => Database_Constants::get_col_type( Database_Constants::INT, 11 ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					0,
+				] ),
 			],
 			self::STATUS => [
 				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),

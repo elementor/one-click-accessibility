@@ -35,7 +35,7 @@ export const UpgradeContent = ({ closeUpgrade }) => (
 				</IconButton>
 			)}
 		</UpgradeContentContainer>
-		<Typography variant="body2" sx={{ mb: 2 }}>
+		<Typography variant="body2" color="secondary" sx={{ mb: 2 }}>
 			{IS_AI_ENABLED
 				? __(
 						'To work more magic with AI, upgrade your plan or wait until next month.',

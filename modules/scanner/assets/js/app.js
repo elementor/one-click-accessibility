@@ -20,7 +20,9 @@ const App = () => {
 	const { violation, resolved, openedBlock, isError, loading } =
 		useScannerWizardContext();
 
-	const showResolvedMessage = violation && resolved && violation === resolved;
+	const showResolvedMessage = Boolean(
+		(resolved > 0 && violation === resolved) || violation === 0,
+	);
 
 	const getBlock = () => {
 		if (!PAGE_QUOTA_LIMIT) {
