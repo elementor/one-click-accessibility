@@ -120,7 +120,7 @@ const StyledBox = styled(Box)`
 	align-items: start;
 	justify-content: center;
 	margin: ${({ theme }) => theme.spacing(2)};
-	padding: ${({ theme }) => theme.spacing(0)};
+	padding: 0;
 `;
 
 const StyledCardGroup = styled(CardGroup)`
