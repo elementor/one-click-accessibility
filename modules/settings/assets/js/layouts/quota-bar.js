@@ -119,7 +119,6 @@ const StyledBox = styled(Box)`
 	flex-direction: row;
 	align-items: start;
 	justify-content: center;
-	gap: ${({ theme }) => theme.spacing(0)};
 	margin: ${({ theme }) => theme.spacing(2)};
 	padding: ${({ theme }) => theme.spacing(0)};
 `;
