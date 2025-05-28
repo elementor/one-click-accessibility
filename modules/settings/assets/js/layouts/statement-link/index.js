@@ -17,8 +17,9 @@ import {
 	PageSelect,
 } from '@ea11y/components';
 import Button from '@ea11y/components/button';
-import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { useSettings, useStorage } from '@ea11y/hooks';
 import { eventNames, mixpanelService } from '@ea11y/services';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { WIDGET_PREVIEW_ID } from '../../constants';

@@ -5,7 +5,7 @@ import {
 	useEffect,
 	useState,
 } from '@wordpress/element';
-import API from '../api';
+import APISettings from '../api';
 
 const AnalyticsContext = createContext(null);
 
@@ -26,7 +26,7 @@ export const AnalyticsContextProvider = ({ children }) => {
 	useEffect(() => {
 		if (isProVersion) {
 			setLoading(true);
-			void API.getStatistic({ period }).then((data) => {
+			void APISettings.getStatistic({ period }).then((data) => {
 				setStats(data);
 				setLoading(false);
 			});

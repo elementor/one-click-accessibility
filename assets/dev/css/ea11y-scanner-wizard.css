@@ -1,0 +1,23 @@
+#wpadminbar #wp-admin-bar-ea11y-scanner-wizard a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ea11y-scanner-current-element {
+    border: 4px solid #2563EB;
+    border-radius: 4px;
+}
+
+#ea11y-scanner-wizard-widget {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+    overflow-y: auto;
+    overflow-x: visible;
+    z-index: 999999;
+}

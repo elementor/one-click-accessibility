@@ -8,6 +8,10 @@ import { __ } from '@wordpress/i18n';
 const QuotaIndicator = ({ data, isQuotaBoxOpen }) => {
 	const { scannedPages, visits, aiCredits } = data;
 
+	if (!scannedPages || !visits || !aiCredits) {
+		return null; // Return null if data is not available
+	}
+
 	// calculate usage data of each quota
 	const scannedPagesUsage = Math.round(
 		(scannedPages.used / scannedPages.allowed) * 100,

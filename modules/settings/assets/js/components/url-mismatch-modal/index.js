@@ -4,12 +4,13 @@ import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ConfirmDialog } from '@ea11y/components';
-import { useModal, useToastNotification } from '@ea11y/hooks';
+import { useModal } from '@ea11y/hooks';
 import { AppLogo } from '@ea11y/icons';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
-import API from '../../api';
+import APISettings from '../../api';
 
 const UrlMismatchModal = () => {
 	const { open, close } = useModal(true);
@@ -19,7 +20,7 @@ const UrlMismatchModal = () => {
 
 	const onUpdateConnectUrl = async () => {
 		try {
-			const response = await API.initConnect('update');
+			const response = await APISettings.initConnect('update');
 
 			// Reload the URL if update redirect URI is successful.
 			if (response?.success) {
@@ -35,7 +36,7 @@ const UrlMismatchModal = () => {
 	const onConnectAsNewSite = async () => {
 		try {
 			setShowNewConnectionConfirmation(false);
-			await API.clearSession();
+			await APISettings.clearSession();
 
 			window.location.href = addQueryArgs(window.location.href, {
 				action: 'connect',
