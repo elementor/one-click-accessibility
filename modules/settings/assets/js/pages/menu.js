@@ -1,13 +1,13 @@
 import Box from '@elementor/ui/Box';
 import { BottomBar } from '@ea11y/components';
 import SkipToContentSettings from '@ea11y/components/skip-to-content-settings';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
 import {
 	StyledBox,
 	StyledContainer,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 

@@ -1,11 +1,11 @@
 import { BottomBar } from '@ea11y/components';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { IconDesignSettings, PositionSettings } from '@ea11y/layouts';
 import {
 	StyledBox,
 	StyledContainer,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 

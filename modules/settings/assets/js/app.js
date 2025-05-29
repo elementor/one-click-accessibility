@@ -10,13 +10,13 @@ import {
 	PostConnectModal,
 	UrlMismatchModal,
 } from '@ea11y/components';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import {
 	useNotificationSettings,
 	useSettings,
 	useSavedSettings,
 } from '@ea11y/hooks';
 import { QuotaNotices, Sidebar } from '@ea11y/layouts';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
