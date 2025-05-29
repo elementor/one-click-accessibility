@@ -33,7 +33,7 @@ export const Header = () => {
 		!isError &&
 		!loading &&
 		openedBlock === BLOCKS.main &&
-		violation;
+		violation > 0;
 	const showDivider =
 		!loading &&
 		(!PAGE_QUOTA_LIMIT ||
@@ -41,7 +41,7 @@ export const Header = () => {
 			openedBlock === BLOCKS.main ||
 			openedBlock === BLOCKS.altText);
 
-	const showMainBlock = !isError && PAGE_QUOTA_LIMIT;
+	const showMainBlock = !isError && PAGE_QUOTA_LIMIT && violation > 0;
 
 	return (
 		<StyledCard square={true} variant="elevation" elevation={0}>
@@ -55,7 +55,7 @@ export const Header = () => {
 						<Box display="flex" alignItems="center" gap={1}>
 							<Logo />
 							<Typography variant="subtitle1">
-								{__('Accessibility Scanner', 'pojo-accessibility')}
+								{__('Accessibility Assistant', 'pojo-accessibility')}
 							</Typography>
 						</Box>
 

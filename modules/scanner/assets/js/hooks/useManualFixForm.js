@@ -75,6 +75,7 @@ export const useManualFixForm = ({ item, current }) => {
 					find: item.snippet,
 					replace: manualData[openedBlock][current]?.aiSuggestion.snippet,
 					xpath: item.path.dom,
+					category: item.reasonCategory.match(/\(([^)]+)\)/)[1],
 					type: 'REPLACE',
 				},
 				apiId: manualData[openedBlock]?.[current]?.apiId,

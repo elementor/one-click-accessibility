@@ -6,6 +6,7 @@ use DOMDocument;
 use EA11y\Classes\Logger;
 use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
+use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,8 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Remediation_Runner
  */
 class Remediation_Runner {
-	public array $page_data = [];
 	public Page_Entry $page;
+	public array $page_remediations = [];
+	public ?string $page_html = '';
 
 	public function get_remediation_classes() : array {
 		static $classes = null;
@@ -38,12 +40,15 @@ class Remediation_Runner {
 				'by' => 'url',
 				'value' => $current_url,
 			]);
-			$this->page_data = $this->page->get_page_data();
-			if ( empty( $this->page_data['remediations'] ) ) {
+
+			$this->page_html = $this->page->get_page_html();
+			$this->page_remediations = Remediation_Entry::get_page_remediations( $current_url );
+			if ( empty( $this->page_remediations ) ) {
 				return false;
 			}
 			return true;
 		} catch ( Throwable $t ) {
+			Logger::error( $t->getMessage() );
 			return false;
 		}
 	}
@@ -63,8 +68,8 @@ class Remediation_Runner {
 	}
 
 	public function run_remediations( $buffer ): string {
-		if ( ! is_user_logged_in() && $this->page_data['html'] && $this->page->is_valid_hash() ) {
-			return $this->page_data['html'];
+		if ( ! is_user_logged_in() && $this->page_html && $this->page->is_valid_hash() ) {
+			return $this->page_html;
 		}
 		$dom = $this->generate_remediation_dom( $buffer );
 		if ( ! is_user_logged_in() ) {
@@ -86,13 +91,18 @@ class Remediation_Runner {
 		}
 
 		$classes = $this->get_remediation_classes();
-		foreach ( $this->page_data['remediations'] as $remediation ) {
+		foreach ( $this->page_remediations as $item ) {
+			$remediation = json_decode( $item->content, true );
 			if ( ! isset( $classes[ strtoupper( $remediation['type'] ) ] ) ) {
 				continue;
 			}
 			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
-			$dom = $remediation_class->dom;
+			if ( $remediation_class->dom ) {
+				$remediation_class->dom = $dom;
+			} else {
+				Remediation_Entry::remove( $item->id );
+			}
 		}
 
 		if ( isset( $removed_admin_bar, $parent ) ) {

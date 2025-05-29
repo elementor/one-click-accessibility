@@ -4,11 +4,11 @@ namespace EA11y\Modules\Scanner;
 
 use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
+use EA11y\Modules\Remediation\Classes\Utils as Remediation_Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
 use EA11y\Modules\Scanner\Database\Scans_Table;
 use EA11y\Modules\Settings\Classes\Settings;
-use EA11y\Modules\Remediation\Classes\Utils as Remediation_Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -31,6 +31,7 @@ class Module extends Module_Base {
 	public static function component_list(): array {
 		return [
 			'Top_Bar_Link',
+			'List_Column',
 		];
 	}
 
@@ -82,7 +83,7 @@ class Module extends Module_Base {
 			[
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
 				'scannerUrl' => self::get_scanner_wizard_url(),
-				'initialScanResult' => Scan_Entry::get_initial_scan_result( $url ),
+				'initialScanResult' => Scan_Entry::get_scan_result( $url ),
 				'pageData' => [
 					'url' => $url,
 					'title' => Remediation_Utils::get_current_page_title(),
@@ -98,6 +99,15 @@ class Module extends Module_Base {
 		);
 	}
 
+	public function enqueue_admin_styles() : void {
+		wp_enqueue_style(
+			'ea11y-scanner-admin-style',
+			EA11Y_ASSETS_URL . 'build/ea11y-scanner-admin.css',
+			[],
+			EA11Y_VERSION
+		);
+	}
+
 
 	public function __construct() {
 		Scans_Table::install();
@@ -105,5 +115,6 @@ class Module extends Module_Base {
 		$this->register_components();
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_styles' ] );
 	}
 }

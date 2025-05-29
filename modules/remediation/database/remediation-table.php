@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Scanner\Database;
+namespace EA11y\Modules\Remediation\Database;
 
 use EA11y\Classes\Database\{Database_Constants, Table};
 
@@ -8,22 +8,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-/**
- * Class Scans_Table
- */
-class Scans_Table extends Table {
+class Remediation_Table extends Table {
 	// override base's const:
 	const DB_VERSION = '1';
-	const DB_VERSION_FLAG_NAME = 'ea11y_scanner_results_db_version';
+	const DB_VERSION_FLAG_NAME = 'ea11y_remediation_db_version';
 
 	const ID = 'id';
 	const URL = 'url';
-	const RESULTS = 'results';
-	const SUMMARY = 'summary';
+	const CATEGORY = 'category';
+	const CONTENT = 'content';
+	const ACTIVE = 'active';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
-	public static $table_name = 'ea11y_scanner_results';
+	public static $table_name = 'ea11y_pages_remediation';
 
 	public static function get_columns(): array {
 		return [
@@ -44,19 +42,18 @@ class Scans_Table extends Table {
 				] ),
 				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::URL ),
 			],
-			self::RESULTS => [
-				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
+			self::CATEGORY => [
+				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 3 ),
 				'flags' => Database_Constants::build_flags_string( [
 					Database_Constants::DEFAULT,
 					'\'\'',
 				] ),
 			],
-			self::SUMMARY => [
+			self::CONTENT => [
 				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
-				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::DEFAULT,
-					'\'\'',
-				] ),
+			],
+			self::ACTIVE => [
+				'type' => Database_Constants::get_col_type( Database_Constants::BOOLEAN ),
 			],
 			self::CREATED_AT => [
 				'type' => Database_Constants::get_col_type( Database_Constants::DATETIME ),

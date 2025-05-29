@@ -1,0 +1,121 @@
+<?php
+
+namespace EA11y\Modules\Scanner\Components;
+
+use EA11y\Classes\Database\Exceptions\Missing_Table_Exception;
+use EA11y\Modules\Remediation\Database\Page_Entry;
+use EA11y\Modules\Remediation\Database\Page_Table;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+class List_Column {
+	public function get_name(): string {
+		return 'list-column';
+	}
+
+	public function build_column() {
+		$post_types = get_post_types( [ 'public' => true ], 'names' );
+		$taxonomies = get_taxonomies( [ 'public' => true ], 'names' );
+		foreach ( $post_types as $post_type ) {
+			add_filter( "manage_{$post_type}_posts_columns", [ $this, 'add_accessibility_column' ] );
+			add_action( "manage_{$post_type}_posts_custom_column", [ $this, 'render_accessibility_column_post' ], 10, 2 );
+		}
+		foreach ( $taxonomies as $taxonomy ) {
+			add_filter( "manage_edit-{$taxonomy}_columns", [ $this, 'add_accessibility_column' ] );
+			add_filter( "manage_{$taxonomy}_custom_column", [ $this, 'render_accessibility_column_tax' ], 10, 3 );
+		}
+	}
+
+	public function add_accessibility_column( $columns ) {
+		$columns['accessibility_status'] = '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/logo.svg' ) . '" alt="" style="width:16px; height:16px; vertical-align:text-bottom; margin-right:8px;" />' . esc_html__( 'Accessibility status', 'pojo-accessibility' );
+		return $columns;
+	}
+
+	public function render_accessibility_column_post( $column, $post_id ) {
+		if ( 'accessibility_status' === $column ) {
+			$url = get_permalink( $post_id );
+			$this->render_column_accessibility( $url );
+		}
+	}
+
+	public function render_accessibility_column_tax( $content, $column, $term_id ) {
+		if ( 'accessibility_status' === $column ) {
+			$url = get_term_link( $term_id );
+			$this->render_column_accessibility( $url );
+		}
+		return $content;
+	}
+
+	private function get_current_page( string $url ): ?Page_Entry {
+		try {
+			return new Page_Entry( [
+				'by' => Page_Table::URL,
+				'value' => $url,
+			] );
+		} catch ( Missing_Table_Exception $e ) {
+			return null;
+		}
+	}
+
+	private function render_column_accessibility( string $url ) {
+		$url_trimmed = rtrim( $url, '/' );
+		$page = $this->get_current_page( $url_trimmed );
+		$has_scan_data = $page->exists();
+		$violation = $page->__get( Page_Table::VIOLATIONS );
+		$resolved = $page->__get( Page_Table::RESOLVED );
+
+		$passed = $has_scan_data && $resolved === $violation;
+
+		$percentage = $violation > 0
+			? rtrim( rtrim( number_format( ( $resolved / $violation ) * 100, 2, '.', '' ), '0' ), '.' )
+			: '0';
+
+		$separator = strpos( $url, '?' ) !== false ? '&' : '?';
+		$assistant_url = esc_url( $url . $separator . 'open-ea11y-assistant=1' );
+
+		$chip = $passed
+			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/check-passed.svg' ) . '" alt="" style="width:18px; height:18px;" />'
+			: '<span class="accessibility_status_content__percentage">' . esc_html( $percentage ) . '%</span>';
+
+		$stats = $has_scan_data ?
+			'<div class="accessibility_status_content__stats">
+				<div class="accessibility_status_content__summary">
+					<span class="accessibility_status_content__text">' . esc_html( sprintf( __( '%1$s/%2$s fixed', 'pojo-accessibility' ), $resolved, $violation ) ) . '</span>
+					' . $chip . '
+				</div>
+				<div class="accessibility_status_content__bar">
+					<div class="accessibility_status_content__bar-fill" style="width: ' . esc_attr( $percentage ) . '%;"></div>
+				</div>
+			</div>'
+			: '—';
+
+		$button_text = $has_scan_data ? esc_html__( 'Resolve issues', 'pojo-accessibility' ) : esc_html__( 'New scan', 'pojo-accessibility' );
+		$button_text  = $passed ? esc_html__( 'New scan', 'pojo-accessibility' ) : $button_text;
+		$button_class = $has_scan_data && ! $passed ? 'button button-primary' : 'button';
+		$button_icon  = $passed
+			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/refresh-scan.svg' ) . '" alt="" style="width:16px; height:16px; vertical-align:text-top; margin-left:8px;" />'
+			: '';
+
+		$scan_button = sprintf(
+			'<a href="%1$s" class="%2$s" target="_blank" rel="noreferrer">%3$s%4$s</a>',
+			$assistant_url,
+			$button_class,
+			$button_text,
+			$button_icon
+		);
+
+		echo '<div class="accessibility_status_content">
+			' . $stats . '
+			<div class="accessibility_status_content__actions">' . $scan_button . '</div>
+		</div>';
+	}
+
+	/**
+	 * Component constructor.
+	 */
+	public function __construct() {
+		add_action( 'init', [ $this, 'build_column' ] );
+	}
+}

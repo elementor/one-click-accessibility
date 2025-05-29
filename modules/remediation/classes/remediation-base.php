@@ -36,7 +36,7 @@ class Remediation_Base {
 		return null;
 	}
 
-	public function run() : DOMDocument {
+	public function run() : ?DOMDocument {
 		return $this->dom;
 	}
 

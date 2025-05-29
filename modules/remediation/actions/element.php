@@ -2,6 +2,7 @@
 
 namespace EA11y\Modules\Remediation\Actions;
 
+use DOMDocument;
 use EA11y\Modules\Remediation\Classes\Remediation_Base;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,7 +19,7 @@ class Element extends Remediation_Base {
 	/**
 	 * Run the action
 	 */
-	public function run() : \DOMDocument {
+	public function run() : ?DOMDocument {
 
 		$element_node = null;
 		$child = null;
@@ -28,7 +29,7 @@ class Element extends Remediation_Base {
 		}
 
 		if ( ! $element_node ) {
-			return $this->dom;
+			return null;
 		}
 
 		if ( isset( $this->data['child'] ) ) {

@@ -19,12 +19,13 @@ class Scan_Entry extends Entry {
 	}
 
 	/**
-	 *  get_initial_scan_result
+	 *  get_scan_result
 	 * @param string $url
+	 * @param bool $latest
 	 *
 	 * @return array
 	 */
-	public static function get_initial_scan_result( string $url ) : array {
+	public static function get_scan_result( string $url, bool $latest = false ) : array {
 		$where = [
 			[
 				'column' => Scans_Table::URL,
@@ -32,7 +33,7 @@ class Scan_Entry extends Entry {
 				'operator' => '=',
 			],
 		];
-		$order_by = [ 'id' => 'asc' ];
+		$order_by = [ 'id' => $latest ? 'desc' : 'asc' ];
 		$entries = Scans_Table::select( 'summary', $where, 1, null, '', $order_by );
 		return isset( $entries[0] ) ? json_decode( $entries[0]->summary, true ) : [];
 	}

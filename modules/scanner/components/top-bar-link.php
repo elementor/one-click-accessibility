@@ -1,6 +1,6 @@
 <?php
 
-namespace EA11y\Modules\Scanner\components;
+namespace EA11y\Modules\Scanner\Components;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -13,6 +13,9 @@ class Top_Bar_Link {
 	}
 
 	public function add_bar_link() {
+		if ( is_admin() ) {
+			return;
+		}
 		add_action( 'admin_bar_menu', function ( \WP_Admin_Bar $wp_admin_bar ) {
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
@@ -25,14 +28,14 @@ class Top_Bar_Link {
 
 			$wp_admin_bar->add_node( [
 				'id' => 'ea11y-scanner-wizard',
-				'title' => $svg_icon . esc_html__( 'Accessibility Checker', 'pojo-accessibility' ),
+				'title' => $svg_icon . esc_html__( 'Accessibility Assistant', 'pojo-accessibility' ),
 				'href' => '#', // Click event is handled by JS.
 			] );
 		}, 200 );
 	}
 
 	/**
-	 * Module constructor.
+	 * Component constructor.
 	 */
 	public function __construct() {
 		$this->add_bar_link();

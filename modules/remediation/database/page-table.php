@@ -2,10 +2,7 @@
 
 namespace EA11y\Modules\Remediation\Database;
 
-use EA11y\Classes\Database\{
-	Table,
-	Database_Constants
-};
+use EA11y\Classes\Database\{Database_Constants, Table};
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -14,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Page_Table extends Table {
 	// override base's const:
 	const DB_VERSION = '1';
-	const DB_VERSION_FLAG_NAME = 'ea11y_page_remediations_db_version';
+	const DB_VERSION_FLAG_NAME = 'ea11y_page_scanned_db_version';
 
 	const ID = 'id';
 	const URL = 'url';
@@ -22,13 +19,14 @@ class Page_Table extends Table {
 	const OBJECT_TYPE = 'object_type';
 	const OBJECT_TYPE_NAME = 'object_type_name';
 	const HASH = 'hash';
-	const REMEDIATIONS = 'remediations';
 	const FULL_HTML = 'full_html';
+	const VIOLATIONS = 'violations';
+	const RESOLVED = 'resolved';
 	const STATUS = 'status';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
-	public static $table_name = 'ea11y_page_remediations';
+	public static $table_name = 'ea11y_page_scanned';
 
 	public static function get_columns(): array {
 		return [
@@ -77,11 +75,22 @@ class Page_Table extends Table {
 				] ),
 				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::HASH ),
 			],
-			self::REMEDIATIONS => [
-				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
-			],
 			self::FULL_HTML => [
 				'type' => Database_Constants::get_col_type( Database_Constants::LONGTEXT ),
+			],
+			self::VIOLATIONS => [
+				'type' => Database_Constants::get_col_type( Database_Constants::INT, 11 ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					0,
+				] ),
+			],
+			self::RESOLVED => [
+				'type' => Database_Constants::get_col_type( Database_Constants::INT, 11 ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					0,
+				] ),
 			],
 			self::STATUS => [
 				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
