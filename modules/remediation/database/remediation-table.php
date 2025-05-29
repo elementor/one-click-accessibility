@@ -17,6 +17,7 @@ class Remediation_Table extends Table {
 	const URL = 'url';
 	const CATEGORY = 'category';
 	const CONTENT = 'content';
+	const ACTIVE = 'active';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
@@ -50,6 +51,9 @@ class Remediation_Table extends Table {
 			],
 			self::CONTENT => [
 				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
+			],
+			self::ACTIVE => [
+				'type' => Database_Constants::get_col_type( Database_Constants::BOOLEAN ),
 			],
 			self::CREATED_AT => [
 				'type' => Database_Constants::get_col_type( Database_Constants::DATETIME ),
