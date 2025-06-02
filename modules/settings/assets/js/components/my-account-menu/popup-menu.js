@@ -68,6 +68,8 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 					backgroundColor: 'text.primary',
 				},
 			}}
+			/* eslint-disable-next-line jsx-a11y/no-autofocus */
+			autoFocus={false}
 		>
 			<StyledMenuItem onClick={closeAction} sx={{ gap: 1, width: '240px' }}>
 				<Avatar>

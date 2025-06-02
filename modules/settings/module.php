@@ -1,6 +1,7 @@
 <?php
 namespace EA11y\Modules\Settings;
 
+use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
 use EA11y\Modules\Core\Components\{
 	Notices,
 	Svg
@@ -45,6 +46,8 @@ class Module extends Module_Base {
 
 	public function render_app() {
 		?>
+		<?php Elementor_Birthday_Banner::get_banner( 'https://go.elementor.com/acc-b-day-banner' ); ?>
+
 		<!-- The hack required to wrap WP notifications -->
 		<div class="wrap">
 			<h1 style="display: none;" role="presentation"></h1>
