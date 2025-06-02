@@ -14,14 +14,16 @@ export const MainList = () => {
 
 	return manualExist || scannerFixExist ? (
 		<StyledBlockButtonsBox>
-			{Object.keys(sortedViolations).map((key) => {
-				return (
+			{Object.keys(sortedViolations).flatMap((key) => {
+				return sortedViolations[key].length > 0 ? (
 					<BlockButton
 						key={key}
 						title={BLOCK_TITLES[key]}
 						count={sortedViolations[key].length}
 						block={BLOCKS[key]}
 					/>
+				) : (
+					[]
 				);
 			})}
 		</StyledBlockButtonsBox>

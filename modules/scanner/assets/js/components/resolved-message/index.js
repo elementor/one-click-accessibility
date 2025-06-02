@@ -1,40 +1,50 @@
 import Box from '@elementor/ui/Box';
+import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { ROOT_ID } from '@ea11y-apps/scanner/constants';
 import { ResolvedImage } from '@ea11y-apps/scanner/images';
-import { StateContainer } from '@ea11y-apps/scanner/styles/app.styles';
+import {
+	ResolvedButtonsBox,
+	StateContainer,
+} from '@ea11y-apps/scanner/styles/app.styles';
+import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { __ } from '@wordpress/i18n';
 
-export const ResolvedMessage = ({ isMain }) => (
-	<StateContainer>
-		<ResolvedImage />
-		<Box sx={{ maxWidth: '250px' }}>
-			{isMain ? (
-				<>
-					<Typography variant="body1" align="center">
-						{__('All done!', 'pojo-accessibility')}
-					</Typography>
-					<Typography variant="body1" align="center">
-						{__('There are no issues to resolve.', 'pojo-accessibility')}
-					</Typography>
-				</>
-			) : (
-				<>
-					<Typography variant="body1" align="center">
-						{__('All clear!', 'pojo-accessibility')}
-					</Typography>
-					<Typography variant="body1" align="center">
-						{__(
-							'Your scan is complete and there are no active issues to resolve',
-							'pojo-accessibility',
-						)}
-					</Typography>
-				</>
-			)}
-		</Box>
-	</StateContainer>
-);
+export const ResolvedMessage = ({ setShowIssues }) => {
+	const onClose = () => {
+		const widget = document.getElementById(ROOT_ID);
+		closeWidget(widget);
+	};
+
+	return (
+		<StateContainer>
+			<ResolvedImage />
+			<Box sx={{ maxWidth: '250px' }}>
+				<Typography variant="body1" align="center">
+					{__('All done!', 'pojo-accessibility')}
+				</Typography>
+				<Typography variant="body1" align="center">
+					{__('There are no issues to resolve.', 'pojo-accessibility')}
+				</Typography>
+			</Box>
+			<ResolvedButtonsBox>
+				<Button
+					size="small"
+					variant="outlined"
+					color="secondary"
+					onClick={setShowIssues}
+				>
+					{__('Review fixes', 'pojo-accessibility')}
+				</Button>
+				<Button size="small" variant="contained" color="info" onClick={onClose}>
+					{__('Back to editing', 'pojo-accessibility')}
+				</Button>
+			</ResolvedButtonsBox>
+		</StateContainer>
+	);
+};
 
 ResolvedMessage.propTypes = {
-	isMain: PropTypes.bool,
+	setShowIssues: PropTypes.func.isRequired,
 };

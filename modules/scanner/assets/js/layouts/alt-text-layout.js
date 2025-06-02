@@ -8,7 +8,6 @@ import {
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect, useState } from '@wordpress/element';
-import { ResolvedMessage } from '../components/resolved-message';
 
 export const AltTextLayout = () => {
 	const { sortedViolations, isResolved } = useScannerWizardContext();
@@ -32,9 +31,7 @@ export const AltTextLayout = () => {
 		}
 	};
 
-	return resolved ? (
-		<ResolvedMessage />
-	) : (
+	return (
 		<StyledContent>
 			<AltTextForm
 				items={sortedViolations.altText}

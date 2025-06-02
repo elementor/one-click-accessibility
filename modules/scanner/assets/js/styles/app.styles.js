@@ -83,3 +83,10 @@ export const UpgradeContentContainer = styled(Box)`
 	justify-content: space-between;
 	align-items: flex-start;
 `;
+
+export const ResolvedButtonsBox = styled(Box)`
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	gap: ${({ theme }) => theme.spacing(1)};
+`;

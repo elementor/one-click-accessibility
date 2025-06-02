@@ -14,15 +14,28 @@ import {
 	ManualLayout,
 } from '@ea11y-apps/scanner/layouts';
 import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
+import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
+import { useEffect, useState } from '@wordpress/element';
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
-	const { violation, resolved, openedBlock, isError, loading } =
+	const { setOpenedBlock, violation, resolved, openedBlock, isError, loading } =
 		useScannerWizardContext();
+	const [showIssues, setShowIssues] = useState(false);
 
 	const showResolvedMessage = Boolean(
-		(resolved > 0 && violation === resolved) || violation === 0,
+		!showIssues &&
+			((resolved > 0 && violation === resolved) || violation === 0),
 	);
+
+	useEffect(() => {
+		if (showResolvedMessage) {
+			removeExistingFocus();
+			setOpenedBlock(BLOCKS.main);
+		}
+	}, [showResolvedMessage]);
+
+	const openIssuesList = () => setShowIssues(true);
 
 	const getBlock = () => {
 		if (!PAGE_QUOTA_LIMIT) {
@@ -49,7 +62,11 @@ const App = () => {
 		<StyledPaper>
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
-				{showResolvedMessage ? <ResolvedMessage isMain /> : getBlock()}
+				{showResolvedMessage ? (
+					<ResolvedMessage setShowIssues={openIssuesList} />
+				) : (
+					getBlock()
+				)}
 				<Notifications message={notificationMessage} type={notificationType} />
 			</ErrorBoundary>
 		</StyledPaper>
