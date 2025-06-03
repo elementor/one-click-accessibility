@@ -41,6 +41,7 @@ export const Breadcrumbs = () => {
 					color="secondary"
 					onClick={handleClick}
 					sx={{ whiteSpace: 'nowrap' }}
+					size="small"
 				>
 					<ArrowLeftIcon />
 				</IconButton>

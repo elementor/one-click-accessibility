@@ -1,8 +1,8 @@
 import XIcon from '@elementor/icons/XIcon';
-import { Chip } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
+import Chip from '@elementor/ui/Chip';
 import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Paper from '@elementor/ui/Paper';
@@ -34,14 +34,30 @@ export const Header = () => {
 		!loading &&
 		openedBlock === BLOCKS.main &&
 		violation > 0;
-	const showDivider =
-		!loading &&
-		(!PAGE_QUOTA_LIMIT ||
-			isError ||
-			openedBlock === BLOCKS.main ||
-			openedBlock === BLOCKS.altText);
 
-	const showMainBlock = !isError && PAGE_QUOTA_LIMIT && violation > 0;
+	const showMainBlock =
+		(!isError && PAGE_QUOTA_LIMIT && violation > 0) || loading;
+
+	const content = (
+		<>
+			<Box display="flex" alignItems="center" gap={1}>
+				<Typography variant="subtitle1" color="text.primary">
+					{window?.ea11yScannerData?.pageData?.title}
+				</Typography>
+				{showChip && (
+					<Chip
+						size="tiny"
+						color="error"
+						variant="outlined"
+						label={`${results ? violation : ''} ${__('Issues found', 'pojo-accessibility')}`}
+					/>
+				)}
+			</Box>
+			{showMainBlock && (
+				<>{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}</>
+			)}
+		</>
+	);
 
 	return (
 		<StyledCard square={true} variant="elevation" elevation={0}>
@@ -69,23 +85,16 @@ export const Header = () => {
 				</StyledContent>
 			</Paper>
 			<StyledContent>
-				<Box display="flex" alignItems="center" gap={1}>
-					<Typography variant="body1">
-						{window?.ea11yScannerData?.pageData?.title}
-					</Typography>
-					{showChip && (
-						<Chip
-							size="tiny"
-							color="error"
-							variant="standard"
-							label={`${results ? violation : ''} ${__('Issues found', 'pojo-accessibility')}`}
-						/>
-					)}
-				</Box>
-				{showMainBlock && (
-					<>{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}</>
+				{openedBlock === BLOCKS.main ? (
+					<Card elevation={4} sx={{ mb: 2 }}>
+						<StyledContent>{content}</StyledContent>
+					</Card>
+				) : (
+					<>
+						{content}
+						{openedBlock === BLOCKS.altText && <Divider />}
+					</>
 				)}
-				{showDivider && <Divider />}
 			</StyledContent>
 		</StyledCard>
 	);

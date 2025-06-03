@@ -9,8 +9,9 @@ export const ROOT_ID = 'ea11y-scanner-wizard-widget';
 
 export const CURRENT_ELEMENT_CLASS = 'ea11y-scanner-current-element';
 
-export const UPGRADE_URL = '#';
-export const COMPARE_PLAN_URL = '#';
+export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
+export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';
+export const PAGE_LIMIT_URL = 'https://go.elementor.com/acc-URL-limit-scanner';
 
 export const isRTL = Boolean(window.ea11yScannerData?.isRTL);
 
