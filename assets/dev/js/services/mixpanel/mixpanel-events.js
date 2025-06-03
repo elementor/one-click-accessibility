@@ -40,4 +40,9 @@ export const mixpanelEvents = {
 	upgradeSuggestionViewed: 'upgrade_suggestion_viewed',
 	applyFixButtonClicked: 'apply_fix_button_clicked',
 	copySnippetClicked: 'copy_snippet_clicked',
+
+	// Accessibility assistant dashboard
+	assistantDashboardHistoryLogsButtonClicked: 'history_logs_button_clicked',
+	assistantDashboardScanCtaClicked: 'scan_cta_clicked',
+	assistantDashboardSearchTriggered: 'search_triggered',
 };

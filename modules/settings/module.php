@@ -107,6 +107,8 @@ class Module extends Module_Base {
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
 				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+
+				'homeUrl' => home_url(),
 			]
 		);
 	}
