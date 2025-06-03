@@ -1,9 +1,7 @@
 import XIcon from '@elementor/icons/XIcon';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
-import CardContent from '@elementor/ui/CardContent';
 import Chip from '@elementor/ui/Chip';
-import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Paper from '@elementor/ui/Paper';
 import Typography from '@elementor/ui/Typography';
@@ -17,6 +15,11 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { Logo } from '@ea11y-apps/scanner/images';
+import {
+	HeaderCard,
+	HeaderContent,
+	TitleBox,
+} from '@ea11y-apps/scanner/styles/app.styles';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { __ } from '@wordpress/i18n';
 
@@ -40,19 +43,21 @@ export const Header = () => {
 
 	const content = (
 		<>
-			<Box display="flex" alignItems="center" gap={1}>
-				<Typography variant="subtitle1" color="text.primary">
-					{window?.ea11yScannerData?.pageData?.title}
-				</Typography>
-				{showChip && (
-					<Chip
-						size="tiny"
-						color="error"
-						variant="outlined"
-						label={`${results ? violation : ''} ${__('Issues found', 'pojo-accessibility')}`}
-					/>
-				)}
-			</Box>
+			{openedBlock === BLOCKS.main && (
+				<TitleBox>
+					<Typography variant="subtitle1" color="text.primary">
+						{window?.ea11yScannerData?.pageData?.title}
+					</Typography>
+					{showChip && (
+						<Chip
+							size="tiny"
+							color="error"
+							variant="outlined"
+							label={`${results ? violation : ''} ${__('Issues found', 'pojo-accessibility')}`}
+						/>
+					)}
+				</TitleBox>
+			)}
 			{showMainBlock && (
 				<>{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}</>
 			)}
@@ -62,7 +67,7 @@ export const Header = () => {
 	return (
 		<StyledCard square={true} variant="elevation" elevation={0}>
 			<Paper color="secondary" elevation={0} square>
-				<StyledContent>
+				<HeaderContent>
 					<Box
 						display="flex"
 						justifyContent="space-between"
@@ -82,20 +87,17 @@ export const Header = () => {
 							<XIcon />
 						</IconButton>
 					</Box>
-				</StyledContent>
+				</HeaderContent>
 			</Paper>
-			<StyledContent>
+			<HeaderContent>
 				{openedBlock === BLOCKS.main ? (
-					<Card elevation={4} sx={{ mb: 2 }}>
-						<StyledContent>{content}</StyledContent>
-					</Card>
+					<HeaderCard elevation={12}>
+						<HeaderContent>{content}</HeaderContent>
+					</HeaderCard>
 				) : (
-					<>
-						{content}
-						{openedBlock === BLOCKS.altText && <Divider />}
-					</>
+					content
 				)}
-			</StyledContent>
+			</HeaderContent>
 		</StyledCard>
 	);
 };
@@ -104,15 +106,4 @@ const StyledCard = styled(Card)`
 	position: sticky;
 	top: 0;
 	z-index: 2;
-`;
-
-const StyledContent = styled(CardContent)`
-	display: flex;
-	flex-direction: column;
-	gap: ${({ theme }) => theme.spacing(1.5)};
-	padding: ${({ theme }) => theme.spacing(2)}
-		${({ theme }) => theme.spacing(1.5)};
-	&:last-child {
-		padding-bottom: ${({ theme }) => theme.spacing(1.5)};
-	}
 `;

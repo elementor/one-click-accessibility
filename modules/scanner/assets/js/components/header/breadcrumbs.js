@@ -32,7 +32,7 @@ export const Breadcrumbs = () => {
 		openedBlock === BLOCKS.altText ? altTextData : manualData[openedBlock];
 
 	const resolved =
-		itemsData.filter((item) => item.resolved === true).length || 0;
+		itemsData?.filter((item) => item?.resolved === true).length || 0;
 
 	return (
 		<Box>

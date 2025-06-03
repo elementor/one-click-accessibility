@@ -4,8 +4,6 @@ namespace EA11y\Modules\Scanner\Rest;
 
 use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Scanner\Classes\Route_Base;
-use EA11y\Modules\Scanner\Classes\Utils;
-use EA11y\Modules\Settings\Classes\Settings;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
@@ -62,7 +60,7 @@ class Resolve_With_AI extends Route_Base {
 			return $this->respond_success_json( [
 				'message' => 'Resolved with AI',
 				'data' => [
-					'response' => json_decode( $result->response ),
+					'response' => $result->response,
 					'apiId' => $result->apiId,
 				],
 			] );
