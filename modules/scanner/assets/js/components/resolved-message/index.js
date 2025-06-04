@@ -1,4 +1,3 @@
-import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
@@ -20,17 +19,17 @@ export const ResolvedMessage = ({ setShowIssues }) => {
 	return (
 		<StateContainer>
 			<ResolvedImage />
-			<Box sx={{ maxWidth: '250px' }}>
-				<Typography variant="body1" align="center">
-					{__('Great job!', 'pojo-accessibility')}
-				</Typography>
-				<Typography variant="body1" align="center">
-					{__(
-						"You've resolved all accessibility issues on this page.",
-						'pojo-accessibility',
-					)}
-				</Typography>
-			</Box>
+
+			<Typography variant="subtitle1" align="center">
+				{__('Great job!', 'pojo-accessibility')}
+			</Typography>
+			<Typography variant="body2" align="center" color="text.secondary">
+				{__(
+					"You've resolved all accessibility issues on this page.",
+					'pojo-accessibility',
+				)}
+			</Typography>
+
 			<ResolvedButtonsBox>
 				<Button
 					size="small"
