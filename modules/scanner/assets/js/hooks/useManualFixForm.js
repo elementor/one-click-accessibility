@@ -1,8 +1,9 @@
 import clipboardCopy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
@@ -73,10 +74,14 @@ export const useManualFixForm = ({ item, current }) => {
 		setOpenIndex(current + 1);
 	};
 
-	const copyToClipboard = (snippet) => async () => {
+	const copyToClipboard = (snippet, type) => async () => {
 		await clipboardCopy(snippet);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 5000);
+		mixpanelService.sendEvent(eventNames.copySnippetClicked, {
+			snippet_type: type,
+			snippet_content: snippet,
+		});
 	};
 
 	const resolveIssue = async () => {
@@ -94,6 +99,11 @@ export const useManualFixForm = ({ item, current }) => {
 				apiId: manualData[openedBlock]?.[current]?.apiId,
 			});
 			markResolved();
+			mixpanelService.sendEvent(eventNames.applyFixButtonClicked, {
+				fix_method: 'AI',
+				issue_type: item.message,
+				category_name: BLOCK_TITLES[openedBlock],
+			});
 		} catch (e) {
 			console.log(e);
 			error(__('An error occurred.', 'pojo-accessibility'));

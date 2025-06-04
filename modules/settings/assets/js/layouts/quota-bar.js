@@ -17,7 +17,7 @@ import {
 	QuotaIndicator,
 } from '@ea11y/components';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';

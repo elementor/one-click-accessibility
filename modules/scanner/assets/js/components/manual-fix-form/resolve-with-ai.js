@@ -11,8 +11,13 @@ import Infotip from '@elementor/ui/Infotip';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { UpgradeInfoTip } from '@ea11y-apps/scanner/components/upgrade-info-tip';
-import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
+import {
+	AI_QUOTA_LIMIT,
+	BLOCK_TITLES,
+	IS_AI_ENABLED,
+} from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
@@ -44,8 +49,20 @@ export const ResolveWithAi = ({ item, current }) => {
 	const handleButtonClick = async () => {
 		if (IS_AI_ENABLED && AI_QUOTA_LIMIT) {
 			await getAISuggestion();
+			mixpanelService.sendEvent(eventNames.fixWithAiButtonClicked, {
+				issue_type: item.message,
+				rule_id: item.ruleId,
+				wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+				category_name: BLOCK_TITLES[openedBlock],
+				// ai_text_response: text,
+			});
 		} else {
 			setOpenUpgrade(true);
+			mixpanelService.sendEvent(eventNames.upgradeSuggestionViewed, {
+				current_plan: window.ea11yScannerData?.planData?.plan?.name,
+				action_trigger: 'fix_with_ai',
+				feature_locked: 'AI manual',
+			});
 		}
 	};
 
@@ -104,7 +121,7 @@ export const ResolveWithAi = ({ item, current }) => {
 								>
 									<IconButton
 										size="tiny"
-										onClick={copyToClipboard(item.snippet)}
+										onClick={copyToClipboard(item.snippet, 'fixed_snippet')}
 										aria-labelledby="copy-icon-ai"
 									>
 										<CopyIcon fontSize="tiny" />

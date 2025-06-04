@@ -7,12 +7,12 @@ import Select from '@elementor/ui/Select';
 import TextField from '@elementor/ui/TextField';
 import { styled } from '@elementor/ui/styles';
 import {
-	usePopupState,
-	bindTrigger,
 	bindMenu,
+	bindTrigger,
+	usePopupState,
 } from '@elementor/ui/usePopupState';
 import { useIconPosition } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 

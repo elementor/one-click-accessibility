@@ -10,8 +10,8 @@ import { StatementGenerator } from '@ea11y/components';
 import Button from '@ea11y/components/button';
 import { useModal, useSettings } from '@ea11y/hooks';
 import {
-	AccessibilityStatementExistingIcon,
 	AccessibilityStatementCreateIcon,
+	AccessibilityStatementExistingIcon,
 } from '@ea11y/icons';
 import { StatementLink } from '@ea11y/layouts';
 import {
@@ -19,7 +19,7 @@ import {
 	StyledStatementPaper,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';

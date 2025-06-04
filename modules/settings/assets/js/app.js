@@ -5,18 +5,18 @@ import Grid from '@elementor/ui/Grid';
 import { styled, ThemeProvider } from '@elementor/ui/styles';
 import {
 	ConnectModal,
-	Notifications,
 	MenuItems,
+	Notifications,
 	PostConnectModal,
 	UrlMismatchModal,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
-	useSettings,
 	useSavedSettings,
+	useSettings,
 } from '@ea11y/hooks';
 import { QuotaNotices, Sidebar } from '@ea11y/layouts';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';

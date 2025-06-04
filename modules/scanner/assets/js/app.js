@@ -1,6 +1,7 @@
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
 import { Notifications } from '@ea11y/components';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
 import { Header } from '@ea11y-apps/scanner/components/header';
 import { Loader } from '@ea11y-apps/scanner/components/main-list/loader';
@@ -29,11 +30,36 @@ const App = () => {
 	);
 
 	useEffect(() => {
+		if (window.ea11yScannerData?.planData?.user?.id && violation !== null) {
+			const url = new URL(window.location.href);
+			const source =
+				url.searchParams.get('open-ea11y-assistant-src') || 'top_bar';
+			mixpanelService.init().then(() => {
+				mixpanelService.sendEvent(eventNames.scanTriggered, {
+					page_url: window.ea11yScannerData?.pageData?.url,
+					issue_count: violation,
+					source,
+				});
+			});
+		}
+	}, [window.ea11yScannerData?.planData?.user?.id, violation]);
+
+	useEffect(() => {
 		if (showResolvedMessage) {
 			removeExistingFocus();
 			setOpenedBlock(BLOCKS.main);
 		}
 	}, [showResolvedMessage]);
+
+	useEffect(() => {
+		if (!PAGE_QUOTA_LIMIT) {
+			mixpanelService.sendEvent(eventNames.upgradeSuggestionViewed, {
+				current_plan: window.ea11yScannerData?.planData?.plan?.name,
+				action_trigger: 'scan_triggered',
+				feature_locked: 'multi-page scan',
+			});
+		}
+	}, [PAGE_QUOTA_LIMIT]);
 
 	const openIssuesList = () => setShowIssues(true);
 

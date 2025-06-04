@@ -8,7 +8,7 @@ import {
 	PositionSettingsWrapper,
 } from '@ea11y/components';
 import { useIconPosition } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 
 const PositionSettingsDesktop = () => {

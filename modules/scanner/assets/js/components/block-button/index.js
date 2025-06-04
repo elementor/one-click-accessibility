@@ -3,6 +3,7 @@ import { Chip } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	StyledButton,
@@ -14,6 +15,11 @@ export const BlockButton = ({ title, count, block }) => {
 
 	const handleClick = () => {
 		setOpenedBlock(block);
+		mixpanelService.sendEvent(eventNames.categoryClicked, {
+			page_url: window.ea11yScannerData?.pageData?.url,
+			issue_count: count,
+			category_name: title,
+		});
 	};
 
 	const resolved = count === 0 || isResolved(block);

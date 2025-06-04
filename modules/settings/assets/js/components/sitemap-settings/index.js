@@ -11,7 +11,7 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import { validateUrl } from '../../utils';
 

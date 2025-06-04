@@ -6,7 +6,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import CrownFilled from '@ea11y/icons/crown-filled';
 import { StyledContainer } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import imageUrl from '../../../img/upgrade.png';
 import { GOLINKS } from '../../constants';

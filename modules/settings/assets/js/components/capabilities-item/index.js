@@ -7,7 +7,7 @@ import ListItemText from '@elementor/ui/ListItemText';
 import { CustomSwitch, ProItemInfotip } from '@ea11y/components';
 import SitemapSettings from '@ea11y/components/sitemap-settings';
 import { useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { validateUrl } from '../../utils';
 
 const CapabilitiesItem = ({

@@ -9,7 +9,7 @@ import ListItemText from '@elementor/ui/ListItemText';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
 import CrownFilled from '@ea11y/icons/crown-filled';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { Fragment, useState } from '@wordpress/element';
 
 const MenuItem = ({ keyName, item }) => {

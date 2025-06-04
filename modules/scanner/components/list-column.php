@@ -73,7 +73,7 @@ class List_Column {
 			: '0';
 
 		$separator = strpos( $url, '?' ) !== false ? '&' : '?';
-		$assistant_url = esc_url( $url . $separator . 'open-ea11y-assistant=1' );
+		$assistant_url = esc_url( $url . $separator . 'open-ea11y-assistant=1&open-ea11y-assistant-src=WP' );
 
 		$chip = $passed
 			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/check-passed.svg' ) . '" alt="" style="width:18px; height:18px;" />'

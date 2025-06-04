@@ -1,5 +1,5 @@
 import { useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { useCallback } from '@wordpress/element';
 
 export const useToggleSetting = () => {

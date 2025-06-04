@@ -9,7 +9,7 @@ import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';

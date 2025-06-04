@@ -5,7 +5,7 @@ import { styled } from '@elementor/ui/styles';
 import Button from '@ea11y/components/button';
 import { useModal, useStorage } from '@ea11y/hooks';
 import { PostConnectModalIcon } from '@ea11y/icons';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
