@@ -37,6 +37,7 @@ class Analytics_Table extends Table {
 		'widget-open',
 		'hide-widget',
 		'statement',
+		'language-selector',
 	];
 
 	public static $table_name = 'ea11y_analytics';
