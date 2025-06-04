@@ -91,7 +91,7 @@ export const Header = () => {
 			</Paper>
 			<HeaderContent>
 				{openedBlock === BLOCKS.main ? (
-					<HeaderCard elevation={12}>
+					<HeaderCard>
 						<HeaderContent>{content}</HeaderContent>
 					</HeaderCard>
 				) : (

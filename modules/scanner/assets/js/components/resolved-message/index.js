@@ -22,10 +22,13 @@ export const ResolvedMessage = ({ setShowIssues }) => {
 			<ResolvedImage />
 			<Box sx={{ maxWidth: '250px' }}>
 				<Typography variant="body1" align="center">
-					{__('All done!', 'pojo-accessibility')}
+					{__('Great job!', 'pojo-accessibility')}
 				</Typography>
 				<Typography variant="body1" align="center">
-					{__('There are no issues to resolve.', 'pojo-accessibility')}
+					{__(
+						"You've resolved all accessibility issues on this page.",
+						'pojo-accessibility',
+					)}
 				</Typography>
 			</Box>
 			<ResolvedButtonsBox>
@@ -38,7 +41,7 @@ export const ResolvedMessage = ({ setShowIssues }) => {
 					{__('Review fixes', 'pojo-accessibility')}
 				</Button>
 				<Button size="small" variant="contained" color="info" onClick={onClose}>
-					{__('Back to editing', 'pojo-accessibility')}
+					{__('Finish', 'pojo-accessibility')}
 				</Button>
 			</ResolvedButtonsBox>
 		</StateContainer>
