@@ -46,7 +46,7 @@ const QuotaBar = () => {
 		<Box display="flex" alignItems="center" gap={1}>
 			{__('Current Plan', 'pojo-accessibility')}
 			<Chip variant="filled" label={planData?.plan?.name} size="tiny" />
-			<QuotaIndicator data={planData} isQuotaBoxOpen={open} />
+			{planData && <QuotaIndicator data={planData} isQuotaBoxOpen={open} />}
 		</Box>
 	);
 

@@ -6,11 +6,11 @@ import Tooltip from '@elementor/ui/Tooltip';
 import { __ } from '@wordpress/i18n';
 
 const QuotaIndicator = ({ data, isQuotaBoxOpen }) => {
-	const { scannedPages, visits, aiCredits } = data;
-
-	if (!scannedPages || !visits || !aiCredits) {
+	if (!data?.scannedPages || !data?.visits || !data?.aiCredits) {
 		return null; // Return null if data is not available
 	}
+
+	const { scannedPages, visits, aiCredits } = data;
 
 	// calculate usage data of each quota
 	const scannedPagesUsage = Math.round(
