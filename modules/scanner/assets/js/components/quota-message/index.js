@@ -1,7 +1,7 @@
 import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
 import CrownFilled from '@ea11y/icons/crown-filled';
-import { PAGE_PER_PLAN, UPGRADE_URL } from '@ea11y-apps/scanner/constants';
+import { PAGE_LIMIT_URL, PAGE_PER_PLAN } from '@ea11y-apps/scanner/constants';
 import { QuotaImage } from '@ea11y-apps/scanner/images/quota-image';
 import {
 	QuotaMessageContainer,
@@ -33,7 +33,7 @@ export const QuotaMessage = () => {
 				size="small"
 				color="promotion"
 				variant="contained"
-				href={UPGRADE_URL}
+				href={PAGE_LIMIT_URL}
 				target="_blank"
 				rel="noreferrer"
 				startIcon={<CrownFilled />}

@@ -1,6 +1,7 @@
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
+import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
 import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
@@ -13,8 +14,34 @@ export const StyledPaper = styled(Paper)`
 	height: fit-content;
 `;
 
+export const HeaderCard = styled(Card)`
+	border-radius: 8px;
+	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	box-shadow: 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+`;
+
+export const TitleBox = styled(Box)`
+	display: flex;
+	gap: ${({ theme }) => theme.spacing(1)};
+	align-items: center;
+	margin-bottom: ${({ theme }) => theme.spacing(2)};
+`;
+
+export const HeaderContent = styled(CardContent)`
+	&:last-child {
+		padding-bottom: ${({ theme }) => theme.spacing(2)};
+	}
+`;
+
 export const StyledContent = styled(CardContent)`
-	padding: 0 ${({ theme }) => theme.spacing(1.5)};
+	padding: 0 ${({ theme }) => theme.spacing(2)};
+`;
+
+export const SkeletonContainer = styled(Box)`
+	display: flex;
+	gap: ${({ theme }) => theme.spacing(1)};
+	flex-direction: column;
+	padding: 0 ${({ theme }) => theme.spacing(2)};
 `;
 
 export const StyledSkeleton = styled(Skeleton)`
@@ -82,4 +109,11 @@ export const UpgradeContentContainer = styled(Box)`
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
+`;
+
+export const ResolvedButtonsBox = styled(Box)`
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	gap: ${({ theme }) => theme.spacing(1)};
 `;

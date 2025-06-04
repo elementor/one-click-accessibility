@@ -211,7 +211,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 					</>
 				)}
 			</StyledAccordionDetails>
-			<AccordionActions>
+			<AccordionActions sx={{ py: 3 }}>
 				<Button
 					size="small"
 					color="secondary"

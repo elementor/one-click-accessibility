@@ -1,27 +1,44 @@
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
+import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { splitDescriptions } from '@ea11y-apps/scanner/utils/split-ai-response';
 import {
 	convertSvgToPngBase64,
 	svgNodeToPngBase64,
 } from '@ea11y-apps/scanner/utils/svg-to-png-base64';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const useAltTextForm = ({ current, item }) => {
-	const { altTextData, setAltTextData, resolved, setResolved } =
-		useScannerWizardContext();
+	const {
+		altTextData,
+		setAltTextData,
+		resolved,
+		setResolved,
+		isResolved,
+		setOpenedBlock,
+	} = useScannerWizardContext();
 	const { error } = useToastNotification();
 
 	const [loadingAiText, setLoadingAiText] = useState(false);
+	const [firstOpen, setFirstOpen] = useState(true);
 
 	const isSubmitDisabled =
 		(!altTextData?.[current]?.makeDecorative &&
 			!altTextData?.[current]?.altText) ||
 		altTextData?.[current]?.resolved;
+
+	useEffect(() => {
+		if (!firstOpen && isResolved(BLOCKS.altText)) {
+			removeExistingFocus();
+			setOpenedBlock(BLOCKS.main);
+		}
+		setFirstOpen(false);
+	}, [altTextData]);
 
 	const updateData = (data) => {
 		const updData = [...altTextData];

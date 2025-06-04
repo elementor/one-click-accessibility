@@ -5,7 +5,8 @@ import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 
 export const MainList = () => {
-	const { sortedViolations } = useScannerWizardContext();
+	const { sortedViolations, altTextData, manualData } =
+		useScannerWizardContext();
 
 	const scannerFixExist = sortedViolations.altText.length > 0;
 	const manualExist = Object.keys(sortedViolations).some(
@@ -14,12 +15,21 @@ export const MainList = () => {
 
 	return manualExist || scannerFixExist ? (
 		<StyledBlockButtonsBox>
-			{Object.keys(sortedViolations).map((key) => {
+			{Object.keys(sortedViolations).flatMap((key) => {
+				if (sortedViolations[key].length < 1) {
+					return [];
+				}
+				const itemsData =
+					key === BLOCKS.altText ? altTextData : manualData[key];
+
+				const resolved =
+					itemsData?.filter((item) => item?.resolved === true).length || 0;
+
 				return (
 					<BlockButton
 						key={key}
 						title={BLOCK_TITLES[key]}
-						count={sortedViolations[key].length}
+						count={sortedViolations[key].length - resolved}
 						block={BLOCKS[key]}
 					/>
 				);

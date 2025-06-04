@@ -6,7 +6,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledSkeleton } from '@ea11y-apps/scanner/styles/app.styles';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 export const ScanStats = () => {
 	const { violation, results, resolved, loading, getResults } =
@@ -17,24 +17,22 @@ export const ScanStats = () => {
 
 	return (
 		<Box>
-			<Box display="flex" gap="12px">
-				<StyledLegend loading={loading}>
-					<Typography variant="subtitle2" sx={{ mr: '4px' }}>
-						{resolved}
-					</Typography>
-					<Typography variant="body2">
-						{__('Resolved', 'pojo-accessibility')}
-					</Typography>
-				</StyledLegend>
-			</Box>
-			<Box display="flex" gap="12px" alignItems="center">
-				<Typography variant="subtitle2">{displayPercent}%</Typography>
+			<Box display="flex" gap={1.5} alignItems="center">
 				{loading ? (
-					<Box flexGrow={1} sx={{ py: 1.5 }}>
-						<StyledSkeleton width="100%" height={12} />
+					<Box flexGrow={1} sx={{ py: 1 }}>
+						<StyledSkeleton width="100%" height={14} />
 					</Box>
 				) : (
 					<>
+						<Typography variant="body2" color="text.secondary">
+							{sprintf(
+								// Translators: %1$s - resolved, %2$s - percent, %3$s - %
+								__('%1$s Fixed (%2$s%3$s)', 'pojo-accessibility'),
+								resolved,
+								displayPercent,
+								'%',
+							)}
+						</Typography>
 						<StyledLinearProgress
 							color="success"
 							value={displayPercent}
@@ -56,27 +54,6 @@ export const ScanStats = () => {
 		</Box>
 	);
 };
-
-const StyledLegend = styled(Box, {
-	shouldForwardProp: (props) => props !== 'loading',
-})`
-	position: relative;
-	display: flex;
-	align-items: center;
-	padding-left: 14px;
-	&:before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		display: block;
-		width: 8px;
-		height: 8px;
-		background-color: ${({ theme, loading }) =>
-			loading ? theme.palette.grey['50'] : theme.palette.success.light};
-	}
-`;
 
 const StyledLinearProgress = styled(LinearProgress)(({ theme }) => ({
 	'& .MuiLinearProgress-bar': {

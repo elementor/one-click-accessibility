@@ -5,6 +5,7 @@ import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Checkbox from '@elementor/ui/Checkbox';
 import CircularProgress from '@elementor/ui/CircularProgress';
+import Divider from '@elementor/ui/Divider';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
@@ -53,6 +54,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 
 	return (
 		<StyledBox>
+			<Divider />
 			<StyledAlert
 				color="info"
 				icon={<InfoCircleIcon color="info" />}

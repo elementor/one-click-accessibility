@@ -19,5 +19,5 @@ const StyledContent = styled(CardContent)`
 	display: flex;
 	flex-direction: column;
 	gap: ${({ theme }) => theme.spacing(2)};
-	padding: 0 ${({ theme }) => theme.spacing(1.5)};
+	padding: 0 ${({ theme }) => theme.spacing(2)};
 `;
