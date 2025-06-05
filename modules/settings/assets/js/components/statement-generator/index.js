@@ -14,17 +14,17 @@ import { styled } from '@elementor/ui/styles';
 import { AlertError, HtmlToTypography } from '@ea11y/components';
 import Button from '@ea11y/components/button';
 import { useSettings, useStorage } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import APISettings from '../../api';
 import { Statement } from '../../helpers/accessibility-statement';
 import {
-	parseContent,
-	checkEmail,
-	checkDomain,
 	checkCompanyName,
+	checkDomain,
+	checkEmail,
+	parseContent,
 } from '../../helpers/statement-generator';
 
 // Customization for the WP admin global CSS.
@@ -132,7 +132,7 @@ const StatementGenerator = ({ open, close }) => {
 			await close();
 			await success('Page created', 'pojo-accessibility');
 
-			mixpanelService.sendEvent(eventNames.statementPageCreated);
+			mixpanelService.sendEvent(mixpanelEvents.statementPageCreated);
 		} catch (e) {
 			error('Error while creating page', 'pojo-accessibility');
 			console.error(e);

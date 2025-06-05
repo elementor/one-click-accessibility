@@ -9,7 +9,7 @@ import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ProCrownIcon } from '@ea11y/icons';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS, PRO_FEATURES } from '../../constants/index';
 import { openLink } from '../../utils/index';
@@ -28,7 +28,7 @@ const ProItemInfotip = ({
 	const handleUpgradeButton = () => {
 		if ('screen-reader' === childKey && 'icon' === source) {
 			openLink(GOLINKS.SCREEN_READER_ICON);
-			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'screen reader',
 				component: 'pro icon',
 			});
@@ -36,7 +36,7 @@ const ProItemInfotip = ({
 
 		if ('screen-reader' === childKey && 'toggle' === source) {
 			openLink(GOLINKS.SCREEN_READER_TOGGLE);
-			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'screen reader',
 				component: 'toggle',
 			});
@@ -44,7 +44,7 @@ const ProItemInfotip = ({
 
 		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'icon' === source) {
 			openLink(GOLINKS.ALLY_LABEL_ICON);
-			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'ally label',
 				component: 'pro icon',
 			});
@@ -52,7 +52,7 @@ const ProItemInfotip = ({
 
 		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'toggle' === source) {
 			openLink(GOLINKS.ALLY_LABEL_TOGGLE);
-			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'ally label',
 				component: 'toggle',
 			});
@@ -80,7 +80,7 @@ const ProItemInfotip = ({
 			component = 'toggle';
 		}
 
-		mixpanelService.sendEvent(eventNames.upgradeTooltipTriggered, {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeTooltipTriggered, {
 			feature,
 			component,
 		});

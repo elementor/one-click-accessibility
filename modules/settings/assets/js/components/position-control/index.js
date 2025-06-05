@@ -7,12 +7,12 @@ import Select from '@elementor/ui/Select';
 import TextField from '@elementor/ui/TextField';
 import { styled } from '@elementor/ui/styles';
 import {
-	usePopupState,
-	bindTrigger,
 	bindMenu,
+	bindTrigger,
+	usePopupState,
 } from '@elementor/ui/usePopupState';
 import { useIconPosition } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -83,7 +83,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 		popupState.close();
 
-		mixpanelService.sendEvent(eventNames.handleUnitChanged, {
+		mixpanelService.sendEvent(mixpanelEvents.handleUnitChanged, {
 			positionData: {
 				mode,
 				type,
@@ -110,7 +110,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 				iconPosition[mode]?.exactPosition[type]?.unit,
 			);
 
-			mixpanelService.sendEvent(eventNames.handleValueChanged, {
+			mixpanelService.sendEvent(mixpanelEvents.handleValueChanged, {
 				positionData: {
 					mode,
 					type,
@@ -131,7 +131,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 			iconPosition[mode]?.exactPosition[type]?.unit,
 		);
 
-		mixpanelService.sendEvent(eventNames.handleDirectionChanged, {
+		mixpanelService.sendEvent(mixpanelEvents.handleDirectionChanged, {
 			positionData: {
 				mode,
 				type,

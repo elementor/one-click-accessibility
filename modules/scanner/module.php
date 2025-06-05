@@ -9,6 +9,7 @@ use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
 use EA11y\Modules\Scanner\Database\Scans_Table;
 use EA11y\Modules\Settings\Classes\Settings;
+use EA11y\Modules\Settings\Module as Settings_Module;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -94,6 +95,8 @@ class Module extends Module_Base {
 					'entry_id' => $page->id,
 				],
 				'planData' => Settings::get( Settings::PLAN_DATA ),
+				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
+				'pluginEnv' => Settings_Module::get_plugin_env(),
 				'isRTL' => is_rtl(),
 			]
 		);

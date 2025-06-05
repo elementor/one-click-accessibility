@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
@@ -104,6 +105,11 @@ export const useAltTextForm = ({ current, item }) => {
 			apiId: null,
 			resolved: false,
 		});
+		if (e.target.checked) {
+			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
+				category_name: BLOCK_TITLES[BLOCKS.altText],
+			});
+		}
 	};
 
 	const handleChange = (e) => {
@@ -115,11 +121,30 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const handleSubmit = async () => {
+		const fixMethod = altTextData?.[current]?.apiId
+			? 'AI alt-text'
+			: 'Manual alt-text';
 		await updateAltText(item);
 		if (!altTextData?.[current]?.resolved) {
 			updateData({ resolved: true });
 			setResolved(resolved + 1);
 		}
+
+		if (altTextData?.[current]?.apiId) {
+			mixpanelService.sendEvent(mixpanelEvents.aiSuggestionAccepted, {
+				element_selector: item.path.dom,
+				image_src: item.node?.src,
+				final_text: altTextData?.[current]?.altText,
+				credit_used: 1,
+			});
+		}
+		mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
+			fix_method: altTextData?.[current]?.makeDecorative
+				? 'Mark as decorative'
+				: fixMethod,
+			issue_type: item.message,
+			category_name: BLOCK_TITLES[BLOCKS.altText],
+		});
 	};
 
 	const getPayload = async () => {
@@ -129,6 +154,16 @@ export const useAltTextForm = ({ current, item }) => {
 				: { image: item.node.src };
 		}
 		return { svg: await svgNodeToPngBase64(item.node) };
+	};
+
+	const sendMixpanelEvent = (text) => {
+		mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
+			issue_type: item.message,
+			rule_id: item.ruleId,
+			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+			category_name: BLOCK_TITLES[BLOCKS.altText],
+			ai_text_response: text,
+		});
 	};
 
 	const getAiText = async () => {
@@ -145,6 +180,7 @@ export const useAltTextForm = ({ current, item }) => {
 					aiTextIndex: 0,
 					resolved: false,
 				});
+				sendMixpanelEvent(descriptions[0]);
 			}
 		} catch (e) {
 			console.log(e);
@@ -167,6 +203,8 @@ export const useAltTextForm = ({ current, item }) => {
 				aiTextIndex: index,
 				resolved: false,
 			});
+
+			sendMixpanelEvent(altTextData?.[current]?.aiText[index]);
 		} else {
 			await getAiText();
 		}

@@ -11,8 +11,9 @@ import Link from '@elementor/ui/Link';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ResolveWithAi } from '@ea11y-apps/scanner/components/manual-fix-form/resolve-with-ai';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
@@ -42,14 +43,24 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 		setOpenExample(true);
 	};
 
+	const sendMixpanelEvent = (event) => {
+		mixpanelService.sendEvent(event, {
+			category_name: BLOCK_TITLES[openedBlock],
+			issue_type: item.message,
+			element_selector: item.path.dom,
+		});
+	};
+
 	const handleSkip = () => {
 		closeExample();
 		setOpen(current + 1);
+		sendMixpanelEvent(mixpanelEvents.issueSkipped);
 	};
 
 	const handleMarkResolved = () => {
 		closeExample();
 		markResolved();
+		sendMixpanelEvent(mixpanelEvents.markAsResolveClicked);
 	};
 
 	return (
@@ -109,7 +120,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 								>
 									<IconButton
 										size="tiny"
-										onClick={copyToClipboard(item.snippet)}
+										onClick={copyToClipboard(item.snippet, 'error_snippet')}
 										aria-labelledby="copy-icon"
 									>
 										<CopyIcon fontSize="tiny" />

@@ -1,6 +1,7 @@
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { AltTextForm } from '@ea11y-apps/scanner/components/alt-text-form';
 import { AltTextNavigation } from '@ea11y-apps/scanner/components/alt-text-navigation';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import {
@@ -16,11 +17,18 @@ export const AltTextLayout = () => {
 	const resolved = isResolved(BLOCKS.altText);
 
 	useEffect(() => {
+		const item = sortedViolations.altText[current];
 		if (!resolved && sortedViolations.altText.length) {
-			focusOnElement(sortedViolations.altText[current].node);
+			focusOnElement(item.node);
 		} else {
 			removeExistingFocus();
 		}
+		mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
+			issue_type: item.message,
+			rule_id: item.ruleId,
+			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+			category_name: BLOCK_TITLES[BLOCKS.altText],
+		});
 	}, [current]);
 
 	const changeNavigation = (index) => {

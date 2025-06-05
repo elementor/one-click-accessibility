@@ -30,7 +30,7 @@ export const ManualLayout = () => {
 					square
 					disableGutters
 					expanded={openIndex === index}
-					onChange={handleOpen(index)}
+					onChange={handleOpen(index, item)}
 				>
 					<StyledAccordionSummary
 						aria-controls={`manual-panel-${index}`}

@@ -18,7 +18,7 @@ import {
 	PieChartSkeleton,
 	UsageTableSkeleton,
 } from '@ea11y/components/analytics/skeleton';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { dateI18n } from '@wordpress/date';
 import { __, sprintf } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
@@ -39,7 +39,7 @@ export const ChartsList = () => {
 	 */
 	const changePeriod = (event) => {
 		setPeriod(Number(event.target.value));
-		mixpanelService.sendEvent(eventNames.filterSelected, {
+		mixpanelService.sendEvent(mixpanelEvents.filterSelected, {
 			selectedItem: event.target.value,
 		});
 	};

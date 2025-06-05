@@ -1,5 +1,7 @@
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
+	BLOCK_TITLES,
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
 	MANUAL_GROUPS,
@@ -63,8 +65,14 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		}
 	}, [openIndex]);
 
-	const handleOpen = (index) => (event, isExpanded) => {
+	const handleOpen = (index, item) => (event, isExpanded) => {
 		setOpenIndex(isExpanded ? index : null);
+		mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
+			issue_type: item.message,
+			rule_id: item.ruleId,
+			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+			category_name: BLOCK_TITLES[openedBlock],
+		});
 	};
 
 	const initialViolations =
@@ -107,22 +115,23 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		}
 	};
 
-	const getResults = () => {
+	const getResults = async () => {
 		setLoading(true);
-		window.ace
-			.check(document)
-			.then(async (data) => {
-				const filtered = data.results.filter(
-					(item) => item.level === 'violation',
-				);
-				const sorted = sortViolations(filtered);
-				await registerPage(data, sorted);
-				await addScanResults(data);
-			})
-			.catch(() => {
-				setIsError(true);
-			})
-			.finally(() => setLoading(false));
+		try {
+			const data = await window.ace.check(document);
+			const filtered = data.results.filter(
+				(item) => item.level === 'violation',
+			);
+			const sorted = sortViolations(filtered);
+			await registerPage(data, sorted);
+			await addScanResults(data);
+
+			return data.summary;
+		} catch (error) {
+			setIsError(true);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {

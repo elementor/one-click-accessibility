@@ -1,5 +1,5 @@
 import { useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useCallback } from '@wordpress/element';
 
 export const useToggleSetting = () => {
@@ -24,7 +24,7 @@ export const useToggleSetting = () => {
 				}
 
 				if (prevSettings[option]) {
-					mixpanelService.sendEvent(eventNames.toggleClicked, {
+					mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
 						state: prevSettings[option]?.enabled ? 'off' : 'on',
 						type: option,
 					});

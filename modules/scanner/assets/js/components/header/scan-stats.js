@@ -4,6 +4,7 @@ import Button from '@elementor/ui/Button';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledSkeleton } from '@ea11y-apps/scanner/styles/app.styles';
 import { __, sprintf } from '@wordpress/i18n';
@@ -14,6 +15,15 @@ export const ScanStats = () => {
 	const percent =
 		violation !== 0 ? Math.min((resolved / violation) * 100, 100) : 100;
 	const displayPercent = results ? Math.round(percent) : 0;
+
+	const startNewScan = async () => {
+		const summary = await getResults();
+		mixpanelService.sendEvent(mixpanelEvents.scanTriggered, {
+			page_url: window.ea11yScannerData?.pageData?.url,
+			issue_count: summary?.counts?.violation,
+			source: 'rescan_button',
+		});
+	};
 
 	return (
 		<Box>
@@ -44,7 +54,7 @@ export const ScanStats = () => {
 							size="small"
 							color="secondary"
 							endIcon={<RefreshIcon />}
-							onClick={getResults}
+							onClick={startNewScan}
 						>
 							{__('New Scan', 'pojo-accessibility')}
 						</Button>

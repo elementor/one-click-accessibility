@@ -5,15 +5,22 @@ import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { isRTL } from '@ea11y-apps/scanner/constants';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const AltTextNavigation = ({ total, current, setCurrent }) => {
+	const navigate = (index, direction) => () => {
+		setCurrent(index);
+		mixpanelService.sendEvent(mixpanelEvents.navigationImageClicked, {
+			direction,
+		});
+	};
 	return (
 		<StyledBox>
 			<StyledNavigation>
 				<StyledIconButton
-					onClick={() => setCurrent(--current)}
+					onClick={navigate(--current, 'previous')}
 					disabled={current === 0}
 				>
 					<ChevronLeftIcon />
@@ -27,7 +34,7 @@ export const AltTextNavigation = ({ total, current, setCurrent }) => {
 					)}
 				</Typography>
 				<StyledIconButton
-					onClick={() => setCurrent(++current)}
+					onClick={navigate(++current, 'next')}
 					disabled={current === total - 1}
 				>
 					<ChevronRightIcon />

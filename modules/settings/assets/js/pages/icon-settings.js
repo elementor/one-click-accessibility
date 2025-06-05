@@ -5,13 +5,13 @@ import {
 	StyledContainer,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const IconSettings = () => {
 	useEffect(() => {
-		mixpanelService.sendEvent(eventNames.pageView, {
+		mixpanelService.sendEvent(mixpanelEvents.pageView, {
 			page: 'Button',
 		});
 	}, []);

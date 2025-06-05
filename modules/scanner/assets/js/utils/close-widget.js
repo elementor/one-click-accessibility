@@ -6,6 +6,7 @@ export const closeWidget = (widget) => {
 	widget.remove();
 	const url = new URL(window.location.href);
 	url.searchParams.delete('open-ea11y-assistant');
+	url.searchParams.delete('open-ea11y-assistant-src');
 	document.body.style.removeProperty(isRTL ? 'margin-left' : 'margin-right');
 	document.body.prepend(window.ea11yScannerData.adminBar);
 	window.history.replaceState({}, '', url.toString());

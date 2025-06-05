@@ -13,8 +13,8 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
 import { SUBSCRIPTION_LINK } from '../../constants/index';
@@ -41,7 +41,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 				ea11y_close_post_connect_modal: false,
 			});
 
-			mixpanelService.sendEvent(eventNames.menuButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 				buttonName: 'Switch account',
 			});
 		} catch (e) {
