@@ -11,8 +11,8 @@ import {
 	bindTrigger,
 	bindMenu,
 } from '@elementor/ui/usePopupState';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useIconPosition } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
 import { useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 

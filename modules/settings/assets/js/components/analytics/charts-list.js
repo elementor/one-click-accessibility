@@ -18,7 +18,7 @@ import {
 	PieChartSkeleton,
 	UsageTableSkeleton,
 } from '@ea11y/components/analytics/skeleton';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { eventNames, mixpanelService } from '@ea11y/globals';
 import { dateI18n } from '@wordpress/date';
 import { __, sprintf } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';

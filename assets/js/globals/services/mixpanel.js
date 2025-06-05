@@ -25,7 +25,7 @@ const init = async () => {
 		productName: 'app_access',
 		appType: 'Apps',
 		environment: ea11ySettingsData.pluginEnv,
-		is_trial: Boolean(plan?.name?.toLowerCase().includes('free')),
+		is_trial: Boolean(plan?.features?.plan?.toLowerCase().includes('free')),
 		plan_type: plan?.name,
 		subscription_id: plan?.subscription_id,
 	});
@@ -55,6 +55,13 @@ export const mixpanelService = {
 };
 
 export const eventNames = {
+	review: {
+		promptShown: 'review_prompt_shown',
+		dismissClicked: 'review_dismiss_clicked',
+		starSelected: 'review_star_selected',
+		feedbackSubmitted: 'review_feedback_submitted',
+		publicRedirectClicked: 'review_public_redirect_clicked',
+	},
 	pageView: 'page_view',
 	helpButtonClicked: 'help_button_clicked',
 	toggleClicked: 'toggle_clicked',
