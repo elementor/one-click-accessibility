@@ -1,4 +1,4 @@
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
 	BLOCK_TITLES,
@@ -67,7 +67,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const handleOpen = (index, item) => (event, isExpanded) => {
 		setOpenIndex(isExpanded ? index : null);
-		mixpanelService.sendEvent(eventNames.issueSelected, {
+		mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
 			issue_type: item.message,
 			rule_id: item.ruleId,
 			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],

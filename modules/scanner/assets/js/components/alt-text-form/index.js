@@ -16,7 +16,7 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
 import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
@@ -54,7 +54,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 	};
 
 	const onUpgradeHover = () => {
-		mixpanelService.sendEvent(eventNames.upgradeSuggestionViewed, {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeSuggestionViewed, {
 			current_plan: window.ea11yScannerData?.planData?.plan?.name,
 			action_trigger: 'fix_with_ai',
 			feature_locked: 'AI alt-text',

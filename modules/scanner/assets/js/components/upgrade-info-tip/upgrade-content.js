@@ -4,7 +4,7 @@ import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import CrownFilled from '@ea11y/icons/crown-filled';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import {
 	COMPARE_PLAN_URL,
 	IS_AI_ENABLED,
@@ -19,7 +19,7 @@ import { __ } from '@wordpress/i18n';
 
 export const UpgradeContent = ({ closeUpgrade, isAlt = false }) => {
 	const onUpgrade = () => {
-		mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 			current_plan: window.ea11yScannerData?.planData?.plan?.name,
 			action_trigger: 'ai_suggestion_accepted',
 			feature_locked: isAlt ? 'AI alt-text' : 'AI manual',

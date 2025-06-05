@@ -11,7 +11,7 @@ import Infotip from '@elementor/ui/Infotip';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { UpgradeInfoTip } from '@ea11y-apps/scanner/components/upgrade-info-tip';
 import {
 	AI_QUOTA_LIMIT,
@@ -49,7 +49,7 @@ export const ResolveWithAi = ({ item, current }) => {
 	const handleButtonClick = async () => {
 		if (IS_AI_ENABLED && AI_QUOTA_LIMIT) {
 			await getAISuggestion();
-			mixpanelService.sendEvent(eventNames.fixWithAiButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 				issue_type: item.message,
 				rule_id: item.ruleId,
 				wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
@@ -58,7 +58,7 @@ export const ResolveWithAi = ({ item, current }) => {
 			});
 		} else {
 			setOpenUpgrade(true);
-			mixpanelService.sendEvent(eventNames.upgradeSuggestionViewed, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeSuggestionViewed, {
 				current_plan: window.ea11yScannerData?.planData?.plan?.name,
 				action_trigger: 'fix_with_ai',
 				feature_locked: 'AI manual',

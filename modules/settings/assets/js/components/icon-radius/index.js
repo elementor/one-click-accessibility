@@ -15,7 +15,7 @@ import {
 	usePopupState,
 } from '@elementor/ui/usePopupState';
 import { useIconDesign } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -113,7 +113,7 @@ const IconRadius = () => {
 			},
 		});
 
-		mixpanelService.sendEvent(eventNames.radiusChanged, {
+		mixpanelService.sendEvent(mixpanelEvents.radiusChanged, {
 			previous_radius_value: parseInt(currentValue),
 			new_radius_value: parseInt(event.target.value),
 			interaction_type: source,

@@ -4,7 +4,7 @@ import Button from '@elementor/ui/Button';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledSkeleton } from '@ea11y-apps/scanner/styles/app.styles';
 import { __, sprintf } from '@wordpress/i18n';
@@ -18,7 +18,7 @@ export const ScanStats = () => {
 
 	const startNewScan = async () => {
 		const summary = await getResults();
-		mixpanelService.sendEvent(eventNames.scanTriggered, {
+		mixpanelService.sendEvent(mixpanelEvents.scanTriggered, {
 			page_url: window.ea11yScannerData?.pageData?.url,
 			issue_count: summary?.counts?.violation,
 			source: 'rescan_button',

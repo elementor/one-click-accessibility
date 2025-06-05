@@ -2,7 +2,7 @@ import Alert from '@elementor/ui/Alert';
 import AlertAction from '@elementor/ui/AlertAction';
 import AlertTitle from '@elementor/ui/AlertTitle';
 import { useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';
 import { openLink } from '../utils';
@@ -15,7 +15,7 @@ const QuotaNotices = () => {
 	 * @param {string} type
 	 */
 	const handleUpgradeClick = (type) => {
-		mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 			feature: 'quota notice ' + type,
 			component: 'upgrade button',
 		});

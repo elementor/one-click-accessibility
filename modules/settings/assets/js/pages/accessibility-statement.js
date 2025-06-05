@@ -19,7 +19,7 @@ import {
 	StyledStatementPaper,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';
@@ -34,7 +34,7 @@ const AccessibilityStatement = () => {
 	const [showStatementLink, setShowStatementLink] = useState(false);
 
 	useEffect(() => {
-		mixpanelService.sendEvent(eventNames.pageView, {
+		mixpanelService.sendEvent(mixpanelEvents.pageView, {
 			page: 'Accessibility statement',
 		});
 	}, []);
@@ -49,7 +49,7 @@ const AccessibilityStatement = () => {
 
 	const onStatementOptionClick = (option) => () => {
 		setStatementOption(option);
-		mixpanelService.sendEvent(eventNames.statementFlowSelected, {
+		mixpanelService.sendEvent(mixpanelEvents.statementFlowSelected, {
 			flowType: option,
 		});
 	};

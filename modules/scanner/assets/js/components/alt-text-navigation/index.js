@@ -5,14 +5,14 @@ import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { isRTL } from '@ea11y-apps/scanner/constants';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const AltTextNavigation = ({ total, current, setCurrent }) => {
 	const navigate = (index, direction) => () => {
 		setCurrent(index);
-		mixpanelService.sendEvent(eventNames.navigationImageClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.navigationImageClicked, {
 			direction,
 		});
 	};

@@ -7,7 +7,7 @@ import { styled } from '@elementor/ui/styles';
 import { HexColorInput, HexColorPicker } from 'react-colorful';
 import { useDebouncedCallback } from 'use-debounce';
 import { useIconDesign } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import './style.css';
 
@@ -22,7 +22,7 @@ const ColorPicker = () => {
 	const { iconDesign, updateIconDesign } = useIconDesign();
 
 	const debounced = useDebouncedCallback((value) => {
-		mixpanelService.sendEvent(eventNames.colorChanged, {
+		mixpanelService.sendEvent(mixpanelEvents.colorChanged, {
 			color: value,
 		});
 	}, 1000);

@@ -1,4 +1,4 @@
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { AltTextForm } from '@ea11y-apps/scanner/components/alt-text-form';
 import { AltTextNavigation } from '@ea11y-apps/scanner/components/alt-text-navigation';
 import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
@@ -23,7 +23,7 @@ export const AltTextLayout = () => {
 		} else {
 			removeExistingFocus();
 		}
-		mixpanelService.sendEvent(eventNames.issueSelected, {
+		mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
 			issue_type: item.message,
 			rule_id: item.ruleId,
 			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],

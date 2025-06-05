@@ -19,7 +19,7 @@ import {
 import Button from '@ea11y/components/button';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { WIDGET_PREVIEW_ID } from '../../constants';
@@ -113,7 +113,7 @@ const StatementLink = () => {
 			...accessibilityStatementData,
 			hideLink: !accessibilityStatementData.hideLink,
 		});
-		mixpanelService.sendEvent(eventNames.toggleClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
 			state: accessibilityStatementData.hideLink ? 'on' : 'off',
 			type: 'Hide link',
 		});

@@ -11,7 +11,7 @@ import Link from '@elementor/ui/Link';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ResolveWithAi } from '@ea11y-apps/scanner/components/manual-fix-form/resolve-with-ai';
 import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
@@ -43,24 +43,24 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 		setOpenExample(true);
 	};
 
-	const handleSkip = () => {
-		closeExample();
-		setOpen(current + 1);
-		mixpanelService.sendEvent(eventNames.issueSkipped, {
+	const sendMixpanelEvent = (event) => {
+		mixpanelService.sendEvent(event, {
 			category_name: BLOCK_TITLES[openedBlock],
 			issue_type: item.message,
 			element_selector: item.path.dom,
 		});
 	};
 
+	const handleSkip = () => {
+		closeExample();
+		setOpen(current + 1);
+		sendMixpanelEvent(mixpanelEvents.issueSkipped);
+	};
+
 	const handleMarkResolved = () => {
 		closeExample();
 		markResolved();
-		mixpanelService.sendEvent(eventNames.markAsResolveClicked, {
-			category_name: BLOCK_TITLES[openedBlock],
-			issue_type: item.message,
-			element_selector: item.path.dom,
-		});
+		sendMixpanelEvent(mixpanelEvents.markAsResolveClicked);
 	};
 
 	return (

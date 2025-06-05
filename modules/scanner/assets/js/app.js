@@ -1,7 +1,7 @@
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
 import { Notifications } from '@ea11y/components';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
 import { Header } from '@ea11y-apps/scanner/components/header';
 import { Loader } from '@ea11y-apps/scanner/components/main-list/loader';
@@ -35,7 +35,7 @@ const App = () => {
 			const source =
 				url.searchParams.get('open-ea11y-assistant-src') || 'top_bar';
 			mixpanelService.init().then(() => {
-				mixpanelService.sendEvent(eventNames.scanTriggered, {
+				mixpanelService.sendEvent(mixpanelEvents.scanTriggered, {
 					page_url: window.ea11yScannerData?.pageData?.url,
 					issue_count: violation,
 					source,
@@ -53,7 +53,7 @@ const App = () => {
 
 	useEffect(() => {
 		if (!PAGE_QUOTA_LIMIT) {
-			mixpanelService.sendEvent(eventNames.upgradeSuggestionViewed, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeSuggestionViewed, {
 				current_plan: window.ea11yScannerData?.planData?.plan?.name,
 				action_trigger: 'scan_triggered',
 				feature_locked: 'multi-page scan',

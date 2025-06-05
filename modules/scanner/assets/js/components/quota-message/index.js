@@ -1,7 +1,7 @@
 import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
 import CrownFilled from '@ea11y/icons/crown-filled';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { PAGE_LIMIT_URL, PAGE_PER_PLAN } from '@ea11y-apps/scanner/constants';
 import { QuotaImage } from '@ea11y-apps/scanner/images/quota-image';
 import {
@@ -12,7 +12,7 @@ import { __, sprintf } from '@wordpress/i18n';
 
 export const QuotaMessage = () => {
 	const onUpgrade = () => {
-		mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 			current_plan: window.ea11yScannerData?.planData?.plan?.name,
 			action_trigger: 'scan_triggered',
 			feature_locked: 'multi-page scan',

@@ -1,7 +1,7 @@
 import clipboardCopy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
@@ -78,7 +78,7 @@ export const useManualFixForm = ({ item, current }) => {
 		await clipboardCopy(snippet);
 		setCopied(true);
 		setTimeout(() => setCopied(false), 5000);
-		mixpanelService.sendEvent(eventNames.copySnippetClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.copySnippetClicked, {
 			snippet_type: type,
 			snippet_content: snippet,
 		});
@@ -99,7 +99,7 @@ export const useManualFixForm = ({ item, current }) => {
 				apiId: manualData[openedBlock]?.[current]?.apiId,
 			});
 			markResolved();
-			mixpanelService.sendEvent(eventNames.applyFixButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
 				fix_method: 'AI',
 				issue_type: item.message,
 				category_name: BLOCK_TITLES[openedBlock],

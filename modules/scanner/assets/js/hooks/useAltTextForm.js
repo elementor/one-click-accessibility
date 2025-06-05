@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
@@ -106,7 +106,7 @@ export const useAltTextForm = ({ current, item }) => {
 			resolved: false,
 		});
 		if (e.target.checked) {
-			mixpanelService.sendEvent(eventNames.markAsDecorativeSelected, {
+			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
 				category_name: BLOCK_TITLES[BLOCKS.altText],
 			});
 		}
@@ -131,14 +131,14 @@ export const useAltTextForm = ({ current, item }) => {
 		}
 
 		if (altTextData?.[current]?.apiId) {
-			mixpanelService.sendEvent(eventNames.aiSuggestionAccepted, {
+			mixpanelService.sendEvent(mixpanelEvents.aiSuggestionAccepted, {
 				element_selector: item.path.dom,
 				image_src: item.node?.src,
 				final_text: altTextData?.[current]?.altText,
 				credit_used: 1,
 			});
 		}
-		mixpanelService.sendEvent(eventNames.applyFixButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
 			fix_method: altTextData?.[current]?.makeDecorative
 				? 'Mark as decorative'
 				: fixMethod,
@@ -157,7 +157,7 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const sendMixpanelEvent = (text) => {
-		mixpanelService.sendEvent(eventNames.fixWithAiButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 			issue_type: item.message,
 			rule_id: item.ruleId,
 			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],

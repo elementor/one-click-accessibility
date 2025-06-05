@@ -17,7 +17,7 @@ import {
 	QuotaIndicator,
 } from '@ea11y/components';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { GOLINKS } from '../constants/index';
@@ -35,7 +35,7 @@ const QuotaBar = () => {
 	 * Send an event to the Mixpanel when the user clicks on the "Add visits" button and open the link.
 	 */
 	const handleAddVisitsClick = () => {
-		mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 			feature: 'add visits',
 			component: 'quota counter',
 		});
