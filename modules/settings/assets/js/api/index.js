@@ -121,6 +121,33 @@ class APISettings extends API {
 			path: `${v1Prefix}/whats-new`,
 		});
 	}
+
+	static async getPostTypes() {
+		return API.request({
+			method: 'GET',
+			path: `${v1Prefix}/scanner/post-types`,
+		});
+	}
+
+	static async getScannerStats(period) {
+		const path = addQueryArgs(`${v1Prefix}/scanner/stats`, { period });
+
+		return APISettings.request({
+			method: 'GET',
+			path,
+		});
+	}
+
+	static async getScannerResults(period) {
+		const path = addQueryArgs(`${v1Prefix}/scanner/results`, {
+			period,
+		});
+
+		return APISettings.request({
+			method: 'GET',
+			path,
+		});
+	}
 }
 
 export default APISettings;

@@ -1,27 +1,32 @@
 import { PagesIcon, SettingsIcon } from '@elementor/icons';
-import { WidgetIcon } from '@ea11y/icons';
-import AnalyticsIcon from '@ea11y/icons/analytics-icon';
+import { WidgetIcon, AnalyticsIcon, DashboardIcon } from '@ea11y/icons';
 import {
 	AccessibilityStatement,
 	Menu,
 	IconSettings,
 	Analytics,
+	AccessibilityAssistant,
 } from '@ea11y/pages';
 import { __ } from '@wordpress/i18n';
+import { AccessibilityAssistantContextProvider } from '../../contexts/accessibility-assistant-context';
 import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 
 export const MenuItems = {
 	scanner: {
-		name: __('Scanner', 'pojo-accessibility'),
+		name: __('Accessibility Assistant', 'pojo-accessibility'),
 		key: 'scanner',
 		type: 'heading',
 	},
 	scanOverview: {
 		name: __('Scan overview', 'pojo-accessibility'),
 		key: 'scan-overview',
-		page: <IconSettings />,
+		page: (
+			<AccessibilityAssistantContextProvider>
+				<AccessibilityAssistant />
+			</AccessibilityAssistantContextProvider>
+		),
 		icon: (
-			<WidgetIcon
+			<DashboardIcon
 				role="img"
 				aria-label={__('Scan overview', 'pojo-accessibility')}
 				aria-hidden={false}
