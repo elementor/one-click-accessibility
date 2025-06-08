@@ -79,5 +79,17 @@ class Remediation_Entry extends Entry {
 		return Remediation_Table::select( $select, $where );
 	}
 
+    public static function get_all_remediations( int $period ) : array {
+        $date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
 
+        $where = [
+            [
+                'column'   => Remediation_Table::CREATED_AT,
+                'value'    => $date_threshold,
+                'operator' => '>=',
+            ],
+        ];
+
+        return Remediation_Table::select( '*', $where );
+    }
 }

@@ -38,6 +38,31 @@ class Scan_Entry extends Entry {
 		return isset( $entries[0] ) ? json_decode( $entries[0]->summary, true ) : [];
 	}
 
+    /**
+     *  get_scans
+     * @param string $url
+     * @param bool $latest
+     *
+     * @return array
+     */
+    public static function get_scans( string $url, int $limit = 10 ) : array {
+        $where = [
+            [
+                'column' => Scans_Table::URL,
+                'value' => $url,
+                'operator' => '=',
+            ],
+        ];
+
+        $entries = Scans_Table::select( '*', $where, $limit, null, '', ['created_at' => 'desc'] );
+
+        return array_map( function ( $entry ) {
+            $entry->summary = json_decode( $entry->summary, true );
+
+            return $entry;
+        }, $entries);
+    }
+
 	/**
 	 * Create
 	 * used to ensure:

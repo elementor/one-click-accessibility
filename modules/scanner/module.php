@@ -27,6 +27,9 @@ class Module extends Module_Base {
 			'Generate_Alt_Text',
 			'Scan_Results',
 			'Resolve_With_AI',
+			'Scanner_Stats',
+			'Scanner_Post_Types',
+			'Scanner_Results',
 		];
 	}
 
