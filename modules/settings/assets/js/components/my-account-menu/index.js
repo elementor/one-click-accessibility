@@ -20,9 +20,9 @@ import WhatsNewDrawer from '@ea11y/components/whats-new/drawer';
 import { useSettings } from '@ea11y/hooks';
 import { useWhatsNew } from '@ea11y/hooks/use-whats-new';
 import SpeakerphoneIcon from '@ea11y/icons/speakerphone-icon';
+import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
-import { GOLINKS } from '../../constants';
 import { openLink } from '../../utils';
 
 const SpeakerphoneIconWrapper = styled(ListItemIcon)`

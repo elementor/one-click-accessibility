@@ -5,6 +5,7 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
 import { Header } from '@ea11y-apps/scanner/components/header';
 import { Loader } from '@ea11y-apps/scanner/components/main-list/loader';
+import { NotConnectedMessage } from '@ea11y-apps/scanner/components/not-connected-message';
 import { QuotaMessage } from '@ea11y-apps/scanner/components/quota-message';
 import { ResolvedMessage } from '@ea11y-apps/scanner/components/resolved-message';
 import { BLOCKS, PAGE_QUOTA_LIMIT } from '@ea11y-apps/scanner/constants';
@@ -64,6 +65,9 @@ const App = () => {
 	const openIssuesList = () => setShowIssues(true);
 
 	const getBlock = () => {
+		if (!window.ea11yScannerData?.isConnected) {
+			return <NotConnectedMessage />;
+		}
 		if (!PAGE_QUOTA_LIMIT) {
 			return <QuotaMessage />;
 		}

@@ -3,6 +3,7 @@ import { addQueryArgs } from '@wordpress/url';
 import APIError from './exceptions/APIError';
 
 const wpV2Prefix = '/wp/v2';
+const v1Prefix = '/ea11y/v1';
 
 class API {
 	static async request({ path, data, method = 'POST' }) {
@@ -33,6 +34,24 @@ class API {
 				throw new APIError(e.message);
 			}
 		}
+	}
+
+	static async initConnect(context = 'new') {
+		const data = {
+			wp_rest:
+				window?.ea11ySettingsData?.wpRestNonce ||
+				window?.ea11yScannerData?.wpRestNonce,
+		};
+
+		if ('update' === context) {
+			data.update_redirect_uri = true;
+		}
+
+		return API.request({
+			method: 'POST',
+			path: `${v1Prefix}/connect/authorize`,
+			data,
+		});
 	}
 }
 

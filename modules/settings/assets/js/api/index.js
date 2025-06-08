@@ -5,22 +5,6 @@ const wpV2Prefix = '/wp/v2';
 const v1Prefix = '/ea11y/v1';
 
 class APISettings extends API {
-	static async initConnect(context = 'new') {
-		const data = {
-			wp_rest: window?.ea11ySettingsData?.wpRestNonce,
-		};
-
-		if ('update' === context) {
-			data.update_redirect_uri = true;
-		}
-
-		return APISettings.request({
-			method: 'POST',
-			path: `${v1Prefix}/connect/authorize`,
-			data,
-		});
-	}
-
 	static async clearSession() {
 		return APISettings.request({
 			method: 'POST',

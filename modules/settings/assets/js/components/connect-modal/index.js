@@ -8,8 +8,9 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import Button from '@ea11y/components/button';
 import ConnectModalCheckIcon from '@ea11y/components/connect-modal/check-icon';
-import { useAuth, useModal } from '@ea11y/hooks';
+import { useModal } from '@ea11y/hooks';
 import { ConnectModalIcon } from '@ea11y/icons';
+import { useAuth } from '@ea11y-apps/global/hooks/use-auth';
 import { __ } from '@wordpress/i18n';
 
 const StyledGrid = styled(Grid)`

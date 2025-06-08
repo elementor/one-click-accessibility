@@ -1,5 +1,5 @@
-import APISettings from '../api';
-import { GOLINKS } from '../constants';
+import API from '@ea11y-apps/global/api';
+import { GOLINKS } from '@ea11y-apps/global/constants';
 
 export const useAuth = () => {
 	const { subscriptionId } = 123;
@@ -11,7 +11,7 @@ export const useAuth = () => {
 	};
 
 	const getConnectLink = async () => {
-		return APISettings.initConnect();
+		return API.initConnect();
 	};
 
 	const getUpgradeLink = () => {

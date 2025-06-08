@@ -19,10 +19,10 @@ import {
 	StyledStatementPaper,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
+import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { GOLINKS } from '../constants/index';
 import { injectTemplateVars } from '../utils';
 
 const AccessibilityStatement = () => {

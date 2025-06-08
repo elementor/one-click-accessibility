@@ -1,4 +1,3 @@
-export { useAuth } from './use-auth';
 export { useModal } from './use-modal';
 export { useSettings } from './use-settings';
 export { SettingsProvider } from './use-settings';

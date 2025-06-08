@@ -4,6 +4,7 @@ namespace EA11y\Modules\Scanner;
 
 use EA11y\Classes\Module_Base;
 use EA11y\Classes\Utils;
+use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Remediation\Classes\Utils as Remediation_Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
@@ -97,6 +98,7 @@ class Module extends Module_Base {
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
 				'pluginEnv' => Settings_Module::get_plugin_env(),
+				'isConnected' => Connect::is_connected(),
 				'isRTL' => is_rtl(),
 			]
 		);
