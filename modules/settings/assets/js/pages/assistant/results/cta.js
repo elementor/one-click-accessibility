@@ -7,7 +7,10 @@ import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 
 const AccessibilityAssistantResultsTableCTA = ({ percentage, pageUrl }) => {
-	const ctaUrl = addQueryArgs(pageUrl, { 'open-ea11y-assistant': '1' });
+	const ctaUrl = addQueryArgs(pageUrl, {
+		'open-ea11y-assistant': '1',
+		'open-ea11y-assistant-src': 'Ally_dashboard',
+	});
 
 	const sendAnalytics = (ctaText) => {
 		mixpanelService.sendEvent(mixpanelEvents.assistantDashboardScanCtaClicked, {
