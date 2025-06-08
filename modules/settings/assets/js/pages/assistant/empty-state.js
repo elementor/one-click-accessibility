@@ -14,6 +14,7 @@ const AccessibilityAssistantEmptyState = () => {
 	const homeUrl = window?.ea11ySettingsData?.homeUrl;
 	const startScanUrl = addQueryArgs(homeUrl, {
 		'open-ea11y-assistant': '1',
+		'open-ea11y-assistant-src': 'Ally_dashboard',
 	});
 
 	const sendAnalytics = () => {
