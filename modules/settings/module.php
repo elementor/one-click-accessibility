@@ -107,6 +107,7 @@ class Module extends Module_Base {
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
 				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 
 				'homeUrl' => home_url(),
 			]

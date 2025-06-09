@@ -1,4 +1,5 @@
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { speak } from '@wordpress/a11y';
 import {
 	createContext,
 	useContext,
@@ -6,6 +7,7 @@ import {
 	useState,
 	useCallback,
 } from '@wordpress/element';
+import { sprintf, __ } from '@wordpress/i18n';
 import APISettings from '../api';
 
 const AccessibilityAssistantContext = createContext(null);
@@ -58,8 +60,31 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 			});
 	}, [period]);
 
+	useEffect(() => {
+		const results = getFilteredScannerResults();
+
+		if (results.length) {
+			speak(
+				sprintf(
+					// Translators: %s - count
+					__('Found %s scanned URLs', 'pojo-accessibility'),
+					results.length,
+				),
+				'polite',
+			);
+		} else {
+			speak(
+				__(
+					'No scanned URLs found for the provided search query',
+					'pojo-accessibility',
+				),
+				'polite',
+			);
+		}
+	}, [search]);
+
 	const getFilteredScannerResults = useCallback(() => {
-		const lowerSearch = search.toLowerCase();
+		const lowerSearch = search.trim().toLowerCase();
 
 		const filtered = scannerResults.filter((result) => {
 			return (

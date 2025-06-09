@@ -17,7 +17,7 @@ const AccessibilityAssistantHeading = ({
 
 	return (
 		<StyledHeadingContainer>
-			<StyledPageTitle variant="h4" as="h1">
+			<StyledPageTitle variant="h5" as="h1">
 				{__('Scan overview', 'pojo-accessibility')}
 			</StyledPageTitle>
 
@@ -30,6 +30,7 @@ const AccessibilityAssistantHeading = ({
 					id={periodSelectId}
 					variant="outlined"
 					size="small"
+					color="secondary"
 					onChange={onPeriodChange}
 					value={period}
 					disabled={isEmpty || loading}

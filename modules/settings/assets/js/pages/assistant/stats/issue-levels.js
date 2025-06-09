@@ -12,7 +12,7 @@ const AccessibilityAssistantStatsIssueLevels = ({ issueLevels }) => {
 					{__('Level A', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2">
+				<StyledIssuesCount variant="subtitle2" as="p">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),
@@ -26,7 +26,7 @@ const AccessibilityAssistantStatsIssueLevels = ({ issueLevels }) => {
 					{__('Level AA', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2">
+				<StyledIssuesCount variant="subtitle2" as="p">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),
@@ -40,7 +40,7 @@ const AccessibilityAssistantStatsIssueLevels = ({ issueLevels }) => {
 					{__('Level AAA', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2">
+				<StyledIssuesCount variant="subtitle2" as="p">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),
@@ -94,7 +94,14 @@ const StyledIssueLevel = styled(Box)`
 `;
 
 const StyledIssuesCount = styled(Typography)`
+	margin: 0;
 	margin-inline-start: auto;
+
+	color: ${({ theme }) => theme.palette.text.primary};
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 130%;
+	letter-spacing: 0.1px;
 `;
 
 export default AccessibilityAssistantStatsIssueLevels;

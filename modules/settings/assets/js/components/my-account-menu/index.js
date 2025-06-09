@@ -72,7 +72,11 @@ const MyAccountMenu = () => {
 					});
 				}}
 			>
-				<StyledListItemButton shape="rounded" onClick={handleHelpButtonClick}>
+				<StyledListItemButton
+					shape="rounded"
+					onClick={handleHelpButtonClick}
+					dense
+				>
 					<ListItemIcon
 						sx={{
 							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '6px',
@@ -103,6 +107,7 @@ const MyAccountMenu = () => {
 				<StyledListItemButton
 					shape="rounded"
 					onClick={handleWhatsNewButtonClick}
+					dense
 				>
 					<SpeakerphoneIconWrapper
 						sx={{
@@ -127,6 +132,7 @@ const MyAccountMenu = () => {
 					{...bindTrigger(accountMenuState)}
 					selected={accountMenuState.isOpen}
 					shape="rounded"
+					dense
 				>
 					<ListItemIcon
 						sx={{

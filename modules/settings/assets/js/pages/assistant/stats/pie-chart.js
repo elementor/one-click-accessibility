@@ -38,9 +38,9 @@ const StatsPieChart = ({
 		<StyledProgressCircle
 			as="div"
 			background={`radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(
-				#A7F3D0 0% ${firstSectorPercentage}%,
-				#10B981 ${firstSectorPercentage}% ${firstSectorPercentage + secondSectorPercentage}%,
-				#064E3B ${firstSectorPercentage + secondSectorPercentage}% 100%
+				#064E3B 0% ${firstSectorPercentage}%,
+				#10b981 ${firstSectorPercentage}% ${firstSectorPercentage + secondSectorPercentage}%,
+				#a7f3d0 ${firstSectorPercentage + secondSectorPercentage}% 100%
 			)`}
 		>
 			<Typography variant="h4" as="span">
@@ -63,7 +63,6 @@ const StyledProgressCircle = styled(Box)`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-block-end: 10px;
 	border-radius: 100%;
 	background: ${({ background }) => background};
 `;

@@ -31,6 +31,7 @@ const AccessibilityAssistantResultsPagination = () => {
 			onPageChange={onPageChange}
 			rowsPerPage={rowsPerPage}
 			onRowsPerPageChange={onRowsPerPageChange}
+			colspan="6"
 			align="right"
 		/>
 	);
