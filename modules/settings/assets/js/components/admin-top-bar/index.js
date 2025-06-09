@@ -3,9 +3,9 @@ import AppBar from '@elementor/ui/AppBar';
 import Link from '@elementor/ui/Link';
 import Toolbar from '@elementor/ui/Toolbar';
 import { styled } from '@elementor/ui/styles';
+import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
-import { GOLINKS } from '../../constants';
 
 const StyledToolbar = styled(Toolbar)`
 	justify-content: end;

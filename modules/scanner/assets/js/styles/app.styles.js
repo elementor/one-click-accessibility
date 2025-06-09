@@ -5,6 +5,7 @@ import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
 import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
+import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 
 export const StyledPaper = styled(Paper)`
@@ -24,7 +25,6 @@ export const TitleBox = styled(Box)`
 	display: flex;
 	gap: ${({ theme }) => theme.spacing(1)};
 	align-items: center;
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
 `;
 
 export const HeaderContent = styled(CardContent)`
@@ -85,6 +85,12 @@ export const QuotaMessageContainer = styled(Box)`
 	gap: ${({ theme }) => theme.spacing(2)};
 	margin-bottom: ${({ theme }) => theme.spacing(2)};
 	padding-inline: ${({ theme }) => theme.spacing(2)};
+`;
+
+export const ReconnectDescription = styled(Typography)`
+	max-width: 250px;
+	text-align: center;
+	margin-bottom: ${({ theme }) => theme.spacing(2)};
 `;
 
 export const StyledButtonContainer = styled(Paper)`

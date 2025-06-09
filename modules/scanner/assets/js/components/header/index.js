@@ -44,7 +44,7 @@ export const Header = () => {
 	const content = (
 		<>
 			{openedBlock === BLOCKS.main && (
-				<TitleBox>
+				<TitleBox sx={{ mb: window.ea11yScannerData?.isConnected ? 2 : 0 }}>
 					<Typography variant="subtitle1" color="text.primary">
 						{window?.ea11yScannerData?.pageData?.title}
 					</Typography>

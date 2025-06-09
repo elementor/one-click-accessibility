@@ -135,16 +135,20 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	};
 
 	useEffect(() => {
-		scannerWizard
-			.load()
-			.then(() => {
-				getResults();
-			})
-			.catch(() => {
-				setIsError(true);
-				setLoading(false);
-			});
-	}, []);
+		if (window.ea11yScannerData?.isConnected) {
+			scannerWizard
+				.load()
+				.then(() => {
+					void getResults();
+				})
+				.catch(() => {
+					setIsError(true);
+					setLoading(false);
+				});
+		} else {
+			setLoading(false);
+		}
+	}, [window.ea11yScannerData?.isConnected]);
 
 	const isResolved = (block) => {
 		const indexes = Array.from(

@@ -9,9 +9,10 @@ import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ProCrownIcon } from '@ea11y/icons';
+import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
-import { GOLINKS, PRO_FEATURES } from '../../constants/index';
+import { PRO_FEATURES } from '../../constants/index';
 import { openLink } from '../../utils/index';
 
 const ProItemInfotip = ({
