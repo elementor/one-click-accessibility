@@ -26,6 +26,11 @@ class Page_Table extends Table {
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
+	const STATUSES = [
+		'ACTIVE' => 'active',
+		'DISABLED' => 'disabled',
+	];
+
 	public static $table_name = 'ea11y_page_scanned';
 
 	public static function get_columns(): array {

@@ -23,6 +23,7 @@ export const AltTextLayout = () => {
 		} else {
 			removeExistingFocus();
 		}
+		console.log(item);
 		mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
 			issue_type: item.message,
 			rule_id: item.ruleId,

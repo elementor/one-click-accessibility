@@ -6,6 +6,7 @@ use DOMDocument;
 use EA11y\Classes\Logger;
 use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
+use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use Throwable;
 
@@ -43,7 +44,9 @@ class Remediation_Runner {
 
 			$this->page_html = $this->page->get_page_html();
 			$this->page_remediations = Remediation_Entry::get_page_remediations( $current_url );
-			if ( empty( $this->page_remediations ) ) {
+			$status = $this->page->__get( Page_Table::STATUS );
+
+			if ( empty( $this->page_remediations ) || Page_Table::STATUSES['ACTIVE'] !== $status ) {
 				return false;
 			}
 			return true;

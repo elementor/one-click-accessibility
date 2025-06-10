@@ -51,6 +51,9 @@ export const Breadcrumbs = () => {
 					</Typography>
 					{BLOCK_INFO[openedBlock] && (
 						<Infotip
+							PopperProps={{
+								disablePortal: true,
+							}}
 							content={
 								<Typography variant="body2" sx={{ p: 2, maxWidth: '300px' }}>
 									{BLOCK_INFO[openedBlock]}

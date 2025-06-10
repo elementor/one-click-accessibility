@@ -1,6 +1,6 @@
 import AIIcon from '@elementor/icons/AIIcon';
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
-import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
+import AlertTitle from '@elementor/ui/AlertTitle';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Checkbox from '@elementor/ui/Checkbox';
@@ -64,16 +64,6 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 	return (
 		<StyledBox>
 			<Divider />
-			<StyledAlert
-				color="info"
-				icon={<InfoCircleIcon color="info" />}
-				sx={{ pr: 2 }}
-			>
-				{__(
-					'Short description will help those who cannot see it.',
-					'pojo-accessibility',
-				)}
-			</StyledAlert>
 
 			<ImagePreview element={items[current].node} />
 
@@ -184,6 +174,17 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 					</Typography>
 				</Box>
 			)}
+			<StyledAlert color="info" sx={{ p: 2 }} icon={false}>
+				<Box>
+					<AlertTitle sx={{ display: 'inline-block' }}>
+						{__('Tips:', 'pojo-accessibility')}
+					</AlertTitle>
+					{__(
+						"Keep descriptions short and simple, describing what the image shows or why it's on the page.",
+						'pojo-accessibility',
+					)}
+				</Box>
+			</StyledAlert>
 			<Button
 				variant="contained"
 				color="info"

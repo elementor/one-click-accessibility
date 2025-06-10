@@ -81,6 +81,23 @@ class Page_Entry extends Entry {
 	}
 
 	/**
+	 * update_status
+	 *
+	 * @param string $status
+	 * @return Page_Entry|null
+	 */
+	public function update_status( string $status ) : ?Page_Entry {
+		if ( in_array( $status, Page_Table::STATUSES ) ) {
+			$this->entry_data[ Page_Table::STATUS ] = $status;
+			$this->save();
+
+			return $this;
+		}
+
+		return null;
+	}
+
+	/**
 	 *  get_page_data
 	 *
 	 * @return string $html
@@ -105,17 +122,17 @@ class Page_Entry extends Entry {
 		return wp_json_encode( $this->entry_data );
 	}
 
-    public static function get_pages( int $period ) : array {
-        $date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
+	public static function get_pages( int $period ) : array {
+		$date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
 
-        $where = [
-            [
-                'column'   => Page_Table::CREATED_AT,
-                'value'    => $date_threshold,
-                'operator' => '>=',
-            ],
-        ];
+		$where = [
+			[
+				'column'   => Page_Table::CREATED_AT,
+				'value'    => $date_threshold,
+				'operator' => '>=',
+			],
+		];
 
-        return Page_Table::select( '*', $where, null, null, '', [Page_Table::CREATED_AT => 'desc'] );
-    }
+		return Page_Table::select( '*', $where, null, null, '', [ Page_Table::CREATED_AT => 'desc' ] );
+	}
 }
