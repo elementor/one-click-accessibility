@@ -69,15 +69,17 @@ class List_Column {
 		$passed = $has_scan_data && $resolved === $violation;
 
 		$percentage = $violation > 0
-			? rtrim( rtrim( number_format( ( $resolved / $violation ) * 100, 2, '.', '' ), '0' ), '.' )
+			? round( ( $resolved / $violation ) * 100 )
 			: '0';
+
+		$level_class = $this->get_scan_level( $percentage );
 
 		$separator = strpos( $url, '?' ) !== false ? '&' : '?';
 		$assistant_url = esc_url( $url . $separator . 'open-ea11y-assistant=1&open-ea11y-assistant-src=WP' );
 
 		$chip = $passed
 			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/check-passed.svg' ) . '" alt="" style="width:18px; height:18px;" />'
-			: '<span class="accessibility_status_content__percentage">' . esc_html( $percentage ) . '%</span>';
+			: '<span class="accessibility_status_content__percentage ' . esc_html( $level_class ) . '">' . esc_html( $percentage ) . '%</span>';
 
 		$stats = $has_scan_data ?
 			'<div class="accessibility_status_content__stats">
@@ -111,6 +113,20 @@ class List_Column {
 			<div class="accessibility_status_content__actions">' . $scan_button . '</div>
 		</div>';
 	}
+
+	private function get_scan_level( int $percent ): ?string {
+		switch ( true ) {
+			case ( $percent >= 0 && $percent <= 25 ):
+				return 'red';
+			case ( $percent >= 26 && $percent <= 60 ):
+				return 'orange';
+			case ( $percent >= 61 ):
+				return 'grey';
+			default:
+				return null;
+		}
+	}
+
 
 	/**
 	 * Component constructor.

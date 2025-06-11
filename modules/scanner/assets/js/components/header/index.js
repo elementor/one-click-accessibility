@@ -44,7 +44,9 @@ export const Header = () => {
 	const content = (
 		<>
 			{openedBlock === BLOCKS.main && (
-				<TitleBox sx={{ mb: window.ea11yScannerData?.isConnected ? 2 : 0 }}>
+				<TitleBox
+					sx={{ mb: window.ea11yScannerData?.isConnected && !isError ? 2 : 0 }}
+				>
 					<Typography variant="subtitle1" color="text.primary">
 						{window?.ea11yScannerData?.pageData?.title}
 					</Typography>
@@ -106,4 +108,5 @@ const StyledCard = styled(Card)`
 	position: sticky;
 	top: 0;
 	z-index: 2;
+	overflow: visible;
 `;

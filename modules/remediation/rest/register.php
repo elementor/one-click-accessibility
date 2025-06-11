@@ -55,6 +55,7 @@ class Register extends Route_Base {
 					Page_Table::OBJECT_ID => sanitize_text_field( $request->get_param( 'object_id' ) ) ?? 0,
 					Page_Table::OBJECT_TYPE => sanitize_text_field( $request->get_param( 'object_type' ) ) ?? '',
 					Page_Table::OBJECT_TYPE_NAME => sanitize_text_field( $request->get_param( 'object_type_name' ) ) ?? '',
+					Page_Table::STATUS => Page_Table::STATUSES['ACTIVE'],
 				],
 			] );
 

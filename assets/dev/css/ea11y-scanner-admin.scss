@@ -10,7 +10,7 @@
     gap: 16px;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
+    width: 265px;
 
     &__stats {
       display: flex;
@@ -31,10 +31,20 @@
     }
 
     &__percentage {
-      background-color: #e2e3e5;
-      color: #000;
       border-radius: 12px;
       padding: 2px 6px;
+      &.red {
+        background-color: #FDECEC;
+        color: #9A1A1A;
+      }
+      &.orange {
+        background-color: #FBF1E6;
+        color: #823F14;
+      }
+      &.grey {
+        background-color: #E2E3E5;
+        color: #000;
+      }
     }
 
     &__bar {
@@ -51,7 +61,10 @@
     }
 
     &__actions {
-      // Space for button
+      .button {
+        width: 112px;
+        text-align: center;
+      }
     }
   }
 

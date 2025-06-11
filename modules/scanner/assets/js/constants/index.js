@@ -54,7 +54,7 @@ export const MANUAL_GROUPS = {
 };
 
 export const BLOCK_TITLES = {
-	altText: __('Alternative Text', 'pojo-accessibility'),
+	altText: __('Alternative text', 'pojo-accessibility'),
 	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
 	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
 	keyboardAssistiveTech: __(
