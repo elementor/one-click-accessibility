@@ -74,7 +74,7 @@ const SkipToContentSettings = () => {
 	);
 
 	return (
-		<Card variant="outlined" sx={{ padding: 2, marginBlock: 4 }}>
+		<StyledCard variant="outlined">
 			<StyledBox>
 				<StyledTypography
 					variant="subtitle1"
@@ -168,9 +168,21 @@ const SkipToContentSettings = () => {
 					)}
 				</Box>
 			</StyledFormItem>
-		</Card>
+		</StyledCard>
 	);
 };
+
+const StyledCard = styled(Card)`
+	padding: ${({ theme }) => theme.spacing(2)};
+	margin-block: ${({ theme }) => theme.spacing(4)};
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+
+	${({ theme }) => theme.breakpoints.down('xl')} {
+		width: 100%;
+	}
+`;
 
 const StyledBox = styled(Box)`
 	display: flex;
