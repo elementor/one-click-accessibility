@@ -51,3 +51,16 @@ export const InfotipFooter = styled(Box)`
 	justify-content: flex-end;
 	margin-top: ${({ theme }) => theme.spacing(2)};
 `;
+
+export const AIHeader = styled(Box)`
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	min-height: 32px;
+`;
+
+export const AITitle = styled(Box)`
+	display: flex;
+	gap: ${({ theme }) => theme.spacing(1)};
+	align-items: center;
+`;
