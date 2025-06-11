@@ -20,6 +20,13 @@ export const StyledContainer = styled(Container)`
 	padding: ${({ theme }) => theme.spacing(4)};
 `;
 
+export const StyledWideBox = styled(Box)`
+	overflow: auto;
+	max-height: 100%;
+	padding: ${({ theme }) => theme.spacing(4)};
+	width: 100%;
+`;
+
 export const StyledTitle = styled(Typography)`
 	font-weight: 400;
 	letter-spacing: 0.25px;

@@ -5,6 +5,7 @@ import Tab from '@elementor/ui/Tab';
 import TabPanel from '@elementor/ui/TabPanel';
 import Tabs from '@elementor/ui/Tabs';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import useTabs from '@elementor/ui/useTabs';
 import {
 	PositionSettingsDesktop,
@@ -27,7 +28,7 @@ export const PositionSettings = (props) => {
 	};
 
 	return (
-		<Grid padding={2} border={1} borderColor="divider" {...props}>
+		<StyledWrapper {...props}>
 			<Box marginBottom={2}>
 				<Typography variant="subtitle1">
 					{__('Position', 'pojo-accessibility')}
@@ -72,8 +73,20 @@ export const PositionSettings = (props) => {
 					<PositionSettingsMobile />
 				</TabPanel>
 			)}
-		</Grid>
+		</StyledWrapper>
 	);
 };
 
 export default PositionSettings;
+
+const StyledWrapper = styled(Grid)`
+	padding: ${({ theme }) => theme.spacing(2)};
+	border: 1px solid ${({ theme }) => theme.palette.divider};
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+
+	${({ theme }) => theme.breakpoints.down('xl')} {
+		width: 100%;
+	}
+`;

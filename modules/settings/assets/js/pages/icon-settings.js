@@ -2,7 +2,7 @@ import { BottomBar } from '@ea11y/components';
 import { IconDesignSettings, PositionSettings } from '@ea11y/layouts';
 import {
 	StyledBox,
-	StyledContainer,
+	StyledWideBox,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
@@ -18,15 +18,19 @@ const IconSettings = () => {
 
 	return (
 		<StyledBox>
-			<StyledContainer>
-				<StyledTitle variant="h4" color="text.primary">
+			<StyledWideBox>
+				<StyledTitle
+					variant="h4"
+					color="text.primary"
+					sx={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}
+				>
 					{__('Design', 'pojo-accessibility')}
 				</StyledTitle>
 
 				<IconDesignSettings marginBottom={4} />
 
 				<PositionSettings />
-			</StyledContainer>
+			</StyledWideBox>
 			<BottomBar />
 		</StyledBox>
 	);
