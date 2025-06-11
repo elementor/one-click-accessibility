@@ -86,7 +86,7 @@ export const ResolveWithAi = ({ item, current }) => {
 		resolving ||
 		(isEdit && !manualEdit) ||
 		(isEdit && manualEdit === aiSuggestion?.snippet);
-	const onResolve = () => (isEdit ? resolveIssue(manualEdit) : resolveIssue());
+	const onResolve = () => resolveIssue(isEdit ? manualEdit : null);
 	const onManualEdit = (e) => setManualEdit(e.target.value);
 
 	return aiSuggestion ? (
