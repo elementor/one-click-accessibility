@@ -1,4 +1,5 @@
 import Box from '@elementor/ui/Box';
+import Chip from '@elementor/ui/Chip';
 import FormLabel from '@elementor/ui/FormLabel';
 import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
@@ -19,6 +20,13 @@ const AccessibilityAssistantHeading = ({
 		<StyledHeadingContainer>
 			<StyledPageTitle variant="h5" as="h1">
 				{__('Scan overview', 'pojo-accessibility')}
+
+				<Chip
+					size="small"
+					variant="filled"
+					color="default"
+					label={__('Beta', 'pojo-accessibility')}
+				/>
 			</StyledPageTitle>
 
 			<Box>
@@ -65,6 +73,12 @@ const StyledPageTitle = styled(Typography)`
 	font-weight: 700;
 	letter-spacing: 0.25px;
 	margin: 0;
+
+	.MuiChip-root {
+		margin-inline-start: ${({ theme }) => theme.spacing(1)};
+
+		font-weight: 400;
+	}
 `;
 
 const StyledHeadingContainer = styled(Box)`
