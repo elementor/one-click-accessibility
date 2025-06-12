@@ -9,7 +9,6 @@ import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
-import TextField from '@elementor/ui/TextField';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
@@ -27,6 +26,7 @@ import {
 	AIHeader,
 	AITitle,
 	InfotipBox,
+	ManualTextField,
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
@@ -53,7 +53,10 @@ export const ResolveWithAi = ({ item, current }) => {
 	const [aiSuggestion, setAiSuggestion] = useState(null);
 
 	useEffect(() => {
-		setAiSuggestion(manualData[openedBlock][current]?.aiSuggestion);
+		setAiSuggestion({
+			...manualData[openedBlock][current]?.aiSuggestion,
+			submitted: false,
+		});
 		setManualEdit(manualData[openedBlock][current]?.aiSuggestion?.snippet);
 	}, [manualData[openedBlock][current]?.aiSuggestion]);
 
@@ -86,10 +89,22 @@ export const ResolveWithAi = ({ item, current }) => {
 		resolving ||
 		(isEdit && !manualEdit) ||
 		(isEdit && manualEdit === aiSuggestion?.snippet);
-	const onResolve = () => resolveIssue(isEdit ? manualEdit : null);
-	const onManualEdit = (e) => setManualEdit(e.target.value);
 
-	return aiSuggestion ? (
+	const onResolve = async () => {
+		await resolveIssue(isEdit ? manualEdit : null);
+		setAiSuggestion({
+			...aiSuggestion,
+			snippet: manualEdit,
+			submitted: !isEdit,
+		});
+	};
+
+	const onManualEdit = (e) => {
+		setManualEdit(e.target.value);
+		setAiSuggestion({ ...aiSuggestion, submitted: false });
+	};
+
+	return aiSuggestion?.snippet ? (
 		<Box>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
 				<CardContent sx={{ pb: 0 }}>
@@ -144,7 +159,7 @@ export const ResolveWithAi = ({ item, current }) => {
 						)}
 					</AIHeader>
 					{isEdit ? (
-						<TextField
+						<ManualTextField
 							value={manualEdit}
 							color="secondary"
 							size="small"
@@ -223,7 +238,7 @@ export const ResolveWithAi = ({ item, current }) => {
 						size="small"
 						color="info"
 						variant="contained"
-						disabled={disabled}
+						disabled={disabled || aiSuggestion?.submitted}
 						loading={resolving}
 						loadingPosition="start"
 						onClick={onResolve}

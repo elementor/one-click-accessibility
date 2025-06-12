@@ -2,6 +2,7 @@ import Accordion from '@elementor/ui/Accordion';
 import AccordionDetails from '@elementor/ui/AccordionDetails';
 import AccordionSummary from '@elementor/ui/AccordionSummary';
 import Box from '@elementor/ui/Box';
+import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 
@@ -63,4 +64,10 @@ export const AITitle = styled(Box)`
 	display: flex;
 	gap: ${({ theme }) => theme.spacing(1)};
 	align-items: center;
+`;
+
+export const ManualTextField = styled(TextField)`
+	textarea {
+		font-size: 14px;
+	}
 `;
