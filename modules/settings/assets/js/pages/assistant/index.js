@@ -3,6 +3,7 @@ import Container from '@elementor/ui/Container';
 import { styled } from '@elementor/ui/styles';
 import AccessibilityAssistantEmptyState from '@ea11y/pages/assistant/empty-state';
 import AccessibilityAssistantHeading from '@ea11y/pages/assistant/heading';
+import AccessibilityAssistantNoResultsState from '@ea11y/pages/assistant/no-results-state';
 import AccessibilityAssistantResultsHeading from '@ea11y/pages/assistant/results/heading';
 import AccessibilityAssistantResultsTable from '@ea11y/pages/assistant/results/table';
 import AccessibilityAssistantStats from '@ea11y/pages/assistant/stats';
@@ -39,6 +40,39 @@ const AccessibilityAssistant = () => {
 					<AccessibilityAssistantEmptyState />
 				</StyledContainer>
 			</StyledBox>
+		);
+	}
+
+	if (
+		!loading &&
+		scannerResults.length &&
+		!getFilteredScannerResults().length
+	) {
+		return (
+			<>
+				<StyledBox>
+					<StyledHeadingWrapper>
+						<StyledHeadingContainer>
+							<AccessibilityAssistantHeading
+								period={period}
+								onPeriodChange={onPeriodChange}
+								loading={loading}
+							/>
+
+							<AccessibilityAssistantStats stats={stats} loading={loading} />
+						</StyledHeadingContainer>
+					</StyledHeadingWrapper>
+
+					<StyledContainer>
+						<AccessibilityAssistantResultsHeading />
+						<AccessibilityAssistantResultsTable
+							scannerResults={getFilteredScannerResults()}
+							loading={loading}
+						/>
+						<AccessibilityAssistantNoResultsState />
+					</StyledContainer>
+				</StyledBox>
+			</>
 		);
 	}
 

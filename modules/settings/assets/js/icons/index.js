@@ -24,5 +24,6 @@ export { default as AccessibilityStatementCreateIcon } from './accessibility-sta
 export { default as AccessibilityStatementExistingIcon } from './accessibility-statement-existing';
 export { default as ProCrownIcon } from './pro-crown';
 export { default as AccessibilityAssistantDashboardIcon } from './accessibility-assistant-dashboard-icon';
+export { default as AccessibilityAssistantNoResultsIcon } from './accessibility-assistant-no-results-icon';
 export { default as AnalyticsIcon } from './analytics-icon';
 export { default as DashboardIcon } from './dashboard-icon';

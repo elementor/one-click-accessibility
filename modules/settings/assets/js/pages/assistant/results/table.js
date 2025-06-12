@@ -182,11 +182,13 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 					})}
 				</TableBody>
 
-				<TableFooter>
-					<TableRow disableDivider>
-						<AccessibilityAssistantResultsPagination />
-					</TableRow>
-				</TableFooter>
+				{scannerResults.length > 0 && (
+					<TableFooter>
+						<TableRow disableDivider>
+							<AccessibilityAssistantResultsPagination />
+						</TableRow>
+					</TableFooter>
+				)}
 			</Table>
 		</StyledTableContainer>
 	);

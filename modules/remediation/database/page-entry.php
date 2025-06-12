@@ -122,17 +122,7 @@ class Page_Entry extends Entry {
 		return wp_json_encode( $this->entry_data );
 	}
 
-	public static function get_pages( int $period ) : array {
-		$date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
-
-		$where = [
-			[
-				'column'   => Page_Table::CREATED_AT,
-				'value'    => $date_threshold,
-				'operator' => '>=',
-			],
-		];
-
-		return Page_Table::select( '*', $where, null, null, '', [ Page_Table::CREATED_AT => 'desc' ] );
+	public static function get_pages() : array {
+		return Page_Table::select( '*', '1', 1000, null, '', [ Page_Table::CREATED_AT => 'desc' ] );
 	}
 }

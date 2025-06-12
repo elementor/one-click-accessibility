@@ -32,7 +32,7 @@ class Scanner_Results extends Route_Base {
      * @return WP_Error|WP_REST_Response
      *
      */
-    public function GET($request) {
+    public function GET() {
         try {
             $error = $this->verify_capability();
 
@@ -40,10 +40,9 @@ class Scanner_Results extends Route_Base {
                 return $error;
             }
 
-            $period = $request->get_param( 'period' ) ?? 30;
             $output = [];
 
-            $pages_scanned = Page_Entry::get_pages( $period );
+            $pages_scanned = Page_Entry::get_pages();
 
             foreach ( $pages_scanned as $page ) {
                 $scans = Scan_Entry::get_scans( $page->url );
@@ -55,6 +54,15 @@ class Scanner_Results extends Route_Base {
                       'issues_fixed' =>  $scan->summary['counts']['manual'] ?? 0,
                     ];
                 }, $scans);
+
+                // Filter scans within the last 60 days
+                $recent_scans = array_filter($scans, function($scan) {
+                    return strtotime($scan['date']) >= strtotime('-60 days');
+                });
+
+                if (empty($recent_scans)) {
+                    continue;
+                }
 
                 $output[] = [
                     'id' => $page->id,

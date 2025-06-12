@@ -48,7 +48,7 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 		Promise.all([
 			APISettings.getScannerStats(period),
 			APISettings.getPostTypes(),
-			APISettings.getScannerResults(period),
+			APISettings.getScannerResults(),
 		])
 			.then(([statsData, postTypesData, scannerResultsData]) => {
 				setStats(statsData);
@@ -58,6 +58,15 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 			.finally(() => {
 				setLoading(false);
 			});
+	}, []);
+
+	useEffect(() => {
+		setLoading(true);
+
+		void APISettings.getScannerStats(period).then((data) => {
+			setStats(data);
+			setLoading(false);
+		});
 	}, [period]);
 
 	useEffect(() => {
@@ -84,9 +93,18 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 	}, [search]);
 
 	const getFilteredScannerResults = useCallback(() => {
+		const now = new Date();
+		const cutoffDate = new Date(now);
+		cutoffDate.setDate(now.getDate() - period);
+
+		const filteredByDate = scannerResults.filter((result) => {
+			const scanDate = new Date(result.last_scan);
+			return scanDate >= cutoffDate;
+		});
+
 		const lowerSearch = search.trim().toLowerCase();
 
-		const filtered = scannerResults.filter((result) => {
+		const filtered = filteredByDate.filter((result) => {
 			return (
 				result.page_title?.toLowerCase().includes(lowerSearch) ||
 				result.page_url?.toLowerCase().includes(lowerSearch)
@@ -99,7 +117,7 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 		const safeEnd = safeStart + rowsPerPage;
 
 		return filtered.slice(safeStart, safeEnd);
-	}, [search, scannerResults, page, rowsPerPage]);
+	}, [search, scannerResults, page, rowsPerPage, period]);
 
 	return (
 		<AccessibilityAssistantContext.Provider

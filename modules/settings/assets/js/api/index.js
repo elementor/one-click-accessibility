@@ -122,14 +122,10 @@ class APISettings extends API {
 		});
 	}
 
-	static async getScannerResults(period) {
-		const path = addQueryArgs(`${v1Prefix}/scanner/results`, {
-			period,
-		});
-
+	static async getScannerResults() {
 		return APISettings.request({
 			method: 'GET',
-			path,
+			path: `${v1Prefix}/scanner/results`,
 		});
 	}
 }
