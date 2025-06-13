@@ -5,6 +5,7 @@ namespace EA11y\Modules\Scanner\Rest;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use EA11y\Modules\Scanner\Classes\Route_Base;
+use EA11y\Modules\Scanner\Database\Scan_Entry;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
@@ -49,14 +50,21 @@ class Scanner_Stats extends Route_Base {
                 ],
             ];
 
-            $pages_scanned = Page_Entry::get_pages( $period );
+            $pages_scanned = Page_Entry::get_pages();
             $remediations = Remediation_Entry::get_all_remediations( $period );
 
             foreach ( $pages_scanned as $page ) {
-                $output['scans'] ++;
+                $scans = Scan_Entry::get_scans( $page->url );
+                $recent_scans = array_filter( $scans, function ( $scan ) use ( $period ) {
+                    $scan_date = strtotime( $scan->created_at );
+                    return $scan_date >= strtotime( "-$period days" );
+                } );
 
-                $output['issues_total'] += $page->violations;
-                $output['issues_fixed'] += $page->resolved;
+                if ( count( $recent_scans ) > 0 ) {
+                    $output['scans'] ++;
+                    $output['issues_total'] += $page->violations;
+                    $output['issues_fixed'] += $page->resolved;
+                }
             }
 
             foreach ( $remediations as $remediation ) {

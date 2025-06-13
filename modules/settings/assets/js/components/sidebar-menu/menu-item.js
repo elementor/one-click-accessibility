@@ -59,7 +59,7 @@ const MenuItem = ({ keyName, item }) => {
 
 	return (
 		<Fragment key={item?.key}>
-			<ListItem disableGutters disablePadding>
+			<ListItem disableGutters disablePadding dense>
 				<ListItemButton
 					onClick={() =>
 						item?.children

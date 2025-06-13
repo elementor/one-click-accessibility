@@ -1,4 +1,5 @@
 import ChevronDownIcon from '@elementor/icons/ChevronDownIcon';
+import ChevronUpIcon from '@elementor/icons/ChevronUpIcon';
 import HistoryIcon from '@elementor/icons/HistoryIcon';
 import Box from '@elementor/ui/Box';
 import LinearProgress from '@elementor/ui/LinearProgress';
@@ -9,9 +10,11 @@ import TableContainer from '@elementor/ui/TableContainer';
 import TableFooter from '@elementor/ui/TableFooter';
 import TableHead from '@elementor/ui/TableHead';
 import TableRow from '@elementor/ui/TableRow';
+import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
 import Button from '@ea11y/components/button';
+import VisuallyHidden from '@ea11y/components/visually-hidden';
 import TableLoader from '@ea11y/pages/assistant/loaders/table-loader';
 import AccessibilityAssistantResultsTableCTA from '@ea11y/pages/assistant/results/cta';
 import AccessibilityAssistantResultsPagination from '@ea11y/pages/assistant/results/pagination';
@@ -64,8 +67,14 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 						<TableCell>{__('URL', 'pojo-accessibility')}</TableCell>
 						<TableCell>{__('Last scan', 'pojo-accessibility')}</TableCell>
 						<TableCell>{__('Issues resolved', 'pojo-accessibility')}</TableCell>
-						<TableCell />
-						<TableCell />
+						<TableCell role="presentation" />
+						<TableCell>
+							<VisuallyHidden>
+								<Typography as="span">
+									{__('Actions', 'pojo-accessibility')}
+								</Typography>
+							</VisuallyHidden>
+						</TableCell>
 					</TableRow>
 				</TableHead>
 
@@ -100,25 +109,33 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 										</StyledProgressContainer>
 									</TableCell>
 
-									<TableCell />
+									<TableCell role="presentation" />
 
 									<TableCell>
 										<StyledControlsContainer>
 											<AccessibilityAssistantTooltip
 												content={__('View scan history', 'pojo-accessibility')}
 											>
-												<StyledHistoryButton
-													color="secondary"
-													size="small"
-													startIcon={<HistoryIcon />}
-													endIcon={<ChevronDownIcon />}
-													aria-label={__(
-														'Show scans history',
-														'pojo-accessibility',
-													)}
-													disabled={!result.scans.length}
-													onClick={() => handleToggleRow(index)}
-												/>
+												<span role="none">
+													<StyledHistoryButton
+														color="secondary"
+														size="small"
+														startIcon={<HistoryIcon />}
+														endIcon={
+															openRows[index] ? (
+																<ChevronUpIcon />
+															) : (
+																<ChevronDownIcon />
+															)
+														}
+														aria-label={__(
+															'View scan history',
+															'pojo-accessibility',
+														)}
+														disabled={!result.scans.length}
+														onClick={() => handleToggleRow(index)}
+													/>
+												</span>
 											</AccessibilityAssistantTooltip>
 
 											<AccessibilityAssistantResultsTableCTA
@@ -165,11 +182,13 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 					})}
 				</TableBody>
 
-				<TableFooter>
-					<TableRow disableDivider>
-						<AccessibilityAssistantResultsPagination />
-					</TableRow>
-				</TableFooter>
+				{scannerResults.length > 0 && (
+					<TableFooter>
+						<TableRow disableDivider>
+							<AccessibilityAssistantResultsPagination />
+						</TableRow>
+					</TableFooter>
+				)}
 			</Table>
 		</StyledTableContainer>
 	);

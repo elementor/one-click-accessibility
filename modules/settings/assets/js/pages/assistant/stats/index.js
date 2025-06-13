@@ -130,7 +130,7 @@ AccessibilityAssistantStats.propTypes = {
 };
 
 const StyledStatsContainer = styled(Box)`
-	margin-top: ${({ theme }) => theme.spacing(5)};
+	margin-top: ${({ theme }) => theme.spacing(3)};
 
 	display: grid;
 	grid-template-columns: repeat(5, 1fr);

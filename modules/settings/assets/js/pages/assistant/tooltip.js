@@ -8,7 +8,11 @@ const AccessibilityAssistantTooltip = ({ content, children }) => {
 			{children ? (
 				children
 			) : (
-				<InfoCircleIcon fontSize="tiny" sx={{ cursor: 'pointer' }} />
+				<InfoCircleIcon
+					tabIndex="0"
+					fontSize="tiny"
+					sx={{ cursor: 'pointer' }}
+				/>
 			)}
 		</Tooltip>
 	);

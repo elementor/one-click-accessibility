@@ -28,7 +28,7 @@ const AccessibilityAssistantEmptyState = () => {
 		<StyledWrapper>
 			<AccessibilityAssistantDashboardIcon />
 
-			<StyledTitle variant="h6">
+			<StyledTitle variant="h6" as="h2">
 				{__('Start by scanning your home page', 'pojo-accessibility')}
 			</StyledTitle>
 
@@ -51,13 +51,13 @@ const AccessibilityAssistantEmptyState = () => {
 			</StyledButton>
 
 			<StyledGuideContainer>
-				<StyledGuideTitle variant="subtitle1">
+				<StyledGuideTitle variant="subtitle1" as="h2">
 					{__('Here’s how it works', 'pojo-accessibility')}
 				</StyledGuideTitle>
 
 				<StyledGuideStepsContainer>
 					<StyledGuideStep>
-						<StyledGuideStepTitle variant="subtitle2">
+						<StyledGuideStepTitle variant="subtitle2" as="h3">
 							<NumberOneIcon />
 
 							{__('Scan a page', 'pojo-accessibility')}
@@ -72,7 +72,7 @@ const AccessibilityAssistantEmptyState = () => {
 					</StyledGuideStep>
 
 					<StyledGuideStep>
-						<StyledGuideStepTitle variant="subtitle2">
+						<StyledGuideStepTitle variant="subtitle2" as="h3">
 							<NumberTwoIcon />
 
 							{__('Resolve issues', 'pojo-accessibility')}
@@ -87,7 +87,7 @@ const AccessibilityAssistantEmptyState = () => {
 					</StyledGuideStep>
 
 					<StyledGuideStep>
-						<StyledGuideStepTitle variant="subtitle2">
+						<StyledGuideStepTitle variant="subtitle2" as="h3">
 							<NumberThreeIcon />
 
 							{__('Track everything', 'pojo-accessibility')}
@@ -116,6 +116,10 @@ const StyledTitle = styled(Typography)`
 	margin-top: ${({ theme }) => theme.spacing(2)};
 	margin-bottom: ${({ theme }) => theme.spacing(1)};
 
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 160%;
+	letter-spacing: 0.15px;
 	color: ${({ theme }) => theme.palette.text.primary};
 `;
 
@@ -135,8 +139,13 @@ const StyledGuideContainer = styled(Box)`
 `;
 
 const StyledGuideTitle = styled(Typography)`
-	color: ${({ theme }) => theme.palette.text.secondary};
 	margin-bottom: ${({ theme }) => theme.spacing(2)};
+
+	color: ${({ theme }) => theme.palette.text.secondary};
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 130%;
+	letter-spacing: 0.15px;
 `;
 
 const StyledGuideStepsContainer = styled(Box)`
@@ -168,7 +177,13 @@ const StyledGuideStepTitle = styled(Typography)`
 	justify-content: center;
 	align-items: center;
 
+	margin: 0;
 	margin-bottom: ${({ theme }) => theme.spacing(1)};
+
+	color: ${({ theme }) => theme.palette.text.secondary};
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.1px;
 
 	& svg {
 		margin-inline-end: ${({ theme }) => theme.spacing(1)};

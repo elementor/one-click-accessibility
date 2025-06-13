@@ -77,9 +77,17 @@ export const Header = () => {
 					>
 						<Box display="flex" alignItems="center" gap={1}>
 							<Logo />
-							<Typography variant="subtitle1">
+
+							<StyledTitle variant="subtitle1">
 								{__('Accessibility Assistant', 'pojo-accessibility')}
-							</Typography>
+
+								<Chip
+									size="small"
+									variant="filled"
+									color="default"
+									label={__('Beta', 'pojo-accessibility')}
+								/>
+							</StyledTitle>
 						</Box>
 
 						<IconButton
@@ -109,4 +117,12 @@ const StyledCard = styled(Card)`
 	top: 0;
 	z-index: 2;
 	overflow: visible;
+`;
+
+const StyledTitle = styled(Typography)`
+	.MuiChip-root {
+		margin-inline-start: ${({ theme }) => theme.spacing(1)};
+
+		font-weight: 400;
+	}
 `;

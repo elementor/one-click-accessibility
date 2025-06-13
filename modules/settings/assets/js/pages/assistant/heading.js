@@ -1,4 +1,5 @@
 import Box from '@elementor/ui/Box';
+import Chip from '@elementor/ui/Chip';
 import FormLabel from '@elementor/ui/FormLabel';
 import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
@@ -17,8 +18,15 @@ const AccessibilityAssistantHeading = ({
 
 	return (
 		<StyledHeadingContainer>
-			<StyledPageTitle variant="h4" as="h1">
+			<StyledPageTitle variant="h5" as="h1">
 				{__('Scan overview', 'pojo-accessibility')}
+
+				<Chip
+					size="small"
+					variant="filled"
+					color="default"
+					label={__('Beta', 'pojo-accessibility')}
+				/>
 			</StyledPageTitle>
 
 			<Box>
@@ -30,6 +38,7 @@ const AccessibilityAssistantHeading = ({
 					id={periodSelectId}
 					variant="outlined"
 					size="small"
+					color="secondary"
 					onChange={onPeriodChange}
 					value={period}
 					disabled={isEmpty || loading}
@@ -64,6 +73,12 @@ const StyledPageTitle = styled(Typography)`
 	font-weight: 700;
 	letter-spacing: 0.25px;
 	margin: 0;
+
+	.MuiChip-root {
+		margin-inline-start: ${({ theme }) => theme.spacing(1)};
+
+		font-weight: 400;
+	}
 `;
 
 const StyledHeadingContainer = styled(Box)`

@@ -28,19 +28,17 @@ const SidebarAppBar = () => {
 			>
 				<StyledHeading>
 					<AppLogo />
-					<Typography
-						variant="h6"
-						marginLeft={0.5}
-						display={!openSidebar ? 'none' : 'inherit'}
-					>
+
+					<StyledTitle variant="h6" display={!openSidebar ? 'none' : 'inherit'}>
 						{__('Ally', 'pojo-accessibility')}
-					</Typography>
+					</StyledTitle>
 				</StyledHeading>
 
 				<IconButton
 					color="inherit"
 					onClick={() => setOpenSidebar(!openSidebar)}
 					size="small"
+					sx={{ display: 'none' }}
 				>
 					<SquareRoundedChevronsLeft
 						role="img"
@@ -52,5 +50,9 @@ const SidebarAppBar = () => {
 		</AppBar>
 	);
 };
+
+const StyledTitle = styled(Typography)`
+	margin-inline-start: ${({ theme }) => theme.spacing(0.5)};
+`;
 
 export default SidebarAppBar;

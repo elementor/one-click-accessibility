@@ -1,4 +1,5 @@
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { speak } from '@wordpress/a11y';
 import {
 	createContext,
 	useContext,
@@ -6,6 +7,7 @@ import {
 	useState,
 	useCallback,
 } from '@wordpress/element';
+import { sprintf, __ } from '@wordpress/i18n';
 import APISettings from '../api';
 
 const AccessibilityAssistantContext = createContext(null);
@@ -46,7 +48,7 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 		Promise.all([
 			APISettings.getScannerStats(period),
 			APISettings.getPostTypes(),
-			APISettings.getScannerResults(period),
+			APISettings.getScannerResults(),
 		])
 			.then(([statsData, postTypesData, scannerResultsData]) => {
 				setStats(statsData);
@@ -56,12 +58,53 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 			.finally(() => {
 				setLoading(false);
 			});
+	}, []);
+
+	useEffect(() => {
+		setLoading(true);
+
+		void APISettings.getScannerStats(period).then((data) => {
+			setStats(data);
+			setLoading(false);
+		});
 	}, [period]);
 
-	const getFilteredScannerResults = useCallback(() => {
-		const lowerSearch = search.toLowerCase();
+	useEffect(() => {
+		const results = getFilteredScannerResults();
 
-		const filtered = scannerResults.filter((result) => {
+		if (results.length) {
+			speak(
+				sprintf(
+					// Translators: %s - count
+					__('Found %s scanned URLs', 'pojo-accessibility'),
+					results.length,
+				),
+				'polite',
+			);
+		} else {
+			speak(
+				__(
+					'No scanned URLs found for the provided search query',
+					'pojo-accessibility',
+				),
+				'polite',
+			);
+		}
+	}, [search]);
+
+	const getFilteredScannerResults = useCallback(() => {
+		const now = new Date();
+		const cutoffDate = new Date(now);
+		cutoffDate.setDate(now.getDate() - period);
+
+		const filteredByDate = scannerResults.filter((result) => {
+			const scanDate = new Date(result.last_scan);
+			return scanDate >= cutoffDate;
+		});
+
+		const lowerSearch = search.trim().toLowerCase();
+
+		const filtered = filteredByDate.filter((result) => {
 			return (
 				result.page_title?.toLowerCase().includes(lowerSearch) ||
 				result.page_url?.toLowerCase().includes(lowerSearch)
@@ -74,7 +117,7 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 		const safeEnd = safeStart + rowsPerPage;
 
 		return filtered.slice(safeStart, safeEnd);
-	}, [search, scannerResults, page, rowsPerPage]);
+	}, [search, scannerResults, page, rowsPerPage, period]);
 
 	return (
 		<AccessibilityAssistantContext.Provider
