@@ -1,5 +1,6 @@
 import AIIcon from '@elementor/icons/AIIcon';
 import CopyIcon from '@elementor/icons/CopyIcon';
+import EditIcon from '@elementor/icons/EditIcon';
 import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
@@ -22,11 +23,14 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
+	AIHeader,
+	AITitle,
 	InfotipBox,
+	ManualTextField,
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ResolveWithAi = ({ item, current }) => {
@@ -44,7 +48,19 @@ export const ResolveWithAi = ({ item, current }) => {
 	});
 
 	const [openUpgrade, setOpenUpgrade] = useState(false);
-	const aiSuggestion = manualData[openedBlock][current]?.aiSuggestion;
+	const [isEdit, setIsEdit] = useState(false);
+	const [manualEdit, setManualEdit] = useState(false);
+	const [aiSuggestion, setAiSuggestion] = useState(null);
+
+	useEffect(() => {
+		setAiSuggestion({
+			...manualData[openedBlock][current]?.aiSuggestion,
+			submitted: false,
+		});
+		setManualEdit(manualData[openedBlock][current]?.aiSuggestion?.snippet);
+	}, [manualData[openedBlock][current]?.aiSuggestion]);
+
+	const toggleEdit = (open) => () => setIsEdit(open);
 
 	const handleButtonClick = async () => {
 		if (IS_AI_ENABLED && AI_QUOTA_LIMIT) {
@@ -68,101 +84,168 @@ export const ResolveWithAi = ({ item, current }) => {
 
 	const closeUpgrade = () => setOpenUpgrade(false);
 
-	const disabled = aiResponseLoading || resolving;
+	const disabled =
+		aiResponseLoading ||
+		resolving ||
+		(isEdit && !manualEdit) ||
+		(isEdit && manualEdit === aiSuggestion?.snippet);
 
-	return aiSuggestion ? (
+	const onResolve = async () => {
+		await resolveIssue(isEdit ? manualEdit : null);
+		setAiSuggestion({
+			...aiSuggestion,
+			snippet: manualEdit,
+			submitted: !isEdit,
+		});
+	};
+
+	const onManualEdit = (e) => {
+		setManualEdit(e.target.value);
+		setAiSuggestion({ ...aiSuggestion, submitted: false });
+	};
+
+	return aiSuggestion?.snippet ? (
 		<Box>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
 				<CardContent sx={{ pb: 0 }}>
-					<Box display="flex" gap={1} alignItems="center" sx={{ mb: 2 }}>
-						<AIIcon />
-						<Typography variant="subtitle1">
-							{__('Resolve with AI', 'pojo-accessibility')}
-						</Typography>
-						{aiSuggestion.explanation && (
-							<Infotip
-								placement="top"
-								content={
-									<InfotipBox>
-										<Typography
-											variant="subtitle1"
-											sx={{ mb: 1, textTransform: 'none' }}
-										>
-											{__('How AI resolves this?', 'pojo-accessibility')}
-										</Typography>
-										<Typography variant="body2">
-											{aiSuggestion.explanation}
-										</Typography>
-									</InfotipBox>
-								}
-							>
-								<InfoCircleIcon fontSize="small" />
-							</Infotip>
-						)}
-					</Box>
-					<StyledAlert color="info" icon={false} disabled={disabled}>
-						<Box display="flex" gap={0.5} alignItems="start">
-							<StyledSnippet variant="body2" sx={{ width: '290px' }}>
-								{aiSuggestion.snippet}
-							</StyledSnippet>
-							<Box>
-								<Tooltip
-									arrow
-									placement="bottom"
-									title={
-										copied
-											? __('Copied!', 'pojo-accessibility')
-											: __('Copy', 'pojo-accessibility')
+					<AIHeader>
+						<AITitle>
+							<AIIcon />
+							<Typography variant="subtitle1">
+								{__('Resolve with AI', 'pojo-accessibility')}
+							</Typography>
+							{aiSuggestion?.explanation && (
+								<Infotip
+									placement="top"
+									content={
+										<InfotipBox>
+											<Typography
+												variant="subtitle1"
+												sx={{ mb: 1, textTransform: 'none' }}
+											>
+												{__('How AI resolves this?', 'pojo-accessibility')}
+											</Typography>
+											<Typography variant="body2">
+												{aiSuggestion.explanation}
+											</Typography>
+										</InfotipBox>
 									}
-									id="copy-icon-ai"
-									PopperProps={{
-										disablePortal: true,
-									}}
 								>
-									<IconButton
-										size="tiny"
-										onClick={copyToClipboard(item.snippet, 'fixed_snippet')}
-										aria-labelledby="copy-icon-ai"
+									<InfoCircleIcon fontSize="small" />
+								</Infotip>
+							)}
+						</AITitle>
+						{!isEdit && (
+							<Tooltip
+								placement="top"
+								title={__('Edit', 'pojo-accessibility')}
+								PopperProps={{
+									disablePortal: true,
+								}}
+								slotProps={{
+									tooltip: {
+										id: 'ai-btn-edit',
+									},
+								}}
+							>
+								<IconButton
+									aria-labelledby="ai-btn-edit"
+									size="tiny"
+									onClick={toggleEdit(true)}
+								>
+									<EditIcon fontSize="small" />
+								</IconButton>
+							</Tooltip>
+						)}
+					</AIHeader>
+					{isEdit ? (
+						<ManualTextField
+							value={manualEdit}
+							color="secondary"
+							size="small"
+							multiline
+							fullWidth
+							onChange={onManualEdit}
+						/>
+					) : (
+						<StyledAlert color="info" icon={false} disabled={disabled}>
+							<Box display="flex" gap={0.5} alignItems="start">
+								<StyledSnippet variant="body2" sx={{ width: '290px' }}>
+									{aiSuggestion.snippet}
+								</StyledSnippet>
+								<Box>
+									<Tooltip
+										arrow
+										placement="bottom"
+										title={
+											copied
+												? __('Copied!', 'pojo-accessibility')
+												: __('Copy', 'pojo-accessibility')
+										}
+										id="copy-icon-ai"
+										PopperProps={{
+											disablePortal: true,
+										}}
 									>
-										<CopyIcon fontSize="tiny" />
-									</IconButton>
-								</Tooltip>
+										<IconButton
+											size="tiny"
+											onClick={copyToClipboard(item.snippet, 'fixed_snippet')}
+											aria-labelledby="copy-icon-ai"
+										>
+											<CopyIcon fontSize="tiny" />
+										</IconButton>
+									</Tooltip>
+								</Box>
 							</Box>
-						</Box>
-					</StyledAlert>
+						</StyledAlert>
+					)}
 				</CardContent>
 				<CardActions sx={{ p: 2 }}>
-					<Tooltip
-						arrow
-						placement="bottom"
-						title={__('Generate another solution', 'pojo-accessibility')}
-						id="copy-icon-ai"
-						PopperProps={{
-							disablePortal: true,
-						}}
-					>
+					{isEdit ? (
 						<Button
 							size="small"
 							color="secondary"
 							variant="text"
-							onClick={handleButtonClick}
-							disabled={disabled}
-							loading={aiResponseLoading}
-							loadingPosition="start"
+							onClick={toggleEdit(false)}
 						>
-							{__('Retry', 'pojo-accessibility')}
+							{__('Cancel', 'pojo-accessibility')}
 						</Button>
-					</Tooltip>
+					) : (
+						<Tooltip
+							arrow
+							placement="bottom"
+							title={__('Generate another solution', 'pojo-accessibility')}
+							id="copy-icon-ai"
+							PopperProps={{
+								disablePortal: true,
+							}}
+						>
+							<Button
+								size="small"
+								color="secondary"
+								variant="text"
+								onClick={handleButtonClick}
+								disabled={disabled}
+								loading={aiResponseLoading}
+								loadingPosition="start"
+							>
+								{__('Retry', 'pojo-accessibility')}
+							</Button>
+						</Tooltip>
+					)}
+
 					<Button
 						size="small"
 						color="info"
 						variant="contained"
-						disabled={disabled}
+						disabled={disabled || aiSuggestion?.submitted}
 						loading={resolving}
 						loadingPosition="start"
-						onClick={resolveIssue}
+						onClick={onResolve}
 					>
-						{__('Apply fix', 'pojo-accessibility')}
+						{isEdit
+							? __('Apply changes', 'pojo-accessibility')
+							: __('Apply fix', 'pojo-accessibility')}
 					</Button>
 				</CardActions>
 			</Card>

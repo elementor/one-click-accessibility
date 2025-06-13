@@ -84,14 +84,16 @@ export const useManualFixForm = ({ item, current }) => {
 		});
 	};
 
-	const resolveIssue = async () => {
+	const resolveIssue = async (manualEdit) => {
 		setResolving(true);
 		try {
 			await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
 					find: item.snippet,
-					replace: manualData[openedBlock][current]?.aiSuggestion.snippet,
+					replace:
+						manualEdit ||
+						manualData[openedBlock][current]?.aiSuggestion.snippet,
 					xpath: item.path.dom,
 					category: item.reasonCategory.match(/\(([^)]+)\)/)[1],
 					type: 'REPLACE',
