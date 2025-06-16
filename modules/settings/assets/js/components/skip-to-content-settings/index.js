@@ -175,13 +175,9 @@ const SkipToContentSettings = () => {
 const StyledCard = styled(Card)`
 	padding: ${({ theme }) => theme.spacing(2)};
 	margin-block: ${({ theme }) => theme.spacing(4)};
-	width: 50%;
+	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
-
-	${({ theme }) => theme.breakpoints.down('xl')} {
-		width: 100%;
-	}
 `;
 
 const StyledBox = styled(Box)`

@@ -52,7 +52,7 @@ export const ChartsList = () => {
 	const isLoading = loading || !availableDate;
 
 	return (
-		<Box display="flex" flexDirection="column" alignItems="start" gap={4}>
+		<StyledBox>
 			{!hideAlert && (
 				<Alert
 					color="info"
@@ -143,7 +143,7 @@ export const ChartsList = () => {
 					)}
 				</Grid>
 			</Grid>
-		</Box>
+		</StyledBox>
 	);
 };
 
@@ -154,4 +154,15 @@ const StyledIcon = styled(SvgIcon)`
 	cursor: pointer;
 	pointer-events: none;
 	transform: translateY(-50%);
+`;
+
+const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: ${({ theme }) => theme.spacing(4)};
+	max-width: 1200px;
+
+	margin-left: auto;
+	margin-right: auto;
 `;

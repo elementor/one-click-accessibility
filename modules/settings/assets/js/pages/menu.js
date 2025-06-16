@@ -19,11 +19,7 @@ const Menu = () => {
 	return (
 		<StyledBox>
 			<StyledWideBox>
-				<StyledTitle
-					variant="h4"
-					color="text.primary"
-					sx={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}
-				>
+				<StyledTitle variant="h4" color="text.primary">
 					{__('Capabilities', 'pojo-accessibility')}
 				</StyledTitle>
 
@@ -45,22 +41,16 @@ const StyledSettingsWrapper = styled(Box)`
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: ${({ theme }) => theme.spacing(4)};
-	width: 50%;
+	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
-
-	${({ theme }) => theme.breakpoints.down('xl')} {
-		width: 100%;
-	}
 `;
 
 export const StyledTitle = styled(Typography)`
 	font-weight: 400;
 	letter-spacing: 0.25px;
 	margin-bottom: 16px;
-	width: 50%;
-
-	${({ theme }) => theme.breakpoints.down('xl')} {
-		width: 100%;
-	}
+	max-width: 1200px;
+	margin-right: auto;
+	margin-left: auto;
 `;

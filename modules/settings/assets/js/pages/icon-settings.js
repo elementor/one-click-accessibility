@@ -17,11 +17,7 @@ const IconSettings = () => {
 	return (
 		<StyledBox>
 			<StyledWideBox>
-				<StyledTitle
-					variant="h4"
-					color="text.primary"
-					sx={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}
-				>
+				<StyledTitle variant="h4" color="text.primary">
 					{__('Design', 'pojo-accessibility')}
 				</StyledTitle>
 
@@ -37,12 +33,12 @@ const IconSettings = () => {
 export default IconSettings;
 
 export const StyledTitle = styled(Typography)`
+	max-width: 1200px;
+	// Spacing
+	margin-bottom: 16px;
+	margin-right: auto;
+	margin-left: auto;
+	// Typography
 	font-weight: 400;
 	letter-spacing: 0.25px;
-	margin-bottom: 16px;
-	width: 50%;
-
-	${({ theme }) => theme.breakpoints.down('xl')} {
-		width: 100%;
-	}
 `;
