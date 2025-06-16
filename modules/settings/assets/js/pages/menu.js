@@ -1,13 +1,10 @@
 import Box from '@elementor/ui/Box';
+import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { BottomBar } from '@ea11y/components';
 import SkipToContentSettings from '@ea11y/components/skip-to-content-settings';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
-import {
-	StyledBox,
-	StyledWideBox,
-	StyledTitle,
-} from '@ea11y/pages/pages.styles';
+import { StyledBox, StyledWideBox } from '@ea11y/pages/pages.styles';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -51,6 +48,17 @@ const StyledSettingsWrapper = styled(Box)`
 	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
+
+	${({ theme }) => theme.breakpoints.down('xl')} {
+		width: 100%;
+	}
+`;
+
+export const StyledTitle = styled(Typography)`
+	font-weight: 400;
+	letter-spacing: 0.25px;
+	margin-bottom: 16px;
+	width: 50%;
 
 	${({ theme }) => theme.breakpoints.down('xl')} {
 		width: 100%;
