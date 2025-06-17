@@ -39,7 +39,7 @@ export class APIScanner extends API {
 	static async submitRemediation(data) {
 		return APIScanner.request({
 			method: 'POST',
-			path: `${v1Prefix}/remediation/add-remediation`,
+			path: `${v1Prefix}/remediation/items`,
 			data,
 		});
 	}

@@ -79,17 +79,32 @@ class Remediation_Entry extends Entry {
 		return Remediation_Table::select( $select, $where );
 	}
 
-    public static function get_all_remediations( int $period ) : array {
-        $date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
+	public static function get_all_remediations( int $period ) : array {
+		$date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
 
-        $where = [
-            [
-                'column'   => Remediation_Table::CREATED_AT,
-                'value'    => $date_threshold,
-                'operator' => '>=',
-            ],
-        ];
+		$where = [
+			[
+				'column' => Remediation_Table::CREATED_AT,
+				'value' => $date_threshold,
+				'operator' => '>=',
+			],
+		];
 
-        return Remediation_Table::select( '*', $where );
-    }
+		return Remediation_Table::select( '*', $where );
+	}
+
+	/**
+	 * @param array $ids
+	 *
+	 * @return void
+	 */
+	public static function disable_remediations( array $ids ): void {
+		// Sanitize IDs to ensure they're integers
+		$ids = array_map( 'intval', $ids );
+		// Convert array to comma-separated string
+		$id_list = implode( ',', $ids );
+
+		$query = 'UPDATE `' . Remediation_Table::table_name() . '` SET ' . Remediation_Table::ACTIVE . ' = 0 WHERE `' . Remediation_Table::ID . '` IN(' . $id_list . ')';
+		Remediation_Table::query( $query );
+	}
 }

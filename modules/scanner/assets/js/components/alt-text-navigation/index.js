@@ -10,6 +10,8 @@ import { isRTL } from '@ea11y-apps/scanner/constants';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const AltTextNavigation = ({ total, current, setCurrent }) => {
+	const previous = current - 1;
+	const next = current + 1;
 	const navigate = (index, direction) => () => {
 		setCurrent(index);
 		mixpanelService.sendEvent(mixpanelEvents.navigationImageClicked, {
@@ -20,7 +22,7 @@ export const AltTextNavigation = ({ total, current, setCurrent }) => {
 		<StyledBox>
 			<StyledNavigation>
 				<StyledIconButton
-					onClick={navigate(--current, 'previous')}
+					onClick={navigate(previous, 'previous')}
 					disabled={current === 0}
 				>
 					<ChevronLeftIcon />
@@ -34,7 +36,7 @@ export const AltTextNavigation = ({ total, current, setCurrent }) => {
 					)}
 				</Typography>
 				<StyledIconButton
-					onClick={navigate(++current, 'next')}
+					onClick={navigate(next, 'next')}
 					disabled={current === total - 1}
 				>
 					<ChevronRightIcon />

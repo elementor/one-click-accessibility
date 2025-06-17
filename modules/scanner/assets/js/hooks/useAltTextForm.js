@@ -94,6 +94,8 @@ export const useAltTextForm = ({ current, item }) => {
 					category: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
 					type: 'ATTRIBUTE',
 				},
+				rule: item.ruleId,
+				group: BLOCKS.altText,
 				apiId: altTextData?.[current]?.apiId,
 			});
 		}

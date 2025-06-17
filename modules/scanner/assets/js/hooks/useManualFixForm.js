@@ -98,6 +98,8 @@ export const useManualFixForm = ({ item, current }) => {
 					category: item.reasonCategory.match(/\(([^)]+)\)/)[1],
 					type: 'REPLACE',
 				},
+				rule: item.ruleId,
+				group: BLOCKS[openedBlock],
 				apiId: manualData[openedBlock]?.[current]?.apiId,
 			});
 			markResolved();

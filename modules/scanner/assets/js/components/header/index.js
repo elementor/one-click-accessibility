@@ -39,7 +39,10 @@ export const Header = () => {
 		violation > 0;
 
 	const showMainBlock =
-		(!isError && PAGE_QUOTA_LIMIT && violation > 0) || loading;
+		window.ea11yScannerData?.isConnected &&
+		!isError &&
+		PAGE_QUOTA_LIMIT &&
+		(violation > 0 || loading);
 
 	const content = (
 		<>
@@ -60,9 +63,8 @@ export const Header = () => {
 					)}
 				</TitleBox>
 			)}
-			{showMainBlock && (
-				<>{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}</>
-			)}
+
+			{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}
 		</>
 	);
 
@@ -99,15 +101,17 @@ export const Header = () => {
 					</Box>
 				</HeaderContent>
 			</Paper>
-			<HeaderContent>
-				{openedBlock === BLOCKS.main ? (
-					<HeaderCard>
-						<HeaderContent>{content}</HeaderContent>
-					</HeaderCard>
-				) : (
-					content
-				)}
-			</HeaderContent>
+			{showMainBlock && (
+				<HeaderContent>
+					{openedBlock === BLOCKS.main ? (
+						<HeaderCard>
+							<HeaderContent>{content}</HeaderContent>
+						</HeaderCard>
+					) : (
+						content
+					)}
+				</HeaderContent>
+			)}
 		</StyledCard>
 	);
 };

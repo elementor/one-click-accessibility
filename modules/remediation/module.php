@@ -25,7 +25,7 @@ class Module extends Module_Base {
 		return [
 			'Register',
 			'Set_Alt_Text',
-			'Add_Remediation',
+			'Items',
 		];
 	}
 
