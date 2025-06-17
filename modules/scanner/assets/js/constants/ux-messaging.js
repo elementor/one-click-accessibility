@@ -194,7 +194,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_parent_required: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Incorrect Element Container', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Elements must be placed inside the right type of container.',
 			'pojo-accessibility',
@@ -226,7 +226,7 @@ export const uxMessaging = {
 		},
 	},
 	combobox_popup_reference: {
-		violationName: __('Mislinked Dropdown Menus', 'pojo-accessibility'),
+		violationName: __('Dropdown Open State Incorrect', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Dropdowns must correctly link to the popup they open.',
 			'pojo-accessibility',
@@ -322,7 +322,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_role_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Mismatched Element Role', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Labels for assistive technologies must match the type of content.',
 			'pojo-accessibility',
@@ -354,7 +354,7 @@ export const uxMessaging = {
 		},
 	},
 	combobox_autocomplete_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Autocomplete Incorrect Usage', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Autocomplete settings must be applied only to the text field.',
 			'pojo-accessibility',
@@ -386,7 +386,7 @@ export const uxMessaging = {
 		},
 	},
 	combobox_focusable_elements: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Dropdown Incorrect Focus', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Only the text field in a dropdown should be focusable.',
 			'pojo-accessibility',
@@ -418,7 +418,7 @@ export const uxMessaging = {
 		},
 	},
 	combobox_haspopup_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Popup Type Misdescribed', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Dropdowns must correctly describe the type of popup they open.',
 			'pojo-accessibility',
@@ -450,7 +450,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_descendant_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid Nested Elements', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Some content inside certain elements may not behave as expected.',
 			'pojo-accessibility',
@@ -482,7 +482,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_role_allowed: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid Element Role', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Elements must use correct labels for assistive technologies.',
 			'pojo-accessibility',
@@ -514,7 +514,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_attribute_allowed: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid ARIA Attributes', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Labels and properties must match the type of content.',
 			'pojo-accessibility',
@@ -546,7 +546,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_attribute_conflict: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('ARIA Conflicting Attributes', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Labels and settings must not conflict with built-in HTML behavior.',
 			'pojo-accessibility',
@@ -578,7 +578,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_attribute_exists: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing ARIA Attribute Value', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Required settings for assistive technologies must not be left empty.',
 			'pojo-accessibility',
@@ -610,7 +610,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_attribute_required: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Required ARIA Attributes', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Important information must be included for assistive technologies.',
 			'pojo-accessibility',
@@ -642,7 +642,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_attribute_value_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Incorrect ARIA Value', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Settings for assistive technologies must use correct values.',
 			'pojo-accessibility',
@@ -674,7 +674,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_eventhandler_role_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid Interactive Role', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Clickable or interactive elements must have the right label.',
 			'pojo-accessibility',
@@ -706,7 +706,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_id_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate ARIA IDs', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Labels must point to real, visible content.',
 			'pojo-accessibility',
@@ -738,7 +738,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_widget_labelled: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing Widget Label', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Interactive elements must have a clear, accessible name.',
 			'pojo-accessibility',
@@ -770,7 +770,7 @@ export const uxMessaging = {
 		},
 	},
 	combobox_design_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Outdated Dropdown Design', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Update dropdowns to meet the latest accessibility standards.',
 			'pojo-accessibility',
@@ -802,7 +802,7 @@ export const uxMessaging = {
 		},
 	},
 	element_id_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Element IDs', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Each element must have a unique ID.',
 			'pojo-accessibility',
@@ -834,7 +834,7 @@ export const uxMessaging = {
 		},
 	},
 	element_accesskey_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Shortcut Keys', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Shortcut keys must be unique on each page.',
 			'pojo-accessibility',
@@ -866,7 +866,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_attribute_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid ARIA Attribute', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Labels and settings must match the type of content.',
 			'pojo-accessibility',
@@ -898,7 +898,10 @@ export const uxMessaging = {
 		},
 	},
 	input_checkboxes_grouped: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __(
+			'Checkboxes/Radio Buttons Not Grouped',
+			'pojo-accessibility',
+		),
 		whatsTheIssue: __(
 			'Related checkboxes or radio buttons must be grouped together.',
 			'pojo-accessibility',
@@ -930,7 +933,7 @@ export const uxMessaging = {
 		},
 	},
 	fieldset_label_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Fieldset Label', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Groups of form fields must have unique names.',
 			'pojo-accessibility',
@@ -1016,7 +1019,7 @@ export const uxMessaging = {
 		},
 	},
 	input_autocomplete_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Autocomplete Mismatch', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Autocomplete settings must match the type of form field.',
 			'pojo-accessibility',
@@ -1048,7 +1051,7 @@ export const uxMessaging = {
 		},
 	},
 	error_message_exists: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing Error Messages', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Error messages must be properly connected and announced.',
 			'pojo-accessibility',
@@ -1080,7 +1083,7 @@ export const uxMessaging = {
 		},
 	},
 	input_label_after: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Misplaced Checkbox Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Checkboxes and radio buttons must have a label placed after them.',
 			'pojo-accessibility',
@@ -1112,7 +1115,7 @@ export const uxMessaging = {
 		},
 	},
 	input_label_before: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Label Placement Incorrect', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Text fields and dropdowns must have a label placed before them.',
 			'pojo-accessibility',
@@ -1176,7 +1179,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_hidden_nontabbable: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Incorrect Tab Order Roles', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Hidden sections should not contain focusable elements.',
 			'pojo-accessibility',
@@ -1272,7 +1275,7 @@ export const uxMessaging = {
 		},
 	},
 	element_scrollable_tabbable: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Scrollable Element Untabbable', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Scrollable non-interactive element is not tabbable.',
 			'pojo-accessibility',
@@ -1336,7 +1339,7 @@ export const uxMessaging = {
 		},
 	},
 	a_text_purpose: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Link Purpose Unclear', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Links must clearly describe their purpose.',
 			'pojo-accessibility',
@@ -1368,7 +1371,7 @@ export const uxMessaging = {
 		},
 	},
 	label_name_visible: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Visible Label Mismatch', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'The accessible name must match what users see.',
 			'pojo-accessibility',
@@ -1400,7 +1403,7 @@ export const uxMessaging = {
 		},
 	},
 	html_lang_exists: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing Page Language', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Set the main language of the page.',
 			'pojo-accessibility',
@@ -1432,7 +1435,7 @@ export const uxMessaging = {
 		},
 	},
 	html_lang_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid Language Code', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'The page’s language setting must be valid.',
 			'pojo-accessibility',
@@ -1464,7 +1467,7 @@ export const uxMessaging = {
 		},
 	},
 	element_lang_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Incorrect Language Tag', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Language changes in the content must use valid language settings.',
 			'pojo-accessibility',
@@ -1528,7 +1531,7 @@ export const uxMessaging = {
 		},
 	},
 	element_tabbable_role_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Orientation Lock Issue', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Elements users can tab to must be correctly labeled as interactive',
 			'pojo-accessibility',
@@ -1560,7 +1563,7 @@ export const uxMessaging = {
 		},
 	},
 	element_orientation_unlocked: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Locked Orientation View', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Content must work in both portrait and landscape views.',
 			'pojo-accessibility',
@@ -1592,7 +1595,7 @@ export const uxMessaging = {
 		},
 	},
 	meta_redirect_optional: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Auto Refresh Without Warning', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Pages should not refresh automatically without a warning or option.',
 			'pojo-accessibility',
@@ -1624,7 +1627,7 @@ export const uxMessaging = {
 		},
 	},
 	blink_elem_deprecated: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Persistent Blinking Content', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Avoid using content that blinks repeatedly.',
 			'pojo-accessibility',
@@ -1656,7 +1659,7 @@ export const uxMessaging = {
 		},
 	},
 	marquee_elem_avoid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Scrolling Text Used', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Don’t use scrolling text (marquee).',
 			'pojo-accessibility',
@@ -1688,7 +1691,7 @@ export const uxMessaging = {
 		},
 	},
 	table_headers_ref_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid Table Header Link', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Table headers must correctly link to their cells.',
 			'pojo-accessibility',
@@ -1720,7 +1723,7 @@ export const uxMessaging = {
 		},
 	},
 	table_scope_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid Table Scope Values', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Use the correct values for table header settings.',
 			'pojo-accessibility',
@@ -1752,7 +1755,7 @@ export const uxMessaging = {
 		},
 	},
 	table_headers_exists: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing Table Headers', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Data tables must clearly identify headers.',
 			'pojo-accessibility',
@@ -1784,7 +1787,7 @@ export const uxMessaging = {
 		},
 	},
 	table_headers_related: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Complex Table Headers Missing', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Complex tables must link headers and data clearly.',
 			'pojo-accessibility',
@@ -1816,7 +1819,7 @@ export const uxMessaging = {
 		},
 	},
 	table_structure_misuse: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Layout Table Misuse', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Tables used only for layout should not have headers or structure.',
 			'pojo-accessibility',
@@ -1848,7 +1851,7 @@ export const uxMessaging = {
 		},
 	},
 	dir_attribute_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid Text Direction', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Text direction settings must use a valid value.',
 			'pojo-accessibility',
@@ -1884,7 +1887,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_application_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Interactive Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Interactive areas must have a clear, unique label.',
 			'pojo-accessibility',
@@ -1916,7 +1919,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_application_labelled: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing Interactive Label', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Interactive areas must have a clear label describing their purpose.',
 			'pojo-accessibility',
@@ -1948,7 +1951,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_article_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Article Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Articles must have a clear, unique label.',
 			'pojo-accessibility',
@@ -1980,7 +1983,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_banner_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Banner Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Banners must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2012,7 +2015,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_banner_single: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Multiple Banners Used', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Each page should have only one banner.',
 			'pojo-accessibility',
@@ -2039,7 +2042,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_complementary_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Sidebar Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Side content areas must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2070,7 +2073,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_complementary_labelled: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Sidebar Missing Label', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Side content areas must have a clear label.',
 			'pojo-accessibility',
@@ -2102,7 +2105,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_content_in_landmark: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Content Outside Landmarks', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'All content must be placed inside clear sections (landmarks).',
 			'pojo-accessibility',
@@ -2142,7 +2145,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_contentinfo_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Footer Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Footer sections must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2173,7 +2176,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_contentinfo_single: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Multiple Footers Present', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Each page should have only one footer section.',
 			'pojo-accessibility',
@@ -2204,7 +2207,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_document_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Document Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Documents must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2266,7 +2269,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_landmark_name_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Landmark Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Landmark sections must have a unique label or be clearly separated.',
 			'pojo-accessibility',
@@ -2297,7 +2300,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_main_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Main Content Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Main sections must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2328,7 +2331,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_navigation_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Navigation Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Navigation menus must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2353,7 +2356,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_region_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Region Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Content sections (regions) must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2384,7 +2387,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_region_labelled: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Unlabeled Content Region', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Content sections must have a clear label.',
 			'pojo-accessibility',
@@ -2415,7 +2418,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_search_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Search Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Search areas must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2446,7 +2449,7 @@ export const uxMessaging = {
 		},
 	},
 	aria_toolbar_label_unique: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Duplicate Toolbar Labels', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Toolbars must have a clear, unique label.',
 			'pojo-accessibility',
@@ -2477,7 +2480,7 @@ export const uxMessaging = {
 		},
 	},
 	skip_main_exists: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing Skip Link', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Pages must let users skip straight to the main content.',
 			'pojo-accessibility',
@@ -2508,7 +2511,7 @@ export const uxMessaging = {
 		},
 	},
 	page_title_exists: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing Page Title', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Each page must have a clear, descriptive title.',
 			'pojo-accessibility',
@@ -2543,7 +2546,7 @@ export const uxMessaging = {
 		},
 	},
 	frame_title_exists: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Missing Iframe Title', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Embedded content (iframes) must have a clear, unique title.',
 			'pojo-accessibility',
@@ -2574,7 +2577,7 @@ export const uxMessaging = {
 		},
 	},
 	list_children_valid: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Invalid List Items', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Lists must only contain list items.',
 			'pojo-accessibility',
@@ -2605,7 +2608,7 @@ export const uxMessaging = {
 		},
 	},
 	table_aria_descendants: {
-		violationName: __('General Accessibility Issue', 'pojo-accessibility'),
+		violationName: __('Misused Table Roles', 'pojo-accessibility'),
 		whatsTheIssue: __(
 			'Don’t override the natural roles of table elements',
 			'pojo-accessibility',
