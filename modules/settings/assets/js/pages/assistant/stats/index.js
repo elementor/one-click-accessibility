@@ -9,7 +9,7 @@ import StatsPieChart from '@ea11y/pages/assistant/stats/pie-chart';
 import AccessibilityAssistantTooltip from '@ea11y/pages/assistant/tooltip';
 import { __ } from '@wordpress/i18n';
 
-const AccessibilityAssistantStats = ({ stats, loading }) => {
+const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 	const resolvedPercentage = stats.issues_total
 		? Math.round((stats.issues_fixed / stats.issues_total) * 100)
 		: 0;
@@ -116,6 +116,7 @@ const AccessibilityAssistantStats = ({ stats, loading }) => {
 							value={levelsTotal.toString()}
 							firstSectorPercentage={firstLevelPercentage}
 							secondSectorPercentage={secondLevelPercentage}
+							noResultsState={noResultsState}
 						/>
 					)}
 				</StyledStatsItemChart>
@@ -127,6 +128,7 @@ const AccessibilityAssistantStats = ({ stats, loading }) => {
 AccessibilityAssistantStats.propTypes = {
 	stats: PropTypes.object.isRequired,
 	loading: PropTypes.bool.isRequired,
+	noResultsState: PropTypes.bool,
 };
 
 const StyledStatsContainer = styled(Box)`

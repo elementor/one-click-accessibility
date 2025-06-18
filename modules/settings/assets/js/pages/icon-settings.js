@@ -2,8 +2,8 @@ import { BottomBar } from '@ea11y/components';
 import { IconDesignSettings, PositionSettings } from '@ea11y/layouts';
 import {
 	StyledBox,
-	StyledWideBox,
 	StyledTitle,
+	StyledWideBox,
 } from '@ea11y/pages/pages.styles';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
@@ -19,11 +19,7 @@ const IconSettings = () => {
 	return (
 		<StyledBox>
 			<StyledWideBox>
-				<StyledTitle
-					variant="h4"
-					color="text.primary"
-					sx={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}
-				>
+				<StyledTitle variant="h4" color="text.primary">
 					{__('Design', 'pojo-accessibility')}
 				</StyledTitle>
 

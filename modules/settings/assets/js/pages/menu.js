@@ -5,8 +5,8 @@ import SkipToContentSettings from '@ea11y/components/skip-to-content-settings';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
 import {
 	StyledBox,
-	StyledWideBox,
 	StyledTitle,
+	StyledWideBox,
 } from '@ea11y/pages/pages.styles';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';

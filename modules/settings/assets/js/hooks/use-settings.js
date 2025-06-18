@@ -22,7 +22,7 @@ export const SettingsProvider = ({ children }) => {
 
 	useEffect(() => {
 		setSelectedMenu({
-			parent: window.location.hash.replace('#', '') || 'design',
+			parent: window.location.hash.replace('#', '') || 'scanOverview',
 		});
 	}, []);
 

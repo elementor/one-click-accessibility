@@ -3,13 +3,33 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useTheme } from '@emotion/react';
 import PropTypes from 'prop-types';
+import { __ } from '@wordpress/i18n';
 
 const StatsPieChart = ({
 	value,
 	firstSectorPercentage,
 	secondSectorPercentage,
+	noResultsState,
 }) => {
 	const theme = useTheme();
+
+	if (noResultsState) {
+		return (
+			<StyledProgressCircle
+				background={`
+					radial-gradient(closest-side, white 79%, transparent 80% 100%),
+					conic-gradient(${theme.palette.success.light} 0%, #f3f3f4 0)
+				`}
+			>
+				<StyledEmptyStateValue variant="h4" as="span">
+					0
+					<StyledEmptyStateLabel variant="body2" as="span">
+						{__('Issues', 'pojo-accessibility')}
+					</StyledEmptyStateLabel>
+				</StyledEmptyStateValue>
+			</StyledProgressCircle>
+		);
+	}
 
 	if (typeof value !== 'string') {
 		let sectorColor = theme.palette.success.light;
@@ -55,16 +75,44 @@ StatsPieChart.propTypes = {
 	firstSectorPercentage: PropTypes.number.isRequired,
 	secondSectorPercentage: PropTypes.number,
 	thirdSectorPercentage: PropTypes.number,
+	noResultsState: PropTypes.bool,
 };
 
 const StyledProgressCircle = styled(Box)`
 	width: 104px;
 	height: 104px;
 	display: flex;
+
 	justify-content: center;
 	align-items: center;
 	border-radius: 100%;
+
 	background: ${({ background }) => background};
+`;
+
+const StyledEmptyStateValue = styled(Typography)`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	color: ${({ theme }) => theme.palette.text.secondary};
+	font-feature-settings:
+		'liga' off,
+		'clig' off;
+	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+	font-size: 32px;
+	font-weight: 700;
+	line-height: 78%;
+	letter-spacing: 0.25px;
+`;
+
+const StyledEmptyStateLabel = styled(Typography)`
+	color: ${({ theme }) => theme.palette.text.tertiary};
+	font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 143%;
+	letter-spacing: 0.17px;
 `;
 
 export default StatsPieChart;
