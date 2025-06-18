@@ -70,7 +70,7 @@ AccessibilityAssistantHeading.propTypes = {
 const StyledPageTitle = styled(Typography)`
 	color: ${({ theme }) => theme.palette.common.black};
 	font-size: 32px;
-	font-weight: 700;
+	font-weight: 400;
 	letter-spacing: 0.25px;
 	margin: 0;
 

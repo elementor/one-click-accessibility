@@ -59,7 +59,11 @@ const AccessibilityAssistant = () => {
 								loading={loading}
 							/>
 
-							<AccessibilityAssistantStats stats={stats} loading={loading} />
+							<AccessibilityAssistantStats
+								stats={stats}
+								loading={loading}
+								noResultsState
+							/>
 						</StyledHeadingContainer>
 					</StyledHeadingWrapper>
 

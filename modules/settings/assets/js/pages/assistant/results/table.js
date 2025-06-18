@@ -212,6 +212,7 @@ const StyledProgressContainer = styled(Box)`
 const StyledControlsContainer = styled(Box)`
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 `;
 
 const ForwardedButton = forwardRef((props, ref) => (
