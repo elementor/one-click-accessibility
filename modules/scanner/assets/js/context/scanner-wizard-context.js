@@ -21,6 +21,7 @@ import {
 
 export const ScannerWizardContext = createContext({
 	results: {},
+	remediations: [],
 	resolved: 0,
 	openedBlock: '',
 	loading: null,
@@ -42,6 +43,7 @@ export const ScannerWizardContext = createContext({
 
 export const ScannerWizardContextProvider = ({ children }) => {
 	const [results, setResults] = useState();
+	const [remediations, setRemediations] = useState();
 	const [sortedViolations, setSortedViolations] = useState(
 		INITIAL_SORTED_VIOLATIONS,
 	);
@@ -64,6 +66,21 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			removeExistingFocus();
 		}
 	}, [openIndex]);
+
+	useEffect(() => {
+		if (openedBlock === BLOCKS.management) {
+			setLoading(true);
+			APIScanner.getRemediations(window.ea11yScannerData?.pageData?.url)
+				.then((items) => {
+					const filteredRemediations = items.data.filter(
+						(remediation) => remediation.group !== BLOCKS.altText,
+					);
+					setRemediations(filteredRemediations);
+				})
+				.catch(() => setIsError(true))
+				.finally(() => setLoading(false));
+		}
+	}, [openedBlock]);
 
 	const handleOpen = (index, item) => (event, isExpanded) => {
 		setOpenIndex(isExpanded ? index : null);
@@ -173,6 +190,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			value={{
 				results,
 				resolved,
+				remediations,
 				openedBlock,
 				loading,
 				isError,

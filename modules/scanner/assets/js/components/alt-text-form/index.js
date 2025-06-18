@@ -118,7 +118,6 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 										}}
 										slotProps={{
 											tooltip: {
-												id: 'ai-btn-description',
 												sx: {
 													maxWidth: '101px',
 													whiteSpace: 'normal',
@@ -129,7 +128,6 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 									>
 										<IconButton
 											size="small"
-											aria-labelledby="ai-btn-description"
 											onClick={generateAltText}
 											disabled={loadingAiText}
 										>

@@ -73,6 +73,9 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 						</Typography>
 						<Infotip
 							placement="top"
+							PopperProps={{
+								disablePortal: true,
+							}}
 							content={
 								<InfotipBox>
 									<Typography
@@ -113,7 +116,6 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 											? __('Copied!', 'pojo-accessibility')
 											: __('Copy', 'pojo-accessibility')
 									}
-									id="copy-icon"
 									PopperProps={{
 										disablePortal: true,
 									}}
@@ -121,7 +123,6 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 									<IconButton
 										size="tiny"
 										onClick={copyToClipboard(item.snippet, 'error_snippet')}
-										aria-labelledby="copy-icon"
 									>
 										<CopyIcon fontSize="tiny" />
 									</IconButton>
@@ -146,6 +147,9 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 									placement="left"
 									onClose={closeExample}
 									open={openExample}
+									PopperProps={{
+										disablePortal: true,
+									}}
 									disableFocusListener
 									disableHoverListener
 									disableTouchListener

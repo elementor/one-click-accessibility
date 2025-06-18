@@ -13,6 +13,7 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
+import { __ } from '@wordpress/i18n';
 
 export const Breadcrumbs = () => {
 	const {
@@ -41,6 +42,7 @@ export const Breadcrumbs = () => {
 					color="secondary"
 					onClick={handleClick}
 					sx={{ whiteSpace: 'nowrap' }}
+					aria-label={__('All issues', 'pojo-accessibility')}
 					size="small"
 				>
 					<ArrowLeftIcon />

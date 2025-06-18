@@ -24,6 +24,7 @@ export const AltTextNavigation = ({ total, current, setCurrent }) => {
 				<StyledIconButton
 					onClick={navigate(previous, 'previous')}
 					disabled={current === 0}
+					aria-label={__('Previous image', 'pojo-accessibility')}
 				>
 					<ChevronLeftIcon />
 				</StyledIconButton>
@@ -38,6 +39,7 @@ export const AltTextNavigation = ({ total, current, setCurrent }) => {
 				<StyledIconButton
 					onClick={navigate(next, 'next')}
 					disabled={current === total - 1}
+					aria-label={__('Next image', 'pojo-accessibility')}
 				>
 					<ChevronRightIcon />
 				</StyledIconButton>

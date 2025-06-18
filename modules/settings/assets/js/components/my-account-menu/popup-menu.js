@@ -13,11 +13,11 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
+import { SUBSCRIPTION_LINK } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
-import { SUBSCRIPTION_LINK } from '../../constants/index';
 import { truncateEmail } from '../../helpers/popup-menu';
 
 const StyledMenuItem = styled(MenuItem)`

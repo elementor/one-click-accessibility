@@ -33,6 +33,7 @@ export const PAGE_QUOTA_LIMIT =
 
 export const BLOCKS = {
 	main: 'main',
+	management: 'management',
 	altText: 'altText',
 	dynamicContent: 'dynamicContent',
 	formsInputsError: 'formsInputsError',

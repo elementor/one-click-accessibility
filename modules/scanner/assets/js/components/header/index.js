@@ -1,3 +1,4 @@
+import SettingsIcon from '@elementor/icons/SettingsIcon';
 import XIcon from '@elementor/icons/XIcon';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
@@ -7,6 +8,8 @@ import Paper from '@elementor/ui/Paper';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { Breadcrumbs } from '@ea11y-apps/scanner/components/header/breadcrumbs';
+import { DropdownMenu } from '@ea11y-apps/scanner/components/header/dropdown-menu';
+import { ManagementStats } from '@ea11y-apps/scanner/components/header/management-stats';
 import { ScanStats } from '@ea11y-apps/scanner/components/header/scan-stats';
 import {
 	BLOCKS,
@@ -24,11 +27,16 @@ import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { __ } from '@wordpress/i18n';
 
 export const Header = () => {
-	const { openedBlock, results, loading, isError } = useScannerWizardContext();
+	const { openedBlock, results, loading, isError, setOpenedBlock } =
+		useScannerWizardContext();
 	const violation = results?.summary?.counts?.violation;
 	const onClose = () => {
-		const widget = document.getElementById(ROOT_ID);
-		closeWidget(widget);
+		if (openedBlock === BLOCKS.management) {
+			setOpenedBlock(BLOCKS.main);
+		} else {
+			const widget = document.getElementById(ROOT_ID);
+			closeWidget(widget);
+		}
 	};
 
 	const showChip =
@@ -44,9 +52,23 @@ export const Header = () => {
 		PAGE_QUOTA_LIMIT &&
 		(violation > 0 || loading);
 
+	const isMainHeader =
+		openedBlock === BLOCKS.main || openedBlock === BLOCKS.management;
+
+	const headerData = () => {
+		switch (openedBlock) {
+			case BLOCKS.main:
+				return <ScanStats />;
+			case BLOCKS.management:
+				return <ManagementStats />;
+			default:
+				return <Breadcrumbs />;
+		}
+	};
+
 	const content = (
 		<>
-			{openedBlock === BLOCKS.main && (
+			{isMainHeader && (
 				<TitleBox
 					sx={{ mb: window.ea11yScannerData?.isConnected && !isError ? 2 : 0 }}
 				>
@@ -64,7 +86,7 @@ export const Header = () => {
 				</TitleBox>
 			)}
 
-			{openedBlock === BLOCKS.main ? <ScanStats /> : <Breadcrumbs />}
+			{headerData()}
 		</>
 	);
 
@@ -78,32 +100,46 @@ export const Header = () => {
 						alignItems="center"
 					>
 						<Box display="flex" alignItems="center" gap={1}>
-							<Logo />
+							{openedBlock === BLOCKS.management ? (
+								<>
+									<SettingsIcon size="small" color="action" />
+									<StyledTitle variant="subtitle1">
+										{__('Manage fixes', 'pojo-accessibility')}
+									</StyledTitle>
+								</>
+							) : (
+								<>
+									<Logo />
 
-							<StyledTitle variant="subtitle1">
-								{__('Accessibility Assistant', 'pojo-accessibility')}
+									<StyledTitle variant="subtitle1">
+										{__('Accessibility Assistant', 'pojo-accessibility')}
 
-								<Chip
-									size="small"
-									variant="filled"
-									color="default"
-									label={__('Beta', 'pojo-accessibility')}
-								/>
-							</StyledTitle>
+										<Chip
+											size="small"
+											variant="filled"
+											color="default"
+											label={__('Beta', 'pojo-accessibility')}
+										/>
+									</StyledTitle>
+								</>
+							)}
 						</Box>
 
-						<IconButton
-							onClick={onClose}
-							aria-label={__('Close', 'pojo-accessibility')}
-						>
-							<XIcon />
-						</IconButton>
+						<Box display="flex" gap={1}>
+							{openedBlock !== BLOCKS.management && <DropdownMenu />}
+							<IconButton
+								onClick={onClose}
+								aria-label={__('Close', 'pojo-accessibility')}
+							>
+								<XIcon />
+							</IconButton>
+						</Box>
 					</Box>
 				</HeaderContent>
 			</Paper>
 			{showMainBlock && (
 				<HeaderContent>
-					{openedBlock === BLOCKS.main ? (
+					{isMainHeader ? (
 						<HeaderCard>
 							<HeaderContent>{content}</HeaderContent>
 						</HeaderCard>

@@ -81,6 +81,8 @@ const App = () => {
 		switch (openedBlock) {
 			case BLOCKS.main:
 				return <MainLayout />;
+			case BLOCKS.management:
+				return <MainLayout />;
 			case BLOCKS.altText:
 				return <AltTextLayout />;
 			default:

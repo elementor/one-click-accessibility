@@ -59,4 +59,11 @@ export class APIScanner extends API {
 			data,
 		});
 	}
+
+	static async getRemediations(url) {
+		return APIScanner.request({
+			method: 'GET',
+			path: `${v1Prefix}/remediation/items?url=${url}`,
+		});
+	}
 }
