@@ -131,8 +131,29 @@ class Items extends Route_Base {
 				return $error;
 			}
 
-			$ids = $request->get_json_params();
-			Remediation_Entry::disable_remediations( $ids );
+                        $ids = $request->get_json_params();
+
+                        // Validate that $ids is an array and contains only integers
+                        if ( ! is_array( $ids ) ) {
+                          return $this->respond_error_json( [
+                            'message' => 'Invalid input: expected array of integers',
+                            'code' => 'invalid_input',
+                          ] );
+                        }
+
+                        foreach ( $ids as $id ) {
+                          if ( ! is_int( $id ) && ! ctype_digit( (string) $id ) ) {
+                            return $this->respond_error_json( [
+                              'message' => 'Invalid input: all values must be integers',
+                              'code' => 'invalid_input',
+                            ] );
+                          }
+                        }
+
+                        // Convert string numbers to integers
+                        $ids = array_map( 'intval', $ids );
+
+                        Remediation_Entry::disable_remediations( $ids );
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation disabled',
