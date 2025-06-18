@@ -104,7 +104,18 @@ class Remediation_Entry extends Entry {
 		// Convert array to comma-separated string
 		$id_list = implode( ',', $ids );
 
-		$query = 'UPDATE `' . Remediation_Table::table_name() . '` SET ' . Remediation_Table::ACTIVE . ' = 0 WHERE `' . Remediation_Table::ID . '` IN(' . $id_list . ')';
-		Remediation_Table::query( $query );
+                $where = [
+                  [
+                    'column' => Remediation_Table::ID,
+                    'value' => $ids,
+                    'operator' => 'IN',
+                  ],
+                ];
+
+                $data = [
+                  Remediation_Table::ACTIVE => 0,
+                ];
+
+                Remediation_Table::update( $data, $where );
 	}
 }
