@@ -10,20 +10,9 @@ import {
 } from '@ea11y/components';
 import { __ } from '@wordpress/i18n';
 
-const StyledGrid = styled(Grid)`
-	display: grid;
-	gap: ${({ theme }) => theme.spacing(5)};
-	padding: ${({ theme }) => theme.spacing(2)};
-	grid-template-columns: repeat(2, 1fr);
-
-	${({ theme }) => theme.breakpoints.down('lg')} {
-		grid-template-columns: repeat(1, 1fr);
-	}
-`;
-
 const IconDesignSettings = (props) => {
 	return (
-		<Grid padding={2} border={1} borderColor="divider" {...props}>
+		<StyledWrapper {...props}>
 			<Box marginBottom={2}>
 				<Typography variant="subtitle1">
 					{__('Style', 'pojo-accessibility')}
@@ -50,8 +39,27 @@ const IconDesignSettings = (props) => {
 			<StyledGrid>
 				<IconRadius />
 			</StyledGrid>
-		</Grid>
+		</StyledWrapper>
 	);
 };
 
 export default IconDesignSettings;
+
+const StyledWrapper = styled(Box)`
+	padding: ${({ theme }) => theme.spacing(2)};
+	border: 1px solid ${({ theme }) => theme.palette.divider};
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1200px;
+`;
+
+const StyledGrid = styled(Grid)`
+	display: grid;
+	gap: ${({ theme }) => theme.spacing(5)};
+	padding: ${({ theme }) => theme.spacing(2)};
+	grid-template-columns: repeat(2, 1fr);
+
+	${({ theme }) => theme.breakpoints.down('lg')} {
+		grid-template-columns: repeat(1, 1fr);
+	}
+`;

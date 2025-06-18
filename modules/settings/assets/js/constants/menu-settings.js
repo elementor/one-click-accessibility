@@ -18,6 +18,7 @@ export const MENU_SETTINGS = {
 			'screen-reader': FEATURE_MAPPER['screen-reader'],
 			sitemap: FEATURE_MAPPER.sitemap,
 			'reading-mask': FEATURE_MAPPER['reading-mask'],
+			'language-selector': FEATURE_MAPPER['language-selector'],
 			'hide-images': FEATURE_MAPPER['hide-images'],
 			'pause-animations': FEATURE_MAPPER['pause-animations'],
 			'highlight-links': FEATURE_MAPPER['highlight-links'],

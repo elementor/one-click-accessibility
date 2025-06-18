@@ -56,6 +56,13 @@ const MyAccountMenu = () => {
 		openLink(GOLINKS.HELP);
 	};
 
+	const handleWhatsNewButtonClick = () => {
+		mixpanelService.sendEvent(eventNames.menuButtonClicked, {
+			buttonName: 'Whats new?',
+		});
+		open();
+	};
+
 	return (
 		<>
 			<List
@@ -93,7 +100,10 @@ const MyAccountMenu = () => {
 					</ListItemIcon>
 				</StyledListItemButton>
 
-				<StyledListItemButton shape="rounded" onClick={open}>
+				<StyledListItemButton
+					shape="rounded"
+					onClick={handleWhatsNewButtonClick}
+				>
 					<SpeakerphoneIconWrapper
 						sx={{
 							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '6px',
