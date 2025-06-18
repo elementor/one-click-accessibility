@@ -4,8 +4,8 @@ import { AnalyticsToggle, ChartsList } from '@ea11y/components/analytics';
 import UpgradeModal from '@ea11y/components/upgrade-modal';
 import {
 	StyledBox,
-	StyledContainer,
 	StyledTitle,
+	StyledWideBox,
 } from '@ea11y/pages/pages.styles';
 import { eventNames, mixpanelService } from '@ea11y/services';
 import { useEffect } from '@wordpress/element';
@@ -23,7 +23,7 @@ const Analytics = () => {
 
 	return (
 		<StyledBox sx={{ position: 'relative' }}>
-			<StyledContainer>
+			<StyledWideBox>
 				<StyledWrap>
 					<StyledTitle
 						variant="h4"
@@ -35,7 +35,7 @@ const Analytics = () => {
 					<AnalyticsToggle />
 				</StyledWrap>
 				<ChartsList />
-			</StyledContainer>
+			</StyledWideBox>
 			{!isProVersion && (
 				<Blur>
 					<UpgradeModal />
@@ -59,7 +59,11 @@ const StyledWrap = styled(Box)`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	max-width: 1200px;
+
 	margin-bottom: 40px;
+	margin-right: auto;
+	margin-left: auto;
 `;
 
 export default Analytics;
