@@ -79,17 +79,38 @@ class Remediation_Entry extends Entry {
 		return Remediation_Table::select( $select, $where );
 	}
 
-    public static function get_all_remediations( int $period ) : array {
-        $date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
+	public static function get_all_remediations( int $period ) : array {
+		$date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
 
-        $where = [
-            [
-                'column'   => Remediation_Table::CREATED_AT,
-                'value'    => $date_threshold,
-                'operator' => '>=',
-            ],
-        ];
+		$where = [
+			[
+				'column' => Remediation_Table::CREATED_AT,
+				'value' => $date_threshold,
+				'operator' => '>=',
+			],
+		];
 
-        return Remediation_Table::select( '*', $where );
-    }
+		return Remediation_Table::select( '*', $where );
+	}
+
+	/**
+	 * @param array $ids
+	 *
+	 * @return void
+	 */
+	public static function disable_remediations( array $ids ): void {
+		$where = [
+			[
+				'column' => Remediation_Table::ID,
+				'value' => $ids,
+				'operator' => 'IN',
+			],
+		];
+
+		$data = [
+			Remediation_Table::ACTIVE => 0,
+		];
+
+		Remediation_Table::update( $data, $where );
+	}
 }

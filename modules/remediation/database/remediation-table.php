@@ -16,6 +16,8 @@ class Remediation_Table extends Table {
 	const ID = 'id';
 	const URL = 'url';
 	const CATEGORY = 'category';
+	const RULE = 'rule';
+	const GROUP = 'group';
 	const CONTENT = 'content';
 	const ACTIVE = 'active';
 	const CREATED_AT = 'created_at';
@@ -44,6 +46,20 @@ class Remediation_Table extends Table {
 			],
 			self::CATEGORY => [
 				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 3 ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					'\'\'',
+				] ),
+			],
+			self::RULE => [
+				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 128 ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					'\'\'',
+				] ),
+			],
+			self::GROUP => [
+				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 128 ),
 				'flags' => Database_Constants::build_flags_string( [
 					Database_Constants::DEFAULT,
 					'\'\'',

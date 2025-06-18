@@ -111,7 +111,7 @@ export const ResolveWithAi = ({ item, current }) => {
 					<AIHeader>
 						<AITitle>
 							<AIIcon />
-							<Typography variant="subtitle1">
+							<Typography variant="subtitle2">
 								{__('Resolve with AI', 'pojo-accessibility')}
 							</Typography>
 							{aiSuggestion?.explanation && (

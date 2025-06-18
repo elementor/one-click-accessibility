@@ -56,7 +56,7 @@ export const InfotipFooter = styled(Box)`
 export const AIHeader = styled(Box)`
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	margin-bottom: ${({ theme }) => theme.spacing(1)};
 	min-height: 32px;
 `;
 
