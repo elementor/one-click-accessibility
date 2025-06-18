@@ -99,23 +99,18 @@ class Remediation_Entry extends Entry {
 	 * @return void
 	 */
 	public static function disable_remediations( array $ids ): void {
-		// Sanitize IDs to ensure they're integers
-		$ids = array_map( 'intval', $ids );
-		// Convert array to comma-separated string
-		$id_list = implode( ',', $ids );
+		$where = [
+			[
+				'column' => Remediation_Table::ID,
+				'value' => $ids,
+				'operator' => 'IN',
+			],
+		];
 
-                $where = [
-                  [
-                    'column' => Remediation_Table::ID,
-                    'value' => $ids,
-                    'operator' => 'IN',
-                  ],
-                ];
+		$data = [
+			Remediation_Table::ACTIVE => 0,
+		];
 
-                $data = [
-                  Remediation_Table::ACTIVE => 0,
-                ];
-
-                Remediation_Table::update( $data, $where );
+		Remediation_Table::update( $data, $where );
 	}
 }
