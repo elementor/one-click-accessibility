@@ -84,9 +84,5 @@ const StyledWrapper = styled(Grid)`
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	margin-left: auto;
 	margin-right: auto;
-	width: 50%;
-
-	${({ theme }) => theme.breakpoints.down('xl')} {
-		width: 100%;
-	}
+	max-width: 1200px;
 `;
