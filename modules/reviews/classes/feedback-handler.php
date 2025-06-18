@@ -36,7 +36,7 @@ class Feedback_Handler {
 			$params
 		);
 
-		if ( empty( $response ) || is_wp_error( $response ) ) {
+		if ( is_wp_error( $response ) ) {
 			throw new Exception( 'Failed to add the feedback.' );
 		}
 
