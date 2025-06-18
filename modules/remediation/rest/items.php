@@ -43,7 +43,7 @@ class Items extends Route_Base {
 			$remediations = Remediation_Entry::get_page_remediations( $url );
 
 			return $this->respond_success_json( [
-				'message' => 'Remediation disabled',
+				'message' => 'Remediations received successfully',
 				'data'    => $remediations,
 			] );
 		} catch ( Throwable $t ) {
