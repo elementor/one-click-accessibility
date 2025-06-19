@@ -7,7 +7,7 @@ Requires PHP: 7.4
 Stable tag: 3.4.0
 License: GPLv2 or later
 
-Ally is a web accessibility plugin that enhances usability, offers custom controls, and auto-generates accessibility statements to help meet WCAG guidelines.
+Ally: A web accessibility plugin enhancing usability with custom controls and auto-generated accessibility statements to meet WCAG guidelines.
 
 == Description ==
 
