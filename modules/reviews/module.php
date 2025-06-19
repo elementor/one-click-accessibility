@@ -143,7 +143,7 @@ class Module extends Module_Base {
 				return false;
 			}
 
-			if ( $review_data['hide_for_days'] > 0 && isset( $review_data['hide_for_days'] ) ) {
+                        if ( isset( $review_data['hide_for_days'] ) && $review_data['hide_for_days'] > 0 ) {
 				$hide_for_days = $review_data['hide_for_days'];
 				$last_dismiss = strtotime( $review_data['last_dismiss'] );
 				$days_since_dismiss = floor( ( time() - $last_dismiss ) / DAY_IN_SECONDS );
