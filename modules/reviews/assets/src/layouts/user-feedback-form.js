@@ -70,16 +70,20 @@ const UserFeedbackForm = () => {
 
 	const handleSubmit = async (close, avoidClosing = false) => {
 		try {
-			await API.sendFeedback({ rating, feedback }).then(async () => {
-				await save({
-					ea11y_review_data: {
-						...get.data.ea11y_review_data,
-						rating: parseInt(rating),
-						feedback: escapeHTML(feedback),
-						submitted: true,
-					},
-				});
-			});
+			const response = await API.sendFeedback({ rating, feedback }).then(
+				async (res) => {
+					await save({
+						ea11y_review_data: {
+							...get.data.ea11y_review_data,
+							rating: parseInt(rating),
+							feedback: escapeHTML(feedback),
+							submitted: true,
+						},
+					});
+
+					return res;
+				},
+			);
 
 			if (rating && !feedback) {
 				mixpanelService.sendEvent(eventNames.review.starSelected, {
@@ -92,6 +96,14 @@ const UserFeedbackForm = () => {
 					feedback_text: escapeHTML(feedback),
 					rating: parseInt(rating),
 				});
+			}
+
+			if (!response?.success) {
+				/**
+				 * Show success message if the feedback was already submitted.
+				 */
+				success(__('Feedback already submitted', 'image-optimization'));
+				return true;
 			}
 
 			if (!avoidClosing) {
