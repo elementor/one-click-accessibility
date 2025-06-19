@@ -102,14 +102,15 @@ const UserFeedbackForm = () => {
 				/**
 				 * Show success message if the feedback was already submitted.
 				 */
-				success(__('Feedback already submitted', 'image-optimization'));
-				return true;
+				await success(__('Feedback already submitted', 'image-optimization'));
+			} else {
+				await success(__('Thank you for your feedback!', 'pojo-accessibility'));
 			}
 
 			if (!avoidClosing) {
 				await close();
 			}
-			await success(__('Thank you for your feedback!', 'pojo-accessibility'));
+
 			return true;
 		} catch (e) {
 			error(__('Failed to submit!', 'pojo-accessibility'));
