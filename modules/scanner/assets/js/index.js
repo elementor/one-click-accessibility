@@ -22,17 +22,17 @@ document.addEventListener('DOMContentLoaded', function () {
 	if (params.get(SCANNER_URL_PARAM) === '1') {
 		initApp();
 	}
-});
 
-TOP_BAR_LINK.addEventListener('click', (event) => {
-	event.preventDefault();
-	const rootNode = document.getElementById(ROOT_ID);
+	TOP_BAR_LINK.addEventListener('click', (event) => {
+		event.preventDefault();
+		const rootNode = document.getElementById(ROOT_ID);
 
-	if (rootNode) {
-		closeWidget(rootNode);
-	} else {
-		initApp();
-	}
+		if (rootNode) {
+			closeWidget(rootNode);
+		} else {
+			initApp();
+		}
+	});
 });
 
 const initApp = () => {
