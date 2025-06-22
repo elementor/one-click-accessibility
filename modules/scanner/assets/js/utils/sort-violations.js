@@ -18,3 +18,11 @@ export const sortViolations = (violations) => {
 
 	return sorted;
 };
+
+export const sortRemediation = (remediations) => {
+	const sorted = structuredClone(INITIAL_SORTED_VIOLATIONS);
+	remediations.forEach((remediation) => {
+		sorted[remediation.group].push(remediation);
+	});
+	return sorted;
+};

@@ -17,7 +17,7 @@ import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const { getResults, setOpenedBlock } = useScannerWizardContext();
+	const { getResults, setOpenedBlock, setIsManage } = useScannerWizardContext();
 	const [isOpened, setIsOpened] = useState(false);
 	const anchorEl = useRef(null);
 
@@ -39,6 +39,7 @@ export const DropdownMenu = () => {
 
 	const goToManagement = () => {
 		handleClose();
+		setIsManage(true);
 		setOpenedBlock(BLOCKS.management);
 	};
 

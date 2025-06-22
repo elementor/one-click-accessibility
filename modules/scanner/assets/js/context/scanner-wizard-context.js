@@ -11,7 +11,10 @@ import {
 	focusOnElement,
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
-import { sortViolations } from '@ea11y-apps/scanner/utils/sort-violations';
+import {
+	sortRemediation,
+	sortViolations,
+} from '@ea11y-apps/scanner/utils/sort-violations';
 import {
 	createContext,
 	useContext,
@@ -26,7 +29,9 @@ export const ScannerWizardContext = createContext({
 	openedBlock: '',
 	loading: null,
 	isError: false,
+	isManage: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
+	sortedRemediation: INITIAL_SORTED_VIOLATIONS,
 	altTextData: [],
 	manualData: {},
 	violation: null,
@@ -36,6 +41,7 @@ export const ScannerWizardContext = createContext({
 	getResults: () => {},
 	setAltTextData: () => {},
 	setManualData: () => {},
+	setIsManage: () => {},
 	isResolved: () => {},
 	handleOpen: () => {},
 	setOpenIndex: () => {},
@@ -47,10 +53,14 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [sortedViolations, setSortedViolations] = useState(
 		INITIAL_SORTED_VIOLATIONS,
 	);
+	const [sortedRemediation, setSortedRemediation] = useState(
+		INITIAL_SORTED_VIOLATIONS,
+	);
 	const [resolved, setResolved] = useState(0);
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
+	const [isManage, setIsManage] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 	const [openIndex, setOpenIndex] = useState(null);
@@ -75,7 +85,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					const filteredRemediations = items.data.filter(
 						(remediation) => remediation.group !== BLOCKS.altText,
 					);
+					const sorted = sortRemediation(filteredRemediations);
 					setRemediations(filteredRemediations);
+					setSortedRemediation(sorted);
 				})
 				.catch(() => setIsError(true))
 				.finally(() => setLoading(false));
@@ -194,7 +206,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				openedBlock,
 				loading,
 				isError,
+				isManage,
 				sortedViolations,
+				sortedRemediation,
 				altTextData,
 				manualData,
 				violation,
@@ -203,6 +217,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				getResults,
 				setAltTextData,
 				setManualData,
+				setIsManage,
 				openIndex,
 				setOpenIndex,
 				isResolved,

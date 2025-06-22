@@ -19,14 +19,16 @@ export const Breadcrumbs = () => {
 	const {
 		openedBlock,
 		sortedViolations,
+		sortedRemediation,
 		setOpenedBlock,
 		altTextData,
 		manualData,
+		isManage,
 	} = useScannerWizardContext();
 
 	const handleClick = () => {
 		removeExistingFocus();
-		setOpenedBlock(BLOCKS.main);
+		setOpenedBlock(isManage ? BLOCKS.management : BLOCKS.main);
 	};
 
 	const itemsData =
@@ -34,6 +36,11 @@ export const Breadcrumbs = () => {
 
 	const resolved =
 		itemsData?.filter((item) => item?.resolved === true).length || 0;
+
+	const items = isManage ? sortedRemediation : sortedViolations;
+	const count = isManage
+		? items[openedBlock].length
+		: items[openedBlock].length - resolved;
 
 	return (
 		<Box>
@@ -65,10 +72,10 @@ export const Breadcrumbs = () => {
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>
 					)}
-					{sortedViolations[openedBlock].length > 0 && (
+					{items[openedBlock].length > 0 && (
 						<Chip
-							label={sortedViolations[openedBlock].length - resolved}
-							color="error"
+							label={count}
+							color={isManage ? 'info' : 'error'}
 							variant="standard"
 							size="small"
 							sx={{ fontWeight: 500 }}

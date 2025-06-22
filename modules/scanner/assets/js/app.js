@@ -4,7 +4,7 @@ import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notificati
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
 import { Header } from '@ea11y-apps/scanner/components/header';
-import { Loader } from '@ea11y-apps/scanner/components/main-list/loader';
+import { Loader } from '@ea11y-apps/scanner/components/list-loader';
 import { NotConnectedMessage } from '@ea11y-apps/scanner/components/not-connected-message';
 import { QuotaMessage } from '@ea11y-apps/scanner/components/quota-message';
 import { ResolvedMessage } from '@ea11y-apps/scanner/components/resolved-message';
@@ -13,6 +13,7 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import {
 	AltTextLayout,
 	MainLayout,
+	ManageLayout,
 	ManualLayout,
 } from '@ea11y-apps/scanner/layouts';
 import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
@@ -21,8 +22,15 @@ import { useEffect, useState } from '@wordpress/element';
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
-	const { setOpenedBlock, violation, resolved, openedBlock, isError, loading } =
-		useScannerWizardContext();
+	const {
+		setOpenedBlock,
+		violation,
+		resolved,
+		openedBlock,
+		isManage,
+		isError,
+		loading,
+	} = useScannerWizardContext();
 	const [showIssues, setShowIssues] = useState(false);
 
 	const showResolvedMessage = Boolean(
@@ -82,11 +90,11 @@ const App = () => {
 			case BLOCKS.main:
 				return <MainLayout />;
 			case BLOCKS.management:
-				return <MainLayout />;
+				return <ManageLayout />;
 			case BLOCKS.altText:
 				return <AltTextLayout />;
 			default:
-				return <ManualLayout />;
+				return isManage ? null : <ManualLayout />;
 		}
 	};
 

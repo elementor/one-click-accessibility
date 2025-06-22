@@ -27,11 +27,18 @@ import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { __ } from '@wordpress/i18n';
 
 export const Header = () => {
-	const { openedBlock, results, loading, isError, setOpenedBlock } =
-		useScannerWizardContext();
+	const {
+		openedBlock,
+		results,
+		loading,
+		isError,
+		setOpenedBlock,
+		setIsManage,
+	} = useScannerWizardContext();
 	const violation = results?.summary?.counts?.violation;
 	const onClose = () => {
 		if (openedBlock === BLOCKS.management) {
+			setIsManage(false);
 			setOpenedBlock(BLOCKS.main);
 		} else {
 			const widget = document.getElementById(ROOT_ID);
