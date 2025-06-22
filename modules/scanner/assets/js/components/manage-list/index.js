@@ -14,7 +14,8 @@ export const ManageList = () => {
 				}
 
 				const resolved =
-					sortedRemediation[key].filter((item) => item.active).length || 0;
+					sortedRemediation[key].filter((item) => Number(item.active)).length ||
+					0;
 
 				return (
 					<BlockButton

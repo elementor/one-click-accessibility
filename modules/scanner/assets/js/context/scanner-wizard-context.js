@@ -11,6 +11,7 @@ import {
 	focusOnElement,
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
+import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 import {
 	sortRemediation,
 	sortViolations,
@@ -34,6 +35,7 @@ export const ScannerWizardContext = createContext({
 	sortedRemediation: INITIAL_SORTED_VIOLATIONS,
 	altTextData: [],
 	manualData: {},
+	remediationData: {},
 	violation: null,
 	openIndex: null,
 	setOpenedBlock: () => {},
@@ -41,6 +43,7 @@ export const ScannerWizardContext = createContext({
 	getResults: () => {},
 	setAltTextData: () => {},
 	setManualData: () => {},
+	setRemediationData: () => {},
 	setIsManage: () => {},
 	isResolved: () => {},
 	handleOpen: () => {},
@@ -63,15 +66,27 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [isManage, setIsManage] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
+	const [remediationData, setRemediationData] = useState(
+		structuredClone(MANUAL_GROUPS),
+	);
 	const [openIndex, setOpenIndex] = useState(null);
 
 	useEffect(() => {
+		const items = isManage
+			? sortedRemediation[openedBlock]
+			: sortedViolations[openedBlock];
 		if (
 			openIndex !== null &&
 			sortedViolations[openedBlock]?.length &&
-			openIndex < sortedViolations[openedBlock]?.length
+			openIndex < items?.length
 		) {
-			focusOnElement(sortedViolations[openedBlock][openIndex].node);
+			const element = isManage
+				? getElementByXPath(
+						JSON.parse(sortedRemediation[openedBlock][openIndex].content)
+							?.xpath,
+					)
+				: sortedViolations[openedBlock][openIndex].node;
+			focusOnElement(element);
 		} else {
 			removeExistingFocus();
 		}
@@ -96,12 +111,19 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const handleOpen = (index, item) => (event, isExpanded) => {
 		setOpenIndex(isExpanded ? index : null);
-		mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
-			issue_type: item.message,
-			rule_id: item.ruleId,
-			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
-			category_name: BLOCK_TITLES[openedBlock],
-		});
+		if (!isManage) {
+			mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
+				issue_type: item.message,
+				rule_id: item.ruleId,
+				wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+				category_name: BLOCK_TITLES[openedBlock],
+			});
+		}
+	};
+
+	const handleOpenBlock = (block) => {
+		setOpenedBlock(block);
+		setOpenIndex(null);
 	};
 
 	const initialViolations =
@@ -211,12 +233,14 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				sortedRemediation,
 				altTextData,
 				manualData,
+				remediationData,
 				violation,
-				setOpenedBlock,
+				setOpenedBlock: handleOpenBlock,
 				setResolved,
 				getResults,
 				setAltTextData,
 				setManualData,
+				setRemediationData,
 				setIsManage,
 				openIndex,
 				setOpenIndex,

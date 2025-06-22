@@ -6,7 +6,7 @@ import { ManageList } from '@ea11y-apps/scanner/components/manage-list';
 import { ManageRemediationButtons } from '@ea11y-apps/scanner/components/manage-remediation-buttons';
 import { __ } from '@wordpress/i18n';
 
-export const ManageLayout = () => {
+export const ManageMainLayout = () => {
 	return (
 		<StyledContent>
 			<ManageHeader>

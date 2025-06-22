@@ -32,6 +32,7 @@ export const Header = () => {
 		results,
 		loading,
 		isError,
+		isManage,
 		setOpenedBlock,
 		setIsManage,
 	} = useScannerWizardContext();
@@ -107,7 +108,7 @@ export const Header = () => {
 						alignItems="center"
 					>
 						<Box display="flex" alignItems="center" gap={1}>
-							{openedBlock === BLOCKS.management ? (
+							{isManage ? (
 								<>
 									<SettingsIcon size="small" color="action" />
 									<StyledTitle variant="subtitle1">
@@ -133,7 +134,7 @@ export const Header = () => {
 						</Box>
 
 						<Box display="flex" gap={1}>
-							{openedBlock !== BLOCKS.management && <DropdownMenu />}
+							{!isManage && <DropdownMenu />}
 							<IconButton
 								onClick={onClose}
 								aria-label={__('Close', 'pojo-accessibility')}

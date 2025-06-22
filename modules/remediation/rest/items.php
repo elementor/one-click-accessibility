@@ -4,7 +4,6 @@ namespace EA11y\Modules\Remediation\Rest;
 
 use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Remediation\Classes\Route_Base;
-use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use EA11y\Modules\Remediation\Database\Remediation_Table;
 use Throwable;
@@ -67,14 +66,6 @@ class Items extends Route_Base {
 				return $error;
 			}
 			$url = esc_url( $request->get_param( 'url' ) );
-			$page = $this->get_page_entry( $url );
-
-			if ( ! $page ) {
-				return $this->respond_error_json( [
-					'message' => 'Missing page',
-					'code' => 'page_not_found',
-				] );
-			}
 
 			$remediation_data = (array) $request->get_param( 'remediation' );
 			$rule = sanitize_text_field( $request->get_param( 'rule' ) );
@@ -91,10 +82,9 @@ class Items extends Route_Base {
 				],
 			] );
 
-			$page->__set( Page_Table::FULL_HTML, null );
+			$this->clear_cache( $url );
 
 			$remediation->save();
-			$page->save();
 
 			if ( $api_id ) {
 				Global_Utils::get_api_client()->make_request(
@@ -108,7 +98,6 @@ class Items extends Route_Base {
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation added',
-				'data' => $page->to_json(),
 			] );
 		} catch ( Throwable $t ) {
 			return $this->respond_error_json( [
@@ -131,31 +120,14 @@ class Items extends Route_Base {
 				return $error;
 			}
 
-			$ids = $request->get_json_params();
-			// Validate that $ids is an array and contains only integers
-			if ( ! is_array( $ids ) ) {
-				return $this->respond_error_json( [
-					'message' => 'Invalid input: expected array of integers',
-					'code' => 'invalid_input',
-				] );
-			}
+			$url = esc_url( $request->get_param( 'url' ) );
+			$active = filter_var( $request->get_param( 'active' ), FILTER_VALIDATE_BOOLEAN );
 
-			foreach ( $ids as $id ) {
-				if ( ! is_int( $id ) && ! ctype_digit( (string) $id ) ) {
-					return $this->respond_error_json( [
-						'message' => 'Invalid input: all values must be integers',
-						'code' => 'invalid_input',
-					] );
-				}
-			}
-
-			// Convert string numbers to integers
-			$ids = array_map( 'intval', $ids );
-
-			Remediation_Entry::disable_remediations( $ids );
+			Remediation_Entry::update_remediations_status( $url, $active );
+			$this->clear_cache( $url );
 
 			return $this->respond_success_json( [
-				'message' => 'Remediation disabled',
+				'message' => 'Remediations status updated successfully',
 			] );
 		} catch ( Throwable $t ) {
 			return $this->respond_error_json( [
@@ -178,8 +150,9 @@ class Items extends Route_Base {
 				return $error;
 			}
 
-			$id = sanitize_text_field( $request->get_json_params() );
-			Remediation_Entry::remove( $id );
+			$url = esc_url( $request->get_param( 'url' ) );
+			Remediation_Entry::remove_per_page( $url );
+			$this->clear_cache( $url );
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation deleted successfully',

@@ -13,8 +13,9 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import {
 	AltTextLayout,
 	MainLayout,
-	ManageLayout,
+	ManageMainLayout,
 	ManualLayout,
+	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
 import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
@@ -90,11 +91,11 @@ const App = () => {
 			case BLOCKS.main:
 				return <MainLayout />;
 			case BLOCKS.management:
-				return <ManageLayout />;
+				return <ManageMainLayout />;
 			case BLOCKS.altText:
 				return <AltTextLayout />;
 			default:
-				return isManage ? null : <ManualLayout />;
+				return isManage ? <RemediationLayout /> : <ManualLayout />;
 		}
 	};
 

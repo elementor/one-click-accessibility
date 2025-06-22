@@ -53,4 +53,17 @@ class Route_Base extends Route {
 		}
 		return $page_entry;
 	}
+
+	/**
+	 * @throws Missing_Table_Exception
+	 */
+	public function clear_cache( string $url ) : void {
+		$page = $this->get_page_entry( $url );
+		if ( ! $page ) {
+			throw new Missing_Table_Exception( 'Page entry not found' );
+		}
+
+		$page->__set( Page_Table::FULL_HTML, null );
+		$page->save();
+	}
 }

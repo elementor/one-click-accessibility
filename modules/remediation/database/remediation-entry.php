@@ -44,11 +44,27 @@ class Remediation_Entry extends Entry {
 	}
 
 	/**
-	 * Remove
+	 * Remove per page
+	 *
+	 * @param string $url
+	 */
+	public static function remove_per_page( string $url ) {
+		$where = [
+			[
+				'column' => Remediation_Table::URL,
+				'value' => $url,
+				'operator' => '=',
+			],
+		];
+		Remediation_Table::delete( $where );
+	}
+
+	/**
+	 * Remove by id
 	 *
 	 * @param string $id
 	 */
-	public static function remove( string $id ) {
+	public static function remove_by_id( string $id ) {
 		$where = [
 			[
 				'column' => Remediation_Table::ID,
@@ -94,21 +110,22 @@ class Remediation_Entry extends Entry {
 	}
 
 	/**
-	 * @param array $ids
+	 * @param string $url
+	 * @param bool $status
 	 *
 	 * @return void
 	 */
-	public static function disable_remediations( array $ids ): void {
+	public static function update_remediations_status( string $url, bool $status ): void {
 		$where = [
 			[
-				'column' => Remediation_Table::ID,
-				'value' => $ids,
-				'operator' => 'IN',
+				'column' => Remediation_Table::URL,
+				'value' => $url,
+				'operator' => '=',
 			],
 		];
 
 		$data = [
-			Remediation_Table::ACTIVE => 0,
+			Remediation_Table::ACTIVE => $status,
 		];
 
 		Remediation_Table::update( $data, $where );

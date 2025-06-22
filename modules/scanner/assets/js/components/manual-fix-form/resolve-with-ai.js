@@ -20,6 +20,7 @@ import {
 	IS_AI_ENABLED,
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
@@ -35,17 +36,12 @@ import { __ } from '@wordpress/i18n';
 
 export const ResolveWithAi = ({ item, current }) => {
 	const { manualData, openedBlock } = useScannerWizardContext();
-	const {
-		getAISuggestion,
-		copyToClipboard,
-		resolveIssue,
-		copied,
-		aiResponseLoading,
-		resolving,
-	} = useManualFixForm({
-		item,
-		current,
-	});
+	const { copied, copyToClipboard } = useCopyToClipboard();
+	const { getAISuggestion, resolveIssue, aiResponseLoading, resolving } =
+		useManualFixForm({
+			item,
+			current,
+		});
 
 	const [openUpgrade, setOpenUpgrade] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);

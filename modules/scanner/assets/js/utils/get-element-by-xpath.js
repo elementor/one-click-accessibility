@@ -1,0 +1,14 @@
+export const getElementByXPath = (xpath, context = document) => {
+	try {
+		return document.evaluate(
+			xpath,
+			context,
+			null,
+			XPathResult.FIRST_ORDERED_NODE_TYPE,
+			null,
+		).singleNodeValue;
+	} catch (e) {
+		console.error(e);
+		return null;
+	}
+};

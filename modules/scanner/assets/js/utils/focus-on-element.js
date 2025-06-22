@@ -2,8 +2,10 @@ import { CURRENT_ELEMENT_CLASS } from '@ea11y-apps/scanner/constants';
 
 export const focusOnElement = (element) => {
 	removeExistingFocus();
-	element.classList.add(CURRENT_ELEMENT_CLASS);
-	element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	if (element) {
+		element.classList.add(CURRENT_ELEMENT_CLASS);
+		element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	}
 };
 
 export const removeExistingFocus = () => {

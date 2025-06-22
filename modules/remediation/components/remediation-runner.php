@@ -104,7 +104,7 @@ class Remediation_Runner {
 			if ( $remediation_class->dom ) {
 				$remediation_class->dom = $dom;
 			} else {
-				Remediation_Entry::remove( $item->id );
+				Remediation_Entry::remove_per_page( $item->id );
 			}
 		}
 

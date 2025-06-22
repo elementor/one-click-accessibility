@@ -23,10 +23,11 @@ const ConfirmDialog = ({
 	approveButtonDisabled = false,
 	showCloseButton = false,
 	dividers = false,
+	open = true,
 	...props
 }) => {
 	return (
-		<Dialog open onClose={onClose} {...props}>
+		<Dialog open={open} onClose={onClose} {...props}>
 			<DialogHeader logo={logo} onClose={showCloseButton ? onClose : false}>
 				<Typography variant="subtitle1">{title}</Typography>
 			</DialogHeader>
