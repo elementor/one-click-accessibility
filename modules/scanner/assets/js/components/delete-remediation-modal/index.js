@@ -39,11 +39,11 @@ export const DeleteRemediationModal = ({
 			<Typography variant="body2">
 				{isMain
 					? __(
-							'This removes the fix and marks the accessibility issue as unresolve. This can’t be undone.',
+							'This removes the fixes and marks the accessibility issues as unresolve. This can’t be undone.',
 							'pojo-accessibility',
 						)
 					: __(
-							'This removes the fixes and marks the accessibility issues as unresolve. This can’t be undone.',
+							'This removes the fix and marks the accessibility issue as unresolve. This can’t be undone.',
 							'pojo-accessibility',
 						)}
 			</Typography>
