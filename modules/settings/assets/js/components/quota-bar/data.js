@@ -21,5 +21,9 @@ export const QuotaBarData = {
 			'This is how many AI credits you’ve used to resolve issues or to generate content. Upgrade if you’re nearing your plan limit to keep full functionality.',
 			'pojo-accessibility',
 		),
+		lockedDescription: __(
+			'Upgrade your plan to unlock AI credits for generating alt‑text, one‑click accessibility fixes, and more.',
+			'pojo-accessibility',
+		),
 	},
 };
