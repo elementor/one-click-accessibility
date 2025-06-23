@@ -9,7 +9,7 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
-import { SUBSCRIPTION_LINK } from '@ea11y-apps/global/constants';
+import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useRef, useState } from '@wordpress/element';
@@ -70,7 +70,7 @@ export const DropdownMenu = () => {
 				</MenuItem>
 				<MenuItem
 					component="a"
-					href={SUBSCRIPTION_LINK}
+					href={ELEMENTOR_URL}
 					target="_blank"
 					rel="noreferrer"
 				>
