@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		initApp();
 	}
 
-	TOP_BAR_LINK.addEventListener('click', (event) => {
+	document.querySelector(TOP_BAR_LINK).addEventListener('click', (event) => {
 		event.preventDefault();
 		const rootNode = document.getElementById(ROOT_ID);
 		const url = new URL(window.location.href);

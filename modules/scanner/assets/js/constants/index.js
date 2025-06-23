@@ -1,8 +1,6 @@
 import { __ } from '@wordpress/i18n';
 
-export const TOP_BAR_LINK = document.querySelector(
-	'#wp-admin-bar-ea11y-scanner-wizard a',
-);
+export const TOP_BAR_LINK = '#wp-admin-bar-ea11y-scanner-wizard a';
 
 export const SCANNER_URL_PARAM = 'open-ea11y-assistant';
 export const ROOT_ID = 'ea11y-scanner-wizard-widget';
