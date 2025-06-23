@@ -123,3 +123,9 @@ export const ResolvedButtonsBox = styled(Box)`
 	width: 100%;
 	gap: ${({ theme }) => theme.spacing(1)};
 `;
+
+export const StyledBlockButtonsBox = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	gap: ${({ theme }) => theme.spacing(1)};
+`;

@@ -12,3 +12,4 @@ export const GOLINKS = {
 	LEARN_MORE_STATEMENT: 'https://go.elementor.com/acc-statement-learn-more',
 	UPGRADE: 'https://go.elementor.com/acc-upgrade',
 };
+export const ELEMENTOR_URL = 'https://my.elementor.com';

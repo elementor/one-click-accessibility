@@ -11,6 +11,9 @@ export const UpgradeInfoTip = ({ closeUpgrade, openUpgrade, children }) => {
 			disableFocusListener
 			disableHoverListener
 			disableTouchListener
+			PopperProps={{
+				disablePortal: true,
+			}}
 			content={<UpgradeContent closeUpgrade={closeUpgrade} />}
 		>
 			{children}

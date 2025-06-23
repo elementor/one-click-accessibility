@@ -23,6 +23,7 @@ export const ImagePreview = ({ element }) => {
 		// Remove inline styles from the cloned element
 		clone.removeAttribute('style');
 		clone.style.cssText = '';
+		clone.setAttribute('role', 'presentation');
 
 		previewRef.current.innerHTML = ''; // Clear previous
 		previewRef.current.appendChild(clone);

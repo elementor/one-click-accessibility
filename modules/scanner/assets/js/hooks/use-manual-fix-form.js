@@ -1,4 +1,3 @@
-import clipboardCopy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
@@ -20,10 +19,10 @@ export const useManualFixForm = ({ item, current }) => {
 		setResolved,
 		isResolved,
 		setOpenedBlock,
+		updateRemediationList,
 	} = useScannerWizardContext();
 	const { error } = useToastNotification();
 
-	const [copied, setCopied] = useState(false);
 	const [aiResponseLoading, setAiResponseLoading] = useState(false);
 	const [resolving, setResolving] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
@@ -74,16 +73,6 @@ export const useManualFixForm = ({ item, current }) => {
 		setOpenIndex(current + 1);
 	};
 
-	const copyToClipboard = (snippet, type) => async () => {
-		await clipboardCopy(snippet);
-		setCopied(true);
-		setTimeout(() => setCopied(false), 5000);
-		mixpanelService.sendEvent(mixpanelEvents.copySnippetClicked, {
-			snippet_type: type,
-			snippet_content: snippet,
-		});
-	};
-
 	const resolveIssue = async (manualEdit) => {
 		setResolving(true);
 		try {
@@ -108,6 +97,7 @@ export const useManualFixForm = ({ item, current }) => {
 				issue_type: item.message,
 				category_name: BLOCK_TITLES[openedBlock],
 			});
+			void updateRemediationList();
 		} catch (e) {
 			console.log(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -117,11 +107,9 @@ export const useManualFixForm = ({ item, current }) => {
 	};
 
 	return {
-		copied,
 		aiResponseLoading,
 		resolving,
 		markResolved,
-		copyToClipboard,
 		getAISuggestion,
 		resolveIssue,
 	};

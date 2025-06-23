@@ -1,8 +1,7 @@
-import Box from '@elementor/ui/Box';
-import { styled } from '@elementor/ui/styles';
 import { BlockButton } from '@ea11y-apps/scanner/components/block-button';
 import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { StyledBlockButtonsBox } from '@ea11y-apps/scanner/styles/app.styles';
 
 export const MainList = () => {
 	const { sortedViolations, altTextData, manualData } =
@@ -37,9 +36,3 @@ export const MainList = () => {
 		</StyledBlockButtonsBox>
 	) : null;
 };
-
-const StyledBlockButtonsBox = styled(Box)`
-	display: flex;
-	flex-direction: column;
-	gap: ${({ theme }) => theme.spacing(1)};
-`;

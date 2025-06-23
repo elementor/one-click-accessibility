@@ -26,6 +26,7 @@ class Module extends Module_Base {
 			'Register',
 			'Set_Alt_Text',
 			'Items',
+			'Item',
 		];
 	}
 

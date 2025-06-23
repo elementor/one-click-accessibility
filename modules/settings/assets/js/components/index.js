@@ -25,7 +25,7 @@ export { default as PositionSettingsWrapper } from './position-settings-wrapper'
 export { default as CapabilitiesItem } from './capabilities-item';
 export { default as ProItemInfotip } from './capabilities-item/pro-item-infotip';
 export { default as CustomSwitch } from './switch';
-export { default as ConfirmDialog } from './confirm-dialog';
+export { default as ConfirmDialog } from '@ea11y-apps/global/components/confirm-dialog';
 export { default as UrlMismatchModal } from './url-mismatch-modal';
 export { default as WidgetIcon } from './widget-icon';
 export { default as CustomIcon } from './custom-icon';

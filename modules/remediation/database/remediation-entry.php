@@ -46,19 +46,15 @@ class Remediation_Entry extends Entry {
 	/**
 	 * Remove
 	 *
-	 * @param string $id
+	 * @param string $by
+	 * @param string $by_value
 	 */
-	public static function remove( string $id ) {
+	public static function remove( string $by, string $by_value ) {
 		$where = [
-			[
-				'column' => Remediation_Table::ID,
-				'value' => $id,
-				'operator' => '=',
-			],
+			$by => $by_value,
 		];
 		Remediation_Table::delete( $where );
 	}
-
 
 	/**
 	 *  get_page_remediations
@@ -94,21 +90,38 @@ class Remediation_Entry extends Entry {
 	}
 
 	/**
-	 * @param array $ids
+	 * @param string $by
+	 * @param string $by_value
+	 * @param bool $status
 	 *
 	 * @return void
 	 */
-	public static function disable_remediations( array $ids ): void {
+	public static function update_remediations_status( string $by, string $by_value, bool $status ): void {
 		$where = [
-			[
-				'column' => Remediation_Table::ID,
-				'value' => $ids,
-				'operator' => 'IN',
-			],
+			$by => $by_value,
 		];
 
 		$data = [
-			Remediation_Table::ACTIVE => 0,
+			Remediation_Table::ACTIVE => $status,
+		];
+
+		Remediation_Table::update( $data, $where );
+	}
+
+	/**
+	 * @param string $by
+	 * @param string $by_value
+	 * @param string $content
+	 *
+	 * @return void
+	 */
+	public static function update_remediation_content( string $by, string $by_value, string $content ): void {
+		$where = [
+			$by => $by_value,
+		];
+
+		$data = [
+			Remediation_Table::CONTENT => $content,
 		];
 
 		Remediation_Table::update( $data, $where );

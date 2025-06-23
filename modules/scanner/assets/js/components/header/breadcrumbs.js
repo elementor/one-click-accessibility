@@ -13,19 +13,22 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
+import { __ } from '@wordpress/i18n';
 
 export const Breadcrumbs = () => {
 	const {
 		openedBlock,
 		sortedViolations,
+		sortedRemediation,
 		setOpenedBlock,
 		altTextData,
 		manualData,
+		isManage,
 	} = useScannerWizardContext();
 
 	const handleClick = () => {
 		removeExistingFocus();
-		setOpenedBlock(BLOCKS.main);
+		setOpenedBlock(isManage ? BLOCKS.management : BLOCKS.main);
 	};
 
 	const itemsData =
@@ -34,6 +37,11 @@ export const Breadcrumbs = () => {
 	const resolved =
 		itemsData?.filter((item) => item?.resolved === true).length || 0;
 
+	const items = isManage ? sortedRemediation : sortedViolations;
+	const count = isManage
+		? items[openedBlock].length
+		: items[openedBlock].length - resolved;
+
 	return (
 		<Box>
 			<BreadcrumbsBox>
@@ -41,6 +49,7 @@ export const Breadcrumbs = () => {
 					color="secondary"
 					onClick={handleClick}
 					sx={{ whiteSpace: 'nowrap' }}
+					aria-label={__('All issues', 'pojo-accessibility')}
 					size="small"
 				>
 					<ArrowLeftIcon />
@@ -63,10 +72,10 @@ export const Breadcrumbs = () => {
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>
 					)}
-					{sortedViolations[openedBlock].length > 0 && (
+					{items[openedBlock].length > 0 && (
 						<Chip
-							label={sortedViolations[openedBlock].length - resolved}
-							color="error"
+							label={count}
+							color={isManage ? 'info' : 'error'}
 							variant="standard"
 							size="small"
 							sx={{ fontWeight: 500 }}

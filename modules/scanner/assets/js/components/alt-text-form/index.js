@@ -20,7 +20,7 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
 import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
-import { useAltTextForm } from '@ea11y-apps/scanner/hooks/useAltTextForm';
+import { useAltTextForm } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
 import {
 	StyledBox,
 	StyledLabel,
@@ -118,7 +118,6 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 										}}
 										slotProps={{
 											tooltip: {
-												id: 'ai-btn-description',
 												sx: {
 													maxWidth: '101px',
 													whiteSpace: 'normal',
@@ -129,7 +128,6 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 									>
 										<IconButton
 											size="small"
-											aria-labelledby="ai-btn-description"
 											onClick={generateAltText}
 											disabled={loadingAiText}
 										>

@@ -20,7 +20,8 @@ import {
 	IS_AI_ENABLED,
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
-import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
+import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
+import { useManualFixForm } from '@ea11y-apps/scanner/hooks/use-manual-fix-form';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
 	AIHeader,
@@ -35,17 +36,12 @@ import { __ } from '@wordpress/i18n';
 
 export const ResolveWithAi = ({ item, current }) => {
 	const { manualData, openedBlock } = useScannerWizardContext();
-	const {
-		getAISuggestion,
-		copyToClipboard,
-		resolveIssue,
-		copied,
-		aiResponseLoading,
-		resolving,
-	} = useManualFixForm({
-		item,
-		current,
-	});
+	const { copied, copyToClipboard } = useCopyToClipboard();
+	const { getAISuggestion, resolveIssue, aiResponseLoading, resolving } =
+		useManualFixForm({
+			item,
+			current,
+		});
 
 	const [openUpgrade, setOpenUpgrade] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
@@ -142,17 +138,8 @@ export const ResolveWithAi = ({ item, current }) => {
 								PopperProps={{
 									disablePortal: true,
 								}}
-								slotProps={{
-									tooltip: {
-										id: 'ai-btn-edit',
-									},
-								}}
 							>
-								<IconButton
-									aria-labelledby="ai-btn-edit"
-									size="tiny"
-									onClick={toggleEdit(true)}
-								>
+								<IconButton size="tiny" onClick={toggleEdit(true)}>
 									<EditIcon fontSize="small" />
 								</IconButton>
 							</Tooltip>
@@ -166,6 +153,9 @@ export const ResolveWithAi = ({ item, current }) => {
 							multiline
 							fullWidth
 							onChange={onManualEdit}
+							inputProps={{
+								'aria-label': __('Manual edit', 'pojo-accessibility'),
+							}}
 						/>
 					) : (
 						<StyledAlert color="info" icon={false} disabled={disabled}>
@@ -182,15 +172,16 @@ export const ResolveWithAi = ({ item, current }) => {
 												? __('Copied!', 'pojo-accessibility')
 												: __('Copy', 'pojo-accessibility')
 										}
-										id="copy-icon-ai"
 										PopperProps={{
 											disablePortal: true,
 										}}
 									>
 										<IconButton
 											size="tiny"
-											onClick={copyToClipboard(item.snippet, 'fixed_snippet')}
-											aria-labelledby="copy-icon-ai"
+											onClick={copyToClipboard(
+												aiSuggestion.snippet,
+												'fixed_snippet',
+											)}
 										>
 											<CopyIcon fontSize="tiny" />
 										</IconButton>
@@ -215,7 +206,6 @@ export const ResolveWithAi = ({ item, current }) => {
 							arrow
 							placement="bottom"
 							title={__('Generate another solution', 'pojo-accessibility')}
-							id="copy-icon-ai"
 							PopperProps={{
 								disablePortal: true,
 							}}
@@ -228,6 +218,7 @@ export const ResolveWithAi = ({ item, current }) => {
 								disabled={disabled}
 								loading={aiResponseLoading}
 								loadingPosition="start"
+								aria-label={__('Retry', 'pojo-accessibility')}
 							>
 								{__('Retry', 'pojo-accessibility')}
 							</Button>

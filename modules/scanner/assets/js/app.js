@@ -4,7 +4,7 @@ import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notificati
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
 import { Header } from '@ea11y-apps/scanner/components/header';
-import { Loader } from '@ea11y-apps/scanner/components/main-list/loader';
+import { Loader } from '@ea11y-apps/scanner/components/list-loader';
 import { NotConnectedMessage } from '@ea11y-apps/scanner/components/not-connected-message';
 import { QuotaMessage } from '@ea11y-apps/scanner/components/quota-message';
 import { ResolvedMessage } from '@ea11y-apps/scanner/components/resolved-message';
@@ -13,7 +13,9 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import {
 	AltTextLayout,
 	MainLayout,
+	ManageMainLayout,
 	ManualLayout,
+	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
 import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
@@ -21,8 +23,15 @@ import { useEffect, useState } from '@wordpress/element';
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
-	const { setOpenedBlock, violation, resolved, openedBlock, isError, loading } =
-		useScannerWizardContext();
+	const {
+		setOpenedBlock,
+		violation,
+		resolved,
+		openedBlock,
+		isManage,
+		isError,
+		loading,
+	} = useScannerWizardContext();
 	const [showIssues, setShowIssues] = useState(false);
 
 	const showResolvedMessage = Boolean(
@@ -32,16 +41,7 @@ const App = () => {
 
 	useEffect(() => {
 		if (window.ea11yScannerData?.planData?.user?.id && violation !== null) {
-			const url = new URL(window.location.href);
-			const source =
-				url.searchParams.get('open-ea11y-assistant-src') || 'top_bar';
-			mixpanelService.init().then(() => {
-				mixpanelService.sendEvent(mixpanelEvents.scanTriggered, {
-					page_url: window.ea11yScannerData?.pageData?.url,
-					issue_count: violation,
-					source,
-				});
-			});
+			void mixpanelService.init();
 		}
 	}, [window.ea11yScannerData?.planData?.user?.id, violation]);
 
@@ -81,10 +81,12 @@ const App = () => {
 		switch (openedBlock) {
 			case BLOCKS.main:
 				return <MainLayout />;
+			case BLOCKS.management:
+				return <ManageMainLayout />;
 			case BLOCKS.altText:
 				return <AltTextLayout />;
 			default:
-				return <ManualLayout />;
+				return isManage ? <RemediationLayout /> : <ManualLayout />;
 		}
 	};
 
