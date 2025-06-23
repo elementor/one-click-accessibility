@@ -38,21 +38,25 @@ export const ScannerWizardContext = createContext({
 	remediationData: {},
 	violation: null,
 	openIndex: null,
+	setSortedRemediation: () => {},
 	setOpenedBlock: () => {},
 	setResolved: () => {},
 	getResults: () => {},
 	setAltTextData: () => {},
 	setManualData: () => {},
+	setLoading: () => {},
 	setRemediationData: () => {},
+	updateRemediationList: () => {},
 	setIsManage: () => {},
 	isResolved: () => {},
 	handleOpen: () => {},
 	setOpenIndex: () => {},
+	runNewScan: () => {},
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
 	const [results, setResults] = useState();
-	const [remediations, setRemediations] = useState();
+	const [remediations, setRemediations] = useState([]);
 	const [sortedViolations, setSortedViolations] = useState(
 		INITIAL_SORTED_VIOLATIONS,
 	);
@@ -93,21 +97,33 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	}, [openIndex]);
 
 	useEffect(() => {
-		if (openedBlock === BLOCKS.management) {
-			setLoading(true);
-			APIScanner.getRemediations(window.ea11yScannerData?.pageData?.url)
-				.then((items) => {
-					const filteredRemediations = items.data.filter(
-						(remediation) => remediation.group !== BLOCKS.altText,
-					);
-					const sorted = sortRemediation(filteredRemediations);
-					setRemediations(filteredRemediations);
-					setSortedRemediation(sorted);
-				})
-				.catch(() => setIsError(true))
-				.finally(() => setLoading(false));
+		if (
+			Object.keys(sortedRemediation).every(
+				(key) => sortedRemediation[key].length === 0,
+			)
+		) {
+			setRemediations([]);
 		}
-	}, [openedBlock]);
+	}, [sortedRemediation]);
+
+	const updateRemediationList = async () => {
+		try {
+			const items = await APIScanner.getRemediations(
+				window.ea11yScannerData?.pageData?.url,
+			);
+
+			const filteredRemediations = items.data.filter(
+				(remediation) => remediation.group !== BLOCKS.altText,
+			);
+
+			const sorted = sortRemediation(filteredRemediations);
+
+			setRemediations(filteredRemediations);
+			setSortedRemediation(sorted);
+		} catch (error) {
+			setIsError(true);
+		}
+	};
 
 	const handleOpen = (index, item) => (event, isExpanded) => {
 		setOpenIndex(isExpanded ? index : null);
@@ -169,6 +185,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const getResults = async () => {
 		setLoading(true);
 		try {
+			const url = new URL(window.location.href);
 			const data = await window.ace.check(document);
 			const filtered = data.results.filter(
 				(item) => item.level === 'violation',
@@ -176,6 +193,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			const sorted = sortViolations(filtered);
 			await registerPage(data, sorted);
 			await addScanResults(data);
+
+			mixpanelService.sendEvent(mixpanelEvents.scanTriggered, {
+				page_url: window.ea11yScannerData?.pageData?.url,
+				issue_count: data.summary?.counts?.violation,
+				source: url.searchParams.get('open-ea11y-assistant-src'),
+			});
 
 			return data.summary;
 		} catch (error) {
@@ -196,6 +219,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					setIsError(true);
 					setLoading(false);
 				});
+			void updateRemediationList();
 		} else {
 			setLoading(false);
 		}
@@ -219,6 +243,16 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					sortedViolations[block]?.length === 0;
 	};
 
+	const runNewScan = () => {
+		const url = new URL(window.location.href);
+		url.searchParams.delete('open-ea11y-assistant');
+		url.searchParams.delete('open-ea11y-assistant-src');
+		url.searchParams.append('open-ea11y-assistant-src', 'rescan_button');
+		url.searchParams.append('open-ea11y-assistant', '1');
+
+		window.location.assign(url);
+	};
+
 	return (
 		<ScannerWizardContext.Provider
 			value={{
@@ -237,15 +271,19 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				violation,
 				setOpenedBlock: handleOpenBlock,
 				setResolved,
+				setSortedRemediation,
 				getResults,
+				setLoading,
 				setAltTextData,
 				setManualData,
 				setRemediationData,
+				updateRemediationList,
 				setIsManage,
 				openIndex,
 				setOpenIndex,
 				isResolved,
 				handleOpen,
+				runNewScan,
 			}}
 		>
 			{children}

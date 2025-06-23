@@ -38,7 +38,7 @@ export const Header = () => {
 	} = useScannerWizardContext();
 	const violation = results?.summary?.counts?.violation;
 	const onClose = () => {
-		if (openedBlock === BLOCKS.management) {
+		if (isManage) {
 			setIsManage(false);
 			setOpenedBlock(BLOCKS.main);
 		} else {

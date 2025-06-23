@@ -41,16 +41,7 @@ const App = () => {
 
 	useEffect(() => {
 		if (window.ea11yScannerData?.planData?.user?.id && violation !== null) {
-			const url = new URL(window.location.href);
-			const source =
-				url.searchParams.get('open-ea11y-assistant-src') || 'top_bar';
-			mixpanelService.init().then(() => {
-				mixpanelService.sendEvent(mixpanelEvents.scanTriggered, {
-					page_url: window.ea11yScannerData?.pageData?.url,
-					issue_count: violation,
-					source,
-				});
-			});
+			void mixpanelService.init();
 		}
 	}, [window.ea11yScannerData?.planData?.user?.id, violation]);
 

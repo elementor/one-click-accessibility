@@ -7,11 +7,14 @@ import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ManageRemediationButtons = () => {
 	const { remediations } = useScannerWizardContext();
+	const { updateAllRemediationForPage, deleteAllRemediationForPage } =
+		useManageActions();
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const isAllDisabled =
@@ -20,8 +23,9 @@ export const ManageRemediationButtons = () => {
 
 	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
 
-	const onDeleteRemediation = () => {
+	const onDeleteRemediation = async () => {
 		setShowDeleteModal(false);
+		await deleteAllRemediationForPage();
 	};
 
 	return (
@@ -41,6 +45,7 @@ export const ManageRemediationButtons = () => {
 					size="small"
 					color="info"
 					variant="text"
+					onClick={updateAllRemediationForPage(true)}
 				>
 					{__('Enable all', 'pojo-accessibility')}
 				</Button>
@@ -50,6 +55,7 @@ export const ManageRemediationButtons = () => {
 					size="small"
 					color="secondary"
 					variant="text"
+					onClick={updateAllRemediationForPage(false)}
 				>
 					{__('Disable all', 'pojo-accessibility')}
 				</Button>

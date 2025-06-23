@@ -19,6 +19,7 @@ export const useManualFixForm = ({ item, current }) => {
 		setResolved,
 		isResolved,
 		setOpenedBlock,
+		updateRemediationList,
 	} = useScannerWizardContext();
 	const { error } = useToastNotification();
 
@@ -96,6 +97,7 @@ export const useManualFixForm = ({ item, current }) => {
 				issue_type: item.message,
 				category_name: BLOCK_TITLES[openedBlock],
 			});
+			void updateRemediationList();
 		} catch (e) {
 			console.log(e);
 			error(__('An error occurred.', 'pojo-accessibility'));

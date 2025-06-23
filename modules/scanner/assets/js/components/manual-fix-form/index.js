@@ -17,7 +17,7 @@ import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
-import { useManualFixForm } from '@ea11y-apps/scanner/hooks/useManualFixForm';
+import { useManualFixForm } from '@ea11y-apps/scanner/hooks/use-manual-fix-form';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
 	InfotipBox,

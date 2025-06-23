@@ -15,6 +15,7 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
+import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
 	AIHeader,
@@ -31,6 +32,13 @@ export const RemediationSnippet = ({ item }) => {
 
 	const { copied, copyToClipboard } = useCopyToClipboard();
 
+	const {
+		activeRequest,
+		deleteRemediation,
+		updateRemediation,
+		editRemediation,
+	} = useManageActions(item.id);
+
 	const [isEdit, setIsEdit] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [manualEdit, setManualEdit] = useState(content.replace);
@@ -44,8 +52,17 @@ export const RemediationSnippet = ({ item }) => {
 	const isActive = Number(item.active);
 
 	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
-	const onDeleteRemediation = () => {
+	const onDeleteRemediation = async () => {
 		setShowDeleteModal(false);
+		await deleteRemediation();
+	};
+
+	const submitRemediation = async () => {
+		await editRemediation({
+			...content,
+			replace: manualEdit,
+		});
+		setIsEdit(false);
 	};
 
 	return (
@@ -69,7 +86,11 @@ export const RemediationSnippet = ({ item }) => {
 									disablePortal: true,
 								}}
 							>
-								<IconButton size="tiny" onClick={toggleEdit(true)}>
+								<IconButton
+									size="tiny"
+									onClick={toggleEdit(true)}
+									disabled={activeRequest}
+								>
 									<EditIcon fontSize="small" />
 								</IconButton>
 							</Tooltip>
@@ -86,6 +107,7 @@ export const RemediationSnippet = ({ item }) => {
 							inputProps={{
 								'aria-label': __('Manual edit', 'pojo-accessibility'),
 							}}
+							disabled={activeRequest}
 						/>
 					) : (
 						<StyledAlert
@@ -133,6 +155,7 @@ export const RemediationSnippet = ({ item }) => {
 								color="secondary"
 								variant="text"
 								onClick={toggleEdit(false)}
+								disabled={activeRequest}
 							>
 								{__('Cancel', 'pojo-accessibility')}
 							</Button>
@@ -141,6 +164,8 @@ export const RemediationSnippet = ({ item }) => {
 								color="info"
 								variant="contained"
 								loadingPosition="start"
+								disabled={manualEdit === content.replace || activeRequest}
+								onClick={submitRemediation}
 							>
 								{__('Apply changes', 'pojo-accessibility')}
 							</Button>
@@ -152,6 +177,7 @@ export const RemediationSnippet = ({ item }) => {
 								color="error"
 								aria-label={__('Remove remediation', 'pojo-accessibility')}
 								onClick={toggleDeleteModal}
+								disabled={activeRequest}
 							>
 								<TrashIcon fontSize="tiny" />
 							</IconButton>
@@ -162,6 +188,8 @@ export const RemediationSnippet = ({ item }) => {
 									size="small"
 									color="secondary"
 									variant="text"
+									disabled={activeRequest}
+									onClick={updateRemediation(false)}
 								>
 									{__('Disable', 'pojo-accessibility')}
 								</Button>
@@ -171,6 +199,8 @@ export const RemediationSnippet = ({ item }) => {
 									size="small"
 									color="info"
 									variant="text"
+									disabled={activeRequest}
+									onClick={updateRemediation(true)}
 								>
 									{__('Enable', 'pojo-accessibility')}
 								</Button>

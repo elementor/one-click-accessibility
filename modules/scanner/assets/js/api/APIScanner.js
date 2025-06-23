@@ -39,7 +39,31 @@ export class APIScanner extends API {
 	static async submitRemediation(data) {
 		return APIScanner.request({
 			method: 'POST',
-			path: `${v1Prefix}/remediation/items`,
+			path: `${v1Prefix}/remediation/item`,
+			data,
+		});
+	}
+
+	static async updateRemediation(data) {
+		return APIScanner.request({
+			method: 'PATCH',
+			path: `${v1Prefix}/remediation/item`,
+			data,
+		});
+	}
+
+	static async updateRemediationContent(data) {
+		return APIScanner.request({
+			method: 'PUT',
+			path: `${v1Prefix}/remediation/item`,
+			data,
+		});
+	}
+
+	static async deleteRemediation(data) {
+		return APIScanner.request({
+			method: 'DELETE',
+			path: `${v1Prefix}/remediation/item`,
 			data,
 		});
 	}
@@ -63,7 +87,23 @@ export class APIScanner extends API {
 	static async getRemediations(url) {
 		return APIScanner.request({
 			method: 'GET',
-			path: `${v1Prefix}/remediation/items?url=${url}`,
+			path: `${v1Prefix}/remediation/items?url=${encodeURIComponent(url)}`,
+		});
+	}
+
+	static async updateRemediationStatusForPage(data) {
+		return APIScanner.request({
+			method: 'PATCH',
+			path: `${v1Prefix}/remediation/items`,
+			data,
+		});
+	}
+
+	static async deleteRemediationForPage(data) {
+		return APIScanner.request({
+			method: 'DELETE',
+			path: `${v1Prefix}/remediation/items`,
+			data,
 		});
 	}
 }

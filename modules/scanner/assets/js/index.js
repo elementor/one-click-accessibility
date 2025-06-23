@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function () {
 	TOP_BAR_LINK.addEventListener('click', (event) => {
 		event.preventDefault();
 		const rootNode = document.getElementById(ROOT_ID);
+		const url = new URL(window.location.href);
+		url.searchParams.append('open-ea11y-assistant-src', 'top_bar');
+		history.replaceState(null, '', url);
 
 		if (rootNode) {
 			closeWidget(rootNode);

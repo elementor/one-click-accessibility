@@ -10,32 +10,19 @@ import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import { SUBSCRIPTION_LINK } from '@ea11y-apps/global/constants';
-import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const { getResults, setOpenedBlock, setIsManage } = useScannerWizardContext();
+	const { remediations, setOpenedBlock, setIsManage, runNewScan } =
+		useScannerWizardContext();
 	const [isOpened, setIsOpened] = useState(false);
 	const anchorEl = useRef(null);
 
 	const handleOpen = () => setIsOpened(true);
 	const handleClose = () => setIsOpened(false);
-
-	const startNewScan = async () => {
-		handleClose();
-		setTimeout(async () => {
-			setOpenedBlock(BLOCKS.main);
-			const summary = await getResults();
-			mixpanelService.sendEvent(mixpanelEvents.scanTriggered, {
-				page_url: window.ea11yScannerData?.pageData?.url,
-				issue_count: summary?.counts?.violation,
-				source: 'rescan_button',
-			});
-		}, 300);
-	};
 
 	const goToManagement = () => {
 		handleClose();
@@ -67,13 +54,13 @@ export const DropdownMenu = () => {
 				}}
 				disablePortal
 			>
-				<MenuItem onClick={startNewScan}>
+				<MenuItem onClick={runNewScan}>
 					<MenuItemIcon>
 						<RefreshIcon />
 					</MenuItemIcon>
 					<MenuItemText>{__('New Scan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
-				<MenuItem onClick={goToManagement}>
+				<MenuItem onClick={goToManagement} disabled={!remediations?.length}>
 					<MenuItemIcon>
 						<SettingsIcon />
 					</MenuItemIcon>
