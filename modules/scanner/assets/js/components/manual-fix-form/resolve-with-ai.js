@@ -113,6 +113,9 @@ export const ResolveWithAi = ({ item, current }) => {
 							{aiSuggestion?.explanation && (
 								<Infotip
 									placement="top"
+									PopperProps={{
+										disablePortal: true,
+									}}
 									content={
 										<InfotipBox>
 											<Typography
