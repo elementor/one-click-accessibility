@@ -3,6 +3,7 @@
 namespace EA11y\Modules\Remediation\Rest;
 
 use EA11y\Modules\Remediation\Classes\Route_Base;
+use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use EA11y\Modules\Remediation\Database\Remediation_Table;
 use Throwable;
@@ -69,7 +70,7 @@ class Items extends Route_Base {
 			$active = filter_var( $request->get_param( 'active' ), FILTER_VALIDATE_BOOLEAN );
 
 			Remediation_Entry::update_remediations_status( Remediation_Table::URL, $url, $active );
-			$this->clear_cache( $url );
+			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [
 				'message' => 'Remediations status updated successfully',
@@ -97,7 +98,7 @@ class Items extends Route_Base {
 
 			$url = esc_url( $request->get_param( 'url' ) );
 			Remediation_Entry::remove( Remediation_Table::URL, $url );
-			$this->clear_cache( $url );
+			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation deleted successfully',

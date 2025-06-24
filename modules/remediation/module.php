@@ -33,6 +33,7 @@ class Module extends Module_Base {
 	public static function component_list(): array {
 		return [
 			'Remediation_Runner',
+			'Cache_Cleaner',
 		];
 	}
 
