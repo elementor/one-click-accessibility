@@ -9,7 +9,8 @@ export const sortViolations = (violations) => {
 	violations.forEach((item) => {
 		let type = '';
 		const outer = item.node.outerHTML;
-		item.snippet = outer.slice(0, outer.indexOf('>') + 1);
+		const gtIndex = outer.indexOf('>');
+		item.snippet = gtIndex !== -1 ? outer.slice(0, gtIndex + 1) : item.snippet;
 
 		Object.keys(VIOLATION_TYPES).forEach((key) => {
 			if (VIOLATION_TYPES[key].includes(item.ruleId)) {
