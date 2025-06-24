@@ -30,9 +30,11 @@ class Cache_Cleaner {
 	}
 
 	public function clean_post_cache( $post_ID, $post, $update ) {
-		// Only on publish post
+		// Only on publish post for public post type
+		$post_type_object = get_post_type_object( $post->post_type );
 		if (
 			( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
+			( ! $post_type_object || ! $post_type_object->public ) ||
 			'publish' !== $post->post_status
 		) {
 			return;
