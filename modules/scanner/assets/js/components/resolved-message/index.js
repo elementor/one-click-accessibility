@@ -1,7 +1,7 @@
 import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
-import PropTypes from 'prop-types';
-import { ROOT_ID } from '@ea11y-apps/scanner/constants';
+import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { ResolvedImage } from '@ea11y-apps/scanner/images';
 import {
 	ResolvedButtonsBox,
@@ -10,10 +10,17 @@ import {
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { __ } from '@wordpress/i18n';
 
-export const ResolvedMessage = ({ setShowIssues }) => {
+export const ResolvedMessage = () => {
+	const { remediations, setOpenedBlock, setIsManage } =
+		useScannerWizardContext();
 	const onClose = () => {
 		const widget = document.getElementById(ROOT_ID);
 		closeWidget(widget);
+	};
+
+	const showIssues = () => {
+		setIsManage(true);
+		setOpenedBlock(BLOCKS.management);
 	};
 
 	return (
@@ -35,7 +42,8 @@ export const ResolvedMessage = ({ setShowIssues }) => {
 					size="small"
 					variant="outlined"
 					color="secondary"
-					onClick={setShowIssues}
+					onClick={showIssues}
+					disabled={!remediations?.length}
 				>
 					{__('Review fixes', 'pojo-accessibility')}
 				</Button>
@@ -45,8 +53,4 @@ export const ResolvedMessage = ({ setShowIssues }) => {
 			</ResolvedButtonsBox>
 		</StateContainer>
 	);
-};
-
-ResolvedMessage.propTypes = {
-	setShowIssues: PropTypes.func.isRequired,
 };

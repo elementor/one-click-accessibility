@@ -19,7 +19,7 @@ import {
 } from '@ea11y-apps/scanner/layouts';
 import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect } from '@wordpress/element';
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
@@ -32,11 +32,9 @@ const App = () => {
 		isError,
 		loading,
 	} = useScannerWizardContext();
-	const [showIssues, setShowIssues] = useState(false);
 
 	const showResolvedMessage = Boolean(
-		!showIssues &&
-			((resolved > 0 && violation === resolved) || violation === 0),
+		(resolved > 0 && violation === resolved) || violation === 0,
 	);
 
 	useEffect(() => {
@@ -61,8 +59,6 @@ const App = () => {
 			});
 		}
 	}, [PAGE_QUOTA_LIMIT]);
-
-	const openIssuesList = () => setShowIssues(true);
 
 	const getBlock = () => {
 		if (!window.ea11yScannerData?.isConnected) {
@@ -94,11 +90,7 @@ const App = () => {
 		<StyledPaper>
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
-				{showResolvedMessage ? (
-					<ResolvedMessage setShowIssues={openIssuesList} />
-				) : (
-					getBlock()
-				)}
+				{showResolvedMessage ? <ResolvedMessage /> : getBlock()}
 				<Notifications message={notificationMessage} type={notificationType} />
 			</ErrorBoundary>
 		</StyledPaper>
