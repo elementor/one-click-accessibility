@@ -3,6 +3,7 @@
 namespace EA11y\Modules\Remediation\Database;
 
 use EA11y\Classes\Database\Entry;
+use EA11y\Classes\Database\Exceptions\Missing_Table_Exception;
 use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Exceptions\Missing_URL;
 
@@ -124,5 +125,32 @@ class Page_Entry extends Entry {
 
 	public static function get_pages() : array {
 		return Page_Table::select( '*', '1', 1000, null, '', [ Page_Table::CREATED_AT => 'desc' ] );
+	}
+
+
+	/**
+	 * @throws Missing_Table_Exception
+	 */
+	public static function get_page_entry( $url ) {
+		$page_entry = new Page_Entry( [
+			'by' => Page_Table::URL,
+			'value' => $url,
+		] );
+		if ( ! $page_entry->exists() ) {
+			return false;
+		}
+		return $page_entry;
+	}
+
+	public static function clear_cache( string $url ) : void {
+		try {
+			$page = self::get_page_entry( $url );
+			if ( $page ) {
+				$page->__set( Page_Table::FULL_HTML, null );
+				$page->save();
+			}
+		} catch ( Missing_Table_Exception $exception ) {
+			return;
+		}
 	}
 }

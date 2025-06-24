@@ -4,6 +4,7 @@ namespace EA11y\Modules\Remediation\Rest;
 
 use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Remediation\Classes\Route_Base;
+use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use EA11y\Modules\Remediation\Database\Remediation_Table;
 use Throwable;
@@ -54,7 +55,7 @@ class Item extends Route_Base {
 				],
 			] );
 
-			$this->clear_cache( $url );
+			Page_Entry::clear_cache( $url );
 
 			$remediation->save();
 
@@ -97,7 +98,7 @@ class Item extends Route_Base {
 			$content = $request->get_param( 'content' );
 
 			Remediation_Entry::update_remediation_content( Remediation_Table::ID, $id, $content );
-			$this->clear_cache( $url );
+			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation updated successfully',
@@ -128,7 +129,7 @@ class Item extends Route_Base {
 			$active = filter_var( $request->get_param( 'active' ), FILTER_VALIDATE_BOOLEAN );
 
 			Remediation_Entry::update_remediations_status( Remediation_Table::ID, $id, $active );
-			$this->clear_cache( $url );
+			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation status updated successfully',
@@ -157,7 +158,7 @@ class Item extends Route_Base {
 			$id = sanitize_text_field( $request->get_param( 'id' ) );
 			$url = esc_url( $request->get_param( 'url' ) );
 			Remediation_Entry::remove( Remediation_Table::ID, $id );
-			$this->clear_cache( $url );
+			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [
 				'message' => 'Remediation deleted successfully',
