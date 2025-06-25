@@ -40,11 +40,7 @@ const QuotaBar = ({ type, quotaData }) => {
 						placement="right"
 						PopperProps={{ sx: { width: '300px' }, disablePortal: true }}
 						content={
-							<Typography
-								color={!isLocked ? 'text.secondary' : 'text.disabled'}
-								variant="body2"
-								padding={2}
-							>
+							<Typography color="text.secondary" variant="body2" padding={2}>
 								{!isLocked
 									? QuotaBarData[type]?.infotipDescription
 									: QuotaBarData[type]?.lockedDescription}
