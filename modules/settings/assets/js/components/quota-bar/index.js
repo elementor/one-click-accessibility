@@ -8,7 +8,10 @@ import { QuotaBarData } from '@ea11y/components/quota-bar/data';
 import { formatPlanValue } from '../../utils/index';
 
 const QuotaBar = ({ type, quotaData }) => {
-	const planUsage = Math.round((quotaData?.used / quotaData?.allowed) * 100);
+	const planUsage =
+		quotaData?.allowed === 0
+			? 0
+			: Math.round((quotaData?.used / quotaData?.allowed) * 100);
 	const isLocked = quotaData?.allowed === 0;
 
 	/**
