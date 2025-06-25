@@ -19,11 +19,7 @@ import { __ } from '@wordpress/i18n';
 
 document.addEventListener('DOMContentLoaded', function () {
 	const params = new URLSearchParams(window.location.search);
-	if (params.get(SCANNER_URL_PARAM) === '1') {
-		initApp();
-	}
-
-	document.querySelector(TOP_BAR_LINK).addEventListener('click', (event) => {
+	document.querySelector(TOP_BAR_LINK)?.addEventListener('click', (event) => {
 		event.preventDefault();
 		const rootNode = document.getElementById(ROOT_ID);
 		const url = new URL(window.location.href);
@@ -36,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			initApp();
 		}
 	});
+	if (params.get(SCANNER_URL_PARAM) === '1') {
+		initApp();
+	}
 });
 
 const initApp = () => {
