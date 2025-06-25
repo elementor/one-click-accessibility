@@ -2128,11 +2128,6 @@ export const uxMessaging = {
 					'Main content: Put your primary article or page text inside a “Main Content” block or section so it’s announced as the main section.',
 					'pojo-accessibility',
 				),
-
-				__(
-					'Main content: Put your primary article or page text inside a “Main Content” block or section so it’s announced as the main section.',
-					'pojo-accessibility',
-				),
 				__(
 					'Footer: Use your theme’s Footer area (or add a “Footer” block) so it’s recognized as the page’s footer.',
 					'pojo-accessibility',
