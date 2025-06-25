@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		event.preventDefault();
 		const rootNode = document.getElementById(ROOT_ID);
 		const url = new URL(window.location.href);
+		url.searchParams.delete('open-ea11y-assistant-src');
 		url.searchParams.append('open-ea11y-assistant-src', 'top_bar');
 		history.replaceState(null, '', url);
 
