@@ -124,7 +124,11 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 								>
 									<IconButton
 										size="tiny"
-										onClick={copyToClipboard(item.snippet, 'error_snippet')}
+										onClick={copyToClipboard(
+											item.snippet,
+											'error_snippet',
+											'assistant',
+										)}
 									>
 										<CopyIcon fontSize="tiny" />
 									</IconButton>

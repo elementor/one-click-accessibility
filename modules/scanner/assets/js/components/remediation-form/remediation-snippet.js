@@ -13,7 +13,9 @@ import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
@@ -30,6 +32,7 @@ import { __ } from '@wordpress/i18n';
 export const RemediationSnippet = ({ item }) => {
 	const content = JSON.parse(item.content);
 
+	const { openedBlock } = useScannerWizardContext();
 	const { copied, copyToClipboard } = useCopyToClipboard();
 
 	const {
@@ -37,13 +40,22 @@ export const RemediationSnippet = ({ item }) => {
 		deleteRemediation,
 		updateRemediation,
 		editRemediation,
-	} = useManageActions(item.id);
+	} = useManageActions(item);
 
 	const [isEdit, setIsEdit] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [manualEdit, setManualEdit] = useState(content.replace);
 
-	const toggleEdit = (open) => () => setIsEdit(open);
+	const openEdit = () => {
+		setIsEdit(true);
+		mixpanelService.sendEvent(mixpanelEvents.editSnippetClicked, {
+			snippet_content: content.replace,
+			category_name: openedBlock,
+			source: 'remediation',
+		});
+	};
+
+	const closeEdit = () => setIsEdit(false);
 
 	const onManualEdit = (e) => {
 		setManualEdit(e.target.value);
@@ -88,7 +100,7 @@ export const RemediationSnippet = ({ item }) => {
 							>
 								<IconButton
 									size="tiny"
-									onClick={toggleEdit(true)}
+									onClick={openEdit}
 									disabled={activeRequest}
 								>
 									<EditIcon fontSize="small" />
@@ -137,6 +149,7 @@ export const RemediationSnippet = ({ item }) => {
 											onClick={copyToClipboard(
 												content.replace,
 												'fixed_snippet',
+												'remediation',
 											)}
 										>
 											<CopyIcon fontSize="tiny" />
@@ -154,7 +167,7 @@ export const RemediationSnippet = ({ item }) => {
 								size="small"
 								color="secondary"
 								variant="text"
-								onClick={toggleEdit(false)}
+								onClick={closeEdit}
 								disabled={activeRequest}
 							>
 								{__('Cancel', 'pojo-accessibility')}

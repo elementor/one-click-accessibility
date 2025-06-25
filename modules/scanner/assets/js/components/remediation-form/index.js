@@ -80,7 +80,11 @@ export const RemediationForm = ({ item }) => {
 								>
 									<IconButton
 										size="tiny"
-										onClick={copyToClipboard(content.find, 'error_snippet')}
+										onClick={copyToClipboard(
+											content.find,
+											'error_snippet',
+											'remediation',
+										)}
 									>
 										<CopyIcon fontSize="tiny" />
 									</IconButton>
