@@ -41,7 +41,7 @@
 	"dependencies": {
 		"@elementor/design-tokens": "^1.1.4",
 		"@elementor/icons": "^1.20.0",
-		"@elementor/ui": "^1.21.2",
+		"@elementor/ui": "^1.36.0",
 		"@mui/x-charts": "^7.27.0",
 		"@wordpress/api-fetch": "^7.10.0",
 		"@wordpress/block-editor": "^14.17.0",
