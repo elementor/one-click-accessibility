@@ -1,4 +1,4 @@
-import { InfoCircleIcon } from '@elementor/icons';
+import { InfoCircleIcon, LockFilledIcon } from '@elementor/icons';
 import { styled } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Infotip from '@elementor/ui/Infotip';
@@ -8,7 +8,11 @@ import { QuotaBarData } from '@ea11y/components/quota-bar/data';
 import { formatPlanValue } from '../../utils/index';
 
 const QuotaBar = ({ type, quotaData }) => {
-	const planUsage = Math.round((quotaData?.used / quotaData?.allowed) * 100);
+	const planUsage =
+		quotaData?.allowed === 0
+			? 0
+			: Math.round((quotaData?.used / quotaData?.allowed) * 100);
+	const isLocked = quotaData?.allowed === 0;
 
 	/**
 	 * Get the color for the progress bar based on the usage.
@@ -29,7 +33,7 @@ const QuotaBar = ({ type, quotaData }) => {
 			<Box display="flex" justifyContent="space-between">
 				<Typography
 					variant="body2"
-					color="text.secondary"
+					color={!isLocked ? 'text.secondary' : 'text.disabled'}
 					display="flex"
 					alignItems="center"
 					sx={{ fontSize: '12px' }}
@@ -40,34 +44,42 @@ const QuotaBar = ({ type, quotaData }) => {
 						PopperProps={{ sx: { width: '300px' }, disablePortal: true }}
 						content={
 							<Typography color="text.secondary" variant="body2" padding={2}>
-								{QuotaBarData[type]?.infotipDescription}
+								{!isLocked
+									? QuotaBarData[type]?.infotipDescription
+									: QuotaBarData[type]?.lockedDescription}
 							</Typography>
 						}
 					>
-						<InfoCircleIcon
-							sx={{
-								fontSize: 'medium',
-							}}
-						/>
+						{!isLocked ? (
+							<InfoCircleIcon
+								sx={{
+									fontSize: 'medium',
+								}}
+							/>
+						) : (
+							<LockFilledIcon
+								sx={{ fontSize: 'medium', color: 'text.primary', opacity: 0.5 }}
+							/>
+						)}
 					</Infotip>
 				</Typography>
-				{quotaData?.allowed && (
-					<Box display="flex" flexDirection="row" gap={0.5} alignItems="center">
-						<Typography
-							variant="body2"
-							color="text.primary"
-							sx={{ fontSize: '12px' }}
-						>
-							{formatPlanValue(quotaData?.used)}/
-							{formatPlanValue(quotaData?.allowed)}
-						</Typography>
-					</Box>
-				)}
+				<Box display="flex" flexDirection="row" gap={0.5} alignItems="center">
+					<Typography
+						variant="body2"
+						color={!isLocked ? 'text.primary' : 'text.disabled'}
+						sx={{ fontSize: '12px' }}
+					>
+						{!isLocked
+							? `${formatPlanValue(quotaData?.used)} / ${formatPlanValue(quotaData?.allowed)}`
+							: '0/0'}
+					</Typography>
+				</Box>
 			</Box>
 			<LinearProgress
 				sx={{
 					'& .MuiLinearProgress-bar': {
 						animation: 'none',
+						backgroundColor: isLocked && 'text.disabled',
 					},
 					animation: 'none',
 				}}
