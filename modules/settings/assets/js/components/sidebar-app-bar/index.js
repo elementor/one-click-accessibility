@@ -38,7 +38,6 @@ const SidebarAppBar = () => {
 					color="inherit"
 					onClick={() => setOpenSidebar(!openSidebar)}
 					size="small"
-					sx={{ display: 'none' }}
 				>
 					<SquareRoundedChevronsLeft
 						role="img"
