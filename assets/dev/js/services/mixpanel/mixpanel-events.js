@@ -25,6 +25,11 @@ export const mixpanelEvents = {
 	updateCustomIconClicked: 'update_custom_icon_clicked',
 	customIconAdded: 'custom_icon_added',
 	customIconUpdated: 'custom_icon_updated',
+	assistantMenuClicked: 'assistant_menu_clicked',
+	assistantMenuOptionSelected: 'assistant_menu_option_selected',
+	remediationRemoved: 'remediation_removed',
+	remediationDisabled: 'remediation_disabled',
+	remediationEnabled: 'remediation_enabled',
 
 	// Accessibility assistant
 	scanTriggered: 'scan_triggered',
@@ -40,6 +45,7 @@ export const mixpanelEvents = {
 	upgradeSuggestionViewed: 'upgrade_suggestion_viewed',
 	applyFixButtonClicked: 'apply_fix_button_clicked',
 	copySnippetClicked: 'copy_snippet_clicked',
+	editSnippetClicked: 'edit_snippet_clicked',
 
 	// Accessibility assistant dashboard
 	assistantDashboardHistoryLogsButtonClicked: 'history_logs_button_clicked',

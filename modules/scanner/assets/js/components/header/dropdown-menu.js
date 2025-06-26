@@ -10,6 +10,7 @@ import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useRef, useState } from '@wordpress/element';
@@ -21,13 +22,28 @@ export const DropdownMenu = () => {
 	const [isOpened, setIsOpened] = useState(false);
 	const anchorEl = useRef(null);
 
-	const handleOpen = () => setIsOpened(true);
+	const handleOpen = () => {
+		setIsOpened(true);
+		mixpanelService.sendEvent(mixpanelEvents.assistantMenuClicked);
+	};
 	const handleClose = () => setIsOpened(false);
+
+	const sendOnClickEvent = (action) => {
+		mixpanelService.sendEvent(mixpanelEvents.assistantMenuOptionSelected, {
+			action,
+		});
+	};
+
+	const onRunNewScan = () => {
+		runNewScan();
+		sendOnClickEvent('New Scan');
+	};
 
 	const goToManagement = () => {
 		handleClose();
 		setIsManage(true);
 		setOpenedBlock(BLOCKS.management);
+		sendOnClickEvent('Manage fixes');
 	};
 
 	return (
@@ -54,7 +70,7 @@ export const DropdownMenu = () => {
 				}}
 				disablePortal
 			>
-				<MenuItem onClick={runNewScan}>
+				<MenuItem onClick={onRunNewScan}>
 					<MenuItemIcon>
 						<RefreshIcon />
 					</MenuItemIcon>
@@ -73,6 +89,7 @@ export const DropdownMenu = () => {
 					href={ELEMENTOR_URL}
 					target="_blank"
 					rel="noreferrer"
+					onClick={() => sendOnClickEvent('View subscription')}
 				>
 					<MenuItemIcon>
 						<CalendarDollarIcon />

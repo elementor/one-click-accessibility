@@ -56,7 +56,16 @@ export const ResolveWithAi = ({ item, current }) => {
 		setManualEdit(manualData[openedBlock][current]?.aiSuggestion?.snippet);
 	}, [manualData[openedBlock][current]?.aiSuggestion]);
 
-	const toggleEdit = (open) => () => setIsEdit(open);
+	const openEdit = () => {
+		setIsEdit(true);
+		mixpanelService.sendEvent(mixpanelEvents.editSnippetClicked, {
+			snippet_content: aiSuggestion.snippet,
+			category_name: BLOCK_TITLES[openedBlock],
+			source: 'assistant',
+		});
+	};
+
+	const closeEdit = () => setIsEdit(false);
 
 	const handleButtonClick = async () => {
 		if (IS_AI_ENABLED && AI_QUOTA_LIMIT) {
@@ -142,7 +151,7 @@ export const ResolveWithAi = ({ item, current }) => {
 									disablePortal: true,
 								}}
 							>
-								<IconButton size="tiny" onClick={toggleEdit(true)}>
+								<IconButton size="tiny" onClick={openEdit}>
 									<EditIcon fontSize="small" />
 								</IconButton>
 							</Tooltip>
@@ -184,6 +193,7 @@ export const ResolveWithAi = ({ item, current }) => {
 											onClick={copyToClipboard(
 												aiSuggestion.snippet,
 												'fixed_snippet',
+												'assistant',
 											)}
 										>
 											<CopyIcon fontSize="tiny" />
@@ -200,7 +210,7 @@ export const ResolveWithAi = ({ item, current }) => {
 							size="small"
 							color="secondary"
 							variant="text"
-							onClick={toggleEdit(false)}
+							onClick={closeEdit}
 						>
 							{__('Cancel', 'pojo-accessibility')}
 						</Button>

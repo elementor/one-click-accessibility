@@ -76,13 +76,13 @@ export const useManualFixForm = ({ item, current }) => {
 	const resolveIssue = async (manualEdit) => {
 		setResolving(true);
 		try {
+			const replace =
+				manualEdit || manualData[openedBlock][current]?.aiSuggestion.snippet;
 			await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
 					find: item.snippet,
-					replace:
-						manualEdit ||
-						manualData[openedBlock][current]?.aiSuggestion.snippet,
+					replace,
 					xpath: item.path.dom,
 					category: item.reasonCategory.match(/\(([^)]+)\)/)[1],
 					type: 'REPLACE',
@@ -93,9 +93,11 @@ export const useManualFixForm = ({ item, current }) => {
 			});
 			markResolved();
 			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
-				fix_method: 'AI',
+				fix_method: manualEdit ? 'manual' : 'AI',
 				issue_type: item.message,
+				snippet_content: replace,
 				category_name: BLOCK_TITLES[openedBlock],
+				source: 'assistant',
 			});
 			void updateRemediationList();
 		} catch (e) {

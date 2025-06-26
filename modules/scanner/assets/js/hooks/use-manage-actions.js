@@ -1,12 +1,15 @@
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
+import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export const useManageActions = (id = null) => {
+export const useManageActions = (current = null) => {
 	const { error } = useToastNotification();
 	const {
+		remediations,
 		sortedRemediation,
 		openedBlock,
 		setSortedRemediation,
@@ -24,6 +27,13 @@ export const useManageActions = (id = null) => {
 				active,
 			});
 			await updateRemediationList();
+			mixpanelService.sendEvent(
+				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
+				{
+					action_type: active ? 'enable_all' : 'disable_all',
+					remediations_amount: remediations?.length,
+				},
+			);
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -38,6 +48,12 @@ export const useManageActions = (id = null) => {
 			await APIScanner.deleteRemediationForPage({
 				url: window?.ea11yScannerData?.pageData?.url,
 			});
+
+			await mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
+				action_type: 'remove_all',
+				remediations_amount: remediations?.length,
+			});
+
 			const url = new URL(window.location.href);
 			url.searchParams.delete('open-ea11y-assistant');
 			url.searchParams.delete('open-ea11y-assistant-src');
@@ -58,15 +74,23 @@ export const useManageActions = (id = null) => {
 			await APIScanner.updateRemediation({
 				url: window?.ea11yScannerData?.pageData?.url,
 				active,
-				id,
+				id: current.id,
 			});
 			const updated = sortedRemediation[openedBlock].map((item) =>
-				item.id === id ? { ...item, active } : item,
+				item.id === current.id ? { ...item, active } : item,
 			);
 			setSortedRemediation({
 				...sortedRemediation,
 				[openedBlock]: updated,
 			});
+			mixpanelService.sendEvent(
+				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
+				{
+					action_type: active ? 'enable_specific' : 'disable_specific',
+					category_name: BLOCK_TITLES[openedBlock],
+					issue_type: current.rule,
+				},
+			);
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -80,14 +104,19 @@ export const useManageActions = (id = null) => {
 			setActiveRequest(true);
 			await APIScanner.deleteRemediation({
 				url: window?.ea11yScannerData?.pageData?.url,
-				id,
+				id: current.id,
 			});
 			const updated = sortedRemediation[openedBlock].flatMap((item) =>
-				item.id !== id ? item : [],
+				item.id !== current.id ? item : [],
 			);
 			setSortedRemediation({
 				...sortedRemediation,
 				[openedBlock]: updated,
+			});
+			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
+				action_type: 'remove_specific',
+				category_name: BLOCK_TITLES[openedBlock],
+				issue_type: current.rule,
 			});
 		} catch (e) {
 			console.error(e);
@@ -103,15 +132,21 @@ export const useManageActions = (id = null) => {
 			const strContent = JSON.stringify(content);
 			await APIScanner.updateRemediationContent({
 				url: window?.ea11yScannerData?.pageData?.url,
-				id,
+				id: current.id,
 				content: strContent,
 			});
 			const updated = sortedRemediation[openedBlock].map((item) =>
-				item.id === id ? { ...item, content: strContent } : item,
+				item.id === current.id ? { ...item, content: strContent } : item,
 			);
 			setSortedRemediation({
 				...sortedRemediation,
 				[openedBlock]: updated,
+			});
+			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
+				fix_method: 'manual',
+				snippet_content: strContent,
+				category_name: BLOCK_TITLES[openedBlock],
+				source: 'remediation',
 			});
 		} catch (e) {
 			console.error(e);

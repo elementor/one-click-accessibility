@@ -26,6 +26,7 @@ export const BlockButton = ({
 			page_url: window.ea11yScannerData?.pageData?.url,
 			issue_count: count,
 			category_name: title,
+			source: isManage ? 'remediation' : 'assistant',
 		});
 	};
 
