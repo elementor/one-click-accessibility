@@ -9,10 +9,12 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
+import Tooltip from '@elementor/ui/Tooltip';
 import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
 import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -68,6 +70,11 @@ export const DropdownMenu = () => {
 				MenuListProps={{
 					'aria-labelledby': 'menu-button',
 				}}
+				PaperProps={{
+					style: {
+						overflow: 'visible',
+					},
+				}}
 				disablePortal
 			>
 				<MenuItem onClick={onRunNewScan}>
@@ -76,14 +83,46 @@ export const DropdownMenu = () => {
 					</MenuItemIcon>
 					<MenuItemText>{__('New Scan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
-				<MenuItem onClick={goToManagement} disabled={!remediations?.length}>
-					<MenuItemIcon>
-						<SettingsIcon />
-					</MenuItemIcon>
-					<MenuItemText>
-						{__('Manage fixes', 'pojo-accessibility')}
-					</MenuItemText>
-				</MenuItem>
+				{!remediations.length ? (
+					<Tooltip
+						arrow
+						placement="left"
+						title={__(
+							'You don’t have any fixes to manage just yet.',
+							'pojo-accessibility',
+						)}
+						PopperProps={{
+							disablePortal: true,
+							modifiers: [
+								{
+									name: 'offset',
+									options: {
+										offset: [0, -16],
+									},
+								},
+							],
+						}}
+					>
+						<MenuItem>
+							<MenuItemIcon>
+								<SettingsIcon color="disabled" />
+							</MenuItemIcon>
+							<DisabledMenuItemText>
+								{__('Manage fixes', 'pojo-accessibility')}
+							</DisabledMenuItemText>
+						</MenuItem>
+					</Tooltip>
+				) : (
+					<MenuItem onClick={goToManagement}>
+						<MenuItemIcon>
+							<SettingsIcon />
+						</MenuItemIcon>
+						<MenuItemText>
+							{__('Manage fixes', 'pojo-accessibility')}
+						</MenuItemText>
+					</MenuItem>
+				)}
+
 				<MenuItem
 					component="a"
 					href={ELEMENTOR_URL}

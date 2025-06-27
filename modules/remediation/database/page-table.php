@@ -10,11 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Page_Table extends Table {
 	// override base's const:
-	const DB_VERSION = '1';
+	const DB_VERSION = '2';
 	const DB_VERSION_FLAG_NAME = 'ea11y_page_scanned_db_version';
 
 	const ID = 'id';
 	const URL = 'url';
+	const TITLE = 'title';
 	const OBJECT_ID = 'object_id';
 	const OBJECT_TYPE = 'object_type';
 	const OBJECT_TYPE_NAME = 'object_type_name';
@@ -51,6 +52,13 @@ class Page_Table extends Table {
 					'\'\'',
 				] ),
 				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::URL ),
+			],
+			self::TITLE => [
+				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 255 ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::DEFAULT,
+					'\'\'',
+				] ),
 			],
 			self::OBJECT_ID => [
 				'type' => Database_Constants::get_col_type( Database_Constants::INT, 11 ),

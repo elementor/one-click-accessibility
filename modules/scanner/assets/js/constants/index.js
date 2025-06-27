@@ -221,3 +221,5 @@ export const VIOLATION_TYPES = {
 		'marquee_elem_avoid',
 	],
 };
+
+export const EXCLUDE_FROM_AI = ['aria_content_in_landmark'];

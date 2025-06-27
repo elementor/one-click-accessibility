@@ -52,6 +52,7 @@ class Register extends Route_Base {
 			$page = new Page_Entry( [
 				'data' => [
 					Page_Table::URL => $url,
+					Page_Table::TITLE => sanitize_text_field( $request->get_param( 'title' ) ) ?? '',
 					Page_Table::OBJECT_ID => sanitize_text_field( $request->get_param( 'object_id' ) ) ?? 0,
 					Page_Table::OBJECT_TYPE => sanitize_text_field( $request->get_param( 'object_type' ) ) ?? '',
 					Page_Table::OBJECT_TYPE_NAME => sanitize_text_field( $request->get_param( 'object_type_name' ) ) ?? '',

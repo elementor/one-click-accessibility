@@ -112,7 +112,7 @@ export const ResolveWithAi = ({ item, current }) => {
 	return aiSuggestion?.snippet ? (
 		<Box>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
-				<CardContent sx={{ pb: 0 }}>
+				<CardContent sx={{ pt: 1.5, pb: 0 }}>
 					<AIHeader>
 						<AITitle>
 							<AIIcon />

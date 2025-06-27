@@ -25,7 +25,7 @@ export const DeleteRemediationModal = ({
 					: __('Delete fix', 'pojo-accessibility')
 			}
 			cancelText={__('Not now', 'pojo-accessibility')}
-			logo={<AlertOctagonFilledIcon color="error" />}
+			logo={<AlertOctagonFilledIcon color="error" sx={{ mt: '6px' }} />}
 			onApprove={onDelete}
 			showCloseButton
 			disablePortal

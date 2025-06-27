@@ -61,9 +61,10 @@ export const BlockButton = ({
 							count,
 							total,
 						)}
-						color="info"
+						color={count > 0 ? 'info' : 'default'}
 						variant="standard"
 						size="tiny"
+						disabled={count === 0}
 					/>
 				)}
 			</StyledButtonContainer>

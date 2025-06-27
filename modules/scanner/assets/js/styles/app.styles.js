@@ -3,6 +3,7 @@ import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
+import MenuItemText from '@elementor/ui/MenuItemText';
 import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
 import Typography from '@elementor/ui/Typography';
@@ -128,4 +129,8 @@ export const StyledBlockButtonsBox = styled(Box)`
 	display: flex;
 	flex-direction: column;
 	gap: ${({ theme }) => theme.spacing(1)};
+`;
+
+export const DisabledMenuItemText = styled(MenuItemText)`
+	color: ${({ theme }) => theme.palette.text.disabled};
 `;

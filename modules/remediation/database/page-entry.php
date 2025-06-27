@@ -73,7 +73,13 @@ class Page_Entry extends Entry {
 			$this->entry_data[ Page_Table::VIOLATIONS ] = $violations;
 			$this->entry_data[ Page_Table::RESOLVED ] = 0;
 		} else {
-			$this->entry_data[ Page_Table::RESOLVED ] = $this->entry_data[ Page_Table::VIOLATIONS ] - $violations;
+			$resolved = $this->entry_data[ Page_Table::VIOLATIONS ] - $violations;
+			if ( $resolved < 0 ) {
+				$this->entry_data[ Page_Table::VIOLATIONS ] = $violations;
+				$this->entry_data[ Page_Table::RESOLVED ] = 0;
+			} else {
+				$this->entry_data[ Page_Table::RESOLVED ] = $resolved;
+			}
 		}
 
 		$this->save();
