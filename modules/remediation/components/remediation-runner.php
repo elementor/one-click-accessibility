@@ -21,6 +21,7 @@ class Remediation_Runner {
 	public Page_Entry $page;
 	public array $page_remediations = [];
 	public ?string $page_html = '';
+	public array $front_end_remediations = [];
 
 	public function get_remediation_classes() : array {
 		static $classes = null;
@@ -101,10 +102,14 @@ class Remediation_Runner {
 			}
 			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
+			if ( false === $remediation_class ) {
+				$this->add_frontend_remediation( $remediation );
+				continue;
+			}
 			if ( $remediation_class->dom ) {
 				$remediation_class->dom = $dom;
 			} else {
-				Remediation_Entry::remove( $item->id );
+				Remediation_Entry::remove( 'id', $item->id );
 			}
 		}
 
@@ -114,7 +119,32 @@ class Remediation_Runner {
 				: $parent->appendChild( $removed_admin_bar );
 		}
 
+		// Add frontend remediations for dynamic content
+		// We don't use Enqueue_Script because we need to add the script to 
+		// The <head> section and WP has already enqueued head scripts by now.
+		if ( ! empty( $this->front_end_remediations ) ) {
+			// Create a new <script> element
+			$script_data = $dom->createElement( 'script' );
+			$script_data->setAttribute( 'type', 'text/javascript' );
+			$script_data->textContent = 'window.AllyRemediations = ' . json_encode( $this->front_end_remediations ) . ';';
+
+			// Create a new <script> element for the module.js
+			$module_script = $dom->createElement('script');
+			$module_script->setAttribute('type', 'text/javascript'); // Optional: specify the type
+			$module_script->setAttribute('src', \EA11Y_ASSETS_URL . 'build/remediation-module.js'); // Set the script source
+
+			// Append the <script> elements to the <head> section
+			$head = $dom->getElementsByTagName('head')->item(0);
+			if ($head) {
+				$head->appendChild( $script_data );
+				$head->appendChild($module_script);
+			}
+		}
 		return $dom->saveHTML();
+	}
+
+	private function add_frontend_remediation( $remediation ) {
+		$this->front_end_remediations[] = $remediation;
 	}
 
 	public function __construct() {
@@ -123,7 +153,7 @@ class Remediation_Runner {
 		}
 
 		if ( $this->should_run_remediation() ) {
-			add_action( 'template_redirect', [ $this, 'start' ] );
+			add_action( 'template_redirect', [ $this, 'start' ], -9999 );
 		}
 	}
 }

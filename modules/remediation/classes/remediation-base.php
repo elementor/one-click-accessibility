@@ -20,6 +20,15 @@ class Remediation_Base {
 	}
 
 	/**
+	 * Check if the element exists
+	 *
+	 * @return boolean
+	 */
+	public function exists(): bool {
+		return $this->get_element_by_xpath( $this->data['xpath'] ) instanceof DOMElement;
+	}
+
+	/**
 	 * get_element_by_xpath
 	 * @param $xpath
 	 *
@@ -60,6 +69,10 @@ class Remediation_Base {
 	public function __construct( DOMDocument $dom, $data ) {
 		$this->dom = $dom;
 		$this->data = $data;
+		// if element does not exist, move the remediation to the Frontend
+		if ( ! $this->exists() ) {
+			return false;
+		}
 		$this->run();
 	}
 }
