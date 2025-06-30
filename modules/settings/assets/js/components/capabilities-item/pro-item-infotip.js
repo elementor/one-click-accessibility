@@ -156,7 +156,8 @@ const StyledChip = styled(Chip)`
 	margin-left: ${({ theme }) => theme.spacing(1)};
 	height: 26px;
 	width: 26px;
+
 	.MuiChip-label {
-		padding: 4px;
+		padding: 0;
 	}
 `;
