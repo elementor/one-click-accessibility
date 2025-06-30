@@ -32,7 +32,9 @@ const ConfirmDialog = ({
 				<Typography variant="subtitle1">{title}</Typography>
 			</DialogHeader>
 
-			<DialogContent dividers={dividers}>{children}</DialogContent>
+			<DialogContent dividers={dividers} sx={{ py: 1 }}>
+				{children}
+			</DialogContent>
 
 			<DialogActions>
 				{showCancelButton && (

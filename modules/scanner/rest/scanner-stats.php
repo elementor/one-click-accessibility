@@ -11,72 +11,72 @@ use WP_Error;
 use WP_REST_Response;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 class Scanner_Stats extends Route_Base {
-    public string $path = 'stats';
+	public string $path = 'stats';
 
-    public function get_methods(): array {
-        return [ 'GET' ];
-    }
+	public function get_methods(): array {
+		return [ 'GET' ];
+	}
 
-    public function get_name(): string {
-        return 'stats';
-    }
+	public function get_name(): string {
+		return 'stats';
+	}
 
-    /**
-     *
-     * @return WP_Error|WP_REST_Response
-     *
-     */
-    public function GET( $request ) {
-        try {
-            $error = $this->verify_capability();
+	/**
+	 *
+	 * @return WP_Error|WP_REST_Response
+	 *
+	 */
+	public function GET( $request ) {
+		try {
+			$error = $this->verify_capability();
 
-            if ( $error ) {
-                return $error;
-            }
+			if ( $error ) {
+				return $error;
+			}
 
-            $period = $request->get_param( 'period' ) ?? 30;
-            $output = [
-                'scans' => 0,
-                'issues_total' => 0,
-                'issues_fixed' => 0,
-                'issue_levels' => [
-                    'a' => 0,
-                    'aa' => 0,
-                    'aaa' => 0,
-                ],
-            ];
+			$period = $request->get_param( 'period' ) ?? 30;
+			$output = [
+				'scans' => 0,
+				'issues_total' => 0,
+				'issues_fixed' => 0,
+				'issue_levels' => [
+					'a' => 0,
+					'aa' => 0,
+					'aaa' => 0,
+				],
+			];
 
-            $pages_scanned = Page_Entry::get_pages();
-            $remediations = Remediation_Entry::get_all_remediations( $period );
+			$pages_scanned = Page_Entry::get_pages();
+			$remediations = Remediation_Entry::get_all_remediations( $period );
 
-            foreach ( $pages_scanned as $page ) {
-                $scans = Scan_Entry::get_scans( $page->url );
-                $recent_scans = array_filter( $scans, function ( $scan ) use ( $period ) {
-                    $scan_date = strtotime( $scan->created_at );
-                    return $scan_date >= strtotime( "-$period days" );
-                } );
+			foreach ( $pages_scanned as $page ) {
+				$scans = Scan_Entry::get_scans( $page->url );
+				$recent_scans = array_filter( $scans, function ( $scan ) use ( $period ) {
+					$scan_date = strtotime( $scan->created_at );
+					return $scan_date >= strtotime( "-$period days" );
+				} );
 
-                if ( count( $recent_scans ) > 0 ) {
-                    $output['scans'] ++;
-                    $output['issues_total'] += $page->violations;
-                    $output['issues_fixed'] += $page->resolved;
-                }
-            }
+				if ( count( $recent_scans ) > 0 ) {
+					$output['scans'] ++;
+					$output['issues_total'] += $page->violations;
+					$output['issues_fixed'] += $page->resolved;
+				}
+			}
 
-            foreach ( $remediations as $remediation ) {
-                $output['issue_levels'][strtolower($remediation->category)] ++;
-            }
+			foreach ( $remediations as $remediation ) {
+				$output['issue_levels'][ strtolower( $remediation->category ) ] ++;
+			}
 
-            return $this->respond_success_json($output);
-        } catch ( Throwable $t ) {
-            return $this->respond_error_json( [
-                'message' => $t->getMessage(),
-                'code' => 'internal_server_error',
-            ] );
-        }
-    }
+			return $this->respond_success_json( $output );
+		} catch ( Throwable $t ) {
+			return $this->respond_error_json( [
+				'message' => $t->getMessage(),
+				'code' => 'internal_server_error',
+			] );
+		}
+	}
 }

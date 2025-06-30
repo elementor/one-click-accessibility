@@ -13,7 +13,11 @@ import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ResolveWithAi } from '@ea11y-apps/scanner/components/manual-fix-form/resolve-with-ai';
-import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
+import {
+	BLOCK_TITLES,
+	BLOCKS,
+	EXCLUDE_FROM_AI,
+} from '@ea11y-apps/scanner/constants';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
@@ -64,6 +68,10 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 		markResolved();
 		sendMixpanelEvent(mixpanelEvents.markAsResolveClicked);
 	};
+
+	const showAIBlock =
+		openedBlock !== BLOCKS.colorContrast &&
+		!EXCLUDE_FROM_AI.includes(item.ruleId);
 
 	return (
 		<>
@@ -137,9 +145,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 						</Box>
 					</StyledAlert>
 				</Box>
-				{openedBlock !== BLOCKS.colorContrast && (
-					<ResolveWithAi current={current} item={item} />
-				)}
+				{showAIBlock && <ResolveWithAi current={current} item={item} />}
 				{uxMessaging[item.ruleId] && (
 					<>
 						<Box>

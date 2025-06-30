@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Scans_Table extends Table {
 	// override base's const:
-	const DB_VERSION = '1';
+	const DB_VERSION = '2';
 	const DB_VERSION_FLAG_NAME = 'ea11y_scanner_results_db_version';
 
 	const ID = 'id';
