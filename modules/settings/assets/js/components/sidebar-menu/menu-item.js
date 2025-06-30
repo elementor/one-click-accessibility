@@ -53,8 +53,10 @@ const MenuItem = ({ keyName, item }) => {
 	const showProIcon = (menuItem) =>
 		proFeatures && menuItem.proIcon && !proFeatures.includes(menuItem.proIcon);
 
-	if (item?.type === 'heading') {
+	if (item?.type === 'heading' && openSidebar) {
 		return <ListSubheader>{item?.name}</ListSubheader>;
+	} else if (item?.type === 'heading' && !openSidebar) {
+		return null;
 	}
 
 	return (
@@ -100,7 +102,7 @@ const MenuItem = ({ keyName, item }) => {
 							/>
 						</ListItemIcon>
 					)}
-					{showProIcon(item) && (
+					{showProIcon(item) && openSidebar && (
 						<ListItemIcon>
 							<StyledChip
 								color="accent"

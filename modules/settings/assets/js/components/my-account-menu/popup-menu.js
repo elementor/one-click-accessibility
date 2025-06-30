@@ -56,16 +56,16 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 		<Menu
 			{...menuProps}
 			anchorOrigin={{
-				vertical: 'top',
-				horizontal: 'center',
+				vertical: 'bottom',
+				horizontal: 'right',
 			}}
 			transformOrigin={{
-				vertical: 'bottom',
-				horizontal: 'center',
+				vertical: 'top',
+				horizontal: 'left',
 			}}
 			PaperProps={{
 				sx: {
-					backgroundColor: 'text.primary',
+					backgroundColor: 'common.white',
 				},
 			}}
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
@@ -78,7 +78,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 
 				<Box display="flex" flexDirection="column" gap={0}>
 					<Tooltip title={planData?.user?.email}>
-						<Typography variant="caption" color="common.white">
+						<Typography variant="caption" color="text.primary">
 							{truncateEmail(planData?.user?.email)}
 						</Typography>
 					</Tooltip>
@@ -96,9 +96,9 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 			</StyledMenuItem>
 
 			<StyledMenuItem onClick={onDeactivateAndDisconnect}>
-				<UserArrowIcon sx={{ color: 'common.white' }} />
+				<UserArrowIcon sx={{ color: 'action.active' }} />
 
-				<Typography color="common.white" marginLeft={1}>
+				<Typography color="text.primary" marginLeft={1}>
 					{__('Switch account', 'pojo-accessibility')}
 				</Typography>
 			</StyledMenuItem>
@@ -108,14 +108,14 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 				onClick={() => window.open(ELEMENTOR_URL)}
 			>
 				<Box display="flex" flexDirection="row">
-					<CalendarDollarIcon sx={{ color: 'common.white' }} />
+					<CalendarDollarIcon sx={{ color: 'action.active' }} />
 
-					<Typography color="common.white" marginLeft={1}>
+					<Typography color="text.primary" marginLeft={1}>
 						{__('Subscription', 'pojo-accessibility')}
 					</Typography>
 				</Box>
 
-				<ExternalLinkIcon sx={{ color: 'common.white' }} />
+				<ExternalLinkIcon sx={{ color: 'text.primary' }} />
 			</StyledMenuItem>
 		</Menu>
 	);
