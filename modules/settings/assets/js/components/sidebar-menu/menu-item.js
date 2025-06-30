@@ -137,6 +137,8 @@ export default MenuItem;
 const StyledChip = styled(Chip)`
 	height: 26px;
 	width: 26px;
-	border-radius: 50%;
-	justify-content: space-around;
+
+	.MuiChip-label {
+		padding: 0;
+	}
 `;
