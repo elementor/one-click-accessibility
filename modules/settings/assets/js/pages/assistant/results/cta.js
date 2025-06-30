@@ -1,4 +1,5 @@
 import RefreshIcon from '@elementor/icons/RefreshIcon';
+import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
 import Button from '@ea11y/components/button';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
@@ -20,7 +21,7 @@ const AccessibilityAssistantResultsTableCTA = ({ percentage, pageUrl }) => {
 
 	if (percentage === 100) {
 		return (
-			<Button
+			<StyledButton
 				size="small"
 				color="secondary"
 				variant="outlined"
@@ -31,21 +32,22 @@ const AccessibilityAssistantResultsTableCTA = ({ percentage, pageUrl }) => {
 				endIcon={<RefreshIcon />}
 			>
 				{__('New scan', 'pojo-accessibility')}
-			</Button>
+			</StyledButton>
 		);
 	}
 
 	return (
-		<Button
+		<StyledButton
 			size="small"
 			color="secondary"
 			variant="outlined"
 			href={ctaUrl}
 			onClick={() => sendAnalytics('fix_issues')}
 			target="_blank"
+			rel="noreferrer"
 		>
 			{__('Resolve issues', 'pojo-accessibility')}
-		</Button>
+		</StyledButton>
 	);
 };
 
@@ -53,5 +55,9 @@ AccessibilityAssistantResultsTableCTA.propTypes = {
 	percentage: PropTypes.number.isRequired,
 	pageUrl: PropTypes.string.isRequired,
 };
+
+const StyledButton = styled(Button)`
+	min-width: 115px;
+`;
 
 export default AccessibilityAssistantResultsTableCTA;
