@@ -64,7 +64,19 @@ class Remediation_Entry extends Entry {
 	 * @return array
 	 */
 	public static function get_page_remediations( string $url, bool $total = false ) : array {
-		$where = [
+		$where = $total ? [
+			[
+				'column' => Remediation_Table::table_name() . '.' . Remediation_Table::URL,
+				'value' => $url,
+				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::table_name() . '.' . Remediation_Table::GROUP,
+				'value' => 'altText',
+				'operator' => '<>',
+			],
+		] : [
 			[
 				'column' => Remediation_Table::URL,
 				'value' => $url,
