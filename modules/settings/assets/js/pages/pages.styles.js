@@ -22,7 +22,7 @@ export const StyledContainer = styled(Container)`
 `;
 
 export const StyledWideBox = styled(Box)`
-	overflow: auto;
+	overflow: hidden;
 	max-height: 100%;
 	padding: ${({ theme }) => theme.spacing(4)};
 	width: 100%;
