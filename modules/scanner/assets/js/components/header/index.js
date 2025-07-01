@@ -134,7 +134,7 @@ export const Header = () => {
 						</Box>
 
 						<Box display="flex" gap={1}>
-							{!isManage && <DropdownMenu />}
+							<DropdownMenu />
 							<IconButton
 								onClick={onClose}
 								aria-label={__('Close', 'pojo-accessibility')}

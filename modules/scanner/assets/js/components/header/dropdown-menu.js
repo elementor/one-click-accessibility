@@ -19,7 +19,7 @@ import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const { remediations, setOpenedBlock, setIsManage, runNewScan } =
+	const { remediations, isManage, setOpenedBlock, setIsManage, runNewScan } =
 		useScannerWizardContext();
 	const [isOpened, setIsOpened] = useState(false);
 	const anchorEl = useRef(null);
@@ -47,6 +47,18 @@ export const DropdownMenu = () => {
 		setOpenedBlock(BLOCKS.management);
 		sendOnClickEvent('Manage fixes');
 	};
+
+	const SwitchMenuItem = () =>
+		!isManage ? (
+			<MenuItem onClick={goToManagement}>
+				<MenuItemIcon>
+					<SettingsIcon />
+				</MenuItemIcon>
+				<MenuItemText>
+					{__('Manage AI fixes', 'pojo-accessibility')}
+				</MenuItemText>
+			</MenuItem>
+		) : null;
 
 	return (
 		<Box>
@@ -113,14 +125,7 @@ export const DropdownMenu = () => {
 						</MenuItem>
 					</Tooltip>
 				) : (
-					<MenuItem onClick={goToManagement}>
-						<MenuItemIcon>
-							<SettingsIcon />
-						</MenuItemIcon>
-						<MenuItemText>
-							{__('Manage AI fixes', 'pojo-accessibility')}
-						</MenuItemText>
-					</MenuItem>
+					<SwitchMenuItem />
 				)}
 
 				<MenuItem
