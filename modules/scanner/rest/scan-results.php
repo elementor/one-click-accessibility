@@ -60,7 +60,7 @@ class Scan_Results extends Route_Base {
 
 			return $this->respond_success_json( [
 				'message' => 'Scan results added',
-                'scanId' => $scan->id,
+				'scanId' => $scan->id,
 			] );
 
 		} catch ( Throwable $t ) {

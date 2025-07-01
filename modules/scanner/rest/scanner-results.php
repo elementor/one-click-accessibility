@@ -43,8 +43,8 @@ class Scanner_Results extends Route_Base {
 			$pages_scanned = Page_Entry::get_pages();
 
 			foreach ( $pages_scanned as $page ) {
-                $total_violations = 0;
-                $total_resolved = 0;
+				$total_violations = 0;
+				$total_resolved = 0;
 
 				$scans = Scan_Entry::get_scans( $page->url );
 				$page_remediation_count = Remediation_Entry::get_page_remediations( $page->url, true );
@@ -66,10 +66,10 @@ class Scanner_Results extends Route_Base {
 					continue;
 				}
 
-                foreach ( $recent_scans as $recent_scan ) {
-                    $total_violations += $recent_scan['issues_total'];
-                    $total_resolved += $recent_scan['issues_fixed'];
-                }
+				foreach ( $recent_scans as $recent_scan ) {
+					$total_violations += $recent_scan['issues_total'];
+					$total_resolved += $recent_scan['issues_fixed'];
+				}
 
 				$output[] = [
 					'id' => $page->id,
