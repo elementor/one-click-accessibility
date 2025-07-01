@@ -19,7 +19,7 @@ import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const { remediations, setOpenedBlock, setIsManage, runNewScan } =
+	const { remediations, isManage, setOpenedBlock, setIsManage, runNewScan } =
 		useScannerWizardContext();
 	const [isOpened, setIsOpened] = useState(false);
 	const anchorEl = useRef(null);
@@ -113,7 +113,11 @@ export const DropdownMenu = () => {
 						</MenuItem>
 					</Tooltip>
 				) : (
-					<MenuItem onClick={goToManagement}>
+					<MenuItem
+						onClick={goToManagement}
+						disabled={isManage}
+						selected={isManage}
+					>
 						<MenuItemIcon>
 							<SettingsIcon />
 						</MenuItemIcon>

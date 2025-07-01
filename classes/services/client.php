@@ -85,7 +85,7 @@ class Client {
 		$body = array_replace_recursive( $body, $this->get_site_info() );
 
 		if ( $send_json ) {
-			$headers['Content-Type'] = 'application/json';
+			$headers['Content-Type'] = 'application/json; charset=utf-8';
 			$body = wp_json_encode( $body );
 		}
 		try {
