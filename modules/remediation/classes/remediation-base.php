@@ -11,6 +11,12 @@ class Remediation_Base {
 
 	public DOMDocument $dom;
 	/**
+	 * Use frontend remediation flag
+	 *
+	 * @var boolean
+	 */
+	public bool $use_frontend = false;
+	/**
 	 * @var mixed
 	 */
 	public array $data;
@@ -71,7 +77,8 @@ class Remediation_Base {
 		$this->data = $data;
 		// if element does not exist, move the remediation to the Frontend
 		if ( ! $this->exists() ) {
-			return false;
+			$this->use_frontend = true;
+			return;
 		}
 		$this->run();
 	}

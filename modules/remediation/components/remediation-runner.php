@@ -102,7 +102,7 @@ class Remediation_Runner {
 			}
 			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
-			if ( false === $remediation_class ) {
+			if ( $remediation_class->use_frontend ) {
 				$this->add_frontend_remediation( $remediation );
 				continue;
 			}
