@@ -53,8 +53,8 @@ const QuotaIndicator = () => {
 						justifySelf: !openSidebar ? 'right' : 'auto',
 						alignSelf: !openSidebar ? 'start' : 'auto',
 						fontSize: !openSidebar ? '16px' : 'inherit',
-						position: 'relative',
-						top: !openSidebar ? '-10px' : '0',
+						position: !openSidebar ? 'absolute' : 'relative',
+						top: !openSidebar ? '0' : '0',
 						right: !openSidebar ? '10px' : 'auto',
 					}}
 				/>
