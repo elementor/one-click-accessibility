@@ -27,6 +27,7 @@ import {
 export const ScannerWizardContext = createContext({
 	results: {},
 	remediations: [],
+	currentScanId: null,
 	resolved: 0,
 	openedBlock: '',
 	loading: null,
@@ -65,6 +66,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		INITIAL_SORTED_VIOLATIONS,
 	);
 	const [resolved, setResolved] = useState(0);
+	const [currentScanId, setCurrentScanId] = useState(null);
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
@@ -174,10 +176,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const addScanResults = async (data) => {
 		try {
-			await APIScanner.addScanResults(
+			const response = await APIScanner.addScanResults(
 				window?.ea11yScannerData?.pageData?.url,
 				data.summary,
 			);
+
+			setCurrentScanId(response.scanId);
 		} catch (e) {
 			console.error(e);
 			setIsError(true);
@@ -186,6 +190,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const getResults = async () => {
 		setLoading(true);
+
 		try {
 			const url = new URL(window.location.href);
 			const data = await window.ace.check(document);
@@ -193,6 +198,11 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				(item) => item.level === 'violation',
 			);
 			const sorted = sortViolations(filtered);
+
+			if (data?.summary?.counts) {
+				data.summary.counts.issuesResolved = 0;
+			}
+
 			await registerPage(data, sorted);
 			await addScanResults(data);
 
@@ -269,6 +279,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				results,
 				resolved,
 				remediations,
+				currentScanId,
 				openedBlock,
 				loading,
 				isError,

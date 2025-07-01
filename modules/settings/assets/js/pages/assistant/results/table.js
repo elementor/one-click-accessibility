@@ -64,11 +64,18 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 			<Table aria-label={__('Scan results', 'pojo-accessibility')}>
 				<TableHead>
 					<TableRow>
-						<TableCell>{__('Page', 'pojo-accessibility')}</TableCell>
-						<TableCell>{__('URL', 'pojo-accessibility')}</TableCell>
-						<TableCell>{__('Last scan', 'pojo-accessibility')}</TableCell>
-						<TableCell>{__('Issues resolved', 'pojo-accessibility')}</TableCell>
-						<TableCell role="presentation" />
+						<TableCell sx={{ width: '148px' }}>
+							{__('Page', 'pojo-accessibility')}
+						</TableCell>
+						<TableCell sx={{ width: '220px' }}>
+							{__('URL', 'pojo-accessibility')}
+						</TableCell>
+						<TableCell sx={{ width: '148px' }}>
+							{__('Last scan', 'pojo-accessibility')}
+						</TableCell>
+						<TableCell sx={{ width: '220px' }}>
+							{__('Issues resolved', 'pojo-accessibility')}
+						</TableCell>
 						<TableCell>
 							<VisuallyHidden>
 								<Typography as="span">
@@ -88,15 +95,17 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 						return (
 							<Fragment key={result.id}>
 								<TableRow>
-									<TableCell component="th" scope="row">
+									<StyledShortCell component="th" scope="row">
 										{result.page_title}
-									</TableCell>
+									</StyledShortCell>
 
-									<TableCell>{result.page_url}</TableCell>
+									<StyledLongCell>{result.page_url}</StyledLongCell>
 
-									<TableCell>{formatDate(result.last_scan)}</TableCell>
+									<StyledShortCell>
+										{formatDate(result.last_scan)}
+									</StyledShortCell>
 
-									<TableCell>
+									<StyledLongCell>
 										<StyledProgressContainer>
 											<StyledLinearProgress
 												value={resolvedPercentage}
@@ -108,9 +117,7 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 												percentage={resolvedPercentage}
 											/>
 										</StyledProgressContainer>
-									</TableCell>
-
-									<TableCell role="presentation" />
+									</StyledLongCell>
 
 									<TableCell>
 										<StyledControlsContainer>
@@ -154,9 +161,9 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 
 								{openRows[index] &&
 									result.scans.map((scan, scanIndex) => {
-										const resolvedScanPercentage = result.issues_total
+										const resolvedScanPercentage = scan.issues_total
 											? Math.round(
-													(result.issues_fixed / result.issues_total) * 100,
+													(scan.issues_fixed / scan.issues_total) * 100,
 												)
 											: 0;
 
@@ -165,8 +172,11 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 												key={`${result.page_title}-scan-${scanIndex}`}
 											>
 												<TableCell colSpan={2} />
-												<TableCell>{formatDate(scan.date)}</TableCell>
-												<TableCell>
+												<StyledShortCell>
+													{formatDate(scan.date)}
+												</StyledShortCell>
+
+												<StyledLongCell>
 													<StyledProgressContainer>
 														<StyledLinearProgress
 															value={resolvedScanPercentage}
@@ -178,8 +188,8 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 															percentage={resolvedScanPercentage}
 														/>
 													</StyledProgressContainer>
-												</TableCell>
-												<TableCell colSpan={2} />
+												</StyledLongCell>
+												<TableCell />
 											</StyledScanRow>
 										);
 									})}
@@ -245,6 +255,22 @@ const StyledLinearProgress = styled(LinearProgress)`
 
 const StyledScanRow = styled(TableRow)`
 	background-color: #f9f9f9;
+`;
+
+const StyledShortCell = styled(TableCell)`
+	max-width: 148px;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+`;
+
+const StyledLongCell = styled(TableCell)`
+	max-width: 220px;
+
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 `;
 
 export default AccessibilityAssistantResultsTable;
