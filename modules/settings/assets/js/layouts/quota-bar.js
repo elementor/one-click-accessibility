@@ -8,7 +8,11 @@ import {
 	bindTrigger,
 	usePopupState,
 } from '@elementor/ui/usePopupState';
-import { QuotaBarGroup, QuotaBarPopupMenu } from '@ea11y/components';
+import {
+	QuotaBarGroup,
+	QuotaBarPopupMenu,
+	QuotaIndicator,
+} from '@ea11y/components';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
 
 const QuotaBar = () => {
@@ -33,6 +37,7 @@ const QuotaBar = () => {
 			<StyledBox>
 				<StyledIconButton {...bindTrigger(quotaPopupMenuState)}>
 					<CalendarDollarIcon sx={{ color: 'common.black', marginRight: 1 }} />
+					<QuotaIndicator />
 				</StyledIconButton>
 				<QuotaBarPopupMenu
 					{...bindMenu(quotaPopupMenuState)}

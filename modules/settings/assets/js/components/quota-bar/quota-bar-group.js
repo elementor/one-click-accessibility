@@ -42,7 +42,7 @@ const QuotaBarGroup = ({ collapsible = true }) => {
 		<Box display="flex" alignItems="center" gap={1}>
 			{__('Current Plan', 'pojo-accessibility')}
 			<Chip variant="filled" label={planData?.plan?.name} size="tiny" />
-			{planData && <QuotaIndicator data={planData} isQuotaBoxOpen={open} />}
+			<QuotaIndicator />
 		</Box>
 	);
 
