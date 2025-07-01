@@ -21,7 +21,7 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { openLink } from '../../utils';
 
-const QuotaBarGroup = ({ collapsible = true }) => {
+const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 	const { planData } = useSettings();
 	const [open, setOpen] = useState(false);
 
@@ -55,7 +55,7 @@ const QuotaBarGroup = ({ collapsible = true }) => {
 	);
 
 	return (
-		<StyledBox>
+		<StyledBox popup={popup}>
 			<StyledCardGroup>
 				<Card elevation={0} sx={{ overflow: 'visible' }}>
 					<StyledCardActionArea onClick={toggleOpen}>
@@ -86,6 +86,7 @@ const QuotaBarGroup = ({ collapsible = true }) => {
 							onClick={handleAddVisitsClick}
 							size="small"
 							fullWidth
+							color="promotion"
 						>
 							{__('Upgrade plan', 'pojo-accessibility')}
 						</StyledButton>
@@ -98,19 +99,23 @@ const QuotaBarGroup = ({ collapsible = true }) => {
 
 export default QuotaBarGroup;
 
-const StyledBox = styled(Box)`
+const StyledBox = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'popup',
+})`
 	display: flex;
 	flex-direction: row;
 	align-items: start;
 	justify-content: center;
+	max-width: 230px;
 
-	margin: ${({ theme }) => theme.spacing(2)};
+	margin: ${({ popup, theme }) => (popup ? '0' : theme.spacing(2))};
 	padding: 0;
 
 	border-radius: 8px;
 
 	:hover {
-		background-color: ${({ theme }) => theme.palette.action.hover};
+		background-color: ${({ popup, theme }) =>
+			popup ? theme.palette.common.white : theme.palette.action.hover};
 	}
 `;
 

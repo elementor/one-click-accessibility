@@ -16,7 +16,7 @@ export const QuotaPopupMenu = (menuProps) => {
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
 			autoFocus={false}
 		>
-			<QuotaBarGroup collapsible={false} />
+			<QuotaBarGroup collapsible={false} popup={true} />
 		</Menu>
 	);
 };

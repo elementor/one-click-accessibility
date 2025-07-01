@@ -65,7 +65,7 @@ const StyledBox = styled(Box)`
 `;
 
 const StyledIconButton = styled(IconButton)`
-	padding: ${({ theme }) => theme.spacing(2)};
+	padding: ${({ theme }) => theme.spacing(1)} ${({ theme }) => theme.spacing(2)};
 	background-color: ${({ theme }) => theme.palette.background.paper};
 	border-radius: 8px;
 
