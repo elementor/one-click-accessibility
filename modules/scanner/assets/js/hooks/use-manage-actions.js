@@ -15,6 +15,7 @@ export const useManageActions = (current = null) => {
 		setSortedRemediation,
 		setLoading,
 		updateRemediationList,
+		setIsManageChanged,
 	} = useScannerWizardContext();
 
 	const [activeRequest, setActiveRequest] = useState(false);
@@ -26,6 +27,7 @@ export const useManageActions = (current = null) => {
 				url: window?.ea11yScannerData?.pageData?.url,
 				active,
 			});
+			setIsManageChanged(true);
 			await updateRemediationList();
 			mixpanelService.sendEvent(
 				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
@@ -83,6 +85,7 @@ export const useManageActions = (current = null) => {
 				...sortedRemediation,
 				[openedBlock]: updated,
 			});
+			setIsManageChanged(true);
 			mixpanelService.sendEvent(
 				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
 				{
@@ -113,6 +116,7 @@ export const useManageActions = (current = null) => {
 				...sortedRemediation,
 				[openedBlock]: updated,
 			});
+			setIsManageChanged(true);
 			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_specific',
 				category_name: BLOCK_TITLES[openedBlock],
@@ -142,6 +146,7 @@ export const useManageActions = (current = null) => {
 				...sortedRemediation,
 				[openedBlock]: updated,
 			});
+			setIsManageChanged(true);
 			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
 				fix_method: 'manual',
 				snippet_content: strContent,

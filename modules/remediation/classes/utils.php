@@ -114,4 +114,29 @@ class Utils {
 	public static function get_hash( $text ) : string {
 		return md5( $text );
 	}
+
+	public static function trigger_save_for_clean_cache( $entry_id, $entry_type ): void {
+		if ( in_array( $entry_type, [ 'post', 'page' ], true ) ) {
+			$post = get_post( $entry_id );
+			if ( $post && 'publish' === $post->post_status ) {
+				$post_type = $post->post_type;
+
+				do_action( 'save_post', $entry_id, $post, true );
+				do_action( "save_post_{$post_type}", $entry_id, $post, true );
+			}
+		}
+		if ( 'taxonomy' === $entry_type ) {
+			$term = get_term( $entry_id );
+
+			if ( is_wp_error( $term ) || ! $term ) {
+				return;
+			}
+
+			$taxonomy = $term->taxonomy;
+			$tt_id = $term->term_taxonomy_id;
+
+			do_action( 'edited_term', $entry_id, $tt_id, $taxonomy );
+			do_action( "edited_{$taxonomy}", $entry_id, $tt_id );
+		}
+	}
 }

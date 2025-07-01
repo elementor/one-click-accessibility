@@ -7,6 +7,7 @@ import IconButton from '@elementor/ui/IconButton';
 import Paper from '@elementor/ui/Paper';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { Breadcrumbs } from '@ea11y-apps/scanner/components/header/breadcrumbs';
 import { DropdownMenu } from '@ea11y-apps/scanner/components/header/dropdown-menu';
 import { ManagementStats } from '@ea11y-apps/scanner/components/header/management-stats';
@@ -33,6 +34,7 @@ export const Header = () => {
 		loading,
 		isError,
 		isManage,
+		isChanged,
 		setOpenedBlock,
 		setIsManage,
 	} = useScannerWizardContext();
@@ -42,6 +44,12 @@ export const Header = () => {
 			setIsManage(false);
 			setOpenedBlock(BLOCKS.main);
 		} else {
+			if (isChanged) {
+				void APIScanner.triggerSave({
+					object_id: window?.ea11yScannerData?.pageData?.object_id,
+					object_type: window?.ea11yScannerData?.pageData?.object_type,
+				});
+			}
 			const widget = document.getElementById(ROOT_ID);
 			closeWidget(widget);
 		}

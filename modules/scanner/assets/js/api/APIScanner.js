@@ -14,14 +14,19 @@ export class APIScanner extends API {
 		});
 	}
 
-	static async addScanResults(url, summary) {
+	static async addScanResults(data) {
 		return APIScanner.request({
 			method: 'POST',
 			path: `${v1Prefix}/scanner/scan-results`,
-			data: {
-				url,
-				summary,
-			},
+			data,
+		});
+	}
+
+	static async triggerSave(data) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/remediation/trigger-save`,
+			data,
 		});
 	}
 

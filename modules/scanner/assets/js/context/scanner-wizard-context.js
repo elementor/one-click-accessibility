@@ -33,6 +33,7 @@ export const ScannerWizardContext = createContext({
 	loading: null,
 	isError: false,
 	isManage: false,
+	isChanged: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
 	sortedRemediation: INITIAL_SORTED_VIOLATIONS,
 	altTextData: [],
@@ -50,6 +51,7 @@ export const ScannerWizardContext = createContext({
 	setRemediationData: () => {},
 	updateRemediationList: () => {},
 	setIsManage: () => {},
+	setIsManageChanged: () => {},
 	isResolved: () => {},
 	handleOpen: () => {},
 	setOpenIndex: () => {},
@@ -71,6 +73,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 	const [isManage, setIsManage] = useState(false);
+	const [isManageChanged, setIsManageChanged] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 	const [remediationData, setRemediationData] = useState(
@@ -176,10 +179,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const addScanResults = async (data) => {
 		try {
-			const response = await APIScanner.addScanResults(
-				window?.ea11yScannerData?.pageData?.url,
-				data.summary,
-			);
+			const response = await APIScanner.addScanResults({
+				url: window?.ea11yScannerData?.pageData?.url,
+				object_id: window?.ea11yScannerData?.pageData?.object_id,
+				object_type: window?.ea11yScannerData?.pageData?.object_type,
+				summary: data.summary,
+			});
 
 			setCurrentScanId(response.scanId);
 		} catch (e) {
@@ -263,6 +268,13 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					sortedViolations[block]?.length === 0;
 	};
 
+	const isChanged =
+		altTextData.length > 0 ||
+		Object.keys(manualData).some(
+			(key) => manualData[key] && manualData[key].length > 0,
+		) ||
+		isManageChanged;
+
 	const runNewScan = () => {
 		const url = new URL(window.location.href);
 		url.searchParams.delete('open-ea11y-assistant');
@@ -284,6 +296,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				loading,
 				isError,
 				isManage,
+				isChanged,
 				sortedViolations,
 				sortedRemediation,
 				altTextData,
@@ -300,6 +313,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				setRemediationData,
 				updateRemediationList,
 				setIsManage,
+				setIsManageChanged,
 				openIndex,
 				setOpenIndex,
 				isResolved,
