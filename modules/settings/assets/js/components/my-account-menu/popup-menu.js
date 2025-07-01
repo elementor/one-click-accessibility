@@ -65,7 +65,7 @@ export const PopupMenu = (menuProps) => {
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
 			autoFocus={false}
 		>
-			<StyledMenuItem sx={{ gap: 1, width: '240px' }} dense>
+			<StyledBox>
 				<Avatar sx={{ width: 32, height: 32 }}>
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
@@ -87,15 +87,15 @@ export const PopupMenu = (menuProps) => {
 						/>
 					)}
 				</Box>
-			</StyledMenuItem>
+			</StyledBox>
 			<Divider />
 
 			<StyledMenuItem dense onClick={onDeactivateAndDisconnect}>
 				<UserArrowIcon sx={{ color: 'action.active' }} />
 
-				<Typography color="text.primary" marginLeft={1}>
+				<StyledTypography>
 					{__('Switch account', 'pojo-accessibility')}
-				</Typography>
+				</StyledTypography>
 			</StyledMenuItem>
 
 			<StyledMenuItem
@@ -106,9 +106,9 @@ export const PopupMenu = (menuProps) => {
 				<Box display="flex" flexDirection="row">
 					<CalendarDollarIcon sx={{ color: 'action.active' }} />
 
-					<Typography color="text.primary" marginLeft={1}>
+					<StyledTypography>
 						{__('Subscription', 'pojo-accessibility')}
-					</Typography>
+					</StyledTypography>
 				</Box>
 
 				<ExternalLinkIcon sx={{ color: 'text.primary' }} />
@@ -124,4 +124,20 @@ const StyledMenuItem = styled(MenuItem)`
 	&.MuiMenuItem-gutters:focus-visible {
 		box-shadow: inset 0 0 0 3px #5e9ed6;
 	}
+`;
+
+const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	gap: ${({ theme }) => theme.spacing(1)};
+	padding: 8px 16px;
+`;
+
+const StyledTypography = styled(Typography)`
+	color: ${({ theme }) => theme.palette.text.primary};
+	margin-left: ${({ theme }) => theme.spacing(1)};
+	font-size: 14px;
 `;
