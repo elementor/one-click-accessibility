@@ -49,7 +49,16 @@ export const DropdownMenu = () => {
 	};
 
 	const SwitchMenuItem = () =>
-		!isManage ? (
+		isManage ? (
+			<MenuItem disabled selected>
+				<MenuItemIcon>
+					<SettingsIcon />
+				</MenuItemIcon>
+				<MenuItemText>
+					{__('Manage AI fixes', 'pojo-accessibility')}
+				</MenuItemText>
+			</MenuItem>
+		) : (
 			<MenuItem onClick={goToManagement}>
 				<MenuItemIcon>
 					<SettingsIcon />
@@ -58,7 +67,7 @@ export const DropdownMenu = () => {
 					{__('Manage AI fixes', 'pojo-accessibility')}
 				</MenuItemText>
 			</MenuItem>
-		) : null;
+		);
 
 	return (
 		<Box>

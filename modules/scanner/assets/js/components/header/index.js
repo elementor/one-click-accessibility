@@ -112,7 +112,7 @@ export const Header = () => {
 								<>
 									<SettingsIcon size="small" color="action" />
 									<StyledTitle variant="subtitle1">
-										{__('Manage fixes', 'pojo-accessibility')}
+										{__('Manage AI fixes', 'pojo-accessibility')}
 									</StyledTitle>
 								</>
 							) : (
