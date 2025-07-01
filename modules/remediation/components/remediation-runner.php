@@ -126,7 +126,7 @@ class Remediation_Runner {
 			// Create a new <script> element
 			$script_data = $dom->createElement( 'script' );
 			$script_data->setAttribute( 'type', 'text/javascript' );
-			$script_data->textContent = 'window.AllyRemediations = ' . json_encode( $this->front_end_remediations ) . ';';
+                        $script_data->textContent = 'window.AllyRemediations = ' . wp_json_encode( $this->front_end_remediations ) . ';';
 
 			// Create a new <script> element for the module.js
 			$module_script = $dom->createElement('script');
