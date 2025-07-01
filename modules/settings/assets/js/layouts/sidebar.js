@@ -20,7 +20,7 @@ const Sidebar = () => {
 			PaperProps={{
 				sx: {
 					position: 'relative',
-					width: !openSidebar ? '80px' : '260px',
+					width: !openSidebar ? '81px' : '260px',
 					transition: 'all 0.3s',
 					height: `calc(100% - 52.5px)`,
 					justifyContent: 'space-between',
