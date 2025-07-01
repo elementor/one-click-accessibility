@@ -71,8 +71,12 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
 			autoFocus={false}
 		>
-			<StyledMenuItem onClick={closeAction} sx={{ gap: 1, width: '240px' }}>
-				<Avatar>
+			<StyledMenuItem
+				onClick={closeAction}
+				sx={{ gap: 1, width: '240px' }}
+				dense
+			>
+				<Avatar sx={{ width: 32, height: 32 }}>
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
 
@@ -88,14 +92,14 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 							color="info"
 							variant="standard"
 							label={planData?.plan?.name}
-							size="small"
+							size="tiny"
 							sx={{ width: 'fit-content', marginTop: 0.5 }}
 						/>
 					)}
 				</Box>
 			</StyledMenuItem>
 
-			<StyledMenuItem onClick={onDeactivateAndDisconnect}>
+			<StyledMenuItem dense onClick={onDeactivateAndDisconnect}>
 				<UserArrowIcon sx={{ color: 'action.active' }} />
 
 				<Typography color="text.primary" marginLeft={1}>
@@ -104,6 +108,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 			</StyledMenuItem>
 
 			<StyledMenuItem
+				dense
 				sx={{ width: '100%', justifyContent: 'space-between' }}
 				onClick={() => window.open(ELEMENTOR_URL)}
 			>
