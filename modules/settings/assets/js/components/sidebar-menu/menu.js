@@ -13,12 +13,12 @@ import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 
 export const MenuItems = {
 	scanner: {
-		name: __('Accessibility Assistant', 'pojo-accessibility'),
+		name: __('Accessibility scans', 'pojo-accessibility'),
 		key: 'scanner',
 		type: 'heading',
 	},
 	scanOverview: {
-		name: __('Scan overview', 'pojo-accessibility'),
+		name: __('Scans', 'pojo-accessibility'),
 		key: 'scan-overview',
 		page: (
 			<AccessibilityAssistantContextProvider>
