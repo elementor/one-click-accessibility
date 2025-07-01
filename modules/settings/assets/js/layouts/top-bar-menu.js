@@ -1,7 +1,9 @@
 import { HelpIcon, UserIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
+import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
+import Tooltip from '@elementor/ui/Tooltip';
 import {
 	bindMenu,
 	bindTrigger,
@@ -70,13 +72,16 @@ const TopBarMenu = () => {
 				>
 					{__('Help', 'pojo-accessibility')}
 				</Button>
+				<Divider orientation="vertical" flexItem />
 				<IconButton {...bindTrigger(accountMenuState)}>
-					<UserIcon
-						role="img"
-						aria-label={__('My Account', 'pojo-accessibility')}
-						sx={{ color: 'common.black' }}
-						fontSize="small"
-					/>
+					<Tooltip title={__('My Account', 'pojo-accessibility')}>
+						<UserIcon
+							role="img"
+							aria-label={__('My Account', 'pojo-accessibility')}
+							sx={{ color: 'common.black' }}
+							fontSize="small"
+						/>
+					</Tooltip>
 				</IconButton>
 			</Box>
 			<PopupMenu
