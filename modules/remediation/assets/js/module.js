@@ -118,9 +118,7 @@ if (
 	});
 
 	// Also run immediately if DOM is already loaded
-	if (document.readyState === 'loading') {
-		// DOM is still loading, wait for DOMContentLoaded
-	} else {
+	if (document.readyState !== 'loading') {
 		// DOM is already loaded, run immediately
 		setTimeout(() => {
 			initializeRemediations();
