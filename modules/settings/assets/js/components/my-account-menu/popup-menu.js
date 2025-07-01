@@ -6,6 +6,7 @@ import {
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import Chip from '@elementor/ui/Chip';
+import Divider from '@elementor/ui/Divider';
 import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import Tooltip from '@elementor/ui/Tooltip';
@@ -20,14 +21,7 @@ import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
 import { truncateEmail } from '../../helpers/popup-menu';
 
-const StyledMenuItem = styled(MenuItem)`
-	&.MuiMenuItem-gutters:focus,
-	&.MuiMenuItem-gutters:focus-visible {
-		box-shadow: inset 0 0 0 3px #5e9ed6;
-	}
-`;
-
-export const PopupMenu = (menuProps, { closeAction }) => {
+export const PopupMenu = (menuProps) => {
 	const { save } = useStorage();
 	const { error } = useToastNotification();
 	const { planData } = useSettings();
@@ -71,11 +65,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
 			autoFocus={false}
 		>
-			<StyledMenuItem
-				onClick={closeAction}
-				sx={{ gap: 1, width: '240px' }}
-				dense
-			>
+			<StyledMenuItem sx={{ gap: 1, width: '240px' }} dense>
 				<Avatar sx={{ width: 32, height: 32 }}>
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
@@ -98,6 +88,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 					)}
 				</Box>
 			</StyledMenuItem>
+			<Divider />
 
 			<StyledMenuItem dense onClick={onDeactivateAndDisconnect}>
 				<UserArrowIcon sx={{ color: 'action.active' }} />
@@ -127,3 +118,10 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 };
 
 export default PopupMenu;
+
+const StyledMenuItem = styled(MenuItem)`
+	&.MuiMenuItem-gutters:focus,
+	&.MuiMenuItem-gutters:focus-visible {
+		box-shadow: inset 0 0 0 3px #5e9ed6;
+	}
+`;
