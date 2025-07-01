@@ -13,6 +13,7 @@ export const StyledBox = styled(Box)`
 	max-height: 100%;
 	min-height: 50%;
 	height: calc(100% - 52.5px);
+	overflow: hidden;
 `;
 
 export const StyledContainer = styled(Container)`
@@ -22,7 +23,7 @@ export const StyledContainer = styled(Container)`
 `;
 
 export const StyledWideBox = styled(Box)`
-	overflow: hidden;
+	overflow: auto;
 	max-height: 100%;
 	padding: ${({ theme }) => theme.spacing(4)};
 	width: 100%;
