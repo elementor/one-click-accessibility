@@ -48,27 +48,6 @@ export const DropdownMenu = () => {
 		sendOnClickEvent('Manage fixes');
 	};
 
-	const SwitchMenuItem = () =>
-		isManage ? (
-			<MenuItem disabled selected>
-				<MenuItemIcon>
-					<SettingsIcon />
-				</MenuItemIcon>
-				<MenuItemText>
-					{__('Manage AI fixes', 'pojo-accessibility')}
-				</MenuItemText>
-			</MenuItem>
-		) : (
-			<MenuItem onClick={goToManagement}>
-				<MenuItemIcon>
-					<SettingsIcon />
-				</MenuItemIcon>
-				<MenuItemText>
-					{__('Manage AI fixes', 'pojo-accessibility')}
-				</MenuItemText>
-			</MenuItem>
-		);
-
 	return (
 		<Box>
 			<IconButton
@@ -134,7 +113,18 @@ export const DropdownMenu = () => {
 						</MenuItem>
 					</Tooltip>
 				) : (
-					<SwitchMenuItem />
+					<MenuItem
+						onClick={goToManagement}
+						disabled={isManage}
+						selected={isManage}
+					>
+						<MenuItemIcon>
+							<SettingsIcon />
+						</MenuItemIcon>
+						<MenuItemText>
+							{__('Manage AI fixes', 'pojo-accessibility')}
+						</MenuItemText>
+					</MenuItem>
 				)}
 
 				<MenuItem
