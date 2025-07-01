@@ -16,6 +16,7 @@ export const useManualFixForm = ({ item, current }) => {
 		setOpenIndex,
 		setManualData,
 		resolved,
+		currentScanId,
 		setResolved,
 		isResolved,
 		setOpenedBlock,
@@ -75,9 +76,11 @@ export const useManualFixForm = ({ item, current }) => {
 
 	const resolveIssue = async (manualEdit) => {
 		setResolving(true);
+
 		try {
 			const replace =
 				manualEdit || manualData[openedBlock][current]?.aiSuggestion.snippet;
+
 			await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
@@ -91,7 +94,10 @@ export const useManualFixForm = ({ item, current }) => {
 				group: BLOCKS[openedBlock],
 				apiId: manualData[openedBlock]?.[current]?.apiId,
 			});
+			await APIScanner.resolveIssue(currentScanId);
+
 			markResolved();
+
 			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
 				fix_method: manualEdit ? 'manual' : 'AI',
 				issue_type: item.message,
@@ -99,6 +105,7 @@ export const useManualFixForm = ({ item, current }) => {
 				category_name: BLOCK_TITLES[openedBlock],
 				source: 'assistant',
 			});
+
 			void updateRemediationList();
 		} catch (e) {
 			console.log(e);

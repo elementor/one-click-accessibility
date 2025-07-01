@@ -19,6 +19,7 @@ export const useAltTextForm = ({ current, item }) => {
 		altTextData,
 		setAltTextData,
 		resolved,
+		currentScanId,
 		setResolved,
 		isResolved,
 		setOpenedBlock,
@@ -99,6 +100,8 @@ export const useAltTextForm = ({ current, item }) => {
 				apiId: altTextData?.[current]?.apiId,
 			});
 		}
+
+		await APIScanner.resolveIssue(currentScanId);
 	};
 
 	const handleCheck = (e) => {

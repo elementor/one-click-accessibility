@@ -154,9 +154,9 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 
 								{openRows[index] &&
 									result.scans.map((scan, scanIndex) => {
-										const resolvedScanPercentage = result.issues_total
+										const resolvedScanPercentage = scan.issues_total
 											? Math.round(
-													(result.issues_fixed / result.issues_total) * 100,
+													(scan.issues_fixed / scan.issues_total) * 100,
 												)
 											: 0;
 

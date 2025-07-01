@@ -84,6 +84,14 @@ export class APIScanner extends API {
 		});
 	}
 
+	static async resolveIssue(scanId) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/scanner/resolve-issue`,
+			data: { scanId },
+		});
+	}
+
 	static async getRemediations(url) {
 		return APIScanner.request({
 			method: 'GET',

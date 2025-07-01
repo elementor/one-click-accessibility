@@ -11,7 +11,9 @@ import Link from '@elementor/ui/Link';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { ResolveWithAi } from '@ea11y-apps/scanner/components/manual-fix-form/resolve-with-ai';
 import {
 	BLOCK_TITLES,
@@ -34,7 +36,8 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ManualFixForm = ({ item, current, setOpen }) => {
-	const { openedBlock } = useScannerWizardContext();
+	const { openedBlock, currentScanId } = useScannerWizardContext();
+	const { error } = useToastNotification();
 	const { copied, copyToClipboard } = useCopyToClipboard();
 	const { markResolved } = useManualFixForm({
 		item,
@@ -63,10 +66,16 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 		sendMixpanelEvent(mixpanelEvents.issueSkipped);
 	};
 
-	const handleMarkResolved = () => {
-		closeExample();
-		markResolved();
-		sendMixpanelEvent(mixpanelEvents.markAsResolveClicked);
+	const handleMarkResolved = async () => {
+		try {
+			await APIScanner.resolveIssue(currentScanId);
+
+			closeExample();
+			markResolved();
+			sendMixpanelEvent(mixpanelEvents.markAsResolveClicked);
+		} catch (e) {
+			error(__('An error occurred.', 'pojo-accessibility'));
+		}
 	};
 
 	const showAIBlock =
