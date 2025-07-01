@@ -88,7 +88,7 @@ class Remediation_Entry extends Entry {
 	}
 
 	public static function get_all_remediations( int $period ) : array {
-		$date_threshold = gmdate( 'Y-m-d H:i:s', strtotime( "-{$period} days" ) );
+		$date_threshold = gmdate( 'Y-m-d', strtotime( "-{$period} days" ) ) . ' 00:00:00';
 
 		$where = [
 			[

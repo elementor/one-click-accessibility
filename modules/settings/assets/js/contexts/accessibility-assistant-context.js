@@ -95,10 +95,15 @@ export const AccessibilityAssistantContextProvider = ({ children }) => {
 	const getFilteredScannerResults = useCallback(() => {
 		const now = new Date();
 		const cutoffDate = new Date(now);
+
 		cutoffDate.setDate(now.getDate() - period);
+		cutoffDate.setHours(0);
+		cutoffDate.setMinutes(0);
+		cutoffDate.setSeconds(0);
 
 		const filteredByDate = scannerResults.filter((result) => {
 			const scanDate = new Date(result.last_scan);
+
 			return scanDate >= cutoffDate;
 		});
 
