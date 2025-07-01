@@ -116,9 +116,17 @@ class Utils {
 	}
 
 	public static function trigger_save_for_clean_cache( $entry_id, $entry_type ): void {
+		if (
+			! is_numeric( $entry_id ) ||
+			intval( $entry_id ) <= 0 ||
+			! in_array( $entry_type, [ 'post', 'page', 'taxonomy' ], true )
+		) {
+			return;
+		}
+
 		if ( in_array( $entry_type, [ 'post', 'page' ], true ) ) {
 			$post = get_post( $entry_id );
-			if ( $post && 'publish' === $post->post_status ) {
+			if ( $post && is_object( $post ) && 'publish' === $post->post_status ) {
 				$post_type = $post->post_type;
 
 				do_action( 'save_post', $entry_id, $post, true );

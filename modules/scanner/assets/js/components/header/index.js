@@ -39,19 +39,23 @@ export const Header = () => {
 		setIsManage,
 	} = useScannerWizardContext();
 	const violation = results?.summary?.counts?.violation;
-	const onClose = () => {
+	const onClose = async () => {
 		if (isManage) {
 			setIsManage(false);
 			setOpenedBlock(BLOCKS.main);
 		} else {
-			if (isChanged) {
-				void APIScanner.triggerSave({
-					object_id: window?.ea11yScannerData?.pageData?.object_id,
-					object_type: window?.ea11yScannerData?.pageData?.object_type,
-				});
-			}
 			const widget = document.getElementById(ROOT_ID);
 			closeWidget(widget);
+			if (isChanged) {
+				try {
+					await APIScanner.triggerSave({
+						object_id: window?.ea11yScannerData?.pageData?.object_id,
+						object_type: window?.ea11yScannerData?.pageData?.object_type,
+					});
+				} catch (e) {
+					console.warn(e);
+				}
+			}
 		}
 	};
 
