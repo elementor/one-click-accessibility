@@ -76,7 +76,9 @@ const MenuItem = ({ keyName, item }) => {
 				>
 					<ListItemIcon
 						sx={{
-							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '4px',
+							/* For smoother sidebar */
+							padding: openSidebar ? 'auto' : '4px',
+							marginRight: openSidebar ? 1 : '0 !important',
 						}}
 					>
 						{item.icon}
