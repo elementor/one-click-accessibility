@@ -63,6 +63,6 @@ const StyledIconButton = styled(IconButton)`
 	background: ${({ theme }) => theme.palette.background.paper};
 
 	:hover {
-		background: ${({ theme }) => theme.palette.background.paper};
+		background: ${({ theme }) => theme.palette.action.hover};
 	}
 `;
