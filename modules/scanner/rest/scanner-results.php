@@ -71,7 +71,7 @@ class Scanner_Results extends Route_Base {
 					'page_url' => $page->url,
 					'scans' => $scans,
 					'last_scan' => $scans[0]['date'] ?: $page->created_at,
-					'remediation_count' => $page_remediation_count[0]->total,
+					'remediation_count' => isset( $page_remediation_count[0] ) ? $page_remediation_count[0]->total : 0,
 					'issues_total' => $page->violations,
 					'issues_fixed' => $page->resolved,
 				];
