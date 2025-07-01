@@ -51,4 +51,5 @@ export const mixpanelEvents = {
 	assistantDashboardHistoryLogsButtonClicked: 'history_logs_button_clicked',
 	assistantDashboardScanCtaClicked: 'scan_cta_clicked',
 	assistantDashboardSearchTriggered: 'search_triggered',
+	scanLogActionsButtonClicked: 'scan_log_actions_button_clicked',
 };

@@ -28,6 +28,7 @@ const AccessibilityAssistantResultsTableCTA = ({ percentage, pageUrl }) => {
 				href={ctaUrl}
 				onClick={() => sendAnalytics('rescan_url')}
 				target="_blank"
+				rel="noreferrer"
 				endIcon={<RefreshIcon />}
 			>
 				{__('New scan', 'pojo-accessibility')}
@@ -43,6 +44,7 @@ const AccessibilityAssistantResultsTableCTA = ({ percentage, pageUrl }) => {
 			href={ctaUrl}
 			onClick={() => sendAnalytics('fix_issues')}
 			target="_blank"
+			rel="noreferrer"
 		>
 			{__('Resolve issues', 'pojo-accessibility')}
 		</StyledButton>
@@ -55,7 +57,7 @@ AccessibilityAssistantResultsTableCTA.propTypes = {
 };
 
 const StyledButton = styled(Button)`
-	margin-inline-start: ${({ theme }) => theme.spacing(2)};
+	min-width: 115px;
 `;
 
 export default AccessibilityAssistantResultsTableCTA;

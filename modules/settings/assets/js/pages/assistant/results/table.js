@@ -17,12 +17,13 @@ import Button from '@ea11y/components/button';
 import VisuallyHidden from '@ea11y/components/visually-hidden';
 import TableLoader from '@ea11y/pages/assistant/loaders/table-loader';
 import AccessibilityAssistantResultsTableCTA from '@ea11y/pages/assistant/results/cta';
+import { DropdownMenu } from '@ea11y/pages/assistant/results/dropdown-menu';
 import AccessibilityAssistantResultsPagination from '@ea11y/pages/assistant/results/pagination';
 import AccessibilityAssistantResultsTableProgressChip from '@ea11y/pages/assistant/results/progress-chip';
 import AccessibilityAssistantTooltip from '@ea11y/pages/assistant/tooltip';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { dateI18n } from '@wordpress/date';
-import { Fragment, useState, forwardRef } from '@wordpress/element';
+import { forwardRef, Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
@@ -142,6 +143,11 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 												percentage={resolvedPercentage}
 												pageUrl={result.page_url}
 											/>
+
+											<DropdownMenu
+												pageUrl={result.page_url}
+												remediationCount={result.remediation_count}
+											/>
 										</StyledControlsContainer>
 									</TableCell>
 								</TableRow>
@@ -213,6 +219,7 @@ const StyledControlsContainer = styled(Box)`
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	gap: ${({ theme }) => theme.spacing(2)};
 `;
 
 const ForwardedButton = forwardRef((props, ref) => (

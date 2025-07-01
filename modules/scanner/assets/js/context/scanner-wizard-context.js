@@ -4,6 +4,7 @@ import {
 	BLOCK_TITLES,
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
+	MANAGE_URL_PARAM,
 	MANUAL_GROUPS,
 } from '@ea11y-apps/scanner/constants';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
@@ -225,6 +226,14 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			setLoading(false);
 		}
 	}, [window.ea11yScannerData?.isConnected]);
+
+	useEffect(() => {
+		const params = new URLSearchParams(window.location.search);
+		if (params.get(MANAGE_URL_PARAM) === '1') {
+			setIsManage(true);
+			handleOpenBlock(BLOCKS.management);
+		}
+	}, [window.location.search]);
 
 	const isResolved = (block) => {
 		const indexes = Array.from(
