@@ -41,7 +41,10 @@ const QuotaBar = ({ type, quotaData }) => {
 					{QuotaBarData[type]?.title}
 					<Infotip
 						placement="right"
-						PopperProps={{ sx: { width: '300px' }, disablePortal: true }}
+						PopperProps={{
+							sx: { width: '300px', marginLeft: 1 },
+							disablePortal: true,
+						}}
 						content={
 							<Typography color="text.secondary" variant="body2" padding={2}>
 								{!isLocked

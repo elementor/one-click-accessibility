@@ -1,5 +1,5 @@
-import { PagesIcon, SettingsIcon } from '@elementor/icons';
-import { WidgetIcon, AnalyticsIcon, DashboardIcon } from '@ea11y/icons';
+import { ChecklistIcon, PagesIcon, SettingsIcon } from '@elementor/icons';
+import { WidgetIcon, AnalyticsIcon } from '@ea11y/icons';
 import {
 	AccessibilityStatement,
 	Menu,
@@ -13,12 +13,12 @@ import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 
 export const MenuItems = {
 	scanner: {
-		name: __('Accessibility Assistant', 'pojo-accessibility'),
+		name: __('Accessibility scans', 'pojo-accessibility'),
 		key: 'scanner',
 		type: 'heading',
 	},
 	scanOverview: {
-		name: __('Scan overview', 'pojo-accessibility'),
+		name: __('Scans', 'pojo-accessibility'),
 		key: 'scan-overview',
 		page: (
 			<AccessibilityAssistantContextProvider>
@@ -26,10 +26,11 @@ export const MenuItems = {
 			</AccessibilityAssistantContextProvider>
 		),
 		icon: (
-			<DashboardIcon
+			<ChecklistIcon
 				role="img"
 				aria-label={__('Scan overview', 'pojo-accessibility')}
 				aria-hidden={false}
+				sx={{ color: 'common.black' }}
 			/>
 		),
 	},

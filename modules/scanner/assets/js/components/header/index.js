@@ -124,7 +124,7 @@ export const Header = () => {
 								<>
 									<SettingsIcon size="small" color="action" />
 									<StyledTitle variant="subtitle1">
-										{__('Manage fixes', 'pojo-accessibility')}
+										{__('Manage AI fixes', 'pojo-accessibility')}
 									</StyledTitle>
 								</>
 							) : (
@@ -146,7 +146,7 @@ export const Header = () => {
 						</Box>
 
 						<Box display="flex" gap={1}>
-							{!isManage && <DropdownMenu />}
+							<DropdownMenu />
 							<IconButton
 								onClick={onClose}
 								aria-label={__('Close', 'pojo-accessibility')}
