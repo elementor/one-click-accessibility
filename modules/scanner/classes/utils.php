@@ -33,6 +33,4 @@ class Utils {
 
 		return $tmp_path;
 	}
-
-
 }

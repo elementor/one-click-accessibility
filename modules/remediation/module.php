@@ -27,6 +27,7 @@ class Module extends Module_Base {
 			'Set_Alt_Text',
 			'Items',
 			'Item',
+			'Trigger_Save',
 		];
 	}
 
