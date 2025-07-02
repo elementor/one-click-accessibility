@@ -1,14 +1,14 @@
 <?php
-/*
-Plugin Name: Ally - Web Accessibility & Usability
-Plugin URI: https://elementor.com/
-Description: Improve your website’s accessibility with ease. Customize capabilities such as text resizing, contrast modes, link highlights, and easily generate an accessibility statement to demonstrate your commitment to inclusivity.
-Author: Elementor.com
-Author URI: https://elementor.com/
-Version: 3.4.0
-Text Domain: pojo-accessibility
-Domain Path: /languages/
-*/
+/**
+ * Plugin Name: Ally - Web Accessibility & Usability
+ * Plugin URI: https://elementor.com/
+ * Description: Improve your website’s accessibility with ease. Customize capabilities such as text resizing, contrast modes, link highlights, and easily generate an accessibility statement to demonstrate your commitment to inclusivity.
+ * Author: Elementor.com
+ * Author URI: https://elementor.com/
+ * Version: 3.4.0
+ * Text Domain: pojo-accessibility
+ * Domain Path: /languages/
+ */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
