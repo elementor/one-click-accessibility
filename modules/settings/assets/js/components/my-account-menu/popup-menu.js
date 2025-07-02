@@ -133,7 +133,7 @@ const StyledBox = styled(Box)`
 	justify-content: center;
 
 	gap: ${({ theme }) => theme.spacing(1)};
-	padding: 8px 16px;
+	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(2)}`};
 `;
 
 const StyledTypography = styled(Typography)`

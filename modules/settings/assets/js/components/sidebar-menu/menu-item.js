@@ -55,7 +55,9 @@ const MenuItem = ({ keyName, item }) => {
 		proFeatures && menuItem.proIcon && !proFeatures.includes(menuItem.proIcon);
 
 	if (item?.type === 'heading' && openSidebar) {
-		return <ListSubheader>{item?.name}</ListSubheader>;
+		return (
+			<ListSubheader sx={{ whiteSpace: 'nowrap' }}>{item?.name}</ListSubheader>
+		);
 	} else if (item?.type === 'heading' && !openSidebar) {
 		return null;
 	}
@@ -83,7 +85,7 @@ const MenuItem = ({ keyName, item }) => {
 						<ListItemIcon
 							sx={{
 								/* For smoother sidebar */
-								padding: openSidebar ? 'auto' : '4px',
+								padding: openSidebar ? 'auto' : 0.5,
 								marginRight: openSidebar ? 1 : '0 !important',
 							}}
 						>

@@ -111,7 +111,7 @@ const StyledBox = styled(Box, {
 	margin: ${({ popup, theme }) => (popup ? '0' : theme.spacing(2))};
 	padding: 0;
 
-	border-radius: 8px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
 
 	:hover {
 		background-color: ${({ popup, theme }) =>
@@ -121,8 +121,8 @@ const StyledBox = styled(Box, {
 
 const StyledCardGroup = styled(CardGroup)`
 	border: none;
-	border-radius: 8px;
-	padding: 12px 16px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
+	padding: ${({ theme }) => `${theme.spacing(1.5)} ${theme.spacing(2)}`};
 	width: 100%;
 	background-color: transparent;
 

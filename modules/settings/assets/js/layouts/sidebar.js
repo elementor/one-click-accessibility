@@ -13,22 +13,7 @@ const Sidebar = () => {
 	const { openSidebar, setOpenSidebar } = useSettings();
 
 	return (
-		<Drawer
-			variant="permanent"
-			open={openSidebar}
-			sx={{ width: 'auto' }}
-			PaperProps={{
-				sx: {
-					position: 'relative',
-					width: !openSidebar ? '81px' : '260px',
-					transition: 'all 0.3s',
-					height: `calc(100% - 52.5px)`,
-					justifyContent: 'space-between',
-					paddingTop: 0,
-					overflow: 'visible',
-				},
-			}}
-		>
+		<StyledDrawer variant="permanent" open={openSidebar}>
 			<StyledIconButton
 				onClick={() => setOpenSidebar(!openSidebar)}
 				size="small"
@@ -47,7 +32,7 @@ const Sidebar = () => {
 				<Divider />
 				<QuotaBar />
 			</Box>
-		</Drawer>
+		</StyledDrawer>
 	);
 };
 
@@ -64,5 +49,20 @@ const StyledIconButton = styled(IconButton)`
 
 	:hover {
 		background: ${({ theme }) => theme.palette.action.hover};
+	}
+`;
+
+const StyledDrawer = styled(Drawer, {
+	shouldForwardProp: (prop) => prop !== 'open',
+})`
+	width: auto;
+	& .MuiDrawer-paper {
+		position: relative;
+		width: ${({ open }) => (open ? '260px' : '81px')};
+		height: calc(100% - 52.5px);
+		justify-content: space-between;
+		padding-top: 0;
+		overflow: visible;
+		transition: all 0.3s;
 	}
 `;

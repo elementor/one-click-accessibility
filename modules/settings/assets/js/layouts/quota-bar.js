@@ -61,7 +61,7 @@ const StyledBox = styled(Box)`
 	margin: ${({ theme }) => theme.spacing(2)};
 	padding: 0;
 
-	border-radius: 8px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
 `;
 
 const StyledIconButton = styled(IconButton)`

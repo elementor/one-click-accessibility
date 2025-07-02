@@ -45,10 +45,10 @@ const TopBarMenu = () => {
 				<Button
 					size="medium"
 					color="secondary"
+					aria-label={__("What's new menu button", 'pojo-accessibility')}
 					startIcon={
 						<SpeakerphoneIcon
 							role="presentation"
-							aria-label={__("What's new menu button", 'pojo-accessibility')}
 							sx={{ color: 'common.black' }}
 							fontSize="small"
 						/>
@@ -60,9 +60,9 @@ const TopBarMenu = () => {
 				<Button
 					size="medium"
 					color="secondary"
+					aria-label={__('Help', 'pojo-accessibility')}
 					startIcon={
 						<HelpIcon
-							aria-label={__('Help', 'pojo-accessibility')}
 							role="presentation"
 							sx={{ color: 'common.black' }}
 							fontSize="small"
