@@ -120,24 +120,26 @@ class Remediation_Runner {
 		}
 
 		// Add frontend remediations for dynamic content
-		// We don't use Enqueue_Script because we need to add the script to 
+		// We don't use Enqueue_Script because we need to add the script to
 		// The <head> section and WP has already enqueued head scripts by now.
 		if ( ! empty( $this->front_end_remediations ) ) {
 			// Create a new <script> element
 			$script_data = $dom->createElement( 'script' );
 			$script_data->setAttribute( 'type', 'text/javascript' );
-                        $script_data->textContent = 'window.AllyRemediations = ' . wp_json_encode( $this->front_end_remediations, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) . ';';
+						$script_data->textContent = 'window.AllyRemediations = ' . wp_json_encode( [
+							'remediations' => $this->front_end_remediations,
+						], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP ) . ';';
 
 			// Create a new <script> element for the module.js
-			$module_script = $dom->createElement('script');
-			$module_script->setAttribute('type', 'text/javascript'); // Optional: specify the type
-			$module_script->setAttribute('src', \EA11Y_ASSETS_URL . 'build/remediation-module.js'); // Set the script source
+			$module_script = $dom->createElement( 'script' );
+			$module_script->setAttribute( 'type', 'text/javascript' ); // Optional: specify the type
+			$module_script->setAttribute( 'src', \EA11Y_ASSETS_URL . 'build/remediation-module.js' ); // Set the script source
 
 			// Append the <script> elements to the <head> section
-			$head = $dom->getElementsByTagName('head')->item(0);
-			if ($head) {
+			$head = $dom->getElementsByTagName( 'head' )->item( 0 );
+			if ( $head ) {
 				$head->appendChild( $script_data );
-				$head->appendChild($module_script);
+				$head->appendChild( $module_script );
 			}
 		}
 		return $dom->saveHTML();
