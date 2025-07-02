@@ -179,10 +179,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const addScanResults = async (data) => {
 		try {
-			const response = await APIScanner.addScanResults({
-				url: window?.ea11yScannerData?.pageData?.url,
+			void APIScanner.triggerSave({
 				object_id: window?.ea11yScannerData?.pageData?.object_id,
 				object_type: window?.ea11yScannerData?.pageData?.object_type,
+			});
+			const response = await APIScanner.addScanResults({
+				url: window?.ea11yScannerData?.pageData?.url,
 				summary: data.summary,
 			});
 
