@@ -69,7 +69,7 @@ class Utils {
 
 		if ( $wp_query->is_singular() ) {
 			if ( $wp_query->is_single() ) {
-				return 'post';
+				return $wp_query->query_vars['post_type'] ?? 'unknown';
 			} elseif ( $wp_query->is_page() ) {
 				return 'page';
 			} elseif ( $wp_query->is_attachment() ) {
@@ -117,15 +117,19 @@ class Utils {
 
 	public static function trigger_save_for_clean_cache( $entry_id, $entry_type ): void {
 		$entry_id = (int) $entry_id;
+		$post_types = get_post_types([
+			'public' => true,
+		], 'names');
+
 		if (
 			! is_numeric( $entry_id ) ||
 			intval( $entry_id ) <= 0 ||
-			! in_array( $entry_type, [ 'post', 'page', 'taxonomy' ], true )
+			! in_array( $entry_type, array_merge( [ 'taxonomy' ], $post_types ), true )
 		) {
 			return;
 		}
 
-		if ( in_array( $entry_type, [ 'post', 'page' ], true ) ) {
+		if ( in_array( $entry_type, $post_types, true ) ) {
 			$post = get_post( $entry_id );
 			if ( $post && is_object( $post ) && 'publish' === $post->post_status ) {
 				do_action( 'save_post', $entry_id, $post, true );
