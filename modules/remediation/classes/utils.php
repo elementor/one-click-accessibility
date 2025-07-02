@@ -127,10 +127,7 @@ class Utils {
 		if ( in_array( $entry_type, [ 'post', 'page' ], true ) ) {
 			$post = get_post( $entry_id );
 			if ( $post && is_object( $post ) && 'publish' === $post->post_status ) {
-				$post_type = $post->post_type;
-
 				do_action( 'save_post', $entry_id, $post, true );
-				do_action( "save_post_{$post_type}", $entry_id, $post, true );
 			}
 		}
 		if ( 'taxonomy' === $entry_type ) {
@@ -144,7 +141,6 @@ class Utils {
 			$tt_id = $term->term_taxonomy_id;
 
 			do_action( 'edited_term', $entry_id, $tt_id, $taxonomy );
-			do_action( "edited_{$taxonomy}", $entry_id, $tt_id );
 		}
 	}
 }
