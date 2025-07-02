@@ -6,6 +6,7 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
+import Tooltip from '@elementor/ui/Tooltip';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
 import CrownFilled from '@ea11y/icons/crown-filled';
@@ -53,8 +54,12 @@ const MenuItem = ({ keyName, item }) => {
 	const showProIcon = (menuItem) =>
 		proFeatures && menuItem.proIcon && !proFeatures.includes(menuItem.proIcon);
 
-	if (item?.type === 'heading') {
-		return <ListSubheader>{item?.name}</ListSubheader>;
+	if (item?.type === 'heading' && openSidebar) {
+		return (
+			<ListSubheader sx={{ whiteSpace: 'nowrap' }}>{item?.name}</ListSubheader>
+		);
+	} else if (item?.type === 'heading' && !openSidebar) {
+		return null;
 	}
 
 	return (
@@ -72,13 +77,21 @@ const MenuItem = ({ keyName, item }) => {
 						(!selectedMenu?.child || !openSidebar)
 					}
 				>
-					<ListItemIcon
-						sx={{
-							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '4px',
-						}}
+					<Tooltip
+						title={item?.name}
+						placement="right"
+						disableHoverListener={openSidebar}
 					>
-						{item.icon}
-					</ListItemIcon>
+						<ListItemIcon
+							sx={{
+								/* For smoother sidebar */
+								padding: openSidebar ? 'auto' : 0.5,
+								marginRight: openSidebar ? 1 : '0 !important',
+							}}
+						>
+							{item.icon}
+						</ListItemIcon>
+					</Tooltip>
 
 					<ListItemText primary={item.name} hidden={!openSidebar} />
 
@@ -100,7 +113,7 @@ const MenuItem = ({ keyName, item }) => {
 							/>
 						</ListItemIcon>
 					)}
-					{showProIcon(item) && (
+					{showProIcon(item) && openSidebar && (
 						<ListItemIcon>
 							<StyledChip
 								color="accent"

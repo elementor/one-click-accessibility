@@ -6,15 +6,6 @@ import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 
-const StyledContainer = styled(Box)`
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
-
-	padding: ${({ theme }) => theme.spacing(2)};
-	border-top: 1px solid ${({ theme }) => theme.palette.divider};
-`;
-
 const BottomBar = () => {
 	const {
 		selectedMenu,
@@ -78,3 +69,12 @@ const BottomBar = () => {
 };
 
 export default BottomBar;
+
+const StyledContainer = styled(Box)`
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+
+	padding: ${({ theme }) => theme.spacing(2)};
+	border-top: 1px solid ${({ theme }) => theme.palette.divider};
+`;
