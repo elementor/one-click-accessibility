@@ -39,7 +39,7 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 	};
 
 	const QuotaTitle = () => (
-		<Box display="flex" alignItems="center" gap={1}>
+		<Box display="flex" alignItems="center" gap={1} whiteSpace="nowrap">
 			{__('Current Plan', 'pojo-accessibility')}
 			<Chip variant="filled" label={planData?.plan?.name} size="tiny" />
 			<QuotaIndicator />
