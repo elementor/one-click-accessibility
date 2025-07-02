@@ -18,7 +18,6 @@ const init = async () => {
 		debug: ea11ySettingsData.pluginEnv === 'dev',
 		track_pageview: false,
 		persistence: 'localStorage',
-		record_sessions_percent: 50,
 	});
 
 	mixpanel.register({
