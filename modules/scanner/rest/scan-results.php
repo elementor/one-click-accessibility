@@ -3,7 +3,6 @@
 namespace EA11y\Modules\Scanner\Rest;
 
 use EA11y\Classes\Utils as Global_Utils;
-use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Scanner\Classes\Route_Base;
@@ -43,8 +42,6 @@ class Scan_Results extends Route_Base {
 
 			$url = esc_url_raw( $request->get_param( 'url' ) );
 			$summary = Global_Utils::sanitize_object( $request->get_param( 'summary' ) );
-			$object_id = sanitize_text_field( $request->get_param( 'object_id' ) );
-			$object_type = sanitize_text_field( $request->get_param( 'object_type' ) );
 
 			$scan = new Scan_Entry([
 				'data' => [
@@ -60,8 +57,6 @@ class Scan_Results extends Route_Base {
 			$page->update_stats( $summary['counts']['violation'] );
 
 			$scan->save();
-
-			Utils::trigger_save_for_clean_cache( $object_id, $object_type );
 
 			return $this->respond_success_json( [
 				'message' => 'Scan results added',
