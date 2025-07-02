@@ -116,6 +116,7 @@ class Utils {
 	}
 
 	public static function trigger_save_for_clean_cache( $entry_id, $entry_type ): void {
+		$entry_id = (int) $entry_id;
 		if (
 			! is_numeric( $entry_id ) ||
 			intval( $entry_id ) <= 0 ||
