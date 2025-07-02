@@ -15,7 +15,7 @@ import {
 	useSavedSettings,
 	useSettings,
 } from '@ea11y/hooks';
-import { QuotaNotices, Sidebar } from '@ea11y/layouts';
+import { QuotaNotices, Sidebar, TopBar } from '@ea11y/layouts';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
@@ -52,6 +52,8 @@ const App = () => {
 				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
 				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
+
+				<TopBar />
 
 				<StyledGrid>
 					<Sidebar />

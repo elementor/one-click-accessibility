@@ -6,7 +6,7 @@ const wpV2Prefix = '/wp/v2';
 const v1Prefix = '/ea11y/v1';
 
 class API {
-	static async request({ path, data, method = 'POST' }) {
+	static async request({ path, data, method = 'POST', headers }) {
 		try {
 			if ('GET' === method && !path.startsWith(wpV2Prefix)) {
 				path = addQueryArgs(path, { sb_time: new Date().getTime() });
@@ -16,6 +16,7 @@ class API {
 				path,
 				method,
 				data,
+				headers,
 			});
 
 			if (path.startsWith(wpV2Prefix)) {

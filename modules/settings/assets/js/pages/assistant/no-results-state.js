@@ -3,8 +3,30 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AccessibilityAssistantNoResultsIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
+import { useAccessibilityAssistantContext } from '../../contexts/accessibility-assistant-context';
 
 const AccessibilityAssistantNoResultsState = () => {
+	const { search } = useAccessibilityAssistantContext();
+
+	if (search) {
+		return (
+			<StyledWrapper>
+				<AccessibilityAssistantNoResultsIcon />
+
+				<StyledTitle variant="subtitle1" as="h3">
+					{__('No matching results found', 'pojo-accessibility')}
+				</StyledTitle>
+
+				<StyledSubtitle variant="body2">
+					{__(
+						'Try entering something else or checking if the spelling is correct before trying again.',
+						'pojo-accessibility',
+					)}
+				</StyledSubtitle>
+			</StyledWrapper>
+		);
+	}
+
 	return (
 		<StyledWrapper>
 			<AccessibilityAssistantNoResultsIcon />

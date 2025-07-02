@@ -15,6 +15,7 @@ import {
 } from '@ea11y/icons';
 import { StatementLink } from '@ea11y/layouts';
 import {
+	StyledBox,
 	StyledStatementContainer,
 	StyledStatementPaper,
 	StyledTitle,
@@ -73,7 +74,7 @@ const AccessibilityStatement = () => {
 
 	return (
 		<>
-			<Box
+			<StyledBox
 				height="100%"
 				display="flex"
 				flexDirection="column"
@@ -246,7 +247,7 @@ const AccessibilityStatement = () => {
 						</Button>
 					</Box>
 				)}
-			</Box>
+			</StyledBox>
 
 			<StatementGenerator open={isOpen} close={close} />
 		</>

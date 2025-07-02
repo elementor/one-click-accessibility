@@ -1,6 +1,4 @@
-import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
 import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
-import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
 import RefreshIcon from '@elementor/icons/RefreshIcon';
 import SettingsIcon from '@elementor/icons/SettingsIcon';
 import Box from '@elementor/ui/Box';
@@ -10,42 +8,43 @@ import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import Tooltip from '@elementor/ui/Tooltip';
-import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
+import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
-import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
 import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { addQueryArgs } from '@wordpress/url';
 
-export const DropdownMenu = () => {
-	const { remediations, isManage, setOpenedBlock, setIsManage, runNewScan } =
-		useScannerWizardContext();
+export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 	const [isOpened, setIsOpened] = useState(false);
 	const anchorEl = useRef(null);
 
-	const handleOpen = () => {
-		setIsOpened(true);
-		mixpanelService.sendEvent(mixpanelEvents.assistantMenuClicked);
-	};
+	const ctaScan = addQueryArgs(pageUrl, {
+		'open-ea11y-assistant': '1',
+		'open-ea11y-assistant-src': 'Ally_dashboard',
+	});
+
+	const ctaManage = addQueryArgs(pageUrl, {
+		'open-ea11y-manage': '1',
+		'open-ea11y-assistant-src': 'Ally_dashboard',
+	});
+
+	const handleOpen = () => setIsOpened(true);
 	const handleClose = () => setIsOpened(false);
 
 	const sendOnClickEvent = (action) => {
-		mixpanelService.sendEvent(mixpanelEvents.assistantMenuOptionSelected, {
+		mixpanelService.sendEvent(mixpanelEvents.scanLogActionsButtonClicked, {
 			action,
 		});
 	};
 
 	const onRunNewScan = () => {
-		runNewScan();
-		sendOnClickEvent('New Scan');
+		sendOnClickEvent('scan');
 	};
 
 	const goToManagement = () => {
 		handleClose();
-		setIsManage(true);
-		setOpenedBlock(BLOCKS.management);
-		sendOnClickEvent('Manage fixes');
+		sendOnClickEvent('manage fixes');
 	};
 
 	return (
@@ -77,13 +76,19 @@ export const DropdownMenu = () => {
 				}}
 				disablePortal
 			>
-				<MenuItem onClick={onRunNewScan}>
+				<MenuItem
+					component="a"
+					href={ctaScan}
+					target="_blank"
+					rel="noreferrer"
+					onClick={onRunNewScan}
+				>
 					<MenuItemIcon>
 						<RefreshIcon />
 					</MenuItemIcon>
 					<MenuItemText>{__('New Scan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
-				{!remediations.length ? (
+				{remediationCount < 1 ? (
 					<Tooltip
 						arrow
 						placement="left"
@@ -114,9 +119,11 @@ export const DropdownMenu = () => {
 					</Tooltip>
 				) : (
 					<MenuItem
+						component="a"
+						href={ctaManage}
+						target="_blank"
+						rel="noreferrer"
 						onClick={goToManagement}
-						disabled={isManage}
-						selected={isManage}
 					>
 						<MenuItemIcon>
 							<SettingsIcon />
@@ -126,25 +133,12 @@ export const DropdownMenu = () => {
 						</MenuItemText>
 					</MenuItem>
 				)}
-
-				<MenuItem
-					component="a"
-					href={ELEMENTOR_URL}
-					target="_blank"
-					rel="noreferrer"
-					onClick={() => sendOnClickEvent('View subscription')}
-				>
-					<MenuItemIcon>
-						<CalendarDollarIcon />
-					</MenuItemIcon>
-					<MenuItemText>
-						{__('View subscription', 'pojo-accessibility')}
-					</MenuItemText>
-					<MenuItemIcon sx={{ ml: 5 }}>
-						<ExternalLinkIcon />
-					</MenuItemIcon>
-				</MenuItem>
 			</Menu>
 		</Box>
 	);
+};
+
+DropdownMenu.propTypes = {
+	pageUrl: PropTypes.string.isRequired,
+	remediationCount: PropTypes.number.isRequired,
 };

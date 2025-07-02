@@ -4,6 +4,7 @@ import {
 	BLOCK_TITLES,
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
+	MANAGE_URL_PARAM,
 	MANUAL_GROUPS,
 } from '@ea11y-apps/scanner/constants';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
@@ -26,11 +27,13 @@ import {
 export const ScannerWizardContext = createContext({
 	results: {},
 	remediations: [],
+	currentScanId: null,
 	resolved: 0,
 	openedBlock: '',
 	loading: null,
 	isError: false,
 	isManage: false,
+	isChanged: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
 	sortedRemediation: INITIAL_SORTED_VIOLATIONS,
 	altTextData: [],
@@ -48,6 +51,7 @@ export const ScannerWizardContext = createContext({
 	setRemediationData: () => {},
 	updateRemediationList: () => {},
 	setIsManage: () => {},
+	setIsManageChanged: () => {},
 	isResolved: () => {},
 	handleOpen: () => {},
 	setOpenIndex: () => {},
@@ -64,10 +68,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		INITIAL_SORTED_VIOLATIONS,
 	);
 	const [resolved, setResolved] = useState(0);
+	const [currentScanId, setCurrentScanId] = useState(null);
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 	const [isManage, setIsManage] = useState(false);
+	const [isManageChanged, setIsManageChanged] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 	const [remediationData, setRemediationData] = useState(
@@ -173,10 +179,14 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const addScanResults = async (data) => {
 		try {
-			await APIScanner.addScanResults(
-				window?.ea11yScannerData?.pageData?.url,
-				data.summary,
-			);
+			const response = await APIScanner.addScanResults({
+				url: window?.ea11yScannerData?.pageData?.url,
+				object_id: window?.ea11yScannerData?.pageData?.object_id,
+				object_type: window?.ea11yScannerData?.pageData?.object_type,
+				summary: data.summary,
+			});
+
+			setCurrentScanId(response.scanId);
 		} catch (e) {
 			console.error(e);
 			setIsError(true);
@@ -185,6 +195,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	const getResults = async () => {
 		setLoading(true);
+
 		try {
 			const url = new URL(window.location.href);
 			const data = await window.ace.check(document);
@@ -192,6 +203,11 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				(item) => item.level === 'violation',
 			);
 			const sorted = sortViolations(filtered);
+
+			if (data?.summary?.counts) {
+				data.summary.counts.issuesResolved = 0;
+			}
+
 			await registerPage(data, sorted);
 			await addScanResults(data);
 
@@ -226,6 +242,14 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		}
 	}, [window.ea11yScannerData?.isConnected]);
 
+	useEffect(() => {
+		const params = new URLSearchParams(window.location.search);
+		if (params.get(MANAGE_URL_PARAM) === '1') {
+			setIsManage(true);
+			handleOpenBlock(BLOCKS.management);
+		}
+	}, [window.location.search]);
+
 	const isResolved = (block) => {
 		const indexes = Array.from(
 			{
@@ -244,6 +268,13 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					sortedViolations[block]?.length === 0;
 	};
 
+	const isChanged =
+		altTextData.length > 0 ||
+		Object.keys(manualData).some(
+			(key) => manualData[key] && manualData[key].length > 0,
+		) ||
+		isManageChanged;
+
 	const runNewScan = () => {
 		const url = new URL(window.location.href);
 		url.searchParams.delete('open-ea11y-assistant');
@@ -260,10 +291,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				results,
 				resolved,
 				remediations,
+				currentScanId,
 				openedBlock,
 				loading,
 				isError,
 				isManage,
+				isChanged,
 				sortedViolations,
 				sortedRemediation,
 				altTextData,
@@ -280,6 +313,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				setRemediationData,
 				updateRemediationList,
 				setIsManage,
+				setIsManageChanged,
 				openIndex,
 				setOpenIndex,
 				isResolved,

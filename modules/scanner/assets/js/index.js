@@ -8,6 +8,7 @@ import { NotificationsProvider } from '@ea11y-apps/global/hooks/use-notification
 import App from '@ea11y-apps/scanner/app';
 import {
 	isRTL,
+	MANAGE_URL_PARAM,
 	ROOT_ID,
 	SCANNER_URL_PARAM,
 	TOP_BAR_LINK,
@@ -33,7 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			initApp();
 		}
 	});
-	if (params.get(SCANNER_URL_PARAM) === '1') {
+	if (
+		params.get(SCANNER_URL_PARAM) === '1' ||
+		params.get(MANAGE_URL_PARAM) === '1'
+	) {
 		initApp();
 	}
 });

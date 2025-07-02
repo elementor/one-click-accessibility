@@ -3,6 +3,7 @@
 namespace EA11y\Modules\Scanner\Rest;
 
 use EA11y\Modules\Remediation\Database\Page_Entry;
+use EA11y\Modules\Remediation\Database\Remediation_Entry;
 use EA11y\Modules\Scanner\Classes\Route_Base;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
 use Throwable;
@@ -42,13 +43,17 @@ class Scanner_Results extends Route_Base {
 			$pages_scanned = Page_Entry::get_pages();
 
 			foreach ( $pages_scanned as $page ) {
+				$total_violations = 0;
+				$total_resolved = 0;
+
 				$scans = Scan_Entry::get_scans( $page->url );
+				$page_remediation_count = Remediation_Entry::get_page_remediations( $page->url, true );
 
 				$scans = array_map(function( $scan ) {
 					return [
 						'date' => $scan->created_at,
 						'issues_total' => $scan->summary['counts']['violation'] ?? 0,
-						'issues_fixed' => $scan->summary['counts']['manual'] ?? 0,
+						'issues_fixed' => $scan->summary['counts']['issuesResolved'] ?? 0,
 					];
 				}, $scans);
 
@@ -61,6 +66,11 @@ class Scanner_Results extends Route_Base {
 					continue;
 				}
 
+				foreach ( $recent_scans as $recent_scan ) {
+					$total_violations += $recent_scan['issues_total'];
+					$total_resolved += $recent_scan['issues_fixed'];
+				}
+
 				$output[] = [
 					'id' => $page->id,
 					'page_title' => $page->title ? $page->title : ( 'home' === $page->object_type ?
@@ -69,8 +79,9 @@ class Scanner_Results extends Route_Base {
 					'page_url' => $page->url,
 					'scans' => $scans,
 					'last_scan' => $scans[0]['date'] ?: $page->created_at,
-					'issues_total' => $page->violations,
-					'issues_fixed' => $page->resolved,
+					'remediation_count' => isset( $page_remediation_count[0] ) ? $page_remediation_count[0]->total : 0,
+					'issues_total' => $total_violations,
+					'issues_fixed' => $total_resolved,
 				];
 			}
 

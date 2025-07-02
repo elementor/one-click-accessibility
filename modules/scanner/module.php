@@ -30,6 +30,7 @@ class Module extends Module_Base {
 			'Scanner_Stats',
 			'Scanner_Post_Types',
 			'Scanner_Results',
+			'Resolve_Issue',
 		];
 	}
 

@@ -114,6 +114,7 @@ export const StyledBox = styled(Box)`
 	align-items: center;
 	max-height: 100%;
 	min-height: 50%;
+	height: calc(100% - 52.5px);
 	overflow: auto;
 `;
 

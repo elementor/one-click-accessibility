@@ -3,14 +3,17 @@ import {
 	AlertTriangleFilledIcon,
 } from '@elementor/icons';
 import Tooltip from '@elementor/ui/Tooltip';
+import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
 
-const QuotaIndicator = ({ data, isQuotaBoxOpen }) => {
-	if (!data?.scannedPages || !data?.visits || !data?.aiCredits) {
+const QuotaIndicator = () => {
+	const { planData, openSidebar } = useSettings();
+
+	if (!planData?.scannedPages || !planData?.visits || !planData?.aiCredits) {
 		return null; // Return null if data is not available
 	}
 
-	const { scannedPages, visits, aiCredits } = data;
+	const { scannedPages, visits, aiCredits } = planData;
 
 	// calculate usage data of each quota
 	const scannedPagesUsage = Math.round(
@@ -29,11 +32,6 @@ const QuotaIndicator = ({ data, isQuotaBoxOpen }) => {
 		(visitsUsage >= 80 && visitsUsage < 100) ||
 		(aiCreditsUsage >= 80 && aiCreditsUsage < 100);
 
-	// Don't show icons if the quota box is open
-	if (isQuotaBoxOpen) {
-		return null;
-	}
-
 	if (isQuotaExceeded) {
 		return (
 			<Tooltip
@@ -50,8 +48,15 @@ const QuotaIndicator = ({ data, isQuotaBoxOpen }) => {
 				title={__('You’re nearing your plan’s limit', 'pojo-accessibility')}
 			>
 				<AlertTriangleFilledIcon
-					sx={{ color: 'warning.light' }}
-					fontSize="16px"
+					sx={{
+						color: 'warning.light',
+						justifySelf: !openSidebar ? 'right' : 'auto',
+						alignSelf: !openSidebar ? 'start' : 'auto',
+						fontSize: !openSidebar ? '16px' : 'inherit',
+						position: !openSidebar ? 'absolute' : 'relative',
+						top: !openSidebar ? '0' : '0',
+						right: !openSidebar ? '10px' : 'auto',
+					}}
 				/>
 			</Tooltip>
 		);

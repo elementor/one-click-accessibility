@@ -63,6 +63,45 @@ class Scan_Entry extends Entry {
         }, $entries);
     }
 
+    public static function get_by_id( int $id ) {
+        $where = [
+            [
+                'column' => Scans_Table::ID,
+                'value' => $id,
+                'operator' => '=',
+            ],
+        ];
+
+        $entries = Scans_Table::select( '*', $where, 1 );
+
+        if (isset($entries[0])) {
+            $entries[0]->summary = json_decode( $entries[0]->summary, true );
+
+            return $entries[0];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $by
+     * @param string $by_value
+     * @param string $content
+     *
+     * @return void
+     */
+    public static function update_scan_summary( string $by, string $by_value, string $content ): void {
+        $where = [
+            $by => $by_value,
+        ];
+
+        $data = [
+            Scans_Table::SUMMARY => $content,
+        ];
+
+        Scans_Table::update( $data, $where );
+    }
+
 	/**
 	 * Create
 	 * used to ensure:
