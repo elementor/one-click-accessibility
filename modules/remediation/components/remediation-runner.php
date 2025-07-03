@@ -108,8 +108,6 @@ class Remediation_Runner {
 			}
 			if ( $remediation_class->dom ) {
 				$remediation_class->dom = $dom;
-			} else {
-				Remediation_Entry::remove( 'id', $item->id );
 			}
 		}
 
