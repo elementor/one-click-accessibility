@@ -25,9 +25,7 @@ export class ElementRemediation extends RemediationBase {
 				el.nodeValue = content;
 				break;
 			case Actions.remove:
-				if (el.parentNode) {
-					el.parentNode.removeChild(el);
-				}
+				el.remove();
 				break;
 			case Actions.addChild:
 				if (childEl) {
