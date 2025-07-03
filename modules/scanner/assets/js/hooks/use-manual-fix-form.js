@@ -87,7 +87,7 @@ export const useManualFixForm = ({ item, current }) => {
 					find: item.snippet,
 					replace,
 					xpath: item.path.dom,
-					category: item.reasonCategory.match(/\(([^)]+)\)/)[1],
+					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'REPLACE',
 				},
 				rule: item.ruleId,

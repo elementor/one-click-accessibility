@@ -137,7 +137,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
 				issue_type: item.message,
 				rule_id: item.ruleId,
-				wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 				category_name: BLOCK_TITLES[openedBlock],
 			});
 		}
@@ -229,15 +229,18 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (window.ea11yScannerData?.isConnected) {
-			scannerWizard
-				.load()
-				.then(() => {
-					void getResults();
-				})
-				.catch(() => {
-					setIsError(true);
-					setLoading(false);
-				});
+			//Wait for apply FE remediation
+			setTimeout(() => {
+				scannerWizard
+					.load()
+					.then(() => {
+						void getResults();
+					})
+					.catch(() => {
+						setIsError(true);
+						setLoading(false);
+					});
+			}, 500);
 			void updateRemediationList();
 		} else {
 			setLoading(false);
