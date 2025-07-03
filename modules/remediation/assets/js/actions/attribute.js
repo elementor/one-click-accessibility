@@ -21,9 +21,9 @@ export class AttributeRemediation extends RemediationBase {
 			case Actions.update:
 				el.setAttribute(attributeName, attributeValue);
 				// Disable duplicates attr for image
-				const exclusions = { alt: 'role', role: 'alt' };
+				const exclusions = { alt: ['role', 'title'], role: ['alt', 'title'] };
 				if (exclusions[attributeName]) {
-					el.removeAttribute(exclusions[attributeName]);
+					exclusions[attributeName].forEach((attr) => el.removeAttribute(attr));
 				}
 				break;
 			case Actions.remove:
