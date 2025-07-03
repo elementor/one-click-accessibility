@@ -5,7 +5,7 @@ export class ElementRemediation extends RemediationBase {
 		const { xpath, action, content, child } = this.data;
 		const el = this.getElementByXPath(xpath);
 		if (!el) {
-			return;
+			return false;
 		}
 		let childEl = null;
 		if (child) {
@@ -49,5 +49,7 @@ export class ElementRemediation extends RemediationBase {
 				}
 				break;
 		}
+
+		return true;
 	}
 }

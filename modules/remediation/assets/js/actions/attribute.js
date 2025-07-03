@@ -10,7 +10,7 @@ export class AttributeRemediation extends RemediationBase {
 		} = this.data;
 		const el = this.getElementByXPath(xpath);
 		if (!el) {
-			return;
+			return false;
 		}
 		switch (action) {
 			case 'add':
@@ -29,5 +29,7 @@ export class AttributeRemediation extends RemediationBase {
 				el.setAttribute(attributeName, '');
 				break;
 		}
+
+		return true;
 	}
 }

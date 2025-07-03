@@ -26,8 +26,7 @@ class RemediationRunner {
 		const Handler = this.classMap[type];
 		if (Handler) {
 			try {
-				new Handler(document, remediation).run();
-				return true;
+				return new Handler(document, remediation).run();
 			} catch (e) {
 				if (window.AllyRemediations?.debug && window.AllyRemediations.debug) {
 					console.error('Remediation failed', e, remediation);
