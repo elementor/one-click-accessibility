@@ -4,7 +4,7 @@ export class RemediationBase {
 		this.data = data;
 	}
 	run() {
-		throw new Error('Not implemented');
+		throw new Error(`Action type '${this.data.type}' - not implemented`);
 	}
 
 	getElementByXPath(xpath) {
