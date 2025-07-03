@@ -1,3 +1,4 @@
+import { Actions } from '../enum/actions';
 import { RemediationBase } from './base';
 
 export class AttributeRemediation extends RemediationBase {
@@ -16,8 +17,8 @@ export class AttributeRemediation extends RemediationBase {
 		}
 
 		switch (action) {
-			case 'add':
-			case 'update':
+			case Actions.add:
+			case Actions.update:
 				el.setAttribute(attributeName, attributeValue);
 				// Disable duplicates attr for image
 				const exclusions = { alt: 'role', role: 'alt' };
@@ -25,10 +26,10 @@ export class AttributeRemediation extends RemediationBase {
 					el.removeAttribute(exclusions[attributeName]);
 				}
 				break;
-			case 'remove':
+			case Actions.remove:
 				el.removeAttribute(attributeName);
 				break;
-			case 'clear':
+			case Actions.clear:
 				el.setAttribute(attributeName, '');
 				break;
 		}

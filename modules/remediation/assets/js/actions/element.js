@@ -1,3 +1,4 @@
+import { Actions } from '../enum/actions';
 import { RemediationBase } from './base';
 
 export class ElementRemediation extends RemediationBase {
@@ -20,30 +21,30 @@ export class ElementRemediation extends RemediationBase {
 			}
 		}
 		switch (action) {
-			case 'update':
+			case Actions.update:
 				el.nodeValue = content;
 				break;
-			case 'remove':
+			case Actions.remove:
 				if (el.parentNode) {
 					el.parentNode.removeChild(el);
 				}
 				break;
-			case 'add_child':
+			case Actions.addChild:
 				if (childEl) {
 					el.appendChild(childEl);
 				}
 				break;
-			case 'remove_child':
+			case Actions.removeChild:
 				if (childEl) {
 					el.removeChild(childEl);
 				}
 				break;
-			case 'add_before':
+			case Actions.addBefore:
 				if (childEl && el.parentNode) {
 					el.parentNode.insertBefore(childEl, el);
 				}
 				break;
-			case 'add_after':
+			case Actions.addAfter:
 				if (childEl && el.parentNode) {
 					el.parentNode.insertBefore(childEl, el.nextSibling);
 				}
