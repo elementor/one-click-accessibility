@@ -3,15 +3,18 @@ import { RemediationBase } from './base';
 export class AttributeRemediation extends RemediationBase {
 	run() {
 		const {
-			xpath,
+			xpath: originXpath,
 			action,
 			attribute_name: attributeName,
 			attribute_value: attributeValue,
 		} = this.data;
+
+		const xpath = originXpath.replace('svg', "*[name()='svg']");
 		const el = this.getElementByXPath(xpath);
 		if (!el) {
 			return false;
 		}
+
 		switch (action) {
 			case 'add':
 			case 'update':
