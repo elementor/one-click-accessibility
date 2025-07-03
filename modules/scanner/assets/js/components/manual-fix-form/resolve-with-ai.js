@@ -73,7 +73,7 @@ export const ResolveWithAi = ({ item, current }) => {
 			mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 				issue_type: item.message,
 				rule_id: item.ruleId,
-				wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 				category_name: BLOCK_TITLES[openedBlock],
 				// ai_text_response: text,
 			});

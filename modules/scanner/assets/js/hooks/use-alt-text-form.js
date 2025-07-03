@@ -92,7 +92,7 @@ export const useAltTextForm = ({ current, item }) => {
 					...makeAttributeData(),
 					action: 'add',
 					xpath: item.path.dom,
-					category: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'ATTRIBUTE',
 				},
 				rule: item.ruleId,
@@ -165,7 +165,7 @@ export const useAltTextForm = ({ current, item }) => {
 		mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 			issue_type: item.message,
 			rule_id: item.ruleId,
-			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+			wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 			category_name: BLOCK_TITLES[BLOCKS.altText],
 			ai_text_response: text,
 		});

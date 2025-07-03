@@ -137,7 +137,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
 				issue_type: item.message,
 				rule_id: item.ruleId,
-				wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 				category_name: BLOCK_TITLES[openedBlock],
 			});
 		}
