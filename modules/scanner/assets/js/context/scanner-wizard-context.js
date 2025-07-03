@@ -229,15 +229,18 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		if (window.ea11yScannerData?.isConnected) {
-			scannerWizard
-				.load()
-				.then(() => {
-					void getResults();
-				})
-				.catch(() => {
-					setIsError(true);
-					setLoading(false);
-				});
+			//Wait for apply FE remediation
+			setTimeout(() => {
+				scannerWizard
+					.load()
+					.then(() => {
+						void getResults();
+					})
+					.catch(() => {
+						setIsError(true);
+						setLoading(false);
+					});
+			}, 500);
 			void updateRemediationList();
 		} else {
 			setLoading(false);
