@@ -83,9 +83,10 @@ export const useAltTextForm = ({ current, item }) => {
 			? altTextData?.[current]?.altText
 			: '';
 
-		if (match && item.node.tagName !== 'svg') {
-			await APIScanner.submitAltText(item.node.src, altText);
-		} else {
+		try {
+			if (match && item.node.tagName !== 'svg') {
+				void APIScanner.submitAltText(item.node.src, altText);
+			}
 			await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
@@ -99,9 +100,11 @@ export const useAltTextForm = ({ current, item }) => {
 				group: BLOCKS.altText,
 				apiId: altTextData?.[current]?.apiId,
 			});
-		}
 
-		await APIScanner.resolveIssue(currentScanId);
+			await APIScanner.resolveIssue(currentScanId);
+		} catch (e) {
+			console.warn(e);
+		}
 	};
 
 	const handleCheck = (e) => {
