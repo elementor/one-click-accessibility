@@ -29,7 +29,7 @@ class List_Column {
 	}
 
 	public function add_accessibility_column( $columns ) {
-		$columns['accessibility_status'] = '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/logo.svg' ) . '" alt="" style="width:16px; height:16px; vertical-align:text-bottom; margin-right:8px;" />' . esc_html__( 'Accessibility status', 'pojo-accessibility' );
+		$columns['accessibility_status'] = '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/logo.svg' ) . '" alt="" style="width:16px; height:16px; vertical-align:text-bottom; margin-right:8px;" />' . esc_html__( 'Accessibility scans', 'pojo-accessibility' );
 		return $columns;
 	}
 
@@ -77,25 +77,36 @@ class List_Column {
 		$separator = strpos( $url, '?' ) !== false ? '&' : '?';
 		$assistant_url = esc_url( $url . $separator . 'open-ea11y-assistant=1&open-ea11y-assistant-src=WP' );
 
+		/**
+		 * Show the percentage of fixed violations or a checkmark if all violations are fixed.
+		 */
 		$chip = $passed
 			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/check-passed.svg' ) . '" alt="" style="width:18px; height:18px;" />'
 			: '<span class="accessibility_status_content__percentage ' . esc_html( $level_class ) . '">' . esc_html( $percentage ) . '%</span>';
 
-		$stats = $has_scan_data ?
+		$no_scan_icon = '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/info.svg' ) . '" alt="" style="width:18px; height:18px;" />';
+
+		/**
+		 * Show the number of fixed and total violations or "Not scanned yet" if the page has not been scanned yet.
+		 */
+		$status_text = $has_scan_data ? esc_html( sprintf( __( '%1$s/%2$s fixed', 'pojo-accessibility' ), $resolved, $violation ) ) : esc_html__( 'Not scanned yet', 'pojo-accessibility' );
+
+		$status_icon = $has_scan_data ? $chip : $no_scan_icon;
+
+		$stats =
 			'<div class="accessibility_status_content__stats">
 				<div class="accessibility_status_content__summary">
-					<span class="accessibility_status_content__text">' . esc_html( sprintf( __( '%1$s/%2$s fixed', 'pojo-accessibility' ), $resolved, $violation ) ) . '</span>
-					' . $chip . '
+					<span class="accessibility_status_content__text">' . $status_text . '</span>
+					' . $status_icon . '
 				</div>
 				<div class="accessibility_status_content__bar">
 					<div class="accessibility_status_content__bar-fill" style="width: ' . esc_attr( $percentage ) . '%;"></div>
 				</div>
-			</div>'
-			: '—';
+			</div>';
 
-		$button_text = $has_scan_data ? esc_html__( 'Resolve issues', 'pojo-accessibility' ) : esc_html__( 'New scan', 'pojo-accessibility' );
+		$button_text = $has_scan_data ? esc_html__( 'Review fixes', 'pojo-accessibility' ) : esc_html__( 'Scan now', 'pojo-accessibility' );
 		$button_text  = $passed ? esc_html__( 'New scan', 'pojo-accessibility' ) : $button_text;
-		$button_class = $has_scan_data && ! $passed ? 'button button-primary' : 'button';
+		$button_class = $has_scan_data && ! $passed ? 'button' : 'button button-primary';
 		$button_icon  = $passed
 			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/refresh-scan.svg' ) . '" alt="" style="width:16px; height:16px; vertical-align:text-top; margin-left:8px;" />'
 			: '';
