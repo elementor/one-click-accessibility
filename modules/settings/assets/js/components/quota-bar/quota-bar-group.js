@@ -27,7 +27,6 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 
 	const toggleOpen = () => setOpen((prev) => !prev);
 
-	console.log(planData);
 
 	/**
 	 * Send an event to the Mixpanel when the user clicks on the "Add visits" button and open the link.
