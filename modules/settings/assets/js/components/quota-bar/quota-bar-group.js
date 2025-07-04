@@ -80,16 +80,18 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 				</Card>
 				<Card elevation={0}>
 					<StyledCardContent>
-						<StyledButton
+						<Button
 							variant="outlined"
-							startIcon={<CrownIcon />}
+							startIcon={planData?.plan?.name === 'Free' ? <CrownIcon /> : null}
 							onClick={handleAddVisitsClick}
 							size="small"
 							fullWidth
-							color="promotion"
+							color={planData?.plan?.name === 'Free' ? 'promotion' : 'info'}
 						>
-							{__('Upgrade plan', 'pojo-accessibility')}
-						</StyledButton>
+							{planData?.plan?.name === 'Free'
+								? __('Upgrade plan', 'pojo-accessibility')
+								: __('View more plans', 'pojo-accessibility')}
+						</Button>
 					</StyledCardContent>
 				</Card>
 			</StyledCardGroup>
@@ -152,11 +154,6 @@ const StyledCardHeader = styled(CardHeader)`
 	padding: 0;
 	background-color: transparent;
 	margin-bottom: ${({ theme }) => theme.spacing(1)};
-`;
-
-const StyledButton = styled(Button)`
-	border-color: ${({ theme }) => theme.palette.promotion.main};
-	color: ${({ theme }) => theme.palette.promotion.main};
 `;
 
 const StyledCardActionArea = styled(CardActionArea)`
