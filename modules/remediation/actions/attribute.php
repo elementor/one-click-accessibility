@@ -24,19 +24,19 @@ class Attribute extends Remediation_Base {
 		switch ( $this->data['action'] ) {
 			case 'update':
 			case 'add':
-				$element_node->setAttribute( $this->data['attribute_name'], $this->data['attribute_value'] );
 				//Disable duplicates attr for image
+
 				$exclusions = [
-					'alt'  => 'role',
-					'role' => 'alt',
+					'alt' => ['role', 'title'],
+					'role' => ['alt', 'title']
 				];
-
-				$attr = $this->data['attribute_name'];
-
-				if ( isset( $exclusions[ $attr ] ) ) {
-					$element_node->removeAttribute( $exclusions[ $attr ] );
+				if ( isset( $exclusions[$this->data['attribute_name']] ) ) {
+					foreach ( $exclusions[$this->data['attribute_name']] as $attr_to_remove ) {
+						$element_node->removeAttribute( $attr_to_remove );
+					}
 				}
 
+				$element_node->setAttribute( $this->data['attribute_name'], $this->data['attribute_value'] );
 				break;
 			case 'remove':
 				$element_node->removeAttribute( $this->data['attribute_name'] );

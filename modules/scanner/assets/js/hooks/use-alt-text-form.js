@@ -83,25 +83,28 @@ export const useAltTextForm = ({ current, item }) => {
 			? altTextData?.[current]?.altText
 			: '';
 
-		if (match && item.node.tagName !== 'svg') {
-			await APIScanner.submitAltText(item.node.src, altText);
-		} else {
+		try {
+			if (match && item.node.tagName !== 'svg') {
+				void APIScanner.submitAltText(item.node.src, altText);
+			}
 			await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
 					...makeAttributeData(),
 					action: 'add',
 					xpath: item.path.dom,
-					category: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'ATTRIBUTE',
 				},
 				rule: item.ruleId,
 				group: BLOCKS.altText,
 				apiId: altTextData?.[current]?.apiId,
 			});
-		}
 
-		await APIScanner.resolveIssue(currentScanId);
+			await APIScanner.resolveIssue(currentScanId);
+		} catch (e) {
+			console.warn(e);
+		}
 	};
 
 	const handleCheck = (e) => {
@@ -165,7 +168,7 @@ export const useAltTextForm = ({ current, item }) => {
 		mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 			issue_type: item.message,
 			rule_id: item.ruleId,
-			wcag_level: item.reasonCategory.match(/\(([^)]+)\)/)?.[1],
+			wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 			category_name: BLOCK_TITLES[BLOCKS.altText],
 			ai_text_response: text,
 		});

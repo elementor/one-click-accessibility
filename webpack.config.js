@@ -6,6 +6,11 @@ const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const entryPoints = {
 	admin: path.resolve(process.cwd(), 'modules/settings/assets/js', 'admin.js'),
 	scanner: path.resolve(process.cwd(), 'modules/scanner/assets/js', 'index.js'),
+	'remediation-module': path.resolve(
+		process.cwd(),
+		'modules/remediation/assets/js',
+		'module.js',
+	),
 	'ea11y-scanner-wizard': path.resolve(
 		process.cwd(),
 		'assets/dev/css',
