@@ -17,7 +17,6 @@ class Replace extends Remediation_Base {
 	public static string $type = 'replace';
 
 	public function run() : ?DOMDocument {
-
 		$element_node = $this->get_element_by_xpath( $this->data['xpath'] );
 		if ( ! $element_node instanceof \DOMElement ) {
 			return null;                    // nothing to do
@@ -35,9 +34,9 @@ class Replace extends Remediation_Base {
 			return $this->dom;
 		}
 
-		$tmp_dom = new DOMDocument();
+		$tmp_dom = new DOMDocument('1.0', 'UTF-8');
 		$tmp_dom->loadHTML(
-			$updated_html,
+			mb_convert_encoding($updated_html, 'HTML-ENTITIES', 'UTF-8'),
 			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING
 		);
 

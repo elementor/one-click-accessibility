@@ -83,7 +83,7 @@ class Remediation_Runner {
 	}
 
 	private function generate_remediation_dom( $buffer ): string {
-		$dom = new DOMDocument();
+		$dom = new DOMDocument('1.0', 'UTF-8');
 		$dom->loadHTML( $buffer, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR );
 
 		//Remove admin-bar for correct replace
