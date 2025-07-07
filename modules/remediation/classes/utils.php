@@ -134,7 +134,7 @@ class Utils {
 		if ( in_array( $entry_type, $post_types, true ) ) {
 			$post = get_post( $entry_id );
 			if ( $post && is_object( $post ) && 'publish' === $post->post_status ) {
-				do_action( Cache_Cleaner::EA11Y_CLEAR_POST_CACHE_HOOK, $entry_id );
+				do_action( Cache_Cleaner::EA11Y_CLEAR_POST_CACHE_HOOK, $entry_id, $post );
 				do_action( 'save_post', $entry_id, $post, true );
 			}
 		}
