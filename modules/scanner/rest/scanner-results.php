@@ -43,9 +43,6 @@ class Scanner_Results extends Route_Base {
 			$pages_scanned = Page_Entry::get_pages();
 
 			foreach ( $pages_scanned as $page ) {
-				$total_violations = 0;
-				$total_resolved = 0;
-
 				$scans = Scan_Entry::get_scans( $page->url );
 				$page_remediation_count = Remediation_Entry::get_page_remediations( $page->url, true );
 
@@ -66,11 +63,6 @@ class Scanner_Results extends Route_Base {
 					continue;
 				}
 
-				foreach ( $recent_scans as $recent_scan ) {
-					$total_violations += $recent_scan['issues_total'];
-					$total_resolved += $recent_scan['issues_fixed'];
-				}
-
 				$output[] = [
 					'id' => $page->id,
 					'page_title' => $page->title ? $page->title : ( 'home' === $page->object_type ?
@@ -80,8 +72,8 @@ class Scanner_Results extends Route_Base {
 					'scans' => $scans,
 					'last_scan' => $scans[0]['date'] ?: $page->created_at,
 					'remediation_count' => isset( $page_remediation_count[0] ) ? $page_remediation_count[0]->total : 0,
-					'issues_total' => $total_violations,
-					'issues_fixed' => $total_resolved,
+					'issues_total' => $scans[0]['issues_total'],
+					'issues_fixed' => $scans[0]['issues_fixed'],
 				];
 			}
 
