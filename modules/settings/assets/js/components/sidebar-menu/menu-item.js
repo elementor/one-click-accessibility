@@ -1,11 +1,11 @@
 import ChevronDownIcon from '@elementor/icons/ChevronDownIcon';
-import { ListSubheader } from '@elementor/ui';
 import Chip from '@elementor/ui/Chip';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
+import ListSubheader from '@elementor/ui/ListSubheader';
 import Tooltip from '@elementor/ui/Tooltip';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
