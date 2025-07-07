@@ -7,7 +7,7 @@ import {
 	StyledTitle,
 	StyledWideBox,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../contexts/analytics-context';
@@ -16,7 +16,7 @@ const Analytics = () => {
 	const { isProVersion } = useAnalyticsContext();
 
 	useEffect(() => {
-		mixpanelService.sendEvent(eventNames.pageView, {
+		mixpanelService.sendEvent(mixpanelEvents.pageView, {
 			page: 'Analytics',
 		});
 	}, []);

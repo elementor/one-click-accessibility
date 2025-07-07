@@ -1,16 +1,44 @@
-import { PagesIcon, SettingsIcon } from '@elementor/icons';
-import { WidgetIcon } from '@ea11y/icons';
-import AnalyticsIcon from '@ea11y/icons/analytics-icon';
+import { ChecklistIcon, PagesIcon, SettingsIcon } from '@elementor/icons';
+import { WidgetIcon, AnalyticsIcon } from '@ea11y/icons';
 import {
 	AccessibilityStatement,
 	Menu,
 	IconSettings,
 	Analytics,
+	AccessibilityAssistant,
 } from '@ea11y/pages';
 import { __ } from '@wordpress/i18n';
+import { AccessibilityAssistantContextProvider } from '../../contexts/accessibility-assistant-context';
 import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 
 export const MenuItems = {
+	scanner: {
+		name: __('Accessibility scans', 'pojo-accessibility'),
+		key: 'scanner',
+		type: 'heading',
+	},
+	scanOverview: {
+		name: __('Scans', 'pojo-accessibility'),
+		key: 'scan-overview',
+		page: (
+			<AccessibilityAssistantContextProvider>
+				<AccessibilityAssistant />
+			</AccessibilityAssistantContextProvider>
+		),
+		icon: (
+			<ChecklistIcon
+				role="img"
+				aria-label={__('Scan overview', 'pojo-accessibility')}
+				aria-hidden={false}
+				sx={{ color: 'common.black' }}
+			/>
+		),
+	},
+	widget: {
+		name: __('Widget', 'pojo-accessibility'),
+		key: 'widget',
+		type: 'heading',
+	},
 	design: {
 		name: __('Design', 'pojo-accessibility'),
 		key: 'design',

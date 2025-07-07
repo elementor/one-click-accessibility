@@ -3,9 +3,9 @@ import AppBar from '@elementor/ui/AppBar';
 import Link from '@elementor/ui/Link';
 import Toolbar from '@elementor/ui/Toolbar';
 import { styled } from '@elementor/ui/styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { GOLINKS } from '@ea11y-apps/global/constants';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
-import { GOLINKS } from '../../constants';
 
 const StyledToolbar = styled(Toolbar)`
 	justify-content: end;
@@ -28,7 +28,7 @@ const AdminTopBar = () => {
 					sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}
 					aria-label={__('Help', 'pojo-accessibility')}
 					onClick={() =>
-						mixpanelService.sendEvent(eventNames.helpButtonClicked, {
+						mixpanelService.sendEvent(mixpanelEvents.helpButtonClicked, {
 							source: 'Header',
 						})
 					}

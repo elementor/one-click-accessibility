@@ -4,7 +4,7 @@ import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { IconOptionWrapper } from '@ea11y/components';
 import { useIconDesign } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 
 const IconSize = (props) => {
@@ -18,7 +18,7 @@ const IconSize = (props) => {
 
 	const selectIconSize = (size) => () => {
 		updateIconDesign({ size });
-		mixpanelService.sendEvent(eventNames.sizeTypeClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.sizeTypeClicked, {
 			size,
 		});
 	};

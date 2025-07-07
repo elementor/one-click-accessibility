@@ -6,27 +6,22 @@ import {
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import Chip from '@elementor/ui/Chip';
+import Divider from '@elementor/ui/Divider';
 import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
+import { useSettings, useStorage } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
-import { SUBSCRIPTION_LINK } from '../../constants/index';
 import { truncateEmail } from '../../helpers/popup-menu';
 
-const StyledMenuItem = styled(MenuItem)`
-	&.MuiMenuItem-gutters:focus,
-	&.MuiMenuItem-gutters:focus-visible {
-		box-shadow: inset 0 0 0 3px #5e9ed6;
-	}
-`;
-
-export const PopupMenu = (menuProps, { closeAction }) => {
+export const PopupMenu = (menuProps) => {
 	const { save } = useStorage();
 	const { error } = useToastNotification();
 	const { planData } = useSettings();
@@ -40,7 +35,7 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 				ea11y_close_post_connect_modal: false,
 			});
 
-			mixpanelService.sendEvent(eventNames.menuButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 				buttonName: 'Switch account',
 			});
 		} catch (e) {
@@ -55,29 +50,29 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 		<Menu
 			{...menuProps}
 			anchorOrigin={{
-				vertical: 'top',
-				horizontal: 'center',
+				vertical: 'bottom',
+				horizontal: 'right',
 			}}
 			transformOrigin={{
-				vertical: 'bottom',
-				horizontal: 'center',
+				vertical: 'top',
+				horizontal: 'left',
 			}}
 			PaperProps={{
 				sx: {
-					backgroundColor: 'text.primary',
+					backgroundColor: 'common.white',
 				},
 			}}
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
 			autoFocus={false}
 		>
-			<StyledMenuItem onClick={closeAction} sx={{ gap: 1, width: '240px' }}>
-				<Avatar>
+			<StyledBox>
+				<Avatar sx={{ width: 32, height: 32 }}>
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
 
 				<Box display="flex" flexDirection="column" gap={0}>
 					<Tooltip title={planData?.user?.email}>
-						<Typography variant="caption" color="common.white">
+						<Typography variant="caption" color="text.primary">
 							{truncateEmail(planData?.user?.email)}
 						</Typography>
 					</Tooltip>
@@ -87,37 +82,62 @@ export const PopupMenu = (menuProps, { closeAction }) => {
 							color="info"
 							variant="standard"
 							label={planData?.plan?.name}
-							size="small"
+							size="tiny"
 							sx={{ width: 'fit-content', marginTop: 0.5 }}
 						/>
 					)}
 				</Box>
-			</StyledMenuItem>
+			</StyledBox>
+			<Divider />
 
-			<StyledMenuItem onClick={onDeactivateAndDisconnect}>
-				<UserArrowIcon sx={{ color: 'common.white' }} />
+			<StyledMenuItem dense onClick={onDeactivateAndDisconnect}>
+				<UserArrowIcon sx={{ color: 'action.active' }} />
 
-				<Typography color="common.white" marginLeft={1}>
+				<StyledTypography>
 					{__('Switch account', 'pojo-accessibility')}
-				</Typography>
+				</StyledTypography>
 			</StyledMenuItem>
 
 			<StyledMenuItem
+				dense
 				sx={{ width: '100%', justifyContent: 'space-between' }}
-				onClick={() => window.open(SUBSCRIPTION_LINK)}
+				onClick={() => window.open(ELEMENTOR_URL)}
 			>
 				<Box display="flex" flexDirection="row">
-					<CalendarDollarIcon sx={{ color: 'common.white' }} />
+					<CalendarDollarIcon sx={{ color: 'action.active' }} />
 
-					<Typography color="common.white" marginLeft={1}>
+					<StyledTypography>
 						{__('Subscription', 'pojo-accessibility')}
-					</Typography>
+					</StyledTypography>
 				</Box>
 
-				<ExternalLinkIcon sx={{ color: 'common.white' }} />
+				<ExternalLinkIcon sx={{ color: 'text.primary' }} />
 			</StyledMenuItem>
 		</Menu>
 	);
 };
 
 export default PopupMenu;
+
+const StyledMenuItem = styled(MenuItem)`
+	&.MuiMenuItem-gutters:focus,
+	&.MuiMenuItem-gutters:focus-visible {
+		box-shadow: inset 0 0 0 3px #5e9ed6;
+	}
+`;
+
+const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	gap: ${({ theme }) => theme.spacing(1)};
+	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(2)}`};
+`;
+
+const StyledTypography = styled(Typography)`
+	color: ${({ theme }) => theme.palette.text.primary};
+	margin-left: ${({ theme }) => theme.spacing(1)};
+	font-size: 14px;
+`;

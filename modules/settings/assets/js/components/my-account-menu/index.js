@@ -1,9 +1,9 @@
 import {
-	UserIcon,
-	ChevronUpIcon,
 	ChevronDownIcon,
-	HelpIcon,
+	ChevronUpIcon,
 	ExternalLinkIcon,
+	HelpIcon,
+	UserIcon,
 } from '@elementor/icons';
 import List from '@elementor/ui/List';
 import ListItemButton from '@elementor/ui/ListItemButton';
@@ -20,9 +20,9 @@ import WhatsNewDrawer from '@ea11y/components/whats-new/drawer';
 import { useSettings } from '@ea11y/hooks';
 import { useWhatsNew } from '@ea11y/hooks/use-whats-new';
 import SpeakerphoneIcon from '@ea11y/icons/speakerphone-icon';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { GOLINKS } from '@ea11y-apps/global/constants';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
-import { GOLINKS } from '../../constants';
 import { openLink } from '../../utils';
 
 const SpeakerphoneIconWrapper = styled(ListItemIcon)`
@@ -50,14 +50,14 @@ const MyAccountMenu = () => {
 	});
 
 	const handleHelpButtonClick = () => {
-		mixpanelService.sendEvent(eventNames.helpButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.helpButtonClicked, {
 			source: 'Header',
 		});
 		openLink(GOLINKS.HELP);
 	};
 
 	const handleWhatsNewButtonClick = () => {
-		mixpanelService.sendEvent(eventNames.menuButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 			buttonName: 'Whats new?',
 		});
 		open();
@@ -67,12 +67,16 @@ const MyAccountMenu = () => {
 		<>
 			<List
 				onClick={() => {
-					mixpanelService.sendEvent(eventNames.menuButtonClicked, {
+					mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 						buttonName: 'My Account',
 					});
 				}}
 			>
-				<StyledListItemButton shape="rounded" onClick={handleHelpButtonClick}>
+				<StyledListItemButton
+					shape="rounded"
+					onClick={handleHelpButtonClick}
+					dense
+				>
 					<ListItemIcon
 						sx={{
 							/*For smoother sidebar*/ padding: openSidebar ? 'auto' : '6px',
@@ -103,6 +107,7 @@ const MyAccountMenu = () => {
 				<StyledListItemButton
 					shape="rounded"
 					onClick={handleWhatsNewButtonClick}
+					dense
 				>
 					<SpeakerphoneIconWrapper
 						sx={{
@@ -127,6 +132,7 @@ const MyAccountMenu = () => {
 					{...bindTrigger(accountMenuState)}
 					selected={accountMenuState.isOpen}
 					shape="rounded"
+					dense
 				>
 					<ListItemIcon
 						sx={{

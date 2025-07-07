@@ -20,6 +20,9 @@ class Utils {
 
 	/**
 	 * get_redirect_uri
+	 *
+	 * @param string $domain
+	 *
 	 * @return string
 	 */
 	public static function get_redirect_uri( string $domain = '' ) : string {
@@ -50,7 +53,7 @@ class Utils {
 	 *
 	 * @return string
 	 */
-	public static function get_authorize_url( string $client_id ): string {
+	public static function get_authorize_url( string $client_id ) : string {
 		return add_query_arg( [
 			'client_id' => $client_id,
 			'redirect_uri' => rawurlencode( self::get_redirect_uri() ),
@@ -66,7 +69,7 @@ class Utils {
 	 *
 	 * @return string
 	 */
-	public static function get_deactivation_url( string $client_id ): string {
+	public static function get_deactivation_url( string $client_id ) : string {
 		return self::get_base_url() . "/api/v1/clients/{$client_id}/activation";
 	}
 
@@ -93,8 +96,8 @@ class Utils {
 	 *
 	 * @return string
 	 */
-	public static function get_clients_patch_url( string $client_id ): string {
-		return Utils::get_base_url() . "/api/v1/clients/{$client_id}";
+	public static function get_clients_patch_url( string $client_id ) : string {
+		return self::get_base_url() . "/api/v1/clients/{$client_id}";
 	}
 
 	/**

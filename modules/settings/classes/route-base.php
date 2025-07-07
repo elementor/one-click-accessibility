@@ -31,7 +31,7 @@ class Route_Base extends Route {
 		return '';
 	}
 
-	public function get_permission_callback( \WP_REST_Request $request ): bool {
+	public function get_permission_callback( \WP_REST_Request $request ) : bool {
 		$valid = $this->permission_callback( $request );
 
 		return $valid && user_can( $this->current_user_id, 'manage_options' );
