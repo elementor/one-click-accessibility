@@ -16,7 +16,7 @@ class Cache_Cleaner {
 
 	public function add_litespeed_clean_hook() {
 		add_filter( 'litespeed_purge_post_events', function ( $events ) {
-			$events[] = self::EA11Y_CLEAR_POST_CACHE_HOOK; // Add your custom hook
+			$events[] = self::EA11Y_CLEAR_POST_CACHE_HOOK;
 			return $events;
 		} );
 	}
