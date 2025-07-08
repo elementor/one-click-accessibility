@@ -27,3 +27,4 @@ export { default as AccessibilityAssistantDashboardIcon } from './accessibility-
 export { default as AccessibilityAssistantNoResultsIcon } from './accessibility-assistant-no-results-icon';
 export { default as AnalyticsIcon } from './analytics-icon';
 export { default as DashboardIcon } from './dashboard-icon';
+export { default as BulbIcon } from './bulb';
