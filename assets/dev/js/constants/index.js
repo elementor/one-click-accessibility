@@ -11,5 +11,6 @@ export const GOLINKS = {
 	HELP: 'https://go.elementor.com/acc-main-help',
 	LEARN_MORE_STATEMENT: 'https://go.elementor.com/acc-statement-learn-more',
 	UPGRADE: 'https://go.elementor.com/acc-upgrade',
+	HELP_FEEDBACK: 'https://go.elementor.com/acc-assistant-feedback',
 };
 export const ELEMENTOR_URL = 'https://my.elementor.com';

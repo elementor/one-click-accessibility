@@ -12,6 +12,7 @@ import {
 import { PopupMenu } from '@ea11y/components';
 import WhatsNewDrawer from '@ea11y/components/whats-new/drawer';
 import { useWhatsNew } from '@ea11y/hooks/use-whats-new';
+import { BulbIcon } from '@ea11y/icons';
 import SpeakerphoneIcon from '@ea11y/icons/speakerphone-icon';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
@@ -42,6 +43,24 @@ const TopBarMenu = () => {
 	return (
 		<>
 			<Box display="flex" flexDirection="row" gap={1} alignItems="center">
+				<Button
+					size="medium"
+					color="secondary"
+					aria-label={__(
+						'Help us improve feedback button',
+						'pojo-accessibility',
+					)}
+					startIcon={
+						<BulbIcon
+							role="presentation"
+							sx={{ color: 'common.black' }}
+							fontSize="small"
+						/>
+					}
+					onClick={() => openLink(GOLINKS.HELP_FEEDBACK)}
+				>
+					{__('Help us improve', 'pojo-accessibility')}
+				</Button>
 				<Button
 					size="medium"
 					color="secondary"

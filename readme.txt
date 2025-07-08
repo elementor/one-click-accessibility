@@ -1,17 +1,25 @@
 === Ally - Web Accessibility & Usability ===
 Contributors: elemntor
 Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
-Requires at least: 6.5
+Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.4.0
+Stable tag: 3.5.0
 License: GPLv2 or later
 
-Ally: A web accessibility plugin enhancing usability with custom controls and auto-generated accessibility statements to meet WCAG guidelines.
+Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
 
 == Description ==
 
-Ally (formerly One Click Accessibility) is a powerful web accessibility plugin designed to enhance usability and help websites align with WCAG guidelines. It enables custom accessibility controls and provides an auto-generated Accessibility Statement, supporting website owners in making their sites more inclusive.
+Ally (formerly One Click Accessibility) is a free, powerful, and user-friendly plugin that helps WordPress creators build more accessible websites with ease.
+It simplifies accessibility with three essential tools:
+
+- **Ally Assistant** – Scan your pages, detect accessibility violations, and follow guided steps to fix them. Make manual adjustments or apply AI-powered suggestions, and track your progress.
+- **Usability widget** – Let visitors personalize their browsing experience with a floating accessibility menu. Features include font resizing, color contrast, image hiding, animation pausing, language selection, screen reader support, and more.
+- **Accessibility statement generator** – Create a fully customized accessibility statement and publish it automatically on your site, helping meet WCAG and legal requirements.
+
+**No expertise required** -just activate, configure, and start making your site more inclusive today.Built by Elementor. Designed for every WordPress site. Ally is web accessibility—simplified.
+
 
 === Why does web accessibility matter?
 - **Who Needs It?** Every website owner—businesses, creators, and agencies.
@@ -27,94 +35,79 @@ The Ally plugin is not a substitute for a thorough accessibility audit and is NO
 
 Ensuring that your website complies with all applicable accessibility requirements is your responsibility. We recommend working with qualified accessibility professionals to help achieve full compliance.
 
-== Key Features & Benefits: ==
+== Key Features & Benefits ==
 
-= Customization Options for Web Creators =
+= Ally Assistant =
 
-- **Add Accessibility Statement URL**: Link an existing Accessibility Statement URL, ensuring it appears directly within the accessibility widget.
+* Scan any URL on demand to detect accessibility gaps
+* Launch directly from WordPress or Elementor
+* Step-by-step guidance to fix issues
+* AI-powered remediation suggestions 
+* Progress tracking via a visual dashboard
+* No accessibility expertise required
 
-- **Generate the Accessibility Statement**: Effortlessly create your Accessibility Statement with our built-in generator without the need to search the web. Simply fill in a form with your details  and a custom Accessibility Statement will be instantly generated and placed on a dedicated page of your website.
+= How It Works =
 
-- **Show icon / Hide icon**: Choose to show or hide the accessibility icon separately for desktop and mobile versions of the website.
+Ally Assistant scans individual URLs for accessibility violations, categorizes them by type and severity, and provides actionable insights. You can apply manual fixes manually or use AI suggestions while tracking your progress over time.
+Ally Assistant helps you:
 
-- **Color Selection**:  Select the color scheme that the end-user will see when the icon is opened. This includes options for background, text, and highlight colors.
+* Detect missing alternative text
+* Label dynamic content & ARIA landmarks
+* Validate forms & flag input errors
+* Ensure keyboard & assistive tech compatibility
+* Identify accessibility violations in tables
+* Repair incorrect page structure & navigation
+* Flag color contrast & visual style violations (coming soon)
+* And detect 180+ other common accessibility violations based on WCAG 2.1 AA
 
-- **Icon Color**: Decide on the color of the selected icon to match your website’s branding. The same color will also be displayed in the widget’s header and footer for brand consistency.
+= Accessibility Statement Generator =
+* Auto-generate a complete  accessibility statement
+* Customize and publish to a dedicated page
+* Link it using the widget 
 
-- **Icon Positioning**: Define the position of the icon on any of the four corners of the page (top-left, top-right, bottom-left, bottom-right).
+= Usability Widget =
+* Offer visitors a customizable menu with features like:
+* Contrast Modes (high, dark, light, negative) 
+* Font resizing & readable font toggle
+* Pause animations & hide images
+* Line height & text alignment options
+* Keyboard navigation enhancements
+* Underlined links & reading guide
+* Skip to content / sitemap viewer
+* Language selector
+* Skip to Main Content
+* Restore defaults & widget toggle
 
-- **Icon Size**: Choose the size of the accessibility icon: Large, Medium, and Small.
+Premium widget features are also available within paid plans, including:
 
-- **Sitemap URL**: A default sitemap link is available in the widget to enhance the visibility of the site structure to end users. You can override the default and set any desired sitemap URL.
+* Screen reader compatibility improvements
+* White labeling (remove Elementor branding)
+* Language selector directly in the widget
+* Usage analytics to gain actionable insights from visitor interactions
 
-- **Skip to Main Content**: "Skip to Content" enables users to quickly navigate to the main content. Set to ‘On’ by default, web creators have the option to edit the anchor ID to navigate to the best location.
 
-= Customization Options for Website Visitors =
-Below is a list of features website visitors can control. (Each feature may be enabled/disabled by the web creator during website setup, determining which are shown to website visitors.)
+= Widget customization options for web creators = 
+Tailor the widget’s look and behavior with options like:
 
-- **Hide the icon**: Allows the website visitor to turn off or hide the widget from the website interface, enabling them to use their own accessibility tools without interference.
+* Show/hide widget icon on mobile or desktop
+* Select icon type and size
+* Choose colors for icon, header, and text
+* Define icon position (corner selection)
+* Add/edit sitemap URL
+* Enable/disable features per device or user role
 
-- **Restore Defaults**: Provides a one-click option to reset all customized accessibility settings back to their default state.
-
-- **Increase/Decrease Text Size**:  For users who have reading difficulties or low vision
-
-- **Grayscale**: Apply a grayscale filter to the page for color blind users.
-
-- **Contrast Scale**: A slider that adjusts between different contrast modes: Negative, High, Light, and Dark Contrast for color blind or the visually challenged.
-
-- **Links Underline**: Underlines all links on the page to make them more visible for the visually challenged.
-
-- **Readable Font**: Changes the font to one that is more legible for dyslexic users.
-
-- **Sitemap**: Displays all headers, landmarks, and links in a structured list for easier navigation including for those who use screen readers.
-
-- **Hide Images**: Hides all images on the page to reduce distractions and make the page more readable for the visually challenged or ADHD users.
-
-- **Pause Animations**: Stops animations running on the page, helping users with ADHD or cognitive difficulties to focus on content
-
-- **Reading Guide**: Makes the cursor bigger or turns it into a reading guide to focus on selected elements for users with reading difficulties.
-
-- **Line Height**: Increases space between text lines to make the content easier to read for dyslexic or visually challenged users.
-
-- **Text Align**: Allows users to align text (left, right, or center) to improve readability.
-
-- **Focus Outline**: Enables users to see which element is currently active as they Tab through the page. Geared for keyboard-only navigation.
-
-- **Skip to Main Content**: When users land on your site, pressing the Tab key brings the ‘Skip to main content’ link into focus. By selecting this link, users can skip directly to the main content, enabling them to quickly navigate to the main content. Useful for keyboard-only and screen-reader users.
-
-= Premium features =
-These features will be available in Ally’s paid plans:
-
-- **Screen Reader Compatibility** – Enhances support for screen reader software, ensuring visually impaired users can navigate and interact with your website more efficiently.
-
-- **White Labeling** – Remove the Elementor logo from the widget interface, allowing full customization to match your brand’s identity and maintain a professional, cohesive look.
-
-- **Widget Usage Analytics** – Gain insights into how visitors interact with the usability features on your site, helping you optimize the user experience and measure accessibility impact.
-
-= Roadmap: Expanding Accessibility Features =
-Ally is continuously evolving to provide better accessibility tools. Future updates include:
-
-- **Accessibility Scanner** – Accessibility Scanner (Coming Soon) – Detects and identifies compliance gaps across your site.
-
-- **Remediation Wizard** – Remediation Wizard (Coming Soon) – A step-by-step guide to fixing accessibility gaps, with prompts and questions to help users understand and address the issues manually or automatically
-
-- **Additional Enhancements** – Ongoing improvements based on best practices and user feedback.
-
-These updates will help website owners and creators take greater steps toward accessibility with evolving regulations.
 
 === Get Started Today ===
 == Make your site more accessible with Ally! ==
-For more information about Ally visit our [help center](https://go.elementor.com/acc-wp-repo-learn-more) If you have any questions or need support, feel free to [contact us](https://go.elementor.com/wp-repo-wp-dash-sm-contact-us/).
+Need help? Visit our [help center](https://go.elementor.com/acc-wp-repo-learn-more) or [contact Supoprt](https://go.elementor.com/wp-repo-wp-dash-sm-contact-us/).
 
-This plugin requires a connection to an active Elementor account in order to identify the user and provide the user with the purchased service. This connection is triggered manually by the user via the plugin’s settings panel. Learn more about our [terms and conditions](https://go.elementor.com/acc-wp-repo-term-and-conditions). This plugin uses a 3rd party service operated by Elementor.
+This plugin requires a connection to an active Elementor account in order to identify the user and provide the user with the purchased service. This connection is initiated manually by the user via the plugin’s settings panel. Learn more about our [terms and conditions](https://go.elementor.com/acc-wp-repo-term-and-conditions). This plugin uses a 3rd party service operated by Elementor.
 
-More great features are on the horizon, so stay tuned!
-
-More great features are on the horizon, so stay tuned!
+More accessibility features are on the way, so stay tuned!
 
 == Related Plugins ==
-* [Site Mailer](https://wordpress.org/plugins/site-mailer/): Effortlessly manage transactional emails with Site Mailer. High deliverability, logs and statistics, and no SMTP plugins needed
-* [Image Optimizer](https://wordpress.org/plugins/image-optimization/): Compress and optimize your images, giving you leaner, faster websites. Automatically optimize any new image you upload to your site or run a bulk optimization process on all previously uploaded images.
+* [Site Mailer](https://wordpress.org/plugins/site-mailer/): Manage transactional emails with ease with Site Mailer. High deliverability, detailed logs and statistics, and no SMTP plugins needed.
+* [Image Optimizer](https://wordpress.org/plugins/image-optimization/): Compress and optimize your images, giving you leaner, faster websites. Automatically optimize any new image you upload or run a bulk optimization process for existing uploads.
 
 
 == Installation ==
@@ -137,31 +130,49 @@ More great features are on the horizon, so stay tuned!
 
 = What is the Ally plugin? =
 
-The accessibility plugin is a free, easy-to-use plugin designed to enhance website usability for individuals with disabilities. It is designed to help web creators make their websites more inclusive, and works seamlessly on all WordPress and Elementor websites.
+Ally is an accessibility plugin for WordPress websites. It helps web creators build more inclusive websites using a customizable widget, on-demand accessibility scans, AI-powered issue remediation, and a centralized dashboard to track progress.
 
-= Can I customize the widget's appearance? =
+= Who is Ally for? =
 
-Yes, you can fully customize the widget. Adjust the icon’s style, color, and size, and personalize the header and footer to match your site's branding. You can also choose its placement—position it in any corner, at a custom location, or hide it on mobile or desktop—and decide which accessibility features are visible to your users.
+Ally is ideal for freelancers, agencies, and DIY website owners who want to improve accessibility and align with WCAG standards
+
+= Is Ally GDPR compliant? =
+
+Yes, Ally is GDPR compliant. To meet your privacy obligations, you must list Elementor as a sub-processor in your privacy notice. Our [Data Processing Agreement (DPA)](https://elementor.com/terms/plugins-dpa) outlines all privacy-related requirements.
+
+= Can Ally guarantee that my site is fully accessible? =
+
+No automated tool can promise full accessibility. Ally helps you detect and fix the most common violations, but achieving full compliance requires human testing and judgment. Think of Ally as a powerful assistant-not a complete substitute for manual review.
+
+= What is an accessibility statement, and how do I create one? =
+
+An accessibility statement is a public declaration of your commitment to inclusive digital experiences. Ally helps you easily generate and publish one as a dedicated page on your website.
+
+= Why do I need an Elementor account to use Ally? =
+
+An Elementor account lets you manage your Ally settings, track usage, and unlock advanced features like the Assistant and AI fixes.
+
+= Can I customize the widget’s appearance? =
+
+Yes. You can personalize the widget’s icon, colors, size, position, and which features are shown on mobile or desktop.
+
+= Can visitors hide the widget? =
+Yes. Visitors can choose to temporarily dismiss the widget-for a session, 24 hours, or one week.
 
 = Does the widget support multiple languages? =
+Yes, it automatically adjusts to your site’s language settings.
 
-Yes, the widget automatically adapts to your website's language, ensuring a smooth and consistent experience for every visitor.
 
-= Can website visitors hide the widget? =
+= What is the Accessibility Assistant? =
+The Accessibility Assistant is a tool that scans individual URLs for accessibility violations, organizes them into categories, and guides you to fix them manually or with AI suggestions 
 
-Yes, website visitors can temporarily hide the widget. They can choose to dismiss it for the current session, for 24 hours, or even for an entire week.
 
-= How do I set up the widget? =
+= Can I scan the same URL more than once? =
+Yes. You can rescan a URL as often as needed. Results update each time based on the current version of your content.
 
-Once installed and connected, the widget appears on your site with default settings. You can customize its appearance and functionality via the WordPress admin panel. Additionally, you can link your existing accessibility statement or create a custom one using our built-in generator, which automatically creates a dedicated page for your statement.
 
-= Is the widget compatible with WordPress and Elementor? =
-
-Yes, the widget is fully integrated with Elementor and works seamlessly with any WordPress site, delivering a smooth and effective accessibility experience.
-
-= What is an accessibility statement, and how do I generate one? =
-
-An accessibility statement is a declaration of your commitment to providing an inclusive online experience. With the widget, you can generate a custom accessibility statement and seamlessly publish it on a dedicated page. Our Accessibility Statement Generator is provided as a tool to assist you in creating a customized accessibility statement for your website. However, the generated statement should be reviewed and tailored to ensure it accurately reflects your website's specific accessibility practices and compliance efforts.
+= What are AI fixes? = 
+These are smart suggestions generated by Ally to help you resolve issues more efficiently-like automatically suggesting alternative text for images. AI fixes are available only on paid plans and use credits.
 
 
 == Screenshots ==
@@ -173,6 +184,13 @@ An accessibility statement is a declaration of your commitment to providing an i
 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
+= 3.5.0 - 2025-07-08 =
+* New: Introducing URL Scanner – find 180+ issues instantly (WCAG 2.1 AA)
+* New: Introducing Remediation Engine – get in-context guided, AI-powered accessibility fixes  
+* New: Introducing Overview Dashboard – track scans and accessibility progress in real-time  
+* New: Introducing Auto-Fix – fix common issues with one click: alt text, forms, keyboard nav, and tables
+* Tweak: New admin UI design
+
 = 3.4.0 - 2025-06-04 =
 * New: Added widget languages selector
 * Tweak: Load widget's font locally for better compliance
