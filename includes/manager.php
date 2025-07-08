@@ -23,6 +23,8 @@ final class Manager {
 			'Core',
 			'Analytics',
 			'whats-new',
+			'Remediation',
+			'Scanner',
 		];
 	}
 

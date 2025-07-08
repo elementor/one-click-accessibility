@@ -12,12 +12,21 @@ export const StyledBox = styled(Box)`
 	align-items: center;
 	max-height: 100%;
 	min-height: 50%;
+	height: 100%;
+	overflow: hidden;
 `;
 
 export const StyledContainer = styled(Container)`
 	overflow: auto;
 	max-height: 100%;
 	padding: ${({ theme }) => theme.spacing(4)};
+`;
+
+export const StyledWideBox = styled(Box)`
+	overflow: auto;
+	max-height: 100%;
+	padding: ${({ theme }) => theme.spacing(4)};
+	width: 100%;
 `;
 
 export const StyledTitle = styled(Typography)`

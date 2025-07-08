@@ -8,7 +8,7 @@ import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import { validateId } from '../../utils';
 
@@ -56,7 +56,7 @@ const SkipToContentSettings = () => {
 
 	const onBlur = () => {
 		if (skipToContentHasChanges) {
-			mixpanelService.sendEvent(eventNames.fieldContentUpdated, {
+			mixpanelService.sendEvent(mixpanelEvents.fieldContentUpdated, {
 				fieldName: 'skip-to-content-anchor',
 				value: skipToContentSettings.anchor,
 			});
@@ -74,7 +74,7 @@ const SkipToContentSettings = () => {
 	);
 
 	return (
-		<Card variant="outlined" sx={{ padding: 2, marginBlock: 4 }}>
+		<StyledCard variant="outlined">
 			<StyledBox>
 				<StyledTypography
 					variant="subtitle1"
@@ -168,9 +168,17 @@ const SkipToContentSettings = () => {
 					)}
 				</Box>
 			</StyledFormItem>
-		</Card>
+		</StyledCard>
 	);
 };
+
+const StyledCard = styled(Card)`
+	padding: ${({ theme }) => theme.spacing(2)};
+	margin-block: ${({ theme }) => theme.spacing(4)};
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+`;
 
 const StyledBox = styled(Box)`
 	display: flex;

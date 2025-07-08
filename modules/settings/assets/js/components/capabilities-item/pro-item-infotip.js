@@ -9,9 +9,10 @@ import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ProCrownIcon } from '@ea11y/icons';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { GOLINKS } from '@ea11y-apps/global/constants';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
-import { GOLINKS, PRO_FEATURES } from '../../constants/index';
+import { PRO_FEATURES } from '../../constants/index';
 import { openLink } from '../../utils/index';
 
 const ProItemInfotip = ({
@@ -28,7 +29,7 @@ const ProItemInfotip = ({
 	const handleUpgradeButton = () => {
 		if ('screen-reader' === childKey && 'icon' === source) {
 			openLink(GOLINKS.SCREEN_READER_ICON);
-			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'screen reader',
 				component: 'pro icon',
 			});
@@ -36,7 +37,7 @@ const ProItemInfotip = ({
 
 		if ('screen-reader' === childKey && 'toggle' === source) {
 			openLink(GOLINKS.SCREEN_READER_TOGGLE);
-			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'screen reader',
 				component: 'toggle',
 			});
@@ -44,7 +45,7 @@ const ProItemInfotip = ({
 
 		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'icon' === source) {
 			openLink(GOLINKS.ALLY_LABEL_ICON);
-			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'ally label',
 				component: 'pro icon',
 			});
@@ -52,7 +53,7 @@ const ProItemInfotip = ({
 
 		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'toggle' === source) {
 			openLink(GOLINKS.ALLY_LABEL_TOGGLE);
-			mixpanelService.sendEvent(eventNames.upgradeButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'ally label',
 				component: 'toggle',
 			});
@@ -80,7 +81,7 @@ const ProItemInfotip = ({
 			component = 'toggle';
 		}
 
-		mixpanelService.sendEvent(eventNames.upgradeTooltipTriggered, {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeTooltipTriggered, {
 			feature,
 			component,
 		});
@@ -155,7 +156,8 @@ const StyledChip = styled(Chip)`
 	margin-left: ${({ theme }) => theme.spacing(1)};
 	height: 26px;
 	width: 26px;
+
 	.MuiChip-label {
-		padding: 4px;
+		padding: 0;
 	}
 `;

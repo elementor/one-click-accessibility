@@ -40,25 +40,26 @@ class Skip_Link {
 				}
 			});
 		</script>
+		<nav aria-label="<?php esc_attr_e( 'Skip to content navigation', 'pojo-accessibility' ); ?>">
+			<a class="ea11y-skip-to-content-link"
+				href="<?php echo esc_url( $this->settings['anchor'] ); ?>"
+				tabindex="1"
+				onclick="onSkipLinkClick()"
+			>
+				<?php esc_attr_e( 'Skip to content', 'pojo-accessibility' ); ?>
 
-		<a class="ea11y-skip-to-content-link"
-			href="<?php echo esc_url( $this->settings['anchor'] ); ?>"
-			tabindex="1"
-			onclick="onSkipLinkClick()"
-		>
-			<?php esc_attr_e( 'Skip to content', 'pojo-accessibility' ); ?>
+				<svg width="24" height="24" viewBox="0 0 24 24" fill="none" role="presentation">
+					<path d="M18 6V12C18 12.7956 17.6839 13.5587 17.1213 14.1213C16.5587 14.6839 15.7956 15 15 15H5M5 15L9 11M5 15L9 19"
+								stroke="black"
+								stroke-width="1.5"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+					/>
+				</svg>
+			</a>
+			<div class="ea11y-skip-to-content-backdrop"></div>
+		</nav>
 
-			<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-				<path d="M18 6V12C18 12.7956 17.6839 13.5587 17.1213 14.1213C16.5587 14.6839 15.7956 15 15 15H5M5 15L9 11M5 15L9 19"
-					stroke="black"
-					stroke-width="1.5"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				/>
-			</svg>
-		</a>
-
-		<div class="ea11y-skip-to-content-backdrop"></div>
 		<?php
 	}
 

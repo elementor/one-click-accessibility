@@ -5,7 +5,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { IconOptionWrapper } from '@ea11y/components';
 import { useIconDesign } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import options from '../../helpers/accessibility-options';
 import MediaUploader from '../media-uploader/media-uploader';
@@ -15,7 +15,7 @@ const IconSelect = (props) => {
 
 	const selectIcon = (icon) => () => {
 		updateIconDesign({ icon });
-		mixpanelService.sendEvent(eventNames.iconTypeSelected, {
+		mixpanelService.sendEvent(mixpanelEvents.iconTypeSelected, {
 			iconType: icon,
 		});
 	};

@@ -1,5 +1,5 @@
 export { default as ConnectModal } from './connect-modal';
-export { default as Notifications } from './notifications';
+export { default as Notifications } from '../../../../../assets/dev/js/components/notifications';
 export { default as MyAccountMenu } from './my-account-menu';
 export { default as PopupMenu } from './my-account-menu/popup-menu';
 export { default as SidebarAppBar } from './sidebar-app-bar';
@@ -25,9 +25,14 @@ export { default as PositionSettingsWrapper } from './position-settings-wrapper'
 export { default as CapabilitiesItem } from './capabilities-item';
 export { default as ProItemInfotip } from './capabilities-item/pro-item-infotip';
 export { default as CustomSwitch } from './switch';
-export { default as ConfirmDialog } from './confirm-dialog';
+export { default as ConfirmDialog } from '@ea11y-apps/global/components/confirm-dialog';
 export { default as UrlMismatchModal } from './url-mismatch-modal';
 export { default as WidgetIcon } from './widget-icon';
 export { default as CustomIcon } from './custom-icon';
 export { default as IconOptionWrapper } from './icon-option-wrapper';
 export { default as PageSelect } from './page-select';
+export { default as QuotaBar } from './quota-bar';
+export { default as QuotaIndicator } from './quota-bar/quota-indicator';
+export { default as MenuItem } from './sidebar-menu/menu-item';
+export { default as QuotaBarPopupMenu } from './quota-bar/quota-popup-menu';
+export { default as QuotaBarGroup } from './quota-bar/quota-bar-group';
