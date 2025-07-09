@@ -13,12 +13,13 @@ import { styled } from '@elementor/ui/styles';
 import {
 	CopyLink,
 	EditLink,
-	WidgetLoader,
 	PageSelect,
+	WidgetLoader,
 } from '@ea11y/components';
 import Button from '@ea11y/components/button';
-import { eventNames, mixpanelService, useStorage } from '@ea11y/globals';
-import { useSettings, useToastNotification } from '@ea11y/hooks';
+import { useSettings } from '@ea11y/hooks';
+import { useToastNotification, useStorage } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { WIDGET_PREVIEW_ID } from '../../constants';
@@ -112,7 +113,7 @@ const StatementLink = () => {
 			...accessibilityStatementData,
 			hideLink: !accessibilityStatementData.hideLink,
 		});
-		mixpanelService.sendEvent(eventNames.toggleClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
 			state: accessibilityStatementData.hideLink ? 'on' : 'off',
 			type: 'Hide link',
 		});

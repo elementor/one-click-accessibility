@@ -2,11 +2,12 @@ import Box from '@elementor/ui/Box';
 import Popover from '@elementor/ui/Popover';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { eventNames, mixpanelService, useStorage } from '@ea11y/globals';
+import { useStorage } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useRef } from '@wordpress/element';
 import { escapeHTML } from '@wordpress/escape-html';
 import { __ } from '@wordpress/i18n';
-import API from '../api';
+import APIReview from '../api';
 import DismissButton from '../components/dismiss-button';
 import FeedbackForm from '../components/feedback-form';
 import RatingForm from '../components/rating-form';
@@ -37,7 +38,7 @@ const UserFeedbackForm = () => {
 	useEffect(() => {
 		if (isOpened) {
 			mixpanelService.init().then(() => {
-				mixpanelService.sendEvent(eventNames.review.promptShown, {});
+				mixpanelService.sendEvent(mixpanelEvents.review.promptShown, {});
 			});
 		}
 	}, [isOpened]);
@@ -52,7 +53,7 @@ const UserFeedbackForm = () => {
 			setIsOpened(false);
 		}
 
-		mixpanelService.sendEvent(eventNames.review.dismissClicked);
+		mixpanelService.sendEvent(mixpanelEvents.review.dismissClicked);
 	};
 
 	const id = isOpened ? 'reviews-popover' : undefined;
@@ -70,7 +71,7 @@ const UserFeedbackForm = () => {
 
 	const handleSubmit = async (close, avoidClosing = false) => {
 		try {
-			const response = await API.sendFeedback({ rating, feedback }).then(
+			const response = await APIReview.sendFeedback({ rating, feedback }).then(
 				async (res) => {
 					await save({
 						ea11y_review_data: {
@@ -86,13 +87,13 @@ const UserFeedbackForm = () => {
 			);
 
 			if (rating && !feedback) {
-				mixpanelService.sendEvent(eventNames.review.starSelected, {
+				mixpanelService.sendEvent(mixpanelEvents.review.starSelected, {
 					rating: parseInt(rating),
 				});
 			}
 
 			if (feedback) {
-				mixpanelService.sendEvent(eventNames.review.feedbackSubmitted, {
+				mixpanelService.sendEvent(mixpanelEvents.review.feedbackSubmitted, {
 					feedback_text: escapeHTML(feedback),
 					rating: parseInt(rating),
 				});

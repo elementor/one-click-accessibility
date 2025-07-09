@@ -1,28 +1,12 @@
-import { APIBase } from '@ea11y/globals';
+import API from '@ea11y-apps/global/api';
 import { addQueryArgs } from '@wordpress/url';
 
 const wpV2Prefix = '/wp/v2';
 const v1Prefix = '/ea11y/v1';
 
-class API extends APIBase {
-	static async initConnect(context = 'new') {
-		const data = {
-			wp_rest: window?.ea11ySettingsData?.wpRestNonce,
-		};
-
-		if ('update' === context) {
-			data.update_redirect_uri = true;
-		}
-
-		return API.request({
-			method: 'POST',
-			path: `${v1Prefix}/connect/authorize`,
-			data,
-		});
-	}
-
+class APISettings extends API {
 	static async clearSession() {
-		return API.request({
+		return APISettings.request({
 			method: 'POST',
 			path: `${v1Prefix}/connect/deactivate_and_disconnect`,
 			data: {
@@ -32,18 +16,8 @@ class API extends APIBase {
 		});
 	}
 
-	static async deactivateAndDisconnect() {
-		return API.request({
-			method: 'POST',
-			path: `${v1Prefix}/connect/deactivate_and_disconnect`,
-			data: {
-				wp_rest: window?.ea11ySettingsData?.wpRestNonce,
-			},
-		});
-	}
-
 	static async deactivate() {
-		return API.request({
+		return APISettings.request({
 			method: 'POST',
 			path: `${v1Prefix}/connect/deactivate`,
 			data: {
@@ -53,7 +27,7 @@ class API extends APIBase {
 	}
 
 	static async disconnect() {
-		return API.request({
+		return APISettings.request({
 			method: 'POST',
 			path: `${v1Prefix}/connect/disconnect`,
 			data: {
@@ -63,7 +37,7 @@ class API extends APIBase {
 	}
 
 	static async reconnect() {
-		return API.request({
+		return APISettings.request({
 			method: 'POST',
 			path: `${v1Prefix}/connect/reconnect`,
 			data: {
@@ -72,23 +46,8 @@ class API extends APIBase {
 		});
 	}
 
-	static async getSettings() {
-		return API.request({
-			method: 'GET',
-			path: `${wpV2Prefix}/settings`,
-		});
-	}
-
-	static async updateSettings(data) {
-		return API.request({
-			method: 'PUT',
-			path: `${wpV2Prefix}/settings`,
-			data,
-		});
-	}
-
 	static async addPage(data) {
-		return API.request({
+		return APISettings.request({
 			method: 'POST',
 			path: `${wpV2Prefix}/pages`,
 			data,
@@ -99,7 +58,7 @@ class API extends APIBase {
 	 * @return {Promise<any>} {}
 	 */
 	static async getPluginSettings() {
-		return API.request({
+		return APISettings.request({
 			method: 'GET',
 			path: `${v1Prefix}/settings/get-settings`,
 		});
@@ -122,7 +81,7 @@ class API extends APIBase {
 	 */
 	static async getStatistic({ period }) {
 		const path = addQueryArgs(`${v1Prefix}/analytics/statistic`, { period });
-		return API.request({
+		return APISettings.request({
 			method: 'GET',
 			path,
 		});
@@ -146,6 +105,29 @@ class API extends APIBase {
 			path: `${v1Prefix}/whats-new`,
 		});
 	}
+
+	static async getPostTypes() {
+		return API.request({
+			method: 'GET',
+			path: `${v1Prefix}/scanner/post-types`,
+		});
+	}
+
+	static async getScannerStats(period) {
+		const path = addQueryArgs(`${v1Prefix}/scanner/stats`, { period });
+
+		return APISettings.request({
+			method: 'GET',
+			path,
+		});
+	}
+
+	static async getScannerResults() {
+		return APISettings.request({
+			method: 'GET',
+			path: `${v1Prefix}/scanner/results`,
+		});
+	}
 }
 
-export default API;
+export default APISettings;

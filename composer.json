@@ -28,10 +28,14 @@
   "require": {
     "firebase/php-jwt": "^6.10",
     "ext-json": "*",
+    "ext-fileinfo": "*",
+    "ext-curl": "*",
+    "ext-exif": "*",
     "ext-libxml": "*",
     "ext-zlib": "*",
     "ext-dom": "*",
-    "elementor/wp-notifications-package": "^1.2.0"
+    "elementor/wp-notifications-package": "^1.2.0",
+    "ext-ctype": "*"
   },
   "config": {
     "allow-plugins": {

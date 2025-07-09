@@ -1,8 +1,8 @@
-import { APIBase } from '@ea11y/globals';
+import API from '@ea11y-apps/global/api/';
 
 const v1Prefix = '/ea11y/v1';
 
-class API extends APIBase {
+class APIReview extends API {
 	/**
 	 * @param {Object} data
 	 * @return {Promise<any>} result
@@ -16,4 +16,4 @@ class API extends APIBase {
 	}
 }
 
-export default API;
+export default APIReview;

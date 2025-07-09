@@ -1,8 +1,9 @@
 import { UploadIcon } from '@elementor/icons';
 import Button from '@elementor/ui/Button';
 import { ConfirmDialog } from '@ea11y/components';
-import { eventNames, mixpanelService, useStorage } from '@ea11y/globals';
 import { useIconDesign } from '@ea11y/hooks';
+import { useStorage } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import API from '../../api';
@@ -41,9 +42,9 @@ const MediaUploader = () => {
 		updateIconDesign(iconData);
 
 		if (iconDesign?.custom?.url) {
-			mixpanelService.sendEvent(eventNames.customIconUpdated);
+			mixpanelService.sendEvent(mixpanelEvents.customIconUpdated);
 		} else {
-			mixpanelService.sendEvent(eventNames.customIconAdded);
+			mixpanelService.sendEvent(mixpanelEvents.customIconAdded);
 		}
 	};
 
@@ -76,9 +77,9 @@ const MediaUploader = () => {
 
 	const handleOpen = () => {
 		if (iconDesign?.custom?.url) {
-			mixpanelService.sendEvent(eventNames.updateCustomIconClicked);
+			mixpanelService.sendEvent(mixpanelEvents.updateCustomIconClicked);
 		} else {
-			mixpanelService.sendEvent(eventNames.addCustomIconClicked);
+			mixpanelService.sendEvent(mixpanelEvents.addCustomIconClicked);
 		}
 
 		if (!unfilteredUploads) {

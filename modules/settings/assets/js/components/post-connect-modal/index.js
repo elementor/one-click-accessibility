@@ -3,9 +3,10 @@ import Modal from '@elementor/ui/Modal';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import Button from '@ea11y/components/button';
-import { eventNames, mixpanelService, useStorage } from '@ea11y/globals';
 import { useModal } from '@ea11y/hooks';
 import { PostConnectModalIcon } from '@ea11y/icons';
+import { useStorage } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -35,7 +36,7 @@ const PostConnectModal = () => {
 
 	useEffect(() => {
 		if (isOpen) {
-			mixpanelService.sendEvent(eventNames.connectSuccess);
+			mixpanelService.sendEvent(mixpanelEvents.connectSuccess);
 		}
 	}, [isOpen]);
 

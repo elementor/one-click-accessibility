@@ -3,8 +3,8 @@ import Infotip from '@elementor/ui/Infotip';
 import TextField from '@elementor/ui/TextField';
 import { styled } from '@elementor/ui/styles';
 import { GeneratedPageInfoTipCard } from '@ea11y/components';
-import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useSettings } from '@ea11y/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEntityRecords } from '@wordpress/core-data';
 import { useMemo, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -85,7 +85,7 @@ const PageSelect = (props) => {
 			label: value?.label,
 		});
 
-		mixpanelService.sendEvent(eventNames.statementPageSelected, {
+		mixpanelService.sendEvent(mixpanelEvents.statementPageSelected, {
 			page: value?.link,
 		});
 	};

@@ -6,8 +6,8 @@ import ListItemSecondaryAction from '@elementor/ui/ListItemSecondaryAction';
 import ListItemText from '@elementor/ui/ListItemText';
 import { CustomSwitch, ProItemInfotip } from '@ea11y/components';
 import SitemapSettings from '@ea11y/components/sitemap-settings';
-import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useSettings } from '@ea11y/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { validateUrl } from '../../utils';
 
 const CapabilitiesItem = ({
@@ -66,7 +66,7 @@ const CapabilitiesItem = ({
 			}
 
 			if (prevSettings[option]) {
-				mixpanelService.sendEvent(eventNames.toggleClicked, {
+				mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
 					state: prevSettings[option]?.enabled ? 'off' : 'on',
 					type: option,
 				});

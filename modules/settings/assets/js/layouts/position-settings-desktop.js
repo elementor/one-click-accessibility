@@ -7,8 +7,8 @@ import {
 	PositionControl,
 	PositionSettingsWrapper,
 } from '@ea11y/components';
-import { eventNames, mixpanelService } from '@ea11y/globals';
 import { useIconPosition } from '@ea11y/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 
 const PositionSettingsDesktop = () => {
@@ -17,7 +17,7 @@ const PositionSettingsDesktop = () => {
 	const toggleVisibility = (device) => {
 		updateIconPosition(device, 'hidden', !iconPosition[device].hidden);
 
-		mixpanelService.sendEvent(eventNames.toggleClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
 			state: iconPosition[device].hidden ? 'on' : 'off',
 			type: 'Hide on desktop',
 			device,
@@ -31,7 +31,7 @@ const PositionSettingsDesktop = () => {
 			!iconPosition[device].enableExactPosition,
 		);
 
-		mixpanelService.sendEvent(eventNames.toggleClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
 			state: iconPosition[device].enableExactPosition ? 'on' : 'off',
 			type: 'Exact position',
 			device,

@@ -2,7 +2,8 @@ import Button from '@elementor/ui/Button';
 import FormControl from '@elementor/ui/FormControl';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import { eventNames, mixpanelService, useStorage } from '@ea11y/globals';
+import { useStorage } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import { WORDPRESS_REVIEW_LINK } from '../constants';
 import { useSettings } from '../hooks/use-settings';
@@ -12,7 +13,7 @@ const ReviewForm = ({ close }) => {
 	const { save, get } = useStorage();
 
 	const handleSubmit = async () => {
-		mixpanelService.sendEvent(eventNames.review.publicRedirectClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.review.publicRedirectClicked, {
 			rating: parseInt(rating),
 			timestamp: new Date().toISOString(),
 		});

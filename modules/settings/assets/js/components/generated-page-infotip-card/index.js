@@ -4,8 +4,8 @@ import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
 import CardHeader from '@elementor/ui/CardHeader';
 import Typography from '@elementor/ui/Typography';
-import { useStorage } from '@ea11y/globals';
 import { useSettings } from '@ea11y/hooks';
+import { useStorage } from '@ea11y-apps/global/hooks';
 import { __ } from '@wordpress/i18n';
 
 const GeneratedPageInfoTipCard = () => {
