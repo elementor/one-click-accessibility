@@ -235,10 +235,9 @@ class Module extends Module_Base {
 	}
 
 	/**
-	 * Set default values after successful registration.
-	 * @return void
+	 * Get default settings for the plugin.
 	 */
-	private static function set_default_settings() : void {
+	public static function get_default_settings( $setting ): array {
 		$widget_menu_settings = [
 			'bigger-text' => [
 				'enabled' => true,
@@ -331,16 +330,34 @@ class Module extends Module_Base {
 			'anchor' => '#content',
 		];
 
+		switch ( $setting ) {
+			case 'widget_menu_settings':
+				return $widget_menu_settings;
+			case 'widget_icon_settings':
+				return $widget_icon_settings;
+			case 'skip_to_content_settings':
+				return $skip_to_content_setting;
+			default:
+				return [];
+		}
+	}
+
+	/**
+	 * Set default values after successful registration.
+	 * @return void
+	 */
+	private static function set_default_settings() : void {
+
 		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
-			update_option( Settings::WIDGET_MENU_SETTINGS, $widget_menu_settings );
+			update_option( Settings::WIDGET_MENU_SETTINGS, self::get_default_settings( 'widget_menu_settings' ) );
 		}
 
 		if ( ! get_option( Settings::WIDGET_ICON_SETTINGS ) ) {
-			update_option( Settings::WIDGET_ICON_SETTINGS, $widget_icon_settings );
+			update_option( Settings::WIDGET_ICON_SETTINGS, self::get_default_settings( 'widget_icon_settings' ) );
 		}
 
 		if ( ! get_option( Settings::SKIP_TO_CONTENT ) ) {
-			update_option( Settings::SKIP_TO_CONTENT, $skip_to_content_setting );
+			update_option( Settings::SKIP_TO_CONTENT, self::get_default_settings( 'skip_to_content_settings' ) );
 		}
 	}
 
