@@ -125,10 +125,24 @@ class Module extends Module_Base {
 		return get_option( self::REVIEW_DATA_OPTION );
 	}
 
+	/**
+	 * Get the number of days since the plugin was installed.
+	 *
+	 * @return int The number of days since the plugin was installed.
+	 */
 	public function get_days_since_installed() {
-		return 10; //TODO: Update rendering logic
+		$registered_at = Settings::get( Settings::PLAN_DATA )->site->registered_at ?? null;
+		if ( ! $registered_at ) {
+			return 0;
+		}
+		$days = floor( ( time() - strtotime( $registered_at ) ) / DAY_IN_SECONDS );
+		return max( 0, $days );
 	}
 
+	/**
+	 * Check if the settings have been modified by comparing them with the default settings.
+	 * @return bool
+	 */
 	public function check_if_settings_modified() {
 
 		// Get the current settings.
@@ -153,8 +167,13 @@ class Module extends Module_Base {
 		return false;
 	}
 
+	/**
+	 * Maybe show the review popup.
+	 * Check if the review popup should be shown based on various conditions.
+	 * @return bool
+	 */
 	public function maybe_show_review_popup() {
-		if ( $this->check_if_settings_modified() ) {
+		if ( $this->check_if_settings_modified() && $this->get_days_since_installed() > 1 ) {
 
 			$review_data = $this->get_review_data();
 
