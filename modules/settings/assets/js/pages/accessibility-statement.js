@@ -10,19 +10,20 @@ import { StatementGenerator } from '@ea11y/components';
 import Button from '@ea11y/components/button';
 import { useModal, useSettings } from '@ea11y/hooks';
 import {
-	AccessibilityStatementExistingIcon,
 	AccessibilityStatementCreateIcon,
+	AccessibilityStatementExistingIcon,
 } from '@ea11y/icons';
 import { StatementLink } from '@ea11y/layouts';
 import {
+	StyledBox,
 	StyledStatementContainer,
 	StyledStatementPaper,
 	StyledTitle,
 } from '@ea11y/pages/pages.styles';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { GOLINKS } from '@ea11y-apps/global/constants';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { GOLINKS } from '../constants/index';
 import { injectTemplateVars } from '../utils';
 
 const AccessibilityStatement = () => {
@@ -34,7 +35,7 @@ const AccessibilityStatement = () => {
 	const [showStatementLink, setShowStatementLink] = useState(false);
 
 	useEffect(() => {
-		mixpanelService.sendEvent(eventNames.pageView, {
+		mixpanelService.sendEvent(mixpanelEvents.pageView, {
 			page: 'Accessibility statement',
 		});
 	}, []);
@@ -49,7 +50,7 @@ const AccessibilityStatement = () => {
 
 	const onStatementOptionClick = (option) => () => {
 		setStatementOption(option);
-		mixpanelService.sendEvent(eventNames.statementFlowSelected, {
+		mixpanelService.sendEvent(mixpanelEvents.statementFlowSelected, {
 			flowType: option,
 		});
 	};
@@ -73,7 +74,7 @@ const AccessibilityStatement = () => {
 
 	return (
 		<>
-			<Box
+			<StyledBox
 				height="100%"
 				display="flex"
 				flexDirection="column"
@@ -246,7 +247,7 @@ const AccessibilityStatement = () => {
 						</Button>
 					</Box>
 				)}
-			</Box>
+			</StyledBox>
 
 			<StatementGenerator open={isOpen} close={close} />
 		</>

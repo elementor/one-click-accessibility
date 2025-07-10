@@ -48,7 +48,7 @@ class Entry {
 	 *
 	 * @return Entry Returns the entry with the data found.
 	 */
-	private function init_by( string $by, $value ): Entry {
+	private function init_by( string $by, $value ) : Entry {
 		$data = static::get_by( $by, $value );
 
 		return $this->init_by_data( $data );
@@ -90,7 +90,7 @@ class Entry {
 	 * @return $this Returns an entry loaded with the data passes in the parameter, or en Empty entry (representing
 	 *               null) on error
 	 */
-	protected function init_by_data( $data ): Entry {
+	protected function init_by_data( $data ) : Entry {
 		if ( ! $data || is_wp_error( $data ) ) {
 			return $this->return_empty();
 		}
@@ -108,7 +108,7 @@ class Entry {
 	 *
 	 * @return Entry Returns the object back
 	 */
-	private function return_empty(): Entry {
+	private function return_empty() : Entry {
 		$this->set_data( [] );
 
 		return $this->set( 'id', 0 );
@@ -123,7 +123,7 @@ class Entry {
 	 *
 	 * @return $this Returns the object back
 	 */
-	public function set_data( $data ): Entry {
+	public function set_data( $data ) : Entry {
 		$this->entry_data = (array) $data;
 
 		return $this;
@@ -139,7 +139,7 @@ class Entry {
 	 *
 	 * @return $this The Entry loaded with the data gotten from the database by the specified ID.
 	 */
-	protected function init_by_id( $id ): Entry {
+	protected function init_by_id( $id ) : Entry {
 		$data = static::get_by( 'id', $id );
 
 		return $this->init_by_data( $data );
@@ -184,7 +184,7 @@ class Entry {
 	 *
 	 * @return $this Returns the current object back
 	 */
-	public function set( string $name, $value ): Entry {
+	public function set( string $name, $value ) : Entry {
 		$this->entry_data[ $name ] = $value;
 
 		return $this;
@@ -220,7 +220,7 @@ class Entry {
 	 *                           Optional.
 	 *                           Defaults to null. In this case, will raise only the defaults /changed/ event.
 	 */
-	private function trigger_change( $data, string $event = null ): void {
+	private function trigger_change( $data, string $event = null ) : void {
 		if ( $event ) {
 			/**
 			 * event specific
@@ -248,8 +248,8 @@ class Entry {
 	 * @return false|int The number of rows inserted or FALSE on error.
 	 */
 	public function save() {
-		if ( isset( $this->entry_data[ 'id' ] ) ) {
-			return $this->update( [ 'id' => $this->entry_data[ 'id' ] ] );
+		if ( isset( $this->entry_data['id'] ) ) {
+			return $this->update( [ 'id' => $this->entry_data['id'] ] );
 		}
 
 		return $this->create();
@@ -337,7 +337,23 @@ class Entry {
 	 * @return bool
 	 */
 	public function exists(): bool {
-		return isset( $this->entry_data['id'] ) &&  0 < $this->entry_data['id'];
+		return isset( $this->entry_data['id'] ) && 0 < $this->entry_data['id'];
+	}
+
+	/**
+	 * to_json
+	 * @return string
+	 */
+	public function to_json() : string {
+		return json_encode( $this->entry_data );
+	}
+
+	public function get_data() {
+		return $this->entry_data;
+	}
+
+	public function to_array() {
+		return $this->get_data();
 	}
 
 	/**
@@ -369,16 +385,16 @@ class Entry {
 		if ( empty( $this->db_table ) ) {
 			throw new Missing_Table_Exception();
 		}
-		if ( isset( $args[ 'by' ] ) && isset( $args[ 'value' ] ) ) {
-			return $this->init_by( $args[ 'by' ], $args[ 'value' ] );
+		if ( isset( $args['by'] ) && isset( $args['value'] ) ) {
+			return $this->init_by( $args['by'], $args['value'] );
 		}
 
-		if ( isset( $args[ 'data' ] ) ) {
-			return $this->init_by_data( $args[ 'data' ] );
+		if ( isset( $args['data'] ) ) {
+			return $this->init_by_data( $args['data'] );
 		}
 
-		if ( isset( $args[ 'id' ] ) ) {
-			return $this->init_by_id( $args[ 'id' ] );
+		if ( isset( $args['id'] ) ) {
+			return $this->init_by_id( $args['id'] );
 		}
 
 		return $this->return_empty();

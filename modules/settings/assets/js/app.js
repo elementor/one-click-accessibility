@@ -5,18 +5,18 @@ import Grid from '@elementor/ui/Grid';
 import { styled, ThemeProvider } from '@elementor/ui/styles';
 import {
 	ConnectModal,
-	Notifications,
 	MenuItems,
+	Notifications,
 	PostConnectModal,
 	UrlMismatchModal,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
-	useSettings,
 	useSavedSettings,
+	useSettings,
 } from '@ea11y/hooks';
-import { QuotaNotices, Sidebar } from '@ea11y/layouts';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { QuotaNotices, Sidebar, TopBar } from '@ea11y/layouts';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
@@ -32,7 +32,7 @@ const App = () => {
 	useEffect(() => {
 		if (window.ea11ySettingsData?.planData?.user?.id) {
 			mixpanelService.init().then(() => {
-				mixpanelService.sendEvent(eventNames.pageView, {
+				mixpanelService.sendEvent(mixpanelEvents.pageView, {
 					page: 'Button',
 				});
 			});
@@ -52,6 +52,8 @@ const App = () => {
 				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
 				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
+
+				<TopBar />
 
 				<StyledGrid>
 					<Sidebar />
@@ -83,7 +85,7 @@ const StyledContainer = styled(Box)`
 `;
 
 const StyledGrid = styled(Grid)`
-	height: 100%;
+	height: calc(100% - 54.5px);
 
 	display: flex;
 	flex-direction: row;

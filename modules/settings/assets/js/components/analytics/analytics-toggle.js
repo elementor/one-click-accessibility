@@ -9,7 +9,7 @@ import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
@@ -26,7 +26,7 @@ export const AnalyticsToggle = () => {
 			setShowConfirm(true);
 		}
 
-		mixpanelService.sendEvent(eventNames.toggleClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
 			state: isAnalyticsEnabled ? 'off' : 'on',
 			type: 'Enable analytics',
 		});
@@ -35,7 +35,7 @@ export const AnalyticsToggle = () => {
 	const handleClose = () => {
 		setShowConfirm(false);
 
-		mixpanelService.sendEvent(eventNames.popupButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
 			data: {
 				popupType: 'analytics_confirm',
 				buttonName: 'Not now',
@@ -47,7 +47,7 @@ export const AnalyticsToggle = () => {
 		updateIsAnalyticsEnabled();
 		setShowConfirm(false);
 
-		mixpanelService.sendEvent(eventNames.popupButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
 			data: {
 				popupType: 'analytics_confirm',
 				buttonName: 'Confirm',

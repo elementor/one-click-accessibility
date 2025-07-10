@@ -6,6 +6,8 @@ use EA11y\Modules\Connect\Classes\Data;
 use EA11y\Modules\Connect\Classes\Exceptions\Service_Exception;
 use EA11y\Modules\Connect\Classes\Service;
 use EA11y\Modules\Connect\Module as Connect;
+use Exception;
+use Throwable;
 use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -69,7 +71,7 @@ class Client {
 		return get_rest_url( $blog_id, 'a11y/v1/webhooks/common' );
 	}
 
-	public function make_request( $method, $endpoint, $body = [], array $headers = [], $send_json = false ) {
+	public function make_request( $method, $endpoint, $body = [], array $headers = [], $send_json = false, $file = false, $file_name = '' ) {
 		$headers = array_replace_recursive( [
 			'x-elementor-a11y' => EA11Y_VERSION,
 			'x-elementor-apps' => 'a11y',
@@ -83,8 +85,18 @@ class Client {
 		$body = array_replace_recursive( $body, $this->get_site_info() );
 
 		if ( $send_json ) {
-			$headers['Content-Type'] = 'application/json';
+			$headers['Content-Type'] = 'application/json; charset=utf-8';
 			$body = wp_json_encode( $body );
+		}
+		try {
+			if ( $file ) {
+				$boundary = wp_generate_password( 24, false );
+				$body = $this->get_upload_request_body( $body, $file, $boundary, $file_name );
+				// add content type header
+				$headers['Content-Type'] = 'multipart/form-data; boundary=' . $boundary;
+			}
+		} catch ( Throwable $t ) {
+			return new WP_Error( 500, $t->getMessage() );
 		}
 
 		return $this->request(
@@ -209,5 +221,65 @@ class Client {
 	 */
 	public static function register_website() {
 		return self::get_instance()->make_request( 'POST', 'site' );
+	}
+
+	/**
+	 * get_upload_request_body
+	 *
+	 * @param array $body
+	 * @param $file
+	 * @param string $boundary
+	 * @param string $file_name
+	 *
+	 * @return string
+	 * @throws Exception
+	 */
+	private function get_upload_request_body( array $body, $file, string $boundary, string $file_name = '' ): string {
+		$payload = '';
+		// add all body fields as standard POST fields:
+		foreach ( $body as $name => $value ) {
+			$payload .= '--' . $boundary;
+			$payload .= "\r\n";
+			$payload .= 'Content-Disposition: form-data; name="' . esc_attr( $name ) . '"' . "\r\n\r\n";
+			$payload .= $value;
+			$payload .= "\r\n";
+		}
+
+		$image_mime = image_type_to_mime_type( exif_imagetype( $file ) );
+
+		if ( empty( $file_name ) ) {
+			$file_name = basename( $file );
+		}
+
+		$payload .= $this->get_file_payload( $file_name, $image_mime, $file, $boundary );
+
+		$payload .= '--' . $boundary . '--';
+
+		return $payload;
+	}
+
+	/**
+	 * get_file_payload
+	 * @param string $filename
+	 * @param string $file_type
+	 * @param string $file_path
+	 * @param string $boundary
+	 * @return string
+	 */
+	private function get_file_payload( string $filename, string $file_type, string $file_path, string $boundary ): string {
+		$name = $filename ?? basename( $file_path );
+		$mine_type = 'image' === $file_type ? image_type_to_mime_type( exif_imagetype( $file_path ) ) : $file_type;
+
+		$payload = '';
+		// Upload the file
+		$payload .= '--' . $boundary;
+		$payload .= "\r\n";
+		$payload .= 'Content-Disposition: form-data; name="image"; filename="' . esc_attr( $name ) . '"' . "\r\n";
+		$payload .= 'Content-Type: ' . $mine_type . "\r\n";
+		$payload .= "\r\n";
+		$payload .= file_get_contents( $file_path );
+		$payload .= "\r\n";
+
+		return $payload;
 	}
 }

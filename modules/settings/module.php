@@ -1,27 +1,16 @@
 <?php
 namespace EA11y\Modules\Settings;
 
-use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
-use EA11y\Modules\Core\Components\{
-	Notices,
-	Svg
-};
-use EA11y\Classes\{
-	Module_Base,
-	Utils,
-	Logger
-};
-use EA11y\Modules\Connect\Classes\{
-	Config,
-	Data
-};
-
+use EA11y\Classes\{Logger, Module_Base, Utils};
+use EA11y\Modules\Connect\Classes\{Config, Data};
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
+use EA11y\Modules\Core\Components\{Notices, Svg};
+use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
-use Throwable;
 use Exception;
+use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -118,6 +107,9 @@ class Module extends Module_Base {
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
 				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
+
+				'homeUrl' => home_url(),
 			]
 		);
 	}
@@ -126,7 +118,7 @@ class Module extends Module_Base {
 	 * Get Mixpanel project Token
 	 * @return string
 	 */
-	private static function get_plugin_env() : string {
+	public static function get_plugin_env() : string {
 		return apply_filters( 'ea11y_plugin_env', 'production' );
 	}
 

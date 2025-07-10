@@ -1,18 +1,10 @@
 import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
 import Button from '@ea11y/components/button';
-import { useSettings, useStorage, useToastNotification } from '@ea11y/hooks';
-import { eventNames, mixpanelService } from '@ea11y/services';
+import { useSettings, useStorage } from '@ea11y/hooks';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
-
-const StyledContainer = styled(Box)`
-	width: 100%;
-	display: flex;
-	justify-content: flex-end;
-
-	padding: ${({ theme }) => theme.spacing(2)};
-	border-top: 1px solid ${({ theme }) => theme.palette.divider};
-`;
 
 const BottomBar = () => {
 	const {
@@ -52,7 +44,7 @@ const BottomBar = () => {
 
 			setHasChanges(false);
 
-			mixpanelService.sendEvent(eventNames.saveButtonClicked, {
+			mixpanelService.sendEvent(mixpanelEvents.saveButtonClicked, {
 				savedData,
 			});
 		} catch (e) {
@@ -77,3 +69,12 @@ const BottomBar = () => {
 };
 
 export default BottomBar;
+
+const StyledContainer = styled(Box)`
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+
+	padding: ${({ theme }) => theme.spacing(2)};
+	border-top: 1px solid ${({ theme }) => theme.palette.divider};
+`;
