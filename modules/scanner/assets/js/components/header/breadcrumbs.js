@@ -55,7 +55,7 @@ export const Breadcrumbs = () => {
 					<ArrowLeftIcon />
 				</IconButton>
 				<Box display="flex" alignItems="center" gap={1}>
-					<Typography variant="subtitle2" sx={{ maxWidth: '180px' }}>
+					<Typography variant="subtitle2">
 						{BLOCK_TITLES[openedBlock]}
 					</Typography>
 					{BLOCK_INFO[openedBlock] && (
