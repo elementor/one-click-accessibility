@@ -28,6 +28,11 @@ const entryPoints = {
 		'modules/widget/assets/js',
 		'ally-gutenberg-block.js',
 	),
+	reviews: path.resolve(
+		process.cwd(),
+		'modules/reviews/assets/src',
+		'reviews.js',
+	),
 };
 
 // React JSX Runtime Polyfill
