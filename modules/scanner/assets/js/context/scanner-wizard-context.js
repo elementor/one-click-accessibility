@@ -137,7 +137,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				issue_type: item.message,
 				rule_id: item.ruleId,
 				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
-				category_name: BLOCKS[openedBlock],
+				category_name: openedBlock,
 			});
 		}
 	};
