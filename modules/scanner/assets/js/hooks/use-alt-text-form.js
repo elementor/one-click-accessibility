@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
-import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
@@ -115,7 +115,7 @@ export const useAltTextForm = ({ current, item }) => {
 		});
 		if (e.target.checked) {
 			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
-				category_name: BLOCK_TITLES[BLOCKS.altText],
+				category_name: BLOCKS.altText,
 			});
 		}
 	};
@@ -151,7 +151,7 @@ export const useAltTextForm = ({ current, item }) => {
 				? 'Mark as decorative'
 				: fixMethod,
 			issue_type: item.message,
-			category_name: BLOCK_TITLES[BLOCKS.altText],
+			category_name: BLOCKS.altText,
 		});
 	};
 
@@ -169,7 +169,7 @@ export const useAltTextForm = ({ current, item }) => {
 			issue_type: item.message,
 			rule_id: item.ruleId,
 			wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
-			category_name: BLOCK_TITLES[BLOCKS.altText],
+			category_name: BLOCKS.altText,
 			ai_text_response: text,
 		});
 	};

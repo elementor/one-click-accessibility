@@ -14,11 +14,7 @@ import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { UpgradeInfoTip } from '@ea11y-apps/scanner/components/upgrade-info-tip';
-import {
-	AI_QUOTA_LIMIT,
-	BLOCK_TITLES,
-	IS_AI_ENABLED,
-} from '@ea11y-apps/scanner/constants';
+import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/use-manual-fix-form';
@@ -60,7 +56,7 @@ export const ResolveWithAi = ({ item, current }) => {
 		setIsEdit(true);
 		mixpanelService.sendEvent(mixpanelEvents.editSnippetClicked, {
 			snippet_content: aiSuggestion.snippet,
-			category_name: BLOCK_TITLES[openedBlock],
+			category_name: openedBlock,
 			source: 'assistant',
 		});
 	};
@@ -74,7 +70,7 @@ export const ResolveWithAi = ({ item, current }) => {
 				issue_type: item.message,
 				rule_id: item.ruleId,
 				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
-				category_name: BLOCK_TITLES[openedBlock],
+				category_name: openedBlock,
 				// ai_text_response: text,
 			});
 		} else {

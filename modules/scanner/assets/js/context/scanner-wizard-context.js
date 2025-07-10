@@ -1,7 +1,6 @@
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
-	BLOCK_TITLES,
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
 	MANAGE_URL_PARAM,
@@ -138,7 +137,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				issue_type: item.message,
 				rule_id: item.ruleId,
 				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
-				category_name: BLOCK_TITLES[openedBlock],
+				category_name: openedBlock,
 			});
 		}
 	};
