@@ -67,6 +67,8 @@ export const DropdownMenu = () => {
 				anchorEl={anchorEl.current}
 				container={anchorEl.current}
 				onClose={handleClose}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 				MenuListProps={{
 					'aria-labelledby': 'menu-button',
 				}}
@@ -77,7 +79,7 @@ export const DropdownMenu = () => {
 				}}
 				disablePortal
 			>
-				<MenuItem onClick={onRunNewScan}>
+				<MenuItem onClick={onRunNewScan} dense>
 					<MenuItemIcon>
 						<RefreshIcon />
 					</MenuItemIcon>
@@ -103,7 +105,7 @@ export const DropdownMenu = () => {
 							],
 						}}
 					>
-						<MenuItem>
+						<MenuItem dense>
 							<MenuItemIcon>
 								<SettingsIcon color="disabled" />
 							</MenuItemIcon>
@@ -117,6 +119,7 @@ export const DropdownMenu = () => {
 						onClick={goToManagement}
 						disabled={isManage}
 						selected={isManage}
+						dense
 					>
 						<MenuItemIcon>
 							<SettingsIcon />
@@ -133,6 +136,7 @@ export const DropdownMenu = () => {
 					target="_blank"
 					rel="noreferrer"
 					onClick={() => sendOnClickEvent('View subscription')}
+					dense
 				>
 					<MenuItemIcon>
 						<CalendarDollarIcon />

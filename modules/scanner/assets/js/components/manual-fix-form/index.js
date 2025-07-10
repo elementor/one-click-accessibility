@@ -15,11 +15,7 @@ import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { ResolveWithAi } from '@ea11y-apps/scanner/components/manual-fix-form/resolve-with-ai';
-import {
-	BLOCK_TITLES,
-	BLOCKS,
-	EXCLUDE_FROM_AI,
-} from '@ea11y-apps/scanner/constants';
+import { BLOCKS, EXCLUDE_FROM_AI } from '@ea11y-apps/scanner/constants';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
@@ -54,7 +50,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 
 	const sendMixpanelEvent = (event) => {
 		mixpanelService.sendEvent(event, {
-			category_name: BLOCK_TITLES[openedBlock],
+			category_name: openedBlock,
 			issue_type: item.message,
 			element_selector: item.path.dom,
 		});

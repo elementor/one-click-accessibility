@@ -66,6 +66,8 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 				anchorEl={anchorEl.current}
 				container={anchorEl.current}
 				onClose={handleClose}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 				MenuListProps={{
 					'aria-labelledby': 'menu-button',
 				}}
@@ -82,6 +84,7 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 					target="_blank"
 					rel="noreferrer"
 					onClick={onRunNewScan}
+					dense
 				>
 					<MenuItemIcon>
 						<RefreshIcon />
@@ -108,7 +111,7 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 							],
 						}}
 					>
-						<MenuItem>
+						<MenuItem dense>
 							<MenuItemIcon>
 								<SettingsIcon color="disabled" />
 							</MenuItemIcon>
@@ -124,6 +127,7 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 						target="_blank"
 						rel="noreferrer"
 						onClick={goToManagement}
+						dense
 					>
 						<MenuItemIcon>
 							<SettingsIcon />
