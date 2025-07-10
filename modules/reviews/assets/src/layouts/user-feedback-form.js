@@ -151,7 +151,7 @@ const UserFeedbackForm = () => {
 					<Typography variant="subtitle1" color="text.primary">
 						{headerMessage?.[currentPage]}
 					</Typography>
-					<DismissButton close={close} />
+					<DismissButton close={handleClose} />
 				</Header>
 				{'ratings' === currentPage && (
 					<RatingForm close={handleClose} handleSubmitForm={handleSubmit} />

@@ -3,7 +3,7 @@ import { useStorage } from '@ea11y-apps/global/hooks';
 import { date } from '@wordpress/date';
 import { useSettings } from '../hooks/use-settings';
 
-const DimissButton = () => {
+const DismissButton = () => {
 	const { save, get } = useStorage();
 	const { setIsOpened } = useSettings();
 	const handleDismiss = async () => {
@@ -23,4 +23,4 @@ const DimissButton = () => {
 	return <CloseButton onClick={handleDismiss} />;
 };
 
-export default DimissButton;
+export default DismissButton;
