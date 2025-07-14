@@ -62,8 +62,8 @@ class Scanner_Stats extends Route_Base {
 
 				if ( count( $recent_scans ) > 0 ) {
 					$output['scans'] ++;
-					$output['issues_total'] += $recent_scans[0]->summary['counts']['violation'];
-					$output['issues_fixed'] += $recent_scans[0]->summary['counts']['issuesResolved'];
+					$output['issues_total'] += $recent_scans[0]->summary['counts']['violation'] ?? 0;
+					$output['issues_fixed'] += $recent_scans[0]->summary['counts']['issuesResolved'] ?? 0;
 				}
 			}
 
