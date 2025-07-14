@@ -43,10 +43,12 @@ export const ManualLayout = () => {
 							checked={manualData[openedBlock][index]?.resolved || false}
 							aria-label={__('Resolved', 'pojo-accessibility')}
 						/>
-						<Typography variant="body2" sx={{ mr: 0.5 }} noWrap>
+
+						<Typography variant="body2" as="h4" sx={{ mr: 0.5 }} noWrap>
 							{uxMessaging[item.ruleId]?.violationName ?? item.category}
 						</Typography>
 					</StyledAccordionSummary>
+
 					<ManualFixForm item={item} current={index} setOpen={setOpenIndex} />
 				</StyledAccordion>
 			))}

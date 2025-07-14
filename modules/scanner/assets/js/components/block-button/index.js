@@ -47,12 +47,17 @@ export const BlockButton = ({
 				color={resolved ? 'success' : 'default'}
 			>
 				<Box display="flex" alignItems="center" gap={0.5}>
-					<Typography variant="subtitle2">{title}</Typography>
+					<Typography variant="subtitle2" as="h4">
+						{title}
+					</Typography>
+
 					{showChip && (
 						<Chip label={count} color="error" variant="standard" size="tiny" />
 					)}
 				</Box>
+
 				{resolved && <CircleCheckFilledIcon color="success" />}
+
 				{isManage && (
 					<Chip
 						label={sprintf(
