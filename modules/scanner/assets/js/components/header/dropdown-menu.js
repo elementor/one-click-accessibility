@@ -36,9 +36,9 @@ export const DropdownMenu = () => {
 		});
 	};
 
-	const onRunNewScan = () => {
+	const onRescan = () => {
 		runNewScan();
-		sendOnClickEvent('New Scan');
+		sendOnClickEvent('Rescan');
 	};
 
 	const goToManagement = () => {
@@ -61,6 +61,7 @@ export const DropdownMenu = () => {
 			>
 				<DotsHorizontalIcon />
 			</IconButton>
+
 			<Menu
 				open={isOpened}
 				id="assistant-menu"
@@ -79,12 +80,14 @@ export const DropdownMenu = () => {
 				}}
 				disablePortal
 			>
-				<MenuItem onClick={onRunNewScan} dense>
+				<MenuItem onClick={onRescan} dense>
 					<MenuItemIcon>
 						<RefreshIcon />
 					</MenuItemIcon>
-					<MenuItemText>{__('New Scan', 'pojo-accessibility')}</MenuItemText>
+
+					<MenuItemText>{__('Rescan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
+
 				{!remediations.length ? (
 					<Tooltip
 						arrow

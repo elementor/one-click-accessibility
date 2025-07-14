@@ -13,6 +13,7 @@ import { __ } from '@wordpress/i18n';
 export const ResolvedMessage = () => {
 	const { remediations, setOpenedBlock, setIsManage } =
 		useScannerWizardContext();
+
 	const onClose = () => {
 		const widget = document.getElementById(ROOT_ID);
 		closeWidget(widget);
@@ -24,15 +25,16 @@ export const ResolvedMessage = () => {
 	};
 
 	return (
-		<StateContainer>
+		<StateContainer sx={{ px: 4 }}>
 			<ResolvedImage />
 
-			<Typography variant="subtitle1" align="center">
-				{__('Great job!', 'pojo-accessibility')}
+			<Typography variant="subtitle1" as="h3" align="center">
+				{__('You’re all set!', 'pojo-accessibility')}
 			</Typography>
+
 			<Typography variant="body2" align="center" color="text.secondary">
 				{__(
-					"You've resolved all accessibility issues on this page.",
+					'This page is now issue‑free. View all scans to track your progress, or review the fixes you just made.',
 					'pojo-accessibility',
 				)}
 			</Typography>
@@ -47,8 +49,15 @@ export const ResolvedMessage = () => {
 				>
 					{__('Review fixes', 'pojo-accessibility')}
 				</Button>
-				<Button size="small" variant="contained" color="info" onClick={onClose}>
-					{__('Finish', 'pojo-accessibility')}
+
+				<Button
+					href={window?.ea11yScannerData?.dashboardUrl}
+					size="small"
+					variant="contained"
+					color="info"
+					onClick={onClose}
+				>
+					{__('View all scans', 'pojo-accessibility')}
 				</Button>
 			</ResolvedButtonsBox>
 		</StateContainer>

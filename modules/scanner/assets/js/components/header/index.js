@@ -88,9 +88,10 @@ export const Header = () => {
 				<TitleBox
 					sx={{ mb: window.ea11yScannerData?.isConnected && !isError ? 2 : 0 }}
 				>
-					<Typography variant="subtitle1" color="text.primary">
+					<Typography variant="subtitle1" as="h3" color="text.primary">
 						{window?.ea11yScannerData?.pageData?.title}
 					</Typography>
+
 					{showChip && (
 						<Chip
 							size="tiny"
@@ -119,7 +120,8 @@ export const Header = () => {
 							{isManage ? (
 								<>
 									<SettingsIcon size="small" color="action" />
-									<StyledTitle variant="subtitle1">
+
+									<StyledTitle variant="subtitle1" as="h2">
 										{__('Manage AI fixes', 'pojo-accessibility')}
 									</StyledTitle>
 								</>
@@ -127,7 +129,7 @@ export const Header = () => {
 								<>
 									<Logo />
 
-									<StyledTitle variant="subtitle1">
+									<StyledTitle variant="subtitle1" as="h2">
 										{__('Accessibility Assistant', 'pojo-accessibility')}
 
 										<Chip
@@ -153,6 +155,7 @@ export const Header = () => {
 					</Box>
 				</HeaderContent>
 			</Paper>
+
 			{showMainBlock && (
 				<HeaderContent>
 					{isMainHeader ? (
@@ -176,6 +179,12 @@ const StyledCard = styled(Card)`
 `;
 
 const StyledTitle = styled(Typography)`
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 130%;
+	letter-spacing: 0.15px;
+	margin: 0;
+
 	.MuiChip-root {
 		margin-inline-start: ${({ theme }) => theme.spacing(1)};
 
