@@ -15,11 +15,7 @@ import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { ResolveWithAi } from '@ea11y-apps/scanner/components/manual-fix-form/resolve-with-ai';
-import {
-	BLOCK_TITLES,
-	BLOCKS,
-	EXCLUDE_FROM_AI,
-} from '@ea11y-apps/scanner/constants';
+import { BLOCKS, EXCLUDE_FROM_AI } from '@ea11y-apps/scanner/constants';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
@@ -32,6 +28,7 @@ import {
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
+import { speak } from '@wordpress/a11y';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -54,16 +51,31 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 
 	const sendMixpanelEvent = (event) => {
 		mixpanelService.sendEvent(event, {
-			category_name: BLOCK_TITLES[openedBlock],
+			category_name: openedBlock,
 			issue_type: item.message,
 			element_selector: item.path.dom,
 		});
 	};
 
+	const focusOnActive = () => {
+		const rootNode = document.getElementById('ea11y-scanner-wizard-widget');
+		const currentItem = rootNode.shadowRoot.querySelector(
+			`#manual-panel-${current}`,
+		);
+
+		if (currentItem) {
+			currentItem.focus();
+		}
+	};
+
 	const handleSkip = () => {
 		closeExample();
 		setOpen(current + 1);
+		focusOnActive();
+
 		sendMixpanelEvent(mixpanelEvents.issueSkipped);
+
+		speak(__('Issue skipped', 'pojo-accessibility'), 'polite');
 	};
 
 	const handleMarkResolved = async () => {
@@ -72,7 +84,11 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 
 			closeExample();
 			markResolved();
+			focusOnActive();
+
 			sendMixpanelEvent(mixpanelEvents.markAsResolveClicked);
+
+			speak(__('Issue resolved', 'pojo-accessibility'), 'polite');
 		} catch (e) {
 			error(__('An error occurred.', 'pojo-accessibility'));
 		}
@@ -87,10 +103,12 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 			<StyledAccordionDetails>
 				<Box>
 					<Box display="flex" gap={1} alignItems="center">
-						<Typography variant="subtitle2">
+						<Typography variant="subtitle2" as="h5">
 							{__('What’s the issue', 'pojo-accessibility')}
 						</Typography>
+
 						<Infotip
+							tabIndex="0"
 							placement="top"
 							PopperProps={{
 								disablePortal: true,
@@ -106,6 +124,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 											'pojo-accessibility',
 										)}
 									</Typography>
+
 									<Typography variant="body2">
 										{uxMessaging[item.ruleId].whyItMatters}
 									</Typography>
@@ -115,17 +134,21 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>
 					</Box>
+
 					<Typography variant="body2">
 						{uxMessaging[item.ruleId]?.whatsTheIssue ?? item.message}
 					</Typography>
 				</Box>
+
 				<Box>
-					<Typography variant="subtitle2" sx={{ mb: 0.5 }}>
+					<Typography variant="subtitle2" as="h5" sx={{ mb: 0.5 }}>
 						{__('Where is it', 'pojo-accessibility')}
 					</Typography>
+
 					<StyledAlert color="error" icon={false}>
 						<Box display="flex" gap={0.5} alignItems="start">
 							<StyledSnippet variant="body2">{item.snippet}</StyledSnippet>
+
 							<Box>
 								<Tooltip
 									arrow
@@ -154,15 +177,19 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 						</Box>
 					</StyledAlert>
 				</Box>
+
 				{showAIBlock && <ResolveWithAi current={current} item={item} />}
+
 				{uxMessaging[item.ruleId] && (
 					<>
 						<Box>
-							<Typography variant="subtitle2">
+							<Typography variant="subtitle2" as="h5">
 								{__('How to resolve it', 'pojo-accessibility')}
 							</Typography>
+
 							<Typography variant="body2">
 								{uxMessaging[item.ruleId].howToResolve}
+
 								<Infotip
 									arrow
 									placement="left"
@@ -181,11 +208,13 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 												justifyContent="space-between"
 												alignItems="start"
 											>
-												<Typography variant="subtitle1" sx={{ mb: 3 }}>
+												<Typography variant="subtitle1" as="h5" sx={{ mb: 3 }}>
 													{__('See an example', 'pojo-accessibility')}
 												</Typography>
+
 												<IconButton
 													onClick={closeExample}
+													aria-label={__('Close tooltip', 'pojo-accessibility')}
 													size="small"
 													edge="end"
 													sx={{ mt: -1 }}
@@ -194,9 +223,10 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 												</IconButton>
 											</Box>
 
-											<Typography variant="subtitle2">
+											<Typography variant="subtitle2" as="h6">
 												{__('Issue:', 'pojo-accessibility')}
 											</Typography>
+
 											<Typography
 												variant="body2"
 												color="secondary"
@@ -204,9 +234,11 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 											>
 												{uxMessaging[item.ruleId].seeAnExample.issue}
 											</Typography>
-											<Typography variant="subtitle2">
+
+											<Typography variant="subtitle2" as="h6">
 												{__('Resolution:', 'pojo-accessibility')}
 											</Typography>
+
 											{uxMessaging[item.ruleId].seeAnExample.resolution.flatMap(
 												(resolution, index) => (
 													<Typography
@@ -219,6 +251,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 													</Typography>
 												),
 											)}
+
 											<InfotipFooter>
 												<Button
 													size="small"
@@ -233,7 +266,6 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 									}
 								>
 									<Link
-										href="#"
 										underline="none"
 										color="info.main"
 										onClick={handleLinkClick}

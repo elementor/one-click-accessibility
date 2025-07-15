@@ -113,6 +113,11 @@ export const StyledButton = styled(Button)`
 	font-weight: 400;
 	justify-content: start;
 	padding: 0;
+
+	&:focus .MuiPaper-root,
+	&:focus-visible .MuiPaper-root {
+		background-color: ${({ theme }) => theme.palette.action.hover};
+	}
 `;
 
 export const UpgradeContentContainer = styled(Box)`

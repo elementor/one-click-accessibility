@@ -1,7 +1,7 @@
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { AltTextForm } from '@ea11y-apps/scanner/components/alt-text-form';
 import { AltTextNavigation } from '@ea11y-apps/scanner/components/alt-text-navigation';
-import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import {
@@ -28,7 +28,7 @@ export const AltTextLayout = () => {
 			issue_type: item.message,
 			rule_id: item.ruleId,
 			wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
-			category_name: BLOCK_TITLES[BLOCKS.altText],
+			category_name: BLOCKS.altText,
 		});
 	}, [current]);
 

@@ -38,7 +38,7 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 		});
 	};
 
-	const onRunNewScan = () => {
+	const onRescan = () => {
 		sendOnClickEvent('scan');
 	};
 
@@ -60,12 +60,15 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 			>
 				<DotsHorizontalIcon />
 			</IconButton>
+
 			<Menu
 				open={isOpened}
 				id="assistant-menu"
 				anchorEl={anchorEl.current}
 				container={anchorEl.current}
 				onClose={handleClose}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 				MenuListProps={{
 					'aria-labelledby': 'menu-button',
 				}}
@@ -81,14 +84,20 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 					href={ctaScan}
 					target="_blank"
 					rel="noreferrer"
+<<<<<<< HEAD
 					onClick={onRunNewScan}
+=======
+					onClick={onRescan}
+>>>>>>> 704fd90a05bc9aeb7bb856a9e073eb16dbc1662c
 					dense
 				>
 					<MenuItemIcon>
 						<RefreshIcon />
 					</MenuItemIcon>
-					<MenuItemText>{__('New Scan', 'pojo-accessibility')}</MenuItemText>
+
+					<MenuItemText>{__('Rescan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
+
 				{remediationCount < 1 ? (
 					<Tooltip
 						arrow

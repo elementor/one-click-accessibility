@@ -90,7 +90,9 @@ const App = () => {
 		<StyledPaper>
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
+
 				{showResolvedMessage ? <ResolvedMessage /> : getBlock()}
+
 				<Notifications message={notificationMessage} type={notificationType} />
 			</ErrorBoundary>
 		</StyledPaper>
