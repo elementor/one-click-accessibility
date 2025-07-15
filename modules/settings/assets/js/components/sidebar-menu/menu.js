@@ -13,7 +13,7 @@ import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 
 export const MenuItems = {
 	scanner: {
-		name: __('Accessibility scans', 'pojo-accessibility'),
+		name: __('Accessibility Assistant', 'pojo-accessibility'),
 		key: 'scanner',
 		type: 'heading',
 	},

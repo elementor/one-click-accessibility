@@ -66,7 +66,6 @@ export const DropdownMenu = () => {
 				open={isOpened}
 				id="assistant-menu"
 				anchorEl={anchorEl.current}
-				container={anchorEl.current}
 				onClose={handleClose}
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
