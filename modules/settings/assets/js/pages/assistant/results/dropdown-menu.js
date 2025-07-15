@@ -82,6 +82,7 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 					target="_blank"
 					rel="noreferrer"
 					onClick={onRunNewScan}
+					dense
 				>
 					<MenuItemIcon>
 						<RefreshIcon />
@@ -108,7 +109,7 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 							],
 						}}
 					>
-						<MenuItem>
+						<MenuItem dense>
 							<MenuItemIcon>
 								<SettingsIcon color="disabled" />
 							</MenuItemIcon>
@@ -124,6 +125,7 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 						target="_blank"
 						rel="noreferrer"
 						onClick={goToManagement}
+						dense
 					>
 						<MenuItemIcon>
 							<SettingsIcon />
