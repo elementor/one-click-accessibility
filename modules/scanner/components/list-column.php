@@ -5,6 +5,7 @@ namespace EA11y\Modules\Scanner\Components;
 use EA11y\Classes\Database\Exceptions\Missing_Table_Exception;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Page_Table;
+use EA11y\Modules\Scanner\Database\Scan_Entry;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -63,8 +64,9 @@ class List_Column {
 		$url_trimmed = rtrim( $url, '/' );
 		$page = $this->get_current_page( $url_trimmed );
 		$has_scan_data = $page->exists();
-		$violation = $page->__get( Page_Table::VIOLATIONS );
-		$resolved = $page->__get( Page_Table::RESOLVED );
+		$latest_scan = Scan_Entry::get_scan_result( $url_trimmed, true );
+		$violation = $latest_scan['counts']['violation'];
+		$resolved = $latest_scan['counts']['issuesResolved'];
 
 		$passed = $has_scan_data && $resolved === $violation;
 
