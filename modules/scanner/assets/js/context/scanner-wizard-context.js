@@ -167,8 +167,8 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			setAltTextData([]);
 			setManualData(structuredClone(MANUAL_GROUPS));
 			setResolved(
-				initialViolations > data.summary?.counts?.violation
-					? initialViolations - data.summary?.counts?.violation
+				initialViolations >= data.summary?.counts?.issuesResolved
+					? data.summary?.counts?.issuesResolved
 					: 0,
 			);
 		} catch (e) {
