@@ -12,6 +12,13 @@
 	<exclude-pattern>node_modules/</exclude-pattern>
 	<exclude-pattern>includes/libraries/</exclude-pattern>
 
+	<!-- Scan all files in directory -->
+	<file>.</file>
+	<!-- Scan only PHP files -->
+	<arg name="extensions" value="php"/>
+	<!-- Show sniff codes in all reports -->
+	<arg value="ns"/>
+	
 	<rule ref="WordPress.Security" />
 	<!-- Optional: enforce short arrays. -->
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
