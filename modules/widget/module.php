@@ -44,12 +44,12 @@ class Module extends Module_Base {
 			true
 		);
 
-    wp_enqueue_style(
-        'ea11y-widget-fonts',
-        EA11Y_ASSETS_URL . 'build/fonts.css',
-        [],
-        EA11Y_VERSION
-    );
+		wp_enqueue_style(
+			'ea11y-widget-fonts',
+			EA11Y_ASSETS_URL . 'build/fonts.css',
+			[],
+			EA11Y_VERSION
+		);
 
 		$is_analytics_enabled = AnalyticsModule::is_active();
 
@@ -129,52 +129,52 @@ class Module extends Module_Base {
 		<?php
 	}
 
-    /**
-     * Get widget's tools/menu settings
-     * @return array|mixed
-     */
-    public function get_tools_settings () {
-        // Features to check
-        $features = ['screen_reader', 'remove_elementor_label'];
+		/**
+		 * Get widget's tools/menu settings
+		 * @return array|mixed
+		 */
+	public function get_tools_settings() {
+			// Features to check
+			$features = [ 'screen_reader', 'remove_elementor_label' ];
 
-        // Get the data from the settings
-        $widget_settings = Settings::get( Settings::WIDGET_MENU_SETTINGS );
-        $plan_data = Settings::get( Settings::PLAN_DATA );
+			// Get the data from the settings
+			$widget_settings = Settings::get( Settings::WIDGET_MENU_SETTINGS );
+			$plan_data = Settings::get( Settings::PLAN_DATA );
 
-        // Return settings if features object in not present in plan data.
-        if ( ! isset( $plan_data->plan->features ) ) {
-            return $widget_settings;
-        }
+			// Return settings if features object in not present in plan data.
+		if ( ! isset( $plan_data->plan->features ) ) {
+				return $widget_settings;
+		}
 
-        // Check if the feature is available in the plan
-        foreach( $features as $feature ) {
-            $feature_name = str_replace( '_', '-', $feature );
+			// Check if the feature is available in the plan
+		foreach ( $features as $feature ) {
+				$feature_name = str_replace( '_', '-', $feature );
 
-            // Assuming feature does not exist in the plan.
-            $feature_in_plan_data = false;
+				// Assuming feature does not exist in the plan.
+				$feature_in_plan_data = false;
 
-            // Check if it exists in the plan. A contingency to handle downgrading of plans.
-            if ( isset( $plan_data->plan->features->{$feature} ) ) {
-                if ($plan_data->plan->features->{$feature} ) {
-                    $feature_in_plan_data = $plan_data->plan->features->{$feature};
-                } else {
-                    // Auto disable plan if it is set to false in the plan data.
-                    $widget_settings[$feature_name]['enabled'] = false;
-                    Settings::set( Settings::WIDGET_MENU_SETTINGS, $widget_settings );
-                }
-            } else {
-                continue;
-            }
+				// Check if it exists in the plan. A contingency to handle downgrading of plans.
+			if ( isset( $plan_data->plan->features->{$feature} ) ) {
+				if ( $plan_data->plan->features->{$feature} ) {
+					$feature_in_plan_data = $plan_data->plan->features->{$feature};
+				} else {
+						// Auto disable plan if it is set to false in the plan data.
+						$widget_settings[ $feature_name ]['enabled'] = false;
+						Settings::set( Settings::WIDGET_MENU_SETTINGS, $widget_settings );
+				}
+			} else {
+					continue;
+			}
 
-            $feature_in_widget_settings = isset( $widget_settings[$feature_name] );
+				$feature_in_widget_settings = isset( $widget_settings[ $feature_name ] );
 
-             if ( ! $feature_in_plan_data && $feature_in_widget_settings ) {
-                 $widget_settings[$feature_name]['enabled'] = false;
-             }
-        }
+			if ( ! $feature_in_plan_data && $feature_in_widget_settings ) {
+						  $widget_settings[ $feature_name ]['enabled'] = false;
+			}
+		}
 
-        return $widget_settings;
-    }
+			return $widget_settings;
+	}
 
 	/**
 	 * Remove person object from the icon settings for frontend.
@@ -211,8 +211,48 @@ class Module extends Module_Base {
 	 * register_dynamic_tag
 	 * @param \Elementor\Core\DynamicTags\Manager $dynamic_tags_manager
 	 */
-	function register_dynamic_tag( $dynamic_tags_manager ) {
+	public function register_dynamic_tag( $dynamic_tags_manager ) {
 		$dynamic_tags_manager->register( new Components\Ally_Trigger() );
+	}
+
+	public function render_dynamic_tag_handler() {
+		?>
+			<script>
+				const registerAllyAction = () => {
+					if ( ! window?.elementorAppConfig?.hasPro ) {
+						return;
+					}
+
+					elementorFrontend.utils.urlActions.addAction( 'allyWidget:open', () => {
+						if ( window?.ea11yWidget?.widget?.open ) {
+							window.ea11yWidget.widget.open();
+						}
+					} );
+				};
+
+				const waitingLimit = 30;
+				let retryCounter = 0;
+
+				const waitForElementorPro = () => {
+					return new Promise( ( resolve ) => {
+						const intervalId = setInterval( () => {
+							if ( retryCounter === waitingLimit ) {
+								resolve( null );
+							}
+
+							retryCounter++;
+
+							if ( window.elementorFrontend && window?.elementorFrontend?.utils?.urlActions ) {
+								clearInterval( intervalId );
+								resolve( window.elementorFrontend );
+							}
+								}, 100 ); // Check every 100 milliseconds for availability of elementorFrontend
+					});
+				};
+
+				waitForElementorPro().then( () => { registerAllyAction(); });
+			</script>
+			<?php
 	}
 
 	/**
@@ -221,6 +261,7 @@ class Module extends Module_Base {
 	public function __construct() {
 		$this->register_components();
 
+		add_action( 'wp_footer', [ $this, 'render_dynamic_tag_handler' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_accessibility_widget' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_accessibility_widget_admin' ] );
 		// Add referrer policy to widget script tag
