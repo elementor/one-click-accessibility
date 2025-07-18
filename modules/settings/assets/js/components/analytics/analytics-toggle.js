@@ -10,30 +10,24 @@ import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
 
 export const AnalyticsToggle = () => {
-	const { isAnalyticsEnabled, updateIsAnalyticsEnabled } =
-		useAnalyticsContext();
-	const [showConfirm, setShowConfirm] = useState(false);
+	const {
+		isAnalyticsEnabled,
+		handleAnalyticsToggle,
+		updateIsAnalyticsEnabled,
+		showConfirmPopup,
+		setShowConfirmPopup,
+	} = useAnalyticsContext();
 
-	const handleToggle = () => {
-		if (isAnalyticsEnabled) {
-			updateIsAnalyticsEnabled();
-		} else {
-			setShowConfirm(true);
-		}
-
-		mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
-			state: isAnalyticsEnabled ? 'off' : 'on',
-			type: 'Enable analytics',
-		});
+	const handleToggleClick = () => {
+		handleAnalyticsToggle();
 	};
 
 	const handleClose = () => {
-		setShowConfirm(false);
+		setShowConfirmPopup(false);
 
 		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
 			data: {
@@ -45,7 +39,7 @@ export const AnalyticsToggle = () => {
 
 	const handleConfirm = () => {
 		updateIsAnalyticsEnabled();
-		setShowConfirm(false);
+		setShowConfirmPopup(false);
 
 		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
 			data: {
@@ -62,7 +56,7 @@ export const AnalyticsToggle = () => {
 					<Switch
 						color="info"
 						checked={isAnalyticsEnabled}
-						onChange={handleToggle}
+						onChange={handleToggleClick}
 						sx={{ ml: 2 }}
 					/>
 				}
@@ -90,7 +84,7 @@ export const AnalyticsToggle = () => {
 				sx={{ ml: 0 }}
 			/>
 			<Dialog
-				open={showConfirm}
+				open={showConfirmPopup}
 				onClose={handleClose}
 				aria-labelledby="confirm-enable-analytics-title"
 				aria-describedby="confirm-enable-analytics-description"

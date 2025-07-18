@@ -10,6 +10,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { AccessibilityAssistantContextProvider } from '../../contexts/accessibility-assistant-context';
 import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
+import AnalyticsTooltip from './tooltips/analytics';
 
 export const MenuItems = {
 	scanner: {
@@ -94,5 +95,6 @@ export const MenuItems = {
 				sx={{ color: 'common.black' }}
 			/>
 		),
+		infotip: <AnalyticsTooltip />,
 	},
 };
