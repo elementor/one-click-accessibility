@@ -68,76 +68,40 @@ class List_Column {
 
 		$passed = $has_scan_data && $resolved === $violation;
 
-		$percentage = $violation > 0
-			? round( ( $resolved / $violation ) * 100 )
-			: '0';
-
-		$level_class = $this->get_scan_level( $percentage );
-
 		$separator = strpos( $url, '?' ) !== false ? '&' : '?';
 		$assistant_url = esc_url( $url . $separator . 'open-ea11y-assistant=1&open-ea11y-assistant-src=WP' );
 
-		/**
-		 * Show the percentage of fixed violations or a checkmark if all violations are fixed.
-		 */
-		$chip = $passed
-			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/check-passed.svg' ) . '" alt="" style="width:18px; height:18px;" />'
-			: '<span class="accessibility_status_content__percentage ' . esc_html( $level_class ) . '">' . esc_html( $percentage ) . '%</span>';
+		if ( $passed ) {
+			$content = '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/check-icon.svg' ) . '" alt="' . esc_attr__( 'All accessibility issues resolved', 'pojo-accessibility' ) . '" style="width:24px; height:24px;" />';
+		} else {
+			if ( $has_scan_data ) {
+				$issues_left = $violation - $resolved;
+				$button_text = sprintf( 
+					/* translators: %d: number of issues to fix */
+					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ), 
+					$issues_left 
+				);
+				$button_class = 'button';
+				$button_style = 'color: #B91C1C; border-color: #B91C1C;';
+			} else {
+				$button_text = esc_html__( 'Scan now', 'pojo-accessibility' );
+				$button_class = 'button button-primary';
+				$button_style = '';
+			}
 
-		$no_scan_icon = '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/info.svg' ) . '" alt="" style="width:18px; height:18px;" />';
-
-		/**
-		 * Show the number of fixed and total violations or "Not scanned yet" if the page has not been scanned yet.
-		 */
-		$status_text = $has_scan_data ? esc_html( sprintf( __( '%1$s/%2$s fixed', 'pojo-accessibility' ), $resolved, $violation ) ) : esc_html__( 'Not scanned yet', 'pojo-accessibility' );
-
-		$status_icon = $has_scan_data ? $chip : $no_scan_icon;
-
-		$stats =
-			'<div class="accessibility_status_content__stats">
-				<div class="accessibility_status_content__summary">
-					<span class="accessibility_status_content__text">' . $status_text . '</span>
-					' . $status_icon . '
-				</div>
-				<div class="accessibility_status_content__bar">
-					<div class="accessibility_status_content__bar-fill" style="width: ' . esc_attr( $percentage ) . '%;"></div>
-				</div>
-			</div>';
-
-		$button_text = $has_scan_data ? esc_html__( 'Review fixes', 'pojo-accessibility' ) : esc_html__( 'Scan now', 'pojo-accessibility' );
-		$button_text  = $passed ? esc_html__( 'New scan', 'pojo-accessibility' ) : $button_text;
-		$button_class = $has_scan_data && ! $passed ? 'button' : 'button button-primary';
-		$button_icon  = $passed
-			? '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/refresh-scan.svg' ) . '" alt="" style="width:16px; height:16px; vertical-align:text-top; margin-left:8px;" />'
-			: '';
-
-		$scan_button = sprintf(
-			'<a href="%1$s" class="%2$s" target="_blank" rel="noreferrer">%3$s%4$s</a>',
-			$assistant_url,
-			$button_class,
-			$button_text,
-			$button_icon
-		);
+			$content = sprintf(
+				'<a href="%1$s" class="%2$s" target="_blank" rel="noreferrer" style="%4$s">%3$s</a>',
+				$assistant_url,
+				$button_class,
+				$button_text,
+				$button_style
+			);
+		}
 
 		echo '<div class="accessibility_status_content">
-			' . $stats . '
-			<div class="accessibility_status_content__actions">' . $scan_button . '</div>
+			<div class="accessibility_status_content__actions">' . $content . '</div>
 		</div>';
 	}
-
-	private function get_scan_level( int $percent ): ?string {
-		switch ( true ) {
-			case ( $percent >= 0 && $percent <= 25 ):
-				return 'red';
-			case ( $percent >= 26 && $percent <= 60 ):
-				return 'orange';
-			case ( $percent >= 61 ):
-				return 'grey';
-			default:
-				return null;
-		}
-	}
-
 
 	/**
 	 * Component constructor.
