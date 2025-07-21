@@ -142,3 +142,9 @@ export const StyledBlockButtonsBox = styled(Box)`
 export const DisabledMenuItemText = styled(MenuItemText)`
 	color: ${({ theme }) => theme.palette.text.disabled};
 `;
+
+export const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	gap: ${({ theme }) => theme.spacing(2)};
+`;
