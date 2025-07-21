@@ -8,12 +8,16 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 	const changeColor = (updColor) => {
 		setColor(updColor);
-		item.node.style.color = updColor;
+		if (item.node?.style) {
+			item.node.style.color = updColor;
+		}
 	};
 
 	const changeBackground = (updBackground) => {
 		setBackground(updBackground);
-		item.node.style.background = updBackground;
+		if (item.node?.style) {
+			item.node.style.background = updBackground;
+		}
 	};
 
 	const onSubmit = () => {

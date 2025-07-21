@@ -71,7 +71,7 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 				<StyledColorDisplay sx={{ background: color }} />
 				<IconButton onClick={resetColor} size="tiny">
 					<RotateIcon
-                                                fontSize="tiny"
+						fontSize="tiny"
 						color="disabled"
 						sx={{ transform: 'rotate(180deg)' }}
 					/>

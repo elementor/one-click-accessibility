@@ -11,12 +11,6 @@ export const expandHex = (hex) => {
 
 export const hexToRGB = (hex) => {
 	hex = expandHex(hex).replace(/^#/, '');
-	if (hex.length === 3) {
-		hex = hex
-			.split('')
-			.map((c) => c + c)
-			.join('');
-	}
 	const num = parseInt(hex, 16);
 	// eslint-disable-next-line no-bitwise
 	return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
