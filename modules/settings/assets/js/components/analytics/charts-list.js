@@ -2,6 +2,7 @@ import { ChevronDownIcon, InfoCircleFilledIcon } from '@elementor/icons';
 import Alert from '@elementor/ui/Alert';
 import AlertTitle from '@elementor/ui/AlertTitle';
 import Box from '@elementor/ui/Box';
+import Button from '@elementor/ui/Button';
 import Grid from '@elementor/ui/Grid';
 import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
@@ -58,6 +59,14 @@ export const ChartsList = () => {
 					color="info"
 					icon={<InfoCircleFilledIcon />}
 					sx={{ width: '100%' }}
+					action={
+						!availableDate &&
+						!isAnalyticsEnabled && (
+							<Button variant="outlined" color="info" size="small">
+								{__('Enable tracking', 'pojo-accessibility')}
+							</Button>
+						)
+					}
 				>
 					{availableDate && !isAnalyticsEnabled && (
 						<>
@@ -69,7 +78,7 @@ export const ChartsList = () => {
 								)}
 							</AlertTitle>
 							{__(
-								'We are showing you data collecting in the past',
+								'We are showing you data collected in the past',
 								'pojo-accessibility',
 							)}
 						</>
@@ -88,10 +97,10 @@ export const ChartsList = () => {
 					{!availableDate && !isAnalyticsEnabled && (
 						<>
 							<AlertTitle sx={{ width: '100%' }}>
-								{__('Need to switch on', 'pojo-accessibility')}
+								{__('Analytics are off.', 'pojo-accessibility')}
 							</AlertTitle>
 							{__(
-								"We don't have enough data to show you for those days",
+								'Switch on ״Track widget data״ to start collecting usage data for your widget.',
 								'pojo-accessibility',
 							)}
 						</>
