@@ -17,7 +17,10 @@ export class ReplaceRemediation extends RemediationBase {
 			return false;
 		}
 
-		const regex = new RegExp(find, 'i'); // 'i' = ignore case
+                function escapeRegExp(string) {
+                  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                }
+                const regex = new RegExp(escapeRegExp(find), 'i'); // 'i' = ignore case
 		const updatedHTML = outerHTML.replace(regex, replace);
 
 		if (updatedHTML === outerHTML) {
