@@ -16,8 +16,8 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 
 	const resetColor = () => setColor(initialColor);
 
-	const onChangeColor = (event) => {
-		const raw = event.target.value;
+	const onChangeColor = (event, value) => {
+		const raw = event?.target?.value || value;
 		// Allow only digits
 		if (raw && !/^\d{1,3}$/.test(raw)) {
 			return;

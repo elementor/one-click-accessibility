@@ -27,7 +27,7 @@ export const FormNavigation = ({ total, current, setCurrent }) => {
 					<StyledIconButton
 						onClick={navigate(previous, 'previous')}
 						disabled={current === 0}
-						aria-label={__('Previous image', 'pojo-accessibility')}
+						aria-label={__('Previous', 'pojo-accessibility')}
 					>
 						<ChevronLeftIcon />
 					</StyledIconButton>
@@ -42,7 +42,7 @@ export const FormNavigation = ({ total, current, setCurrent }) => {
 					<StyledIconButton
 						onClick={navigate(next, 'next')}
 						disabled={current === total - 1}
-						aria-label={__('Next image', 'pojo-accessibility')}
+						aria-label={__('Next', 'pojo-accessibility')}
 					>
 						<ChevronRightIcon />
 					</StyledIconButton>
