@@ -77,10 +77,10 @@ export const ChartsList = () => {
 					{!availableDate && isAnalyticsEnabled && (
 						<>
 							<AlertTitle sx={{ width: '100%' }}>
-								{__('Not enough data', 'pojo-accessibility')}
+								{__('Not enough data to show yet', 'pojo-accessibility')}
 							</AlertTitle>
 							{__(
-								"We don't have enough data to show you for those days",
+								'Analytics appear once enough visitors interact with your accessibility widget.',
 								'pojo-accessibility',
 							)}
 						</>
