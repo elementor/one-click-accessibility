@@ -1,15 +1,15 @@
 import { RemediationBase } from './base';
 
 export class ReplaceRemediation extends RemediationBase {
-	replaceIgnoreCase(str, search, replacement) {
-		const index = str.toLowerCase().indexOf(search.toLowerCase());
+	replaceIgnoreCase(outerHtml, find, replace, lowerOuterHTML, lowerFind) {
+		const index = lowerOuterHTML.indexOf(lowerFind);
 		if (index === -1) {
-			return str;
+			return outerHtml;
 		}
 		return (
-			str.substring(0, index) +
-			replacement +
-			str.substring(index + search.length)
+			outerHtml.substring(0, index) +
+			replace +
+			outerHtml.substring(index + find.length)
 		);
 	}
 
@@ -29,7 +29,13 @@ export class ReplaceRemediation extends RemediationBase {
 			return false;
 		}
 
-		const updatedHTML = this.replaceIgnoreCase(outerHTML, find, replace);
+		const updatedHTML = this.replaceIgnoreCase(
+			outerHTML,
+			find,
+			replace,
+			lowerOuterHTML,
+			lowerFind,
+		);
 
 		if (updatedHTML === outerHTML) {
 			return false;
