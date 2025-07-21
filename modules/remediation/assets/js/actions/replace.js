@@ -11,16 +11,13 @@ export class ReplaceRemediation extends RemediationBase {
 		if (typeof find !== 'string' || typeof replace !== 'string') {
 			return false;
 		}
-                const lowerOuterHTML = outerHTML.toLowerCase();
-                const lowerFind = find.toLowerCase();
-                if (!lowerOuterHTML.includes(lowerFind)) {
+		const lowerOuterHTML = outerHTML.toLowerCase();
+		const lowerFind = find.toLowerCase();
+		if (!lowerOuterHTML.includes(lowerFind)) {
 			return false;
 		}
 
-                function escapeRegExp(string) {
-                  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-                }
-                const regex = new RegExp(escapeRegExp(find), 'i'); // 'i' = ignore case
+		const regex = new RegExp(find, 'i'); // 'i' = ignore case
 		const updatedHTML = outerHTML.replace(regex, replace);
 
 		if (updatedHTML === outerHTML) {
