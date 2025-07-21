@@ -27,11 +27,11 @@ class Attribute extends Remediation_Base {
 				//Disable duplicates attr for image
 
 				$exclusions = [
-					'alt' => ['role', 'title'],
-					'role' => ['alt', 'title']
+					'alt' => [ 'role', 'title' ],
+					'role' => [ 'alt', 'title' ],
 				];
-				if ( isset( $exclusions[$this->data['attribute_name']] ) ) {
-					foreach ( $exclusions[$this->data['attribute_name']] as $attr_to_remove ) {
+				if ( isset( $exclusions[ $this->data['attribute_name'] ] ) ) {
+					foreach ( $exclusions[ $this->data['attribute_name'] ] as $attr_to_remove ) {
 						$element_node->removeAttribute( $attr_to_remove );
 					}
 				}
