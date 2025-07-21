@@ -1,6 +1,18 @@
 import { RemediationBase } from './base';
 
 export class ReplaceRemediation extends RemediationBase {
+	replaceIgnoreCase(str, search, replacement) {
+		const index = str.toLowerCase().indexOf(search.toLowerCase());
+		if (index === -1) {
+			return str;
+		}
+		return (
+			str.substring(0, index) +
+			replacement +
+			str.substring(index + search.length)
+		);
+	}
+
 	run() {
 		const { xpath, find, replace } = this.data;
 		const el = this.getElementByXPath(xpath);
@@ -17,19 +29,7 @@ export class ReplaceRemediation extends RemediationBase {
 			return false;
 		}
 
-		const replaceIgnoreCase = (str, search, replacement) => {
-			const index = str.toLowerCase().indexOf(search.toLowerCase());
-			if (index === -1) {
-				return str;
-			}
-			return (
-				str.substring(0, index) +
-				replacement +
-				str.substring(index + search.length)
-			);
-		};
-
-		const updatedHTML = replaceIgnoreCase(outerHTML, find, replace);
+		const updatedHTML = this.replaceIgnoreCase(outerHTML, find, replace);
 
 		if (updatedHTML === outerHTML) {
 			return false;
