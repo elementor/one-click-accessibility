@@ -11,7 +11,9 @@ export class ReplaceRemediation extends RemediationBase {
 		if (typeof find !== 'string' || typeof replace !== 'string') {
 			return false;
 		}
-		if (!outerHTML.toLowerCase().includes(find.toLowerCase())) {
+                const lowerOuterHTML = outerHTML.toLowerCase();
+                const lowerFind = find.toLowerCase();
+                if (!lowerOuterHTML.includes(lowerFind)) {
 			return false;
 		}
 
