@@ -56,13 +56,17 @@ export const ChartsList = () => {
 		<StyledBox>
 			{!hideAlert && (
 				<Alert
-					color="info"
+					color={!availableDate ? 'info' : 'warning'}
 					icon={<InfoCircleFilledIcon />}
 					sx={{ width: '100%' }}
 					action={
 						!availableDate &&
 						!isAnalyticsEnabled && (
-							<Button variant="outlined" color="info" size="small">
+							<Button
+								variant="outlined"
+								color={!availableDate ? 'info' : 'warning'}
+								size="small"
+							>
 								{__('Enable tracking', 'pojo-accessibility')}
 							</Button>
 						)
