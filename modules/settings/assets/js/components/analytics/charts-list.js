@@ -32,6 +32,7 @@ export const ChartsList = () => {
 		loading,
 		period,
 		setPeriod,
+		handleAnalyticsToggle,
 	} = useAnalyticsContext();
 
 	/**
@@ -66,6 +67,7 @@ export const ChartsList = () => {
 								variant="outlined"
 								color={!availableDate ? 'info' : 'warning'}
 								size="small"
+								onClick={() => handleAnalyticsToggle()}
 							>
 								{__('Enable tracking', 'pojo-accessibility')}
 							</Button>
