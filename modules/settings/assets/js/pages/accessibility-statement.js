@@ -15,10 +15,10 @@ import {
 } from '@ea11y/icons';
 import { StatementLink } from '@ea11y/layouts';
 import {
-	StyledBox,
 	StyledStatementContainer,
 	StyledStatementPaper,
 	StyledTitle,
+	StyledWideBox,
 } from '@ea11y/pages/pages.styles';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
@@ -74,12 +74,7 @@ const AccessibilityStatement = () => {
 
 	return (
 		<>
-			<StyledBox
-				height="100%"
-				display="flex"
-				flexDirection="column"
-				justifyContent="space-between"
-			>
+			<StyledWideBox>
 				<StyledStatementContainer>
 					<StyledTitle variant="h4" color="text.primary" sx={{ mb: 0 }}>
 						{__('Accessibility statement', 'pojo-accessibility')}
@@ -247,7 +242,7 @@ const AccessibilityStatement = () => {
 						</Button>
 					</Box>
 				)}
-			</StyledBox>
+			</StyledWideBox>
 
 			<StatementGenerator open={isOpen} close={close} />
 		</>
