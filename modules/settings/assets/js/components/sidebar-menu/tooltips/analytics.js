@@ -12,10 +12,11 @@ import { useAnalyticsContext } from '../../../contexts/analytics-context';
 
 const AnalyticsTooltip = () => {
 	const { selectedMenu, setSelectedMenu } = useSettings();
-	const { handleAnalyticsToggle, stats } = useAnalyticsContext();
+	const { handleAnalyticsToggle, isAnalyticsEnabled } = useAnalyticsContext();
 
-	const date = stats.dates.at(-1)?.date && new Date(stats.dates.at(-1)?.date);
-	const availableDate = date && date.setDate(date.getDate() + 30);
+	if (isAnalyticsEnabled) {
+		return null;
+	}
 
 	const TooltipCard = (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
@@ -53,10 +54,7 @@ const AnalyticsTooltip = () => {
 
 	return (
 		<Infotip placement="right" content={TooltipCard} tabIndex="0">
-			<InfoCircleIcon
-				color={!availableDate ? 'info' : 'warning'}
-				sx={{ ml: 1 }}
-			/>
+			<InfoCircleIcon color="info" sx={{ ml: 1 }} />
 		</Infotip>
 	);
 };
