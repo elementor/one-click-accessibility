@@ -57,7 +57,7 @@ export const ChartsList = () => {
 		<StyledBox>
 			{!hideAlert && (
 				<Alert
-					color={!availableDate ? 'info' : 'warning'}
+					color="info"
 					icon={<InfoCircleFilledIcon />}
 					sx={{ width: '100%' }}
 					action={
@@ -65,7 +65,7 @@ export const ChartsList = () => {
 						!isAnalyticsEnabled && (
 							<Button
 								variant="outlined"
-								color={!availableDate ? 'info' : 'warning'}
+								color="info"
 								size="small"
 								onClick={() => handleAnalyticsToggle()}
 							>
