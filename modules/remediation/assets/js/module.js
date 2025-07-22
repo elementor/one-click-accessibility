@@ -1,6 +1,7 @@
 import { AttributeRemediation } from './actions/attribute';
 import { ElementRemediation } from './actions/element';
 import { ReplaceRemediation } from './actions/replace';
+import { StylesRemediation } from './actions/styles';
 
 class RemediationRunner {
 	constructor(remediations) {
@@ -9,8 +10,10 @@ class RemediationRunner {
 			attribute: AttributeRemediation,
 			element: ElementRemediation,
 			replace: ReplaceRemediation,
+			styles: StylesRemediation,
 		};
 		this.checkTimeout = null;
+
 		this.runAll();
 	}
 
@@ -24,6 +27,7 @@ class RemediationRunner {
 	runRemediation(remediation) {
 		const type = (remediation.type || '').toLowerCase();
 		const Handler = this.classMap[type];
+
 		if (Handler) {
 			try {
 				return new Handler(document, remediation).run();
