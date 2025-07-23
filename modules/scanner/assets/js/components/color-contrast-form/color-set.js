@@ -32,7 +32,10 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
                   return;
                 }
 
-		const num = raw ? parseInt(raw, 10) : 0;
+                const num = raw ? parseInt(raw, 10) : 0;
+                if (isNaN(num)) {
+                  return;
+                }
 		if (num >= 0 && num <= 100) {
 			const initialHslColor = hexToHsl(selectedColor);
 			const updatedColor = hslToHex({
