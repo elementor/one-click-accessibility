@@ -35,7 +35,7 @@ export const ColorContrastLayout = () => {
 	}, [current]);
 
 	const changeNavigation = (index) => {
-		if (index > sortedViolations.colorContrast.length - 1) {
+                if (index > (sortedViolations.colorContrast?.length || 0) - 1) {
 			setCurrent(0);
 		} else {
 			setCurrent(index);
