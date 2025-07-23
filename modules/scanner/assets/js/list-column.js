@@ -70,12 +70,16 @@ class EA11yListColumn {
 		const column = title.closest('th');
 		if (!column) return;
 
+		const titleAnchor = title.parentElement.querySelector('a');
+
 		const columnWidth = column.offsetWidth;
 
 		if (columnWidth < 80) {
 			title.style.display = 'none';
+			titleAnchor.classList.remove('ea11y-tooltip-hidden');
 		} else {
 			title.style.display = '';
+			titleAnchor.classList.add('ea11y-tooltip-hidden');
 		}
 	}
 
@@ -95,7 +99,7 @@ class EA11yListColumn {
 					// Handle column title updates (commented out as per user's change)
 					const title = column.querySelector('.ea11y-column-title');
 					if (title) {
-						//this.updateColumnTitle(title);
+						this.updateColumnTitle(title);
 					}
 				});
 			});
