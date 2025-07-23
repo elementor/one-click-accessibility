@@ -50,7 +50,7 @@ export const ColorContrastLayout = () => {
 				setCurrent={changeNavigation}
 			/>
 			<FormNavigation
-				total={sortedViolations.colorContrast.length}
+				total={sortedViolations.colorContrast?.length || 0}
 				current={current}
 				setCurrent={changeNavigation}
 			/>
