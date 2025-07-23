@@ -3,36 +3,94 @@
  * Styles for responsive buttons and custom tooltips
  */
 
-/* Custom tooltip styling */
+/* CSS tooltips */
 .ea11y-tooltip {
-	position: fixed;
-	background: #1e1e1e;
-	color: #ffffff;
-	padding: 8px 12px;
-	border-radius: 4px;
-	font-size: 12px;
-	line-height: 1.4;
-	z-index: 9999999;
-	pointer-events: none;
-	max-width: 200px;
-	word-wrap: break-word;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	white-space: nowrap;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-	font-weight: 400;
-	opacity: 1;
-	display: block;
+	position: relative;
 }
 
-.ea11y-tooltip-show {
-	opacity: 1;
-	display: block;
+.ea11y-tooltip::after {
+	display: none;
+	position: absolute;
+	z-index: 9999999;
+	padding: 6px 8px 5px;
+	border-radius: 3px;
+	opacity: 0;
+	color: #fff;
+	background: rgba(0, 0, 0, 0.8);
+	text-shadow: none;
+	font: normal normal 11px/1.45 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	text-align: center;
+	white-space: nowrap;
+	text-decoration: none;
+	letter-spacing: normal;
+	text-transform: none;
+	word-wrap: break-word;
+	content: attr(data-label);
+	pointer-events: none;
+	-webkit-font-smoothing: subpixel-antialiased;
+}
+
+.ea11y-tooltip::before {
+	display: none;
+	position: absolute;
+	z-index: 9999999;
+	width: 0;
+	height: 0;
+	border: 5px solid transparent;
+	opacity: 0;
+	color: rgba(0, 0, 0, 0.8);
+	content: "\00a0";
+	pointer-events: none;
+}
+
+@keyframes ea11y-tooltip-appear {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.ea11y-tooltip:hover::before,
+.ea11y-tooltip:hover::after,
+.ea11y-tooltip:focus::before,
+.ea11y-tooltip:focus::after {
+	display: inline-block;
+	text-decoration: none;
+	animation-name: ea11y-tooltip-appear;
+	animation-duration: 0.1s;
+	animation-timing-function: ease-in;
+	animation-fill-mode: forwards;
+}
+
+/* North tooltip (above button) */
+.ea11y-tooltip-n::after {
+	right: 50%;
+	bottom: 100%;
+	margin-bottom: 5px;
+	transform: translateX(50%);
+}
+
+.ea11y-tooltip-n::before {
+	top: -5px;
+	right: 50%;
+	bottom: auto;
+	margin-right: -5px;
+	border-top-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Hide tooltips when not needed */
+.ea11y-tooltip-hidden::before,
+.ea11y-tooltip-hidden::after {
+	display: none !important;
 }
 
 /* Accessibility button enhancements */
 .ea11y-accessibility-button {
 	position: relative;
 	transition: all 0.2s ease;
+	overflow: visible; /* IE 11 needs this for buttons */
 }
 
 .ea11y-accessibility-button:hover {
@@ -90,9 +148,12 @@
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
-	.ea11y-tooltip {
+	.ea11y-tooltip::after {
 		background: #2c3338;
 		color: #f0f0f1;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	}
+	
+	.ea11y-tooltip-n::before {
+		border-top-color: #2c3338;
 	}
 } 

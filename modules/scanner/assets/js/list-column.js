@@ -1,11 +1,10 @@
 /**
  * Accessibility List Column Enhancement
- * Handles responsive button text and enhanced tooltips
+ * Handles responsive button text and CSS tooltips
  */
 
 class EA11yListColumn {
 	constructor() {
-		this.currentTooltip = null;
 		this.init();
 	}
 
@@ -26,15 +25,14 @@ class EA11yListColumn {
 
 		if (this.buttons.length === 0) return;
 
-		this.setupResponsiveText();
+		this.setupResponsiveButtons();
 		this.setupResponsiveColumnTitles();
-		this.setupTooltipsWithDelegation();
 		this.setupResizeObserver();
 	}
 
-	setupResponsiveText() {
+	setupResponsiveButtons() {
 		this.buttons.forEach((button) => {
-			this.updateButtonText(button);
+			this.updateButton(button);
 		});
 	}
 
@@ -44,7 +42,7 @@ class EA11yListColumn {
 		});
 	}
 
-	updateButtonText(button) {
+	updateButton(button) {
 		const column = button.closest('td');
 		if (!column) return;
 
@@ -56,13 +54,15 @@ class EA11yListColumn {
 		const shortText = button.dataset.shortText;
 
 		if (columnWidth < 80) {
-			// Narrow column: short text and smaller min-width
+			// Narrow column: short text, smaller min-width, show tooltip
 			textSpan.textContent = shortText;
 			button.style.minWidth = '50px';
+			button.classList.remove('ea11y-tooltip-hidden');
 		} else {
-			// Wide column: full text and larger min-width
+			// Wide column: full text, larger min-width, hide tooltip
 			textSpan.textContent = fullText;
 			button.style.minWidth = '80px';
+			button.classList.add('ea11y-tooltip-hidden');
 		}
 	}
 
@@ -79,123 +79,6 @@ class EA11yListColumn {
 		}
 	}
 
-	setupTooltipsWithDelegation() {
-		// Remove any existing tooltips first
-		this.removeAllTooltips();
-
-		// Use event delegation on document body
-		document.body.addEventListener(
-			'mouseenter',
-			this.handleMouseEnter.bind(this),
-			true,
-		);
-		document.body.addEventListener(
-			'mouseleave',
-			this.handleMouseLeave.bind(this),
-			true,
-		);
-		document.body.addEventListener('focus', this.handleFocus.bind(this), true);
-		document.body.addEventListener('blur', this.handleBlur.bind(this), true);
-	}
-
-	handleMouseEnter(event) {
-		const button = event.target.closest('.ea11y-accessibility-button');
-		if (!button) return;
-
-		this.showTooltip(button);
-	}
-
-	handleMouseLeave(event) {
-		const button = event.target.closest('.ea11y-accessibility-button');
-		if (!button) return;
-
-		this.hideTooltip();
-	}
-
-	handleFocus(event) {
-		const button = event.target.closest('.ea11y-accessibility-button');
-		if (!button) return;
-
-		this.showTooltip(button);
-	}
-
-	handleBlur(event) {
-		const button = event.target.closest('.ea11y-accessibility-button');
-		if (!button) return;
-
-		this.hideTooltip();
-	}
-
-	showTooltip(button) {
-		const tooltipText = button.dataset.tooltip;
-		if (!tooltipText) return;
-
-		// Check column width - only show tooltip if column is narrow
-		const column = button.closest('td');
-		if (!column) return;
-
-		const columnWidth = column.offsetWidth;
-		if (columnWidth >= 80) {
-			// Column is wide enough to show full text, no tooltip needed
-			return;
-		}
-
-		// Remove any existing tooltip
-		this.hideTooltip();
-
-		// Create new tooltip
-		const tooltip = document.createElement('div');
-		tooltip.className = 'ea11y-tooltip ea11y-tooltip-show';
-		tooltip.textContent = tooltipText;
-		tooltip.setAttribute('role', 'tooltip');
-
-		// Add to body
-		document.body.appendChild(tooltip);
-
-		// Position tooltip
-		this.positionTooltip(tooltip, button);
-
-		// Store reference
-		this.currentTooltip = tooltip;
-	}
-
-	hideTooltip() {
-		if (this.currentTooltip) {
-			this.currentTooltip.remove();
-			this.currentTooltip = null;
-		}
-	}
-
-	removeAllTooltips() {
-		const tooltips = document.querySelectorAll('.ea11y-tooltip');
-		tooltips.forEach((tooltip) => tooltip.remove());
-		this.currentTooltip = null;
-	}
-
-	positionTooltip(tooltip, button) {
-		const buttonRect = button.getBoundingClientRect();
-		const tooltipRect = tooltip.getBoundingClientRect();
-
-		const gap = 8; // Fixed gap between button and tooltip
-
-		// Center horizontally relative to button (viewport coordinates)
-		const left = buttonRect.left + (buttonRect.width - tooltipRect.width) / 2;
-
-		// Try to show above button first (viewport coordinates)
-		const topPosition = buttonRect.top - tooltipRect.height - gap;
-		const bottomPosition = buttonRect.bottom + gap;
-
-		// Check if there's enough space above (viewport coordinates)
-		const hasSpaceAbove = topPosition >= 10;
-
-		// Position above or below based on available space
-		const top = hasSpaceAbove ? topPosition : bottomPosition;
-
-		// Apply position
-		tooltip.style.left = Math.round(left) + 'px';
-		tooltip.style.top = Math.round(top) + 'px';
-	}
-
 	setupResizeObserver() {
 		// Use ResizeObserver to detect column width changes
 		if (window.ResizeObserver) {
@@ -203,13 +86,13 @@ class EA11yListColumn {
 				entries.forEach((entry) => {
 					const column = entry.target;
 
-					// Handle button text updates
+					// Handle button updates
 					const button = column.querySelector('.ea11y-accessibility-button');
 					if (button) {
-						this.updateButtonText(button);
+						this.updateButton(button);
 					}
 
-					// Handle column title updates
+					// Handle column title updates (commented out as per user's change)
 					const title = column.querySelector('.ea11y-column-title');
 					if (title) {
 						//this.updateColumnTitle(title);
@@ -238,7 +121,7 @@ class EA11yListColumn {
 			window.addEventListener('resize', () => {
 				clearTimeout(resizeTimeout);
 				resizeTimeout = setTimeout(() => {
-					this.setupResponsiveText();
+					this.setupResponsiveButtons();
 					this.setupResponsiveColumnTitles();
 				}, 250);
 			});
