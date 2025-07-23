@@ -29,7 +29,7 @@ class List_Column {
 	}
 
 	public function add_accessibility_column( $columns ) {
-		$columns['accessibility_status'] = '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/logo.svg' ) . '" alt="" style="width:16px; height:16px; vertical-align:text-bottom; margin-right:8px;" />' . esc_html__( 'Accessibility scans', 'pojo-accessibility' );
+		$columns['accessibility_status'] = '<img src="' . esc_url( EA11Y_ASSETS_URL . 'images/logo.svg' ) . '" alt="" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;" /><span class="ea11y-column-title">' . esc_html__( 'Ally', 'pojo-accessibility' ) . '</span>';
 		return $columns;
 	}
 
@@ -81,20 +81,32 @@ class List_Column {
 					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ), 
 					$issues_left 
 				);
-				$button_class = 'button';
+				$tooltip_text = sprintf( 
+					/* translators: %d: number of issues to fix */
+					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ), 
+					$issues_left 
+				);
+				$button_class = 'button ea11y-accessibility-button';
 				$button_style = 'color: #B91C1C; border-color: #B91C1C;';
+				$short_text = esc_html__( 'Fix', 'pojo-accessibility' );
 			} else {
-				$button_text = esc_html__( 'Scan now', 'pojo-accessibility' );
-				$button_class = 'button button-primary';
+				$button_text = esc_html__( 'Scan URL', 'pojo-accessibility' );
+				$tooltip_text = esc_html__( 'Scan URL', 'pojo-accessibility' );
+				$button_class = 'button button-primary ea11y-accessibility-button';
 				$button_style = '';
+				$short_text = esc_html__( 'Scan', 'pojo-accessibility' );
 			}
 
 			$content = sprintf(
-				'<a href="%1$s" class="%2$s" target="_blank" rel="noreferrer" style="%4$s">%3$s</a>',
+				'<a href="%1$s" class="%2$s" target="_blank" rel="noreferrer" style="%5$s" data-full-text="%6$s" data-short-text="%7$s" data-tooltip="%8$s" title="%8$s"><span class="ea11y-button-text">%3$s</span></a>',
 				$assistant_url,
 				$button_class,
 				$button_text,
-				$button_style
+				$button_style,
+				$button_style,
+				esc_attr( $button_text ),
+				esc_attr( $short_text ),
+				esc_attr( $tooltip_text )
 			);
 		}
 
@@ -108,5 +120,35 @@ class List_Column {
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'build_column' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+	}
+
+	/**
+	 * Enqueue assets for the accessibility column enhancements.
+	 */
+	public function enqueue_assets() {
+		$screen = get_current_screen();
+		
+		// Only load on edit.php pages (post list tables) and edit-tags.php (taxonomy list tables)
+		if ( ! $screen || ! in_array( $screen->base, [ 'edit', 'edit-tags' ], true ) ) {
+			return;
+		}
+
+		// Enqueue JavaScript
+		wp_enqueue_script(
+			'ea11y-list-column',
+			EA11Y_URL . 'modules/scanner/assets/js/list-column.js',
+			[],
+			EA11Y_VERSION,
+			true
+		);
+
+		// Enqueue CSS
+		wp_enqueue_style(
+			'ea11y-list-column',
+			EA11Y_URL . 'modules/scanner/assets/css/list-column.css',
+			[],
+			EA11Y_VERSION
+		);
 	}
 }

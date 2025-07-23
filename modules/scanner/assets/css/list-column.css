@@ -1,0 +1,98 @@
+/**
+ * Accessibility List Column Enhancements
+ * Styles for responsive buttons and custom tooltips
+ */
+
+/* Custom tooltip styling */
+.ea11y-tooltip {
+	position: fixed;
+	background: #1e1e1e;
+	color: #ffffff;
+	padding: 8px 12px;
+	border-radius: 4px;
+	font-size: 12px;
+	line-height: 1.4;
+	z-index: 9999999;
+	pointer-events: none;
+	max-width: 200px;
+	word-wrap: break-word;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	white-space: nowrap;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	font-weight: 400;
+	opacity: 1;
+	display: block;
+}
+
+.ea11y-tooltip-show {
+	opacity: 1;
+	display: block;
+}
+
+/* Accessibility button enhancements */
+.ea11y-accessibility-button {
+	position: relative;
+	transition: all 0.2s ease;
+}
+
+.ea11y-accessibility-button:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ea11y-accessibility-button:focus {
+	outline: 2px solid #0073aa;
+	outline-offset: 1px;
+}
+
+/* Button text styling */
+.ea11y-button-text {
+	white-space: nowrap;
+	transition: all 0.2s ease;
+}
+
+/* Responsive behavior for narrow columns */
+@media screen and (max-width: 782px) {
+	.ea11y-accessibility-button .ea11y-button-text {
+		font-size: 11px;
+	}
+}
+
+/* Column title responsive behavior */
+.ea11y-column-title {
+	transition: opacity 0.2s ease;
+}
+
+/* Hide column title when column is too narrow */
+@container (max-width: 80px) {
+	.ea11y-column-title {
+		display: none;
+	}
+}
+
+/* Fallback for browsers without container queries */
+@media screen and (max-width: 480px) {
+	.ea11y-column-title {
+		display: none;
+	}
+}
+
+/* Ensure proper spacing in list tables */
+.accessibility_status_content {
+	text-align: center;
+}
+
+.accessibility_status_content__actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+	.ea11y-tooltip {
+		background: #2c3338;
+		color: #f0f0f1;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	}
+} 
