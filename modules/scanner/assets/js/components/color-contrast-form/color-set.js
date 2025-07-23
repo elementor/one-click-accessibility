@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import { SunIcon, SunOffIcon } from '@ea11y-apps/scanner/images';
 import { hexToHsl, hslToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import { useState } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 export const ColorSet = ({ title, color, initialColor, setColor }) => {
 	const [selectedColor, setSelectedColor] = useState(initialColor);
@@ -44,12 +45,13 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 
 	return (
 		<Box>
-			<Typography variant="body2" as="h5">
+			<Typography variant="body2" as="p">
 				{title}
 			</Typography>
 			<StyledColorSet>
 				<SunOffIcon />
 				<Slider
+					aria-label={__('Lightness', 'pojo-accessibility')}
 					color="secondary"
 					value={hslColor.l}
 					size="small"
@@ -63,6 +65,9 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 					color="secondary"
 					value={hslColor.l}
 					onChange={onLightnessChange}
+					inputProps={{
+						'aria-label': __('Lightness percent', 'pojo-accessibility'),
+					}}
 					InputProps={{
 						sx: {
 							width: '75px',
@@ -84,7 +89,11 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 					onChange={onColorChange}
 					size="small"
 				/>
-				<IconButton onClick={resetColor} size="tiny">
+				<IconButton
+					onClick={resetColor}
+					size="tiny"
+					aria-label={__('Reset', 'pojo-accessibility')}
+				>
 					<RotateIcon
 						fontSize="tiny"
 						color="disabled"

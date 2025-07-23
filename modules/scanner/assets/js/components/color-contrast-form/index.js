@@ -25,7 +25,7 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 	return (
 		<StyledBox>
 			<Divider />
-			<Typography variant="body2" as="h4">
+			<Typography variant="body2" as="p">
 				{__(
 					'Adjust the text or background lightness until the indicator shows an accessible level.',
 					'pojo-accessibility',
