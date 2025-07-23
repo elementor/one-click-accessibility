@@ -7,16 +7,24 @@ import Slider from '@elementor/ui/Slider';
 import TextField from '@elementor/ui/TextField';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { UnstableColorPicker } from '@elementor/ui/unstable';
 import PropTypes from 'prop-types';
 import { SunIcon, SunOffIcon } from '@ea11y-apps/scanner/images';
 import { hexToHsl, hslToHex } from '@ea11y-apps/scanner/utils/convert-colors';
+import { useState } from '@wordpress/element';
 
 export const ColorSet = ({ title, color, initialColor, setColor }) => {
+	const [selectedColor, setSelectedColor] = useState(initialColor);
 	const hslColor = hexToHsl(color);
 
 	const resetColor = () => setColor(initialColor);
 
-	const onChangeColor = (event, value) => {
+	const onColorChange = (changedColor) => {
+		setSelectedColor(changedColor);
+		setColor(changedColor);
+	};
+
+	const onLightnessChange = (event, value) => {
 		const raw = event?.target?.value || value;
 		// Allow only digits
 		if (raw && !/^\d{1,3}$/.test(raw)) {
@@ -25,7 +33,7 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 
 		const num = raw ? parseInt(raw, 10) : 0;
 		if (num >= 0 && num <= 100) {
-			const initialHslColor = hexToHsl(initialColor);
+			const initialHslColor = hexToHsl(selectedColor);
 			const updatedColor = hslToHex({
 				...initialHslColor,
 				l: num,
@@ -46,18 +54,20 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 					value={hslColor.l}
 					size="small"
 					sx={{ width: '150px' }}
-					onChange={onChangeColor}
+					onChange={onLightnessChange}
 				/>
 				<SunIcon />
 				<TextField
 					variant="outlined"
 					size="small"
+					color="secondary"
 					value={hslColor.l}
-					onChange={onChangeColor}
+					onChange={onLightnessChange}
 					InputProps={{
 						sx: {
 							width: '75px',
 							paddingRight: '4px',
+							marginRight: '8px',
 						},
 						endAdornment: (
 							<InputAdornment position="end">
@@ -68,7 +78,12 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 						),
 					}}
 				/>
-				<StyledColorDisplay sx={{ background: color }} />
+				<UnstableColorPicker
+					hideInputFields
+					value={color}
+					onChange={onColorChange}
+					size="small"
+				/>
 				<IconButton onClick={resetColor} size="tiny">
 					<RotateIcon
 						fontSize="tiny"
@@ -85,15 +100,6 @@ const StyledColorSet = styled(Box)`
 	display: flex;
 	align-items: center;
 	gap: ${({ theme }) => theme.spacing(1)};
-`;
-
-const StyledColorDisplay = styled(Box)`
-	box-sizing: border-box;
-	width: ${({ theme }) => theme.spacing(5)};
-	height: ${({ theme }) => theme.spacing(5)};
-	border: 1px solid rgba(0, 0, 0, 0.23);
-	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-	margin-left: ${({ theme }) => theme.spacing(1)};
 `;
 
 ColorSet.propTypes = {

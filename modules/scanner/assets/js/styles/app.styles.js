@@ -14,6 +14,7 @@ export const StyledPaper = styled(Paper)`
 	width: 425px;
 	min-height: 100vh;
 	height: fit-content;
+	pointer-events: auto;
 `;
 
 export const HeaderCard = styled(Card)`
