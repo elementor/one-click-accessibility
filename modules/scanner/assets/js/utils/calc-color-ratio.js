@@ -16,10 +16,10 @@ export const contrastRatio = (rgb1, rgb2) => {
 };
 
 export const isLargeText = (el) => {
-	if (!el) {
-		return false;
-	}
-	const { fontSize, fontWeight } = window.getComputedStyle(el);
+        if (!el) {
+          return false;
+        }
+        const { fontSize, fontWeight } = window.getComputedStyle(el);
 	const size = parseFloat(fontSize); // px
 	const weight = parseInt(fontWeight, 10);
 	const isBold = weight >= 700;
