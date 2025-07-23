@@ -17,25 +17,25 @@ export const ColorContrastLayout = () => {
 	const resolved = isResolved(BLOCKS.colorContrast);
 
 	useEffect(() => {
-                const item = sortedViolations.colorContrast?.[current];
-                if (!resolved && sortedViolations.colorContrast?.length) {
-                        focusOnElement(item?.node);
-                } else {
-                        removeExistingFocus();
-                }
+		const item = sortedViolations.colorContrast?.[current];
+		if (!resolved && sortedViolations.colorContrast?.length) {
+			focusOnElement(item?.node);
+		} else {
+			removeExistingFocus();
+		}
 
-                if (item) {
-                        mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
-                                issue_type: item.message,
-                                rule_id: item.ruleId,
-                                wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
-                                category_name: BLOCKS.colorContrast,
-                        });
-                }
+		if (item) {
+			mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
+				issue_type: item.message,
+				rule_id: item.ruleId,
+				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
+				category_name: BLOCKS.colorContrast,
+			});
+		}
 	}, [current]);
 
 	const changeNavigation = (index) => {
-                if (index > (sortedViolations.colorContrast?.length || 0) - 1) {
+		if (index > (sortedViolations.colorContrast?.length || 0) - 1) {
 			setCurrent(0);
 		} else {
 			setCurrent(index);

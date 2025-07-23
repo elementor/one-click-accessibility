@@ -28,14 +28,12 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 	const onLightnessChange = (event, value) => {
 		const raw = event?.target?.value || value;
 		// Allow only digits
-                if (raw && !/^\d{1,2}$|^100$/.test(raw)) {
-                  return;
-                }
+		if (raw && !/^\d{1,2}$|^100$/.test(raw)) {
+			return;
+		}
 
-                const num = raw ? parseInt(raw, 10) : 0;
-                if (isNaN(num)) {
-                  return;
-                }
+		const num = raw && !isNaN(raw) ? parseInt(raw, 10) : 0;
+
 		if (num >= 0 && num <= 100) {
 			const initialHslColor = hexToHsl(selectedColor);
 			const updatedColor = hslToHex({
