@@ -7,16 +7,37 @@ import CardHeader from '@elementor/ui/CardHeader';
 import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
 import { useSettings } from '@ea11y/hooks';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../../contexts/analytics-context';
 
 const AnalyticsTooltip = () => {
-	const { selectedMenu, setSelectedMenu } = useSettings();
-	const { handleAnalyticsToggle, isAnalyticsEnabled } = useAnalyticsContext();
+	const { selectedMenu, setSelectedMenu, isAnalyticsEnabled } = useSettings();
+	const { handleAnalyticsToggle } = useAnalyticsContext();
+	const [isOpen, setIsOpen] = useState(false);
 
+	// Don't show tooltip if analytics is already enabled
 	if (isAnalyticsEnabled) {
 		return null;
 	}
+
+	const handleOpen = () => {
+		setIsOpen(true);
+	};
+
+	const handleClose = () => {
+		setIsOpen(false);
+	};
+
+	const handleEnableTracking = () => {
+		// Execute the analytics functionality
+		if ('analytics' !== selectedMenu) {
+			setSelectedMenu('analytics');
+			handleAnalyticsToggle();
+		}
+		// Close the tooltip
+		handleClose();
+	};
 
 	const TooltipCard = (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
@@ -39,12 +60,7 @@ const AnalyticsTooltip = () => {
 					variant="contained"
 					color="info"
 					tabIndex="0"
-					onClick={() => {
-						if ('analytics' !== selectedMenu) {
-							setSelectedMenu('analytics');
-							handleAnalyticsToggle();
-						}
-					}}
+					onClick={handleEnableTracking}
 				>
 					{__('Enable tracking', 'pojo-accessibility')}
 				</Button>
@@ -53,8 +69,21 @@ const AnalyticsTooltip = () => {
 	);
 
 	return (
-		<Infotip placement="right" content={TooltipCard} tabIndex="0">
-			<InfoCircleIcon color="info" sx={{ ml: 1 }} />
+		<Infotip
+			placement="right"
+			content={TooltipCard}
+			tabIndex="0"
+			open={isOpen}
+			onClose={handleClose}
+			disableHoverListener={false}
+			disableFocusListener={false}
+		>
+			<InfoCircleIcon
+				color="info"
+				sx={{ ml: 1 }}
+				onMouseEnter={handleOpen}
+				onFocus={handleOpen}
+			/>
 		</Infotip>
 	);
 };
