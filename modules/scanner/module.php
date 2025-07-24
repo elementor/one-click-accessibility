@@ -118,6 +118,10 @@ class Module extends Module_Base {
 		);
 	}
 
+	public static function is_active(): bool {
+		return Connect::is_connected();
+	}
+
 
 	public function __construct() {
 		Scans_Table::install();
