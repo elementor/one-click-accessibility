@@ -29,15 +29,13 @@ const AnalyticsTooltip = () => {
 		setIsOpen(false);
 	};
 
-	const handleEnableTracking = () => {
-		// Execute the analytics functionality
-		if ('analytics' !== selectedMenu) {
-			setSelectedMenu('analytics');
-			handleAnalyticsToggle();
-		}
-		// Close the tooltip
-		handleClose();
-	};
+        const handleEnableTracking = () => {
+                // Execute the analytics functionality
+                setSelectedMenu('analytics');
+                handleAnalyticsToggle();
+                // Close the tooltip
+                handleClose();
+        };
 
 	const TooltipCard = (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
