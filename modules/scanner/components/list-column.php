@@ -143,12 +143,6 @@ class List_Column {
 			true
 		);
 
-		// Enqueue CSS
-		wp_enqueue_style(
-			'ea11y-list-column',
-			EA11Y_URL . 'modules/scanner/assets/css/list-column.css',
-			[],
-			EA11Y_VERSION
-		);
+		// CSS is now included in the main ea11y-scanner-admin.scss file
 	}
 }
