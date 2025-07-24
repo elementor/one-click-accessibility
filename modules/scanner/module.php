@@ -88,6 +88,7 @@ class Module extends Module_Base {
 			'ea11yScannerData',
 			[
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
+				'dashboardUrl' => admin_url( 'admin.php?page=accessibility-settings' ),
 				'scannerUrl' => self::get_scanner_wizard_url(),
 				'initialScanResult' => Scan_Entry::get_scan_result( $url ),
 				'pageData' => [
@@ -115,6 +116,10 @@ class Module extends Module_Base {
 			[],
 			EA11Y_VERSION
 		);
+	}
+
+	public static function is_active(): bool {
+		return Connect::is_connected();
 	}
 
 

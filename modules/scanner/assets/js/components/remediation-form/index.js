@@ -26,10 +26,12 @@ export const RemediationForm = ({ item }) => {
 			<StyledAccordionDetails>
 				<Box>
 					<Box display="flex" gap={1} alignItems="center">
-						<Typography variant="subtitle2">
+						<Typography variant="subtitle2" as="h5">
 							{__('What’s the issue', 'pojo-accessibility')}
 						</Typography>
+
 						<Infotip
+							tabIndex="0"
 							placement="top"
 							PopperProps={{
 								disablePortal: true,
@@ -45,6 +47,7 @@ export const RemediationForm = ({ item }) => {
 											'pojo-accessibility',
 										)}
 									</Typography>
+
 									<Typography variant="body2">
 										{uxMessaging[item.rule].whyItMatters}
 									</Typography>
@@ -54,17 +57,21 @@ export const RemediationForm = ({ item }) => {
 							<InfoCircleIcon fontSize="small" />
 						</Infotip>
 					</Box>
+
 					<Typography variant="body2">
 						{uxMessaging[item.rule]?.whatsTheIssue}
 					</Typography>
 				</Box>
+
 				<Box>
 					<Typography variant="subtitle2" sx={{ mb: 0.5 }}>
 						{__('Affected element:', 'pojo-accessibility')}
 					</Typography>
+
 					<StyledAlert color="error" icon={false}>
 						<Box display="flex" gap={0.5} alignItems="start">
 							<StyledSnippet variant="body2">{content.find}</StyledSnippet>
+
 							<Box>
 								<Tooltip
 									arrow
@@ -93,6 +100,7 @@ export const RemediationForm = ({ item }) => {
 						</Box>
 					</StyledAlert>
 				</Box>
+
 				<RemediationSnippet item={item} />
 			</StyledAccordionDetails>
 		</>

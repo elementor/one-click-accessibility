@@ -71,7 +71,7 @@ class Utils {
 
 		if ( $wp_query->is_singular() ) {
 			if ( $wp_query->is_single() ) {
-				return $wp_query->query_vars['post_type'] ?? 'unknown';
+                                return get_post_type($wp_query->get_queried_object_id()) ?? 'unknown';
 			} elseif ( $wp_query->is_page() ) {
 				return 'page';
 			} elseif ( $wp_query->is_attachment() ) {

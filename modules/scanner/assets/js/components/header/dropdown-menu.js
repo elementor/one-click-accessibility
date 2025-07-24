@@ -36,9 +36,9 @@ export const DropdownMenu = () => {
 		});
 	};
 
-	const onRunNewScan = () => {
+	const onRescan = () => {
 		runNewScan();
-		sendOnClickEvent('New Scan');
+		sendOnClickEvent('Rescan');
 	};
 
 	const goToManagement = () => {
@@ -61,12 +61,14 @@ export const DropdownMenu = () => {
 			>
 				<DotsHorizontalIcon />
 			</IconButton>
+
 			<Menu
 				open={isOpened}
 				id="assistant-menu"
 				anchorEl={anchorEl.current}
-				container={anchorEl.current}
 				onClose={handleClose}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 				MenuListProps={{
 					'aria-labelledby': 'menu-button',
 				}}
@@ -77,12 +79,14 @@ export const DropdownMenu = () => {
 				}}
 				disablePortal
 			>
-				<MenuItem onClick={onRunNewScan}>
+				<MenuItem onClick={onRescan} dense>
 					<MenuItemIcon>
 						<RefreshIcon />
 					</MenuItemIcon>
-					<MenuItemText>{__('New Scan', 'pojo-accessibility')}</MenuItemText>
+
+					<MenuItemText>{__('Rescan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
+
 				{!remediations.length ? (
 					<Tooltip
 						arrow
@@ -103,7 +107,7 @@ export const DropdownMenu = () => {
 							],
 						}}
 					>
-						<MenuItem>
+						<MenuItem dense>
 							<MenuItemIcon>
 								<SettingsIcon color="disabled" />
 							</MenuItemIcon>
@@ -117,6 +121,7 @@ export const DropdownMenu = () => {
 						onClick={goToManagement}
 						disabled={isManage}
 						selected={isManage}
+						dense
 					>
 						<MenuItemIcon>
 							<SettingsIcon />
@@ -133,6 +138,7 @@ export const DropdownMenu = () => {
 					target="_blank"
 					rel="noreferrer"
 					onClick={() => sendOnClickEvent('View subscription')}
+					dense
 				>
 					<MenuItemIcon>
 						<CalendarDollarIcon />
