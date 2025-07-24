@@ -98,15 +98,14 @@ class List_Column {
 			}
 
 			$content = sprintf(
-				'<a href="%1$s" class="%2$s ea11y-tooltip ea11y-tooltip-n" target="_blank" rel="noreferrer" style="%5$s" data-full-text="%6$s" data-short-text="%7$s" data-label="%8$s"><span class="ea11y-button-text">%3$s</span></a>',
+				'<a href="%1$s" class="%2$s ea11y-tooltip ea11y-tooltip-n" target="_blank" rel="noreferrer" style="%3$s" data-full-text="%4$s" data-short-text="%5$s" data-label="%6$s"><span class="ea11y-button-text">%7$s</span></a>',
 				$assistant_url,
 				$button_class,
-				$button_text,
-				$button_style,
 				$button_style,
 				esc_attr( $button_text ),
 				esc_attr( $short_text ),
-				esc_attr( $tooltip_text )
+				esc_attr( $tooltip_text ),
+				$button_text
 			);
 		}
 

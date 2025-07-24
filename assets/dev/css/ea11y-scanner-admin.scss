@@ -1,5 +1,5 @@
 #accessibility_status, .accessibility_status {
-  width: 100px;
+  width: auto;
 }
 
 .accessibility_status.column-accessibility_status {
@@ -161,6 +161,8 @@
   position: relative;
   transition: all 0.2s ease;
   overflow: visible; /* IE 11 needs this for buttons */
+  min-height: 24px !important;
+  font-size: 11px !important;
 
   &:hover {
     transform: translateY(-1px);
@@ -201,13 +203,6 @@
 @media screen and (max-width: 782px) {
   .ea11y-accessibility-button .ea11y-button-text {
     font-size: 11px;
-  }
-}
-
-/* Narrow column width for mobile */
-@media screen and (max-width: 900px) {
-  #accessibility_status, .accessibility_status {
-    width: 60px;
   }
 }
 

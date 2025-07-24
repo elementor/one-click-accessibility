@@ -1,11 +1,10 @@
 /**
  * Accessibility List Column Enhancement
- * Handles responsive button text and CSS tooltips
+ * Handles responsive button text and CSS tooltips based on available column space
  */
 
 class EA11yListColumn {
 	constructor() {
-		this.mediaQuery = window.matchMedia('(max-width: 900px)');
 		this.init();
 	}
 
@@ -18,6 +17,11 @@ class EA11yListColumn {
 		} else {
 			this.setupEnhancements();
 		}
+
+		// Also recheck after a short delay to handle CSS timing issues
+		setTimeout(() => {
+			this.setupEnhancements();
+		}, 500);
 	}
 
 	setupEnhancements() {
@@ -29,7 +33,19 @@ class EA11yListColumn {
 		this.setupResponsiveButtons();
 		this.setupResponsiveColumnTitles();
 		this.setupResizeObserver();
-		this.setupMediaQueryListener();
+		this.setupWindowResize();
+	}
+
+	setupWindowResize() {
+		// Add window resize listener as additional fallback
+		let resizeTimeout;
+		window.addEventListener('resize', () => {
+			clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(() => {
+				this.setupResponsiveButtons();
+				this.setupResponsiveColumnTitles();
+			}, 100);
+		});
 	}
 
 	setupResponsiveButtons() {
@@ -48,22 +64,18 @@ class EA11yListColumn {
 		const column = button.closest('td');
 		if (!column) return;
 
-		// Check if we're in mobile mode (CSS media query active)
-		const isMobileMode = this.mediaQuery.matches;
-		let columnWidth = column.offsetWidth;
-
-		// If CSS media query is active, assume narrow column
-		if (isMobileMode) {
-			columnWidth = 60; // Force narrow width behavior
-		}
-
+		// Use actual column width to determine behavior
+		const columnWidth = column.offsetWidth;
 		const textSpan = button.querySelector('.ea11y-button-text');
 		if (!textSpan) return;
 
 		const fullText = button.dataset.fullText;
 		const shortText = button.dataset.shortText;
 
-		if (columnWidth < 80 || isMobileMode) {
+		// Threshold for switching to compact mode (can be adjusted)
+		const compactThreshold = 100;
+
+		if (columnWidth < compactThreshold) {
 			// Narrow column: short text, smaller min-width, show tooltip
 			textSpan.textContent = shortText;
 			button.style.minWidth = '50px';
@@ -81,39 +93,20 @@ class EA11yListColumn {
 		if (!column) return;
 
 		const titleAnchor = title.parentElement.querySelector('a');
+		if (!titleAnchor) return;
 
-		// Check if we're in mobile mode (CSS media query active)
-		const isMobileMode = this.mediaQuery.matches;
-		let columnWidth = column.offsetWidth;
+		// Use actual column width to determine behavior
+		const columnWidth = column.offsetWidth;
 
-		// If CSS media query is active, assume narrow column
-		if (isMobileMode) {
-			columnWidth = 60; // Force narrow width behavior
-		}
+		// Threshold for hiding title and showing tooltip
+		const hideThreshold = 100;
 
-		if (columnWidth < 80 || isMobileMode) {
+		if (columnWidth < hideThreshold) {
 			title.style.display = 'none';
 			titleAnchor.classList.remove('ea11y-tooltip-hidden');
 		} else {
 			title.style.display = '';
 			titleAnchor.classList.add('ea11y-tooltip-hidden');
-		}
-	}
-
-	setupMediaQueryListener() {
-		// Listen for media query changes (CSS-driven width changes)
-		const handleMediaQueryChange = () => {
-			// When media query state changes, update all buttons and titles
-			this.setupResponsiveButtons();
-			this.setupResponsiveColumnTitles();
-		};
-
-		// Modern browsers
-		if (this.mediaQuery.addEventListener) {
-			this.mediaQuery.addEventListener('change', handleMediaQueryChange);
-		} else {
-			// Fallback for older browsers
-			this.mediaQuery.addListener(handleMediaQueryChange);
 		}
 	}
 
@@ -130,7 +123,7 @@ class EA11yListColumn {
 						this.updateButton(button);
 					}
 
-					// Handle column title updates (commented out as per user's change)
+					// Handle column title updates
 					const title = column.querySelector('.ea11y-column-title');
 					if (title) {
 						this.updateColumnTitle(title);
@@ -169,5 +162,3 @@ class EA11yListColumn {
 
 // Initialize when script loads
 new EA11yListColumn();
-
-// End of file
