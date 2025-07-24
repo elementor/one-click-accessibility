@@ -5,6 +5,7 @@
 
 class EA11yListColumn {
 	constructor() {
+		this.mediaQuery = window.matchMedia('(max-width: 900px)');
 		this.init();
 	}
 
@@ -28,6 +29,7 @@ class EA11yListColumn {
 		this.setupResponsiveButtons();
 		this.setupResponsiveColumnTitles();
 		this.setupResizeObserver();
+		this.setupMediaQueryListener();
 	}
 
 	setupResponsiveButtons() {
@@ -46,14 +48,22 @@ class EA11yListColumn {
 		const column = button.closest('td');
 		if (!column) return;
 
-		const columnWidth = column.offsetWidth;
+		// Check if we're in mobile mode (CSS media query active)
+		const isMobileMode = this.mediaQuery.matches;
+		let columnWidth = column.offsetWidth;
+
+		// If CSS media query is active, assume narrow column
+		if (isMobileMode) {
+			columnWidth = 60; // Force narrow width behavior
+		}
+
 		const textSpan = button.querySelector('.ea11y-button-text');
 		if (!textSpan) return;
 
 		const fullText = button.dataset.fullText;
 		const shortText = button.dataset.shortText;
 
-		if (columnWidth < 80) {
+		if (columnWidth < 80 || isMobileMode) {
 			// Narrow column: short text, smaller min-width, show tooltip
 			textSpan.textContent = shortText;
 			button.style.minWidth = '50px';
@@ -72,14 +82,38 @@ class EA11yListColumn {
 
 		const titleAnchor = title.parentElement.querySelector('a');
 
-		const columnWidth = column.offsetWidth;
+		// Check if we're in mobile mode (CSS media query active)
+		const isMobileMode = this.mediaQuery.matches;
+		let columnWidth = column.offsetWidth;
 
-		if (columnWidth < 80) {
+		// If CSS media query is active, assume narrow column
+		if (isMobileMode) {
+			columnWidth = 60; // Force narrow width behavior
+		}
+
+		if (columnWidth < 80 || isMobileMode) {
 			title.style.display = 'none';
 			titleAnchor.classList.remove('ea11y-tooltip-hidden');
 		} else {
 			title.style.display = '';
 			titleAnchor.classList.add('ea11y-tooltip-hidden');
+		}
+	}
+
+	setupMediaQueryListener() {
+		// Listen for media query changes (CSS-driven width changes)
+		const handleMediaQueryChange = () => {
+			// When media query state changes, update all buttons and titles
+			this.setupResponsiveButtons();
+			this.setupResponsiveColumnTitles();
+		};
+
+		// Modern browsers
+		if (this.mediaQuery.addEventListener) {
+			this.mediaQuery.addEventListener('change', handleMediaQueryChange);
+		} else {
+			// Fallback for older browsers
+			this.mediaQuery.addListener(handleMediaQueryChange);
 		}
 	}
 
