@@ -45,7 +45,7 @@ export const ColorContrastLayout = () => {
 	return (
 		<StyledContent>
 			<ColorContrastForm
-				items={sortedViolations.colorContrast}
+				items={sortedViolations.colorContrast || []}
 				current={current}
 				setCurrent={changeNavigation}
 			/>
