@@ -4,10 +4,12 @@ import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
 import PieChartLoader from '@ea11y/pages/assistant/loaders/pie-chart-loader';
 import ValueLoader from '@ea11y/pages/assistant/loaders/value-loader';
+import AccessibilityAssistantStatsIssueResovledBYCategory from '@ea11y/pages/assistant/stats/issue-by-category';
 import AccessibilityAssistantStatsIssueLevels from '@ea11y/pages/assistant/stats/issue-levels';
 import StatsPieChart from '@ea11y/pages/assistant/stats/pie-chart';
 import AccessibilityAssistantTooltip from '@ea11y/pages/assistant/tooltip';
 import { __ } from '@wordpress/i18n';
+import CategoryPieChart from './category-pie-chart';
 
 const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 	const levelsTotal =
@@ -102,7 +104,7 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 			<StyledStatsItem>
 				<StyledStatsItemContent>
 					<StyledStatsItemTitle variant="subtitle1" as="p">
-						{__('Resolved issues by level', 'pojo-accessibility')}
+						{__('Resolved issues by category', 'pojo-accessibility')}
 
 						<AccessibilityAssistantTooltip
 							content={__(
@@ -115,23 +117,17 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 					{loading ? (
 						<ValueLoader />
 					) : (
-						<AccessibilityAssistantStatsIssueLevels
-							issueLevels={stats.issue_levels}
+						<AccessibilityAssistantStatsIssueResovledBYCategory
+							issueByCategory={stats.issue_by_category}
 						/>
 					)}
 				</StyledStatsItemContent>
 
 				<StyledStatsItemChart>
-					{loading ? (
-						<PieChartLoader />
-					) : (
-						<StatsPieChart
-							value={levelsTotal.toString()}
-							firstSectorPercentage={firstLevelPercentage}
-							secondSectorPercentage={secondLevelPercentage}
-							noResultsState={noResultsState}
-						/>
-					)}
+					<CategoryPieChart
+						loading={loading}
+						issueByCategory={stats.issue_by_category}
+					/>
 				</StyledStatsItemChart>
 			</StyledStatsItem>
 		</StyledStatsContainer>
