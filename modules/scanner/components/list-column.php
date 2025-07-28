@@ -66,14 +66,14 @@ class List_Column {
 		$has_scan_data = $page->exists();
 		$latest_scan = Scan_Entry::get_scan_result( $url_trimmed, true );
 
-        if ( empty( $latest_scan ) ) {
-            $latest_scan = [
-                'counts' => [
-                    'violation' => 0,
-                    'issuesResolved' => 0,
-                ],
-            ];
-        }
+		if ( empty( $latest_scan ) ) {
+			$latest_scan = [
+				'counts' => [
+					'violation' => 0,
+					'issuesResolved' => 0,
+				],
+			];
+		}
 
 		$violation = $latest_scan['counts']['violation'];
 		$resolved = $latest_scan['counts']['issuesResolved'];
