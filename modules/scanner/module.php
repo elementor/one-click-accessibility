@@ -119,7 +119,12 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
-		return Connect::is_connected();
+		return (
+			is_user_logged_in() &&
+			current_user_can( 'manage_options' ) &&
+			Connect::is_connected() &&
+			! \EA11y\Modules\Legacy\Module::is_active()
+		);
 	}
 
 
