@@ -1,13 +1,6 @@
-import Box from '@elementor/ui/Box';
 import InputLabel from '@elementor/ui/InputLabel';
 import Paper from '@elementor/ui/Paper';
 import { styled } from '@elementor/ui/styles';
-
-export const StyledBox = styled(Box)`
-	display: flex;
-	flex-direction: column;
-	gap: ${({ theme }) => theme.spacing(2)};
-`;
 
 export const StyledLabel = styled(InputLabel)`
 	display: flex;
