@@ -63,7 +63,7 @@ export const BLOCK_TITLES = {
 	),
 	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
 	tables: __('Tables', 'pojo-accessibility'),
-	colorContrast: __('Color Contrast & Style', 'pojo-accessibility'),
+	colorContrast: __('Color contrast', 'pojo-accessibility'),
 	other: __('Other Accessibility Issues', 'pojo-accessibility'),
 };
 
@@ -93,7 +93,7 @@ export const BLOCK_INFO = {
 		'pojo-accessibility',
 	),
 	colorContrast: __(
-		'Choose colors with strong contrast to ensure your text is readable for everyone.',
+		'Text and background lightness can hinder readability. Depending on text size, you may need to adjust the contrast level to improve accessibility.',
 		'pojo-accessibility',
 	),
 	other: __(

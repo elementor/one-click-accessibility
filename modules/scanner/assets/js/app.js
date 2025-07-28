@@ -17,6 +17,7 @@ import {
 	ManualLayout,
 	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
+import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
 import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect } from '@wordpress/element';
@@ -81,6 +82,8 @@ const App = () => {
 				return <ManageMainLayout />;
 			case BLOCKS.altText:
 				return <AltTextLayout />;
+			case BLOCKS.colorContrast:
+				return <ColorContrastLayout />;
 			default:
 				return isManage ? <RemediationLayout /> : <ManualLayout />;
 		}

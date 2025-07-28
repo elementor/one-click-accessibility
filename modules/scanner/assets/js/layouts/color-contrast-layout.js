@@ -1,5 +1,5 @@
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { AltTextForm } from '@ea11y-apps/scanner/components/alt-text-form';
+import { ColorContrastForm } from '@ea11y-apps/scanner/components/color-contrast-form';
 import { FormNavigation } from '@ea11y-apps/scanner/components/form-navigation';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
@@ -10,30 +10,32 @@ import {
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect, useState } from '@wordpress/element';
 
-export const AltTextLayout = () => {
+export const ColorContrastLayout = () => {
 	const { sortedViolations, isResolved } = useScannerWizardContext();
 	const [current, setCurrent] = useState(0);
 
-	const resolved = isResolved(BLOCKS.altText);
+	const resolved = isResolved(BLOCKS.colorContrast);
 
 	useEffect(() => {
-		const item = sortedViolations.altText[current];
-		if (!resolved && sortedViolations.altText.length) {
-			focusOnElement(item.node);
+		const item = sortedViolations.colorContrast?.[current];
+		if (!resolved && sortedViolations.colorContrast?.length) {
+			focusOnElement(item?.node);
 		} else {
 			removeExistingFocus();
 		}
 
-		mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
-			issue_type: item.message,
-			rule_id: item.ruleId,
-			wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
-			category_name: BLOCKS.altText,
-		});
+		if (item) {
+			mixpanelService.sendEvent(mixpanelEvents.issueSelected, {
+				issue_type: item.message,
+				rule_id: item.ruleId,
+				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
+				category_name: BLOCKS.colorContrast,
+			});
+		}
 	}, [current]);
 
 	const changeNavigation = (index) => {
-		if (index > sortedViolations.altText.length - 1) {
+		if (index > (sortedViolations.colorContrast?.length || 0) - 1) {
 			setCurrent(0);
 		} else {
 			setCurrent(index);
@@ -42,13 +44,13 @@ export const AltTextLayout = () => {
 
 	return (
 		<StyledContent>
-			<AltTextForm
-				items={sortedViolations.altText}
+			<ColorContrastForm
+				items={sortedViolations.colorContrast || []}
 				current={current}
 				setCurrent={changeNavigation}
 			/>
 			<FormNavigation
-				total={sortedViolations.altText.length}
+				total={sortedViolations.colorContrast?.length || 0}
 				current={current}
 				setCurrent={changeNavigation}
 			/>

@@ -30,6 +30,7 @@ class Remediation_Runner {
 				'ATTRIBUTE' => 'Attribute',
 				'ELEMENT'   => 'Element',
 				'REPLACE' => 'Replace',
+				'STYLES' => 'Styles',
 			] );
 		}
 		return $classes;

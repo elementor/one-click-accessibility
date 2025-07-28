@@ -14,6 +14,7 @@ export const StyledPaper = styled(Paper)`
 	width: 425px;
 	min-height: 100vh;
 	height: fit-content;
+	pointer-events: auto;
 `;
 
 export const HeaderCard = styled(Card)`
@@ -141,4 +142,10 @@ export const StyledBlockButtonsBox = styled(Box)`
 
 export const DisabledMenuItemText = styled(MenuItemText)`
 	color: ${({ theme }) => theme.palette.text.disabled};
+`;
+
+export const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	gap: ${({ theme }) => theme.spacing(2)};
 `;

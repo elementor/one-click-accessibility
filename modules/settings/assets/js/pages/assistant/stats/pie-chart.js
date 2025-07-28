@@ -1,7 +1,6 @@
 import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
-import { styled } from '@elementor/ui/styles';
-import { useTheme } from '@emotion/react';
+import { styled, useTheme } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
 import { __ } from '@wordpress/i18n';
 
@@ -18,7 +17,7 @@ const StatsPieChart = ({
 			<StyledProgressCircle
 				background={`
 					radial-gradient(closest-side, white 79%, transparent 80% 100%),
-					conic-gradient(${theme.palette.success.light} 0%, #f3f3f4 0)
+					conic-gradient(#10b981 0%, #f3f3f4 0)
 				`}
 			>
 				<StyledEmptyStateValue variant="h4" as="span">
