@@ -5,35 +5,31 @@ import Dialog from '@elementor/ui/Dialog';
 import DialogActions from '@elementor/ui/DialogActions';
 import DialogContent from '@elementor/ui/DialogContent';
 import DialogContentText from '@elementor/ui/DialogContentText';
+import DialogHeader from '@elementor/ui/DialogHeader';
+import DialogTitle from '@elementor/ui/DialogTitle';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
 
 export const AnalyticsToggle = () => {
-	const { isAnalyticsEnabled, updateIsAnalyticsEnabled } =
-		useAnalyticsContext();
-	const [showConfirm, setShowConfirm] = useState(false);
+	const {
+		isAnalyticsEnabled,
+		handleAnalyticsToggle,
+		updateIsAnalyticsEnabled,
+		showConfirmPopup,
+		setShowConfirmPopup,
+	} = useAnalyticsContext();
 
-	const handleToggle = () => {
-		if (isAnalyticsEnabled) {
-			updateIsAnalyticsEnabled();
-		} else {
-			setShowConfirm(true);
-		}
-
-		mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
-			state: isAnalyticsEnabled ? 'off' : 'on',
-			type: 'Enable analytics',
-		});
+	const handleToggleClick = () => {
+		handleAnalyticsToggle();
 	};
 
 	const handleClose = () => {
-		setShowConfirm(false);
+		setShowConfirmPopup(false);
 
 		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
 			data: {
@@ -45,7 +41,7 @@ export const AnalyticsToggle = () => {
 
 	const handleConfirm = () => {
 		updateIsAnalyticsEnabled();
-		setShowConfirm(false);
+		setShowConfirmPopup(false);
 
 		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
 			data: {
@@ -62,7 +58,7 @@ export const AnalyticsToggle = () => {
 					<Switch
 						color="info"
 						checked={isAnalyticsEnabled}
-						onChange={handleToggle}
+						onChange={handleToggleClick}
 						sx={{ ml: 2 }}
 					/>
 				}
@@ -90,21 +86,28 @@ export const AnalyticsToggle = () => {
 				sx={{ ml: 0 }}
 			/>
 			<Dialog
-				open={showConfirm}
+				open={showConfirmPopup}
 				onClose={handleClose}
 				aria-labelledby="confirm-enable-analytics-title"
 				aria-describedby="confirm-enable-analytics-description"
 			>
-				<DialogContent>
-					<Typography variant="h5" align="center" sx={{ mb: 3 }}>
-						{__('Confirm widget data tracking', 'pojo-accessibility')}
-					</Typography>
-					<DialogContentText
-						id="confirm-enable-analytics-description"
-						align="center"
-					>
+				<DialogHeader>
+					<DialogTitle>
+						{__('Enable widget tracking?', 'pojo-accessibility')}
+					</DialogTitle>
+				</DialogHeader>
+				<DialogContent
+					sx={{ gap: 2, display: 'flex', flexDirection: 'column' }}
+				>
+					<DialogContentText id="confirm-enable-analytics-description">
 						{__(
-							'Enabling data tracking let’s you see how users interact with your widget and features. Keep in mind: Real-time data processing may slightly impact a site’s performance, especially on high-traffic websites.',
+							'This allows Ally to record how visitors open and use your accessibility widget, unlocking real‑time analytics.',
+							'pojo-accessibility',
+						)}
+					</DialogContentText>
+					<DialogContentText id="confirm-enable-analytics-description">
+						{__(
+							'This may slightly affect performance on high‑traffic sites.',
 							'pojo-accessibility',
 						)}
 					</DialogContentText>
