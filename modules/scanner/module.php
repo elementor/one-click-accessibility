@@ -120,7 +120,7 @@ class Module extends Module_Base {
 
 	public static function is_active(): bool {
                 return self::has_required_permissions() &&
-                    self::is_connected_and_enabled();
+                        self::is_connected_and_enabled();
 	}
          
 	private static function has_required_permissions(): bool {
