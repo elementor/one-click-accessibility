@@ -119,7 +119,16 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
-		return Connect::is_connected();
+                return self::has_required_permissions() &&
+                        self::is_connected_and_enabled();
+	}
+         
+	private static function has_required_permissions(): bool {
+		return is_user_logged_in() && current_user_can( 'manage_options' );
+	}
+
+	private static function is_connected_and_enabled(): bool {
+		return Connect::is_connected() && ! \EA11y\Modules\Legacy\Module::is_active();
 	}
 
 
