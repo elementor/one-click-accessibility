@@ -16,7 +16,7 @@ const StatsPieChart = ({
 		return (
 			<StyledProgressCircle
 				background={`
-					radial-gradient(closest-side, white 79%, transparent 80% 100%),
+					radial-gradient(closest-side, white 77%, transparent 78% 100%),
 					conic-gradient(#10b981 0%, #f3f3f4 0)
 				`}
 			>
@@ -42,7 +42,7 @@ const StatsPieChart = ({
 		}
 
 		const background = `
-			radial-gradient(closest-side, white 79%, transparent 80% 100%),
+			radial-gradient(closest-side, white 77%, transparent 78% 100%),
 			conic-gradient(${sectorColor} ${firstSectorPercentage}%, #f3f3f4 0)
 		`;
 
@@ -56,7 +56,7 @@ const StatsPieChart = ({
 	return (
 		<StyledProgressCircle
 			as="div"
-			background={`radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(
+			background={`radial-gradient(closest-side, white 77%, transparent 78% 100%), conic-gradient(
 				#064E3B 0% ${firstSectorPercentage}%,
 				#10b981 ${firstSectorPercentage}% ${firstSectorPercentage + secondSectorPercentage}%,
 				#a7f3d0 ${firstSectorPercentage + secondSectorPercentage}% 100%
@@ -85,6 +85,7 @@ const StyledProgressCircle = styled(Box)`
 	justify-content: center;
 	align-items: center;
 	border-radius: 100%;
+	margin-right: ${({ theme }) => theme.spacing(0.5)};
 
 	background: ${({ background }) => background};
 `;
