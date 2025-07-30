@@ -8,7 +8,7 @@ const CategoryPieChart = ({ issueByCategory, loading }) => {
 	// Loading state
 	if (loading) {
 		const loadingBackground = `
-			radial-gradient(closest-side, white 79%, transparent 80% 100%),
+			radial-gradient(closest-side, white 84%, transparent 85% 100%),
 			conic-gradient(#e5e7eb 0%, #f3f3f4 50%, #e5e7eb 100%)
 		`;
 		return <StyledLoadingPieChart background={loadingBackground} />;
@@ -96,7 +96,7 @@ const CategoryPieChart = ({ issueByCategory, loading }) => {
 	};
 
 	const background = `
-		radial-gradient(closest-side, white 79%, transparent 80% 100%),
+		radial-gradient(closest-side, white 84%, transparent 85% 100%),
 		${createConicGradient()}
 	`;
 
@@ -109,18 +109,19 @@ CategoryPieChart.propTypes = {
 };
 
 const StyledCategoryPieChart = styled(Box)`
-	width: 200px;
-	height: 200px;
+	width: 176px;
+	height: 176px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-radius: 100%;
 	background: ${({ background }) => background};
+	margin-right: ${({ theme }) => theme.spacing(1.5)};
 `;
 
 const StyledLoadingPieChart = styled(Box)`
-	width: 200px;
-	height: 200px;
+	width: 176px;
+	height: 176px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

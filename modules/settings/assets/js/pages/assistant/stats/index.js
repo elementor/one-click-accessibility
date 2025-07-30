@@ -27,7 +27,7 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 
 	return (
 		<StyledStatsContainer>
-			<StyledStatsItem>
+			<StyledStatsItem className="scanned-urls">
 				<StyledStatsItemContent>
 					<StyledStatsItemTitle variant="subtitle1" as="p">
 						{__('Scanned URLs', 'pojo-accessibility')}
@@ -46,7 +46,7 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 				</StyledStatsItemContent>
 			</StyledStatsItem>
 
-			<StyledStatsItem>
+			<StyledStatsItem className="open-issues">
 				<StyledStatsItemContent>
 					<StyledStatsItemTitle variant="subtitle1" as="p">
 						{__('Open Issues', 'pojo-accessibility')}
@@ -65,9 +65,9 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 				</StyledStatsItemContent>
 			</StyledStatsItem>
 
-			<StyledStatsItem>
+			<StyledStatsItem className="resolved-issues-by-level">
 				<StyledStatsItemContent>
-					<StyledStatsItemTitle variant="subtitle1" as="p">
+					<StyledStatsItemTitle variant="subtitle1" as="p" spacing={3}>
 						{__('Resolved issues by level', 'pojo-accessibility')}
 
 						<AccessibilityAssistantTooltip
@@ -101,9 +101,9 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 				</StyledStatsItemChart>
 			</StyledStatsItem>
 
-			<StyledStatsItem>
+			<StyledStatsItem className="resolved-issues-by-category">
 				<StyledStatsItemContent>
-					<StyledStatsItemTitle variant="subtitle1" as="p">
+					<StyledStatsItemTitle variant="subtitle1" as="p" spacing={3}>
 						{__('Resolved issues by category', 'pojo-accessibility')}
 
 						<AccessibilityAssistantTooltip
@@ -145,9 +145,9 @@ const StyledStatsContainer = styled(Box)`
 
 	display: grid;
 	grid-template-columns: 1fr 1fr 2fr;
-	grid-template-rows: 1fr 1fr;
-	grid-column-gap: ${({ theme }) => theme.spacing(3)};
-	grid-row-gap: ${({ theme }) => theme.spacing(3)};
+	grid-template-rows: 104px 176px;
+	grid-column-gap: ${({ theme }) => theme.spacing(2)};
+	grid-row-gap: ${({ theme }) => theme.spacing(2)};
 
 	@media screen and (max-width: 960px) {
 		grid-template-columns: 1fr;
@@ -202,7 +202,8 @@ const StyledStatsItem = styled(Box)`
 
 const StyledStatsItemContent = styled(Box)`
 	min-width: 150px;
-	min-height: 110px;
+	min-height: 50px;
+	height: 100%;
 `;
 
 const StyledStatsItemChart = styled(Box)`
@@ -221,7 +222,7 @@ const StyledStatsItemTitle = styled(Typography)`
 	align-items: center;
 
 	margin: 0;
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	margin-bottom: ${({ spacing, theme }) => theme.spacing(spacing || 2)};
 
 	color: ${({ theme }) => theme.palette.text.primary};
 	font-feature-settings:

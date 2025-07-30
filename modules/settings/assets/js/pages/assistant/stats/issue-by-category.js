@@ -5,6 +5,12 @@ import PropTypes from 'prop-types';
 import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
 import { __ } from '@wordpress/i18n';
 
+// Override titles for specific category keys
+const CATEGORY_TITLE_OVERRIDES = {
+	keyboardAssistiveTech: __('Keyboard/Assistive', 'pojo-accessibility'),
+	dynamicContent: __('Dynamic/Aria', 'pojo-accessibility'),
+};
+
 const AccessibilityAssistantStatsIssueResovledBYCategory = ({
 	issueByCategory,
 }) => {
@@ -14,7 +20,7 @@ const AccessibilityAssistantStatsIssueResovledBYCategory = ({
 		const sortedCategories = Object.entries(issueByCategory || {})
 			.map(([key, count]) => ({
 				key,
-				title: BLOCK_TITLES[key] || key,
+				title: CATEGORY_TITLE_OVERRIDES[key] || BLOCK_TITLES[key] || key,
 				count: count || 0,
 			}))
 			.sort((a, b) => b.count - a.count);
@@ -75,6 +81,7 @@ const StyledIssueLevel = styled(Box)`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	gap: ${({ theme }) => theme.spacing(1)};
 
 	margin-inline-start: ${({ theme }) => theme.spacing(0.5)};
 
@@ -112,6 +119,8 @@ const StyledIssuesCount = styled(Typography)`
 	font-weight: 500;
 	line-height: 130%;
 	letter-spacing: 0.1px;
+	min-width: 50px;
+	text-align: left;
 `;
 
 export default AccessibilityAssistantStatsIssueResovledBYCategory;
