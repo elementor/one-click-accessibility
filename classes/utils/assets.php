@@ -104,10 +104,9 @@ class Assets {
 	 * @param string $handle
 	 * @param bool $with_css
 	 */
-	public static function enqueue_app_assets( string $handle = '', bool $with_css = true ) : void {
+	public static function enqueue_app_assets( string $handle = '', bool $with_css = true, array $dependencies = [] ) : void {
 		$dir = \EA11Y_ASSETS_PATH . 'build/';
 		$url = \EA11Y_ASSETS_URL . 'build/';
-
 		$script_asset_path = $dir . $handle . '.asset.php';
 		if ( ! file_exists( $script_asset_path ) ) {
 			throw new \Error(
@@ -120,7 +119,7 @@ class Assets {
 		wp_enqueue_script(
 			$handle,
 			$url . $handle . '.js',
-			array_merge( $script_asset['dependencies'], [ 'wp-util', 'wp-block-editor', 'wp-components' ] ),
+			array_merge( $script_asset['dependencies'], $dependencies ),
 			$script_asset['version'],
 			true,
 		);
