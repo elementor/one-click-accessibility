@@ -94,7 +94,7 @@ class Module extends Module_Base {
 			EA11Y_VERSION
 		);
 
-		Utils\Assets::enqueue_app_assets( 'admin' );
+		Utils\Assets::enqueue_app_assets( 'admin', true, [ 'wp-util', 'wp-block-editor', 'wp-components' ] );
 
 		wp_localize_script(
 			'admin',

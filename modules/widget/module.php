@@ -219,7 +219,7 @@ class Module extends Module_Base {
 		?>
 			<script>
 				const registerAllyAction = () => {
-					if ( ! window?.elementorAppConfig?.hasPro ) {
+					if ( ! window?.elementorAppConfig?.hasPro || ! window?.elementorFrontend?.utils?.urlActions ) {
 						return;
 					}
 
