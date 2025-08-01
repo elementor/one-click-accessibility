@@ -18,7 +18,7 @@ import {
 	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
 import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
-import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
+import { AppContainer } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect } from '@wordpress/element';
 
@@ -90,7 +90,7 @@ const App = () => {
 	};
 
 	return (
-		<StyledPaper>
+		<AppContainer>
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
 
@@ -98,7 +98,7 @@ const App = () => {
 
 				<Notifications message={notificationMessage} type={notificationType} />
 			</ErrorBoundary>
-		</StyledPaper>
+		</AppContainer>
 	);
 };
 

@@ -7,6 +7,14 @@ export const MANAGE_URL_PARAM = 'open-ea11y-manage';
 export const ROOT_ID = 'ea11y-scanner-wizard-widget';
 
 export const CURRENT_ELEMENT_CLASS = 'ea11y-scanner-current-element';
+export const COLOR_ELEMENT_CLASS = 'ea11y-scanner-color-element';
+export const BACKGROUND_ELEMENT_CLASS = 'ea11y-scanner-background-element';
+export const COLOR_CONTRAST_SELECTORS_COUNT = 5;
+
+export const CURRENT_ELEMENT_DESCRIPTION = {
+	[COLOR_ELEMENT_CLASS]: __('Text', 'pojo-accessibility'),
+	[BACKGROUND_ELEMENT_CLASS]: __('Background', 'pojo-accessibility'),
+};
 
 export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
 export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';

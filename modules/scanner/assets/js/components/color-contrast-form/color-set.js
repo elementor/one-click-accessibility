@@ -11,12 +11,16 @@ import { UnstableColorPicker } from '@elementor/ui/unstable';
 import PropTypes from 'prop-types';
 import { SunIcon, SunOffIcon } from '@ea11y-apps/scanner/images';
 import { hexToHsl, hslToHex } from '@ea11y-apps/scanner/utils/convert-colors';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ColorSet = ({ title, color, initialColor, setColor }) => {
 	const [selectedColor, setSelectedColor] = useState(initialColor);
 	const hslColor = hexToHsl(color);
+
+	useEffect(() => {
+		setSelectedColor(initialColor);
+	}, [initialColor]);
 
 	const resetColor = () => setColor(initialColor);
 
@@ -85,7 +89,8 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 					}}
 				/>
 				<UnstableColorPicker
-					hideInputFields
+					disableOpacity
+					formats={['hex']}
 					value={color}
 					onChange={onColorChange}
 					size="small"
@@ -94,12 +99,9 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 					onClick={resetColor}
 					size="tiny"
 					aria-label={__('Reset', 'pojo-accessibility')}
+					disabled={color === initialColor}
 				>
-					<RotateIcon
-						fontSize="tiny"
-						color="disabled"
-						sx={{ transform: 'rotate(180deg)' }}
-					/>
+					<RotateIcon fontSize="tiny" sx={{ transform: 'rotate(180deg)' }} />
 				</IconButton>
 			</StyledColorSet>
 		</Box>
