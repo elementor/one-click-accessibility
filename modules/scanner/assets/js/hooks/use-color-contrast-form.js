@@ -32,14 +32,13 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const [loading, setLoading] = useState(false);
 
 	const updateData = (data) => {
-		const updData = [...manualData[openedBlock]];
-		updData[current] = {
-			...(manualData[openedBlock]?.[current] || {}),
-			...data,
-		};
+		const existing = manualData[openedBlock]?.[current] || {};
+		const updated = [...(manualData[openedBlock] || [])];
+		updated[current] = { ...existing, ...data };
+
 		setManualData({
 			...manualData,
-			[openedBlock]: updData,
+			[openedBlock]: updated,
 		});
 	};
 
@@ -51,9 +50,9 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	}, [manualData]);
 
 	useEffect(() => {
-		if (!item.node.getAttribute(DATA_INITIAL_COLOR)) {
+		if (!item?.node?.getAttribute(DATA_INITIAL_COLOR)) {
 			item.node.setAttribute(DATA_INITIAL_COLOR, item.messageArgs[3]);
-			item.node.style.color = item.messageArgs[3];
+			item.node.style.setProperty('color', item.messageArgs[3], 'important');
 		}
 	}, [item]);
 
@@ -65,99 +64,100 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	} = manualData[openedBlock]?.[current] || {};
 
 	const changeColor = (updColor) => {
-		if (item.node?.style) {
-			item.node.style.setProperty('color', updColor, 'important');
-		}
-		updateData({
-			color: updColor,
-			resolved: false,
-		});
+		item.node?.style?.setProperty('color', updColor, 'important');
+		updateData({ color: updColor, resolved: false });
 	};
 
 	const changeBackground = (updBackground) => {
 		const element = getElementByXPath(parents.at(-1));
+		if (!element) {
+			return;
+		}
+
 		if (!element.getAttribute(DATA_INITIAL_BG)) {
-			const initialBackground = window
+			const initial = window
 				.getComputedStyle(element)
 				.getPropertyValue('background-color');
-			element.setAttribute(DATA_INITIAL_BG, initialBackground);
+			element.setAttribute(DATA_INITIAL_BG, initial);
 		}
-		if (element?.style) {
-			element.style.setProperty('background-color', updBackground, 'important');
-		}
-		updateData({
-			background: updBackground,
-			resolved: false,
-		});
+
+		element.style?.setProperty('background-color', updBackground, 'important');
+		updateData({ background: updBackground, resolved: false });
 	};
 
 	const setParentBackground = (nextElement, element) => {
+		if (!nextElement) {
+			return;
+		}
+
 		if (!nextElement.getAttribute(DATA_INITIAL_BG)) {
-			const initialBackground = window
+			const initial = window
 				.getComputedStyle(nextElement)
 				.getPropertyValue('background-color');
-			nextElement.setAttribute(DATA_INITIAL_BG, initialBackground);
+			nextElement.setAttribute(DATA_INITIAL_BG, initial);
 		}
-		if (element?.style) {
-			element.style.setProperty(
-				'background-color',
-				element.getAttribute(DATA_INITIAL_BG),
-				'important',
-			);
-		}
-		if (nextElement?.style) {
-			nextElement.style.setProperty(
-				'background-color',
-				background,
-				'important',
-			);
-		}
+
+		element?.style?.setProperty(
+			'background-color',
+			element?.getAttribute(DATA_INITIAL_BG),
+			'important',
+		);
+
+		nextElement.style?.setProperty('background-color', background, 'important');
 	};
 
 	const setParentLarger = () => {
 		const element = getElementByXPath(parents.at(-1));
-		if (element.parentElement) {
-			const xpath = getXPath(element.parentElement, { ignoreId: true });
-			focusOnElement(element.parentElement, BACKGROUND_ELEMENT_CLASS);
-			setParentBackground(element.parentElement, element);
-			updateData({
-				parents: [...parents, xpath],
-				resolved: false,
-			});
+		const parent = element?.parentElement;
+		if (!parent) {
+			return;
 		}
+
+		const xpath = getXPath(parent, { ignoreId: true });
+		focusOnElement(parent, BACKGROUND_ELEMENT_CLASS);
+		setParentBackground(parent, element);
+
+		updateData({
+			parents: [...parents, xpath],
+			resolved: false,
+		});
 	};
 
 	const setParentSmaller = () => {
-		if (parents.length > 1) {
-			const updParents = parents.slice(0, -1);
-			const nextElement = getElementByXPath(updParents.at(-1));
-			if (updParents.length > 1) {
-				focusOnElement(nextElement, BACKGROUND_ELEMENT_CLASS);
-			} else {
-				removeExistingFocus(BACKGROUND_ELEMENT_CLASS);
-			}
-			setParentBackground(nextElement);
-			updateData({
-				parents: updParents,
-				resolved: false,
-			});
+		if (parents.length <= 1) {
+			return;
 		}
+
+		const newParents = parents.slice(0, -1);
+		const nextElement = getElementByXPath(newParents.at(-1));
+
+		if (newParents.length > 1) {
+			focusOnElement(nextElement, BACKGROUND_ELEMENT_CLASS);
+		} else {
+			removeExistingFocus(BACKGROUND_ELEMENT_CLASS);
+		}
+
+		setParentBackground(nextElement);
+		updateData({ parents: newParents, resolved: false });
 	};
 
 	const buildCSSRule = () => {
-		const colorCSSSelector = xPathToCss(item.path.dom);
-		const bgCSSSelector = xPathToCss(parents.at(-1));
+		try {
+			const colorSelector = xPathToCss(item.path.dom);
+			const bgSelector = xPathToCss(parents.at(-1));
 
-		const colorRule = `${colorCSSSelector} {color: ${color} !important;}`;
-		const bgRule = `${bgCSSSelector} {background-color: ${background} !important;}`;
-		return `${colorRule}${bgRule}`;
+			return `${colorSelector} {color: ${color} !important;}${bgSelector} {background-color: ${background} !important;}`;
+		} catch (e) {
+			console.warn('Failed to convert XPath to CSS selector', e);
+			return '';
+		}
 	};
 
 	const onSubmit = async () => {
+		setLoading(true);
 		try {
-			setLoading(true);
 			await APIScanner.submitRemediation({
-				url: window?.ea11yScannerData?.pageData.url,
+				url: window?.ea11yScannerData?.pageData?.url,
 				remediation: {
 					rule: buildCSSRule(),
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
@@ -167,21 +167,17 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				group: BLOCKS.colorContrast,
 			});
 
-			updateData({
-				resolved: true,
-			});
+			updateData({ resolved: true });
 
-			// Left colors
-			item.node.removeAttribute(DATA_INITIAL_COLOR);
+			item.node?.removeAttribute(DATA_INITIAL_COLOR);
 			getElementByXPath(parents.at(-1))?.removeAttribute(DATA_INITIAL_BG);
 
-			// Remove focus from all
 			removeExistingFocus();
 			setCurrent(current + 1);
 			setResolved(resolvedBlock + 1);
 			void updateRemediationList();
 		} catch (error) {
-			console.error(error);
+			console.error('Failed to submit remediation:', error);
 		} finally {
 			setLoading(false);
 		}
