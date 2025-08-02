@@ -95,7 +95,7 @@ module.exports = [
 		},
 		optimization: {
 			...defaultConfig.optimization,
-			minimize: false,
+			minimize: true,
 			minimizer: [
 				...defaultConfig.optimization.minimizer,
 				new CssMinimizerPlugin(), // Minimize CSS
