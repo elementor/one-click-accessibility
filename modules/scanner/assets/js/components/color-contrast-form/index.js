@@ -18,6 +18,8 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 		color,
 		background,
 		parents,
+		resolved,
+		loading,
 		changeColor,
 		changeBackground,
 		setParentSmaller,
@@ -29,12 +31,9 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 		setCurrent,
 	});
 
-	const isReady = color && background && parents;
-	const colorData = isReady
-		? checkContrastAA(color, background, item.node)
-		: null;
+	const colorData = checkContrastAA(color, background, item.node);
 
-	return isReady ? (
+	return (
 		<StyledBox>
 			<Divider />
 			<Typography variant="body2" as="p">
@@ -70,13 +69,14 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 				variant="contained"
 				size="small"
 				color="info"
-				disabled={!colorData.passesAA}
+				loading={loading}
+				disabled={!colorData.passesAA || resolved || loading}
 				onClick={onSubmit}
 			>
 				{__('Apply changes', 'pojo-accessibility')}
 			</Button>
 		</StyledBox>
-	) : null;
+	);
 };
 
 ColorContrastForm.propTypes = {

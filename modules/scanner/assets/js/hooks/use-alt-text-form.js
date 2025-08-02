@@ -28,12 +28,14 @@ export const useAltTextForm = ({ current, item }) => {
 	const { error } = useToastNotification();
 
 	const [loadingAiText, setLoadingAiText] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
 
 	const isSubmitDisabled =
 		(!altTextData?.[current]?.makeDecorative &&
 			!altTextData?.[current]?.altText) ||
-		altTextData?.[current]?.resolved;
+		altTextData?.[current]?.resolved ||
+		loading;
 
 	useEffect(() => {
 		if (!firstOpen && isResolved(BLOCKS.altText)) {
@@ -131,30 +133,37 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const handleSubmit = async () => {
-		const fixMethod = altTextData?.[current]?.apiId
-			? 'AI alt-text'
-			: 'Manual alt-text';
-		await updateAltText(item);
-		if (!altTextData?.[current]?.resolved) {
-			updateData({ resolved: true });
-			setResolved(resolved + 1);
-		}
+		try {
+			setLoading(true);
+			const fixMethod = altTextData?.[current]?.apiId
+				? 'AI alt-text'
+				: 'Manual alt-text';
+			await updateAltText(item);
+			if (!altTextData?.[current]?.resolved) {
+				updateData({ resolved: true });
+				setResolved(resolved + 1);
+			}
 
-		if (altTextData?.[current]?.apiId) {
-			mixpanelService.sendEvent(mixpanelEvents.aiSuggestionAccepted, {
-				element_selector: item.path.dom,
-				image_src: item.node?.src,
-				final_text: altTextData?.[current]?.altText,
-				credit_used: 1,
+			if (altTextData?.[current]?.apiId) {
+				mixpanelService.sendEvent(mixpanelEvents.aiSuggestionAccepted, {
+					element_selector: item.path.dom,
+					image_src: item.node?.src,
+					final_text: altTextData?.[current]?.altText,
+					credit_used: 1,
+				});
+			}
+			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
+				fix_method: altTextData?.[current]?.makeDecorative
+					? 'Mark as decorative'
+					: fixMethod,
+				issue_type: item.message,
+				category_name: BLOCKS.altText,
 			});
+		} catch (e) {
+			console.error(e);
+		} finally {
+			setLoading(false);
 		}
-		mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
-			fix_method: altTextData?.[current]?.makeDecorative
-				? 'Mark as decorative'
-				: fixMethod,
-			issue_type: item.message,
-			category_name: BLOCKS.altText,
-		});
 	};
 
 	const getPayload = async () => {
@@ -224,6 +233,7 @@ export const useAltTextForm = ({ current, item }) => {
 		loadingAiText,
 		data: altTextData,
 		isSubmitDisabled,
+		loading,
 		handleCheck,
 		handleChange,
 		handleSubmit,

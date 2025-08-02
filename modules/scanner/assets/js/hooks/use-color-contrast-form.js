@@ -15,19 +15,21 @@ import {
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
-import { useEffect, useLayoutEffect } from '@wordpress/element';
+import { useEffect, useLayoutEffect, useState } from '@wordpress/element';
 
 export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const {
 		openedBlock,
 		manualData,
-		resolved,
+		resolved: resolvedBlock,
 		setResolved,
 		isResolved,
 		setOpenedBlock,
 		setManualData,
 		updateRemediationList,
 	} = useScannerWizardContext();
+
+	const [loading, setLoading] = useState(false);
 
 	const updateData = (data) => {
 		const updData = [...manualData[openedBlock]];
@@ -49,21 +51,18 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	}, [manualData]);
 
 	useEffect(() => {
-		if (!manualData[openedBlock]?.[current]?.resolved) {
-			updateData({
-				color: item.messageArgs[3],
-				background: item.messageArgs[4],
-				parents: [item.path.dom],
-			});
-		}
 		if (!item.node.getAttribute(DATA_INITIAL_COLOR)) {
 			item.node.setAttribute(DATA_INITIAL_COLOR, item.messageArgs[3]);
 			item.node.style.color = item.messageArgs[3];
 		}
 	}, [item]);
 
-	const { color, background, parents } =
-		manualData[openedBlock]?.[current] ?? {};
+	const {
+		color = item.messageArgs[3],
+		background = item.messageArgs[4],
+		parents = [item.path.dom],
+		resolved = false,
+	} = manualData[openedBlock]?.[current] || {};
 
 	const changeColor = (updColor) => {
 		if (item.node?.style) {
@@ -71,6 +70,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 		updateData({
 			color: updColor,
+			resolved: false,
 		});
 	};
 
@@ -87,6 +87,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 		updateData({
 			background: updBackground,
+			resolved: false,
 		});
 	};
 
@@ -121,6 +122,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			setParentBackground(element.parentElement, element);
 			updateData({
 				parents: [...parents, xpath],
+				resolved: false,
 			});
 		}
 	};
@@ -137,6 +139,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			setParentBackground(nextElement);
 			updateData({
 				parents: updParents,
+				resolved: false,
 			});
 		}
 	};
@@ -151,36 +154,45 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	const onSubmit = async () => {
-		await APIScanner.submitRemediation({
-			url: window?.ea11yScannerData?.pageData.url,
-			remediation: {
-				rule: buildCSSRule(),
-				category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
-				type: 'STYLES',
-			},
-			rule: item.ruleId,
-			group: BLOCKS.colorContrast,
-		});
+		try {
+			setLoading(true);
+			await APIScanner.submitRemediation({
+				url: window?.ea11yScannerData?.pageData.url,
+				remediation: {
+					rule: buildCSSRule(),
+					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
+					type: 'STYLES',
+				},
+				rule: item.ruleId,
+				group: BLOCKS.colorContrast,
+			});
 
-		updateData({
-			resolved: true,
-		});
+			updateData({
+				resolved: true,
+			});
 
-		// Left colors
-		item.node.removeAttribute(DATA_INITIAL_COLOR);
-		getElementByXPath(parents.at(-1))?.removeAttribute(DATA_INITIAL_BG);
+			// Left colors
+			item.node.removeAttribute(DATA_INITIAL_COLOR);
+			getElementByXPath(parents.at(-1))?.removeAttribute(DATA_INITIAL_BG);
 
-		// Remove focus from all
-		removeExistingFocus();
-		setCurrent(current + 1);
-		setResolved(resolved + 1);
-		void updateRemediationList();
+			// Remove focus from all
+			removeExistingFocus();
+			setCurrent(current + 1);
+			setResolved(resolvedBlock + 1);
+			void updateRemediationList();
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	return {
 		color,
 		background,
 		parents,
+		resolved,
+		loading,
 		changeColor,
 		changeBackground,
 		setParentLarger,
