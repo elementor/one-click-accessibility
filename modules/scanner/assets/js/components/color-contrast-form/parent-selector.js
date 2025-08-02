@@ -16,7 +16,7 @@ export const ParentSelector = ({
 }) => {
 	const selected = Math.max(0, COLOR_CONTRAST_SELECTORS_COUNT - parents.length);
 	const smallerEnabled = parents.length > 1;
-	const biggerEnabled = parents.at(-1) !== '/html';
+	const biggerEnabled = parents.length > 0 && parents.at(-1) !== '/html';
 
 	return (
 		<Box>

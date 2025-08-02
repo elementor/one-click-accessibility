@@ -113,14 +113,18 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			return;
 		}
 
-		const xpath = getXPath(parent, { ignoreId: true });
-		focusOnElement(parent, BACKGROUND_ELEMENT_CLASS);
-		setParentBackground(parent, element);
+		try {
+			const xpath = getXPath(parent, { ignoreId: true });
+			focusOnElement(parent, BACKGROUND_ELEMENT_CLASS);
+			setParentBackground(parent, element);
 
-		updateData({
-			parents: [...parents, xpath],
-			resolved: false,
-		});
+			updateData({
+				parents: [...parents, xpath],
+				resolved: false,
+			});
+		} catch (error) {
+			console.warn('Failed to get XPath for parent element:', error);
+		}
 	};
 
 	const setParentSmaller = () => {
