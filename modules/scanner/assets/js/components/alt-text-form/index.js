@@ -32,6 +32,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 		data,
 		loadingAiText,
 		isSubmitDisabled,
+		loading,
 		handleChange,
 		handleCheck,
 		handleSubmit,
@@ -184,6 +185,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 				variant="contained"
 				color="info"
 				fullWidth
+				loading={loading}
 				disabled={isSubmitDisabled}
 				onClick={onSubmit}
 			>

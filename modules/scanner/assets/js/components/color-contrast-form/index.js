@@ -5,6 +5,7 @@ import Divider from '@elementor/ui/Divider';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { ColorSet } from '@ea11y-apps/scanner/components/color-contrast-form/color-set';
+import { ParentSelector } from '@ea11y-apps/scanner/components/color-contrast-form/parent-selector';
 import { useColorContrastForm } from '@ea11y-apps/scanner/hooks/use-color-contrast-form';
 import { StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
@@ -13,12 +14,22 @@ import { __ } from '@wordpress/i18n';
 
 export const ColorContrastForm = ({ items, current, setCurrent }) => {
 	const item = items[current];
-	const { color, changeColor, background, changeBackground, onSubmit } =
-		useColorContrastForm({
-			item,
-			current,
-			setCurrent,
-		});
+	const {
+		color,
+		background,
+		parents,
+		resolved,
+		loading,
+		changeColor,
+		changeBackground,
+		setParentSmaller,
+		setParentLarger,
+		onSubmit,
+	} = useColorContrastForm({
+		item,
+		current,
+		setCurrent,
+	});
 
 	const colorData = checkContrastAA(color, background, item.node);
 
@@ -43,6 +54,11 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 				initialColor={item.messageArgs[4]}
 				setColor={changeBackground}
 			/>
+			<ParentSelector
+				parents={parents}
+				setParentSmaller={setParentSmaller}
+				setParentLarger={setParentLarger}
+			/>
 			<Alert severity={colorData.passesAA ? 'success' : 'error'}>
 				<AlertTitle sx={{ mr: 1 }}>
 					{__('Contrast level:', 'pojo-accessibility')}
@@ -53,7 +69,8 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 				variant="contained"
 				size="small"
 				color="info"
-				disabled={!colorData.passesAA}
+				loading={loading}
+				disabled={!colorData.passesAA || resolved || loading}
 				onClick={onSubmit}
 			>
 				{__('Apply changes', 'pojo-accessibility')}

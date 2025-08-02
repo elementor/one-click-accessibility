@@ -14,7 +14,6 @@ import {
 	TOP_BAR_LINK,
 } from '@ea11y-apps/scanner/constants';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
-import { ColorPickerStyles } from '@ea11y-apps/scanner/styles/react-colourful.styles';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -79,8 +78,6 @@ const initApp = () => {
 		container: shadowContainer,
 		stylisPlugins: isRTL ? [prefixer, rtlPlugin] : [],
 	});
-
-	cache.sheet.insert(ColorPickerStyles.styles);
 
 	const theme = createTheme({
 		direction: isRTL ? 'rtl' : 'ltr',
