@@ -15,6 +15,8 @@ export const ParentSelector = ({
 	setParentLarger,
 }) => {
 	const selected = Math.max(0, COLOR_CONTRAST_SELECTORS_COUNT - parents.length);
+	const smallerEnabled = parents.length > 1;
+	const biggerEnabled = parents.at(-1) !== '/html';
 
 	return (
 		<Box>
@@ -30,7 +32,7 @@ export const ParentSelector = ({
 						disablePortal: true,
 					}}
 				>
-					{parents.length > 1 ? (
+					{smallerEnabled ? (
 						<IconButton onClick={setParentSmaller}>
 							<MinusIcon />
 						</IconButton>
@@ -40,8 +42,6 @@ export const ParentSelector = ({
 				</Tooltip>
 				<ParentIndicator>
 					{[...Array(COLOR_CONTRAST_SELECTORS_COUNT)].map((_, i) => {
-						// const size = 16 + i * 16;
-						// const filled = i === Math.min(5, parents.length - 1);
 						const size = 16 + (COLOR_CONTRAST_SELECTORS_COUNT - 1 - i) * 16;
 						const filled = i === selected;
 						return <Square key={i} size={size} filled={filled} />;
@@ -55,9 +55,13 @@ export const ParentSelector = ({
 						disablePortal: true,
 					}}
 				>
-					<IconButton onClick={setParentLarger}>
-						<PlusIcon />
-					</IconButton>
+					{biggerEnabled ? (
+						<IconButton onClick={setParentLarger}>
+							<PlusIcon />
+						</IconButton>
+					) : (
+						<PlusIcon color="disabled" />
+					)}
 				</Tooltip>
 			</Box>
 		</Box>

@@ -117,13 +117,13 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				window.ea11yScannerData?.pageData?.url,
 			);
 
-			const filteredRemediations = items.data.filter(
-				(remediation) => remediation.group !== BLOCKS.altText,
-			);
+			// const filteredRemediations = items.data.filter(
+			// 	(remediation) => remediation.group !== BLOCKS.altText,
+			// );
 
-			const sorted = sortRemediation(filteredRemediations);
+			const sorted = sortRemediation(items.data);
 
-			setRemediations(filteredRemediations);
+			setRemediations(items.data);
 			setSortedRemediation(sorted);
 		} catch (error) {
 			setIsError(true);

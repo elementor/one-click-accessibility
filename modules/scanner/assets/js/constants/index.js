@@ -10,6 +10,8 @@ export const CURRENT_ELEMENT_CLASS = 'ea11y-scanner-current-element';
 export const COLOR_ELEMENT_CLASS = 'ea11y-scanner-color-element';
 export const BACKGROUND_ELEMENT_CLASS = 'ea11y-scanner-background-element';
 export const COLOR_CONTRAST_SELECTORS_COUNT = 5;
+export const DATA_INITIAL_BG = 'data-initial-bg';
+export const DATA_INITIAL_COLOR = 'data-initial-color';
 
 export const CURRENT_ELEMENT_DESCRIPTION = {
 	[COLOR_ELEMENT_CLASS]: __('Text', 'pojo-accessibility'),

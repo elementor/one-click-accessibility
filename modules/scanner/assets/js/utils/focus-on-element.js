@@ -3,6 +3,8 @@ import {
 	COLOR_ELEMENT_CLASS,
 	CURRENT_ELEMENT_CLASS,
 	CURRENT_ELEMENT_DESCRIPTION,
+	DATA_INITIAL_BG,
+	DATA_INITIAL_COLOR,
 } from '@ea11y-apps/scanner/constants';
 
 export const focusOnElement = (element, queryClass = null) => {
@@ -43,16 +45,16 @@ export const addDataDescription = (element, queryClass) => {
 };
 
 export const resetStyles = (element) => {
-	const bg = element.getAttribute('data-initial-bg');
-	const color = element.getAttribute('data-initial-color');
+	const bg = element.getAttribute(DATA_INITIAL_BG);
+	const color = element.getAttribute(DATA_INITIAL_COLOR);
 
 	if (bg && element?.style) {
-		element.style.background = bg;
-		element.removeAttribute('data-initial-bg');
+		element.style['background-color'] = bg;
+		element.removeAttribute(DATA_INITIAL_BG);
 	}
 	if (color && element?.style) {
 		element.style.color = color;
-		element.removeAttribute('data-initial-color');
+		element.removeAttribute(DATA_INITIAL_COLOR);
 	}
 };
 

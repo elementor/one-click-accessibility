@@ -23,6 +23,7 @@ export const useAltTextForm = ({ current, item }) => {
 		setResolved,
 		isResolved,
 		setOpenedBlock,
+		updateRemediationList,
 	} = useScannerWizardContext();
 	const { error } = useToastNotification();
 
@@ -102,6 +103,7 @@ export const useAltTextForm = ({ current, item }) => {
 			});
 
 			await APIScanner.resolveIssue(currentScanId);
+			void updateRemediationList();
 		} catch (e) {
 			console.warn(e);
 		}
