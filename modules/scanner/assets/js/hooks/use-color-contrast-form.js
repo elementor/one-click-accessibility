@@ -109,7 +109,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const setParentLarger = () => {
 		const element = getElementByXPath(parents.at(-1));
 		const parent = element?.parentElement;
-		if (!parent) {
+		if (!element || !parent) {
 			return;
 		}
 
@@ -124,12 +124,11 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	const setParentSmaller = () => {
-		if (parents.length <= 1) {
-			return;
-		}
-
 		const newParents = parents.slice(0, -1);
 		const nextElement = getElementByXPath(newParents.at(-1));
+		if (parents.length <= 1 || !nextElement) {
+			return;
+		}
 
 		if (newParents.length > 1) {
 			focusOnElement(nextElement, BACKGROUND_ELEMENT_CLASS);
@@ -141,7 +140,13 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		updateData({ parents: newParents, resolved: false });
 	};
 
+	const isValidHexColor = (str) =>
+		/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(str.trim());
+
 	const buildCSSRule = () => {
+		if (!isValidHexColor(color) || !isValidHexColor(background)) {
+			throw new Error('Invalid hex color input detected');
+		}
 		try {
 			const colorSelector = xPathToCss(item.path.dom);
 			const bgSelector = xPathToCss(parents.at(-1));
