@@ -22,6 +22,16 @@ export class StylesRemediation extends RemediationBase {
 		return this.dom.querySelector('style#ea11y-remediation-styles');
 	}
 
+	isValidCSS(cssText) {
+		try {
+			const sheet = new CSSStyleSheet();
+			sheet.replaceSync(cssText);
+			return true;
+		} catch (e) {
+			return false;
+		}
+	}
+
 	excludeAdminBar() {
 		const adminBar = this.dom.querySelector('div#wpadminbar');
 		const expectedSelector =
@@ -47,8 +57,9 @@ export class StylesRemediation extends RemediationBase {
 		}
 
 		const rule = this.excludeAdminBar();
-		tag.innerText += rule;
-
+		if (this.isValidCSS(rule)) {
+			tag.innerText += rule;
+		}
 		return true;
 	}
 }
