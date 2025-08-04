@@ -30,6 +30,10 @@ class Quota_80 extends Notice_Base {
 	}
 
 	public function maybe_add_quota_80_notice() : void {
+		// Manually set the conditions to false to avoid showing the notice.
+		$this->conditions = false;
+		return;
+		
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 
 		if ( ! $plan_data ) {
