@@ -37,7 +37,7 @@ export const ParentSelector = ({
 							<MinusIcon />
 						</IconButton>
 					) : (
-						<MinusIcon color="disabled" />
+						<MinusIcon color="disabled" sx={{ px: 1 }} />
 					)}
 				</Tooltip>
 				<ParentIndicator>
@@ -60,7 +60,7 @@ export const ParentSelector = ({
 							<PlusIcon />
 						</IconButton>
 					) : (
-						<PlusIcon color="disabled" />
+						<PlusIcon color="disabled" sx={{ px: 1 }} />
 					)}
 				</Tooltip>
 			</Box>

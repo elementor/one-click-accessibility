@@ -123,8 +123,11 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			);
 
 			const sorted = sortRemediation(filteredRemediations);
-
 			setRemediations(filteredRemediations);
+
+			// const sorted = sortRemediation(items.data);
+			// setRemediations(items.data);
+
 			setSortedRemediation(sorted);
 		} catch (error) {
 			setIsError(true);

@@ -30,6 +30,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	} = useScannerWizardContext();
 
 	const [loading, setLoading] = useState(false);
+	const [firstOpen, setFirstOpen] = useState(true);
 
 	const updateData = (data) => {
 		const existing = manualData[openedBlock]?.[current] || {};
@@ -43,16 +44,19 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	useLayoutEffect(() => {
-		if (isResolved(BLOCKS.colorContrast)) {
+		if (!firstOpen && isResolved(BLOCKS.colorContrast)) {
 			removeExistingFocus();
 			setOpenedBlock(BLOCKS.main);
 		}
+		setFirstOpen(false);
 	}, [manualData]);
 
 	useEffect(() => {
 		if (!item?.node?.getAttribute(DATA_INITIAL_COLOR)) {
-			item.node.setAttribute(DATA_INITIAL_COLOR, item.messageArgs[3]);
-			item.node.style.setProperty('color', item.messageArgs[3], 'important');
+			const initialColor =
+				manualData[openedBlock]?.[current]?.color || item.messageArgs[3];
+			item.node.setAttribute(DATA_INITIAL_COLOR, initialColor);
+			item.node.style.setProperty('color', initialColor, 'important');
 		}
 	}, [item]);
 
@@ -61,6 +65,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		background = item.messageArgs[4],
 		parents = [item.path.dom],
 		resolved = false,
+		backgroundChanged = false,
 	} = manualData[openedBlock]?.[current] || {};
 
 	const changeColor = (updColor) => {
@@ -82,7 +87,11 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 
 		element.style?.setProperty('background-color', updBackground, 'important');
-		updateData({ background: updBackground, resolved: false });
+		updateData({
+			background: updBackground,
+			resolved: false,
+			backgroundChanged: true,
+		});
 	};
 
 	const setParentBackground = (nextElement, element) => {
@@ -197,6 +206,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		background,
 		parents,
 		resolved,
+		backgroundChanged,
 		loading,
 		changeColor,
 		changeBackground,

@@ -13,11 +13,6 @@ export const COLOR_CONTRAST_SELECTORS_COUNT = 5;
 export const DATA_INITIAL_BG = 'data-initial-bg';
 export const DATA_INITIAL_COLOR = 'data-initial-color';
 
-export const CURRENT_ELEMENT_DESCRIPTION = {
-	[COLOR_ELEMENT_CLASS]: __('Text', 'pojo-accessibility'),
-	[BACKGROUND_ELEMENT_CLASS]: __('Background', 'pojo-accessibility'),
-};
-
 export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
 export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';
 export const PAGE_LIMIT_URL = 'https://go.elementor.com/acc-URL-limit-scanner';

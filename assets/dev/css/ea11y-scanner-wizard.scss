@@ -4,25 +4,9 @@
     gap: 6px;
 }
 
-.ea11y-scanner-current-element {
+.ea11y-scanner-current-element, .ea11y-scanner-color-element, .ea11y-scanner-background-element {
     border: 4px solid #2563EB;
     border-radius: 4px;
-}
-
-.ea11y-scanner-color-element, .ea11y-scanner-background-element {
-    border: 4px solid #2563EB;
-}
-
-.ea11y-scanner-color-element::before, .ea11y-scanner-background-element::before {
-    content: attr(data-before);
-    display: inline-block;
-    position: absolute;
-    bottom: 100%;
-    left: -4px;
-    padding: 3px 8px;
-    background-color: #2563EB;
-    color: #fff;
-    font-size: 12px;
 }
 
 #ea11y-scanner-wizard-widget {

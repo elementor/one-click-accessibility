@@ -5,6 +5,7 @@ import IconButton from '@elementor/ui/IconButton';
 import InputAdornment from '@elementor/ui/InputAdornment';
 import Slider from '@elementor/ui/Slider';
 import TextField from '@elementor/ui/TextField';
+import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { UnstableColorPicker } from '@elementor/ui/unstable';
@@ -95,14 +96,29 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 					onChange={onColorChange}
 					size="small"
 				/>
-				<IconButton
-					onClick={resetColor}
-					size="tiny"
-					aria-label={__('Reset', 'pojo-accessibility')}
-					disabled={color === initialColor}
+				<Tooltip
+					arrow
+					placement="top"
+					title={__('Reset', 'pojo-accessibility')}
+					PopperProps={{
+						disablePortal: true,
+					}}
 				>
-					<RotateIcon fontSize="tiny" sx={{ transform: 'rotate(180deg)' }} />
-				</IconButton>
+					{color !== initialColor ? (
+						<IconButton onClick={resetColor} size="tiny">
+							<RotateIcon
+								fontSize="tiny"
+								sx={{ transform: 'rotate(180deg)' }}
+							/>
+						</IconButton>
+					) : (
+						<RotateIcon
+							color="disabled"
+							fontSize="tiny"
+							sx={{ p: '6px', transform: 'rotate(180deg)' }}
+						/>
+					)}
+				</Tooltip>
 			</StyledColorSet>
 		</Box>
 	);

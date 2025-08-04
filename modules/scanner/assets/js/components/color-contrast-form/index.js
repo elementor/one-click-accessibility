@@ -19,6 +19,7 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 		background,
 		parents,
 		resolved,
+		backgroundChanged,
 		loading,
 		changeColor,
 		changeBackground,
@@ -54,11 +55,13 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 				initialColor={item.messageArgs[4]}
 				setColor={changeBackground}
 			/>
-			<ParentSelector
-				parents={parents}
-				setParentSmaller={setParentSmaller}
-				setParentLarger={setParentLarger}
-			/>
+			{backgroundChanged && (
+				<ParentSelector
+					parents={parents}
+					setParentSmaller={setParentSmaller}
+					setParentLarger={setParentLarger}
+				/>
+			)}
 			<Alert severity={colorData.passesAA ? 'success' : 'error'}>
 				<AlertTitle sx={{ mr: 1 }}>
 					{__('Contrast level:', 'pojo-accessibility')}
