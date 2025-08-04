@@ -20,10 +20,8 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 	const hslColor = hexToHsl(color);
 
 	useEffect(() => {
-		if (selectedColor !== initialColor) {
-			setSelectedColor(initialColor);
-		}
-	}, [initialColor, selectedColor]);
+		setSelectedColor(initialColor);
+	}, [initialColor]);
 
 	const resetColor = () => setColor(initialColor);
 
