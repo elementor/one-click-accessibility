@@ -165,6 +165,43 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const isValidHexColor = (str) =>
 		/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(str.trim());
 
+	const isValidCSS = (cssText) => {
+		try {
+			// Basic checks for common malicious patterns
+			if (!cssText || typeof cssText !== 'string') {
+				return false;
+			}
+
+			// Check for basic CSS structure and disallow dangerous patterns
+			const dangerousPatterns = [
+				/@import/i,
+				/javascript:/i,
+				/expression\s*\(/i,
+				/behavior\s*:/i,
+				/binding\s*:/i,
+				/-moz-binding/i,
+			];
+
+			if (dangerousPatterns.some((pattern) => pattern.test(cssText))) {
+				return false;
+			}
+
+			// More comprehensive CSS structure validation
+			const cssRegex = /^[\s\S]*\{\s*[\s\S]+:\s*[\s\S]+;\s*\}[\s\S]*$/;
+			const hasBasicStructure = cssRegex.test(
+				cssText.replace(/\s+/g, ' ').trim(),
+			);
+
+			// Additional validation: check for balanced braces
+			const openBraces = (cssText.match(/\{/g) || []).length;
+			const closeBraces = (cssText.match(/\}/g) || []).length;
+
+			return hasBasicStructure && openBraces === closeBraces && openBraces > 0;
+		} catch (e) {
+			return false;
+		}
+	};
+
 	const buildCSSRule = () => {
 		if (!isValidHexColor(color) || !isValidHexColor(background)) {
 			throw new Error('Invalid hex color input detected');
@@ -173,7 +210,11 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			const colorSelector = xPathToCss(item.path.dom);
 			const bgSelector = xPathToCss(parents.at(-1));
 
-			return `${colorSelector} {color: ${color} !important;}${bgSelector} {background-color: ${background} !important;}`;
+			const css = `${colorSelector} {color: ${color} !important;}${bgSelector} {background-color: ${background} !important;}`;
+			if (isValidCSS(css)) {
+				return css;
+			}
+			return '';
 		} catch (e) {
 			console.warn('Failed to convert XPath to CSS selector', e);
 			return '';

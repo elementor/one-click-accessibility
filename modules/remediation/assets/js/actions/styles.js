@@ -45,15 +45,7 @@ export class StylesRemediation extends RemediationBase {
 
 			// More comprehensive CSS structure validation
 			const cssRegex = /^[\s\S]*\{\s*[\s\S]+:\s*[\s\S]+;\s*\}[\s\S]*$/;
-			const hasBasicStructure = cssRegex.test(
-				cssText.replace(/\s+/g, ' ').trim(),
-			);
-
-			// Additional validation: check for balanced braces
-			const openBraces = (cssText.match(/\{/g) || []).length;
-			const closeBraces = (cssText.match(/\}/g) || []).length;
-
-			return hasBasicStructure && openBraces === closeBraces && openBraces > 0;
+			return cssRegex.test(cssText.replace(/\s+/g, ' ').trim());
 		} catch (e) {
 			return false;
 		}
