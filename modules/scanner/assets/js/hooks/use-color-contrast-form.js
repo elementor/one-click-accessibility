@@ -15,7 +15,7 @@ import {
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
-import { useEffect, useLayoutEffect, useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const {
@@ -43,7 +43,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		});
 	};
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		if (!firstOpen && isResolved(BLOCKS.colorContrast)) {
 			removeExistingFocus();
 			setOpenedBlock(BLOCKS.main);
