@@ -24,13 +24,17 @@ export class StylesRemediation extends RemediationBase {
 
 	excludeAdminBar() {
 		const adminBar = this.dom.querySelector('div#wpadminbar');
-		if (!adminBar) {
+		const expectedSelector =
+			'html:first-of-type > body:first-of-type > div:first-of-type';
+
+		if (!adminBar || !this.data.rule.includes(expectedSelector)) {
 			return this.data.rule;
 		}
+
 		const replacement = window.ea11yScannerData ? 'div' : 'div:nth-of-type(2)';
 
 		return this.data.rule.replaceAll(
-			'html:first-of-type > body:first-of-type > div:first-of-type',
+			expectedSelector,
 			`html:first-of-type > body:first-of-type > ${replacement}`,
 		);
 	}
