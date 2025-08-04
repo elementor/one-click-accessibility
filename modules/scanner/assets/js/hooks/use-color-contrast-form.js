@@ -240,7 +240,9 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			updateData({ resolved: true });
 
 			item.node?.removeAttribute(DATA_INITIAL_COLOR);
-			getElementByXPath(parents.at(-1))?.removeAttribute(DATA_INITIAL_BG);
+			getElementByXPath(
+				parents.length > 0 ? parents.at(-1) : item.path.dom,
+			)?.removeAttribute(DATA_INITIAL_BG);
 
 			removeExistingFocus();
 			setCurrent(current + 1);
