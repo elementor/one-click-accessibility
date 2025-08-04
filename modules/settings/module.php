@@ -539,6 +539,7 @@ class Module extends Module_Base {
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
 		// Register notices
-		//add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		// Removed visits quota
+		// add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 	}
 }
