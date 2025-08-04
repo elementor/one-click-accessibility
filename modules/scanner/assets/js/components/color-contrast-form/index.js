@@ -43,7 +43,7 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 			issue_type: item.message,
 			current_contrast_ratio: colorData.ratio,
 			background_level: parents.length,
-			category_name: BLOCKS.altText,
+			category_name: BLOCKS.colorContrast,
 			page_url: window.ea11yScannerData?.pageData?.url,
 		});
 	};
