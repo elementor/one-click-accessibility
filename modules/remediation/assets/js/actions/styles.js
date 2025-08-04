@@ -22,40 +22,42 @@ export class StylesRemediation extends RemediationBase {
 		return this.dom.querySelector('style#ea11y-remediation-styles');
 	}
 
-        isValidCSS(cssText) {
-          try {
-            // Basic checks for common malicious patterns
-            if (!cssText || typeof cssText !== 'string') {
-              return false;
-            }
+	isValidCSS(cssText) {
+		try {
+			// Basic checks for common malicious patterns
+			if (!cssText || typeof cssText !== 'string') {
+				return false;
+			}
 
-            // Check for basic CSS structure and disallow dangerous patterns
-            const dangerousPatterns = [
-              /@import/i,
-              /javascript:/i,
-              /expression\s*\(/i,
-              /behavior\s*:/i,
-              /binding\s*:/i,
-              /-moz-binding/i
-            ];
+			// Check for basic CSS structure and disallow dangerous patterns
+			const dangerousPatterns = [
+				/@import/i,
+				/javascript:/i,
+				/expression\s*\(/i,
+				/behavior\s*:/i,
+				/binding\s*:/i,
+				/-moz-binding/i,
+			];
 
-            if (dangerousPatterns.some(pattern => pattern.test(cssText))) {
-              return false;
-            }
+			if (dangerousPatterns.some((pattern) => pattern.test(cssText))) {
+				return false;
+			}
 
-            // More comprehensive CSS structure validation
-            const cssStructureRegex = /^[^{}]*\{[^{}]*:[^{}]*;[^{}]*\}[^{}]*$/;
-            const hasBasicStructure = cssStructureRegex.test(cssText.replace(/\s+/g, ' ').trim());
+			// More comprehensive CSS structure validation
+			const cssRegex = /^[\s\S]*\{\s*[\s\S]+:\s*[\s\S]+;\s*\}[\s\S]*$/;
+			const hasBasicStructure = cssRegex.test(
+				cssText.replace(/\s+/g, ' ').trim(),
+			);
 
-            // Additional validation: check for balanced braces
-            const openBraces = (cssText.match(/\{/g) || []).length;
-            const closeBraces = (cssText.match(/\}/g) || []).length;
+			// Additional validation: check for balanced braces
+			const openBraces = (cssText.match(/\{/g) || []).length;
+			const closeBraces = (cssText.match(/\}/g) || []).length;
 
-            return hasBasicStructure && openBraces === closeBraces && openBraces > 0;
-          } catch (e) {
-            return false;
-          }
-        }
+			return hasBasicStructure && openBraces === closeBraces && openBraces > 0;
+		} catch (e) {
+			return false;
+		}
+	}
 
 	excludeAdminBar() {
 		const adminBar = this.dom.querySelector('div#wpadminbar');
