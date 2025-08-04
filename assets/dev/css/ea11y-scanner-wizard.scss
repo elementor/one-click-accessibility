@@ -5,6 +5,7 @@
 }
 
 .ea11y-scanner-current-element, .ea11y-scanner-color-element, .ea11y-scanner-background-element {
+    box-sizing: border-box;
     border: 4px solid #2563EB;
     border-radius: 4px;
 }
