@@ -119,8 +119,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 			const filteredRemediations = items.data.filter(
 				(remediation) =>
-					remediation.group !== BLOCKS.altText ||
-					remediation.group !== BLOCKS.colorContrast,
+					![BLOCKS.altText, BLOCKS.colorContrast].includes(remediation.group),
 			);
 
 			const sorted = sortRemediation(filteredRemediations);
