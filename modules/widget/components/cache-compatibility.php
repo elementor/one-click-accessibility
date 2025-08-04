@@ -75,6 +75,20 @@ class Cache_Compatibility {
 		return $excluded_js;
 	}
 
+	/**
+	 * wpml_home_url	
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	public function wpml_home_url( $url ) {
+		if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
+			return get_site_url();
+		}
+
+		return $url;
+	}
+
 	public function __construct() {
 		// WP Rocket
 		add_filter( 'rocket_exclude_js', [ $this, 'exclude_widget_script_array' ] );
@@ -82,5 +96,7 @@ class Cache_Compatibility {
 
 		// LiteSpeed Cache
 		add_filter( 'litespeed_optimize_js_excludes', [ $this, 'exclude_widget_script_array' ] );
+		// wpml support
+		add_filter( 'ally_connect_home_url', [ $this, 'wpml_home_url' ] );
 	}
 }
