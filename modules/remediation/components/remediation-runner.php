@@ -8,7 +8,6 @@ use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
-use Error;
 use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
