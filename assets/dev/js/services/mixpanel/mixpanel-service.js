@@ -21,7 +21,7 @@ const init = async () => {
 		ea11ySettingsData?.pluginVersion || ea11yScannerData?.pluginVersion;
 
 	await mixpanel.init(MIXPANEL_TOKEN, {
-		debug: pluginEnv === 'dev',
+		debug: pluginEnv !== 'dev',
 		track_pageview: false,
 		persistence: 'localStorage',
 	});

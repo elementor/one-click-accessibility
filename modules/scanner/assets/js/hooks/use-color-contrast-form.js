@@ -1,6 +1,7 @@
 import getXPath from 'get-xpath';
 import PropTypes from 'prop-types';
 import xPathToCss from 'xpath-to-css';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
 	BACKGROUND_ELEMENT_CLASS,
@@ -40,6 +41,12 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		setManualData({
 			...manualData,
 			[openedBlock]: updated,
+		});
+	};
+
+	const sendEvent = (method) => {
+		mixpanelService.sendEvent(mixpanelEvents.backgroundAdaptorChanged, {
+			method,
 		});
 	};
 
@@ -131,6 +138,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				parents: [...parents, xpath],
 				resolved: false,
 			});
+			sendEvent('plus');
 		} catch (error) {
 			console.warn('Failed to get XPath for parent element:', error);
 		}
@@ -151,6 +159,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 		setParentBackground(nextElement);
 		updateData({ parents: newParents, resolved: false });
+		sendEvent('minus');
 	};
 
 	const isValidHexColor = (str) =>

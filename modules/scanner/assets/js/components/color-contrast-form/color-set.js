@@ -10,12 +10,13 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { UnstableColorPicker } from '@elementor/ui/unstable';
 import PropTypes from 'prop-types';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { SunIcon, SunOffIcon } from '@ea11y-apps/scanner/images';
 import { hexToHsl, hslToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export const ColorSet = ({ title, color, initialColor, setColor }) => {
+export const ColorSet = ({ title, color, initialColor, setColor, area }) => {
 	const [selectedColor, setSelectedColor] = useState(initialColor);
 	const hslColor = hexToHsl(color);
 
@@ -23,11 +24,22 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 		setSelectedColor(initialColor);
 	}, [initialColor]);
 
-	const resetColor = () => setColor(initialColor);
+	const sendEvent = (component, event = null) => {
+		mixpanelService.sendEvent(event ?? mixpanelEvents.contrastColorChanged, {
+			area,
+			component,
+		});
+	};
+
+	const resetColor = () => {
+		setColor(initialColor, 'reset');
+		sendEvent('reset', mixpanelEvents.contrastResetClicked);
+	};
 
 	const onColorChange = (changedColor) => {
 		setSelectedColor(changedColor);
 		setColor(changedColor);
+		sendEvent('color-picker');
 	};
 
 	const onLightnessChange = (event, value) => {
@@ -46,6 +58,7 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 				l: num,
 			});
 			setColor(updatedColor);
+			sendEvent('slider');
 		}
 	};
 
@@ -135,4 +148,5 @@ ColorSet.propTypes = {
 	color: PropTypes.string.isRequired,
 	initialColor: PropTypes.string.isRequired,
 	setColor: PropTypes.func.isRequired,
+	area: PropTypes.string.isRequired,
 };

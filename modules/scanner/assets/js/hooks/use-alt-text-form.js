@@ -158,6 +158,7 @@ export const useAltTextForm = ({ current, item }) => {
 					: fixMethod,
 				issue_type: item.message,
 				category_name: BLOCKS.altText,
+				page_url: window.ea11yScannerData?.pageData?.url,
 			});
 		} catch (e) {
 			console.error(e);
@@ -182,6 +183,7 @@ export const useAltTextForm = ({ current, item }) => {
 			wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 			category_name: BLOCKS.altText,
 			ai_text_response: text,
+			page_url: window.ea11yScannerData?.pageData?.url,
 		});
 	};
 

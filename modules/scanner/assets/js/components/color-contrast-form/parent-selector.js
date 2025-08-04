@@ -6,7 +6,9 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { COLOR_CONTRAST_SELECTORS_COUNT } from '@ea11y-apps/scanner/constants';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ParentSelector = ({
@@ -14,6 +16,10 @@ export const ParentSelector = ({
 	setParentSmaller,
 	setParentLarger,
 }) => {
+	useEffect(() => {
+		mixpanelService.sendEvent(mixpanelEvents.backgroundAdaptorTriggered);
+	}, []);
+
 	const selected = Math.max(0, COLOR_CONTRAST_SELECTORS_COUNT - parents.length);
 	const smallerEnabled = parents.length > 1;
 	const biggerEnabled = parents.length > 0 && parents.at(-1) !== '/html';
