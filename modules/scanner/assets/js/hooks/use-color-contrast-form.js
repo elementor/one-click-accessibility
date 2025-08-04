@@ -208,7 +208,9 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 		try {
 			const colorSelector = xPathToCss(item.path.dom);
-                        const bgSelector = xPathToCss(parents.length > 0 ? parents.at(-1) : item.path.dom);
+			const bgSelector = xPathToCss(
+				parents.length > 0 ? parents.at(-1) : item.path.dom,
+			);
 
 			const css = `${colorSelector} {color: ${color} !important;}${bgSelector} {background-color: ${background} !important;}`;
 			if (isValidCSS(css)) {
