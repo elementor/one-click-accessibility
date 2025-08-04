@@ -48,7 +48,6 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 
 	const QuotaBars = () => (
 		<StyledCardContentInner>
-			<QuotaBarComponent type="visits" quotaData={planData?.visits} />
 			<QuotaBarComponent type="scanner" quotaData={planData?.scannedPages} />
 			<QuotaBarComponent type="ai" quotaData={planData?.aiCredits} />
 		</StyledCardContentInner>

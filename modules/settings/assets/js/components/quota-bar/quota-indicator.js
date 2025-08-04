@@ -9,27 +9,24 @@ import { __ } from '@wordpress/i18n';
 const QuotaIndicator = () => {
 	const { planData, openSidebar } = useSettings();
 
-	if (!planData?.scannedPages || !planData?.visits || !planData?.aiCredits) {
+	if (!planData?.scannedPages || !planData?.aiCredits) {
 		return null; // Return null if data is not available
 	}
 
-	const { scannedPages, visits, aiCredits } = planData;
+	const { scannedPages, aiCredits } = planData;
 
 	// calculate usage data of each quota
 	const scannedPagesUsage = Math.round(
 		(scannedPages.used / scannedPages.allowed) * 100,
 	);
-	const visitsUsage = Math.round((visits.used / visits.allowed) * 100);
 	const aiCreditsUsage = Math.round((aiCredits.used / aiCredits.allowed) * 100);
 
 	// check if any of the quota is 100% used
-	const isQuotaExceeded =
-		scannedPagesUsage >= 100 || visitsUsage >= 100 || aiCreditsUsage >= 100;
+	const isQuotaExceeded = scannedPagesUsage >= 100 || aiCreditsUsage >= 100;
 
 	// check if any of the quota is 80% but not 100% used
 	const isQuotaWarning =
 		(scannedPagesUsage >= 80 && scannedPagesUsage < 100) ||
-		(visitsUsage >= 80 && visitsUsage < 100) ||
 		(aiCreditsUsage >= 80 && aiCreditsUsage < 100);
 
 	if (isQuotaExceeded) {
