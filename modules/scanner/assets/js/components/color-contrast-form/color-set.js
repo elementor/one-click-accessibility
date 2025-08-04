@@ -32,7 +32,7 @@ export const ColorSet = ({ title, color, initialColor, setColor, area }) => {
 	};
 
 	const resetColor = () => {
-		setColor(initialColor, 'reset');
+		setColor(initialColor);
 		sendEvent('reset', mixpanelEvents.contrastResetClicked);
 	};
 
