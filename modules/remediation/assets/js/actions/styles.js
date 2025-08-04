@@ -23,13 +23,8 @@ export class StylesRemediation extends RemediationBase {
 	}
 
 	isValidCSS(cssText) {
-		try {
-			const sheet = new CSSStyleSheet();
-			sheet.replaceSync(cssText);
-			return true;
-		} catch (e) {
-			return false;
-		}
+		const cssRegex = /^[\s\S]*\{\s*[\s\S]+:\s*[\s\S]+;\s*\}[\s\S]*$/;
+		return cssRegex.test(cssText);
 	}
 
 	excludeAdminBar() {
