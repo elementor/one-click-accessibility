@@ -62,8 +62,6 @@ const App = () => {
 		}
 	}, [PAGE_QUOTA_LIMIT, quotaExceeded]);
 
-	console.log(quotaExceeded, PAGE_QUOTA_LIMIT);
-
 	const getBlock = () => {
 		if (!window.ea11yScannerData?.isConnected) {
 			return <NotConnectedMessage />;
