@@ -33,7 +33,10 @@ export const useManageActions = (current = null) => {
 				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
 				{
 					action_type: active ? 'enable_all' : 'disable_all',
-					remediations_amount: remediations?.length,
+					remediations_amount: group
+						? sortedRemediation[group]
+						: remediations?.length,
+					category: group || 'all',
 				},
 			);
 		} catch (e) {
@@ -54,7 +57,10 @@ export const useManageActions = (current = null) => {
 
 			await mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_all',
-				remediations_amount: remediations?.length,
+				remediations_amount: group
+					? sortedRemediation[group]
+					: remediations?.length,
+				category: group || 'all',
 			});
 
 			if (group) {
