@@ -65,7 +65,7 @@ const AccessibilityAssistantStatsIssueResovledBYCategory = ({
 					<Typography variant="body2">{title}</Typography>
 
 					<StyledIssuesCount variant="subtitle2" as="p">
-						{percentage}%
+						{percentage === 0 ? '-' : `${percentage}%`}
 					</StyledIssuesCount>
 				</StyledIssueLevel>
 			))}
