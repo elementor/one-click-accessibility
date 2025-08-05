@@ -46,6 +46,7 @@ class Quota_100 extends Notice_Base {
 		} else {
 			$this->conditions = false;
 		}
+
 	}
 
 	public function print_js() {
