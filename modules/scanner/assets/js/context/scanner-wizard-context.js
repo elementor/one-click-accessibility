@@ -154,7 +154,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
 	const violation =
 		results?.summary?.counts?.violation >= 0
-			? Math.max(initialViolations, results?.summary?.counts?.violation)
+			? results?.summary?.counts?.violation
 			: null;
 
 	const registerPage = async (data, sorted) => {
