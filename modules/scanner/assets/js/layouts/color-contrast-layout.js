@@ -1,7 +1,7 @@
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ColorContrastForm } from '@ea11y-apps/scanner/components/color-contrast-form';
 import { FormNavigation } from '@ea11y-apps/scanner/components/form-navigation';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { BLOCKS, COLOR_ELEMENT_CLASS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import {
@@ -19,7 +19,7 @@ export const ColorContrastLayout = () => {
 	useEffect(() => {
 		const item = sortedViolations.colorContrast?.[current];
 		if (!resolved && sortedViolations.colorContrast?.length) {
-			focusOnElement(item?.node);
+			focusOnElement(item?.node, COLOR_ELEMENT_CLASS);
 		} else {
 			removeExistingFocus();
 		}
@@ -30,6 +30,7 @@ export const ColorContrastLayout = () => {
 				rule_id: item.ruleId,
 				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 				category_name: BLOCKS.colorContrast,
+				current_contrast_ratio: item.messageArgs[0],
 			});
 		}
 	}, [current]);

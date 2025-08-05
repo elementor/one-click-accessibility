@@ -104,6 +104,7 @@ class Module extends Module_Base {
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
 				'pluginEnv' => self::get_plugin_env(),
+				'pluginVersion' => EA11Y_VERSION,
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
 				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),

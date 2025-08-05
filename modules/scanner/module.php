@@ -103,6 +103,7 @@ class Module extends Module_Base {
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
 				'pluginEnv' => Settings_Module::get_plugin_env(),
+				'pluginVersion' => EA11Y_VERSION,
 				'isConnected' => Connect::is_connected(),
 				'isRTL' => is_rtl(),
 			]

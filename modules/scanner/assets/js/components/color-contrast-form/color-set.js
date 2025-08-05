@@ -5,24 +5,41 @@ import IconButton from '@elementor/ui/IconButton';
 import InputAdornment from '@elementor/ui/InputAdornment';
 import Slider from '@elementor/ui/Slider';
 import TextField from '@elementor/ui/TextField';
+import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { UnstableColorPicker } from '@elementor/ui/unstable';
 import PropTypes from 'prop-types';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { SunIcon, SunOffIcon } from '@ea11y-apps/scanner/images';
 import { hexToHsl, hslToHex } from '@ea11y-apps/scanner/utils/convert-colors';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export const ColorSet = ({ title, color, initialColor, setColor }) => {
+export const ColorSet = ({ title, color, initialColor, setColor, area }) => {
 	const [selectedColor, setSelectedColor] = useState(initialColor);
 	const hslColor = hexToHsl(color);
 
-	const resetColor = () => setColor(initialColor);
+	useEffect(() => {
+		setSelectedColor(initialColor);
+	}, [initialColor]);
+
+	const sendEvent = (component, event = null) => {
+		mixpanelService.sendEvent(event ?? mixpanelEvents.contrastColorChanged, {
+			area,
+			component,
+		});
+	};
+
+	const resetColor = () => {
+		setColor(initialColor);
+		sendEvent('reset', mixpanelEvents.contrastResetClicked);
+	};
 
 	const onColorChange = (changedColor) => {
 		setSelectedColor(changedColor);
 		setColor(changedColor);
+		sendEvent('color-picker');
 	};
 
 	const onLightnessChange = (event, value) => {
@@ -41,6 +58,7 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 				l: num,
 			});
 			setColor(updatedColor);
+			sendEvent('slider');
 		}
 	};
 
@@ -85,22 +103,35 @@ export const ColorSet = ({ title, color, initialColor, setColor }) => {
 					}}
 				/>
 				<UnstableColorPicker
-					hideInputFields
+					disableOpacity
+					formats={['hex']}
 					value={color}
 					onChange={onColorChange}
 					size="small"
 				/>
-				<IconButton
-					onClick={resetColor}
-					size="tiny"
-					aria-label={__('Reset', 'pojo-accessibility')}
+				<Tooltip
+					arrow
+					placement="top"
+					title={__('Reset', 'pojo-accessibility')}
+					PopperProps={{
+						disablePortal: true,
+					}}
 				>
-					<RotateIcon
-						fontSize="tiny"
-						color="disabled"
-						sx={{ transform: 'rotate(180deg)' }}
-					/>
-				</IconButton>
+					{color !== initialColor ? (
+						<IconButton onClick={resetColor} size="tiny">
+							<RotateIcon
+								fontSize="tiny"
+								sx={{ transform: 'rotate(180deg)' }}
+							/>
+						</IconButton>
+					) : (
+						<RotateIcon
+							color="disabled"
+							fontSize="tiny"
+							sx={{ p: '6px', transform: 'rotate(180deg)' }}
+						/>
+					)}
+				</Tooltip>
 			</StyledColorSet>
 		</Box>
 	);
@@ -117,4 +148,5 @@ ColorSet.propTypes = {
 	color: PropTypes.string.isRequired,
 	initialColor: PropTypes.string.isRequired,
 	setColor: PropTypes.func.isRequired,
+	area: PropTypes.string.isRequired,
 };

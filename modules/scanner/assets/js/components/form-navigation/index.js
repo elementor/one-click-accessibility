@@ -8,15 +8,18 @@ import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { isRTL } from '@ea11y-apps/scanner/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const FormNavigation = ({ total, current, setCurrent }) => {
+	const { openedBlock } = useScannerWizardContext();
 	const previous = current - 1;
 	const next = current + 1;
 	const navigate = (index, direction) => () => {
 		setCurrent(index);
 		mixpanelService.sendEvent(mixpanelEvents.navigationImageClicked, {
 			direction,
+			category: openedBlock,
 		});
 	};
 	return (

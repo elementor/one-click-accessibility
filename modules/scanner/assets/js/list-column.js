@@ -28,7 +28,9 @@ class EA11yListColumn {
 		this.buttons = document.querySelectorAll('.ea11y-accessibility-button');
 		this.columnTitles = document.querySelectorAll('.ea11y-column-title');
 
-		if (this.buttons.length === 0) return;
+		if (this.buttons.length === 0) {
+			return;
+		}
 
 		this.setupResponsiveButtons();
 		this.setupResponsiveColumnTitles();
@@ -62,12 +64,16 @@ class EA11yListColumn {
 
 	updateButton(button) {
 		const column = button.closest('td');
-		if (!column) return;
+		if (!column) {
+			return;
+		}
 
 		// Use actual column width to determine behavior
 		const columnWidth = column.offsetWidth;
 		const textSpan = button.querySelector('.ea11y-button-text');
-		if (!textSpan) return;
+		if (!textSpan) {
+			return;
+		}
 
 		const fullText = button.dataset.fullText;
 		const shortText = button.dataset.shortText;
@@ -90,10 +96,14 @@ class EA11yListColumn {
 
 	updateColumnTitle(title) {
 		const column = title.closest('th');
-		if (!column) return;
+		if (!column) {
+			return;
+		}
 
 		const titleAnchor = title.parentElement.querySelector('a');
-		if (!titleAnchor) return;
+		if (!titleAnchor) {
+			return;
+		}
 
 		// Use actual column width to determine behavior
 		const columnWidth = column.offsetWidth;

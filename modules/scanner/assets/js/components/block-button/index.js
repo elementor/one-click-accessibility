@@ -4,6 +4,7 @@ import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	StyledButton,
@@ -32,6 +33,8 @@ export const BlockButton = ({
 
 	const resolved = !isManage && (count === 0 || isResolved(block));
 	const showChip = !isManage && !resolved;
+	const disabled =
+		isManage && (block === BLOCKS.colorContrast || block === BLOCKS.altText);
 
 	return (
 		<StyledButton
@@ -40,6 +43,7 @@ export const BlockButton = ({
 			size="large"
 			fullWidth
 			onClick={handleClick}
+			disabled={disabled}
 		>
 			<StyledButtonContainer
 				elevation={0}

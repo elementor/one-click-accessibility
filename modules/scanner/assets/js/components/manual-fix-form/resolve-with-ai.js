@@ -71,6 +71,7 @@ export const ResolveWithAi = ({ item, current }) => {
 				rule_id: item.ruleId,
 				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 				category_name: openedBlock,
+				page_url: window.ea11yScannerData?.pageData?.url,
 				// ai_text_response: text,
 			});
 		} else {

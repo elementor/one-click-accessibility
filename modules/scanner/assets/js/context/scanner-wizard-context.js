@@ -31,6 +31,7 @@ export const ScannerWizardContext = createContext({
 	openedBlock: '',
 	loading: null,
 	isError: false,
+	quotaExceeded: false,
 	isManage: false,
 	isChanged: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
@@ -38,6 +39,7 @@ export const ScannerWizardContext = createContext({
 	altTextData: [],
 	manualData: {},
 	remediationData: {},
+	showResolvedMessage: false,
 	violation: null,
 	openIndex: null,
 	setSortedRemediation: () => {},
@@ -47,6 +49,7 @@ export const ScannerWizardContext = createContext({
 	setAltTextData: () => {},
 	setManualData: () => {},
 	setLoading: () => {},
+	setShowCategories: () => {},
 	setRemediationData: () => {},
 	updateRemediationList: () => {},
 	setIsManage: () => {},
@@ -71,6 +74,8 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
+	const [quotaExceeded, setQuotaExceeded] = useState(false);
+	const [showCategories, setShowCategories] = useState(false);
 	const [isManage, setIsManage] = useState(false);
 	const [isManageChanged, setIsManageChanged] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
@@ -118,7 +123,8 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			);
 
 			const filteredRemediations = items.data.filter(
-				(remediation) => remediation.group !== BLOCKS.altText,
+				(remediation) =>
+					![BLOCKS.altText, BLOCKS.colorContrast].includes(remediation.group),
 			);
 
 			const sorted = sortRemediation(filteredRemediations);
@@ -151,8 +157,12 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
 	const violation =
 		results?.summary?.counts?.violation >= 0
-			? Math.max(initialViolations, results?.summary?.counts?.violation)
+			? results?.summary?.counts?.violation
 			: null;
+
+	const showResolvedMessage =
+		Boolean((resolved > 0 && violation === resolved) || violation === 0) &&
+		!showCategories;
 
 	const registerPage = async (data, sorted) => {
 		try {
@@ -172,6 +182,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					: 0,
 			);
 		} catch (e) {
+			if (e?.message === 'Quota exceeded') {
+				setQuotaExceeded(true);
+			}
 			setIsError(true);
 		}
 	};
@@ -299,6 +312,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				openedBlock,
 				loading,
 				isError,
+				quotaExceeded,
 				isManage,
 				isChanged,
 				sortedViolations,
@@ -307,6 +321,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				manualData,
 				remediationData,
 				violation,
+				showResolvedMessage,
 				setOpenedBlock: handleOpenBlock,
 				setResolved,
 				setSortedRemediation,
@@ -318,6 +333,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				updateRemediationList,
 				setIsManage,
 				setIsManageChanged,
+				setShowCategories,
 				openIndex,
 				setOpenIndex,
 				isResolved,
