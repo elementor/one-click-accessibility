@@ -125,6 +125,39 @@ export const StyledButton = styled(Button)`
 	}
 `;
 
+export const ManageButtonWrap = styled(Box)`
+	display: flex;
+	align-items: center;
+	gap: ${({ theme }) => theme.spacing(1.5)};
+	border: 1px solid ${({ theme }) => theme.palette.action.focus};
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+	padding-right: ${({ theme }) => theme.spacing(1.5)};
+	&:hover,
+	&:focus .MuiPaper-root,
+	&:focus-visible .MuiPaper-root {
+		background-color: ${({ theme, disabled }) =>
+			!disabled ? theme.palette.action.hover : 'transparent'};
+	}
+`;
+
+export const ActionButton = styled(Button)`
+	font-weight: 400;
+	justify-content: start;
+	padding: ${({ theme }) => theme.spacing(1.5)};
+
+	&:hover,
+	&:focus,
+	&:focus-visible {
+		background-color: transparent;
+	}
+`;
+
+export const ManageButtonGroup = styled(Box)`
+	display: flex;
+	align-items: center;
+	gap: ${({ theme }) => theme.spacing(0.5)};
+`;
+
 export const UpgradeContentContainer = styled(Box)`
 	display: flex;
 	justify-content: space-between;

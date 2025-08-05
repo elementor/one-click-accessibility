@@ -122,14 +122,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				window.ea11yScannerData?.pageData?.url,
 			);
 
-			const filteredRemediations = items.data.filter(
-				(remediation) =>
-					![BLOCKS.altText, BLOCKS.colorContrast].includes(remediation.group),
-			);
+			const sorted = sortRemediation(items.data);
 
-			const sorted = sortRemediation(filteredRemediations);
-
-			setRemediations(filteredRemediations);
+			setRemediations(items.data);
 			setSortedRemediation(sorted);
 		} catch (error) {
 			setIsError(true);
