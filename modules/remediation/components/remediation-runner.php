@@ -30,6 +30,7 @@ class Remediation_Runner {
 				'ATTRIBUTE' => 'Attribute',
 				'ELEMENT'   => 'Element',
 				'REPLACE' => 'Replace',
+				'STYLES' => 'Styles',
 			] );
 		}
 		return $classes;
@@ -37,7 +38,7 @@ class Remediation_Runner {
 
 	/**
 	 * Detect AJAX requests that go through template_redirect hook
-	 * 
+	 *
 	 * Only detects frontend AJAX requests that would interfere with template_redirect,
 	 * not admin-ajax.php requests which bypass the main query cycle.
 	 *
@@ -74,7 +75,7 @@ class Remediation_Runner {
 		}
 
 		// Check URL patterns for REST API (these go through template_redirect)
-		if ( strpos( $request_uri, '/wp-json/' ) !== false || 
+		if ( strpos( $request_uri, '/wp-json/' ) !== false ||
 			 strpos( $request_uri, '?rest_route=' ) !== false ) {
 			return true;
 		}
@@ -85,17 +86,17 @@ class Remediation_Runner {
 		}
 
 		// Elementor frontend AJAX/preview that affects template loading
-		if ( ! empty( $_REQUEST['elementor-preview'] ) || 
+		if ( ! empty( $_REQUEST['elementor-preview'] ) ||
 			 ! empty( $_GET['elementor-preview'] ) ) {
 			return true;
 		}
 
 		// Check for AJAX header on frontend requests (not admin)
 		// Only if it's not an admin request and has AJAX header
-		if ( ! is_admin() && 
-			 ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && 
+		if ( ! is_admin() &&
+			 ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) &&
 			 strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) === 'xmlhttprequest' ) {
-			
+
 			// Additional check: make sure it's not a heartbeat or other admin request
 			$action = $_REQUEST['action'] ?? '';
 			if ( $action !== 'heartbeat' && strpos( $action, 'wp_ajax_' ) !== 0 ) {
