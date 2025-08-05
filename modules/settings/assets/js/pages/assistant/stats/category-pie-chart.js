@@ -113,8 +113,17 @@ const CategoryPieChart = ({ issueByCategory, loading }) => {
 };
 
 CategoryPieChart.propTypes = {
-	issueByCategory: PropTypes.object.isRequired,
-	loading: PropTypes.bool,
+	issueByCategory: PropTypes.shape({
+		altText: PropTypes.number,
+		dynamicContent: PropTypes.number,
+		formsInputsError: PropTypes.number,
+		keyboardAssistiveTech: PropTypes.number,
+		pageStructureNav: PropTypes.number,
+		tables: PropTypes.number,
+		colorContrast: PropTypes.number,
+		other: PropTypes.number,
+	}),
+	loading: PropTypes.bool.isRequired,
 };
 
 const StyledCategoryPieChart = styled(Box)`
