@@ -21,11 +21,11 @@ class Utils {
 	/**
 	 * get_redirect_uri
 	 *
-	 * @param string $domain
+	 * @param mixed|string|null $domain
 	 *
 	 * @return string
 	 */
-	public static function get_redirect_uri( string $domain = '' ) : string {
+	public static function get_redirect_uri( $domain = null ) : string {
 		if ( false !== strpos( Config::ADMIN_PAGE, '?page=' ) ) {
 			$admin_url = admin_url( Config::ADMIN_PAGE );
 		} else {
@@ -114,12 +114,13 @@ class Utils {
 	 */
 	public static function is_valid_home_url(): bool {
 		static $valid = null;
+		$saved =  Data::get_home_url();
 
 		if ( null === $valid ) {
-			if ( empty( Data::get_home_url() ) ) {
+			if ( empty( $saved ) ) {
 				$valid = true;
 			} else {
-				$valid = Data::get_home_url() === home_url();
+				$valid = $saved === apply_filters( 'ally_connect_home_url', home_url() );
 			}
 		}
 
