@@ -31,6 +31,7 @@ const App = () => {
 		openedBlock,
 		isManage,
 		isError,
+		quotaExceeded,
 		loading,
 	} = useScannerWizardContext();
 
@@ -52,20 +53,22 @@ const App = () => {
 	}, [showResolvedMessage]);
 
 	useEffect(() => {
-		if (!PAGE_QUOTA_LIMIT) {
+		if (!PAGE_QUOTA_LIMIT || quotaExceeded) {
 			mixpanelService.sendEvent(mixpanelEvents.upgradeSuggestionViewed, {
 				current_plan: window.ea11yScannerData?.planData?.plan?.name,
 				action_trigger: 'scan_triggered',
 				feature_locked: 'multi-page scan',
 			});
 		}
-	}, [PAGE_QUOTA_LIMIT]);
+	}, [PAGE_QUOTA_LIMIT, quotaExceeded]);
+
+	console.log(quotaExceeded, PAGE_QUOTA_LIMIT);
 
 	const getBlock = () => {
 		if (!window.ea11yScannerData?.isConnected) {
 			return <NotConnectedMessage />;
 		}
-		if (!PAGE_QUOTA_LIMIT) {
+		if (!PAGE_QUOTA_LIMIT || quotaExceeded) {
 			return <QuotaMessage />;
 		}
 		if (isError) {

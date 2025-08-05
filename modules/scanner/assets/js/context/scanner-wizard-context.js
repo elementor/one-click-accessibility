@@ -31,6 +31,7 @@ export const ScannerWizardContext = createContext({
 	openedBlock: '',
 	loading: null,
 	isError: false,
+	quotaExceeded: false,
 	isManage: false,
 	isChanged: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
@@ -71,6 +72,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
+	const [quotaExceeded, setQuotaExceeded] = useState(false);
 	const [isManage, setIsManage] = useState(false);
 	const [isManageChanged, setIsManageChanged] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
@@ -173,6 +175,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					: 0,
 			);
 		} catch (e) {
+			if (e?.message === 'Quota exceeded') {
+				setQuotaExceeded(true);
+			}
 			setIsError(true);
 		}
 	};
@@ -300,6 +305,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				openedBlock,
 				loading,
 				isError,
+				quotaExceeded,
 				isManage,
 				isChanged,
 				sortedViolations,

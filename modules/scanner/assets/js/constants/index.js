@@ -33,7 +33,7 @@ export const PAGE_PER_PLAN =
 export const PAGE_QUOTA_LIMIT =
 	window.ea11yScannerData?.planData?.scannedPages?.allowed -
 		window.ea11yScannerData?.planData?.scannedPages?.used >
-		0 && !window?.ea11yScannerData?.pageData?.unregistered;
+		0 || !window?.ea11yScannerData?.pageData?.unregistered;
 
 export const BLOCKS = {
 	main: 'main',
