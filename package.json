@@ -5,8 +5,8 @@
 	"description": "",
 	"version": "3.5.2",
 	"scripts": {
-		"build": "wp-scripts build",
-		"start": "wp-scripts start",
+		"build": "NODE_ENV=production wp-scripts build",
+		"start": "NODE_ENV=development wp-scripts start",
 		"format": "wp-scripts format",
 		"lint:js": "wp-scripts lint-js",
 		"lint:js:fix": "wp-scripts lint-js --fix",
