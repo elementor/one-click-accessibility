@@ -12,7 +12,7 @@ import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../../contexts/analytics-context';
 
 const AnalyticsTooltip = () => {
-	const { selectedMenu, setSelectedMenu, isAnalyticsEnabled } = useSettings();
+	const { setSelectedMenu, isAnalyticsEnabled } = useSettings();
 	const { handleAnalyticsToggle } = useAnalyticsContext();
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -29,13 +29,13 @@ const AnalyticsTooltip = () => {
 		setIsOpen(false);
 	};
 
-        const handleEnableTracking = () => {
-                // Execute the analytics functionality
-                setSelectedMenu('analytics');
-                handleAnalyticsToggle();
-                // Close the tooltip
-                handleClose();
-        };
+	const handleEnableTracking = () => {
+		// Execute the analytics functionality
+		setSelectedMenu('analytics');
+		handleAnalyticsToggle();
+		// Close the tooltip
+		handleClose();
+	};
 
 	const TooltipCard = (
 		<Card elevation={0} sx={{ maxWidth: 300 }}>
