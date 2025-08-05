@@ -232,6 +232,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 					rule: buildCSSRule(),
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'STYLES',
+					xpath: item.path.dom,
 				},
 				rule: item.ruleId,
 				group: BLOCKS.colorContrast,
