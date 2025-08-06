@@ -39,7 +39,6 @@ export const ScannerWizardContext = createContext({
 	altTextData: [],
 	manualData: {},
 	remediationData: {},
-	showResolvedMessage: false,
 	violation: null,
 	openIndex: null,
 	setSortedRemediation: () => {},
@@ -49,7 +48,6 @@ export const ScannerWizardContext = createContext({
 	setAltTextData: () => {},
 	setManualData: () => {},
 	setLoading: () => {},
-	setShowCategories: () => {},
 	setRemediationData: () => {},
 	updateRemediationList: () => {},
 	setIsManage: () => {},
@@ -75,7 +73,6 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 	const [quotaExceeded, setQuotaExceeded] = useState(false);
-	const [showCategories, setShowCategories] = useState(false);
 	const [isManage, setIsManage] = useState(false);
 	const [isManageChanged, setIsManageChanged] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
@@ -154,10 +151,6 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		results?.summary?.counts?.violation >= 0
 			? results?.summary?.counts?.violation
 			: null;
-
-	const showResolvedMessage =
-		Boolean((resolved > 0 && violation === resolved) || violation === 0) &&
-		!showCategories;
 
 	const registerPage = async (data, sorted) => {
 		try {
@@ -316,7 +309,6 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				manualData,
 				remediationData,
 				violation,
-				showResolvedMessage,
 				setOpenedBlock: handleOpenBlock,
 				setResolved,
 				setSortedRemediation,
@@ -328,7 +320,6 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				updateRemediationList,
 				setIsManage,
 				setIsManageChanged,
-				setShowCategories,
 				openIndex,
 				setOpenIndex,
 				isResolved,

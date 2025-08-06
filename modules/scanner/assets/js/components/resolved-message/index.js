@@ -1,6 +1,6 @@
 import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
-import { ROOT_ID } from '@ea11y-apps/scanner/constants';
+import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { ResolvedImage } from '@ea11y-apps/scanner/images';
 import {
@@ -11,7 +11,8 @@ import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { __ } from '@wordpress/i18n';
 
 export const ResolvedMessage = () => {
-	const { setShowCategories } = useScannerWizardContext();
+	const { remediations, setOpenedBlock, setIsManage } =
+		useScannerWizardContext();
 
 	const onClose = () => {
 		const widget = document.getElementById(ROOT_ID);
@@ -19,7 +20,8 @@ export const ResolvedMessage = () => {
 	};
 
 	const showIssues = () => {
-		setShowCategories(true);
+		setIsManage(true);
+		setOpenedBlock(BLOCKS.management);
 	};
 
 	return (
@@ -38,14 +40,16 @@ export const ResolvedMessage = () => {
 			</Typography>
 
 			<ResolvedButtonsBox>
-				<Button
-					size="small"
-					variant="outlined"
-					color="secondary"
-					onClick={showIssues}
-				>
-					{__('Review fixes', 'pojo-accessibility')}
-				</Button>
+				{remediations?.length > 0 && (
+					<Button
+						size="small"
+						variant="outlined"
+						color="secondary"
+						onClick={showIssues}
+					>
+						{__('Review fixes', 'pojo-accessibility')}
+					</Button>
+				)}
 
 				<Button
 					href={window?.ea11yScannerData?.dashboardUrl}

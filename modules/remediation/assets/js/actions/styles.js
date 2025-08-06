@@ -60,9 +60,11 @@ export class StylesRemediation extends RemediationBase {
 			return this.data.rule;
 		}
 
+		const replacement = window.ea11yScannerData ? 'div' : 'div:nth-of-type(2)';
+
 		return this.data.rule.replaceAll(
 			expectedSelector,
-			`html:first-of-type > body:first-of-type > div`,
+			`html:first-of-type > body:first-of-type > ${replacement}`,
 		);
 	}
 
