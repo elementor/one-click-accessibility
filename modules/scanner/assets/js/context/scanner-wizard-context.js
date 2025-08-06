@@ -202,7 +202,10 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			const url = new URL(window.location.href);
 			const data = await window.ace.check(document);
 			const filtered = data.results.filter(
-				(item) => item.level === 'violation',
+				(item) =>
+					item.level === 'violation' ||
+					(item.ruleId === 'text_contrast_sufficient' &&
+						item.level === 'potentialViolation'),
 			);
 			const sorted = sortViolations(filtered);
 

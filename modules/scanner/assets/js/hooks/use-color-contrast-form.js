@@ -1,6 +1,5 @@
 import getXPath from 'get-xpath';
 import PropTypes from 'prop-types';
-import xPathToCss from 'xpath-to-css';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
@@ -16,6 +15,7 @@ import {
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
+import { getElementCSSSelector } from '@ea11y-apps/scanner/utils/get-element-css-selector';
 import { useEffect, useState } from '@wordpress/element';
 
 export const useColorContrastForm = ({ item, current, setCurrent }) => {
@@ -207,8 +207,8 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			throw new Error('Invalid hex color input detected');
 		}
 		try {
-			const colorSelector = xPathToCss(item.path.dom);
-			const bgSelector = xPathToCss(
+			const colorSelector = getElementCSSSelector(item.path.dom);
+			const bgSelector = getElementCSSSelector(
 				parents.length > 0 ? parents.at(-1) : item.path.dom,
 			);
 

@@ -51,23 +51,6 @@ export class StylesRemediation extends RemediationBase {
 		}
 	}
 
-	excludeAdminBar() {
-		const adminBar = this.dom.querySelector('div#wpadminbar');
-		const expectedSelector =
-			'html:first-of-type > body:first-of-type > div:first-of-type';
-
-		if (!adminBar || !this.data.rule.includes(expectedSelector)) {
-			return this.data.rule;
-		}
-
-		const replacement = window.ea11yScannerData ? 'div' : 'div:nth-of-type(2)';
-
-		return this.data.rule.replaceAll(
-			expectedSelector,
-			`html:first-of-type > body:first-of-type > ${replacement}`,
-		);
-	}
-
 	run() {
 		const tag = this.getStyleTag();
 
@@ -75,9 +58,8 @@ export class StylesRemediation extends RemediationBase {
 			return false;
 		}
 
-		const rule = this.excludeAdminBar();
-		if (this.isValidCSS(rule)) {
-			tag.innerText += rule;
+		if (this.isValidCSS(this.data.rule)) {
+			tag.innerText += this.data.rule;
 		}
 		return true;
 	}
