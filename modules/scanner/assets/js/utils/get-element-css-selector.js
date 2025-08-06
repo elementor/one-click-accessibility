@@ -6,8 +6,8 @@ import {
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 
 export const getElementCSSSelector = (xpath) => {
-	let el = getElementByXPath(xpath);
-	if (!(el instanceof Element)) {
+	let element = getElementByXPath(xpath);
+	if (!element || !(element instanceof Element)) {
 		return null;
 	}
 
@@ -19,18 +19,18 @@ export const getElementCSSSelector = (xpath) => {
 
 	const parts = [];
 
-	while (el && el.nodeType === Node.ELEMENT_NODE) {
-		let selector = el.tagName.toLowerCase();
+	while (element && element.nodeType === Node.ELEMENT_NODE) {
+		let selector = element.tagName.toLowerCase();
 
-		if (el.id) {
-			selector += `#${el.id}`;
+		if (element.id) {
+			selector += `#${element.id}`;
 			parts.unshift(selector);
 			break; // Stop at ID
 		}
 
 		// Add classes unless it's <body> or ignored
-		if (el.className && el.tagName.toLowerCase() !== 'body') {
-			const classList = el.className
+		if (element.className && element.tagName.toLowerCase() !== 'body') {
+			const classList = element.className
 				.trim()
 				.split(/\s+/)
 				.filter((cls) => cls && !ignoredClasses.has(cls));
@@ -40,25 +40,25 @@ export const getElementCSSSelector = (xpath) => {
 		}
 
 		// Add :nth-of-type if needed
-		const parent = el.parentNode;
+		const parent = element.parentNode;
 		if (
 			parent &&
 			!(
 				parent.tagName?.toLowerCase() === 'body' &&
-				el.tagName?.toLowerCase() === 'div'
+				element.tagName?.toLowerCase() === 'div'
 			)
 		) {
 			const siblings = Array.from(parent.children).filter(
-				(sibling) => sibling.tagName === el.tagName,
+				(sibling) => sibling.tagName === element.tagName,
 			);
 			if (siblings.length > 1) {
-				const index = siblings.indexOf(el) + 1;
+				const index = siblings.indexOf(element) + 1;
 				selector += `:nth-of-type(${index})`;
 			}
 		}
 
 		parts.unshift(selector);
-		el = el.parentElement;
+		element = element.parentElement;
 	}
 
 	return parts.join(' > ');
