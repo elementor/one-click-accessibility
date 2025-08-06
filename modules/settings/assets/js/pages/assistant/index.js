@@ -125,10 +125,10 @@ const StyledHeadingWrapper = styled(Box)`
 const StyledHeadingContainer = styled(Container)`
 	padding-top: ${({ theme }) => theme.spacing(4)};
 	padding-bottom: ${({ theme }) => theme.spacing(4)};
-	padding-left: 0;
-	padding-right: 0;
+	padding-left: ${({ theme }) => theme.spacing(4)};
+	padding-right: ${({ theme }) => theme.spacing(4)};
 
-	@media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+	@media (min-width: ${({ theme }) => theme.breakpoints.values.xl}px) {
 		padding-left: 0;
 		padding-right: 0;
 	}
@@ -137,10 +137,10 @@ const StyledHeadingContainer = styled(Container)`
 export const StyledContainer = styled(Container)`
 	padding-top: ${({ theme }) => theme.spacing(4)};
 	padding-bottom: ${({ theme }) => theme.spacing(4)};
-	padding-left: 0;
-	padding-right: 0;
+	padding-left: ${({ theme }) => theme.spacing(4)};
+	padding-right: ${({ theme }) => theme.spacing(4)};
 
-	@media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+	@media (min-width: ${({ theme }) => theme.breakpoints.values.xl}px) {
 		padding-left: 0;
 		padding-right: 0;
 	}
