@@ -3,6 +3,7 @@
 namespace EA11y\Modules\Scanner\Components;
 
 use EA11y\Classes\Database\Exceptions\Missing_Table_Exception;
+use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
@@ -37,17 +38,9 @@ class List_Column {
 	public function render_accessibility_column_post( $column, $post_id ) {
 		if ( 'accessibility_status' === $column ) {
 			$post = get_post( $post_id );
-			if ( in_array( $post->post_status, [ 'draft', 'pending', 'auto-draft' ], true ) ) {
-				$my_post = clone $post;
-				$my_post->post_status = 'publish';
-				$my_post->post_name = sanitize_title(
-					$my_post->post_name ? $my_post->post_name : $my_post->post_title,
-					$my_post->ID
-				);
-				$url = rtrim( get_permalink( $my_post ), '/' );
-			} else {
-				$url = get_permalink( $post_id );
-			}
+			$url = in_array( $post->post_status, [ 'draft', 'pending', 'auto-draft' ], true )
+				? Utils::build_draft_url( $post )
+				: get_permalink( $post_id );
 			$this->render_column_accessibility( $url );
 		}
 	}
