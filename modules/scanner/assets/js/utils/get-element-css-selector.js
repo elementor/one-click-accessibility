@@ -1,3 +1,8 @@
+import {
+	BACKGROUND_ELEMENT_CLASS,
+	COLOR_ELEMENT_CLASS,
+	CURRENT_ELEMENT_CLASS,
+} from '@ea11y-apps/scanner/constants';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 
 export const getElementCSSSelector = (xpath) => {
@@ -7,9 +12,9 @@ export const getElementCSSSelector = (xpath) => {
 	}
 
 	const ignoredClasses = new Set([
-		'ea11y-scanner-current-element',
-		'ea11y-scanner-color-element',
-		'ea11y-scanner-background-element',
+		CURRENT_ELEMENT_CLASS,
+		COLOR_ELEMENT_CLASS,
+		BACKGROUND_ELEMENT_CLASS,
 	]);
 
 	const parts = [];
