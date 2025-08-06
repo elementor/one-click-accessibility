@@ -11,7 +11,7 @@ class Utils {
 	 */
 	public static function get_current_page_url(): ?string {
 		global $post;
-		if ( self::is_draft() ) {
+		if ( self::is_draft( $post ) ) {
 			return self::build_draft_url( $post );
 		}
 		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
@@ -19,9 +19,8 @@ class Utils {
 		return rtrim( home_url( $path ), '/' );
 	}
 
-	public static function is_draft(): bool {
-		$item = get_queried_object();
-		return $item instanceof WP_Post && in_array( $item->post_status, [ 'draft', 'pending', 'auto-draft' ], true );
+	public static function is_draft( $post ): bool {
+		return $post instanceof WP_Post && in_array( $post->post_status, [ 'draft', 'pending', 'auto-draft' ], true );
 	}
 
 	public static function build_draft_url( $post ): string {
