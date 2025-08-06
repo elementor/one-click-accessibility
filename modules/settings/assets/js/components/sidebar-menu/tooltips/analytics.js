@@ -12,8 +12,8 @@ import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../../contexts/analytics-context';
 
 const AnalyticsTooltip = () => {
-	const { setSelectedMenu, isAnalyticsEnabled } = useSettings();
-	const { handleAnalyticsToggle } = useAnalyticsContext();
+	const { setSelectedMenu } = useSettings();
+	const { handleAnalyticsToggle, isAnalyticsEnabled } = useAnalyticsContext();
 	const [isOpen, setIsOpen] = useState(false);
 
 	// Don't show tooltip if analytics is already enabled
