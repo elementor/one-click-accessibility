@@ -36,7 +36,18 @@ class List_Column {
 
 	public function render_accessibility_column_post( $column, $post_id ) {
 		if ( 'accessibility_status' === $column ) {
-			$url = get_permalink( $post_id );
+			$post = get_post( $post_id );
+			if ( in_array( $post->post_status, [ 'draft', 'pending', 'auto-draft' ], true ) ) {
+				$my_post = clone $post;
+				$my_post->post_status = 'publish';
+				$my_post->post_name = sanitize_title(
+					$my_post->post_name ? $my_post->post_name : $my_post->post_title,
+					$my_post->ID
+				);
+				$url = rtrim( get_permalink( $my_post ), '/' );
+			} else {
+				$url = get_permalink( $post_id );
+			}
 			$this->render_column_accessibility( $url );
 		}
 	}
@@ -88,15 +99,15 @@ class List_Column {
 		} else {
 			if ( $has_scan_data ) {
 				$issues_left = $violation - $resolved;
-				$button_text = sprintf( 
+				$button_text = sprintf(
 					/* translators: %d: number of issues to fix */
-					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ), 
-					$issues_left 
+					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ),
+					$issues_left
 				);
-				$tooltip_text = sprintf( 
+				$tooltip_text = sprintf(
 					/* translators: %d: number of issues to fix */
-					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ), 
-					$issues_left 
+					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ),
+					$issues_left
 				);
 				$button_class = 'button ea11y-accessibility-button';
 				$button_style = 'color: #B91C1C; border-color: #B91C1C;';
@@ -139,7 +150,7 @@ class List_Column {
 	 */
 	public function enqueue_assets() {
 		$screen = get_current_screen();
-		
+
 		// Only load on edit.php pages (post list tables) and edit-tags.php (taxonomy list tables)
 		if ( ! $screen || ! in_array( $screen->base, [ 'edit', 'edit-tags' ], true ) ) {
 			return;

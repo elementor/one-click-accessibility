@@ -93,6 +93,7 @@ class Module extends Module_Base {
 				'initialScanResult' => Scan_Entry::get_scan_result( $url ),
 				'pageData' => [
 					'url' => $url,
+					'isDraft' => Remediation_Utils::is_draft(),
 					'title' => Remediation_Utils::get_current_page_title(),
 					'object_id' => Remediation_Utils::get_current_object_id(),
 					'object_type' => Remediation_Utils::get_current_object_type(),
