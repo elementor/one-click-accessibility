@@ -108,7 +108,7 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 
 						<AccessibilityAssistantTooltip
 							content={__(
-								"Track how many issues you've resolved for each WCAG level. Meeting these guidelines helps make your site more accessible and inclusive for all visitors.",
+								"Track how many accessibility issues you've resolved in each category.",
 								'pojo-accessibility',
 							)}
 						/>
