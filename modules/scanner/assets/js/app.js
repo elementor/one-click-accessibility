@@ -27,13 +27,17 @@ const App = () => {
 	const {
 		setOpenedBlock,
 		violation,
+		resolved,
 		openedBlock,
 		isManage,
 		isError,
 		quotaExceeded,
 		loading,
-		showResolvedMessage,
 	} = useScannerWizardContext();
+
+	const showResolvedMessage = Boolean(
+		(resolved > 0 && violation === resolved) || violation === 0,
+	);
 
 	useEffect(() => {
 		if (window.ea11yScannerData?.planData?.user?.id && violation !== null) {
@@ -91,7 +95,7 @@ const App = () => {
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
 
-				{showResolvedMessage ? <ResolvedMessage /> : getBlock()}
+				{showResolvedMessage && !isManage ? <ResolvedMessage /> : getBlock()}
 
 				<Notifications message={notificationMessage} type={notificationType} />
 			</ErrorBoundary>

@@ -212,11 +212,18 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				parents.length > 0 ? parents.at(-1) : item.path.dom,
 			);
 
-			const css = `${colorSelector} {color: ${color} !important;}${bgSelector} {background-color: ${background} !important;}`;
-			if (isValidCSS(css)) {
-				return css;
-			}
-			return '';
+			const colorRule =
+				color !== item.messageArgs[3]
+					? `${colorSelector} {color: ${color} !important;}`
+					: '';
+			const bgRule =
+				background !== item.messageArgs[4]
+					? `${bgSelector} {background-color: ${background} !important;}`
+					: '';
+
+			const css = `${colorRule}${bgRule}`;
+
+			return isValidCSS(css) ? css : '';
 		} catch (e) {
 			console.warn('Failed to convert XPath to CSS selector', e);
 			return '';
