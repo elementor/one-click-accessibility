@@ -31,6 +31,10 @@ export const ColorContrastLayout = () => {
 				wcag_level: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 				category_name: BLOCKS.colorContrast,
 				current_contrast_ratio: item.messageArgs[0],
+				scenario:
+					item.messageArgs[3] && item.messageArgs[4]
+						? 'regular_flow'
+						: 'gradient',
 			});
 		}
 	}, [current]);
