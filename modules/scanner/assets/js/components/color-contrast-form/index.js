@@ -65,14 +65,7 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 	return (
 		<StyledBox>
 			<Divider />
-			{isPossibleToResolve ? (
-				<Typography variant="body2" as="p">
-					{__(
-						'Adjust the text or background lightness until the indicator shows an accessible level.',
-						'pojo-accessibility',
-					)}
-				</Typography>
-			) : (
+			{!isPossibleToResolve ? (
 				<>
 					<Box>
 						<Typography variant="subtitle2" as="h5" sx={{ mb: 1 }}>
@@ -101,25 +94,29 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 						</Typography>
 					</Box>
 				</>
-			)}
-
-			{isPossibleToResolve && (
-				<ColorSet
-					title={__('Text', 'pojo-accessibility')}
-					color={color}
-					initialColor={item.messageArgs[3]}
-					setColor={changeColor}
-					area="color"
-				/>
-			)}
-			{isPossibleToResolve && (
-				<ColorSet
-					title={__('Background', 'pojo-accessibility')}
-					color={background}
-					initialColor={item.messageArgs[4]}
-					setColor={changeBackground}
-					area="background"
-				/>
+			) : (
+				<>
+					<Typography variant="body2" as="p">
+						{__(
+							'Adjust the text or background lightness until the indicator shows an accessible level.',
+							'pojo-accessibility',
+						)}
+					</Typography>
+					<ColorSet
+						title={__('Text', 'pojo-accessibility')}
+						color={color}
+						initialColor={item.messageArgs[3]}
+						setColor={changeColor}
+						area="color"
+					/>
+					<ColorSet
+						title={__('Background', 'pojo-accessibility')}
+						color={background}
+						initialColor={item.messageArgs[4]}
+						setColor={changeBackground}
+						area="background"
+					/>
+				</>
 			)}
 
 			{backgroundChanged && (
