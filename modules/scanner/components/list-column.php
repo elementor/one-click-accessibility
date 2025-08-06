@@ -3,6 +3,7 @@
 namespace EA11y\Modules\Scanner\Components;
 
 use EA11y\Classes\Database\Exceptions\Missing_Table_Exception;
+use EA11y\Modules\Remediation\Classes\Utils;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Scanner\Database\Scan_Entry;
@@ -36,7 +37,10 @@ class List_Column {
 
 	public function render_accessibility_column_post( $column, $post_id ) {
 		if ( 'accessibility_status' === $column ) {
-			$url = get_permalink( $post_id );
+			$post = get_post( $post_id );
+			$url = in_array( $post->post_status, [ 'draft', 'pending', 'auto-draft' ], true )
+				? Utils::build_draft_url( $post )
+				: get_permalink( $post_id );
 			$this->render_column_accessibility( $url );
 		}
 	}
@@ -88,15 +92,15 @@ class List_Column {
 		} else {
 			if ( $has_scan_data ) {
 				$issues_left = $violation - $resolved;
-				$button_text = sprintf( 
+				$button_text = sprintf(
 					/* translators: %d: number of issues to fix */
-					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ), 
-					$issues_left 
+					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ),
+					$issues_left
 				);
-				$tooltip_text = sprintf( 
+				$tooltip_text = sprintf(
 					/* translators: %d: number of issues to fix */
-					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ), 
-					$issues_left 
+					_n( 'Fix %d issue', 'Fix %d issues', $issues_left, 'pojo-accessibility' ),
+					$issues_left
 				);
 				$button_class = 'button ea11y-accessibility-button';
 				$button_style = 'color: #B91C1C; border-color: #B91C1C;';
@@ -139,7 +143,7 @@ class List_Column {
 	 */
 	public function enqueue_assets() {
 		$screen = get_current_screen();
-		
+
 		// Only load on edit.php pages (post list tables) and edit-tags.php (taxonomy list tables)
 		if ( ! $screen || ! in_array( $screen->base, [ 'edit', 'edit-tags' ], true ) ) {
 			return;
