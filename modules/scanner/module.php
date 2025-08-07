@@ -103,6 +103,7 @@ class Module extends Module_Base {
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
 				'pluginEnv' => Settings_Module::get_plugin_env(),
+				'pluginVersion' => EA11Y_VERSION,
 				'isConnected' => Connect::is_connected(),
 				'isRTL' => is_rtl(),
 			]
@@ -119,10 +120,12 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
-                return self::has_required_permissions() &&
-                        self::is_connected_and_enabled();
+		return (
+			self::has_required_permissions() &&
+			self::is_connected_and_enabled()
+		);
 	}
-         
+
 	private static function has_required_permissions(): bool {
 		return is_user_logged_in() && current_user_can( 'manage_options' );
 	}

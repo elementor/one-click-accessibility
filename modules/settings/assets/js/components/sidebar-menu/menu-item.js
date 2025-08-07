@@ -97,7 +97,7 @@ const MenuItem = ({ keyName, item }) => {
 
 					{
 						/* Show infotip */
-						openSidebar && item?.infotip
+						openSidebar && !showProIcon(item) && item?.infotip
 					}
 
 					{item?.children && (

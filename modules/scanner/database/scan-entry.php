@@ -38,69 +38,69 @@ class Scan_Entry extends Entry {
 		return isset( $entries[0] ) ? json_decode( $entries[0]->summary, true ) : [];
 	}
 
-    /**
-     *  get_scans
-     * @param string $url
-     * @param bool $latest
-     *
-     * @return array
-     */
-    public static function get_scans( string $url, int $limit = 10 ) : array {
-        $where = [
-            [
-                'column' => Scans_Table::URL,
-                'value' => $url,
-                'operator' => '=',
-            ],
-        ];
+	/**
+	 *  get_scans
+	 * @param string $url
+	 * @param bool $latest
+	 *
+	 * @return array
+	 */
+	public static function get_scans( string $url, int $limit = 10 ) : array {
+		$where = [
+			[
+				'column' => Scans_Table::URL,
+				'value' => $url,
+				'operator' => '=',
+			],
+		];
 
-        $entries = Scans_Table::select( '*', $where, $limit, null, '', ['created_at' => 'desc'] );
+		$entries = Scans_Table::select( '*', $where, $limit, null, '', [ 'created_at' => 'desc' ] );
 
-        return array_map( function ( $entry ) {
-            $entry->summary = json_decode( $entry->summary, true );
+		return array_map( function ( $entry ) {
+			$entry->summary = json_decode( $entry->summary, true );
 
-            return $entry;
-        }, $entries);
-    }
+			return $entry;
+		}, $entries);
+	}
 
-    public static function get_by_id( int $id ) {
-        $where = [
-            [
-                'column' => Scans_Table::ID,
-                'value' => $id,
-                'operator' => '=',
-            ],
-        ];
+	public static function get_by_id( int $id ) {
+		$where = [
+			[
+				'column' => Scans_Table::ID,
+				'value' => $id,
+				'operator' => '=',
+			],
+		];
 
-        $entries = Scans_Table::select( '*', $where, 1 );
+		$entries = Scans_Table::select( '*', $where, 1 );
 
-        if (isset($entries[0])) {
-            $entries[0]->summary = json_decode( $entries[0]->summary, true );
+		if ( isset( $entries[0] ) ) {
+			$entries[0]->summary = json_decode( $entries[0]->summary, true );
 
-            return $entries[0];
-        }
+			return $entries[0];
+		}
 
-        return null;
-    }
+		return null;
+	}
 
-    /**
-     * @param string $by
-     * @param string $by_value
-     * @param string $content
-     *
-     * @return void
-     */
-    public static function update_scan_summary( string $by, string $by_value, string $content ): void {
-        $where = [
-            $by => $by_value,
-        ];
+	/**
+	 * @param string $by
+	 * @param string $by_value
+	 * @param string $content
+	 *
+	 * @return void
+	 */
+	public static function update_scan_summary( string $by, string $by_value, string $content ): void {
+		$where = [
+			$by => $by_value,
+		];
 
-        $data = [
-            Scans_Table::SUMMARY => $content,
-        ];
+		$data = [
+			Scans_Table::SUMMARY => $content,
+		];
 
-        Scans_Table::update( $data, $where );
-    }
+		Scans_Table::update( $data, $where );
+	}
 
 	/**
 	 * Create

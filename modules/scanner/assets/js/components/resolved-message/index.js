@@ -40,15 +40,16 @@ export const ResolvedMessage = () => {
 			</Typography>
 
 			<ResolvedButtonsBox>
-				<Button
-					size="small"
-					variant="outlined"
-					color="secondary"
-					onClick={showIssues}
-					disabled={!remediations?.length}
-				>
-					{__('Review fixes', 'pojo-accessibility')}
-				</Button>
+				{remediations?.length > 0 && (
+					<Button
+						size="small"
+						variant="outlined"
+						color="secondary"
+						onClick={showIssues}
+					>
+						{__('Review fixes', 'pojo-accessibility')}
+					</Button>
+				)}
 
 				<Button
 					href={window?.ea11yScannerData?.dashboardUrl}

@@ -17,7 +17,8 @@ import {
 	ManualLayout,
 	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
-import { StyledPaper } from '@ea11y-apps/scanner/styles/app.styles';
+import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
+import { AppContainer } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect } from '@wordpress/element';
 
@@ -30,6 +31,7 @@ const App = () => {
 		openedBlock,
 		isManage,
 		isError,
+		quotaExceeded,
 		loading,
 	} = useScannerWizardContext();
 
@@ -51,20 +53,20 @@ const App = () => {
 	}, [showResolvedMessage]);
 
 	useEffect(() => {
-		if (!PAGE_QUOTA_LIMIT) {
+		if (!PAGE_QUOTA_LIMIT || quotaExceeded) {
 			mixpanelService.sendEvent(mixpanelEvents.upgradeSuggestionViewed, {
 				current_plan: window.ea11yScannerData?.planData?.plan?.name,
 				action_trigger: 'scan_triggered',
 				feature_locked: 'multi-page scan',
 			});
 		}
-	}, [PAGE_QUOTA_LIMIT]);
+	}, [PAGE_QUOTA_LIMIT, quotaExceeded]);
 
 	const getBlock = () => {
 		if (!window.ea11yScannerData?.isConnected) {
 			return <NotConnectedMessage />;
 		}
-		if (!PAGE_QUOTA_LIMIT) {
+		if (!PAGE_QUOTA_LIMIT || quotaExceeded) {
 			return <QuotaMessage />;
 		}
 		if (isError) {
@@ -81,21 +83,23 @@ const App = () => {
 				return <ManageMainLayout />;
 			case BLOCKS.altText:
 				return <AltTextLayout />;
+			case BLOCKS.colorContrast:
+				return <ColorContrastLayout />;
 			default:
 				return isManage ? <RemediationLayout /> : <ManualLayout />;
 		}
 	};
 
 	return (
-		<StyledPaper>
+		<AppContainer>
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
 
-				{showResolvedMessage ? <ResolvedMessage /> : getBlock()}
+				{showResolvedMessage && !isManage ? <ResolvedMessage /> : getBlock()}
 
 				<Notifications message={notificationMessage} type={notificationType} />
 			</ErrorBoundary>
-		</StyledPaper>
+		</AppContainer>
 	);
 };
 

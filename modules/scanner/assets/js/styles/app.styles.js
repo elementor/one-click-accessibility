@@ -8,12 +8,17 @@ import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { ColorPickerStyles } from '@ea11y-apps/scanner/styles/react-colourful.styles';
 
-export const StyledPaper = styled(Paper)`
+export const AppContainer = styled(Paper)`
 	position: relative;
 	width: 425px;
 	min-height: 100vh;
 	height: fit-content;
+	pointer-events: auto;
+
+	// Include color picker styles to styled components for prevent problem with cache
+	${ColorPickerStyles}
 `;
 
 export const HeaderCard = styled(Card)`
@@ -120,6 +125,39 @@ export const StyledButton = styled(Button)`
 	}
 `;
 
+export const ManageButtonWrap = styled(Box)`
+	display: flex;
+	align-items: center;
+	gap: ${({ theme }) => theme.spacing(1.5)};
+	border: 1px solid ${({ theme }) => theme.palette.action.focus};
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+	padding-right: ${({ theme }) => theme.spacing(1.5)};
+	&:hover,
+	&:focus .MuiPaper-root,
+	&:focus-visible .MuiPaper-root {
+		background-color: ${({ theme, disabled }) =>
+			!disabled ? theme.palette.action.hover : 'transparent'};
+	}
+`;
+
+export const ActionButton = styled(Button)`
+	font-weight: 400;
+	justify-content: start;
+	padding: ${({ theme }) => theme.spacing(1.5)};
+
+	&:hover,
+	&:focus,
+	&:focus-visible {
+		background-color: transparent;
+	}
+`;
+
+export const ManageButtonGroup = styled(Box)`
+	display: flex;
+	align-items: center;
+	gap: ${({ theme }) => theme.spacing(0.5)};
+`;
+
 export const UpgradeContentContainer = styled(Box)`
 	display: flex;
 	justify-content: space-between;
@@ -141,4 +179,10 @@ export const StyledBlockButtonsBox = styled(Box)`
 
 export const DisabledMenuItemText = styled(MenuItemText)`
 	color: ${({ theme }) => theme.palette.text.disabled};
+`;
+
+export const StyledBox = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	gap: ${({ theme }) => theme.spacing(3)};
 `;

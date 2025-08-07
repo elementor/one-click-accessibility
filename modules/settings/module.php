@@ -94,7 +94,7 @@ class Module extends Module_Base {
 			EA11Y_VERSION
 		);
 
-		Utils\Assets::enqueue_app_assets( 'admin' );
+		Utils\Assets::enqueue_app_assets( 'admin', true, [ 'wp-util', 'wp-block-editor', 'wp-components' ] );
 
 		wp_localize_script(
 			'admin',
@@ -104,6 +104,7 @@ class Module extends Module_Base {
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
 				'pluginEnv' => self::get_plugin_env(),
+				'pluginVersion' => EA11Y_VERSION,
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
 				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
@@ -526,6 +527,17 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * Hide all admin notices on the settings page
+	 */
+	public function hide_admin_notices() {
+		$current_screen = get_current_screen();
+		if ( $current_screen && $current_screen->id === self::SETTING_PAGE_SLUG ) {
+			remove_all_actions( 'admin_notices' );
+			remove_all_actions( 'all_admin_notices' );
+		}
+	}
+
+	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
@@ -538,7 +550,9 @@ class Module extends Module_Base {
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
+		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
 		// Register notices
-		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		// Removed visits quota
+		// add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 	}
 }

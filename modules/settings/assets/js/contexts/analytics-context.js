@@ -1,4 +1,5 @@
 import { useStorage } from '@ea11y/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import {
 	createContext,
 	useContext,
@@ -19,6 +20,8 @@ export const AnalyticsContextProvider = ({ children }) => {
 		dates: [],
 		elements: [],
 	});
+
+	const [showConfirmPopup, setShowConfirmPopup] = useState(false);
 
 	/**
 	 * Get initial logs list
@@ -41,6 +44,19 @@ export const AnalyticsContextProvider = ({ children }) => {
 		setPeriod(30);
 	};
 
+	const handleAnalyticsToggle = () => {
+		if (isAnalyticsEnabled) {
+			updateIsAnalyticsEnabled();
+		} else {
+			setShowConfirmPopup(true);
+		}
+
+		mixpanelService.sendEvent(mixpanelEvents.toggleClicked, {
+			state: isAnalyticsEnabled ? 'off' : 'on',
+			type: 'Enable analytics',
+		});
+	};
+
 	return (
 		<AnalyticsContext.Provider
 			value={{
@@ -49,10 +65,13 @@ export const AnalyticsContextProvider = ({ children }) => {
 				isProVersion,
 				setIsProVersion,
 				updateIsAnalyticsEnabled,
+				handleAnalyticsToggle,
 				period,
 				setPeriod,
 				stats,
 				loading,
+				showConfirmPopup,
+				setShowConfirmPopup,
 			}}
 		>
 			{children}

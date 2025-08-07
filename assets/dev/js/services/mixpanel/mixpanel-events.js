@@ -46,6 +46,10 @@ export const mixpanelEvents = {
 	applyFixButtonClicked: 'apply_fix_button_clicked',
 	copySnippetClicked: 'copy_snippet_clicked',
 	editSnippetClicked: 'edit_snippet_clicked',
+	contrastColorChanged: 'contrast_color_changed',
+	contrastResetClicked: 'contrast_reset_clicked',
+	backgroundAdaptorTriggered: 'background_adaptor_triggered',
+	backgroundAdaptorChanged: 'background_adaptor_changed',
 
 	// Accessibility assistant dashboard
 	assistantDashboardHistoryLogsButtonClicked: 'history_logs_button_clicked',

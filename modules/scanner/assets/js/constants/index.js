@@ -7,6 +7,11 @@ export const MANAGE_URL_PARAM = 'open-ea11y-manage';
 export const ROOT_ID = 'ea11y-scanner-wizard-widget';
 
 export const CURRENT_ELEMENT_CLASS = 'ea11y-scanner-current-element';
+export const COLOR_ELEMENT_CLASS = 'ea11y-scanner-color-element';
+export const BACKGROUND_ELEMENT_CLASS = 'ea11y-scanner-background-element';
+export const COLOR_CONTRAST_SELECTORS_COUNT = 5;
+export const DATA_INITIAL_BG = 'data-initial-bg';
+export const DATA_INITIAL_COLOR = 'data-initial-color';
 
 export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
 export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';
@@ -28,7 +33,7 @@ export const PAGE_PER_PLAN =
 export const PAGE_QUOTA_LIMIT =
 	window.ea11yScannerData?.planData?.scannedPages?.allowed -
 		window.ea11yScannerData?.planData?.scannedPages?.used >
-	0;
+		0 || !window?.ea11yScannerData?.pageData?.unregistered;
 
 export const BLOCKS = {
 	main: 'main',
@@ -63,7 +68,7 @@ export const BLOCK_TITLES = {
 	),
 	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
 	tables: __('Tables', 'pojo-accessibility'),
-	colorContrast: __('Color Contrast & Style', 'pojo-accessibility'),
+	colorContrast: __('Color contrast', 'pojo-accessibility'),
 	other: __('Other Accessibility Issues', 'pojo-accessibility'),
 };
 
@@ -93,7 +98,7 @@ export const BLOCK_INFO = {
 		'pojo-accessibility',
 	),
 	colorContrast: __(
-		'Choose colors with strong contrast to ensure your text is readable for everyone.',
+		'Text and background lightness can hinder readability. Depending on text size, you may need to adjust the contrast level to improve accessibility.',
 		'pojo-accessibility',
 	),
 	other: __(

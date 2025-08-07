@@ -68,8 +68,9 @@ class Items extends Route_Base {
 
 			$url = esc_url( $request->get_param( 'url' ) );
 			$active = filter_var( $request->get_param( 'active' ), FILTER_VALIDATE_BOOLEAN );
+			$group = sanitize_text_field( $request->get_param( 'group' ) );
 
-			Remediation_Entry::update_remediations_status( Remediation_Table::URL, $url, $active );
+			Remediation_Entry::update_remediations_status( Remediation_Table::URL, $url, $active, $group );
 			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [
@@ -97,7 +98,8 @@ class Items extends Route_Base {
 			}
 
 			$url = esc_url( $request->get_param( 'url' ) );
-			Remediation_Entry::remove( Remediation_Table::URL, $url );
+			$group = sanitize_text_field( $request->get_param( 'group' ) );
+			Remediation_Entry::remove( Remediation_Table::URL, $url, $group );
 			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [

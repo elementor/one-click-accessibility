@@ -112,7 +112,7 @@ export const DropdownMenu = () => {
 								<SettingsIcon color="disabled" />
 							</MenuItemIcon>
 							<DisabledMenuItemText>
-								{__('Manage AI fixes', 'pojo-accessibility')}
+								{__('Manage fixes', 'pojo-accessibility')}
 							</DisabledMenuItemText>
 						</MenuItem>
 					</Tooltip>
@@ -127,7 +127,7 @@ export const DropdownMenu = () => {
 							<SettingsIcon />
 						</MenuItemIcon>
 						<MenuItemText>
-							{__('Manage AI fixes', 'pojo-accessibility')}
+							{__('Manage fixes', 'pojo-accessibility')}
 						</MenuItemText>
 					</MenuItem>
 				)}

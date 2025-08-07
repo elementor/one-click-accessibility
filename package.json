@@ -3,7 +3,7 @@
 	"slug": "pojo-accessibility",
 	"homepage": "http://pojo.me/",
 	"description": "",
-	"version": "3.5.2",
+	"version": "3.6.0",
 	"scripts": {
 		"build": "wp-scripts build",
 		"start": "wp-scripts start",
@@ -41,7 +41,7 @@
 	"dependencies": {
 		"@elementor/design-tokens": "^1.1.4",
 		"@elementor/icons": "^1.46.0",
-		"@elementor/ui": "^1.36.0",
+		"@elementor/ui": "^1.36.5",
 		"@emotion/cache": "^11.14.0",
 		"@emotion/react": "^11.14.0",
 		"@mui/x-charts": "^7.27.0",
@@ -58,6 +58,7 @@
 		"@wordpress/media-utils": "^5.22.0",
 		"@wordpress/url": "^4.10.0",
 		"clipboard-copy": "^4.0.1",
+		"get-xpath": "^3.3.0",
 		"html-react-parser": "^5.2.2",
 		"husky": "^9.1.6",
 		"mixpanel-browser": "^2.58.0",

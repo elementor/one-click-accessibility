@@ -30,12 +30,116 @@ class Remediation_Runner {
 				'ATTRIBUTE' => 'Attribute',
 				'ELEMENT'   => 'Element',
 				'REPLACE' => 'Replace',
+				'STYLES' => 'Styles',
 			] );
 		}
 		return $classes;
 	}
 
+	/**
+	 * Detect AJAX requests that go through template_redirect hook
+	 *
+	 * Only detects frontend AJAX requests that would interfere with template_redirect,
+	 * not admin-ajax.php requests which bypass the main query cycle.
+	 *
+	 * @return bool True if a template_redirect-affecting AJAX request is detected
+	 */
+	private function is_template_redirect_ajax_request(): bool {
+		global $wp_query;
+
+		// Skip admin-ajax.php requests - they don't go through template_redirect
+		$request_uri = $_SERVER['REQUEST_URI'] ?? '';
+		if ( strpos( $request_uri, '/wp-admin/admin-ajax.php' ) !== false ) {
+			return false;
+		}
+
+		// WooCommerce frontend AJAX (wc-ajax parameter)
+		// These requests go through the main query cycle and template_redirect
+		if ( ! empty( $_REQUEST['wc-ajax'] ) ) {
+			return true;
+		}
+
+		// Check if WP_Query has wc-ajax set (WooCommerce frontend AJAX)
+		if ( is_object( $wp_query ) && $wp_query->get( 'wc-ajax' ) ) {
+			return true;
+		}
+
+		// WooCommerce AJAX constant for frontend requests
+		if ( defined( 'WC_DOING_AJAX' ) && constant( 'WC_DOING_AJAX' ) ) {
+			return true;
+		}
+
+		// REST API requests that go through template_redirect
+		if ( defined( 'REST_REQUEST' ) && constant( 'REST_REQUEST' ) ) {
+			return true;
+		}
+
+		// Check URL patterns for REST API (these go through template_redirect)
+		if ( strpos( $request_uri, '/wp-json/' ) !== false ||
+			 strpos( $request_uri, '?rest_route=' ) !== false ) {
+			return true;
+		}
+
+		// WooCommerce Store API (frontend cart/checkout AJAX)
+		if ( strpos( $request_uri, '/wc/store/' ) !== false ) {
+			return true;
+		}
+
+		// Elementor frontend AJAX/preview that affects template loading
+		if ( ! empty( $_REQUEST['elementor-preview'] ) ||
+			 ! empty( $_GET['elementor-preview'] ) ) {
+			return true;
+		}
+
+		// Check for AJAX header on frontend requests (not admin)
+		// Only if it's not an admin request and has AJAX header
+		if ( ! is_admin() &&
+			 ! empty( $_SERVER['HTTP_X_REQUESTED_WITH'] ) &&
+			 strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) === 'xmlhttprequest' ) {
+
+			// Additional check: make sure it's not a heartbeat or other admin request
+			$action = $_REQUEST['action'] ?? '';
+			if ( $action !== 'heartbeat' && strpos( $action, 'wp_ajax_' ) !== 0 ) {
+				return true;
+			}
+		}
+
+		// Custom AJAX parameters that indicate frontend AJAX
+		$frontend_ajax_params = [
+			'ajax_request',
+			'is_ajax',
+			'doing_ajax'
+		];
+
+		foreach ( $frontend_ajax_params as $param ) {
+			if ( ! empty( $_REQUEST[ $param ] ) ) {
+				return true;
+			}
+		}
+
+		// Query string patterns for frontend AJAX
+		$query_string = $_SERVER['QUERY_STRING'] ?? '';
+		$frontend_ajax_patterns = [
+			'ajax=true',
+			'is_ajax=1',
+			'ajax_request=1'
+		];
+
+		foreach ( $frontend_ajax_patterns as $pattern ) {
+			if ( strpos( $query_string, $pattern ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private function should_run_remediation(): bool {
+		// Skip remediation during template_redirect AJAX requests
+		if ( $this->is_template_redirect_ajax_request() ) {
+			return false;
+		}
+
 		try {
 			$current_url = Utils::get_current_page_url();
 			$this->page = new Page_Entry([

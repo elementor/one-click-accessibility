@@ -31,6 +31,7 @@ export const ScannerWizardContext = createContext({
 	openedBlock: '',
 	loading: null,
 	isError: false,
+	quotaExceeded: false,
 	isManage: false,
 	isChanged: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
@@ -71,6 +72,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
+	const [quotaExceeded, setQuotaExceeded] = useState(false);
 	const [isManage, setIsManage] = useState(false);
 	const [isManageChanged, setIsManageChanged] = useState(false);
 	const [altTextData, setAltTextData] = useState([]);
@@ -117,13 +119,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				window.ea11yScannerData?.pageData?.url,
 			);
 
-			const filteredRemediations = items.data.filter(
-				(remediation) => remediation.group !== BLOCKS.altText,
-			);
+			const sorted = sortRemediation(items.data);
 
-			const sorted = sortRemediation(filteredRemediations);
-
-			setRemediations(filteredRemediations);
+			setRemediations(items.data);
 			setSortedRemediation(sorted);
 		} catch (error) {
 			setIsError(true);
@@ -151,7 +149,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
 	const violation =
 		results?.summary?.counts?.violation >= 0
-			? Math.max(initialViolations, results?.summary?.counts?.violation)
+			? results?.summary?.counts?.violation
 			: null;
 
 	const registerPage = async (data, sorted) => {
@@ -172,6 +170,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					: 0,
 			);
 		} catch (e) {
+			if (e?.message === 'Quota exceeded') {
+				setQuotaExceeded(true);
+			}
 			setIsError(true);
 		}
 	};
@@ -201,7 +202,10 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			const url = new URL(window.location.href);
 			const data = await window.ace.check(document);
 			const filtered = data.results.filter(
-				(item) => item.level === 'violation',
+				(item) =>
+					item.level === 'violation' ||
+					(item.ruleId === 'text_contrast_sufficient' &&
+						item.level === 'potentialViolation'),
 			);
 			const sorted = sortViolations(filtered);
 
@@ -299,6 +303,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				openedBlock,
 				loading,
 				isError,
+				quotaExceeded,
 				isManage,
 				isChanged,
 				sortedViolations,

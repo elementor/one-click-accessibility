@@ -75,6 +75,12 @@ class Register extends Route_Base {
 				$page->save();
 			}
 
+			if ( is_wp_error( $response ) && str_contains( $response->get_error_message(), 'Quota exceeded' ) ) {
+				return $this->respond_error_json( [
+					'message' => 'Quota exceeded',
+				] );
+			}
+
 			if ( ! $page->exists() || is_wp_error( $response ) ) {
 				return $this->respond_error_json( [
 					'message' => 'Failed to register page',

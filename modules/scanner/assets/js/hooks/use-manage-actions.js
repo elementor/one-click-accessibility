@@ -19,12 +19,13 @@ export const useManageActions = (current = null) => {
 
 	const [activeRequest, setActiveRequest] = useState(false);
 
-	const updateAllRemediationForPage = (active) => async () => {
+	const updateAllRemediationForPage = (active, group) => async () => {
 		try {
 			setLoading(true);
 			await APIScanner.updateRemediationStatusForPage({
 				url: window?.ea11yScannerData?.pageData?.url,
 				active,
+				group,
 			});
 			setIsManageChanged(true);
 			await updateRemediationList();
@@ -32,7 +33,10 @@ export const useManageActions = (current = null) => {
 				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
 				{
 					action_type: active ? 'enable_all' : 'disable_all',
-					remediations_amount: remediations?.length,
+					remediations_amount: group
+						? sortedRemediation[group]
+						: remediations?.length,
+					category: group || 'all',
 				},
 			);
 		} catch (e) {
@@ -43,24 +47,32 @@ export const useManageActions = (current = null) => {
 		}
 	};
 
-	const deleteAllRemediationForPage = async () => {
+	const deleteAllRemediationForPage = async (group) => {
 		try {
 			setLoading(true);
 			await APIScanner.deleteRemediationForPage({
 				url: window?.ea11yScannerData?.pageData?.url,
+				group,
 			});
 
 			await mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_all',
-				remediations_amount: remediations?.length,
+				remediations_amount: group
+					? sortedRemediation[group]
+					: remediations?.length,
+				category: group || 'all',
 			});
 
-			const url = new URL(window.location.href);
-			url.searchParams.delete('open-ea11y-assistant');
-			url.searchParams.delete('open-ea11y-assistant-src');
-			url.searchParams.append('open-ea11y-assistant', '1');
+			if (group) {
+				await updateRemediationList();
+			} else {
+				const url = new URL(window.location.href);
+				url.searchParams.delete('open-ea11y-assistant');
+				url.searchParams.delete('open-ea11y-assistant-src');
+				url.searchParams.append('open-ea11y-assistant', '1');
 
-			window.location.assign(url);
+				window.location.assign(url);
+			}
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));

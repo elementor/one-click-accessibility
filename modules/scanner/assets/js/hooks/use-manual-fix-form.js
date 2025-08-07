@@ -104,6 +104,7 @@ export const useManualFixForm = ({ item, current }) => {
 				snippet_content: replace,
 				category_name: openedBlock,
 				source: 'assistant',
+				page_url: window.ea11yScannerData?.pageData?.url,
 			});
 
 			void updateRemediationList();

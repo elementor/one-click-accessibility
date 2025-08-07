@@ -1,6 +1,6 @@
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { AltTextForm } from '@ea11y-apps/scanner/components/alt-text-form';
-import { AltTextNavigation } from '@ea11y-apps/scanner/components/alt-text-navigation';
+import { FormNavigation } from '@ea11y-apps/scanner/components/form-navigation';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
@@ -47,7 +47,7 @@ export const AltTextLayout = () => {
 				current={current}
 				setCurrent={changeNavigation}
 			/>
-			<AltTextNavigation
+			<FormNavigation
 				total={sortedViolations.altText.length}
 				current={current}
 				setCurrent={changeNavigation}

@@ -54,13 +54,21 @@ export const StyledStatementPaper = styled(Paper)`
 `;
 
 export const StyledStatementContainer = styled(Container)`
-	overflow: auto;
-	max-height: 100%;
-	padding: 32px;
 	display: flex;
 	flex-direction: column;
 	align-items: start;
-	gap: 16px;
+	gap: ${({ theme }) => theme.spacing(2)};
+	overflow: auto;
+	max-height: 100%;
+	max-width: 1200px;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+
+	@media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+		padding-left: 0;
+		padding-right: 0;
+	}
 `;
 
 export const StyledCardContent = styled(CardContent)`

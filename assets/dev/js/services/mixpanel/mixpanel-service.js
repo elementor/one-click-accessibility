@@ -17,6 +17,8 @@ const init = async () => {
 	}
 
 	const pluginEnv = ea11ySettingsData?.pluginEnv || ea11yScannerData?.pluginEnv;
+	const pluginVersion =
+		ea11ySettingsData?.pluginVersion || ea11yScannerData?.pluginVersion;
 
 	await mixpanel.init(MIXPANEL_TOKEN, {
 		debug: pluginEnv === 'dev',
@@ -27,6 +29,7 @@ const init = async () => {
 	mixpanel.register({
 		productName: 'app_access',
 		appType: 'Apps',
+		version: pluginVersion,
 		environment: pluginEnv,
 		is_trial: Boolean(plan?.name?.toLowerCase().includes('free')),
 		plan_type: plan?.name,
@@ -41,6 +44,7 @@ const init = async () => {
 		$subscription_type: plan?.name,
 		$subscription_id: plan?.subscription_id,
 		$subscription_status: plan?.status,
+		$scanned_urls: `${planData?.scannedPages?.used || 0}/${planData?.scannedPages?.allowed || 0}`,
 	};
 
 	mixpanel.people?.set_once(userData);
