@@ -43,7 +43,6 @@ export const BlockButton = ({ title, count, block }) => {
 						{title}
 					</Typography>
 
-
 					{!resolved && (
 						<Chip label={count} color="error" variant="standard" size="tiny" />
 					)}
