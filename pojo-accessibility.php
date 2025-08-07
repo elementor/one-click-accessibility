@@ -15,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Legacy
 define( 'POJO_A11Y_CUSTOMIZER_OPTIONS', 'pojo_a11y_customizer_options' );
-
 define( 'EA11Y_VERSION', '3.6.0' );
 define( 'EA11Y_MAIN_FILE', __FILE__ );
 define( 'EA11Y_BASE', plugin_basename( EA11Y_MAIN_FILE ) );

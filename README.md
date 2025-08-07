@@ -226,6 +226,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Fix: Added WPML compatibility
 * Fix: WooCommerce AJAX conflict
 
+
 ### 3.5.2 - 2025-07-28
 
 * Tweak: Improved performance by enqueuing Assistant only when logged in
