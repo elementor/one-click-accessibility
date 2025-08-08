@@ -7,6 +7,7 @@ use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Core\Components\{Notices, Svg};
 use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
+use EA11y\Modules\Settings\Banners\Onboarding_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
 use Exception;
@@ -44,6 +45,10 @@ class Module extends Module_Base {
 
 		<div id="ea11y-app"></div>
 		<?php
+	}
+
+	public function admin_banners() {
+		Onboarding_Banner::get_banner( 'https://go.elementor.com/acc-b-day-banner' );
 	}
 
 	public function register_page() : void {
@@ -551,8 +556,9 @@ class Module extends Module_Base {
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
 		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
+		
 		// Register notices
-		// Removed visits quota
-		// add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		//add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
 	}
 }
