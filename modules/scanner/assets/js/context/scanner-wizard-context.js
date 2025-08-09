@@ -145,8 +145,6 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		setOpenIndex(null);
 	};
 
-	const initialViolations =
-		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
 	const violation =
 		results?.summary?.counts?.violation >= 0
 			? results?.summary?.counts?.violation
@@ -160,15 +158,11 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					data.summary,
 				);
 			}
+
 			setResults(data);
 			setSortedViolations(sorted);
 			setAltTextData([]);
 			setManualData(structuredClone(MANUAL_GROUPS));
-			setResolved(
-				initialViolations >= data.summary?.counts?.issuesResolved
-					? data.summary?.counts?.issuesResolved
-					: 0,
-			);
 		} catch (e) {
 			if (e?.message === 'Quota exceeded') {
 				setQuotaExceeded(true);

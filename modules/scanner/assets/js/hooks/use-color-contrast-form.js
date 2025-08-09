@@ -28,6 +28,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		setOpenedBlock,
 		setManualData,
 		updateRemediationList,
+		currentScanId,
 	} = useScannerWizardContext();
 
 	const [loading, setLoading] = useState(false);
@@ -244,6 +245,8 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				rule: item.ruleId,
 				group: BLOCKS.colorContrast,
 			});
+
+			await APIScanner.resolveIssue(currentScanId);
 
 			updateData({ resolved: true });
 
