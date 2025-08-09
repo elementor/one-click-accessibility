@@ -1,11 +1,22 @@
 <?php
 namespace EA11y\Modules\Settings;
 
-use EA11y\Classes\{Logger, Module_Base, Utils};
-use EA11y\Modules\Connect\Classes\{Config, Data};
+use EA11y\Classes\{
+	Logger,
+	Module_Base,
+	Utils
+};
+use EA11y\Modules\Connect\Classes\{
+	Config,
+	Data,
+	Exceptions\Service_Exception
+};
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
-use EA11y\Modules\Core\Components\{Notices, Svg};
+use EA11y\Modules\Core\Components\{
+	Notices,
+	Svg
+};
 use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
@@ -200,7 +211,6 @@ class Module extends Module_Base {
 	 * @return void
 	 */
 	public static function refresh_plan_data() : void {
-
 		if ( ! Connect::is_connected() ) {
 				return;
 		}
@@ -219,18 +229,23 @@ class Module extends Module_Base {
 			return;
 		}
 
-		$response = Utils::get_api_client()->make_request(
-			'GET',
-			'site/info',
-			[ 'api_key' => $plan_data->public_api_key ]
-		);
+		try {
+			$response = Utils::get_api_client()->make_request(
+				'GET',
+				'site/info',
+				[ 'api_key' => $plan_data->public_api_key ]
+			);
 
-		if ( ! is_wp_error( $response ) ) {
-			Settings::set( Settings::PLAN_DATA, $response );
-			Settings::set( Settings::IS_VALID_PLAN_DATA, true );
-			self::set_plan_data_refresh_transient();
-		} else {
-			Logger::error( esc_html( $response->get_error_message() ) );
+			if ( ! is_wp_error( $response ) ) {
+				Settings::set( Settings::PLAN_DATA, $response );
+				Settings::set( Settings::IS_VALID_PLAN_DATA, true );
+				self::set_plan_data_refresh_transient();
+			} else {
+				Logger::error( esc_html( $response->get_error_message() ) );
+				Settings::set( Settings::IS_VALID_PLAN_DATA, false );
+			}
+		} catch ( Service_Exception $se ) {
+			Logger::error( esc_html( $se->getMessage() ) );
 			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
 		}
 	}
