@@ -50,7 +50,7 @@ class Remediation_Entry extends Entry {
 	 * @param string $by_value
 	 * @param string|null $group
 	 */
-	public static function remove( string $by, string $by_value, string $group = null ) {
+	public static function remove( string $by, string $by_value, ?string $group = null ) {
 		$where = $group ? [
 			$by => $by_value,
 			'group' => $group,
@@ -113,7 +113,7 @@ class Remediation_Entry extends Entry {
 	 *
 	 * @return void
 	 */
-	public static function update_remediations_status( string $by, string $by_value, bool $status, string $group = null ): void {
+	public static function update_remediations_status( string $by, string $by_value, bool $status, ?string $group = null ): void {
 		$where = $group ? [
 			$by => $by_value,
 			'group' => $group,
