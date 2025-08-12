@@ -14,6 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Cache_Cleaner {
 	const EA11Y_CLEAR_POST_CACHE_HOOK = 'ea11y_clear_post_cache';
 
+	public static function clean_ally_cache() : void {
+		Page_Entry::clear_all_cache();
+	}
+
 	public function add_litespeed_clean_hook() {
 		add_filter( 'litespeed_purge_post_events', function ( $events ) {
 			$events[] = self::EA11Y_CLEAR_POST_CACHE_HOOK;
@@ -56,6 +60,8 @@ class Cache_Cleaner {
 
 	public function __construct() {
 		$this->add_litespeed_clean_hook();
+		add_action( 'after_rocket_clean_domain', [ self::class, 'clean_ally_cache' ] );
+
 		add_action( 'created_term', [ $this, 'clean_taxonomy_cache' ], 10, 3 );
 		add_action( 'edited_term', [ $this, 'clean_taxonomy_cache' ], 10, 3 );
 		add_action( 'save_post', [ $this, 'clean_post_cache' ], 10, 3 );
