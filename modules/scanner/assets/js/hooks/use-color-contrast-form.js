@@ -10,6 +10,7 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
+import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import {
 	focusOnElement,
 	removeExistingFocus,
@@ -69,7 +70,10 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	}, [item]);
 
 	const {
-		color = item.messageArgs[3],
+		color = item.messageArgs[3] ||
+			rgbOrRgbaToHex(
+				window.getComputedStyle(item.node).getPropertyValue('color'),
+			),
 		background = item.messageArgs[4],
 		parents = [item.path.dom],
 		resolved = false,
@@ -164,7 +168,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	const isValidHexColor = (str) =>
-		/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(str.trim());
+		/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(str.trim());
 
 	const isValidCSS = (cssText) => {
 		try {
@@ -204,9 +208,13 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	const buildCSSRule = () => {
-		if (!isValidHexColor(color) || !isValidHexColor(background)) {
+		if (
+			!isValidHexColor(color) ||
+			(background && !isValidHexColor(background))
+		) {
 			throw new Error('Invalid hex color input detected');
 		}
+
 		try {
 			const colorSelector = getElementCSSSelector(item.path.dom);
 			const bgSelector = getElementCSSSelector(
@@ -217,8 +225,9 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				color !== item.messageArgs[3]
 					? `${colorSelector} {color: ${color} !important;}`
 					: '';
+
 			const bgRule =
-				background !== item.messageArgs[4]
+				background && background !== item.messageArgs[4]
 					? `${bgSelector} {background-color: ${background} !important;}`
 					: '';
 
