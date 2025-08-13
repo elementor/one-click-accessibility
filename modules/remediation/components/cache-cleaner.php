@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Cache_Cleaner
  */
 class Cache_Cleaner {
-	const EA11Y_CLEAR_POST_CACHE_HOOK = 'ea11y_clear_post_cache';
+	const EA11Y_CLEAR_POST_CACHE_HOOK = 'ea11y_run_clear_post_cache';
 
 	public static function clean_ally_cache() : void {
 		Page_Entry::clear_all_cache();
