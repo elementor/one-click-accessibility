@@ -12,24 +12,24 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Cache_Cleaner
  */
 class Cache_Cleaner {
-	const EA11Y_CLEAR_POST_CACHE_HOOK = 'ea11y_run_clear_post_cache';
+	const EA11Y_CLEAR_POST_CACHE_HOOK = 'ea11y_clear_post_cache';
 
-	public static function clean_ally_cache() : void {
+	public static function clear_ally_cache() : void {
 		Page_Entry::clear_all_cache();
 	}
 
-	public static function clean_ally_post_cache( $post ) : void {
+	public static function clear_ally_post_cache( $post ) : void {
 		$url = get_permalink( $post->ID );
 		$url_trimmed = rtrim( $url, '/' );
 		Page_Entry::clear_cache( $url_trimmed );
 	}
 
-	public static function clean_ally_url_cache( $url ) : void {
+	public static function clear_ally_url_cache( $url ) : void {
 		$url_trimmed = rtrim( $url, '/' );
 		Page_Entry::clear_cache( $url_trimmed );
 	}
 
-	public static function clean_ally_list_cache( $urls ) : void {
+	public static function clear_ally_list_cache( $urls ) : void {
 		foreach ( $urls as $url ) {
 			$url_trimmed = rtrim( $url, '/' );
 			Page_Entry::clear_cache( $url_trimmed );
@@ -37,11 +37,11 @@ class Cache_Cleaner {
 	}
 
 	public function add_wp_rocket_clean_action() {
-		add_action( 'rocket_after_clean_domain', [ self::class, 'clean_ally_cache' ] );
-		add_action( 'rocket_after_clean_terms', [ self::class, 'clean_ally_list_cache' ] );
-		add_action( 'after_rocket_clean_post', [ self::class, 'clean_ally_post_cache' ] );
-		add_action( 'after_rocket_clean_home', [ self::class, 'clean_ally_url_cache' ] );
-		add_action( 'after_rocket_clean_file', [ self::class, 'clean_ally_url_cache' ] );
+		add_action( 'rocket_after_clean_domain', [ self::class, 'clear_ally_cache' ] );
+		add_action( 'rocket_after_clean_terms', [ self::class, 'clear_ally_list_cache' ] );
+		add_action( 'after_rocket_clean_post', [ self::class, 'clear_ally_post_cache' ] );
+		add_action( 'after_rocket_clean_home', [ self::class, 'clear_ally_url_cache' ] );
+		add_action( 'after_rocket_clean_file', [ self::class, 'clear_ally_url_cache' ] );
 	}
 
 	public function add_litespeed_clean_hook() {
