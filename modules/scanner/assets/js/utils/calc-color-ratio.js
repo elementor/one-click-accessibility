@@ -32,8 +32,7 @@ export const checkContrastAA = (el) => {
 	const colorCombo = ColorUtil.ColorCombo(el);
 	if (colorCombo === null) {
 		//some exception occurred, or not able to get color combo for some reason
-		console.log('unable to get color combo for element: ' + el.nodeName);
-		return;
+		throw new Error('unable to get color combo for element: ' + el.nodeName);
 	}
 	const fg = colorCombo.fg;
 	const bg = colorCombo.bg;
