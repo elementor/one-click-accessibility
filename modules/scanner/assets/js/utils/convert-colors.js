@@ -9,6 +9,29 @@ export const expandHex = (hex) => {
 	return `#${hex}`;
 };
 
+export const rgbOrRgbaToHex = (color) => {
+	const match = color.match(
+		/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i,
+	);
+	if (!match) {
+		return null;
+	} // Not an RGB or RGBA string
+
+	const r = parseInt(match[1]).toString(16).padStart(2, '0');
+	const g = parseInt(match[2]).toString(16).padStart(2, '0');
+	const b = parseInt(match[3]).toString(16).padStart(2, '0');
+
+	// If alpha present and less than 1, include it
+	if (match[4] !== undefined && parseFloat(match[4]) < 1) {
+		const a = Math.round(parseFloat(match[4]) * 255)
+			.toString(16)
+			.padStart(2, '0');
+		return `#${r}${g}${b}${a}`.toUpperCase(); // 8-digit hex with alpha
+	}
+
+	return `#${r}${g}${b}`.toUpperCase(); // 6-digit hex
+};
+
 export const hexToRGB = (hex) => {
 	hex = expandHex(hex).replace(/^#/, '');
 	const num = parseInt(hex, 16);
@@ -18,14 +41,17 @@ export const hexToRGB = (hex) => {
 
 export const hexToHsl = (hex) => {
 	hex = expandHex(hex).replace(/^#/, '');
+
+	// Handle optional alpha (default 255)
+	const hasAlpha = hex.length === 8;
 	const r = parseInt(hex.slice(0, 2), 16) / 255;
 	const g = parseInt(hex.slice(2, 4), 16) / 255;
 	const b = parseInt(hex.slice(4, 6), 16) / 255;
+	const a = hasAlpha ? parseInt(hex.slice(6, 8), 16) / 255 : 1;
 
 	const max = Math.max(r, g, b);
 	const min = Math.min(r, g, b);
-	let h = (max + min) / 2;
-	let s = (max + min) / 2;
+	let h, s;
 	const l = (max + min) / 2;
 
 	if (max === min) {
@@ -51,10 +77,11 @@ export const hexToHsl = (hex) => {
 		h: Math.round(h),
 		s: Math.round(s * 100),
 		l: Math.round(l * 100),
+		a: parseFloat(a.toFixed(2)), // keep 2 decimal alpha
 	};
 };
 
-export const hslToHex = ({ h, s, l }) => {
+export const hslToHex = ({ h, s, l, a = 1 }) => {
 	s /= 100;
 	l /= 100;
 
@@ -62,10 +89,7 @@ export const hslToHex = ({ h, s, l }) => {
 	const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
 	const m = l - c / 2;
 
-	let r;
-	let g;
-	let b;
-
+	let r, g, b;
 	if (h < 60) {
 		[r, g, b] = [c, x, 0];
 	} else if (h < 120) {
@@ -80,10 +104,16 @@ export const hslToHex = ({ h, s, l }) => {
 		[r, g, b] = [c, 0, x];
 	}
 
-	const toHex = (v) => {
-		const hex = Math.round((v + m) * 255).toString(16);
-		return hex.length === 1 ? '0' + hex : hex;
-	};
+	const toHex = (v) =>
+		Math.round((v + m) * 255)
+			.toString(16)
+			.padStart(2, '0');
 
-	return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+	const alphaHex = Math.round(a * 255)
+		.toString(16)
+		.padStart(2, '0');
+
+	return a < 1
+		? `#${toHex(r)}${toHex(g)}${toHex(b)}${alphaHex}`.toUpperCase()
+		: `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
 };

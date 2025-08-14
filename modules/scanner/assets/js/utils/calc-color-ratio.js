@@ -1,4 +1,4 @@
-import { hexToRGB } from '@ea11y-apps/scanner/utils/convert-colors';
+import { ColorUtil } from '@ea11y-apps/scanner/utils/colorUtil';
 
 export const getLuminance = (r, g, b) => {
 	const toLinear = (c) => {
@@ -27,10 +27,16 @@ export const isLargeText = (el) => {
 	return size >= threshold;
 };
 
-export const checkContrastAA = (fgHex, bgHex, el) => {
-	const fg = hexToRGB(fgHex);
-	const bg = hexToRGB(bgHex);
-	const ratio = contrastRatio(fg, bg);
+export const checkContrastAA = (el) => {
+	// First determine the color contrast ratio
+	const colorCombo = ColorUtil.ColorCombo(el);
+	if (colorCombo === null) {
+		//some exception occurred, or not able to get color combo for some reason
+		throw new Error('unable to get color combo for element: ' + el.nodeName);
+	}
+	const fg = colorCombo.fg;
+	const bg = colorCombo.bg;
+	const ratio = fg.contrastRatio(bg);
 	const large = isLargeText(el);
 	const passesAA = ratio >= (large ? 3 : 4.5);
 	return {
