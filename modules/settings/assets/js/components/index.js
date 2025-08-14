@@ -36,3 +36,4 @@ export { default as QuotaIndicator } from './quota-bar/quota-indicator';
 export { default as MenuItem } from './sidebar-menu/menu-item';
 export { default as QuotaBarPopupMenu } from './quota-bar/quota-popup-menu';
 export { default as QuotaBarGroup } from './quota-bar/quota-bar-group';
+export { default as OnboardingModal } from './onboarding-modal';

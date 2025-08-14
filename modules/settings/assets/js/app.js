@@ -9,6 +9,7 @@ import {
 	Notifications,
 	PostConnectModal,
 	UrlMismatchModal,
+	OnboardingModal,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
@@ -24,8 +25,13 @@ import PageContent from './page-content';
 const App = () => {
 	const { hasFinishedResolution, loading } = useSavedSettings();
 
-	const { isConnected, isRTL, closePostConnectModal, isUrlMismatch } =
-		usePluginSettingsContext();
+	const {
+		isConnected,
+		isRTL,
+		closePostConnectModal,
+		isUrlMismatch,
+		closeOnboardingModal,
+	} = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
 
@@ -52,6 +58,9 @@ const App = () => {
 				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
 				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
+				{isConnected && closePostConnectModal && !closeOnboardingModal && (
+					<OnboardingModal />
+				)}
 
 				<TopBar />
 
