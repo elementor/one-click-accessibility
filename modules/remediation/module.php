@@ -28,6 +28,7 @@ class Module extends Module_Base {
 			'Items',
 			'Item',
 			'Trigger_Save',
+			'Clear_Cache',
 		];
 	}
 

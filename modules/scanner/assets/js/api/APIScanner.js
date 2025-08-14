@@ -119,4 +119,11 @@ export class APIScanner extends API {
 			data,
 		});
 	}
+
+	static async clearCache() {
+		return APIScanner.request({
+			method: 'DELETE',
+			path: `${v1Prefix}/remediation/clear-cache`,
+		});
+	}
 }

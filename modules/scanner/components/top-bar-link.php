@@ -31,6 +31,13 @@ class Top_Bar_Link {
 				'title' => $svg_icon . esc_html__( 'Accessibility Assistant', 'pojo-accessibility' ),
 				'href' => '#', // Click event is handled by JS.
 			] );
+			// Add sub-item 1
+			$wp_admin_bar->add_node( [
+				'id' => 'ea11y-clear-cache',
+				'title'  => esc_html__( 'Clear cache', 'pojo-accessibility' ),
+				'href' => '#', // Click event is handled by JS.
+				'parent' => 'ea11y-scanner-wizard',
+			] );
 		}, 200 );
 	}
 
