@@ -167,28 +167,8 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		sendEvent('minus');
 	};
 
-	const isValidHexColor = (str) => {
-		// Trim only once, store length
-		const s = str.trim();
-		const len = s.length;
-
-		// Must start with "#" and have 4, 7, or 9 total chars
-		if (s[0] !== '#' || (len !== 4 && len !== 7 && len !== 9)) {
-			return false;
-		}
-
-		// Validate each character is 0–9 or a–f/A–F
-		for (let i = 1; i < len; i++) {
-			const c = s.charCodeAt(i);
-			if (
-				!(c >= 48 && c <= 57) && // 0–9
-				!(c >= 65 && c <= 70) && // A–F
-				!(c >= 97 && c <= 102) // a–f
-			) {
-				return false;
-			}
-		}
-	};
+	const isValidHexColor = (str) =>
+		/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(str.trim());
 
 	const isValidCSS = (cssText) => {
 		try {
