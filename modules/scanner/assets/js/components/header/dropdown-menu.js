@@ -1,4 +1,5 @@
 import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
+import ClearIcon from '@elementor/icons/ClearIcon';
 import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
 import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
 import RefreshIcon from '@elementor/icons/RefreshIcon';
@@ -11,7 +12,9 @@ import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import Tooltip from '@elementor/ui/Tooltip';
 import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
@@ -21,7 +24,9 @@ import { __ } from '@wordpress/i18n';
 export const DropdownMenu = () => {
 	const { remediations, isManage, setOpenedBlock, setIsManage, runNewScan } =
 		useScannerWizardContext();
+	const { error } = useToastNotification();
 	const [isOpened, setIsOpened] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const anchorEl = useRef(null);
 
 	const handleOpen = () => {
@@ -39,6 +44,19 @@ export const DropdownMenu = () => {
 	const onRescan = () => {
 		runNewScan();
 		sendOnClickEvent('Rescan');
+	};
+
+	const onClearCache = async () => {
+		try {
+			setLoading(true);
+			await APIScanner.clearCache();
+			sendOnClickEvent('Clear cache');
+			handleClose();
+		} catch (e) {
+			error(__('An error occurred.', 'pojo-accessibility'));
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const goToManagement = () => {
@@ -85,6 +103,18 @@ export const DropdownMenu = () => {
 					</MenuItemIcon>
 
 					<MenuItemText>{__('Rescan', 'pojo-accessibility')}</MenuItemText>
+				</MenuItem>
+				<MenuItem
+					onClick={onClearCache}
+					loading={loading}
+					disabled={loading}
+					dense
+				>
+					<MenuItemIcon>
+						<ClearIcon />
+					</MenuItemIcon>
+
+					<MenuItemText>{__('Clear cache', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
 
 				{!remediations.length ? (
