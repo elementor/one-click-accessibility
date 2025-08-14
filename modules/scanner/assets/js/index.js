@@ -27,8 +27,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		.querySelector(CLEAR_CACHE_LINK)
 		?.addEventListener('click', async (event) => {
 			event.preventDefault();
-			await APIScanner.clearCache();
-			window.location.reload();
+			try {
+				await APIScanner.clearCache();
+				window.location.reload();
+			} catch (e) {
+				console.error(e);
+			}
 		});
 	document.querySelector(TOP_BAR_LINK)?.addEventListener('click', (event) => {
 		event.preventDefault();
