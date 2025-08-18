@@ -19,7 +19,7 @@ const OnboardingModal = () => {
 
 	useEffect(() => {
 		if (isOpen) {
-			mixpanelService.sendEvent(mixpanelEvents.connectSuccess);
+			mixpanelService.sendEvent(mixpanelEvents.introductionBannerShowed);
 		}
 	}, [isOpen]);
 
@@ -27,6 +27,8 @@ const OnboardingModal = () => {
 		await save({
 			ea11y_close_onboarding_modal: true,
 		});
+
+		await mixpanelService.sendEvent(mixpanelEvents.introductionBannerClosed);
 
 		close();
 	};
@@ -46,7 +48,7 @@ const OnboardingModal = () => {
 				<iframe
 					width="550"
 					height="300"
-					src="https://www.youtube.com/embed/p-vVS5FXL_A?si=DL6RshUJot749xJ5&amp;controls=0"
+					src="https://www.youtube.com/embed/4Ct_6HAsBr8?si=NZsWyvjBxvSs45lL&amp;controls=0"
 					title="YouTube video player"
 					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 					referrerPolicy="strict-origin-when-cross-origin"
@@ -72,6 +74,9 @@ const OnboardingModal = () => {
 					target="_blank"
 					variant="contained"
 					color="info"
+					onClick={() => {
+						mixpanelService.sendEvent(mixpanelEvents.scanHomePageButtonClicked);
+					}}
 				>
 					{__('Scan home page', 'pojo-accessibility')}
 				</Button>

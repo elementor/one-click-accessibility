@@ -56,4 +56,9 @@ export const mixpanelEvents = {
 	assistantDashboardScanCtaClicked: 'scan_cta_clicked',
 	assistantDashboardSearchTriggered: 'search_triggered',
 	scanLogActionsButtonClicked: 'scan_log_actions_button_clicked',
+
+	// Onboarding modal
+	scanHomePageButtonClicked: 'scan_triggered',
+	introductionBannerShowed: 'banner_showed',
+	introductionBannerClosed: 'banner_dismissed',
 };
