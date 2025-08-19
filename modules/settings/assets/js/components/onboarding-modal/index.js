@@ -8,20 +8,37 @@ import DialogTitle from '@elementor/ui/DialogTitle';
 import { useModal, useStorage } from '@ea11y/hooks';
 import { AppLogo } from '@ea11y/icons';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 
 const OnboardingModal = () => {
 	const { isOpen, close } = useModal();
 	const { save } = useStorage();
-	const { homeUrl } = usePluginSettingsContext();
+	const { homeUrl, isConnected, closePostConnectModal, closeOnboardingModal } =
+		usePluginSettingsContext();
+	const [shouldShowModal, setShouldShowModal] = useState(false);
+
+	// Check if URL has source=admin_banner parameter
+	useEffect(() => {
+		const urlParams = new URLSearchParams(window.location.search);
+		const source = urlParams.get('source');
+		setShouldShowModal(source === 'admin_banner');
+	}, []);
+
+	// Check if modal should be displayed based on all conditions
+	const shouldDisplayModal =
+		isOpen &&
+		shouldShowModal &&
+		isConnected &&
+		closePostConnectModal &&
+		!closeOnboardingModal;
 
 	useEffect(() => {
-		if (isOpen) {
+		if (shouldDisplayModal) {
 			mixpanelService.sendEvent(mixpanelEvents.introductionBannerShowed);
 		}
-	}, [isOpen]);
+	}, [shouldDisplayModal]);
 
 	const onClose = async () => {
 		await save({
@@ -35,7 +52,7 @@ const OnboardingModal = () => {
 
 	return (
 		<Dialog
-			open={isOpen}
+			open={shouldDisplayModal}
 			onClose={onClose}
 			aria-labelledby="alert-dialog-title"
 			aria-describedby="alert-dialog-description"
@@ -55,11 +72,11 @@ const OnboardingModal = () => {
 					allowfullscreen
 				></iframe>
 				<DialogContentText variant="h5" color="text.primary" marginTop={2}>
-					{__('See the upgraded assistant in action', 'pojo-accessibility')}
+					{__('See Ally’s new assistant in action', 'pojo-accessibility')}
 				</DialogContentText>
 				<DialogContentText>
 					{__(
-						'Watch a short video to discover what’s new, then scan a page to see the improved issue detection and smarter solutions for a more accessible site.',
+						'Watch a quick demo to see how it works. Then launch your first scan to uncover issues and start improving your site.',
 						'pojo-accessibility',
 					)}
 				</DialogContentText>
@@ -76,9 +93,10 @@ const OnboardingModal = () => {
 					color="info"
 					onClick={() => {
 						mixpanelService.sendEvent(mixpanelEvents.scanHomePageButtonClicked);
+						onClose();
 					}}
 				>
-					{__('Scan home page', 'pojo-accessibility')}
+					{__('Scan my home page', 'pojo-accessibility')}
 				</Button>
 			</DialogActions>
 		</Dialog>
