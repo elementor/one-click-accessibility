@@ -4,9 +4,6 @@ namespace EA11y\Modules\Reviews\Classes;
 
 use Exception;
 use EA11y\Classes\Services\Client;
-use EA11y\Modules\Logs\Database\Log_Entry;
-use EA11y\Modules\Statuses\Database\Status_Entry;
-use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
