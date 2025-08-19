@@ -28,6 +28,11 @@ const entryPoints = {
 		'modules/widget/assets/js',
 		'ally-gutenberg-block.js',
 	),
+	deactivation: path.resolve(
+		process.cwd(),
+		'modules/deactivation/assets/js',
+		'deactivation-feedback.js',
+	),
 };
 
 // React JSX Runtime Polyfill

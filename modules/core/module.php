@@ -21,7 +21,6 @@ class Module extends Module_Base {
 			'Skip_Link',
 			'Revert_To_Legacy',
 			'Svg',
-			'Deactivation_Feedback',
 		];
 	}
 
