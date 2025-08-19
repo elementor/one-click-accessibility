@@ -48,6 +48,7 @@ class Client {
 
 	public static function get_site_info(): array {
 		return [
+			'app_name' => 'ally',
 			// Which API version is used.
 			'app_version' => EA11Y_VERSION,
 			// Which language to return.
