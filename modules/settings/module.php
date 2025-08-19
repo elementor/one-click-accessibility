@@ -48,7 +48,7 @@ class Module extends Module_Base {
 	}
 
 	public function admin_banners() {
-		Onboarding_Banner::get_banner( 'https://go.elementor.com/acc-b-day-banner' );
+		Onboarding_Banner::get_banner();
 	}
 
 	public function register_page() : void {

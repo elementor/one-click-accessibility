@@ -32,37 +32,39 @@ class Onboarding_Banner {
 	 * Get banner markup
 	 * @throws Throwable
 	 */
-	public static function get_banner( string $link ) {
+	public static function get_banner() {
 		if ( self::user_viewed_banner() || self::user_has_scanned_pages() ) {
 			return;
 		}
 
 		$url = admin_url( 'admin-ajax.php' );
 		$nonce = wp_create_nonce( self::POINTER_NONCE_KEY );
+		$link = admin_url( 'admin.php?page=accessibility-settings&source=admin_banner' );
 		?>
 
 		<div class="elementor-ea11y-banner elementor-ea11y-onboarding-banner notice notice-info info">
 			<div class="elementor-ea11y-banner-container">
 				<div class="elementor-ea11y-banner-content">
-					<svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 43 43" fill="none">
-						<path d="M21.3937 42.7875C33.2092 42.7875 42.7875 33.2092 42.7875 21.3937C42.7875 9.57831 33.2092 0 21.3937 0C9.57831 0 0 9.57831 0 21.3937C0 33.2092 9.57831 42.7875 21.3937 42.7875Z" fill="white"/>
-						<path d="M21.3954 13.4431C23.1077 13.4431 24.4958 12.055 24.4958 10.3427C24.4958 8.63031 23.1077 7.24219 21.3954 7.24219C19.683 7.24219 18.2949 8.63031 18.2949 10.3427C18.2949 12.055 19.683 13.4431 21.3954 13.4431Z" fill="#2563EB"/>
-						<path d="M33.0433 13.2168L25.9471 14.3056C22.8936 14.6233 19.7987 14.615 16.6623 14.3056L9.75116 13.2196C8.73425 13.1864 7.88867 14.0016 7.88867 15.0213C7.88867 16.0409 8.50213 16.6931 9.63786 16.823L14.8274 17.5083L21.9347 18.2626L17.4609 18.5887L16.8446 33.8976C16.8446 34.8095 17.5825 35.5473 18.4944 35.5473C19.3565 35.5473 20.075 34.8814 20.1385 34.022L20.6581 27.1413C20.6912 26.7074 21.0532 26.373 21.4871 26.373C21.9209 26.373 22.2829 26.7074 22.3161 27.1413L22.8356 34.022C22.9019 34.8814 23.6176 35.5473 24.4797 35.5473C25.3916 35.5473 26.1295 34.8095 26.1295 33.8976L25.5547 19.7742C25.5547 18.7407 26.3754 17.8924 27.4089 17.8592L33.1539 16.8257C34.2979 16.624 34.903 15.9995 34.903 15.024C34.903 14.0043 34.0602 13.1864 33.0433 13.2196V13.2168Z" fill="#2563EB"/>
+				<div class="elementor-ea11y-banner-content-icon">
+				<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 43 43" fill="none">
+						<path d="M21.3937 42.7875C33.2092 42.7875 42.7875 33.2092 42.7875 21.3937C42.7875 9.57831 33.2092 0 21.3937 0C9.57831 0 0 9.57831 0 21.3937C0 33.2092 9.57831 42.7875 21.3937 42.7875Z" fill="#2563EB"/>
+						<path d="M21.3954 13.4431C23.1077 13.4431 24.4958 12.055 24.4958 10.3427C24.4958 8.63031 23.1077 7.24219 21.3954 7.24219C19.683 7.24219 18.2949 8.63031 18.2949 10.3427C18.2949 12.055 19.683 13.4431 21.3954 13.4431Z" fill="#ffffff"/>
+						<path d="M33.0433 13.2168L25.9471 14.3056C22.8936 14.6233 19.7987 14.615 16.6623 14.3056L9.75116 13.2196C8.73425 13.1864 7.88867 14.0016 7.88867 15.0213C7.88867 16.0409 8.50213 16.6931 9.63786 16.823L14.8274 17.5083L21.9347 18.2626L17.4609 18.5887L16.8446 33.8976C16.8446 34.8095 17.5825 35.5473 18.4944 35.5473C19.3565 35.5473 20.075 34.8814 20.1385 34.022L20.6581 27.1413C20.6912 26.7074 21.0532 26.373 21.4871 26.373C21.9209 26.373 22.2829 26.7074 22.3161 27.1413L22.8356 34.022C22.9019 34.8814 23.6176 35.5473 24.4797 35.5473C25.3916 35.5473 26.1295 34.8095 26.1295 33.8976L25.5547 19.7742C25.5547 18.7407 26.3754 17.8924 27.4089 17.8592L33.1539 16.8257C34.2979 16.624 34.903 15.9995 34.903 15.024C34.903 14.0043 34.0602 13.1864 33.0433 13.2196V13.2168Z" fill="#ffffff"/>
 					</svg>
+				</div>
 					<div class="elementor-ea11y-banner-content-text">
-						<h2 style="margin-bottom: 0;">
-							<?php _e( 'New! More powerful scans for a more inclusive website', 'pojo-accessibility' ); ?>
+						<h2>
+							<?php _e( 'New in Ally: Accessibility Assistant', 'pojo-accessibility' ); ?>
 						</h2>
 						<p>
-							<?php _e( 'Ally’s assistant just got smarter. It can now find more accessibility issues and suggest the best fixes.', 'pojo-accessibility' ); ?>
+							<?php _e( 'Scan your site for accessibility issues and start fixing them with ease. It\'s already part of your plan.', 'pojo-accessibility' ); ?>
 						</p>
+						<a class="elementor-ea11y-run-scan-button button button-primary" href="<?php echo esc_url( $link ); ?>" target="_blank">
+							<?php _e( 'Try it now', 'pojo-accessibility' ); ?>
+						</a>
 					</div>
 				</div>
 				<div class="elementor-ea11y-banner-actions">
-					<a class="button button-primary" href="<?php echo esc_url( $link ); ?>" target="_blank">
-						<?php _e( 'Try it out', 'pojo-accessibility' ); ?>
-					</a>
-
 					<button class="elementor-ea11y-banner-close">
 						<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path 
@@ -87,8 +89,8 @@ class Onboarding_Banner {
 			.elementor-ea11y-banner {
 				overflow: hidden;
 				margin-inline-start: -20px;
-				background: #EFF5FE;
 				border-left-color: #2563EB;
+				padding: 0;
 			}
 
 			.elementor-ea11y-banner-container {
@@ -96,24 +98,43 @@ class Onboarding_Banner {
 				width: 100%;
 				display: flex;
 				justify-content: space-between;
-				align-items: center;
 				direction: ltr;
-				height: 80px;
+				height: 130px;
+				gap: 12px;
 			}
 
 			.elementor-ea11y-banner-content {
 				display: flex;
-				align-items: center;
 				gap: 16px;
 			}
-
-			.elementor-ea11y-banner-actions a {
-				background-color: #2563EB !important;
-				padding: 4px 12px !important;
+			.elementor-ea11y-banner-content-icon {
+				background: #EFF5FE;
+				padding: 16px 12px;
 			}
 
-			.elementor-ea11y-banner-actions a:hover {
+			.elementor-ea11y-banner-content-text {
+				padding: 16px;
+			}
+
+			.elementor-ea11y-banner-content-text h2 {
+				margin: 0 0 2px 0;
+			}
+
+			.elementor-ea11y-banner-content-text p {
+				margin: 0 0 16px 0;
+			}
+
+			a.elementor-ea11y-run-scan-button {
+				background-color: #2563EB !important;
+				padding: 4px 10px !important;
+			}
+
+			a.elementor-ea11y-run-scan-button:hover {
 				background-color: #1D4ED8 !important;
+			}
+
+			.elementor-ea11y-banner-actions {
+				padding: 16px;
 			}
 
 			.elementor-ea11y-banner-actions button {
@@ -128,7 +149,7 @@ class Onboarding_Banner {
 
 			@media (max-width: 1170px) {
 				.elementor-ea11y-banner a {
-					padding: 6px 12px;
+					padding: 6px 10px;
 					font-size: 14px;
 				}
 			}
