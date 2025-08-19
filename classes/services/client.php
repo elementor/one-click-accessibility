@@ -20,6 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Client {
 	private const BASE_URL = 'https://my.elementor.com/apps/api/v1/a11y/';
 
+	private const BASE_URL_FEEDBACK = 'https://feedback-api.prod.apps.elementor.red/apps/api/v1/';
+
 	private bool $refreshed = false;
 
 	public static ?Client $instance = null;
@@ -114,7 +116,14 @@ class Client {
 		return apply_filters( 'ea11y_client_base_url', self::BASE_URL );
 	}
 
+	public static function get_feedback_base_url() {
+		return apply_filters( 'ea11y_feedback_base_url', self::BASE_URL_FEEDBACK );
+	}
+
 	private static function get_remote_url( $endpoint ): string {
+		if ( strpos( $endpoint, 'feedback/' ) !== false ) {
+			return self::get_feedback_base_url() . $endpoint;
+		}
 		return self::get_client_base_url() . $endpoint;
 	}
 
