@@ -8,10 +8,52 @@ import {
 	ColorBlue900,
 } from '@elementor/design-tokens/primitives';
 import Box from '@elementor/ui/Box';
+import Paper from '@elementor/ui/Paper';
+import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import {
+	PieChart as MuiPieChart,
+	pieArcLabelClasses,
+} from '@mui/x-charts/PieChart';
 import PropTypes from 'prop-types';
 import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
 import { __ } from '@wordpress/i18n';
+
+// Tooltip component for the pie chart
+const CategoryPieTooltip = (props) => {
+	const { itemData, series } = props;
+	const data = series.data[itemData.dataIndex];
+	return (
+		<Paper sx={{ p: 2, pb: 1 }}>
+			<StyledTooltipTitle
+				variant="body2"
+				color="text.tertiary"
+				itemColor={data.color}
+			>
+				{data.categoryTitle}
+			</StyledTooltipTitle>
+			<Typography variant="h6">
+				{`${data.categoryCount} (${data.value}%)`}
+			</Typography>
+		</Paper>
+	);
+};
+
+const StyledTooltipTitle = styled(Typography)`
+	position: relative;
+	padding-left: 18px;
+	&:before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: calc(50% - 5px);
+		display: inline-block;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background-color: ${(props) => props.itemColor};
+	}
+`;
 
 const CategoryPieChart = ({ issueByCategory, loading }) => {
 	// Loading state
@@ -57,12 +99,13 @@ const CategoryPieChart = ({ issueByCategory, loading }) => {
 			});
 		}
 
-		// Convert counts to percentages and add colors
-		return result.map((category, index) => ({
-			key: category.key,
-			percentage:
-				totalIssues > 0 ? Math.round((category.count / totalIssues) * 100) : 0,
-			color:
+		// Convert to MUI PieChart format with percentages and colors
+		return result.map((category, index) => {
+			const percentage =
+				totalIssues > 0
+					? parseFloat(((category.count / totalIssues) * 100).toFixed(2))
+					: 0;
+			const color =
 				[
 					ColorBlue900,
 					ColorBlue700,
@@ -71,45 +114,71 @@ const CategoryPieChart = ({ issueByCategory, loading }) => {
 					ColorBlue300,
 					ColorBlue200,
 					ColorBlue100, // for "other"
-				][index] || ColorBlue100,
-		}));
+				][index] || ColorBlue100;
+
+			return {
+				label: `${category.title}: ${percentage}%`,
+				value: percentage,
+				color,
+				categoryTitle: category.title,
+				categoryCount: category.count,
+			};
+		});
 	};
 
 	const categories = processedCategories();
 
-	// Create conic-gradient string
-	const createConicGradient = () => {
-		if (categories.length === 0) {
-			return 'conic-gradient(#f3f3f4 0%, #f3f3f4 100%)';
-		}
+	// Show chart if we have data
+	const showChart = categories.length > 0 && !loading;
 
-		let cumulativePercentage = 0;
-		const gradientStops = [];
-
-		categories.forEach((category) => {
-			const startPercentage = cumulativePercentage;
-			const endPercentage = cumulativePercentage + category.percentage;
-
-			gradientStops.push(
-				`${category.color} ${startPercentage}% ${endPercentage}%`,
-			);
-			cumulativePercentage += category.percentage;
-		});
-
-		// Fill remaining space with light gray if total is less than 100%
-		if (cumulativePercentage < 100) {
-			gradientStops.push(`#f3f3f4 ${cumulativePercentage}% 100%`);
-		}
-
-		return `conic-gradient(${gradientStops.join(', ')})`;
-	};
-
-	const background = `
-		radial-gradient(closest-side, white 84%, transparent 85% 100%),
-		${createConicGradient()}
-	`;
-
-	return <StyledCategoryPieChart background={background} />;
+	return (
+		<Box
+			sx={{
+				width: 200,
+				height: 200,
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				marginRight: 1.5,
+			}}
+		>
+			{showChart && (
+				<MuiPieChart
+					series={[
+						{
+							data: categories,
+							innerRadius: 66,
+							outerRadius: 80,
+							paddingAngle: 0,
+							cornerRadius: 0,
+							startAngle: 0,
+							endAngle: 360,
+							cx: 100,
+							cy: 100,
+						},
+					]}
+					slots={{
+						itemContent: CategoryPieTooltip,
+					}}
+					width={200}
+					height={200}
+					slotProps={{
+						legend: { hidden: true }, // Hide legend to match original design
+					}}
+					sx={{
+						position: 'absolute',
+						top: '50%',
+						left: '50%',
+						transform: 'translate(-50%, -50%)',
+						[`& .${pieArcLabelClasses.root}`]: {
+							display: 'none', // Hide arc labels to match original design
+						},
+					}}
+				/>
+			)}
+			{loading && <StyledLoadingPieChart />}
+		</Box>
+	);
 };
 
 CategoryPieChart.propTypes = {
@@ -126,25 +195,17 @@ CategoryPieChart.propTypes = {
 	loading: PropTypes.bool.isRequired,
 };
 
-const StyledCategoryPieChart = styled(Box)`
-	width: 176px;
-	height: 176px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 100%;
-	background: ${({ background }) => background};
-	margin-right: ${({ theme }) => theme.spacing(1.5)};
-`;
-
+// Keep the loading component as is
 const StyledLoadingPieChart = styled(Box)`
-	width: 176px;
-	height: 176px;
+	width: 200px;
+	height: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-radius: 100%;
-	background: ${({ background }) => background};
+	background:
+		radial-gradient(closest-side, white 84%, transparent 85% 100%),
+		conic-gradient(#e5e7eb 0%, #f3f3f4 50%, #e5e7eb 100%);
 	animation: rotate 3s linear infinite;
 
 	@keyframes rotate {
