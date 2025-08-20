@@ -141,8 +141,8 @@ class Onboarding_Banner {
 				position: relative;
 				border: none;
 				background: none;
-				padding: 12px;
-				margin: 0 24px;
+				padding: 0;
+				margin: 0;
 				cursor: pointer;
 				z-index: 2;
 			}
