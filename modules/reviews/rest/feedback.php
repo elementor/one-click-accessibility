@@ -42,6 +42,7 @@ class Feedback extends Route_Base {
 			// Prepare for use
 			$params['feedback'] = sanitize_text_field( $params['feedback'] );
 			$params['rating'] = sanitize_text_field( $params['rating'] );
+			$params['app_name'] = 'ally';
 
 			$response = Feedback_Handler::post_feedback( $params );
 
