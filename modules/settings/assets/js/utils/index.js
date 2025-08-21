@@ -69,11 +69,13 @@ export const calculatePlanUsage = (allowed, used) => {
  */
 export const formatPlanValue = (value) => {
 	if (value >= 1000000) {
-		return `${Math.floor(value / 1000000)}M`;
+		const millions = value / 1000000;
+		return millions % 1 === 0 ? `${millions}M` : `${millions.toFixed(1)}M`;
 	}
 
 	if (value >= 1000) {
-		return `${Math.floor(value / 1000)}K`;
+		const thousands = value / 1000;
+		return thousands % 1 === 0 ? `${thousands}K` : `${thousands.toFixed(1)}K`;
 	}
 
 	return value;
