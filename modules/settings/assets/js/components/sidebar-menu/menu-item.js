@@ -116,7 +116,7 @@ const MenuItem = ({ keyName, item }) => {
 					{showProIcon(item) && openSidebar && (
 						<ListItemIcon>
 							<StyledChip
-								color="accent"
+								color="promotion"
 								variant="standard"
 								icon={<CrownFilled size="tiny" />}
 							/>
