@@ -15,9 +15,9 @@ import {
 import PropTypes from 'prop-types';
 import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
 import { __ } from '@wordpress/i18n';
-import StatsPieTooltip from './tooltip';
+import StatsPieTooltip from '../tooltip';
 
-const CategoryPieChart = ({ issueByCategory, loading }) => {
+const PieChart = ({ issueByCategory, loading, noResultsState }) => {
 	const processedCategories = () => {
 		// Convert to array and sort by count (descending)
 		const sortedCategories = Object.entries(issueByCategory || {})
@@ -51,7 +51,7 @@ const CategoryPieChart = ({ issueByCategory, loading }) => {
 			});
 		}
 
-		if (loading || totalIssues === 0) {
+		if (loading || totalIssues === 0 || noResultsState) {
 			return [{ label: 'Loading...', value: 100, color: '#f3f3f4' }];
 		}
 
@@ -131,7 +131,7 @@ const CategoryPieChart = ({ issueByCategory, loading }) => {
 	);
 };
 
-CategoryPieChart.propTypes = {
+PieChart.propTypes = {
 	issueByCategory: PropTypes.shape({
 		altText: PropTypes.number,
 		dynamicContent: PropTypes.number,
@@ -145,4 +145,4 @@ CategoryPieChart.propTypes = {
 	loading: PropTypes.bool.isRequired,
 };
 
-export default CategoryPieChart;
+export default PieChart;

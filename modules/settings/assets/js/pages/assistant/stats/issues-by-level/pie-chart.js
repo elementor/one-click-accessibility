@@ -10,9 +10,9 @@ import {
 	pieArcLabelClasses,
 } from '@mui/x-charts/PieChart';
 import PropTypes from 'prop-types';
-import StatsPieTooltip from './tooltip';
+import StatsPieTooltip from '../tooltip';
 
-const StatsPieChart = ({
+const PieChart = ({
 	loading,
 	value,
 	firstSectorPercentage,
@@ -100,7 +100,7 @@ const StatsPieChart = ({
 	);
 };
 
-StatsPieChart.propTypes = {
+PieChart.propTypes = {
 	value: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
 	firstSectorPercentage: PropTypes.number.isRequired,
 	secondSectorPercentage: PropTypes.number,
@@ -108,4 +108,4 @@ StatsPieChart.propTypes = {
 	noResultsState: PropTypes.bool,
 };
 
-export default StatsPieChart;
+export default PieChart;

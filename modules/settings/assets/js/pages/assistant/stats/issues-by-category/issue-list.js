@@ -11,9 +11,7 @@ const CATEGORY_TITLE_OVERRIDES = {
 	dynamicContent: __('Dynamic/Aria', 'pojo-accessibility'),
 };
 
-const AccessibilityAssistantStatsIssueResovledBYCategory = ({
-	issueByCategory,
-}) => {
+const IssueList = ({ issueByCategory }) => {
 	// Process categories to show top 6 by usage + "other"
 	const processedCategories = () => {
 		// Convert to array and sort by count (descending)
@@ -73,7 +71,7 @@ const AccessibilityAssistantStatsIssueResovledBYCategory = ({
 	);
 };
 
-AccessibilityAssistantStatsIssueResovledBYCategory.propTypes = {
+IssueList.propTypes = {
 	issueByCategory: PropTypes.object.isRequired,
 };
 
@@ -123,4 +121,4 @@ const StyledIssuesCount = styled(Typography)`
 	text-align: left;
 `;
 
-export default AccessibilityAssistantStatsIssueResovledBYCategory;
+export default IssueList;
