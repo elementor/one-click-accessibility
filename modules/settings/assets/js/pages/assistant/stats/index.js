@@ -2,7 +2,6 @@ import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
-import PieChartLoader from '@ea11y/pages/assistant/loaders/pie-chart-loader';
 import ValueLoader from '@ea11y/pages/assistant/loaders/value-loader';
 import AccessibilityAssistantStatsIssueResovledBYCategory from '@ea11y/pages/assistant/stats/issue-by-category';
 import AccessibilityAssistantStatsIssueLevels from '@ea11y/pages/assistant/stats/issue-levels';
@@ -21,6 +20,10 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 
 	const secondLevelPercentage = stats.issue_levels.aa
 		? Math.round((stats.issue_levels.aa / levelsTotal) * 100)
+		: 0;
+
+	const thirdLevelPercentage = stats.issue_levels.aaa
+		? Math.round((stats.issue_levels.aaa / levelsTotal) * 100)
 		: 0;
 
 	const openIssues = stats.issues_total - stats.issues_fixed;
@@ -88,16 +91,14 @@ const AccessibilityAssistantStats = ({ stats, loading, noResultsState }) => {
 				</StyledStatsItemContent>
 
 				<StyledStatsItemChart>
-					{loading ? (
-						<PieChartLoader />
-					) : (
-						<StatsPieChart
-							value={levelsTotal.toString()}
-							firstSectorPercentage={firstLevelPercentage}
-							secondSectorPercentage={secondLevelPercentage}
-							noResultsState={noResultsState}
-						/>
-					)}
+					<StatsPieChart
+						loading={loading}
+						value={levelsTotal.toString()}
+						firstSectorPercentage={firstLevelPercentage}
+						secondSectorPercentage={secondLevelPercentage}
+						thirdSectorPercentage={thirdLevelPercentage}
+						noResultsState={noResultsState}
+					/>
 				</StyledStatsItemChart>
 			</StyledStatsItem>
 
