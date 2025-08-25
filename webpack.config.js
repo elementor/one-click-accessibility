@@ -28,6 +28,11 @@ const entryPoints = {
 		'modules/widget/assets/js',
 		'ally-gutenberg-block.js',
 	),
+	deactivation: path.resolve(
+		process.cwd(),
+		'modules/deactivation/assets/js',
+		'deactivation-feedback.js',
+	),
 	reviews: path.resolve(
 		process.cwd(),
 		'modules/reviews/assets/src',
