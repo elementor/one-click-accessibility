@@ -9,6 +9,7 @@ import {
 	Notifications,
 	PostConnectModal,
 	UrlMismatchModal,
+	OnboardingModal,
 } from '@ea11y/components';
 import {
 	useNotificationSettings,
@@ -52,6 +53,7 @@ const App = () => {
 				)}
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
 				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
+				<OnboardingModal />
 
 				<TopBar />
 

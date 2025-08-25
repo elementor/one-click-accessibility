@@ -18,6 +18,7 @@ use EA11y\Modules\Core\Components\{
 	Svg
 };
 use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
+use EA11y\Modules\Settings\Banners\Onboarding_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
 use Exception;
@@ -55,6 +56,10 @@ class Module extends Module_Base {
 
 		<div id="ea11y-app"></div>
 		<?php
+	}
+
+	public function admin_banners() {
+		Onboarding_Banner::get_banner();
 	}
 
 	public function register_page() : void {
@@ -149,9 +154,11 @@ class Module extends Module_Base {
 		return [
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
+			'closeOnboardingModal' => Settings::get( Settings::CLOSE_ONBOARDING_MODAL ),
 			'isRTL' => is_rtl(),
 			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
+			'homeUrl' => home_url(),
 		];
 	}
 
@@ -480,6 +487,9 @@ class Module extends Module_Base {
 			'unfiltered_files_upload' => [
 				'type' => 'boolean',
 			],
+			'close_onboarding_modal' => [
+				'type' => 'boolean',
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {
@@ -583,8 +593,9 @@ class Module extends Module_Base {
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
 		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
+		
 		// Register notices
-		// Removed visits quota
-		// add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		//add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
 	}
 }
