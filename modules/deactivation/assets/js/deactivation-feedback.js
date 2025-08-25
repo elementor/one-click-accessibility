@@ -1,145 +1,115 @@
 import '../css/style.css';
 
-document.addEventListener('DOMContentLoaded', function () {
-	function showEa11yModal(title, url, customClass) {
-		if (window.tb_show) {
-			window.tb_show(title, url);
+const REASON_FIELDS = {
+	unclear_how_to_use: ['text_field_unclear', 'unclear_details'],
+	switched_solution: ['text_field_switched', 'switched_details'],
+	other: ['text_field_other', 'other_details'],
+};
+
+class Ea11yDeactivationHandler {
+	constructor() {
+		this.deactivationLink = document.getElementById(
+			'deactivate-pojo-accessibility',
+		);
+
+		if (!this.deactivationLink) {
+			return;
 		}
-		setTimeout(function () {
-			if (customClass) {
-				const tbWindow = document.getElementById('TB_window');
-				if (tbWindow) {
-					tbWindow.classList.add(customClass);
-				}
-			}
-		}, 5);
+
+		this.originalDeactivationLink = this.deactivationLink.getAttribute('href');
+
+		this.init();
 	}
 
-	function hideAllTextFields() {
-		const textFields = document.querySelectorAll('.ea11y-feedback-text-field');
-		textFields.forEach(function (field) {
-			field.style.display = 'none';
-		});
+	modal(title, url, cssClass) {
+		window.tb_show?.(title, url);
+		setTimeout(
+			() => document.getElementById('TB_window')?.classList.add(cssClass),
+			5,
+		);
 	}
 
-	function showTextField(fieldId) {
-		const field = document.getElementById(fieldId);
-		if (field) {
-			field.style.display = 'block';
+	hideFields() {
+		document
+			.querySelectorAll('.ea11y-feedback-text-field')
+			.forEach((f) => (f.style.display = 'none'));
+	}
+
+	toggleField(reason) {
+		this.hideFields();
+		const fieldId = REASON_FIELDS[reason]?.[0];
+		if (fieldId) {
+			document.getElementById(fieldId).style.display = 'block';
 		}
 	}
 
-	function sendAjaxRequest(data, callback) {
-		const formData = new URLSearchParams(data);
-
+	sendRequest(data, done) {
 		fetch(window?.ea11yDeactivationFeedback?.ajaxurl || '', {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			body: formData,
-		})
-			.then(() => {
-				if (callback) {
-					callback();
-				}
-			})
-			.catch((error) => {
-				console.warn('Feedback submission failed:', error);
-				if (callback) {
-					callback();
-				}
-			});
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: new URLSearchParams(data),
+		}).finally(done);
 	}
 
-	const deactivateLink = document.getElementById(
-		'deactivate-pojo-accessibility',
-	);
+	handleSubmit() {
+		const reason = document.querySelector(
+			'input[name="ea11y_deactivation_reason"]:checked',
+		)?.value;
+		const detailsId = REASON_FIELDS[reason]?.[1];
+		const extra = detailsId
+			? document.getElementById(detailsId)?.value || ''
+			: '';
 
-	if (deactivateLink) {
-		const originalHref = deactivateLink.getAttribute('href');
+		if (reason) {
+			this.sendRequest(
+				{
+					action: 'ea11y_deactivation_feedback',
+					reason,
+					additional_data: extra,
+					nonce: window?.ea11yDeactivationFeedback?.nonce || '',
+				},
+				() => this.deactivate(),
+			);
+		} else {
+			this.deactivate();
+		}
+	}
 
-		deactivateLink.addEventListener('click', function (e) {
+	deactivate() {
+		window.tb_remove?.();
+		window.location.href = this.originalDeactivationLink;
+	}
+
+	init() {
+		this.deactivationLink.addEventListener('click', (e) => {
 			e.preventDefault();
-
-			showEa11yModal(
+			this.modal(
 				'QUICK FEEDBACK',
 				'#TB_inline?width=550&height=auto&inlineId=ea11y-deactivation-modal',
 				'ea11y-feedback-thickbox',
 			);
-
-			return false;
 		});
 
-		document.addEventListener('change', function (e) {
-			if (e.target && e.target.name === 'ea11y_deactivation_reason') {
-				hideAllTextFields();
-
-				const selectedValue = e.target.value;
-				if (selectedValue === 'unclear_how_to_use') {
-					showTextField('text_field_unclear');
-				} else if (selectedValue === 'switched_solution') {
-					showTextField('text_field_switched');
-				} else if (selectedValue === 'other') {
-					showTextField('text_field_other');
-				}
+		document.addEventListener('change', (e) => {
+			if (e.target?.name === 'ea11y_deactivation_reason') {
+				this.toggleField(e.target.value);
 			}
 		});
 
-		document.addEventListener('click', function (e) {
-			if (e.target && e.target.id === 'ea11y-submit-deactivate') {
+		document.addEventListener('click', (e) => {
+			if (e.target?.id === 'ea11y-submit-deactivate') {
 				e.preventDefault();
-
-				const selectedReasonElement = document.querySelector(
-					'input[name="ea11y_deactivation_reason"]:checked',
-				);
-				const selectedReason = selectedReasonElement
-					? selectedReasonElement.value
-					: '';
-
-				let additionalData = '';
-				if (selectedReason === 'unclear_how_to_use') {
-					const unclearDetails = document.getElementById('unclear_details');
-					additionalData = unclearDetails ? unclearDetails.value : '';
-				} else if (selectedReason === 'switched_solution') {
-					const switchedDetails = document.getElementById('switched_details');
-					additionalData = switchedDetails ? switchedDetails.value : '';
-				} else if (selectedReason === 'other') {
-					const otherDetails = document.getElementById('other_details');
-					additionalData = otherDetails ? otherDetails.value : '';
-				}
-
-				if (selectedReason) {
-					const requestData = {
-						action: 'ea11y_deactivation_feedback',
-						reason: selectedReason,
-						additional_data: additionalData,
-						nonce: window?.ea11yDeactivationFeedback?.nonce || '',
-					};
-
-					sendAjaxRequest(requestData, function () {
-						if (window.tb_remove) {
-							window.tb_remove();
-						}
-						window.location.href = originalHref;
-					});
-				} else {
-					if (window.tb_remove) {
-						window.tb_remove();
-					}
-					window.location.href = originalHref;
-				}
+				this.handleSubmit();
 			}
-		});
-
-		document.addEventListener('click', function (e) {
-			if (e.target && e.target.id === 'ea11y-skip-deactivate') {
+			if (e.target?.id === 'ea11y-skip-deactivate') {
 				e.preventDefault();
-				if (window.tb_remove) {
-					window.tb_remove();
-				}
-				window.location.href = originalHref;
+				this.deactivate();
 			}
 		});
 	}
-});
+}
+
+document.addEventListener(
+	'DOMContentLoaded',
+	() => new Ea11yDeactivationHandler(),
+);
