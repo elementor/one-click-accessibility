@@ -36,7 +36,9 @@ const OnboardingModal = () => {
 
 	useEffect(() => {
 		if (shouldDisplayModal) {
-			mixpanelService.sendEvent(mixpanelEvents.introductionBannerShowed);
+			mixpanelService.sendEvent(mixpanelEvents.introductionBannerShowed, {
+				source: 'page_view',
+			});
 		}
 	}, [shouldDisplayModal]);
 
