@@ -97,7 +97,7 @@ const MenuItem = ({ keyName, item }) => {
 
 					{
 						/* Show infotip */
-						openSidebar && item?.infotip
+						openSidebar && !showProIcon(item) && item?.infotip
 					}
 
 					{item?.children && (
@@ -116,7 +116,7 @@ const MenuItem = ({ keyName, item }) => {
 					{showProIcon(item) && openSidebar && (
 						<ListItemIcon>
 							<StyledChip
-								color="accent"
+								color="promotion"
 								variant="standard"
 								icon={<CrownFilled size="tiny" />}
 							/>

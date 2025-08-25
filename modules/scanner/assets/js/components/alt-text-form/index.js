@@ -21,11 +21,8 @@ import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
 import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
-import {
-	StyledBox,
-	StyledLabel,
-} from '@ea11y-apps/scanner/styles/alt-text-form.styles';
-import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
+import { StyledLabel } from '@ea11y-apps/scanner/styles/alt-text-form.styles';
+import { StyledAlert, StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
 
@@ -35,6 +32,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 		data,
 		loadingAiText,
 		isSubmitDisabled,
+		loading,
 		handleChange,
 		handleCheck,
 		handleSubmit,
@@ -187,6 +185,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 				variant="contained"
 				color="info"
 				fullWidth
+				loading={loading}
 				disabled={isSubmitDisabled}
 				onClick={onSubmit}
 			>

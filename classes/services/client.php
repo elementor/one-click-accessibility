@@ -73,6 +73,9 @@ class Client {
 		return get_rest_url( $blog_id, 'a11y/v1/webhooks/common' );
 	}
 
+	/**
+	 * @throws Service_Exception
+	 */
 	public function make_request( $method, $endpoint, $body = [], array $headers = [], $send_json = false, $file = false, $file_name = '' ) {
 		$headers = array_replace_recursive( [
 			'x-elementor-a11y' => EA11Y_VERSION,
@@ -124,7 +127,6 @@ class Client {
 		if ( strpos( $endpoint, 'feedback/' ) !== false ) {
 			return self::get_feedback_base_url() . $endpoint;
 		}
-
 		return self::get_client_base_url() . $endpoint;
 	}
 

@@ -1,6 +1,5 @@
 import clipboardCopy from 'clipboard-copy';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useState } from '@wordpress/element';
 
@@ -14,7 +13,7 @@ export const useCopyToClipboard = () => {
 		mixpanelService.sendEvent(mixpanelEvents.copySnippetClicked, {
 			snippet_type: type,
 			snippet_content: snippet,
-			category_name: BLOCK_TITLES[openedBlock],
+			category_name: openedBlock,
 			source,
 		});
 	};

@@ -7,9 +7,10 @@ import { __ } from '@wordpress/i18n';
 export const MainLayout = () => {
 	return (
 		<StyledContent>
-			<Typography variant="body2">
+			<Typography variant="body2" as="h3">
 				{__('All issues', 'pojo-accessibility')}
 			</Typography>
+
 			<MainList />
 		</StyledContent>
 	);

@@ -14,7 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Gutenberg_Link {
 
 	public function enqueue_custom_link_block_assets() {
-		Assets::enqueue_app_assets( 'gutenberg-custom-link', false );
+		register_block_type( 'ally/custom-link', [] );
+		if ( is_admin() ) {
+			Assets::enqueue_app_assets( 'gutenberg-custom-link', false );
+		}
 	}
 
 	public function enqueue_custom_link_block_frontend( $block_content ) {

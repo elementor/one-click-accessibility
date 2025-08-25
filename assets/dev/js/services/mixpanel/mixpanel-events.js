@@ -46,10 +46,22 @@ export const mixpanelEvents = {
 	applyFixButtonClicked: 'apply_fix_button_clicked',
 	copySnippetClicked: 'copy_snippet_clicked',
 	editSnippetClicked: 'edit_snippet_clicked',
+	contrastColorChanged: 'contrast_color_changed',
+	contrastResetClicked: 'contrast_reset_clicked',
+	backgroundAdaptorTriggered: 'background_adaptor_triggered',
+	backgroundAdaptorChanged: 'background_adaptor_changed',
 
 	// Accessibility assistant dashboard
 	assistantDashboardHistoryLogsButtonClicked: 'history_logs_button_clicked',
 	assistantDashboardScanCtaClicked: 'scan_cta_clicked',
 	assistantDashboardSearchTriggered: 'search_triggered',
 	scanLogActionsButtonClicked: 'scan_log_actions_button_clicked',
+
+	review: {
+		promptShown: 'review_prompt_shown',
+		dismissClicked: 'review_dismiss_clicked',
+		starSelected: 'review_star_selected',
+		feedbackSubmitted: 'review_feedback_submitted',
+		publicRedirectClicked: 'review_public_redirect_clicked',
+	},
 };

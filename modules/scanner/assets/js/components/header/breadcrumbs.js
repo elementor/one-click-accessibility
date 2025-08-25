@@ -54,12 +54,15 @@ export const Breadcrumbs = () => {
 				>
 					<ArrowLeftIcon />
 				</IconButton>
+
 				<Box display="flex" alignItems="center" gap={1}>
-					<Typography variant="subtitle2" sx={{ maxWidth: '180px' }}>
+					<Typography variant="subtitle2" as="h3">
 						{BLOCK_TITLES[openedBlock]}
 					</Typography>
+
 					{BLOCK_INFO[openedBlock] && (
 						<Infotip
+							tabIndex="0"
 							PopperProps={{
 								disablePortal: true,
 							}}

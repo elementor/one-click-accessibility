@@ -88,6 +88,7 @@ class Module extends Module_Base {
 			'ea11yScannerData',
 			[
 				'wpRestNonce' => wp_create_nonce( 'wp_rest' ),
+				'dashboardUrl' => admin_url( 'admin.php?page=accessibility-settings' ),
 				'scannerUrl' => self::get_scanner_wizard_url(),
 				'initialScanResult' => Scan_Entry::get_scan_result( $url ),
 				'pageData' => [
@@ -102,6 +103,7 @@ class Module extends Module_Base {
 				'planData' => Settings::get( Settings::PLAN_DATA ),
 				'planScope' => Settings::get( Settings::PLAN_SCOPE ),
 				'pluginEnv' => Settings_Module::get_plugin_env(),
+				'pluginVersion' => EA11Y_VERSION,
 				'isConnected' => Connect::is_connected(),
 				'isRTL' => is_rtl(),
 			]
@@ -115,6 +117,21 @@ class Module extends Module_Base {
 			[],
 			EA11Y_VERSION
 		);
+	}
+
+	public static function is_active(): bool {
+		return (
+			self::has_required_permissions() &&
+			self::is_connected_and_enabled()
+		);
+	}
+
+	private static function has_required_permissions(): bool {
+		return is_user_logged_in() && current_user_can( 'manage_options' );
+	}
+
+	private static function is_connected_and_enabled(): bool {
+		return Connect::is_connected() && ! \EA11y\Modules\Legacy\Module::is_active();
 	}
 
 

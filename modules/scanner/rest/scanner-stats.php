@@ -48,6 +48,16 @@ class Scanner_Stats extends Route_Base {
 					'aa' => 0,
 					'aaa' => 0,
 				],
+				'issue_by_category' => [
+					'altText' => 0,
+					'dynamicContent' => 0,
+					'formsInputsError' => 0,
+					'keyboardAssistiveTech' => 0,
+					'pageStructureNav' => 0,
+					'tables' => 0,
+					'colorContrast' => 0,
+					'other' => 0,
+				],
 			];
 
 			$pages_scanned = Page_Entry::get_pages();
@@ -62,13 +72,21 @@ class Scanner_Stats extends Route_Base {
 
 				if ( count( $recent_scans ) > 0 ) {
 					$output['scans'] ++;
-					$output['issues_total'] += $recent_scans[0]->summary['counts']['violation'];
-					$output['issues_fixed'] += $recent_scans[0]->summary['counts']['issuesResolved'];
+					$output['issues_total'] += $recent_scans[0]->summary['counts']['violation'] ?? 0;
+					$output['issues_fixed'] += $recent_scans[0]->summary['counts']['issuesResolved'] ?? 0;
 				}
 			}
 
 			foreach ( $remediations as $remediation ) {
 				$output['issue_levels'][ strtolower( $remediation->category ) ] ++;
+				
+				// Map group to the correct key format expected by frontend
+				$group = $remediation->group;
+				if ( isset( $output['issue_by_category'][ $group ] ) ) {
+					$output['issue_by_category'][ $group ] ++;
+				} else {
+					$output['issue_by_category']['other'] ++;
+				}
 			}
 
 			return $this->respond_success_json( $output );

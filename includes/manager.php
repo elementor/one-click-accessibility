@@ -26,6 +26,7 @@ final class Manager {
 			'Remediation',
 			'Scanner',
 			'Deactivation',
+			'Reviews',
 		];
 	}
 

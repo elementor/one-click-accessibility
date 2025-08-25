@@ -5,8 +5,10 @@ import { CacheProvider } from '@emotion/react';
 import { prefixer } from 'stylis';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { NotificationsProvider } from '@ea11y-apps/global/hooks/use-notifications';
+import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import App from '@ea11y-apps/scanner/app';
 import {
+	CLEAR_CACHE_LINK,
 	isRTL,
 	MANAGE_URL_PARAM,
 	ROOT_ID,
@@ -20,6 +22,18 @@ import { __ } from '@wordpress/i18n';
 
 document.addEventListener('DOMContentLoaded', function () {
 	const params = new URLSearchParams(window.location.search);
+
+	document
+		.querySelector(CLEAR_CACHE_LINK)
+		?.addEventListener('click', async (event) => {
+			event.preventDefault();
+			try {
+				await APIScanner.clearCache();
+				window.location.reload();
+			} catch (e) {
+				console.error(e);
+			}
+		});
 	document.querySelector(TOP_BAR_LINK)?.addEventListener('click', (event) => {
 		event.preventDefault();
 		const rootNode = document.getElementById(ROOT_ID);

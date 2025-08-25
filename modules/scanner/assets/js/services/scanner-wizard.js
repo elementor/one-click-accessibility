@@ -11,6 +11,7 @@ const load = async () => {
 
 		const script = document.createElement('script');
 		script.src = scriptSrc;
+		script.referrerPolicy = 'strict-origin-when-cross-origin';
 		script.async = true;
 
 		script.onload = () => {

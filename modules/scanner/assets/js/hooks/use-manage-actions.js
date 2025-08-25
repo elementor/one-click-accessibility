@@ -1,7 +1,6 @@
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
-import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -20,12 +19,13 @@ export const useManageActions = (current = null) => {
 
 	const [activeRequest, setActiveRequest] = useState(false);
 
-	const updateAllRemediationForPage = (active) => async () => {
+	const updateAllRemediationForPage = (active, group) => async () => {
 		try {
 			setLoading(true);
 			await APIScanner.updateRemediationStatusForPage({
 				url: window?.ea11yScannerData?.pageData?.url,
 				active,
+				group,
 			});
 			setIsManageChanged(true);
 			await updateRemediationList();
@@ -33,7 +33,10 @@ export const useManageActions = (current = null) => {
 				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
 				{
 					action_type: active ? 'enable_all' : 'disable_all',
-					remediations_amount: remediations?.length,
+					remediations_amount: group
+						? sortedRemediation[group]
+						: remediations?.length,
+					category: group || 'all',
 				},
 			);
 		} catch (e) {
@@ -44,24 +47,32 @@ export const useManageActions = (current = null) => {
 		}
 	};
 
-	const deleteAllRemediationForPage = async () => {
+	const deleteAllRemediationForPage = async (group) => {
 		try {
 			setLoading(true);
 			await APIScanner.deleteRemediationForPage({
 				url: window?.ea11yScannerData?.pageData?.url,
+				group,
 			});
 
 			await mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_all',
-				remediations_amount: remediations?.length,
+				remediations_amount: group
+					? sortedRemediation[group]
+					: remediations?.length,
+				category: group || 'all',
 			});
 
-			const url = new URL(window.location.href);
-			url.searchParams.delete('open-ea11y-assistant');
-			url.searchParams.delete('open-ea11y-assistant-src');
-			url.searchParams.append('open-ea11y-assistant', '1');
+			if (group) {
+				await updateRemediationList();
+			} else {
+				const url = new URL(window.location.href);
+				url.searchParams.delete('open-ea11y-assistant');
+				url.searchParams.delete('open-ea11y-assistant-src');
+				url.searchParams.append('open-ea11y-assistant', '1');
 
-			window.location.assign(url);
+				window.location.assign(url);
+			}
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -90,7 +101,7 @@ export const useManageActions = (current = null) => {
 				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
 				{
 					action_type: active ? 'enable_specific' : 'disable_specific',
-					category_name: BLOCK_TITLES[openedBlock],
+					category_name: openedBlock,
 					issue_type: current.rule,
 				},
 			);
@@ -119,7 +130,7 @@ export const useManageActions = (current = null) => {
 			setIsManageChanged(true);
 			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_specific',
-				category_name: BLOCK_TITLES[openedBlock],
+				category_name: openedBlock,
 				issue_type: current.rule,
 			});
 		} catch (e) {
@@ -150,7 +161,7 @@ export const useManageActions = (current = null) => {
 			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
 				fix_method: 'manual',
 				snippet_content: strContent,
-				category_name: BLOCK_TITLES[openedBlock],
+				category_name: openedBlock,
 				source: 'remediation',
 			});
 		} catch (e) {

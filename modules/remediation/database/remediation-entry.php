@@ -48,9 +48,13 @@ class Remediation_Entry extends Entry {
 	 *
 	 * @param string $by
 	 * @param string $by_value
+	 * @param string|null $group
 	 */
-	public static function remove( string $by, string $by_value ) {
-		$where = [
+	public static function remove( string $by, string $by_value, ?string $group = null ) {
+		$where = $group ? [
+			$by => $by_value,
+			'group' => $group,
+		] : [
 			$by => $by_value,
 		];
 		Remediation_Table::delete( $where );
@@ -64,19 +68,7 @@ class Remediation_Entry extends Entry {
 	 * @return array
 	 */
 	public static function get_page_remediations( string $url, bool $total = false ) : array {
-		$where = $total ? [
-			[
-				'column' => Remediation_Table::table_name() . '.' . Remediation_Table::URL,
-				'value' => $url,
-				'operator' => '=',
-				'relation_after' => 'AND',
-			],
-			[
-				'column' => Remediation_Table::table_name() . '.' . Remediation_Table::GROUP,
-				'value' => 'altText',
-				'operator' => '<>',
-			],
-		] : [
+		$where = [
 			[
 				'column' => Remediation_Table::URL,
 				'value' => $url,
@@ -105,11 +97,15 @@ class Remediation_Entry extends Entry {
 	 * @param string $by
 	 * @param string $by_value
 	 * @param bool $status
+	 * @param string|null $group
 	 *
 	 * @return void
 	 */
-	public static function update_remediations_status( string $by, string $by_value, bool $status ): void {
-		$where = [
+	public static function update_remediations_status( string $by, string $by_value, bool $status, ?string $group = null ): void {
+		$where = $group ? [
+			$by => $by_value,
+			'group' => $group,
+		] : [
 			$by => $by_value,
 		];
 

@@ -1,4 +1,5 @@
 import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
+import ClearIcon from '@elementor/icons/ClearIcon';
 import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
 import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
 import RefreshIcon from '@elementor/icons/RefreshIcon';
@@ -11,7 +12,9 @@ import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import Tooltip from '@elementor/ui/Tooltip';
 import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
+import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
@@ -21,7 +24,9 @@ import { __ } from '@wordpress/i18n';
 export const DropdownMenu = () => {
 	const { remediations, isManage, setOpenedBlock, setIsManage, runNewScan } =
 		useScannerWizardContext();
+	const { error } = useToastNotification();
 	const [isOpened, setIsOpened] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const anchorEl = useRef(null);
 
 	const handleOpen = () => {
@@ -36,9 +41,22 @@ export const DropdownMenu = () => {
 		});
 	};
 
-	const onRunNewScan = () => {
+	const onRescan = () => {
 		runNewScan();
-		sendOnClickEvent('New Scan');
+		sendOnClickEvent('Rescan');
+	};
+
+	const onClearCache = async () => {
+		try {
+			setLoading(true);
+			await APIScanner.clearCache();
+			sendOnClickEvent('Clear cache');
+			handleClose();
+		} catch (e) {
+			error(__('An error occurred.', 'pojo-accessibility'));
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const goToManagement = () => {
@@ -61,12 +79,14 @@ export const DropdownMenu = () => {
 			>
 				<DotsHorizontalIcon />
 			</IconButton>
+
 			<Menu
 				open={isOpened}
 				id="assistant-menu"
 				anchorEl={anchorEl.current}
-				container={anchorEl.current}
 				onClose={handleClose}
+				anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+				transformOrigin={{ vertical: 'top', horizontal: 'right' }}
 				MenuListProps={{
 					'aria-labelledby': 'menu-button',
 				}}
@@ -77,12 +97,26 @@ export const DropdownMenu = () => {
 				}}
 				disablePortal
 			>
-				<MenuItem onClick={onRunNewScan}>
+				<MenuItem onClick={onRescan} dense>
 					<MenuItemIcon>
 						<RefreshIcon />
 					</MenuItemIcon>
-					<MenuItemText>{__('New Scan', 'pojo-accessibility')}</MenuItemText>
+
+					<MenuItemText>{__('Rescan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
+				<MenuItem
+					onClick={onClearCache}
+					loading={loading}
+					disabled={loading}
+					dense
+				>
+					<MenuItemIcon>
+						<ClearIcon />
+					</MenuItemIcon>
+
+					<MenuItemText>{__('Clear cache', 'pojo-accessibility')}</MenuItemText>
+				</MenuItem>
+
 				{!remediations.length ? (
 					<Tooltip
 						arrow
@@ -103,12 +137,12 @@ export const DropdownMenu = () => {
 							],
 						}}
 					>
-						<MenuItem>
+						<MenuItem dense>
 							<MenuItemIcon>
 								<SettingsIcon color="disabled" />
 							</MenuItemIcon>
 							<DisabledMenuItemText>
-								{__('Manage AI fixes', 'pojo-accessibility')}
+								{__('Manage fixes', 'pojo-accessibility')}
 							</DisabledMenuItemText>
 						</MenuItem>
 					</Tooltip>
@@ -117,12 +151,13 @@ export const DropdownMenu = () => {
 						onClick={goToManagement}
 						disabled={isManage}
 						selected={isManage}
+						dense
 					>
 						<MenuItemIcon>
 							<SettingsIcon />
 						</MenuItemIcon>
 						<MenuItemText>
-							{__('Manage AI fixes', 'pojo-accessibility')}
+							{__('Manage fixes', 'pojo-accessibility')}
 						</MenuItemText>
 					</MenuItem>
 				)}
@@ -133,6 +168,7 @@ export const DropdownMenu = () => {
 					target="_blank"
 					rel="noreferrer"
 					onClick={() => sendOnClickEvent('View subscription')}
+					dense
 				>
 					<MenuItemIcon>
 						<CalendarDollarIcon />

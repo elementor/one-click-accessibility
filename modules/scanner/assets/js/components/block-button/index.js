@@ -9,15 +9,8 @@ import {
 	StyledButton,
 	StyledButtonContainer,
 } from '@ea11y-apps/scanner/styles/app.styles';
-import { __, sprintf } from '@wordpress/i18n';
 
-export const BlockButton = ({
-	title,
-	count,
-	block,
-	total,
-	isManage = false,
-}) => {
+export const BlockButton = ({ title, count, block }) => {
 	const { setOpenedBlock, isResolved } = useScannerWizardContext();
 
 	const handleClick = () => {
@@ -26,12 +19,11 @@ export const BlockButton = ({
 			page_url: window.ea11yScannerData?.pageData?.url,
 			issue_count: count,
 			category_name: title,
-			source: isManage ? 'remediation' : 'assistant',
+			source: 'assistant',
 		});
 	};
 
-	const resolved = !isManage && (count === 0 || isResolved(block));
-	const showChip = !isManage && !resolved;
+	const resolved = count === 0 || isResolved(block);
 
 	return (
 		<StyledButton
@@ -47,26 +39,16 @@ export const BlockButton = ({
 				color={resolved ? 'success' : 'default'}
 			>
 				<Box display="flex" alignItems="center" gap={0.5}>
-					<Typography variant="subtitle2">{title}</Typography>
-					{showChip && (
+					<Typography variant="subtitle2" as="h4">
+						{title}
+					</Typography>
+
+					{!resolved && (
 						<Chip label={count} color="error" variant="standard" size="tiny" />
 					)}
 				</Box>
+
 				{resolved && <CircleCheckFilledIcon color="success" />}
-				{isManage && (
-					<Chip
-						label={sprintf(
-							// Translators: %1$s - active, %2$s - total
-							__('%1$s/%2$s active', 'pojo-accessibility'),
-							count,
-							total,
-						)}
-						color={count > 0 ? 'info' : 'default'}
-						variant="standard"
-						size="tiny"
-						disabled={count === 0}
-					/>
-				)}
 			</StyledButtonContainer>
 		</StyledButton>
 	);
@@ -76,6 +58,4 @@ BlockButton.propTypes = {
 	title: PropTypes.string.isRequired,
 	count: PropTypes.number.isRequired,
 	block: PropTypes.string.isRequired,
-	total: PropTypes.number,
-	isManage: PropTypes.bool,
 };

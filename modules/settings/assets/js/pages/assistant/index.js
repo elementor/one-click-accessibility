@@ -123,11 +123,27 @@ const StyledHeadingWrapper = styled(Box)`
 `;
 
 const StyledHeadingContainer = styled(Container)`
-	padding: ${({ theme }) => theme.spacing(4.5)};
+	padding-top: ${({ theme }) => theme.spacing(4)};
+	padding-bottom: ${({ theme }) => theme.spacing(4)};
+	padding-left: ${({ theme }) => theme.spacing(4)};
+	padding-right: ${({ theme }) => theme.spacing(4)};
+
+	@media (min-width: ${({ theme }) => theme.breakpoints.values.xl}px) {
+		padding-left: 0;
+		padding-right: 0;
+	}
 `;
 
 export const StyledContainer = styled(Container)`
-	padding: ${({ theme }) => theme.spacing(4)};
+	padding-top: ${({ theme }) => theme.spacing(4)};
+	padding-bottom: ${({ theme }) => theme.spacing(4)};
+	padding-left: ${({ theme }) => theme.spacing(4)};
+	padding-right: ${({ theme }) => theme.spacing(4)};
+
+	@media (min-width: ${({ theme }) => theme.breakpoints.values.xl}px) {
+		padding-left: 0;
+		padding-right: 0;
+	}
 `;
 
 export default AccessibilityAssistant;
