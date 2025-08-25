@@ -4,6 +4,7 @@ namespace EA11y\Modules\Settings\Banners;
 
 use EA11y\Modules\Core\Components\Pointers;
 use EA11y\Modules\Scanner\Database\Scans_Table;
+use EA11y\Modules\Connect\Module as Connect;
 use Throwable;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,6 +34,15 @@ class Onboarding_Banner {
 	 * @throws Throwable
 	 */
 	public static function get_banner() {
+
+		if ( ! Connect::is_connected() ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		if ( self::user_viewed_banner() || self::user_has_scanned_pages() ) {
 			return;
 		}
