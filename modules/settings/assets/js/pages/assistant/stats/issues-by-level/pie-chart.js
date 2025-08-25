@@ -20,27 +20,21 @@ const PieChart = ({
 	thirdSectorPercentage,
 	noResultsState,
 }) => {
-	const createPieData = () => {
-		if (
-			noResultsState ||
-			loading ||
-			(firstSectorPercentage === 0 &&
-				secondSectorPercentage === 0 &&
-				thirdSectorPercentage === 0)
-		) {
-			return [{ label: 'No Issues', value: 100, color: '#f3f3f4' }];
-		}
+	const hasNoData =
+		firstSectorPercentage === 0 &&
+		secondSectorPercentage === 0 &&
+		thirdSectorPercentage === 0;
 
-		return [
-			{ label: 'A', value: firstSectorPercentage, color: ColorGreen900 },
-			{ label: 'AA', value: secondSectorPercentage, color: ColorGreen500 },
-			{ label: 'AAA', value: thirdSectorPercentage, color: ColorGreen200 },
-		];
-	};
+	let pieData = [
+		{ label: 'A', value: firstSectorPercentage, color: ColorGreen900 },
+		{ label: 'AA', value: secondSectorPercentage, color: ColorGreen500 },
+		{ label: 'AAA', value: thirdSectorPercentage, color: ColorGreen200 },
+	];
 
-	const pieData = createPieData();
+	if (loading || noResultsState || hasNoData) {
+		pieData = [{ label: 'No Issues', value: 100, color: '#f3f3f4' }];
+	}
 
-	// Regular chart with center value
 	return (
 		<Box
 			sx={{
