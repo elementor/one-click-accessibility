@@ -28,7 +28,7 @@ const entryPoints = {
 		'modules/widget/assets/js',
 		'ally-gutenberg-block.js',
 	),
-	deactivation: path.resolve(
+	'deactivation-ally': path.resolve(
 		process.cwd(),
 		'modules/deactivation/assets/js',
 		'deactivation-feedback.js',
