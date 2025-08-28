@@ -51,10 +51,10 @@ class Module extends Module_Base {
 		// Enqueue thickbox for modal
 		add_thickbox();
 
-		Utils\Assets::enqueue_app_assets( 'deactivation' );
+		Utils\Assets::enqueue_app_assets( 'deactivation-ally' );
 
 		wp_localize_script(
-			'deactivation',
+			'deactivation-ally',
 			'ea11yDeactivationFeedback',
 			[
 				'nonce' => wp_create_nonce( 'ea11y_deactivation_feedback' ),
