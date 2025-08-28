@@ -1,3 +1,4 @@
+import { ThemeBuilderIcon } from '@elementor/icons';
 import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
 import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
 import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
@@ -46,6 +47,11 @@ export const DropdownMenu = () => {
 		setIsManage(true);
 		setOpenedBlock(BLOCKS.management);
 		sendOnClickEvent('Manage fixes');
+	};
+
+	const goToHeadingManager = () => {
+		handleClose();
+		setOpenedBlock(BLOCKS.headingStructure);
 	};
 
 	return (
@@ -131,6 +137,16 @@ export const DropdownMenu = () => {
 						</MenuItemText>
 					</MenuItem>
 				)}
+
+				<MenuItem onClick={goToHeadingManager} dense>
+					<MenuItemIcon>
+						<ThemeBuilderIcon />
+					</MenuItemIcon>
+
+					<MenuItemText>
+						{__('Manage headings', 'pojo-accessibility')}
+					</MenuItemText>
+				</MenuItem>
 
 				<MenuItem
 					component="a"

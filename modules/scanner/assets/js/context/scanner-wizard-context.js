@@ -6,6 +6,7 @@ import {
 	MANAGE_URL_PARAM,
 	MANUAL_GROUPS,
 } from '@ea11y-apps/scanner/constants';
+import { runAllCustomRules } from '@ea11y-apps/scanner/rules';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
 	focusOnElement,
@@ -69,7 +70,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	);
 	const [resolved, setResolved] = useState(0);
 	const [currentScanId, setCurrentScanId] = useState(null);
-	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
+	const [openedBlock, setOpenedBlock] = useState(BLOCKS.headingStructure);
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 	const [quotaExceeded, setQuotaExceeded] = useState(false);
@@ -207,11 +208,30 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					(item.ruleId === 'text_contrast_sufficient' &&
 						item.level === 'potentialViolation'),
 			);
-			const sorted = sortViolations(filtered);
+
+			const customResults = runAllCustomRules(document);
+
+			const filteredCustomResults = customResults.filter(
+				(item) => item.level === 'violation' || item.level === 'recommendation',
+			);
+
+			const allResults = [...filtered, ...filteredCustomResults];
+
+			data.results = allResults;
 
 			if (data?.summary?.counts) {
 				data.summary.counts.issuesResolved = 0;
+				data.summary.counts.violation += filteredCustomResults.filter(
+					(item) => item.level === 'violation',
+				).length;
+				data.summary.counts.recommendation =
+					(data.summary.counts.recommendation || 0) +
+					filteredCustomResults.filter(
+						(item) => item.level === 'recommendation',
+					).length;
 			}
+
+			const sorted = sortViolations(allResults);
 
 			await registerPage(data, sorted);
 			await addScanResults(data);
