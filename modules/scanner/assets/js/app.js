@@ -18,6 +18,7 @@ import {
 	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
 import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
+import { HeadingStructureLayout } from '@ea11y-apps/scanner/layouts/heading-structure-layout';
 import { AppContainer } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect } from '@wordpress/element';
@@ -85,6 +86,8 @@ const App = () => {
 				return <AltTextLayout />;
 			case BLOCKS.colorContrast:
 				return <ColorContrastLayout />;
+			case BLOCKS.headingStructure:
+				return <HeadingStructureLayout />;
 			default:
 				return isManage ? <RemediationLayout /> : <ManualLayout />;
 		}
