@@ -6,6 +6,7 @@ import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ColorSet } from '@ea11y-apps/scanner/components/color-contrast-form/color-set';
+import { ColorSetDisabled } from '@ea11y-apps/scanner/components/color-contrast-form/color-set-disabled';
 import { ParentSelector } from '@ea11y-apps/scanner/components/color-contrast-form/parent-selector';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useColorContrastForm } from '@ea11y-apps/scanner/hooks/use-color-contrast-form';
@@ -46,7 +47,7 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 		}
 	}, [item]);
 
-	const isBackground = item.messageArgs[3] && item.messageArgs[4];
+	const isBackgroundEnabled = item.messageArgs[3] && item.messageArgs[4];
 
 	const colorData = checkContrastAA(item.node);
 
@@ -80,13 +81,21 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 				area="color"
 			/>
 
-			{isBackground && (
+			{isBackgroundEnabled ? (
 				<ColorSet
 					title={__('Background', 'pojo-accessibility')}
 					color={background}
 					initialColor={item.messageArgs[4]}
 					setColor={changeBackground}
 					area="background"
+				/>
+			) : (
+				<ColorSetDisabled
+					title={__('Background', 'pojo-accessibility')}
+					description={__(
+						'Image and gradient backgrounds must be changed in the design',
+						'pojo-accessibility',
+					)}
 				/>
 			)}
 
