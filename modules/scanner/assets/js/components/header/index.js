@@ -37,8 +37,9 @@ export const Header = () => {
 		isChanged,
 		setOpenedBlock,
 		setIsManage,
+		violation,
 	} = useScannerWizardContext();
-	const violation = results?.summary?.counts?.violation;
+
 	const onClose = () => {
 		if (isManage) {
 			setIsManage(false);
