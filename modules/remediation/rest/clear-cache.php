@@ -28,7 +28,7 @@ class Clear_Cache extends Route_Base {
 	 * @return WP_Error|WP_REST_Response
 	 *
 	 */
-	public function DELETE() {
+	public function DELETE( $request ) {
 		try {
 			$error = $this->verify_capability();
 
@@ -36,7 +36,12 @@ class Clear_Cache extends Route_Base {
 				return $error;
 			}
 
-			Cache_Cleaner::clear_ally_cache();
+			$url = esc_url( $request->get_param( 'url' ) );
+			if ( $url ) {
+				Cache_Cleaner::clear_ally_url_cache( $url );
+			} else {
+				Cache_Cleaner::clear_ally_cache();
+			}
 
 			return $this->respond_success_json( [
 				'message' => 'Cache cleared.',
