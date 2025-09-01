@@ -28,12 +28,12 @@ export const ColorSetDisabled = ({ title, description }) => {
 						disablePortal: true,
 						sx: {
 							'& .MuiTooltip-tooltip': {
-								maxWidth: 400, // set your width
+								maxWidth: 400,
 							},
 						},
 					}}
 				>
-					<LockFilledIcon color="disabled" fontSize="tiny" />
+					<LockFilledIcon tabindex={0} color="disabled" fontSize="tiny" />
 				</Tooltip>
 			</Box>
 			<StyledColorSet>
