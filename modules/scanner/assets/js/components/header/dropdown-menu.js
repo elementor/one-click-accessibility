@@ -49,7 +49,9 @@ export const DropdownMenu = () => {
 	const onClearCache = async () => {
 		try {
 			setLoading(true);
-			await APIScanner.clearCache();
+			await APIScanner.clearCache({
+				url: window.ea11yScannerData?.pageData?.url,
+			});
 			sendOnClickEvent('Clear cache');
 			handleClose();
 		} catch (e) {
@@ -104,18 +106,31 @@ export const DropdownMenu = () => {
 
 					<MenuItemText>{__('Rescan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
-				<MenuItem
-					onClick={onClearCache}
-					loading={loading}
-					disabled={loading}
-					dense
-				>
-					<MenuItemIcon>
-						<ClearIcon />
-					</MenuItemIcon>
+				{remediations.length > 0 ? (
+					<MenuItem
+						onClick={onClearCache}
+						loading={loading}
+						disabled={loading}
+						dense
+					>
+						<MenuItemIcon>
+							<ClearIcon />
+						</MenuItemIcon>
 
-					<MenuItemText>{__('Clear cache', 'pojo-accessibility')}</MenuItemText>
-				</MenuItem>
+						<MenuItemText>
+							{__('Clear cache', 'pojo-accessibility')}
+						</MenuItemText>
+					</MenuItem>
+				) : (
+					<MenuItem dense>
+						<MenuItemIcon>
+							<ClearIcon color="disabled" />
+						</MenuItemIcon>
+						<DisabledMenuItemText>
+							{__('Clear page cache', 'pojo-accessibility')}
+						</DisabledMenuItemText>
+					</MenuItem>
+				)}
 
 				{!remediations.length ? (
 					<Tooltip

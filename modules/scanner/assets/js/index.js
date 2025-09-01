@@ -12,6 +12,7 @@ import {
 	isRTL,
 	MANAGE_URL_PARAM,
 	ROOT_ID,
+	SCAN_LINK,
 	SCANNER_URL_PARAM,
 	TOP_BAR_LINK,
 } from '@ea11y-apps/scanner/constants';
@@ -34,20 +35,24 @@ document.addEventListener('DOMContentLoaded', function () {
 				console.error(e);
 			}
 		});
-	document.querySelector(TOP_BAR_LINK)?.addEventListener('click', (event) => {
-		event.preventDefault();
-		const rootNode = document.getElementById(ROOT_ID);
-		const url = new URL(window.location.href);
-		url.searchParams.delete('open-ea11y-assistant-src');
-		url.searchParams.append('open-ea11y-assistant-src', 'top_bar');
-		history.replaceState(null, '', url);
+	document
+		.querySelectorAll(`${TOP_BAR_LINK}, ${SCAN_LINK}`)
+		?.forEach((link) => {
+			link.addEventListener('click', (event) => {
+				event.preventDefault();
+				const rootNode = document.getElementById(ROOT_ID);
+				const url = new URL(window.location.href);
+				url.searchParams.delete('open-ea11y-assistant-src');
+				url.searchParams.append('open-ea11y-assistant-src', 'top_bar');
+				history.replaceState(null, '', url);
 
-		if (rootNode) {
-			closeWidget(rootNode);
-		} else {
-			initApp();
-		}
-	});
+				if (rootNode) {
+					closeWidget(rootNode);
+				} else {
+					initApp();
+				}
+			});
+		});
 	if (
 		params.get(SCANNER_URL_PARAM) === '1' ||
 		params.get(MANAGE_URL_PARAM) === '1'
