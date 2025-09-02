@@ -81,6 +81,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		structuredClone(MANUAL_GROUPS),
 	);
 	const [openIndex, setOpenIndex] = useState(null);
+	const [violation, setViolation] = useState(null);
 
 	useEffect(() => {
 		const items = isManage
@@ -113,6 +114,16 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		}
 	}, [sortedRemediation]);
 
+	useEffect(() => {
+		if (results?.summary?.counts) {
+			const total = Object.values(sortedViolations).reduce(
+				(sum, arr) => sum + arr.length,
+				0,
+			);
+			setViolation(total);
+		}
+	}, [sortedViolations, results]);
+
 	const updateRemediationList = async () => {
 		try {
 			const items = await APIScanner.getRemediations(
@@ -144,11 +155,6 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		setOpenedBlock(block);
 		setOpenIndex(null);
 	};
-
-	const violation =
-		results?.summary?.counts?.violation >= 0
-			? results?.summary?.counts?.violation
-			: null;
 
 	const registerPage = async (data, sorted) => {
 		try {

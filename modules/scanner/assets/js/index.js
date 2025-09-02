@@ -91,6 +91,7 @@ const initApp = () => {
 	// Can't use the settings hook in the global scope so accessing directly
 	const isDevelopment = window?.ea11ySettingsData?.isDevelopment;
 	const AppWrapper = Boolean(isDevelopment) ? StrictMode : Fragment;
+
 	const cache = createCache({
 		key: 'css',
 		prepend: true,
