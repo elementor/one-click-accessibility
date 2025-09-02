@@ -4,12 +4,14 @@ Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.6.0
+Stable tag: 3.7.0
 License: GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
 
 == Description ==
+
+https://www.youtube.com/watch?v=-2ig5D348vo
 
 Ally (formerly One Click Accessibility) is a free, powerful, and user-friendly plugin that helps WordPress creators build more accessible websites with ease.
 It simplifies accessibility with three essential tools:
@@ -187,6 +189,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 5. Widget on Site: This is how the accessibility widget appears on a live website.
 
 == Changelog ==
+= 3.7.0 - 2025-09-02 =
+* New: Redesigned Accessibility Widget – Clearer structure, Wider accessible buttons, and Improved mobile view
+* New: Intro banner for users who connected Ally
+* New: Reviews & CSAT flow to gather user feedback
+* Tweak: Added cache clearing option in Assistant panel and WordPress Admin Bar
+* Tweak: Enhanced color contrast evaluation to fix issues with gradient/video backgrounds
+* Fix: found issue count wrong in edge cases
 
 = 3.6.0 - 2025-08-02 =
 * New: Smart color contrast remediation flow in the accessibility assistant

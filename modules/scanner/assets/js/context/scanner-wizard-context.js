@@ -163,6 +163,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					window?.ea11yScannerData?.pageData,
 					data.summary,
 				);
+				window.ea11yScannerData.pageData.unregistered = false;
 			}
 
 			setResults(data);
