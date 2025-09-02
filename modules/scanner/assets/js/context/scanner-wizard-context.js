@@ -81,6 +81,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		structuredClone(MANUAL_GROUPS),
 	);
 	const [openIndex, setOpenIndex] = useState(null);
+	const [violation, setViolation] = useState(null);
 
 	useEffect(() => {
 		const items = isManage
@@ -112,6 +113,16 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			setRemediations([]);
 		}
 	}, [sortedRemediation]);
+
+	useEffect(() => {
+		if (results?.summary?.counts) {
+			const total = Object.values(sortedViolations).reduce(
+				(sum, arr) => sum + arr.length,
+				0,
+			);
+			setViolation(total);
+		}
+	}, [sortedViolations, results]);
 
 	const updateRemediationList = async () => {
 		try {
@@ -145,13 +156,6 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		setOpenIndex(null);
 	};
 
-	const initialViolations =
-		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
-	const violation =
-		results?.summary?.counts?.violation >= 0
-			? results?.summary?.counts?.violation
-			: null;
-
 	const registerPage = async (data, sorted) => {
 		try {
 			if (window?.ea11yScannerData?.pageData?.unregistered) {
@@ -159,16 +163,13 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					window?.ea11yScannerData?.pageData,
 					data.summary,
 				);
+				window.ea11yScannerData.pageData.unregistered = false;
 			}
+
 			setResults(data);
 			setSortedViolations(sorted);
 			setAltTextData([]);
 			setManualData(structuredClone(MANUAL_GROUPS));
-			setResolved(
-				initialViolations >= data.summary?.counts?.issuesResolved
-					? data.summary?.counts?.issuesResolved
-					: 0,
-			);
 		} catch (e) {
 			if (e?.message === 'Quota exceeded') {
 				setQuotaExceeded(true);

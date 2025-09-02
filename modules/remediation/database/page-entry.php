@@ -159,4 +159,9 @@ class Page_Entry extends Entry {
 			return;
 		}
 	}
+
+	public static function clear_all_cache() : void {
+		$query = 'UPDATE `' . Page_Table::table_name() . '` SET `' . Page_Table::FULL_HTML . '` = NULL WHERE `' . Page_Table::FULL_HTML . '` IS NOT NULL';
+		Page_Table::query( $query );
+	}
 }

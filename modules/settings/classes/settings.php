@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Settings {
 	public const CLOSE_POST_CONNECT_MODAL = 'ea11y_close_post_connect_modal';
+	public const CLOSE_ONBOARDING_MODAL = 'ea11y_close_onboarding_modal';
 
 	public const IS_VALID_PLAN_DATA = 'ea11y_is_valid_plan_data';
 	public const PLAN_DATA = 'ea11y_plan_data';

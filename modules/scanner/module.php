@@ -106,6 +106,7 @@ class Module extends Module_Base {
 				'pluginVersion' => EA11Y_VERSION,
 				'isConnected' => Connect::is_connected(),
 				'isRTL' => is_rtl(),
+				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 			]
 		);
 	}

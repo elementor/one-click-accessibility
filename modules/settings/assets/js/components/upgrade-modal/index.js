@@ -61,7 +61,7 @@ const UpgradeModal = () => {
 							href={GOLINKS.ANALYTICS_POPUP}
 							target="_blank"
 							size="large"
-							color="accent"
+							color="promotion"
 							startIcon={<CrownFilled />}
 							variant="contained"
 							sx={{ width: 300 }}

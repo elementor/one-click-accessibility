@@ -25,6 +25,8 @@ final class Manager {
 			'whats-new',
 			'Remediation',
 			'Scanner',
+			'Deactivation',
+			'Reviews',
 		];
 	}
 
