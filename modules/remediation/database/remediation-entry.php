@@ -79,6 +79,30 @@ class Remediation_Entry extends Entry {
 		return Remediation_Table::select( $select, $where );
 	}
 
+	/**
+	 *  get_page_active_remediations
+	 *
+	 * @param string $url
+	 * @return array
+	 */
+	public static function get_page_active_remediations( string $url ) : array {
+		$where = [
+			[
+				'column' => Remediation_Table::URL,
+				'value' => $url,
+				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::ACTIVE,
+				'value' => 1,
+				'operator' => '=',
+			],
+		];
+
+		return Remediation_Table::select( '*', $where );
+	}
+
 	public static function get_all_remediations( int $period ) : array {
 		$date_threshold = gmdate( 'Y-m-d', strtotime( "-{$period} days" ) ) . ' 00:00:00';
 
