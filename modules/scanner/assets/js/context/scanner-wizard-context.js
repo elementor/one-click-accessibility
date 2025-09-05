@@ -206,7 +206,8 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				(item) =>
 					item.level === 'violation' ||
 					(item.ruleId === 'text_contrast_sufficient' &&
-						item.level === 'potentialViolation'),
+						item.level === 'potentialViolation' &&
+						Number(item.messageArgs[0]) !== 1),
 			);
 			const sorted = sortViolations(filtered);
 
