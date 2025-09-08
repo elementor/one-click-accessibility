@@ -3,8 +3,12 @@ import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
+	LEVEL_POTENTIAL,
+	LEVEL_VIOLATION,
 	MANAGE_URL_PARAM,
 	MANUAL_GROUPS,
+	RATIO_EXCLUDED,
+	RULE_TEXT_CONTRAST,
 } from '@ea11y-apps/scanner/constants';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
@@ -196,18 +200,23 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		}
 	};
 
+	const isViolation = (item) => item.level === LEVEL_VIOLATION;
+	const isContrastViolation = (item) =>
+		item.ruleId === RULE_TEXT_CONTRAST &&
+		item.level === LEVEL_POTENTIAL &&
+		Number(item.messageArgs[0]) !== RATIO_EXCLUDED;
+
 	const getResults = async () => {
 		setLoading(true);
 
 		try {
 			const url = new URL(window.location.href);
 			const data = await window.ace.check(document);
+
 			const filtered = data.results.filter(
-				(item) =>
-					item.level === 'violation' ||
-					(item.ruleId === 'text_contrast_sufficient' &&
-						item.level === 'potentialViolation'),
+				(item) => isViolation(item) || isContrastViolation(item),
 			);
+
 			const sorted = sortViolations(filtered);
 
 			if (data?.summary?.counts) {
