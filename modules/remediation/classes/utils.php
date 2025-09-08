@@ -124,7 +124,7 @@ class Utils {
 		if ( $wp_query->is_post_type_archive() ) {
 			$post_type = $wp_query->query_vars['post_type'];
 			if ( is_array( $post_type ) ) {
-				$post_type = implode( ', ', $post_type );
+				$post_type = implode( '_', $post_type );
 			}
 			return $post_type ?? 'unknown';
 		}
