@@ -36,11 +36,16 @@ const missingH1Check = {
 		},
 	],
 	run: (context) => {
-		const doc = context.dom.node;
-		const h1Elements = doc.querySelectorAll('h1');
+		const document = context.dom.node;
+		const firstLevelHeadings = document.querySelectorAll(
+			'h1, [role="heading"][aria-level="1"]',
+		);
 
-		if (h1Elements.length === 0) {
-			// Return violation result for missing h1 tag
+		if (firstLevelHeadings.length === 0) {
+			const headings = document.querySelectorAll(
+				'h1, h2, h3, h4, h5, h6, [role="heading"]',
+			);
+
 			return {
 				ruleId: 'missing_h1_check',
 				reasonId: 'fail_no_h1',
@@ -49,6 +54,7 @@ const missingH1Check = {
 					dom: '/html[1]',
 					aria: '/document[1]',
 				},
+				node: headings[0],
 				ruleTime: 0,
 				message:
 					'No h1 tag found. Add a main heading (h1) to establish the page structure.',
@@ -66,7 +72,7 @@ const missingH1Check = {
 				level: 'violation',
 			};
 		}
-		// Return pass result if h1 tag exists
+
 		return {
 			ruleId: 'missing_h1_check',
 			reasonId: 'pass',
@@ -85,7 +91,7 @@ const missingH1Check = {
 				height: 0,
 				width: 0,
 			},
-			snippet: h1Elements[0].outerHTML,
+			snippet: firstLevelHeadings[0].outerHTML,
 			category: 'Accessibility',
 			ignored: false,
 			level: 'pass',

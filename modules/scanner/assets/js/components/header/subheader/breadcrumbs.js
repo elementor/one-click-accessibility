@@ -15,7 +15,7 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { __ } from '@wordpress/i18n';
 
-export const Breadcrumbs = () => {
+const Breadcrumbs = () => {
 	const {
 		openedBlock,
 		sortedViolations,
@@ -93,5 +93,9 @@ export const Breadcrumbs = () => {
 const BreadcrumbsBox = styled(Box)`
 	display: flex;
 	align-items: center;
+
+	padding: ${({ theme }) => theme.spacing(1.5)};
 	gap: ${({ theme }) => theme.spacing(1)};
 `;
+
+export default Breadcrumbs;

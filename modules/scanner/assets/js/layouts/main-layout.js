@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
 export const MainLayout = () => {
 	return (
 		<StyledContent>
-			<Typography variant="body2" as="h3">
+			<Typography variant="body1" as="h3" sx={{ color: 'text.secondary' }}>
 				{__('All issues', 'pojo-accessibility')}
 			</Typography>
 

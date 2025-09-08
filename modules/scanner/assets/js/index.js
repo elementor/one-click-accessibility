@@ -13,6 +13,7 @@ import {
 	SCANNER_URL_PARAM,
 	TOP_BAR_LINK,
 } from '@ea11y-apps/scanner/constants';
+import { HeadingStructureContextProvider } from '@ea11y-apps/scanner/context/heading-structure-context';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
@@ -90,7 +91,9 @@ const initApp = () => {
 					<ThemeProvider colorScheme="light" theme={theme}>
 						<NotificationsProvider>
 							<ScannerWizardContextProvider>
-								<App />
+								<HeadingStructureContextProvider>
+									<App />
+								</HeadingStructureContextProvider>
 							</ScannerWizardContextProvider>
 						</NotificationsProvider>
 					</ThemeProvider>

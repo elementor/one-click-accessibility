@@ -1,11 +1,12 @@
 /**
  * Heading Hierarchy Check Rule
  *
- * This rule checks for proper heading hierarchy (h1 -> h2 -> h3, etc.).
+ * This rule checks for proper heading hierarchy.
  * Skipping heading levels can confuse screen readers and break document outline.
  *
  * Compatible with ACE (accessibility-checker-engine)
  */
+import { getHeadingLevel, getHeadingXpath } from '../utils/page-headings';
 
 const headingHierarchyCheck = {
 	id: 'heading_hierarchy_check',
@@ -16,7 +17,7 @@ const headingHierarchyCheck = {
 			group: 'Heading Structure',
 			pass: 'Heading hierarchy follows proper sequence',
 			fail_skipped_level:
-				'Heading levels are skipped in the document. Maintain proper heading hierarchy (h1 -> h2 -> h3) to help screen readers understand the content structure.',
+				'Heading levels are skipped in the document. Maintain proper heading hierarchy to help screen readers understand the content structure.',
 		},
 	},
 	messages: {
@@ -36,11 +37,12 @@ const headingHierarchyCheck = {
 		},
 	],
 	run: (context) => {
-		const doc = context.dom.node;
-		const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+		const document = context.dom.node;
+		const headings = document.querySelectorAll(
+			'h1, h2, h3, h4, h5, h6, [role="heading"]',
+		);
 
 		if (headings.length === 0) {
-			// No headings to check
 			return {
 				ruleId: 'heading_hierarchy_check',
 				reasonId: 'pass',
@@ -72,14 +74,15 @@ const headingHierarchyCheck = {
 		const skippedLevels = [];
 
 		for (const heading of headings) {
-			const currentLevel = parseInt(heading.tagName.charAt(1));
+			const currentLevel = getHeadingLevel(heading);
 
-			// Check if we skipped levels (more than 1 level jump)
 			if (previousLevel > 0 && currentLevel > previousLevel + 1) {
 				violatingElement = heading;
+
 				for (let i = previousLevel + 1; i < currentLevel; i++) {
 					skippedLevels.push(`h${i}`);
 				}
+
 				break;
 			}
 
@@ -87,7 +90,6 @@ const headingHierarchyCheck = {
 		}
 
 		if (violatingElement) {
-			// Get element position for bounds
 			const rect = violatingElement.getBoundingClientRect();
 
 			return {
@@ -95,11 +97,12 @@ const headingHierarchyCheck = {
 				reasonId: 'fail_skipped_level',
 				value: ['RECOMMENDATION', 'FAIL'],
 				path: {
-					dom: getXPath(violatingElement),
+					dom: getHeadingXpath(violatingElement),
 					aria: '/document[1]',
 				},
+				node: violatingElement,
 				ruleTime: 0,
-				message: `Heading levels are skipped. Ensure headings follow proper hierarchy (h1 -> h2 -> h3). Missing: ${skippedLevels.join(', ')}.`,
+				message: `Heading levels are skipped. Ensure headings follow proper hierarchy. Missing: ${skippedLevels.join(', ')}.`,
 				messageArgs: [skippedLevels.join(', ')],
 				apiArgs: [],
 				bounds: {
@@ -115,7 +118,6 @@ const headingHierarchyCheck = {
 			};
 		}
 
-		// All headings follow proper hierarchy
 		return {
 			ruleId: 'heading_hierarchy_check',
 			reasonId: 'pass',
@@ -141,38 +143,5 @@ const headingHierarchyCheck = {
 		};
 	},
 };
-
-/**
- * Helper function to get XPath of an element
- * @param {Element} element
- */
-function getXPath(element) {
-	if (element.id) {
-		return `//*[@id="${element.id}"]`;
-	}
-
-	let path = '';
-	let current = element;
-
-	while (current && current.nodeType === Node.ELEMENT_NODE) {
-		let selector = current.nodeName.toLowerCase();
-
-		if (current.parentNode) {
-			const siblings = Array.from(current.parentNode.children).filter(
-				(sibling) => sibling.nodeName === current.nodeName,
-			);
-
-			if (siblings.length > 1) {
-				const index = siblings.indexOf(current) + 1;
-				selector += `[${index}]`;
-			}
-		}
-
-		path = `/${selector}${path}`;
-		current = current.parentNode;
-	}
-
-	return path || '/html[1]';
-}
 
 export default headingHierarchyCheck;

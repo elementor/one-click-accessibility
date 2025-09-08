@@ -3,11 +3,29 @@ import AlertTriangleFilledIcon from '@elementor/icons/AlertTriangleFilledIcon';
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
 import Divider from '@elementor/ui/Divider';
 import PropTypes from 'prop-types';
+import { useHeadingStructureContext } from '@ea11y-apps/scanner/context/heading-structure-context';
+import { StyledSkeleton } from '@ea11y-apps/scanner/styles/app.styles';
 import { StyledTitleRowContainer } from '@ea11y-apps/scanner/styles/heading-structure.styles';
 import { __, sprintf } from '@wordpress/i18n';
 import HeadingStructureTitleRowItem from './title-row-item';
 
 const HeadingStructureTitleRow = ({ success, error, warning }) => {
+	const { isLoading } = useHeadingStructureContext();
+
+	if (isLoading) {
+		return (
+			<StyledTitleRowContainer
+				direction="row"
+				divider={<Divider orientation="vertical" flexItem />}
+				gap={2}
+			>
+				<StyledSkeleton width={70} height={18} />
+				<StyledSkeleton width={70} height={18} />
+				<StyledSkeleton width={110} height={18} />
+			</StyledTitleRowContainer>
+		);
+	}
+
 	return (
 		<StyledTitleRowContainer
 			direction="row"

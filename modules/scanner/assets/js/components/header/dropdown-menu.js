@@ -20,8 +20,14 @@ import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const { remediations, isManage, setOpenedBlock, setIsManage, runNewScan } =
-		useScannerWizardContext();
+	const {
+		remediations,
+		isManage,
+		openedBlock,
+		setOpenedBlock,
+		setIsManage,
+		runNewScan,
+	} = useScannerWizardContext();
 	const [isOpened, setIsOpened] = useState(false);
 	const anchorEl = useRef(null);
 
@@ -51,6 +57,7 @@ export const DropdownMenu = () => {
 
 	const goToHeadingManager = () => {
 		handleClose();
+		setIsManage(true);
 		setOpenedBlock(BLOCKS.headingStructure);
 	};
 
@@ -125,20 +132,26 @@ export const DropdownMenu = () => {
 				) : (
 					<MenuItem
 						onClick={goToManagement}
-						disabled={isManage}
-						selected={isManage}
+						disabled={isManage && BLOCKS.management === openedBlock}
+						selected={isManage && BLOCKS.management === openedBlock}
 						dense
 					>
 						<MenuItemIcon>
 							<SettingsIcon />
 						</MenuItemIcon>
+
 						<MenuItemText>
 							{__('Manage fixes', 'pojo-accessibility')}
 						</MenuItemText>
 					</MenuItem>
 				)}
 
-				<MenuItem onClick={goToHeadingManager} dense>
+				<MenuItem
+					onClick={goToHeadingManager}
+					dense
+					disabled={isManage && BLOCKS.headingStructure === openedBlock}
+					selected={isManage && BLOCKS.headingStructure === openedBlock}
+				>
 					<MenuItemIcon>
 						<ThemeBuilderIcon />
 					</MenuItemIcon>

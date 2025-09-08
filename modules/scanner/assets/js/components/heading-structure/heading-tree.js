@@ -1,22 +1,36 @@
 import HeadingStructureHeadingTreeList from '@ea11y-apps/scanner/components/heading-structure/heading-tree-list';
 import HeadingStructureHeadingTreeListItem from '@ea11y-apps/scanner/components/heading-structure/heading-tree-list-item';
-import { getPageHeadings } from '@ea11y-apps/scanner/utils/page-headings';
+import HeadingStructureHeadingTreeLoader from '@ea11y-apps/scanner/components/heading-structure/heading-tree-loader';
+import { useHeadingStructureContext } from '@ea11y-apps/scanner/context/heading-structure-context';
+import { useEffect } from '@wordpress/element';
 
 const HeadingStructureHeadingTree = () => {
-	const pageHeadings = getPageHeadings();
+	const { pageHeadings, updateHeadingsTree } = useHeadingStructureContext();
 
-	const renderPageHeadings = (headings, nested) => {
+	useEffect(() => {
+		updateHeadingsTree();
+	}, []);
+
+	/**
+	 * @param {import('../../types/heading').Ea11yHeading[]} headings
+	 * @param {number | false}                               nestedId
+	 * @return {JSX.Element} React element to render.
+	 */
+	const renderPageHeadings = (headings, nestedId) => {
 		const children = headings.flatMap((heading, i) => {
 			const item = (
 				<HeadingStructureHeadingTreeListItem
 					key={`heading-structure-${i}`}
 					level={heading.level}
 					content={heading.content}
+					node={heading.node}
+					status={heading.status}
+					violation={heading.violationCode}
 				/>
 			);
 
 			if (heading.children.length) {
-				const subHeaders = renderPageHeadings(heading.children, true);
+				const subHeaders = renderPageHeadings(heading.children, i);
 
 				return [item, subHeaders];
 			}
@@ -26,14 +40,18 @@ const HeadingStructureHeadingTree = () => {
 
 		const list = <HeadingStructureHeadingTreeList children={children} />;
 
-		if (nested) {
-			return <li>{list}</li>;
+		if (false !== nestedId) {
+			return <li key={`heading-structure-${nestedId}-nested`}>{list}</li>;
 		}
 
 		return list;
 	};
 
-	return renderPageHeadings(pageHeadings);
+	if (!pageHeadings.length) {
+		return <HeadingStructureHeadingTreeLoader />;
+	}
+
+	return renderPageHeadings(pageHeadings, false);
 };
 
 export default HeadingStructureHeadingTree;

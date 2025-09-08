@@ -33,12 +33,14 @@ export const ScanStats = () => {
 								'%',
 							)}
 						</Typography>
+
 						<StyledLinearProgress
 							color="success"
 							value={displayPercent}
 							variant="determinate"
 							role="presentation"
 						/>
+
 						<Button
 							variant="outlined"
 							size="small"
