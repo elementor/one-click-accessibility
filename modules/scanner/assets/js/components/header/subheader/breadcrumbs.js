@@ -15,7 +15,7 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { __ } from '@wordpress/i18n';
 
-export const Breadcrumbs = () => {
+const Breadcrumbs = () => {
 	const {
 		openedBlock,
 		sortedViolations,
@@ -44,12 +44,12 @@ export const Breadcrumbs = () => {
 
 	return (
 		<Box>
-			<BreadcrumbsBox>
+			<StyledBreadcrumbsBox>
 				<IconButton
 					color="secondary"
 					onClick={handleClick}
 					sx={{ whiteSpace: 'nowrap' }}
-					aria-label={__('All issues', 'pojo-accessibility')}
+					aria-label={__('Return to all issues', 'pojo-accessibility')}
 					size="small"
 				>
 					<ArrowLeftIcon />
@@ -85,13 +85,19 @@ export const Breadcrumbs = () => {
 						/>
 					)}
 				</Box>
-			</BreadcrumbsBox>
+			</StyledBreadcrumbsBox>
 		</Box>
 	);
 };
 
-const BreadcrumbsBox = styled(Box)`
+const StyledBreadcrumbsBox = styled(Box)`
 	display: flex;
 	align-items: center;
+
+	padding: ${({ theme }) => theme.spacing(1.5)};
 	gap: ${({ theme }) => theme.spacing(1)};
+
+	background-color: ${({ theme }) => theme.palette.background.default};
 `;
+
+export default Breadcrumbs;

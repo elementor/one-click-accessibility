@@ -6,7 +6,7 @@ import {
 	MANAGE_URL_PARAM,
 	MANUAL_GROUPS,
 } from '@ea11y-apps/scanner/constants';
-import { runAllCustomRules } from '@ea11y-apps/scanner/rules';
+import { runAllEa11yRules } from '@ea11y-apps/scanner/rules';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
 	focusOnElement,
@@ -70,7 +70,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	);
 	const [resolved, setResolved] = useState(0);
 	const [currentScanId, setCurrentScanId] = useState(null);
-	const [openedBlock, setOpenedBlock] = useState(BLOCKS.headingStructure);
+	const [openedBlock, setOpenedBlock] = useState(BLOCKS.main);
 	const [loading, setLoading] = useState(true);
 	const [isError, setIsError] = useState(false);
 	const [quotaExceeded, setQuotaExceeded] = useState(false);
@@ -209,7 +209,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 						item.level === 'potentialViolation'),
 			);
 
-			const customResults = runAllCustomRules(document);
+			const customResults = runAllEa11yRules(document);
 
 			const filteredCustomResults = customResults.filter(
 				(item) => item.level === 'violation' || item.level === 'recommendation',

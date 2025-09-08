@@ -16,12 +16,19 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
+import { areNoHeadingsDefined } from '@ea11y-apps/scanner/utils/page-headings';
 import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const { remediations, isManage, setOpenedBlock, setIsManage, runNewScan } =
-		useScannerWizardContext();
+	const {
+		remediations,
+		isManage,
+		openedBlock,
+		setOpenedBlock,
+		setIsManage,
+		runNewScan,
+	} = useScannerWizardContext();
 	const [isOpened, setIsOpened] = useState(false);
 	const anchorEl = useRef(null);
 
@@ -51,6 +58,7 @@ export const DropdownMenu = () => {
 
 	const goToHeadingManager = () => {
 		handleClose();
+		setIsManage(true);
 		setOpenedBlock(BLOCKS.headingStructure);
 	};
 
@@ -125,28 +133,36 @@ export const DropdownMenu = () => {
 				) : (
 					<MenuItem
 						onClick={goToManagement}
-						disabled={isManage}
-						selected={isManage}
+						disabled={isManage && BLOCKS.management === openedBlock}
+						selected={isManage && BLOCKS.management === openedBlock}
 						dense
 					>
 						<MenuItemIcon>
 							<SettingsIcon />
 						</MenuItemIcon>
+
 						<MenuItemText>
 							{__('Manage fixes', 'pojo-accessibility')}
 						</MenuItemText>
 					</MenuItem>
 				)}
 
-				<MenuItem onClick={goToHeadingManager} dense>
-					<MenuItemIcon>
-						<ThemeBuilderIcon />
-					</MenuItemIcon>
+				{!areNoHeadingsDefined() && (
+					<MenuItem
+						onClick={goToHeadingManager}
+						dense
+						disabled={isManage && BLOCKS.headingStructure === openedBlock}
+						selected={isManage && BLOCKS.headingStructure === openedBlock}
+					>
+						<MenuItemIcon>
+							<ThemeBuilderIcon />
+						</MenuItemIcon>
 
-					<MenuItemText>
-						{__('Manage headings', 'pojo-accessibility')}
-					</MenuItemText>
-				</MenuItem>
+						<MenuItemText>
+							{__('Manage headings', 'pojo-accessibility')}
+						</MenuItemText>
+					</MenuItem>
+				)}
 
 				<MenuItem
 					component="a"

@@ -3,7 +3,7 @@ import { Notifications } from '@ea11y/components';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
-import { Header } from '@ea11y-apps/scanner/components/header';
+import Header from '@ea11y-apps/scanner/components/header';
 import { Loader } from '@ea11y-apps/scanner/components/list-loader';
 import { NotConnectedMessage } from '@ea11y-apps/scanner/components/not-connected-message';
 import { QuotaMessage } from '@ea11y-apps/scanner/components/quota-message';
@@ -94,7 +94,7 @@ const App = () => {
 	};
 
 	return (
-		<AppContainer>
+		<AppContainer elevation={6}>
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
 

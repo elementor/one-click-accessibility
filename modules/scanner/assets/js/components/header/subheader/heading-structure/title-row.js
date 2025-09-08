@@ -3,11 +3,19 @@ import AlertTriangleFilledIcon from '@elementor/icons/AlertTriangleFilledIcon';
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
 import Divider from '@elementor/ui/Divider';
 import PropTypes from 'prop-types';
+import HeadingStructureTitleRowLoader from '@ea11y-apps/scanner/components/header/subheader/heading-structure/loader';
+import { useHeadingStructureContext } from '@ea11y-apps/scanner/context/heading-structure-context';
 import { StyledTitleRowContainer } from '@ea11y-apps/scanner/styles/heading-structure.styles';
 import { __, sprintf } from '@wordpress/i18n';
 import HeadingStructureTitleRowItem from './title-row-item';
 
 const HeadingStructureTitleRow = ({ success, error, warning }) => {
+	const { isLoading } = useHeadingStructureContext();
+
+	if (isLoading) {
+		return <HeadingStructureTitleRowLoader />;
+	}
+
 	return (
 		<StyledTitleRowContainer
 			direction="row"

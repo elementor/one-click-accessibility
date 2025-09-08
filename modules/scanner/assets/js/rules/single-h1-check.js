@@ -6,6 +6,7 @@
  *
  * Compatible with ACE (accessibility-checker-engine)
  */
+import { getH1Headings } from '@ea11y-apps/scanner/utils/page-headings';
 
 const singleH1Check = {
 	id: 'single_h1_check',
@@ -39,11 +40,10 @@ const singleH1Check = {
 		},
 	],
 	run: (context) => {
-		const doc = context.dom.node;
-		const h1Elements = doc.querySelectorAll('h1');
+		const document = context.dom.node;
+		const headings = getH1Headings(document);
 
-		if (h1Elements.length > 1) {
-			// Return violation result for multiple h1 tags
+		if (headings.length > 1) {
 			return {
 				ruleId: 'single_h1_check',
 				reasonId: 'fail_multiple',
@@ -52,10 +52,11 @@ const singleH1Check = {
 					dom: '/html[1]',
 					aria: '/document[1]',
 				},
+				node: headings[1],
 				ruleTime: 0,
 				message:
 					'Multiple h1 tags found. Ensure the page contains only one h1 tag to maintain proper heading hierarchy.',
-				messageArgs: [h1Elements.length.toString()],
+				messageArgs: [headings.length.toString()],
 				apiArgs: [],
 				bounds: {
 					left: 0,
@@ -63,13 +64,13 @@ const singleH1Check = {
 					height: 0,
 					width: 0,
 				},
-				snippet: `Found ${h1Elements.length} h1 tags`,
+				snippet: `Found ${headings.length} h1 tags`,
 				category: 'Accessibility',
 				ignored: false,
 				level: 'violation',
 			};
 		}
-		// Return pass result for 0 or 1 h1 tag (missing h1 is handled by separate rule)
+
 		return {
 			ruleId: 'single_h1_check',
 			reasonId: 'pass',
@@ -80,7 +81,7 @@ const singleH1Check = {
 			},
 			ruleTime: 0,
 			message:
-				h1Elements.length === 1
+				headings.length === 1
 					? 'Page contains exactly one h1 tag'
 					: 'Page contains no duplicate h1 tags',
 			messageArgs: [],
@@ -91,7 +92,7 @@ const singleH1Check = {
 				height: 0,
 				width: 0,
 			},
-			snippet: h1Elements.length > 0 ? h1Elements[0].outerHTML : '<html>',
+			snippet: headings.length > 0 ? headings[0].outerHTML : '<html>',
 			category: 'Accessibility',
 			ignored: false,
 			level: 'pass',

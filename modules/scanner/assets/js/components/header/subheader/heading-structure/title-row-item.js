@@ -3,7 +3,7 @@ import {
 	StyledTitleRowItem,
 	StyledTitleRowItemTypography,
 } from '@ea11y-apps/scanner/styles/heading-structure.styles';
-import { injectTemplateVars } from '../../../../../settings/assets/js/utils';
+import { injectTemplateVars } from '../../../../../../../settings/assets/js/utils';
 
 const HeadingStructureTitleRowItem = ({ icon, text }) => {
 	return (
