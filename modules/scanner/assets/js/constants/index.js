@@ -15,6 +15,11 @@ export const COLOR_CONTRAST_SELECTORS_COUNT = 5;
 export const DATA_INITIAL_BG = 'data-initial-bg';
 export const DATA_INITIAL_COLOR = 'data-initial-color';
 
+export const LEVEL_VIOLATION = 'violation';
+export const LEVEL_POTENTIAL = 'potentialViolation';
+export const RULE_TEXT_CONTRAST = 'text_contrast_sufficient';
+export const RATIO_EXCLUDED = 1;
+
 export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
 export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';
 export const PAGE_LIMIT_URL = 'https://go.elementor.com/acc-URL-limit-scanner';
