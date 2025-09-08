@@ -1,1 +1,0 @@
-export { useHeadingStats } from './useHeadingStats';

@@ -8,6 +8,7 @@ import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { ColorPickerStyles } from '@ea11y-apps/scanner/styles/react-colourful.styles';
 
 export const AppContainer = styled(Paper)`
@@ -33,10 +34,36 @@ export const TitleBox = styled(Box)`
 	align-items: center;
 `;
 
+export const StyledTitle = styled(Typography)`
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 130%;
+	letter-spacing: 0.15px;
+	margin: 0;
+
+	.MuiChip-root {
+		margin-inline-start: ${({ theme }) => theme.spacing(1)};
+
+		font-weight: 400;
+	}
+`;
+
 export const HeaderContent = styled(CardContent)`
 	&:last-child {
 		padding-bottom: ${({ theme }) => theme.spacing(2)};
 	}
+
+	${({ theme, block }) =>
+		BLOCKS.headingStructure === block
+			? `
+		padding: 0;
+		box-shadow: 0 1px 5px 0 ${theme.palette.divider};
+		
+		&:last-child {
+			padding-bottom: 0;
+		}
+	`
+			: ''}
 `;
 
 export const StyledContent = styled(CardContent)`

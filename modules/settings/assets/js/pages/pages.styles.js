@@ -30,9 +30,16 @@ export const StyledWideBox = styled(Box)`
 `;
 
 export const StyledTitle = styled(Typography)`
-	font-weight: 400;
-	letter-spacing: 0.25px;
-	margin-bottom: 16px;
+	display: flex;
+	align-items: center;
+
+	margin: 0;
+
+	color: #0c0d0e;
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 130%;
+	letter-spacing: 0.15px;
 `;
 
 export const StyledStatementPaper = styled(Paper)`

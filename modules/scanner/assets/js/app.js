@@ -94,7 +94,7 @@ const App = () => {
 	};
 
 	return (
-		<AppContainer>
+		<AppContainer elevation={6}>
 			<ErrorBoundary fallback={<ErrorMessage />}>
 				<Header />
 

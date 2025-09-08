@@ -1,3 +1,4 @@
+import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Stack from '@elementor/ui/Stack';
 import Typography from '@elementor/ui/Typography';
@@ -29,8 +30,6 @@ export const StyledTitleRowContainer = styled(Stack)`
 	align-items: center;
 
 	padding: ${({ theme }) => theme.spacing(1.5)};
-
-	box-shadow: 0 1px 5px 0 ${({ theme }) => theme.palette.divider};
 `;
 
 export const StyledTitleRowItem = styled(Box)`
@@ -72,9 +71,12 @@ export const StyledTreeListItem = styled('li')`
 
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	cursor: pointer;
+	user-select: none;
 `;
 
-export const StyledListItemTopWrapper = styled(Box)`
+export const StyledListItemTopWrapper = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'level',
+})`
 	box-sizing: border-box;
 
 	width: 100%;
@@ -90,8 +92,22 @@ export const StyledListItemTopWrapper = styled(Box)`
 	}
 `;
 
-export const StyledListItemLevelBox = styled(Box)`
-	padding: 4px 8px;
+export const StyledListItemDetails = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'isExpanded',
+})`
+	width: 100%;
+	max-height: ${({ isExpanded }) => (isExpanded ? '500px' : '0')};
+
+	transition: 300ms ease-in-out;
+	opacity: ${({ isExpanded }) => (isExpanded ? '1' : '0')};
+	visibility: ${({ isExpanded }) => (isExpanded ? 'visible' : 'hidden')};
+	overflow: hidden;
+`;
+
+export const StyledListItemLevelBox = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'status',
+})`
+	padding: ${({ theme }) => `${theme.spacing(0.5)} ${theme.spacing(1)}`};
 	margin-inline-end: ${({ theme }) => theme.spacing(1)};
 
 	border: 1px solid ${({ status }) => STATUS_CONFIG[status].borderColor};
@@ -103,7 +119,9 @@ export const StyledListItemLevelBox = styled(Box)`
 	}
 `;
 
-export const StyledListItemContent = styled(Typography)`
+export const StyledListItemContent = styled(Typography, {
+	shouldForwardProp: (prop) => prop !== 'level',
+})`
 	max-width: calc(268px - (12px * ${({ level }) => level - 1}));
 
 	color: ${({ theme }) => theme.palette.text.primary};
@@ -115,6 +133,10 @@ export const StyledListItemContent = styled(Typography)`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+`;
+
+export const StyledListItemAlert = styled(Alert)`
+	margin-top: ${({ theme }) => theme.spacing(1.5)};
 `;
 
 export const StyledListItemBottomWrapper = styled(Box)`

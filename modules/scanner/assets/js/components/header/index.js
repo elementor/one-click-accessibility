@@ -1,4 +1,3 @@
-import SettingsIcon from '@elementor/icons/SettingsIcon';
 import XIcon from '@elementor/icons/XIcon';
 import Box from '@elementor/ui/Box';
 import Card from '@elementor/ui/Card';
@@ -10,6 +9,10 @@ import { styled } from '@elementor/ui/styles';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { Breadcrumbs } from '@ea11y-apps/scanner/components/header/breadcrumbs';
 import { DropdownMenu } from '@ea11y-apps/scanner/components/header/dropdown-menu';
+import { HeadingStructureHeader } from '@ea11y-apps/scanner/components/header/heading-structure';
+import MainTitle from '@ea11y-apps/scanner/components/header/main-title';
+import ManageFixesTitle from '@ea11y-apps/scanner/components/header/manage-fixes-title';
+import ManageHeadingsTitle from '@ea11y-apps/scanner/components/header/manage-headings-title';
 import { ManagementStats } from '@ea11y-apps/scanner/components/header/management-stats';
 import { ScanStats } from '@ea11y-apps/scanner/components/header/scan-stats';
 import {
@@ -18,7 +21,6 @@ import {
 	ROOT_ID,
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
-import { Logo } from '@ea11y-apps/scanner/images';
 import {
 	HeaderCard,
 	HeaderContent,
@@ -71,12 +73,26 @@ export const Header = () => {
 	const isMainHeader =
 		openedBlock === BLOCKS.main || openedBlock === BLOCKS.management;
 
+	const headerTitle = () => {
+		if (!isManage) {
+			return <MainTitle />;
+		}
+
+		if (BLOCKS.headingStructure) {
+			return <ManageHeadingsTitle />;
+		}
+
+		return <ManageFixesTitle />;
+	};
+
 	const headerData = () => {
 		switch (openedBlock) {
 			case BLOCKS.main:
 				return <ScanStats />;
 			case BLOCKS.management:
 				return <ManagementStats />;
+			case BLOCKS.headingStructure:
+				return <HeadingStructureHeader />;
 			default:
 				return <Breadcrumbs />;
 		}
@@ -117,30 +133,7 @@ export const Header = () => {
 						alignItems="center"
 					>
 						<Box display="flex" alignItems="center" gap={1}>
-							{isManage ? (
-								<>
-									<SettingsIcon size="small" color="action" />
-
-									<StyledTitle variant="subtitle1" as="h2">
-										{__('Manage fixes', 'pojo-accessibility')}
-									</StyledTitle>
-								</>
-							) : (
-								<>
-									<Logo />
-
-									<StyledTitle variant="subtitle1" as="h2">
-										{__('Accessibility Assistant', 'pojo-accessibility')}
-
-										<Chip
-											size="small"
-											variant="filled"
-											color="default"
-											label={__('Beta', 'pojo-accessibility')}
-										/>
-									</StyledTitle>
-								</>
-							)}
+							{headerTitle()}
 						</Box>
 
 						<Box display="flex" gap={1}>
@@ -157,7 +150,7 @@ export const Header = () => {
 			</Paper>
 
 			{showMainBlock && (
-				<HeaderContent>
+				<HeaderContent block={openedBlock}>
 					{isMainHeader ? (
 						<HeaderCard>
 							<HeaderContent>{content}</HeaderContent>
@@ -176,18 +169,4 @@ const StyledCard = styled(Card)`
 	top: 0;
 	z-index: 2;
 	overflow: visible;
-`;
-
-const StyledTitle = styled(Typography)`
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 130%;
-	letter-spacing: 0.15px;
-	margin: 0;
-
-	.MuiChip-root {
-		margin-inline-start: ${({ theme }) => theme.spacing(1)};
-
-		font-weight: 400;
-	}
 `;

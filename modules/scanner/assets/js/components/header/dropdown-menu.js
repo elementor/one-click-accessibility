@@ -51,6 +51,7 @@ export const DropdownMenu = () => {
 
 	const goToHeadingManager = () => {
 		handleClose();
+		setIsManage(true);
 		setOpenedBlock(BLOCKS.headingStructure);
 	};
 

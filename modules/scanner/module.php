@@ -83,6 +83,12 @@ class Module extends Module_Base {
 			'value' => $url,
 		]);
 
+		$dismissed_heading_issues = get_post_meta( get_the_ID(), 'ea11y-scanner-heading-issues-dismissed', true );
+
+		if ( ! $dismissed_heading_issues ) {
+			$dismissed_heading_issues = [];
+		}
+
 		wp_localize_script(
 			'scanner',
 			'ea11yScannerData',
@@ -106,6 +112,7 @@ class Module extends Module_Base {
 				'pluginVersion' => EA11Y_VERSION,
 				'isConnected' => Connect::is_connected(),
 				'isRTL' => is_rtl(),
+				'dismissedHeadingIssues' => $dismissed_heading_issues,
 			]
 		);
 	}
