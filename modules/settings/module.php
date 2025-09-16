@@ -21,6 +21,7 @@ use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
 use EA11y\Modules\Settings\Banners\Onboarding_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
+use EA11y\Modules\WhatsNew\Module as WhatsNewModule;
 use Exception;
 use Throwable;
 
@@ -127,6 +128,7 @@ class Module extends Module_Base {
 				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 
 				'homeUrl' => home_url(),
+				'whatsNewDataHash' => WhatsNewModule::compare_data_hash(),
 			]
 		);
 	}

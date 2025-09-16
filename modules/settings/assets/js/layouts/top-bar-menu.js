@@ -10,17 +10,19 @@ import {
 	usePopupState,
 } from '@elementor/ui/usePopupState';
 import { PopupMenu } from '@ea11y/components';
-import WhatsNewDrawer from '@ea11y/components/whats-new/drawer';
 import { useWhatsNew } from '@ea11y/hooks/use-whats-new';
 import { BulbIcon } from '@ea11y/icons';
 import SpeakerphoneIcon from '@ea11y/icons/speakerphone-icon';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
+import WhatsNewDrawer from '../components/whats-new/drawer';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 import { openLink } from '../utils/index';
 
 const TopBarMenu = () => {
 	const { isSidebarOpen, open, close } = useWhatsNew();
+	const { whatsNewDataHash } = usePluginSettingsContext();
 	const accountMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'myAccountMenu',
@@ -74,6 +76,7 @@ const TopBarMenu = () => {
 					}
 					onClick={handleWhatsNewButtonClick}
 				>
+					{whatsNewDataHash && <span>New</span>}
 					{__("What's new", 'pojo-accessibility')}
 				</Button>
 				<Button
