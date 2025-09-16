@@ -2,6 +2,7 @@ import Button from '@elementor/ui/Button';
 import Checkbox from '@elementor/ui/Checkbox';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelService, mixpanelEvents } from '@ea11y-apps/global/services';
 import { useHeadingStructureContext } from '@ea11y-apps/scanner/context/heading-structure-context';
 import { useHeadingNodeManipulation } from '@ea11y-apps/scanner/hooks/use-heading-node-manipulation';
 import { EA11Y_RULES } from '@ea11y-apps/scanner/rules';
@@ -10,6 +11,7 @@ import {
 	StyledListItemDismissLabel,
 } from '@ea11y-apps/scanner/styles/heading-structure.styles';
 import { HEADING_STATUS } from '@ea11y-apps/scanner/types/heading';
+import { getHeadingXpath } from '@ea11y-apps/scanner/utils/page-headings';
 import { __ } from '@wordpress/i18n';
 
 const HeadingTreeListItemActions = ({
@@ -28,17 +30,11 @@ const HeadingTreeListItemActions = ({
 		updateHeadingsTree,
 		onHeadingWarningDismiss,
 		onHeadingLevelUpdate,
-		isHeadingExpanded,
 		collapseHeading,
 	} = useHeadingStructureContext();
 
-	const isExpanded = isHeadingExpanded(node);
-
 	const { restoreOriginalAttributes, clearOriginalAttributes } =
-		useHeadingNodeManipulation({
-			node,
-			isExpanded,
-		});
+		useHeadingNodeManipulation({ node });
 
 	const onCancel = () => {
 		restoreOriginalAttributes();
@@ -72,6 +68,12 @@ const HeadingTreeListItemActions = ({
 			clearOriginalAttributes();
 
 			setTimeout(() => updateHeadingsTree(), 0);
+
+			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
+				fix_method: 'Headings',
+				category_name: 'Headings',
+				issue_type: violation,
+			});
 		} else {
 			error(asyncActionError);
 		}
@@ -83,6 +85,12 @@ const HeadingTreeListItemActions = ({
 		if (isSuccess) {
 			collapseHeading();
 			setIsDismiss(false);
+
+			mixpanelService.sendEvent(mixpanelEvents.markAsResolveClicked, {
+				category_name: 'Headings',
+				issue_type: violation,
+				element_selector: getHeadingXpath(node),
+			});
 
 			setTimeout(() => updateHeadingsTree(), 0);
 		} else {
@@ -131,6 +139,7 @@ HeadingTreeListItemActions.propTypes = {
 	setIsDismiss: PropTypes.func.isRequired,
 	displayLevel: PropTypes.string.isRequired,
 	violation: PropTypes.oneOf(Object.values(EA11Y_RULES)),
+	isExpanded: PropTypes.bool.isRequired,
 };
 
 export default HeadingTreeListItemActions;

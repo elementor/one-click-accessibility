@@ -1,6 +1,8 @@
 import AlertCircleIcon from '@elementor/icons/AlertCircleIcon';
 import AlertTriangleFilledIcon from '@elementor/icons/AlertTriangleFilledIcon';
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
+import MenuItem from '@elementor/ui/MenuItem';
+import Typography from '@elementor/ui/Typography';
 import { __ } from '@wordpress/i18n';
 
 export const STATUS_CONFIG = Object.freeze({
@@ -33,6 +35,16 @@ export const HEADING_LEVEL = Object.freeze({
 	h6: __('Subsection of H5', 'pojo-accessibility'),
 	p: __('Mark as regular text', 'pojo-accessibility'),
 });
+
+export const HEADING_OPTIONS = Object.entries(HEADING_LEVEL).map(
+	([key, label]) => (
+		<MenuItem key={key} value={key} dense>
+			<Typography sx={{ fontSize: '14px' }}>
+				<b>{key.toUpperCase()}</b> - {label}
+			</Typography>
+		</MenuItem>
+	),
+);
 
 export const VIOLATION_PARAMS = Object.freeze({
 	missing_h1_check: {

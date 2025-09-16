@@ -37,6 +37,7 @@ export const StyledTitleRowContainer = styled(Stack)`
 	padding: ${({ theme }) => theme.spacing(1.5)};
 
 	box-shadow: 0 1px 5px 0 ${({ theme }) => theme.palette.divider};
+	background-color: ${({ theme }) => theme.palette.background.default};
 `;
 
 export const StyledTitleRowItem = styled(Box)`
@@ -127,19 +128,12 @@ export const StyledListItemTopWrapper = styled(Button, {
 	}
 `;
 
-export const StyledListItemDetails = styled(Box, {
-	shouldForwardProp: (prop) => prop !== 'isExpanded',
-})`
+export const StyledListItemDetails = styled(Box)`
 	width: 100%;
-	max-height: ${({ isExpanded }) => (isExpanded ? '500px' : '0')};
+	max-height: 500px;
 
-	padding: ${({ isExpanded, theme }) => (isExpanded ? theme.spacing(1) : '0')};
+	padding: ${({ theme }) => theme.spacing(1)};
 	padding-top: 0;
-
-	transition: 300ms ease-in-out;
-	opacity: ${({ isExpanded }) => (isExpanded ? '1' : '0')};
-	visibility: ${({ isExpanded }) => (isExpanded ? 'visible' : 'hidden')};
-	overflow: hidden;
 `;
 
 export const StyledListItemLevelBox = styled(Box, {

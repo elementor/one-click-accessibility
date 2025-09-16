@@ -1,6 +1,4 @@
-import { useEffect } from '@wordpress/element';
-
-export const useHeadingNodeManipulation = ({ node, isExpanded }) => {
+export const useHeadingNodeManipulation = ({ node }) => {
 	const hasDraft = () => {
 		return node.getAttribute('data-ea11y-scanner-heading-draft');
 	};
@@ -97,30 +95,6 @@ export const useHeadingNodeManipulation = ({ node, isExpanded }) => {
 			node.setAttribute('aria-level', value[1]);
 		}
 	};
-
-	const applyExpandedStyles = () => {
-		node.style.boxShadow = '0 0 0 8px #2563EB';
-		node.style.borderRadius = '4px';
-		node.style.transition = '300ms ease-in-out';
-
-		node.scrollIntoView({
-			behavior: 'smooth',
-		});
-	};
-
-	const removeExpandedStyles = () => {
-		node.style.boxShadow = '';
-		node.style.borderRadius = '';
-		node.style.transition = '';
-	};
-
-	useEffect(() => {
-		if (isExpanded) {
-			applyExpandedStyles();
-		} else {
-			removeExpandedStyles();
-		}
-	}, [isExpanded]);
 
 	return {
 		hasDraft,

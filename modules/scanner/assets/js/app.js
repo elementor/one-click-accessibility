@@ -1,4 +1,5 @@
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
+import { FocusTrap } from 'focus-trap-react';
 import { Notifications } from '@ea11y/components';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
@@ -21,7 +22,7 @@ import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-
 import { HeadingStructureLayout } from '@ea11y-apps/scanner/layouts/heading-structure-layout';
 import { AppContainer } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useRef } from '@wordpress/element';
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
@@ -35,6 +36,7 @@ const App = () => {
 		quotaExceeded,
 		loading,
 	} = useScannerWizardContext();
+	const containerRef = useRef(null);
 
 	const showResolvedMessage = Boolean(
 		(resolved > 0 && violation === resolved) || violation === 0,
@@ -94,15 +96,20 @@ const App = () => {
 	};
 
 	return (
-		<AppContainer elevation={6}>
-			<ErrorBoundary fallback={<ErrorMessage />}>
-				<Header />
+		<FocusTrap containerElements={[containerRef.current]}>
+			<AppContainer elevation={6} ref={containerRef}>
+				<ErrorBoundary fallback={<ErrorMessage />}>
+					<Header />
 
-				{showResolvedMessage && !isManage ? <ResolvedMessage /> : getBlock()}
+					{showResolvedMessage && !isManage ? <ResolvedMessage /> : getBlock()}
 
-				<Notifications message={notificationMessage} type={notificationType} />
-			</ErrorBoundary>
-		</AppContainer>
+					<Notifications
+						message={notificationMessage}
+						type={notificationType}
+					/>
+				</ErrorBoundary>
+			</AppContainer>
+		</FocusTrap>
 	);
 };
 

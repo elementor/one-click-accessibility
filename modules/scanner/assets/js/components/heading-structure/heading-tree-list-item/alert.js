@@ -8,7 +8,7 @@ import { VIOLATION_PARAMS } from '../constants';
 
 const HeadingTreeListItemAlert = ({ status, violation }) => {
 	return (
-		<StyledListItemAlert severity={status} icon={false}>
+		<StyledListItemAlert severity={status} icon={false} tabIndex="0">
 			<AlertTitle>{VIOLATION_PARAMS[violation]?.title}</AlertTitle>
 
 			<Typography sx={{ fontSize: '14px' }}>

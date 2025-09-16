@@ -58,6 +58,7 @@
 		"@wordpress/media-utils": "^5.22.0",
 		"@wordpress/url": "^4.10.0",
 		"clipboard-copy": "^4.0.1",
+		"focus-trap-react": "^11.0.4",
 		"get-xpath": "^3.3.0",
 		"html-react-parser": "^5.2.2",
 		"husky": "^9.1.6",

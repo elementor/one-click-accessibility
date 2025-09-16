@@ -1,6 +1,6 @@
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
-import { Chip } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
+import Chip from '@elementor/ui/Chip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';

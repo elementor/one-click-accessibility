@@ -2,11 +2,17 @@ import HeadingStructureHeadingTreeList from '@ea11y-apps/scanner/components/head
 import HeadingStructureHeadingTreeListItem from '@ea11y-apps/scanner/components/heading-structure/heading-tree-list-item';
 import HeadingStructureHeadingTreeLoader from '@ea11y-apps/scanner/components/heading-structure/heading-tree-loader';
 import { useHeadingStructureContext } from '@ea11y-apps/scanner/context/heading-structure-context';
-import { useEffect } from '@wordpress/element';
+import { keyForNode } from '@ea11y-apps/scanner/utils/page-headings';
+import { useEffect, useCallback } from '@wordpress/element';
 
 const HeadingStructureHeadingTree = () => {
-	const { isLoading, pageHeadings, updateHeadingsTree } =
-		useHeadingStructureContext();
+	const {
+		isLoading,
+		expandedKey,
+		pageHeadings,
+		updateHeadingsTree,
+		toggleHeading,
+	} = useHeadingStructureContext();
 
 	useEffect(() => {
 		updateHeadingsTree();
@@ -17,36 +23,44 @@ const HeadingStructureHeadingTree = () => {
 	 * @param {number | false}                               nestedId
 	 * @return {JSX.Element} React element to render.
 	 */
-	const renderPageHeadings = (headings, nestedId) => {
-		const children = headings.flatMap((heading, i) => {
-			const item = (
-				<HeadingStructureHeadingTreeListItem
-					key={`heading-structure-${i}`}
-					level={heading.level}
-					content={heading.content}
-					node={heading.node}
-					status={heading.status}
-					violation={heading.violationCode}
-				/>
-			);
+	const renderPageHeadings = useCallback(
+		(headings, nestedId) => {
+			const children = headings.flatMap((heading, i) => {
+				const key = keyForNode(heading.node);
 
-			if (heading.children.length) {
-				const subHeaders = renderPageHeadings(heading.children, i);
+				const item = (
+					<HeadingStructureHeadingTreeListItem
+						key={key}
+						id={key}
+						level={heading.level}
+						content={heading.content}
+						node={heading.node}
+						status={heading.status}
+						violation={heading.violationCode}
+						isExpanded={expandedKey === key}
+						toggleHeading={() => toggleHeading(heading.node)}
+					/>
+				);
 
-				return [item, subHeaders];
+				if (heading.children.length) {
+					const subHeaders = renderPageHeadings(heading.children, i);
+
+					return [item, subHeaders];
+				}
+
+				return [item];
+			});
+
+			const list = <HeadingStructureHeadingTreeList children={children} />;
+
+			if (false !== nestedId) {
+				return <li key={`heading-structure-${nestedId}-nested`}>{list}</li>;
 			}
 
-			return [item];
-		});
-
-		const list = <HeadingStructureHeadingTreeList children={children} />;
-
-		if (false !== nestedId) {
-			return <li key={`heading-structure-${nestedId}-nested`}>{list}</li>;
-		}
-
-		return list;
-	};
+			return list;
+		},
+		[expandedKey, toggleHeading, keyForNode],
+	);
 
 	if (!pageHeadings.length && isLoading) {
 		return <HeadingStructureHeadingTreeLoader />;

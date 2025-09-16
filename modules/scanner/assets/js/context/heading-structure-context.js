@@ -4,6 +4,7 @@ import useScannerSettings from '@ea11y-apps/scanner/hooks/use-scanner-settings';
 import {
 	getPageHeadingsTree,
 	getHeadingXpath,
+	keyForNode,
 } from '@ea11y-apps/scanner/utils/page-headings';
 import {
 	validateHeadings,
@@ -21,7 +22,7 @@ export const HeadingStructureContextProvider = ({ children }) => {
 	const errorState = useState('');
 	const pageHeadingsState = useState([]);
 	const pageHeadingValidationStatsState = useState({});
-	const expandedNodeState = useState(null);
+	const expandedKeyState = useState(null);
 
 	return (
 		<HeadingStructureContext.Provider
@@ -30,7 +31,7 @@ export const HeadingStructureContextProvider = ({ children }) => {
 				errorState,
 				pageHeadingsState,
 				pageHeadingValidationStatsState,
-				expandedNodeState,
+				expandedKeyState,
 			}}
 		>
 			{children}
@@ -48,7 +49,7 @@ export const useHeadingStructureContext = () => {
 		errorState,
 		pageHeadingsState,
 		pageHeadingValidationStatsState,
-		expandedNodeState,
+		expandedKeyState,
 	} = useContext(HeadingStructureContext);
 	const { currentScanId } = useScannerWizardContext();
 	const { dismissedHeadingIssues, pageData } = useScannerSettings();
@@ -56,7 +57,7 @@ export const useHeadingStructureContext = () => {
 	const [error, setError] = errorState;
 	const [pageHeadings, setPageHeadings] = pageHeadingsState;
 	const [validationStats, setValidationStats] = pageHeadingValidationStatsState;
-	const [expandedNode, setExpandedNode] = expandedNodeState;
+	const [expandedKey, setExpandedKey] = expandedKeyState;
 
 	const updateHeadingsTree = () => {
 		const updatedHeadings = validateHeadings(
@@ -131,19 +132,16 @@ export const useHeadingStructureContext = () => {
 	};
 
 	const isHeadingExpanded = (node) => {
-		return node === expandedNode;
+		return keyForNode(node) === expandedKey;
 	};
 
 	const toggleHeading = (node) => {
-		if (expandedNode === node) {
-			setExpandedNode(null);
-		} else {
-			setExpandedNode(node);
-		}
+		const key = keyForNode(node);
+		setExpandedKey((prev) => (prev === key ? null : key));
 	};
 
 	const collapseHeading = () => {
-		setExpandedNode(null);
+		setExpandedKey(null);
 	};
 
 	return {
@@ -152,6 +150,7 @@ export const useHeadingStructureContext = () => {
 		pageHeadings,
 		validationStats,
 		setPageHeadings,
+		expandedKey,
 		updateHeadingsTree,
 		onHeadingWarningDismiss,
 		onHeadingLevelUpdate,

@@ -126,3 +126,29 @@ export const toFlatTree = (headings) => {
 export const getHeadingXpath = (node) => {
 	return getXPath(node, { ignoreId: true });
 };
+
+const nodeKeyMap = new WeakMap();
+let nodeIdCounter = 0;
+
+/**
+ * Returns a stable, serializable key for a DOM Node across renders.
+ * Falls back to a deterministic prefix when input is invalid.
+ *
+ * @param {Object} node
+ * @param {string} [prefix='heading-tree']
+ * @return {string} Unique key
+ */
+export const keyForNode = (node, prefix = 'heading-tree') => {
+	if (!node || 'object' !== typeof node) {
+		return `${prefix}-invalid`;
+	}
+
+	let key = nodeKeyMap.get(node);
+
+	if (!key) {
+		key = `${prefix}-${++nodeIdCounter}`;
+		nodeKeyMap.set(node, key);
+	}
+
+	return key;
+};

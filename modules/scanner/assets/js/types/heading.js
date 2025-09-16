@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 /**
  * Heading structure definition.
  *
@@ -24,4 +26,10 @@ export const HEADING_STATUS = Object.freeze({
 	SUCCESS: 'success',
 	ERROR: 'error',
 	WARNING: 'warning',
+});
+
+export const HEADING_STATUS_DESCRIPTION = Object.freeze({
+	[HEADING_STATUS.SUCCESS]: __('Validation passed', 'pojo-accessibility'),
+	[HEADING_STATUS.ERROR]: __('Validation error', 'pojo-accessibility'),
+	[HEADING_STATUS.WARNING]: __('Has a warning', 'pojo-accessibility'),
 });

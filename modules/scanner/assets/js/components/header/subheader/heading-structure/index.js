@@ -79,7 +79,7 @@ const HeadingStructureSubheader = () => {
 				</StyledBreadcrumbsBox>
 			</Box>
 
-			<Divider />
+			<Divider sx={{ backgroundColor: '#ddd' }} />
 
 			{!areNoHeadingsDefined() && (
 				<HeadingStructureTitleRow
