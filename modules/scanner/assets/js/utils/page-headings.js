@@ -48,13 +48,17 @@ export const getPageHeadings = (parent = document) => {
 	});
 };
 
-export const getH1Headings = (parent = document) => {
-	return Array.from(
+export const getH1Headings = (parent = document) =>
+	Array.from(
 		parent.querySelectorAll('h1, [role="heading"][aria-level="1"]'),
 	).filter((heading) => {
-		return !['none', 'presentation'].includes(heading.getAttribute('role'));
+		const ariaLevel = parseInt(heading.getAttribute('aria-level'), 10);
+
+		return (
+			!['none', 'presentation'].includes(heading.getAttribute('role')) &&
+			!(heading.tagName.toLowerCase() === 'h1' && ariaLevel > 1)
+		);
 	});
-};
 
 export const areNoHeadingsDefined = () => {
 	return getPageHeadings().length === 0;
