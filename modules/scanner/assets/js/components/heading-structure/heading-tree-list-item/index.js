@@ -30,12 +30,8 @@ const HeadingStructureHeadingTreeListItemBase = ({
 }) => {
 	const { isLoading, updateHeadingsTree } = useHeadingStructureContext();
 
-	const {
-		applyNewLevel,
-		hasDraft,
-		getDraftLevelForDisplay,
-		restoreOriginalAttributes,
-	} = useHeadingNodeManipulation({ node });
+	const { applyNewLevel, hasDraft, getDraftLevelForDisplay } =
+		useHeadingNodeManipulation({ node });
 
 	const isDraft = hasDraft(node);
 	const displayLevel = isDraft ? getDraftLevelForDisplay() : `h${level}`;
@@ -78,8 +74,6 @@ const HeadingStructureHeadingTreeListItemBase = ({
 			applyExpandedStyles();
 		} else {
 			removeExpandedStyles();
-			restoreOriginalAttributes();
-			setTimeout(() => updateHeadingsTree(), 0);
 		}
 	}, [isExpanded]);
 
