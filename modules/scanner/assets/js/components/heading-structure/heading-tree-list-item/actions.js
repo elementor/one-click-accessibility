@@ -2,7 +2,7 @@ import Button from '@elementor/ui/Button';
 import Checkbox from '@elementor/ui/Checkbox';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
-import { mixpanelService, mixpanelEvents } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useHeadingStructureContext } from '@ea11y-apps/scanner/context/heading-structure-context';
 import { useHeadingNodeManipulation } from '@ea11y-apps/scanner/hooks/use-heading-node-manipulation';
 import { EA11Y_RULES } from '@ea11y-apps/scanner/rules';
@@ -81,7 +81,6 @@ const HeadingTreeListItemActions = ({
 
 	const onDismiss = async () => {
 		const isSuccess = await onHeadingWarningDismiss({ node });
-
 		if (isSuccess) {
 			collapseHeading();
 			setIsDismiss(false);
@@ -102,7 +101,7 @@ const HeadingTreeListItemActions = ({
 		<StyledListItemActionsWrapper>
 			{HEADING_STATUS.WARNING === status && (
 				<StyledListItemDismissLabel
-					label={__('Dismiss issue', 'pojo-accessibility')}
+					label={__('Not an issue', 'pojo-accessibility')}
 					control={<Checkbox color="info" checked={isDismiss} size="small" />}
 					onChange={(e) => setIsDismiss(e.target.checked)}
 				/>

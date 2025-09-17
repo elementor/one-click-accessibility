@@ -1,6 +1,6 @@
 import Collapse from '@elementor/ui/Collapse';
 import PropTypes from 'prop-types';
-import { mixpanelService, mixpanelEvents } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import HeadingTreeListItemActions from '@ea11y-apps/scanner/components/heading-structure/heading-tree-list-item/actions';
 import HeadingTreeListItemAlert from '@ea11y-apps/scanner/components/heading-structure/heading-tree-list-item/alert';
 import HeadingTreeListItemTopWrapper from '@ea11y-apps/scanner/components/heading-structure/heading-tree-list-item/top-wrapper';
@@ -8,13 +8,13 @@ import { useHeadingStructureContext } from '@ea11y-apps/scanner/context/heading-
 import { useHeadingNodeManipulation } from '@ea11y-apps/scanner/hooks/use-heading-node-manipulation';
 import { EA11Y_RULES } from '@ea11y-apps/scanner/rules';
 import {
-	StyledTreeListItem,
 	StyledListItemBottomWrapper,
 	StyledListItemDetails,
 	StyledListItemSelect,
+	StyledTreeListItem,
 } from '@ea11y-apps/scanner/styles/heading-structure.styles';
 import { HEADING_STATUS } from '@ea11y-apps/scanner/types/heading';
-import { useState, useEffect, memo } from '@wordpress/element';
+import { memo, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { HEADING_OPTIONS } from '../constants';
 
@@ -42,7 +42,6 @@ const HeadingStructureHeadingTreeListItemBase = ({
 	const [isDismiss, setIsDismiss] = useState(false);
 
 	const isApplyControlDisabled =
-		HEADING_STATUS.ERROR === status ||
 		(HEADING_STATUS.WARNING === status && !isDismiss) ||
 		(!isDraft && !isDismiss) ||
 		isLoading;
@@ -57,13 +56,6 @@ const HeadingStructureHeadingTreeListItemBase = ({
 
 		updateHeadingsTree();
 	};
-
-	useEffect(() => {
-		if (isDraft && isDismiss) {
-			restoreOriginalAttributes();
-			setTimeout(() => updateHeadingsTree(), 0);
-		}
-	}, [isDismiss]);
 
 	const applyExpandedStyles = () => {
 		node.style.boxShadow = '0 0 0 8px #2563EB';
@@ -86,6 +78,8 @@ const HeadingStructureHeadingTreeListItemBase = ({
 			applyExpandedStyles();
 		} else {
 			removeExpandedStyles();
+			restoreOriginalAttributes();
+			setTimeout(() => updateHeadingsTree(), 0);
 		}
 	}, [isExpanded]);
 
