@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import useScannerSettings from '@ea11y-apps/scanner/hooks/use-scanner-settings';
 import {
-	getPageHeadingsTree,
 	getHeadingXpath,
+	getPageHeadingsTree,
 	keyForNode,
 } from '@ea11y-apps/scanner/utils/page-headings';
 import {
-	validateHeadings,
 	calculateStats,
+	validateHeadings,
 } from '@ea11y-apps/scanner/utils/validate-headings';
 import { createContext, useContext, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';

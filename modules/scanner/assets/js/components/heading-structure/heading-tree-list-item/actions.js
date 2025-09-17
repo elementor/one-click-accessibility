@@ -47,9 +47,8 @@ const HeadingTreeListItemActions = ({
 	const onApply = async () => {
 		if (isDismiss) {
 			await onDismiss();
-		} else {
-			await onLevelUpdate();
 		}
+		await onLevelUpdate();
 	};
 
 	const onLevelUpdate = async () => {

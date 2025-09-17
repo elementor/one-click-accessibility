@@ -230,7 +230,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 			const filteredCustomResults = customResults.filter(
 				(item) =>
-					(item.level === 'violation' || item.level === 'recommendation') &&
+					item.level === 'violation' &&
 					!dismissedHeadingIssues.includes(item.path.dom),
 			);
 
@@ -313,13 +313,8 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					sortedViolations[block]?.length === 0
 				);
 			case BLOCKS.headingStructure:
-				const updatedHeadings = validateHeadings(
-					getPageHeadingsTree(),
-					dismissedHeadingIssues,
-				);
-
-				const stats = calculateStats(updatedHeadings);
-				return stats.error === 0 && stats.warning === 0;
+				const stats = getHeadingsStats();
+				return stats.error === 0;
 			default:
 				return (
 					(manualData[block]?.length === sortedViolations[block]?.length &&
@@ -345,6 +340,14 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		url.searchParams.append('open-ea11y-assistant', '1');
 
 		window.location.assign(url);
+	};
+
+	const getHeadingsStats = () => {
+		const updatedHeadings = validateHeadings(
+			getPageHeadingsTree(),
+			dismissedHeadingIssues,
+		);
+		return calculateStats(updatedHeadings);
 	};
 
 	return (
@@ -382,6 +385,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				isResolved,
 				handleOpen,
 				runNewScan,
+				getHeadingsStats,
 			}}
 		>
 			{children}
