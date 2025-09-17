@@ -1,12 +1,24 @@
 <?php
 namespace EA11y\Modules\Settings;
 
-use EA11y\Classes\{Logger, Module_Base, Utils};
-use EA11y\Modules\Connect\Classes\{Config, Data};
+use EA11y\Classes\{
+	Logger,
+	Module_Base,
+	Utils
+};
+use EA11y\Modules\Connect\Classes\{
+	Config,
+	Data,
+	Exceptions\Service_Exception
+};
 use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
 use EA11y\Modules\Connect\Module as Connect;
-use EA11y\Modules\Core\Components\{Notices, Svg};
+use EA11y\Modules\Core\Components\{
+	Notices,
+	Svg
+};
 use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
+use EA11y\Modules\Settings\Banners\Onboarding_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
 use Exception;
@@ -44,6 +56,10 @@ class Module extends Module_Base {
 
 		<div id="ea11y-app"></div>
 		<?php
+	}
+
+	public function admin_banners() {
+		Onboarding_Banner::get_banner();
 	}
 
 	public function register_page() : void {
@@ -138,9 +154,11 @@ class Module extends Module_Base {
 		return [
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
+			'closeOnboardingModal' => Settings::get( Settings::CLOSE_ONBOARDING_MODAL ),
 			'isRTL' => is_rtl(),
 			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
+			'homeUrl' => home_url(),
 		];
 	}
 
@@ -200,7 +218,6 @@ class Module extends Module_Base {
 	 * @return void
 	 */
 	public static function refresh_plan_data() : void {
-
 		if ( ! Connect::is_connected() ) {
 				return;
 		}
@@ -219,27 +236,31 @@ class Module extends Module_Base {
 			return;
 		}
 
-		$response = Utils::get_api_client()->make_request(
-			'GET',
-			'site/info',
-			[ 'api_key' => $plan_data->public_api_key ]
-		);
+		try {
+			$response = Utils::get_api_client()->make_request(
+				'GET',
+				'site/info',
+				[ 'api_key' => $plan_data->public_api_key ]
+			);
 
-		if ( ! is_wp_error( $response ) ) {
-			Settings::set( Settings::PLAN_DATA, $response );
-			Settings::set( Settings::IS_VALID_PLAN_DATA, true );
-			self::set_plan_data_refresh_transient();
-		} else {
-			Logger::error( esc_html( $response->get_error_message() ) );
+			if ( ! is_wp_error( $response ) ) {
+				Settings::set( Settings::PLAN_DATA, $response );
+				Settings::set( Settings::IS_VALID_PLAN_DATA, true );
+				self::set_plan_data_refresh_transient();
+			} else {
+				Logger::error( esc_html( $response->get_error_message() ) );
+				Settings::set( Settings::IS_VALID_PLAN_DATA, false );
+			}
+		} catch ( Service_Exception $se ) {
+			Logger::error( esc_html( $se->getMessage() ) );
 			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
 		}
 	}
 
 	/**
-	 * Set default values after successful registration.
-	 * @return void
+	 * Get default settings for the plugin.
 	 */
-	private static function set_default_settings() : void {
+	public static function get_default_settings( $setting ): array {
 		$widget_menu_settings = [
 			'bigger-text' => [
 				'enabled' => true,
@@ -332,16 +353,34 @@ class Module extends Module_Base {
 			'anchor' => '#content',
 		];
 
+		switch ( $setting ) {
+			case 'widget_menu_settings':
+				return $widget_menu_settings;
+			case 'widget_icon_settings':
+				return $widget_icon_settings;
+			case 'skip_to_content_settings':
+				return $skip_to_content_setting;
+			default:
+				return [];
+		}
+	}
+
+	/**
+	 * Set default values after successful registration.
+	 * @return void
+	 */
+	private static function set_default_settings() : void {
+
 		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
-			update_option( Settings::WIDGET_MENU_SETTINGS, $widget_menu_settings );
+			update_option( Settings::WIDGET_MENU_SETTINGS, self::get_default_settings( 'widget_menu_settings' ) );
 		}
 
 		if ( ! get_option( Settings::WIDGET_ICON_SETTINGS ) ) {
-			update_option( Settings::WIDGET_ICON_SETTINGS, $widget_icon_settings );
+			update_option( Settings::WIDGET_ICON_SETTINGS, self::get_default_settings( 'widget_icon_settings' ) );
 		}
 
 		if ( ! get_option( Settings::SKIP_TO_CONTENT ) ) {
-			update_option( Settings::SKIP_TO_CONTENT, $skip_to_content_setting );
+			update_option( Settings::SKIP_TO_CONTENT, self::get_default_settings( 'skip_to_content_settings' ) );
 		}
 	}
 
@@ -448,6 +487,9 @@ class Module extends Module_Base {
 			'unfiltered_files_upload' => [
 				'type' => 'boolean',
 			],
+			'close_onboarding_modal' => [
+				'type' => 'boolean',
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {
@@ -551,8 +593,9 @@ class Module extends Module_Base {
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
 		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
+		
 		// Register notices
-		// Removed visits quota
-		// add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		//add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
 	}
 }

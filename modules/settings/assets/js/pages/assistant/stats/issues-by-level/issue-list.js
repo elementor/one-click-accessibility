@@ -4,7 +4,7 @@ import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
 import { __, sprintf } from '@wordpress/i18n';
 
-const AccessibilityAssistantStatsIssueLevels = ({ issueLevels }) => {
+const IssueList = ({ issueLevels }) => {
 	return (
 		<>
 			<StyledIssueLevel>
@@ -52,7 +52,7 @@ const AccessibilityAssistantStatsIssueLevels = ({ issueLevels }) => {
 	);
 };
 
-AccessibilityAssistantStatsIssueLevels.propTypes = {
+IssueList.propTypes = {
 	issueLevels: PropTypes.object.isRequired,
 };
 
@@ -104,4 +104,4 @@ const StyledIssuesCount = styled(Typography)`
 	letter-spacing: 0.1px;
 `;
 
-export default AccessibilityAssistantStatsIssueLevels;
+export default IssueList;

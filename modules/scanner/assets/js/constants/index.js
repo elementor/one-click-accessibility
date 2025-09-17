@@ -1,6 +1,8 @@
 import { __ } from '@wordpress/i18n';
 
 export const TOP_BAR_LINK = '#wp-admin-bar-ea11y-scanner-wizard a';
+export const SCAN_LINK = '#wp-admin-bar-ea11y-scan-page a';
+export const CLEAR_CACHE_LINK = '#wp-admin-bar-ea11y-clear-cache a';
 
 export const SCANNER_URL_PARAM = 'open-ea11y-assistant';
 export const MANAGE_URL_PARAM = 'open-ea11y-manage';
@@ -12,6 +14,11 @@ export const BACKGROUND_ELEMENT_CLASS = 'ea11y-scanner-background-element';
 export const COLOR_CONTRAST_SELECTORS_COUNT = 5;
 export const DATA_INITIAL_BG = 'data-initial-bg';
 export const DATA_INITIAL_COLOR = 'data-initial-color';
+
+export const LEVEL_VIOLATION = 'violation';
+export const LEVEL_POTENTIAL = 'potentialViolation';
+export const RULE_TEXT_CONTRAST = 'text_contrast_sufficient';
+export const RATIO_EXCLUDED = 1;
 
 export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
 export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';

@@ -71,7 +71,7 @@ export const PieChart = () => {
 					series={[
 						{
 							data: formatted,
-							innerRadius: chartWidth < 100 ? chartWidth - 20 : 80,
+							innerRadius: chartWidth < 100 ? chartWidth - 15 : 85,
 							outerRadius: chartWidth < 100 ? chartWidth : 100,
 							paddingAngle: 0,
 							cornerRadius: 0,

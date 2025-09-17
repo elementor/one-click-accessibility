@@ -30,6 +30,7 @@ class Module extends Module_Base {
 			'Trigger_Save',
 			'Heading_Level',
 			'Dismiss_Heading_Issue',
+			'Clear_Cache',
 		];
 	}
 

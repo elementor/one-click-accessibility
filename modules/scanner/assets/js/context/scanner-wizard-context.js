@@ -3,8 +3,12 @@ import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
 	BLOCKS,
 	INITIAL_SORTED_VIOLATIONS,
+	LEVEL_POTENTIAL,
+	LEVEL_VIOLATION,
 	MANAGE_URL_PARAM,
 	MANUAL_GROUPS,
+	RATIO_EXCLUDED,
+	RULE_TEXT_CONTRAST,
 } from '@ea11y-apps/scanner/constants';
 import { runAllEa11yRules } from '@ea11y-apps/scanner/rules';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
@@ -82,6 +86,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		structuredClone(MANUAL_GROUPS),
 	);
 	const [openIndex, setOpenIndex] = useState(null);
+	const [violation, setViolation] = useState(null);
 
 	useEffect(() => {
 		const items = isManage
@@ -113,6 +118,16 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			setRemediations([]);
 		}
 	}, [sortedRemediation]);
+
+	useEffect(() => {
+		if (results?.summary?.counts) {
+			const total = Object.values(sortedViolations).reduce(
+				(sum, arr) => sum + arr.length,
+				0,
+			);
+			setViolation(total);
+		}
+	}, [sortedViolations, results]);
 
 	const updateRemediationList = async () => {
 		try {
@@ -146,13 +161,6 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		setOpenIndex(null);
 	};
 
-	const initialViolations =
-		window.ea11yScannerData.initialScanResult?.counts?.violation ?? 0;
-	const violation =
-		results?.summary?.counts?.violation >= 0
-			? results?.summary?.counts?.violation
-			: null;
-
 	const registerPage = async (data, sorted) => {
 		try {
 			if (window?.ea11yScannerData?.pageData?.unregistered) {
@@ -160,16 +168,13 @@ export const ScannerWizardContextProvider = ({ children }) => {
 					window?.ea11yScannerData?.pageData,
 					data.summary,
 				);
+				window.ea11yScannerData.pageData.unregistered = false;
 			}
+
 			setResults(data);
 			setSortedViolations(sorted);
 			setAltTextData([]);
 			setManualData(structuredClone(MANUAL_GROUPS));
-			setResolved(
-				initialViolations >= data.summary?.counts?.issuesResolved
-					? data.summary?.counts?.issuesResolved
-					: 0,
-			);
 		} catch (e) {
 			if (e?.message === 'Quota exceeded') {
 				setQuotaExceeded(true);
@@ -196,17 +201,21 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		}
 	};
 
+	const isViolation = (item) => item.level === LEVEL_VIOLATION;
+	const isContrastViolation = (item) =>
+		item.ruleId === RULE_TEXT_CONTRAST &&
+		item.level === LEVEL_POTENTIAL &&
+		Number(item.messageArgs[0]) !== RATIO_EXCLUDED;
+
 	const getResults = async () => {
 		setLoading(true);
 
 		try {
 			const url = new URL(window.location.href);
 			const data = await window.ace.check(document);
+
 			const filtered = data.results.filter(
-				(item) =>
-					item.level === 'violation' ||
-					(item.ruleId === 'text_contrast_sufficient' &&
-						item.level === 'potentialViolation'),
+				(item) => isViolation(item) || isContrastViolation(item),
 			);
 
 			const customResults = runAllEa11yRules(document);

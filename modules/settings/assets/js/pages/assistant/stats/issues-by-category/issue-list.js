@@ -1,3 +1,12 @@
+import {
+	ColorBlue100,
+	ColorBlue200,
+	ColorBlue300,
+	ColorBlue400,
+	ColorBlue500,
+	ColorBlue700,
+	ColorBlue900,
+} from '@elementor/design-tokens/primitives';
 import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
@@ -11,9 +20,7 @@ const CATEGORY_TITLE_OVERRIDES = {
 	dynamicContent: __('Dynamic/Aria', 'pojo-accessibility'),
 };
 
-const AccessibilityAssistantStatsIssueResovledBYCategory = ({
-	issueByCategory,
-}) => {
+const IssueList = ({ issueByCategory }) => {
 	// Process categories to show top 6 by usage + "other"
 	const processedCategories = () => {
 		// Convert to array and sort by count (descending)
@@ -73,7 +80,7 @@ const AccessibilityAssistantStatsIssueResovledBYCategory = ({
 	);
 };
 
-AccessibilityAssistantStatsIssueResovledBYCategory.propTypes = {
+IssueList.propTypes = {
 	issueByCategory: PropTypes.object.isRequired,
 };
 
@@ -97,13 +104,13 @@ const StyledIssueLevel = styled(Box)`
 		border-radius: 100%;
 		background-color: ${({ colorIndex }) => {
 			const colors = [
-				'#1e3a8a', // Blue 900
-				'#1d4ed8', // Blue 700
-				'#3b82f6', // Blue 500
-				'#60a5fa', // Blue 400
-				'#93c5fd', // Blue 300
-				'#BFDBFE', // Blue 200
-				'#DBEAFE', // Blue 100 (for "other")
+				ColorBlue900,
+				ColorBlue700,
+				ColorBlue500,
+				ColorBlue400,
+				ColorBlue300,
+				ColorBlue200,
+				ColorBlue100, // (for "other")
 			];
 			return colors[colorIndex % colors.length];
 		}};
@@ -123,4 +130,4 @@ const StyledIssuesCount = styled(Typography)`
 	text-align: left;
 `;
 
-export default AccessibilityAssistantStatsIssueResovledBYCategory;
+export default IssueList;

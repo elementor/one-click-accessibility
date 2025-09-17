@@ -28,6 +28,16 @@ const entryPoints = {
 		'modules/widget/assets/js',
 		'ally-gutenberg-block.js',
 	),
+	'deactivation-ally': path.resolve(
+		process.cwd(),
+		'modules/deactivation/assets/js',
+		'deactivation-feedback.js',
+	),
+	reviews: path.resolve(
+		process.cwd(),
+		'modules/reviews/assets/src',
+		'reviews.js',
+	),
 };
 
 // React JSX Runtime Polyfill
@@ -95,7 +105,7 @@ module.exports = [
 		},
 		optimization: {
 			...defaultConfig.optimization,
-			minimize: true,
+			minimize: process.env.NODE_ENV === 'production',
 			minimizer: [
 				...defaultConfig.optimization.minimizer,
 				new CssMinimizerPlugin(), // Minimize CSS

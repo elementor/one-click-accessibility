@@ -299,7 +299,7 @@ class Table {
 	 *
 	 * @return string|null The query result or NULL on error.
 	 */
-	public static function select_var( $fields = '*', $where = '1', int $limit = null, int $offset = null, string $join = '' ): ?string {
+	public static function select_var( $fields = '*', $where = '1', ?int $limit = null, ?int $offset = null, string $join = '' ): ?string {
 		return static::db()->get_var( static::build_sql_string( $fields, $where, $limit, $offset, $join ) );
 	}
 
@@ -333,7 +333,7 @@ class Table {
 	 *
 	 * @return string The SQL SELECT statement built according to the function parameters.
 	 */
-	private static function build_sql_string( $fields = '*', $where = '1', int $limit = null, int $offset = null, string $join = '', array $order_by = [], $group_by = '' ): string {
+	private static function build_sql_string( $fields = '*', $where = '1', ?int $limit = null, ?int $offset = null, string $join = '', array $order_by = [], $group_by = '' ): string {
 		if ( is_array( $fields ) ) {
 			$fields = implode( ', ', $fields );
 		}
@@ -414,7 +414,7 @@ class Table {
 	 *
 	 * @return array|object|\stdClass[]|null On success, an array of objects. Null on error.
 	 */
-	public static function select( $fields = '*', $where = '1', int $limit = null, int $offset = null, $join = '', array $order_by = [], $group_by = '' ) {
+	public static function select( $fields = '*', $where = '1', ?int $limit = null, ?int $offset = null, $join = '', array $order_by = [], $group_by = '' ) {
 		// TODO: handle $wpdb->last_error
 		$query = static::build_sql_string( $fields, $where, $limit, $offset, $join, $order_by, $group_by );
 		return static::db()->get_results( $query );
@@ -447,7 +447,7 @@ class Table {
 	 *
 	 * @return string[] Array of the values of the column as strings, or an empty one on error.
 	 */
-	public static function get_col( string $column = '', $where = '1', int $limit = null, int $offset = null, string $join = '', array $order_by = [] ) : array {
+	public static function get_col( string $column = '', $where = '1', ?int $limit = null, ?int $offset = null, string $join = '', array $order_by = [] ) : array {
 		return static::db()->get_col( static::build_sql_string( $column, $where, $limit, $offset, $join, $order_by ) );
 	}
 
@@ -521,7 +521,7 @@ class Table {
 	 *
 	 * @return false|int Number of rows affected or false on error
 	 */
-	public static function insert_many( array $data = [], string $columns = null ) {
+	public static function insert_many( array $data = [], ?string $columns = null ) {
 		if ( null === $columns ) {
 			$columns = static::get_columns_for_insert( $data );
 			if ( ! $columns ) {

@@ -31,6 +31,20 @@ class Top_Bar_Link {
 				'title' => $svg_icon . esc_html__( 'Accessibility Assistant', 'pojo-accessibility' ),
 				'href' => '#', // Click event is handled by JS.
 			] );
+			// Add scan page
+			$wp_admin_bar->add_node( [
+				'id' => 'ea11y-scan-page',
+				'title'  => esc_html__( 'Scan page', 'pojo-accessibility' ),
+				'href' => '#', // Click event is handled by JS.
+				'parent' => 'ea11y-scanner-wizard',
+			] );
+			// Add clear all cache
+			$wp_admin_bar->add_node( [
+				'id' => 'ea11y-clear-cache',
+				'title'  => esc_html__( 'Clear all cache', 'pojo-accessibility' ),
+				'href' => '#', // Click event is handled by JS.
+				'parent' => 'ea11y-scanner-wizard',
+			] );
 		}, 200 );
 	}
 

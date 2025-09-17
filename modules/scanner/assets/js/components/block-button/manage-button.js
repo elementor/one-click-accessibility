@@ -22,7 +22,7 @@ export const ManageButton = ({ title, count, block }) => {
 		mixpanelService.sendEvent(mixpanelEvents.categoryClicked, {
 			page_url: window.ea11yScannerData?.pageData?.url,
 			issue_count: count,
-			category_name: title,
+			category_name: block,
 			source: 'remediation',
 		});
 	};
