@@ -1,5 +1,5 @@
+import { injectTemplateVars } from '@ea11y-apps/global/utils/inject-template-vars';
 import { StyledDescription } from '@ea11y-apps/scanner/styles/heading-structure.styles';
-import { injectTemplateVars } from '@ea11y-apps/scanner/utils/inject-template-vars';
 import { memo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 

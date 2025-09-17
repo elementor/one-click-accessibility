@@ -4,10 +4,10 @@ import Button from '@elementor/ui/Button';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { injectTemplateVars } from '@ea11y-apps/global/utils/inject-template-vars';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledSkeleton } from '@ea11y-apps/scanner/styles/app.styles';
 import { __, sprintf } from '@wordpress/i18n';
-import { injectTemplateVars } from '../../../../../../settings/assets/js/utils';
 
 export const ScanStats = () => {
 	const { violation, results, resolved, loading, runNewScan } =

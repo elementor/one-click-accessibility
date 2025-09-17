@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
+import { injectTemplateVars } from '@ea11y-apps/global/utils/inject-template-vars';
 import {
 	StyledTitleRowItem,
 	StyledTitleRowItemTypography,
 } from '@ea11y-apps/scanner/styles/heading-structure.styles';
-import { injectTemplateVars } from '../../../../../../../settings/assets/js/utils';
 
 const HeadingStructureTitleRowItem = ({ icon, text }) => {
 	return (
