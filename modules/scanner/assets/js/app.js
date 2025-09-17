@@ -96,7 +96,10 @@ const App = () => {
 	};
 
 	return (
-		<FocusTrap containerElements={[containerRef.current]}>
+		<FocusTrap
+			containerElements={[containerRef.current]}
+			focusTrapOptions={{ initialFocus: false, allowOutsideClick: true }}
+		>
 			<AppContainer elevation={6} ref={containerRef}>
 				<ErrorBoundary fallback={<ErrorMessage />}>
 					<Header />

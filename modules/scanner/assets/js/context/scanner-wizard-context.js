@@ -10,6 +10,7 @@ import {
 	RATIO_EXCLUDED,
 	RULE_TEXT_CONTRAST,
 } from '@ea11y-apps/scanner/constants';
+import useScannerSettings from '@ea11y-apps/scanner/hooks/use-scanner-settings';
 import { runAllEa11yRules } from '@ea11y-apps/scanner/rules';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
@@ -17,10 +18,15 @@ import {
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
+import { getPageHeadingsTree } from '@ea11y-apps/scanner/utils/page-headings';
 import {
 	sortRemediation,
 	sortViolations,
 } from '@ea11y-apps/scanner/utils/sort-violations';
+import {
+	calculateStats,
+	validateHeadings,
+} from '@ea11y-apps/scanner/utils/validate-headings';
 import {
 	createContext,
 	useContext,
@@ -64,6 +70,8 @@ export const ScannerWizardContext = createContext({
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
+	const { dismissedHeadingIssues } = useScannerSettings();
+
 	const [results, setResults] = useState();
 	const [remediations, setRemediations] = useState([]);
 	const [sortedViolations, setSortedViolations] = useState(
@@ -221,7 +229,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			const customResults = runAllEa11yRules(document);
 
 			const filteredCustomResults = customResults.filter(
-				(item) => item.level === 'violation' || item.level === 'recommendation',
+				(item) =>
+					(item.level === 'violation' || item.level === 'recommendation') &&
+					!dismissedHeadingIssues.includes(item.path.dom),
 			);
 
 			const allResults = [...filtered, ...filteredCustomResults];
@@ -294,15 +304,30 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			},
 			(_, i) => i,
 		);
-		return block === BLOCKS.altText
-			? (altTextData?.length === sortedViolations[block]?.length &&
-					indexes.every((index) => index in altTextData) &&
-					altTextData.every((data) => data?.resolved)) ||
+		switch (block) {
+			case BLOCKS.altText:
+				return (
+					(altTextData?.length === sortedViolations[block]?.length &&
+						indexes.every((index) => index in altTextData) &&
+						altTextData.every((data) => data?.resolved)) ||
 					sortedViolations[block]?.length === 0
-			: (manualData[block]?.length === sortedViolations[block]?.length &&
-					indexes.every((index) => index in manualData[block]) &&
-					manualData[block].every((data) => data?.resolved)) ||
-					sortedViolations[block]?.length === 0;
+				);
+			case BLOCKS.headingStructure:
+				const updatedHeadings = validateHeadings(
+					getPageHeadingsTree(),
+					dismissedHeadingIssues,
+				);
+
+				const stats = calculateStats(updatedHeadings);
+				return stats.error === 0 && stats.warning === 0;
+			default:
+				return (
+					(manualData[block]?.length === sortedViolations[block]?.length &&
+						indexes.every((index) => index in manualData[block]) &&
+						manualData[block].every((data) => data?.resolved)) ||
+					sortedViolations[block]?.length === 0
+				);
+		}
 	};
 
 	const isChanged =
