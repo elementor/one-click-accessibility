@@ -1,0 +1,152 @@
+.ea11y-deactivation-modal {
+    display: none;
+}
+
+.ea11y-deactivation-content {
+    padding: 20px;
+}
+
+/* Thickbox auto-height adjustments */
+#TB_window.ea11y-feedback-thickbox {
+    height: auto !important;
+    max-height: 90vh;
+    overflow: auto;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    width: 600px !important;
+}
+
+/* Custom styles for Ally feedback thickbox */
+#TB_window.ea11y-feedback-thickbox {
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.ea11y-feedback-thickbox #TB_ajaxContent {
+    overflow: visible;
+    padding: 0;
+}
+
+.ea11y-feedback-thickbox #TB_title {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+}
+
+.ea11y-feedback-thickbox #TB_closeWindowButton .tb-close-icon {
+    box-shadow: none !important;
+}
+
+.ea11y-feedback-thickbox #TB_ajaxWindowTitle {
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.ea11y-deactivation-content h3 {
+    margin-top: 0;
+    color: #23282d;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.ea11y-deactivation-content p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.ea11y-feedback-options {
+    margin-bottom: 20px;
+}
+
+.ea11y-feedback-option {
+    margin-bottom: 15px;
+}
+
+.ea11y-feedback-option > label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #23282d;
+    margin-bottom: 8px;
+}
+
+.ea11y-feedback-option input[type="radio"] {
+    margin-right: 8px;
+}
+
+.ea11y-feedback-text-field {
+    margin-left: 24px;
+    margin-top: 8px;
+}
+
+.ea11y-feedback-text-field label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.ea11y-feedback-text-field input,
+.ea11y-feedback-text-field textarea {
+    width: 100%;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 13px;
+    resize: vertical;
+}
+
+.ea11y-feedback-text-field input:focus,
+.ea11y-feedback-text-field textarea:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+    outline: none;
+}
+
+.ea11y-deactivation-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid #e1e1e1;
+    padding-top: 20px;
+}
+
+.ea11y-btn {
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    text-decoration: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #c0c0c0;
+    transition: all 0.3s ease;
+}
+
+.ea11y-btn:hover {
+    background: none;
+    color: #000;
+}
+
+.ea11y-btn-primary {
+    background: rgb(240, 171, 252);
+    border-color: rgb(240, 171, 252);
+    color: #000;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.ea11y-btn-primary:hover {
+    background: #e881fa;
+    border-color: #e881fa;
+    color: #000;
+}
+
+.ea11y-btn:focus {
+    box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, 0.8);
+    outline: none;
+}

@@ -1,22 +1,21 @@
 import Alert from '@elementor/ui/Alert';
 import AlertTitle from '@elementor/ui/AlertTitle';
-import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Divider from '@elementor/ui/Divider';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ColorSet } from '@ea11y-apps/scanner/components/color-contrast-form/color-set';
+import { ColorSetDisabled } from '@ea11y-apps/scanner/components/color-contrast-form/color-set-disabled';
 import { ParentSelector } from '@ea11y-apps/scanner/components/color-contrast-form/parent-selector';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useColorContrastForm } from '@ea11y-apps/scanner/hooks/use-color-contrast-form';
 import { StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
-import {
-	checkContrastAA,
-	isLargeText,
-} from '@ea11y-apps/scanner/utils/calc-color-ratio';
-import { __, sprintf } from '@wordpress/i18n';
+import { checkContrastAA } from '@ea11y-apps/scanner/utils/calc-color-ratio';
+import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
+import { useEffect, useRef } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 export const ColorContrastForm = ({ items, current, setCurrent }) => {
 	const item = items[current];
@@ -38,17 +37,19 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 		setCurrent,
 	});
 
-	const isPossibleToResolve = item.messageArgs[3] && item.messageArgs[4];
+	const colorRef = useRef(null);
 
-	const passRatio = isLargeText(item.node) ? '3:1' : '4.5:1';
+	useEffect(() => {
+		if (item?.node) {
+			colorRef.current = rgbOrRgbaToHex(
+				window.getComputedStyle(item.node).getPropertyValue('color'),
+			);
+		}
+	}, [item]);
 
-	const colorData =
-		color && background
-			? checkContrastAA(color, background, item.node)
-			: {
-					ratio: item.messageArgs[0],
-					passesAA: false,
-				};
+	const isBackgroundEnabled = item.messageArgs[3] && item.messageArgs[4];
+
+	const colorData = checkContrastAA(item.node);
 
 	const handleSubmit = async () => {
 		await onSubmit();
@@ -65,58 +66,37 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 	return (
 		<StyledBox>
 			<Divider />
-			{!isPossibleToResolve ? (
-				<>
-					<Box>
-						<Typography variant="subtitle2" as="h5" sx={{ mb: 1 }}>
-							{__('What’s the issue?', 'pojo-accessibility')}
-						</Typography>
-						<Typography variant="body2" as="p">
-							{__(
-								'Adjust the text or background lightness until the indicator shows an accessible level.',
-								'pojo-accessibility',
-							)}
-						</Typography>
-					</Box>
-					<Box>
-						<Typography variant="subtitle2" as="h5" sx={{ mb: 1 }}>
-							{__('How to resolve?', 'pojo-accessibility')}
-						</Typography>
-						<Typography variant="body2" as="p">
-							{sprintf(
-								// Translators: %s - color ratio
-								__(
-									'To meet accessibility standards, update the text or background color to reach a contrast ratio of at least %s',
-									'pojo-accessibility',
-								),
-								passRatio,
-							)}
-						</Typography>
-					</Box>
-				</>
+
+			<Typography variant="body2" as="p">
+				{__(
+					'Adjust the text or background lightness until the indicator shows an accessible level.',
+					'pojo-accessibility',
+				)}
+			</Typography>
+			<ColorSet
+				title={__('Text', 'pojo-accessibility')}
+				color={color}
+				initialColor={colorRef.current || color}
+				setColor={changeColor}
+				area="color"
+			/>
+
+			{isBackgroundEnabled ? (
+				<ColorSet
+					title={__('Background', 'pojo-accessibility')}
+					color={background}
+					initialColor={item.messageArgs[4]}
+					setColor={changeBackground}
+					area="background"
+				/>
 			) : (
-				<>
-					<Typography variant="body2" as="p">
-						{__(
-							'Adjust the text or background lightness until the indicator shows an accessible level.',
-							'pojo-accessibility',
-						)}
-					</Typography>
-					<ColorSet
-						title={__('Text', 'pojo-accessibility')}
-						color={color}
-						initialColor={item.messageArgs[3]}
-						setColor={changeColor}
-						area="color"
-					/>
-					<ColorSet
-						title={__('Background', 'pojo-accessibility')}
-						color={background}
-						initialColor={item.messageArgs[4]}
-						setColor={changeBackground}
-						area="background"
-					/>
-				</>
+				<ColorSetDisabled
+					title={__('Background', 'pojo-accessibility')}
+					description={__(
+						'Image and gradient backgrounds must be changed in the design',
+						'pojo-accessibility',
+					)}
+				/>
 			)}
 
 			{backgroundChanged && (
@@ -132,18 +112,17 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 				</AlertTitle>
 				{colorData.ratio}
 			</Alert>
-			{isPossibleToResolve && (
-				<Button
-					variant="contained"
-					size="small"
-					color="info"
-					loading={loading}
-					disabled={!colorData.passesAA || resolved || loading}
-					onClick={handleSubmit}
-				>
-					{__('Apply changes', 'pojo-accessibility')}
-				</Button>
-			)}
+
+			<Button
+				variant="contained"
+				size="small"
+				color="info"
+				loading={loading}
+				disabled={!colorData.passesAA || resolved || loading}
+				onClick={handleSubmit}
+			>
+				{__('Apply changes', 'pojo-accessibility')}
+			</Button>
 		</StyledBox>
 	);
 };

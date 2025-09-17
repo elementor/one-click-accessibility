@@ -6,6 +6,7 @@ import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
+import { getElementContext } from '@ea11y-apps/scanner/utils/get-element-context';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -51,9 +52,11 @@ export const useManualFixForm = ({ item, current }) => {
 	const getAISuggestion = async () => {
 		try {
 			setAiResponseLoading(true);
+			const context = getElementContext(item.node);
 			const result = await APIScanner.resolveWithAI({
 				snippet: item.snippet,
 				violation: item.ruleId,
+				context,
 			});
 			updateData({
 				aiSuggestion: result.data.response,

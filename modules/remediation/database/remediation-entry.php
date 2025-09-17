@@ -50,7 +50,7 @@ class Remediation_Entry extends Entry {
 	 * @param string $by_value
 	 * @param string|null $group
 	 */
-	public static function remove( string $by, string $by_value, string $group = null ) {
+	public static function remove( string $by, string $by_value, ?string $group = null ) {
 		$where = $group ? [
 			$by => $by_value,
 			'group' => $group,
@@ -68,19 +68,7 @@ class Remediation_Entry extends Entry {
 	 * @return array
 	 */
 	public static function get_page_remediations( string $url, bool $total = false ) : array {
-		$where = $total ? [
-			[
-				'column' => Remediation_Table::table_name() . '.' . Remediation_Table::URL,
-				'value' => $url,
-				'operator' => '=',
-				'relation_after' => 'AND',
-			],
-			[
-				'column' => Remediation_Table::table_name() . '.' . Remediation_Table::GROUP,
-				'value' => 'altText',
-				'operator' => '<>',
-			],
-		] : [
+		$where = [
 			[
 				'column' => Remediation_Table::URL,
 				'value' => $url,
@@ -89,6 +77,30 @@ class Remediation_Entry extends Entry {
 		];
 		$select = $total ? 'COUNT(*) as total' : '*';
 		return Remediation_Table::select( $select, $where );
+	}
+
+	/**
+	 *  get_page_active_remediations
+	 *
+	 * @param string $url
+	 * @return array
+	 */
+	public static function get_page_active_remediations( string $url ) : array {
+		$where = [
+			[
+				'column' => Remediation_Table::URL,
+				'value' => $url,
+				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::ACTIVE,
+				'value' => 1,
+				'operator' => '=',
+			],
+		];
+
+		return Remediation_Table::select( '*', $where );
 	}
 
 	public static function get_all_remediations( int $period ) : array {
@@ -113,7 +125,7 @@ class Remediation_Entry extends Entry {
 	 *
 	 * @return void
 	 */
-	public static function update_remediations_status( string $by, string $by_value, bool $status, string $group = null ): void {
+	public static function update_remediations_status( string $by, string $by_value, bool $status, ?string $group = null ): void {
 		$where = $group ? [
 			$by => $by_value,
 			'group' => $group,

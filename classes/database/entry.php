@@ -220,7 +220,7 @@ class Entry {
 	 *                           Optional.
 	 *                           Defaults to null. In this case, will raise only the defaults /changed/ event.
 	 */
-	private function trigger_change( $data, string $event = null ) : void {
+	private function trigger_change( $data, ?string $event = null ) : void {
 		if ( $event ) {
 			/**
 			 * event specific

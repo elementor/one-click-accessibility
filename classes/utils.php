@@ -23,6 +23,9 @@ class Utils {
 		$installed_plugins = get_plugins();
 		return isset( $installed_plugins[ $file_path ] );
 	}
+	public static function user_is_admin(): bool {
+		return current_user_can( 'manage_options' );
+	}
 
 	public static function sanitize_object( $input ) {
 		// Convert an object to array if needed
