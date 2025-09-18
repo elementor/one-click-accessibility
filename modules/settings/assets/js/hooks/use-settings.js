@@ -152,8 +152,6 @@ export const SettingsProvider = ({ children }) => {
 
 	const [planUsage, setPlanUsage] = useState(0);
 
-	const [showWhatsNewDataHash, setShowWhatsNewDataHash] = useState(false);
-
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -187,8 +185,6 @@ export const SettingsProvider = ({ children }) => {
 				setShowAccessibilityGeneratedInfotip,
 				planUsage,
 				setPlanUsage,
-				showWhatsNewDataHash,
-				setShowWhatsNewDataHash,
 			}}
 		>
 			{children}

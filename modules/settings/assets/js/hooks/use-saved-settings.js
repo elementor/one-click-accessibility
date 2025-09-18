@@ -18,7 +18,6 @@ export const useSavedSettings = () => {
 		setAccessibilityStatementData,
 		setShowAccessibilityGeneratedInfotip,
 		setSkipToContentSettings,
-		setShowWhatsNewDataHash,
 	} = useSettings();
 
 	const { setIsAnalyticsEnabled, setIsProVersion } = useAnalyticsContext();
@@ -96,10 +95,6 @@ export const useSavedSettings = () => {
 
 			if (result?.data?.ea11y_analytics_enabled) {
 				setIsAnalyticsEnabled(result?.data?.ea11y_analytics_enabled);
-			}
-
-			if (result?.data?.ea11y_data_hash) {
-				setShowWhatsNewDataHash(result?.data?.ea11y_data_hash);
 			}
 		}
 	}, [result.hasFinishedResolution]);
