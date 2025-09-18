@@ -1,36 +1,46 @@
-import { HelpIcon, UserIcon } from '@elementor/icons';
+import { HelpIcon, UserIcon, PointFilledIcon } from '@elementor/icons';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
+import { styled } from '@elementor/ui/styles';
 import {
 	bindMenu,
 	bindTrigger,
 	usePopupState,
 } from '@elementor/ui/usePopupState';
 import { PopupMenu } from '@ea11y/components';
-import WhatsNewDrawer from '@ea11y/components/whats-new/drawer';
 import { useWhatsNew } from '@ea11y/hooks/use-whats-new';
 import { BulbIcon } from '@ea11y/icons';
 import SpeakerphoneIcon from '@ea11y/icons/speakerphone-icon';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import WhatsNewDrawer from '../components/whats-new/drawer';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 import { openLink } from '../utils/index';
 
 const TopBarMenu = () => {
 	const { isSidebarOpen, open, close } = useWhatsNew();
+	const { whatsNewDataHash } = usePluginSettingsContext();
 	const accountMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'myAccountMenu',
 	});
+	const [showWhatsNewDataHash, setShowWhatsNewDataHash] = useState(false);
+
+	useEffect(() => {
+		setShowWhatsNewDataHash(whatsNewDataHash);
+	}, [whatsNewDataHash]);
 
 	const handleWhatsNewButtonClick = () => {
 		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 			buttonName: 'Whats new?',
 		});
 		open();
+		setShowWhatsNewDataHash(false);
 	};
 
 	const handleHelpButtonClick = () => {
@@ -75,6 +85,7 @@ const TopBarMenu = () => {
 					onClick={handleWhatsNewButtonClick}
 				>
 					{__("What's new", 'pojo-accessibility')}
+					{showWhatsNewDataHash && <StyledPointFilledIcon />}
 				</Button>
 				<Button
 					size="medium"
@@ -113,3 +124,10 @@ const TopBarMenu = () => {
 };
 
 export default TopBarMenu;
+
+const StyledPointFilledIcon = styled(PointFilledIcon)`
+	color: ${({ theme }) => theme.palette.info.main};
+	position: absolute;
+	top: -4px;
+	right: -10px;
+`;

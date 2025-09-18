@@ -47,6 +47,10 @@ export const PluginSettingsProvider = ({ children }) => {
 					settings.homeUrl = settings.homeUrl;
 				}
 
+				if ('whatsNewDataHash' in settings) {
+					settings.whatsNewDataHash = Boolean(settings.whatsNewDataHash);
+				}
+
 				setPluginSettings(settings);
 				setLoaded(true);
 			})
