@@ -30,12 +30,17 @@ const HeadingStructureHeadingTreeListItemBase = ({
 }) => {
 	const { isLoading, updateHeadingsTree } = useHeadingStructureContext();
 
-	const { applyNewLevel, hasDraft, getDraftLevelForDisplay } =
-		useHeadingNodeManipulation({ node });
+	const {
+		applyNewLevel,
+		hasDraft,
+		getDraftLevelForDisplay,
+		restoreOriginalAttributes,
+	} = useHeadingNodeManipulation({ node });
 
 	const isDraft = hasDraft(node);
 	const displayLevel = isDraft ? getDraftLevelForDisplay() : `h${level}`;
 	const [isDismiss, setIsDismiss] = useState(false);
+	const [isSubmitted, setIsSubmitted] = useState(false);
 
 	const isApplyControlDisabled =
 		(HEADING_STATUS.WARNING === status && !isDismiss) ||
@@ -49,6 +54,7 @@ const HeadingStructureHeadingTreeListItemBase = ({
 		});
 
 		applyNewLevel(e.target.value);
+		setIsSubmitted(false);
 
 		updateHeadingsTree();
 	};
@@ -74,6 +80,11 @@ const HeadingStructureHeadingTreeListItemBase = ({
 			applyExpandedStyles();
 		} else {
 			removeExpandedStyles();
+			if (!isSubmitted) {
+				restoreOriginalAttributes();
+				setTimeout(() => updateHeadingsTree(), 0);
+				setIsSubmitted(false);
+			}
 		}
 	}, [isExpanded]);
 
@@ -134,6 +145,7 @@ const HeadingStructureHeadingTreeListItemBase = ({
 						displayLevel={displayLevel}
 						violation={violation}
 						isExpanded={isExpanded}
+						setIsSubmitted={setIsSubmitted}
 					/>
 				</StyledListItemDetails>
 			</Collapse>

@@ -20,6 +20,7 @@ const HeadingTreeListItemActions = ({
 	isDisabled,
 	isDismiss,
 	setIsDismiss,
+	setIsSubmitted,
 	displayLevel,
 	violation,
 }) => {
@@ -45,6 +46,7 @@ const HeadingTreeListItemActions = ({
 	};
 
 	const onApply = async () => {
+		setIsSubmitted(true);
 		if (isDismiss) {
 			await onDismiss();
 		}
@@ -135,6 +137,7 @@ HeadingTreeListItemActions.propTypes = {
 	isDisabled: PropTypes.bool.isRequired,
 	isDismiss: PropTypes.bool.isRequired,
 	setIsDismiss: PropTypes.func.isRequired,
+	setIsSubmitted: PropTypes.func.isRequired,
 	displayLevel: PropTypes.string.isRequired,
 	violation: PropTypes.oneOf(Object.values(EA11Y_RULES)),
 	isExpanded: PropTypes.bool.isRequired,

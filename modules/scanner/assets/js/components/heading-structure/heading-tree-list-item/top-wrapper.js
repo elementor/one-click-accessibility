@@ -1,10 +1,10 @@
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import { mixpanelService, mixpanelEvents } from '@ea11y-apps/global/services';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import {
-	StyledListItemTopWrapper,
-	StyledListItemLevelBox,
 	StyledListItemContent,
+	StyledListItemLevelBox,
+	StyledListItemTopWrapper,
 } from '@ea11y-apps/scanner/styles/heading-structure.styles';
 import {
 	HEADING_STATUS,
