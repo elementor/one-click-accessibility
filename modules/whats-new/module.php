@@ -3,7 +3,6 @@
 namespace EA11y\Modules\WhatsNew;
 
 use EA11y\Classes\Module_Base;
-use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\WhatsNew\Components\Notificator;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,6 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Module extends Module_Base {
+
+	private const DATA_HASH_OPTION = 'ea11y_data_hash';
+
 	public function get_name(): string {
 		return 'whats-new';
 	}
@@ -32,18 +34,45 @@ class Module extends Module_Base {
 	}
 
 	public static function set_data_hash( $data ) : void {
-		Settings::set( Settings::DATA_HASH_OPTION, self::generate_data_hash( $data ) );
+		$user_id = get_current_user_id();
+		if ( $user_id ) {
+			update_user_meta( $user_id, self::DATA_HASH_OPTION, self::generate_data_hash( $data ) );
+		}
 	}
 
 	public static function get_data_hash(): string {
-		return Settings::get( Settings::DATA_HASH_OPTION );
+		$user_id = get_current_user_id();
+		if ( $user_id ) {
+			return get_user_meta( $user_id, self::DATA_HASH_OPTION, true ) ?: '';
+		}
+		return '';
 	}
 
 	public static function compare_data_hash(): bool {
-		$n = new Notificator();
-		$new_hash = md5(json_encode($n->get_notifications_by_conditions( true )));
+		$current_hash = self::get_data_hash();
 
-		return $new_hash !== self::get_data_hash();
+		if ( ! $current_hash || empty( $current_hash ) ) {
+			return true;
+		}
+
+		$latest_hash = md5(json_encode(self::get_notifications()));
+
+		return $current_hash !== $latest_hash;
+	}
+
+	public static function get_notifications() {
+
+		$notifications = get_transient( 'ea11y_whats_new_notification' );
+
+		if ( ! $notifications ) {
+
+			$n = new Notificator();
+			$notifications = $n->get_notifications_by_conditions( true );
+
+			set_transient( 'ea11y_whats_new_notification', $notifications, 60 * 60 * 12 );
+		}
+
+		return $notifications;
 	}
 
 	/**
