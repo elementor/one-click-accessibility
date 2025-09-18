@@ -128,7 +128,6 @@ class Module extends Module_Base {
 				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 
 				'homeUrl' => home_url(),
-				'whatsNewDataHash' => WhatsNewModule::compare_data_hash(),
 			]
 		);
 	}
@@ -161,6 +160,7 @@ class Module extends Module_Base {
 			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
+			'whatsNewDataHash' => WhatsNewModule::compare_data_hash(),
 		];
 	}
 
