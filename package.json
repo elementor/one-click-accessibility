@@ -58,6 +58,7 @@
 		"@wordpress/media-utils": "^5.22.0",
 		"@wordpress/url": "^4.10.0",
 		"clipboard-copy": "^4.0.1",
+		"focus-trap-react": "^11.0.4",
 		"get-xpath": "^3.3.0",
 		"html-react-parser": "^5.2.2",
 		"husky": "^9.1.6",
@@ -67,6 +68,7 @@
 		"react-content-loader": "^7.0.2",
 		"stylis": "^4.3.6",
 		"stylis-plugin-rtl": "^2.1.1",
-		"use-debounce": "^10.0.4"
+		"use-debounce": "^10.0.4",
+		"zod": "^4.1.5"
 	}
 }
