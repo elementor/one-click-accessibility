@@ -69,4 +69,8 @@ export const mixpanelEvents = {
 		feedbackSubmitted: 'review_feedback_submitted',
 		publicRedirectClicked: 'review_public_redirect_clicked',
 	},
+
+	// Heading Structure
+	headingClicked: 'heading_clicked',
+	headingSelected: 'heading_selected',
 };

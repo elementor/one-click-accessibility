@@ -10,16 +10,23 @@ import {
 	RATIO_EXCLUDED,
 	RULE_TEXT_CONTRAST,
 } from '@ea11y-apps/scanner/constants';
+import useScannerSettings from '@ea11y-apps/scanner/hooks/use-scanner-settings';
+import { runAllEa11yRules } from '@ea11y-apps/scanner/rules';
 import { scannerWizard } from '@ea11y-apps/scanner/services/scanner-wizard';
 import {
 	focusOnElement,
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
+import { getPageHeadingsTree } from '@ea11y-apps/scanner/utils/page-headings';
 import {
 	sortRemediation,
 	sortViolations,
 } from '@ea11y-apps/scanner/utils/sort-violations';
+import {
+	calculateStats,
+	validateHeadings,
+} from '@ea11y-apps/scanner/utils/validate-headings';
 import {
 	createContext,
 	useContext,
@@ -63,6 +70,8 @@ export const ScannerWizardContext = createContext({
 });
 
 export const ScannerWizardContextProvider = ({ children }) => {
+	const { dismissedHeadingIssues } = useScannerSettings();
+
 	const [results, setResults] = useState();
 	const [remediations, setRemediations] = useState([]);
 	const [sortedViolations, setSortedViolations] = useState(
@@ -217,11 +226,31 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				(item) => isViolation(item) || isContrastViolation(item),
 			);
 
-			const sorted = sortViolations(filtered);
+			const customResults = runAllEa11yRules(document);
+
+			const filteredCustomResults = customResults.filter(
+				(item) =>
+					item.level === 'violation' &&
+					!dismissedHeadingIssues.includes(item.path.dom),
+			);
+
+			const allResults = [...filtered, ...filteredCustomResults];
+
+			data.results = allResults;
 
 			if (data?.summary?.counts) {
 				data.summary.counts.issuesResolved = 0;
+				data.summary.counts.violation += filteredCustomResults.filter(
+					(item) => item.level === 'violation',
+				).length;
+				data.summary.counts.recommendation =
+					(data.summary.counts.recommendation || 0) +
+					filteredCustomResults.filter(
+						(item) => item.level === 'recommendation',
+					).length;
 			}
+
+			const sorted = sortViolations(allResults);
 
 			await registerPage(data, sorted);
 			await addScanResults(data);
@@ -275,15 +304,25 @@ export const ScannerWizardContextProvider = ({ children }) => {
 			},
 			(_, i) => i,
 		);
-		return block === BLOCKS.altText
-			? (altTextData?.length === sortedViolations[block]?.length &&
-					indexes.every((index) => index in altTextData) &&
-					altTextData.every((data) => data?.resolved)) ||
+		switch (block) {
+			case BLOCKS.altText:
+				return (
+					(altTextData?.length === sortedViolations[block]?.length &&
+						indexes.every((index) => index in altTextData) &&
+						altTextData.every((data) => data?.resolved)) ||
 					sortedViolations[block]?.length === 0
-			: (manualData[block]?.length === sortedViolations[block]?.length &&
-					indexes.every((index) => index in manualData[block]) &&
-					manualData[block].every((data) => data?.resolved)) ||
-					sortedViolations[block]?.length === 0;
+				);
+			case BLOCKS.headingStructure:
+				const stats = getHeadingsStats();
+				return stats.error === 0;
+			default:
+				return (
+					(manualData[block]?.length === sortedViolations[block]?.length &&
+						indexes.every((index) => index in manualData[block]) &&
+						manualData[block].every((data) => data?.resolved)) ||
+					sortedViolations[block]?.length === 0
+				);
+		}
 	};
 
 	const isChanged =
@@ -301,6 +340,14 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		url.searchParams.append('open-ea11y-assistant', '1');
 
 		window.location.assign(url);
+	};
+
+	const getHeadingsStats = () => {
+		const updatedHeadings = validateHeadings(
+			getPageHeadingsTree(),
+			dismissedHeadingIssues,
+		);
+		return calculateStats(updatedHeadings);
 	};
 
 	return (
@@ -338,6 +385,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 				isResolved,
 				handleOpen,
 				runNewScan,
+				getHeadingsStats,
 			}}
 		>
 			{children}

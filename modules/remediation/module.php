@@ -28,6 +28,8 @@ class Module extends Module_Base {
 			'Items',
 			'Item',
 			'Trigger_Save',
+			'Heading_Level',
+			'Dismiss_Heading_Issue',
 			'Clear_Cache',
 		];
 	}

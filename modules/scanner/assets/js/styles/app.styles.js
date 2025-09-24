@@ -21,9 +21,11 @@ export const AppContainer = styled(Paper)`
 	${ColorPickerStyles}
 `;
 
-export const HeaderCard = styled(Card)`
-	border-radius: 8px;
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+export const StyledStatsBlock = styled(Card)`
+	margin: ${({ theme }) => `${theme.spacing(3)} ${theme.spacing(2)}`};
+	padding: ${({ theme }) => theme.spacing(2)};
+
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	box-shadow: 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 `;
 
@@ -33,10 +35,26 @@ export const TitleBox = styled(Box)`
 	align-items: center;
 `;
 
-export const HeaderContent = styled(CardContent)`
-	&:last-child {
-		padding-bottom: ${({ theme }) => theme.spacing(2)};
+export const StyledTitle = styled(Typography)`
+	font-size: 16px;
+	font-weight: 500;
+	line-height: 130%;
+	letter-spacing: 0.15px;
+	margin: 0;
+
+	.MuiChip-root {
+		margin-inline-start: ${({ theme }) => theme.spacing(1)};
+
+		font-weight: 400;
 	}
+`;
+
+export const StyledHeaderTitleWrapper = styled(Box)`
+	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(1.5)}`};
+`;
+
+export const StyledHeaderContent = styled(Box)`
+	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(1.5)}`};
 `;
 
 export const StyledContent = styled(CardContent)`

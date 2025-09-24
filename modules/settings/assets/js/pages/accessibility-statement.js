@@ -15,16 +15,16 @@ import {
 } from '@ea11y/icons';
 import { StatementLink } from '@ea11y/layouts';
 import {
+	StyledBox,
 	StyledStatementPaper,
 	StyledTitle,
 	StyledWideBox,
-	StyledBox,
 } from '@ea11y/pages/pages.styles';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { injectTemplateVars } from '@ea11y-apps/global/utils/inject-template-vars';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
-import { injectTemplateVars } from '../utils';
 
 const AccessibilityStatement = () => {
 	const { accessibilityStatementData } = useSettings();
