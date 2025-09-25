@@ -4,7 +4,6 @@ import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Paper from '@elementor/ui/Paper';
 import { styled } from '@elementor/ui/styles';
-import PropTypes from 'prop-types';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { DropdownMenu } from '@ea11y-apps/scanner/components/header/dropdown-menu';
 import HeaderTitle from '@ea11y-apps/scanner/components/header/title';
@@ -14,7 +13,7 @@ import { StyledHeaderContent } from '@ea11y-apps/scanner/styles/app.styles';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { __ } from '@wordpress/i18n';
 
-const HeaderContainer = ({ children }) => {
+const AppHeader = () => {
 	const { isChanged, setOpenedBlock, isManage, setIsManage } =
 		useScannerWizardContext();
 
@@ -73,8 +72,6 @@ const HeaderContainer = ({ children }) => {
 					</Box>
 				</StyledHeaderContent>
 			</Paper>
-
-			{children}
 		</StyledHeaderContainer>
 	);
 };
@@ -96,8 +93,4 @@ const StyledTitleWrapper = styled(Box)`
 	}
 `;
 
-HeaderContainer.propTypes = {
-	children: PropTypes.node,
-};
-
-export default HeaderContainer;
+export default AppHeader;

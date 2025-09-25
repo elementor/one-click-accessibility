@@ -1,28 +1,36 @@
+import Box from '@elementor/ui/Box';
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
+import Tab from '@elementor/ui/Tab';
+import useTabs from '@elementor/ui/useTabs';
 import { FocusTrap } from 'focus-trap-react';
 import { Notifications } from '@ea11y/components';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
 import Header from '@ea11y-apps/scanner/components/header';
+import AppHeader from '@ea11y-apps/scanner/components/header/app-header';
 import { Loader } from '@ea11y-apps/scanner/components/list-loader';
 import { NotConnectedMessage } from '@ea11y-apps/scanner/components/not-connected-message';
 import { QuotaMessage } from '@ea11y-apps/scanner/components/quota-message';
 import { ResolvedMessage } from '@ea11y-apps/scanner/components/resolved-message';
-import { BLOCKS, PAGE_QUOTA_LIMIT } from '@ea11y-apps/scanner/constants';
+import { BLOCKS, PAGE_QUOTA_LIMIT, TABS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	AltTextLayout,
 	MainLayout,
 	ManageMainLayout,
 	ManualLayout,
-	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
 import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
 import { HeadingStructureLayout } from '@ea11y-apps/scanner/layouts/heading-structure-layout';
-import { AppContainer } from '@ea11y-apps/scanner/styles/app.styles';
+import {
+	AppContainer,
+	AppsTabPanel,
+	AppsTabs,
+} from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect, useRef } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
@@ -31,12 +39,12 @@ const App = () => {
 		violation,
 		resolved,
 		openedBlock,
-		isManage,
 		isError,
 		quotaExceeded,
 		loading,
 	} = useScannerWizardContext();
 	const containerRef = useRef(null);
+	const { getTabsProps, getTabProps, getTabPanelProps } = useTabs(TABS.issues);
 
 	const showResolvedMessage = Boolean(
 		(resolved > 0 && violation === resolved) || violation === 0,
@@ -65,7 +73,7 @@ const App = () => {
 		}
 	}, [PAGE_QUOTA_LIMIT, quotaExceeded]);
 
-	const getBlock = () => {
+	const getMsgStateBlock = () => {
 		if (!window.ea11yScannerData?.isConnected) {
 			return <NotConnectedMessage />;
 		}
@@ -79,11 +87,16 @@ const App = () => {
 			return <Loader />;
 		}
 
+		return null;
+	};
+
+	const getIssuesBlock = () => {
+		if (showResolvedMessage) {
+			return <ResolvedMessage />;
+		}
 		switch (openedBlock) {
 			case BLOCKS.main:
 				return <MainLayout />;
-			case BLOCKS.management:
-				return <ManageMainLayout />;
 			case BLOCKS.altText:
 				return <AltTextLayout />;
 			case BLOCKS.colorContrast:
@@ -91,7 +104,23 @@ const App = () => {
 			case BLOCKS.headingStructure:
 				return <HeadingStructureLayout />;
 			default:
-				return isManage ? <RemediationLayout /> : <ManualLayout />;
+				return <ManualLayout />;
+		}
+	};
+
+	const getManageBlock = () => {
+		switch (openedBlock) {
+			case BLOCKS.management:
+				return <ManageMainLayout />;
+			case BLOCKS.altText:
+				return null;
+			case BLOCKS.colorContrast:
+				return null;
+			case BLOCKS.headingStructure:
+				return <HeadingStructureLayout />;
+			default:
+				return null;
+			// return <RemediationLayout />;
 		}
 	};
 
@@ -102,9 +131,37 @@ const App = () => {
 		>
 			<AppContainer elevation={6} ref={containerRef}>
 				<ErrorBoundary fallback={<ErrorMessage />}>
-					<Header />
+					<AppHeader />
+					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+						<AppsTabs
+							{...getTabsProps()}
+							aria-label={__(
+								'Accessibility Assistant Tabs',
+								'pojo-accessibility',
+							)}
+							variant="fullWidth"
+						>
+							<Tab
+								label={__('Issues found', 'pojo-accessibility')}
+								{...getTabProps(TABS.issues)}
+							/>
+							<Tab
+								label={__('Manage fixes', 'pojo-accessibility')}
+								{...getTabProps(TABS.manage)}
+							/>
+						</AppsTabs>
+					</Box>
 
-					{showResolvedMessage && !isManage ? <ResolvedMessage /> : getBlock()}
+					<AppsTabPanel {...getTabPanelProps(TABS.issues)}>
+						<Header />
+						{getMsgStateBlock()}
+						{getIssuesBlock()}
+					</AppsTabPanel>
+					<AppsTabPanel {...getTabPanelProps(TABS.manage)}>
+						<Header isManage />
+						{getMsgStateBlock()}
+						{getManageBlock()}
+					</AppsTabPanel>
 
 					<Notifications
 						message={notificationMessage}

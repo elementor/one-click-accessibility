@@ -6,6 +6,8 @@ import CardContent from '@elementor/ui/CardContent';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
+import TabPanel from '@elementor/ui/TabPanel';
+import Tabs from '@elementor/ui/Tabs';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ColorPickerStyles } from '@ea11y-apps/scanner/styles/react-colourful.styles';
@@ -19,6 +21,21 @@ export const AppContainer = styled(Paper)`
 
 	// Include color picker styles to styled components for prevent problem with cache
 	${ColorPickerStyles}
+`;
+
+export const AppsTabs = styled(Tabs)`
+	& .MuiTabs-indicator {
+		background-color: ${({ theme }) => theme.palette.info.main};
+	}
+
+	& .MuiTab-root.Mui-selected {
+		color: ${({ theme }) => theme.palette.info.main};
+		font-weight: 400;
+	}
+`;
+
+export const AppsTabPanel = styled(TabPanel)`
+	padding: 0;
 `;
 
 export const StyledStatsBlock = styled(Card)`

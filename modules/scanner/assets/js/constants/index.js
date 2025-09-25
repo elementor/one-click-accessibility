@@ -42,6 +42,11 @@ export const PAGE_QUOTA_LIMIT =
 		window.ea11yScannerData?.planData?.scannedPages?.used >
 		0 || !window?.ea11yScannerData?.pageData?.unregistered;
 
+export const TABS = {
+	issues: 'issues',
+	manage: 'manage',
+};
+
 export const BLOCKS = {
 	main: 'main',
 	management: 'management',
