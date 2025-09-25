@@ -1,10 +1,10 @@
-import { ThemeBuilderIcon } from '@elementor/icons';
 import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
 import ClearIcon from '@elementor/icons/ClearIcon';
 import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
 import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
 import RefreshIcon from '@elementor/icons/RefreshIcon';
 import SettingsIcon from '@elementor/icons/SettingsIcon';
+import ThemeBuilderIcon from '@elementor/icons/ThemeBuilderIcon';
 import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Menu from '@elementor/ui/Menu';
