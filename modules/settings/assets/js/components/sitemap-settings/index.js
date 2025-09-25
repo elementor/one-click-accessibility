@@ -66,7 +66,7 @@ const SitemapSettings = ({ sitemap }) => {
 			<StyledAccordionDetails>
 				<StyledBox>
 					<StyledFormLabel htmlFor="sitemap-url">
-						{__('Sitemap URL')}
+						{__('Sitemap URL', 'pojo-accessibility')}
 
 						<Infotip
 							content={
