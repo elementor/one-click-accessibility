@@ -1,6 +1,7 @@
 import BanIcon from '@elementor/icons/BanIcon';
 import Button from '@elementor/ui/Button';
 import IconButton from '@elementor/ui/IconButton';
+import { styled } from '@elementor/ui/styles';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { __ } from '@wordpress/i18n';
 
@@ -13,11 +14,11 @@ export const DisableButton = ({ group }) => {
 			aria-label={__('Disable all remediations', 'pojo-accessibility')}
 			onClick={updateAllRemediationForPage(false, group)}
 		>
-			<BanIcon fontSize="tiny" />
+			<StyledBanIcon fontSize="tiny" />
 		</IconButton>
 	) : (
 		<Button
-			startIcon={<BanIcon />}
+			startIcon={<StyledBanIcon />}
 			size="small"
 			color="secondary"
 			variant="text"
@@ -27,3 +28,7 @@ export const DisableButton = ({ group }) => {
 		</Button>
 	);
 };
+
+const StyledBanIcon = styled(BanIcon)`
+	transform: rotate(-45deg);
+`;

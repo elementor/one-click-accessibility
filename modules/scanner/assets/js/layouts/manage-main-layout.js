@@ -24,7 +24,7 @@ export const ManageMainLayout = () => {
 		<StyledContent>
 			<ManageHeader>
 				<Typography variant="body2">
-					{__('All issues', 'pojo-accessibility')}
+					{__('Fixes on this page', 'pojo-accessibility')}
 				</Typography>
 				<ManageRemediationButtons />
 			</ManageHeader>

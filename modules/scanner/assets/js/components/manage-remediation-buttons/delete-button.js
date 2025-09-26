@@ -1,5 +1,4 @@
 import TrashIcon from '@elementor/icons/TrashIcon';
-import Button from '@elementor/ui/Button';
 import IconButton from '@elementor/ui/IconButton';
 import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
@@ -19,26 +18,14 @@ export const DeleteButton = ({ group }) => {
 
 	return (
 		<>
-			{group ? (
-				<IconButton
-					size="tiny"
-					color="error"
-					aria-label={__('Remove all remediations', 'pojo-accessibility')}
-					onClick={toggleDeleteModal}
-				>
-					<TrashIcon fontSize="tiny" />
-				</IconButton>
-			) : (
-				<Button
-					startIcon={<TrashIcon />}
-					size="small"
-					color="error"
-					variant="text"
-					onClick={toggleDeleteModal}
-				>
-					{__('Remove all', 'pojo-accessibility')}
-				</Button>
-			)}
+			<IconButton
+				size="tiny"
+				color="error"
+				aria-label={__('Remove all remediations', 'pojo-accessibility')}
+				onClick={toggleDeleteModal}
+			>
+				<TrashIcon fontSize="tiny" />
+			</IconButton>
 
 			<DeleteRemediationModal
 				open={showDeleteModal}

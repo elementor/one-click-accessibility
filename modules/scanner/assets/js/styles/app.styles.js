@@ -187,12 +187,6 @@ export const ActionButton = styled(Button)`
 	}
 `;
 
-export const ManageButtonGroup = styled(Box)`
-	display: flex;
-	align-items: center;
-	gap: ${({ theme }) => theme.spacing(0.5)};
-`;
-
 export const UpgradeContentContainer = styled(Box)`
 	display: flex;
 	justify-content: space-between;

@@ -14,9 +14,13 @@ export const ManageRemediationButtons = () => {
 
 	return (
 		<Box display="flex" gap={1}>
+			{isAllDisabled && (
+				<>
+					<DeleteButton />
+					<Divider orientation="vertical" flexItem sx={{ my: 0.5 }} />
+				</>
+			)}
 			{isAllDisabled ? <EnableButton /> : <DisableButton />}
-			<Divider orientation="vertical" flexItem sx={{ my: 0.5 }} />
-			<DeleteButton />
 		</Box>
 	);
 };

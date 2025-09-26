@@ -4,14 +4,12 @@ import ClearIcon from '@elementor/icons/ClearIcon';
 import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
 import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
 import RefreshIcon from '@elementor/icons/RefreshIcon';
-import SettingsIcon from '@elementor/icons/SettingsIcon';
 import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
-import Tooltip from '@elementor/ui/Tooltip';
 import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
@@ -67,13 +65,6 @@ export const DropdownMenu = () => {
 		} finally {
 			setLoading(false);
 		}
-	};
-
-	const goToManagement = () => {
-		handleClose();
-		setIsManage(true);
-		setOpenedBlock(BLOCKS.management);
-		sendOnClickEvent('Manage fixes');
 	};
 
 	const goToHeadingManager = () => {
@@ -143,51 +134,6 @@ export const DropdownMenu = () => {
 						<DisabledMenuItemText>
 							{__('Clear page cache', 'pojo-accessibility')}
 						</DisabledMenuItemText>
-					</MenuItem>
-				)}
-
-				{!remediations.length ? (
-					<Tooltip
-						arrow
-						placement="left"
-						title={__(
-							'You don’t have any fixes to manage just yet.',
-							'pojo-accessibility',
-						)}
-						PopperProps={{
-							disablePortal: true,
-							modifiers: [
-								{
-									name: 'offset',
-									options: {
-										offset: [0, -16],
-									},
-								},
-							],
-						}}
-					>
-						<MenuItem dense>
-							<MenuItemIcon>
-								<SettingsIcon color="disabled" />
-							</MenuItemIcon>
-							<DisabledMenuItemText>
-								{__('Manage fixes', 'pojo-accessibility')}
-							</DisabledMenuItemText>
-						</MenuItem>
-					</Tooltip>
-				) : (
-					<MenuItem
-						onClick={goToManagement}
-						disabled={isManage && BLOCKS.management === openedBlock}
-						selected={isManage && BLOCKS.management === openedBlock}
-						dense
-					>
-						<MenuItemIcon>
-							<SettingsIcon />
-						</MenuItemIcon>
-						<MenuItemText>
-							{__('Manage fixes', 'pojo-accessibility')}
-						</MenuItemText>
 					</MenuItem>
 				)}
 
