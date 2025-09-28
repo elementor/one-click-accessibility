@@ -5,7 +5,7 @@ import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export const DeleteButton = ({ group }) => {
+export const DeleteButton = () => {
 	const { deleteAllRemediationForPage } = useManageActions();
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -13,7 +13,7 @@ export const DeleteButton = ({ group }) => {
 
 	const onDeleteRemediation = async () => {
 		setShowDeleteModal(false);
-		await deleteAllRemediationForPage(group);
+		await deleteAllRemediationForPage();
 	};
 
 	return (

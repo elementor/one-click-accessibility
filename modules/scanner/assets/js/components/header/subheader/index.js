@@ -6,12 +6,12 @@ import HeadingStructureSubheader from './heading-structure';
 const Subheader = () => {
 	const { openedBlock } = useScannerWizardContext();
 
-	switch (openedBlock) {
-		case BLOCKS.headingStructure:
-			return <HeadingStructureSubheader />;
-		default:
-			return <Breadcrumbs />;
-	}
+	return (
+		<>
+			<Breadcrumbs />
+			{openedBlock === BLOCKS.headingStructure && <HeadingStructureSubheader />}
+		</>
+	);
 };
 
 export default Subheader;

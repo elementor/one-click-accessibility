@@ -1,5 +1,6 @@
 import { ThemeBuilderIcon } from '@elementor/icons';
 import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
+import ChecklistIcon from '@elementor/icons/ChecklistIcon';
 import ClearIcon from '@elementor/icons/ClearIcon';
 import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
 import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
@@ -16,6 +17,7 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import useScannerSettings from '@ea11y-apps/scanner/hooks/use-scanner-settings';
 import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
 import { areNoHeadingsDefined } from '@ea11y-apps/scanner/utils/page-headings';
 import { useRef, useState } from '@wordpress/element';
@@ -30,6 +32,7 @@ export const DropdownMenu = () => {
 		setIsManage,
 		runNewScan,
 	} = useScannerWizardContext();
+	const { dashboardUrl } = useScannerSettings();
 	const { error } = useToastNotification();
 	const [isOpened, setIsOpened] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -111,6 +114,21 @@ export const DropdownMenu = () => {
 
 					<MenuItemText>{__('Rescan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
+
+				<MenuItem
+					component="a"
+					href={dashboardUrl}
+					onClick={() => sendOnClickEvent('View all scans')}
+					dense
+				>
+					<MenuItemIcon>
+						<ChecklistIcon />
+					</MenuItemIcon>
+					<MenuItemText>
+						{__('View all scans', 'pojo-accessibility')}
+					</MenuItemText>
+				</MenuItem>
+
 				{remediations.length > 0 ? (
 					<MenuItem
 						onClick={onClearCache}

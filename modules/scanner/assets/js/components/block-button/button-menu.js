@@ -1,27 +1,48 @@
 import DotsVerticalIcon from '@elementor/icons/DotsVerticalIcon';
+import ReloadIcon from '@elementor/icons/ReloadIcon';
+import TrashIcon from '@elementor/icons/TrashIcon';
 import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
+
 import Menu from '@elementor/ui/Menu';
+import MenuItem from '@elementor/ui/MenuItem';
+import MenuItemIcon from '@elementor/ui/MenuItemIcon';
+import MenuItemText from '@elementor/ui/MenuItemText';
 import PropTypes from 'prop-types';
+import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
 import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
+import { StyledBanIcon } from '@ea11y-apps/scanner/styles/app.styles';
 import { useRef, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const ButtonMenu = ({ group }) => {
-	// const { sortedRemediation } = useScannerWizardContext();
+	const { sortedRemediation } = useScannerWizardContext();
+	const { deleteAllRemediationForPage, updateAllRemediationForPage } =
+		useManageActions();
 	const anchorEl = useRef(null);
+
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [isOpened, setIsOpened] = useState(false);
 
-	// const isAllDisabled =
-	// 	sortedRemediation[group]?.length ===
-	// 	sortedRemediation[group]?.filter(
-	// 		(remediation) => !Number(remediation.active),
-	// 	)?.length;
+	const isAllDisabled =
+		sortedRemediation[group]?.length ===
+		sortedRemediation[group]?.filter(
+			(remediation) => !Number(remediation.active),
+		)?.length;
 
 	const handleOpen = () => {
 		setIsOpened(true);
 	};
 	const handleClose = () => setIsOpened(false);
+
+	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
+
+	const onDeleteRemediation = async () => {
+		setShowDeleteModal(false);
+		await deleteAllRemediationForPage(group);
+	};
 
 	return (
 		<Box>
@@ -57,7 +78,42 @@ export const ButtonMenu = ({ group }) => {
 					},
 				}}
 				disablePortal
-			></Menu>
+			>
+				{isAllDisabled ? (
+					<MenuItem onClick={updateAllRemediationForPage(true, group)} dense>
+						<MenuItemIcon>
+							<ReloadIcon fontSize="tiny" />
+						</MenuItemIcon>
+
+						<MenuItemText>
+							{__('Enable all', 'pojo-accessibility')}
+						</MenuItemText>
+					</MenuItem>
+				) : (
+					<MenuItem onClick={updateAllRemediationForPage(false, group)} dense>
+						<MenuItemIcon>
+							<StyledBanIcon fontSize="tiny" />
+						</MenuItemIcon>
+
+						<MenuItemText>
+							{__('Disable all', 'pojo-accessibility')}
+						</MenuItemText>
+					</MenuItem>
+				)}
+				<MenuItem onClick={toggleDeleteModal} dense>
+					<MenuItemIcon>
+						<TrashIcon fontSize="tiny" />
+					</MenuItemIcon>
+
+					<MenuItemText>{__('Remove all', 'pojo-accessibility')}</MenuItemText>
+				</MenuItem>
+			</Menu>
+			<DeleteRemediationModal
+				open={showDeleteModal}
+				hideConfirmation={toggleDeleteModal}
+				onDelete={onDeleteRemediation}
+				isMain
+			/>
 		</Box>
 	);
 };

@@ -1,3 +1,4 @@
+import BanIcon from '@elementor/icons/BanIcon';
 import Alert from '@elementor/ui/Alert';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
@@ -208,6 +209,10 @@ export const StyledBlockButtonsBox = styled(Box)`
 
 export const DisabledMenuItemText = styled(MenuItemText)`
 	color: ${({ theme }) => theme.palette.text.disabled};
+`;
+
+export const StyledBanIcon = styled(BanIcon)`
+	transform: rotate(-45deg);
 `;
 
 export const StyledBox = styled(Box)`

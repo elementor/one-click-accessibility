@@ -164,12 +164,12 @@ const App = () => {
 						</AppsTabs>
 					</Box>
 
+					<Header isManage={openedBlock === BLOCKS.management} />
+
 					<AppsTabPanel {...getTabPanelProps(BLOCKS.main)}>
-						<Header />
 						{getMsgStateBlock() || getIssuesBlock()}
 					</AppsTabPanel>
 					<AppsTabPanel {...getTabPanelProps(BLOCKS.management)}>
-						<Header isManage />
 						{getMsgStateBlock() || getManageBlock()}
 					</AppsTabPanel>
 
