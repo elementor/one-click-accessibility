@@ -191,7 +191,8 @@ class Data {
 	public static function get_home_url() {
 		$raw = self::get_connect_mode_data( self::HOME_URL, false );
 		$is_base64 = base64_encode( base64_decode( $raw, true ) ) === $raw;
-		return $is_base64 ? base64_decode( $raw ) : $raw;
+		$url = $is_base64 ? base64_decode( $raw ) : $raw;
+		return apply_filters( 'ally_connect_home_url', $url );
 	}
 
 	/**

@@ -5,12 +5,14 @@
 **Requires at least:** 6.6 \
 **Tested up to:** 6.8 \
 **Requires PHP:** 7.4 \
-**Stable tag:** 3.6.0 \
+**Stable tag:** 3.8.0 \
 **License:** GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
 
 ## Description
+
+https://www.youtube.com/watch?v=-2ig5D348vo
 
 Ally (formerly One Click Accessibility) is a free, powerful, and user-friendly plugin that helps WordPress creators build more accessible websites with ease.
 It simplifies accessibility with three essential tools:
@@ -194,28 +196,52 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 ## Screenshots
 
-### 1. Design: Customize the button's icon, size, and color and widget branding.
+### 1. Usability widget: Large, well organized controls let visitors adjust text, contrast, animations, and more for a more comfortable browsing experience.
 
-![Design: Customize the button's icon, size, and color and widget branding.](https://ps.w.org/pojo-accessibility/assets/screenshot-1.png)
+![Usability widget: Large, well organized controls let visitors adjust text, contrast, animations, and more for a more comfortable browsing experience.](https://ps.w.org/pojo-accessibility/assets/screenshot-1.png)
 
-### 2. Position Settings: Set widget placement or hide it on desktop and mobile.
+### 2. Accessibility button: Add a button that opens the accessibility menu in one click, and tailor its icon, color, label, and placement to match your brand.
 
-![Position Settings: Set widget placement or hide it on desktop and mobile.](https://ps.w.org/pojo-accessibility/assets/screenshot-2.png)
+![Accessibility button: Add a button that opens the accessibility menu in one click, and tailor its icon, color, label, and placement to match your brand.](https://ps.w.org/pojo-accessibility/assets/screenshot-2.png)
 
-### 3. Capabilities: Toggle accessibility features on or off as needed.
+### 3. Accessibility statement: Quickly generate and publish a custom statement that signals your commitment, improves transparency, and offers a clear way to report issues.
 
-![Capabilities: Toggle accessibility features on or off as needed.](https://ps.w.org/pojo-accessibility/assets/screenshot-3.png)
+![Accessibility statement: Quickly generate and publish a custom statement that signals your commitment, improves transparency, and offers a clear way to report issues.](https://ps.w.org/pojo-accessibility/assets/screenshot-3.png)
 
-### 4. Accessibility Statement: Add or create a custom accessibility statement.
+### 4. Accessibility Assistant: Scan any page to instantly detect over 180 common accessibility issues and get clear, guided steps for remediation inside your site editor.
 
-![Accessibility Statement: Add or create a custom accessibility statement.](https://ps.w.org/pojo-accessibility/assets/screenshot-4.png)
+![Accessibility Assistant: Scan any page to instantly detect over 180 common accessibility issues and get clear, guided steps for remediation inside your site editor.](https://ps.w.org/pojo-accessibility/assets/screenshot-4.png)
 
-### 5. Widget on Site: This is how the accessibility widget appears on a live website.
+### 5. Scan results: View issues highlighted in context and grouped by type such as alt text, ARIA, page structure, and more. Expand any item for step-by-step guidance and optional AI-powered suggestions.
 
-![Widget on Site: This is how the accessibility widget appears on a live website.](https://ps.w.org/pojo-accessibility/assets/screenshot-5.png)
+![Scan results: View issues highlighted in context and grouped by type such as alt text, ARIA, page structure, and more. Expand any item for step-by-step guidance and optional AI-powered suggestions.](https://ps.w.org/pojo-accessibility/assets/screenshot-5.png)
+
+### 6. Color contrast: Fine tune text and background colors with live checks that validate contrast ratios.
+
+![Color contrast: Fine tune text and background colors with live checks that validate contrast ratios.](https://ps.w.org/pojo-accessibility/assets/screenshot-6.png)
+
+### 7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
+
+![Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.](https://ps.w.org/pojo-accessibility/assets/screenshot-7.png)
 
 
 ## Changelog
+
+### 3.8.0 – 2025-09-29
+
+* New: Headings Remediation Management - Review and correct heading hierarchy with a guided flow
+* Tweak: Improved AI remediation results with added context for clearer responses
+* Fix: Disabled remediation action not working
+* Fix: Quota number displayed incorrectly for Standard plan
+
+### 3.7.0 - 2025-09-02
+
+* New: Redesigned Accessibility Widget – Clearer structure, Wider accessible buttons, and Improved mobile view
+* New: Intro banner for users who connected Ally
+* New: Reviews & CSAT flow to gather user feedback
+* Tweak: Added cache clearing option in Assistant panel and WordPress Admin Bar
+* Tweak: Enhanced color contrast evaluation to fix issues with gradient/video backgrounds
+* Fix: found issue count wrong in edge cases
 
 ### 3.6.0 - 2025-08-02
 
@@ -225,7 +251,6 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Tweak: Improve accessibility column in WP admin for better user experience 
 * Fix: Added WPML compatibility
 * Fix: WooCommerce AJAX conflict
-
 
 ### 3.5.2 - 2025-07-28
 
