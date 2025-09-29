@@ -4,6 +4,7 @@ import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
 import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
 import RefreshIcon from '@elementor/icons/RefreshIcon';
 import SettingsIcon from '@elementor/icons/SettingsIcon';
+import ThemeBuilderIcon from '@elementor/icons/ThemeBuilderIcon';
 import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Menu from '@elementor/ui/Menu';
@@ -18,12 +19,19 @@ import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
+import { areNoHeadingsDefined } from '@ea11y-apps/scanner/utils/page-headings';
 import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const { remediations, isManage, setOpenedBlock, setIsManage, runNewScan } =
-		useScannerWizardContext();
+	const {
+		remediations,
+		isManage,
+		openedBlock,
+		setOpenedBlock,
+		setIsManage,
+		runNewScan,
+	} = useScannerWizardContext();
 	const { error } = useToastNotification();
 	const [isOpened, setIsOpened] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -66,6 +74,12 @@ export const DropdownMenu = () => {
 		setIsManage(true);
 		setOpenedBlock(BLOCKS.management);
 		sendOnClickEvent('Manage fixes');
+	};
+
+	const goToHeadingManager = () => {
+		handleClose();
+		setIsManage(true);
+		setOpenedBlock(BLOCKS.headingStructure);
 	};
 
 	return (
@@ -164,8 +178,8 @@ export const DropdownMenu = () => {
 				) : (
 					<MenuItem
 						onClick={goToManagement}
-						disabled={isManage}
-						selected={isManage}
+						disabled={isManage && BLOCKS.management === openedBlock}
+						selected={isManage && BLOCKS.management === openedBlock}
 						dense
 					>
 						<MenuItemIcon>
@@ -173,6 +187,23 @@ export const DropdownMenu = () => {
 						</MenuItemIcon>
 						<MenuItemText>
 							{__('Manage fixes', 'pojo-accessibility')}
+						</MenuItemText>
+					</MenuItem>
+				)}
+
+				{!areNoHeadingsDefined() && (
+					<MenuItem
+						onClick={goToHeadingManager}
+						dense
+						disabled={isManage && BLOCKS.headingStructure === openedBlock}
+						selected={isManage && BLOCKS.headingStructure === openedBlock}
+					>
+						<MenuItemIcon>
+							<ThemeBuilderIcon />
+						</MenuItemIcon>
+
+						<MenuItemText>
+							{__('Manage headings', 'pojo-accessibility')}
 						</MenuItemText>
 					</MenuItem>
 				)}

@@ -1,8 +1,8 @@
 import { __ } from '@wordpress/i18n';
 
-export const TOP_BAR_LINK = '#wp-admin-bar-ea11y-scanner-wizard a';
-export const SCAN_LINK = '#wp-admin-bar-ea11y-scan-page a';
-export const CLEAR_CACHE_LINK = '#wp-admin-bar-ea11y-clear-cache a';
+export const TOP_BAR_LINK = '#wp-admin-bar-ea11y-scanner-wizard > a';
+export const SCAN_LINK = '#wp-admin-bar-ea11y-scan-page > a';
+export const CLEAR_CACHE_LINK = '#wp-admin-bar-ea11y-clear-cache > a';
 
 export const SCANNER_URL_PARAM = 'open-ea11y-assistant';
 export const MANAGE_URL_PARAM = 'open-ea11y-manage';
@@ -14,6 +14,11 @@ export const BACKGROUND_ELEMENT_CLASS = 'ea11y-scanner-background-element';
 export const COLOR_CONTRAST_SELECTORS_COUNT = 5;
 export const DATA_INITIAL_BG = 'data-initial-bg';
 export const DATA_INITIAL_COLOR = 'data-initial-color';
+
+export const LEVEL_VIOLATION = 'violation';
+export const LEVEL_POTENTIAL = 'potentialViolation';
+export const RULE_TEXT_CONTRAST = 'text_contrast_sufficient';
+export const RATIO_EXCLUDED = 1;
 
 export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
 export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';
@@ -45,6 +50,7 @@ export const BLOCKS = {
 	formsInputsError: 'formsInputsError',
 	keyboardAssistiveTech: 'keyboardAssistiveTech',
 	pageStructureNav: 'pageStructureNav',
+	headingStructure: 'headingStructure',
 	tables: 'tables',
 	colorContrast: 'colorContrast',
 	other: 'other',
@@ -55,6 +61,7 @@ export const MANUAL_GROUPS = {
 	formsInputsError: [],
 	keyboardAssistiveTech: [],
 	pageStructureNav: [],
+	headingStructure: [],
 	tables: [],
 	colorContrast: [],
 	other: [],
@@ -69,6 +76,7 @@ export const BLOCK_TITLES = {
 		'pojo-accessibility',
 	),
 	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
+	headingStructure: __('Heading Structure', 'pojo-accessibility'),
 	tables: __('Tables', 'pojo-accessibility'),
 	colorContrast: __('Color contrast', 'pojo-accessibility'),
 	other: __('Other Accessibility Issues', 'pojo-accessibility'),
@@ -95,6 +103,10 @@ export const BLOCK_INFO = {
 		'Use headings and clear structure to help people easily navigate your content.',
 		'pojo-accessibility',
 	),
+	headingStructure: __(
+		'Headings help screen reader users and search engines read pages in the right order. The structure should be organized and each heading given a level.',
+		'pojo-accessibility',
+	),
 	tables: __(
 		'Give tables clear headers and captions so everyone can easily understand the data.',
 		'pojo-accessibility',
@@ -115,6 +127,7 @@ export const INITIAL_SORTED_VIOLATIONS = {
 	formsInputsError: [],
 	keyboardAssistiveTech: [],
 	pageStructureNav: [],
+	headingStructure: [],
 	tables: [],
 	colorContrast: [],
 	other: [],
@@ -183,6 +196,11 @@ export const VIOLATION_TYPES = {
 		'element_lang_valid',
 		'input_haspopup_conflict',
 		'element_tabbable_role_valid',
+	],
+	headingStructure: [
+		'single_h1_check',
+		'missing_h1_check',
+		'heading_hierarchy_check',
 	],
 	pageStructureNav: [
 		'table_headers_ref_valid',

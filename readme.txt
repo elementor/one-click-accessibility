@@ -4,7 +4,7 @@ Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.7.0
+Stable tag: 3.8.0
 License: GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
@@ -182,13 +182,21 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Screenshots ==
 
-1. Design: Customize the button's icon, size, and color and widget branding.
-2. Position Settings: Set widget placement or hide it on desktop and mobile.
-3. Capabilities: Toggle accessibility features on or off as needed.
-4. Accessibility Statement: Add or create a custom accessibility statement.
-5. Widget on Site: This is how the accessibility widget appears on a live website.
+1. Usability widget: Large, well organized controls let visitors adjust text, contrast, animations, and more for a more comfortable browsing experience.
+2. Accessibility button: Add a button that opens the accessibility menu in one click, and tailor its icon, color, label, and placement to match your brand.
+3. Accessibility statement: Quickly generate and publish a custom statement that signals your commitment, improves transparency, and offers a clear way to report issues.
+4. Accessibility Assistant: Scan any page to instantly detect over 180 common accessibility issues and get clear, guided steps for remediation inside your site editor.
+5. Scan results: View issues highlighted in context and grouped by type such as alt text, ARIA, page structure, and more. Expand any item for step-by-step guidance and optional AI-powered suggestions.
+6. Color contrast: Fine tune text and background colors with live checks that validate contrast ratios.
+7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
+= 3.8.0 – 2025-09-29 =
+* New: Headings Remediation Management - Review and correct heading hierarchy with a guided flow
+* Tweak: Improved AI remediation results with added context for clearer responses
+* Fix: Disabled remediation action not working
+* Fix: Quota number displayed incorrectly for Standard plan
+
 = 3.7.0 - 2025-09-02 =
 * New: Redesigned Accessibility Widget – Clearer structure, Wider accessible buttons, and Improved mobile view
 * New: Intro banner for users who connected Ally

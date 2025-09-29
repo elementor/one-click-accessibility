@@ -38,6 +38,7 @@ class Resolve_With_AI extends Route_Base {
 
 			$snippet = $request->get_param( 'snippet' );
 			$violation = $request->get_param( 'violation' );
+			$context = $request->get_param( 'context' );
 
 			$result = Global_Utils::get_api_client()->make_request(
 				'POST',
@@ -45,6 +46,7 @@ class Resolve_With_AI extends Route_Base {
 				[
 					'snippet' => $snippet,
 					'violation' => $violation,
+					'htmlContext' => $context,
 				],
 				[],
 				true,

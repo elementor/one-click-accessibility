@@ -5,6 +5,7 @@ namespace EA11y\Modules\WhatsNew\Rest;
 use EA11y\Modules\WhatsNew\{
 	Components\Notificator,
 	Classes\Route_Base,
+	Module,
 };
 
 use Throwable;
@@ -29,6 +30,7 @@ class Get_Notifications extends Route_Base {
 			$n = new Notificator();
 
 			$notifications = $n->get_notifications_by_conditions( true );
+			Module::set_data_hash( $notifications );
 
 			return $this->respond_success_json( $notifications );
 		} catch ( Throwable $t ) {
