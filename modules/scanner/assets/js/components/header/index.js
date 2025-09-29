@@ -7,15 +7,20 @@ import { BLOCKS, PAGE_QUOTA_LIMIT } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import useScannerSettings from '@ea11y-apps/scanner/hooks/use-scanner-settings';
 import {
-	TitleBox,
 	StyledStatsBlock,
+	TitleBox,
 } from '@ea11y-apps/scanner/styles/app.styles';
 import { __ } from '@wordpress/i18n';
 
 const Header = () => {
-	const { openedBlock, results, loading, isError } = useScannerWizardContext();
+	const {
+		openedBlock,
+		results,
+		loading,
+		isError,
+		violation: violationsCount,
+	} = useScannerWizardContext();
 	const { pageData, isConnected } = useScannerSettings();
-	const violationsCount = results?.summary?.counts?.violation;
 
 	const showViolationsChip =
 		PAGE_QUOTA_LIMIT &&

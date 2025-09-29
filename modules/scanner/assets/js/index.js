@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	document
 		.querySelector(CLEAR_CACHE_LINK)
 		?.addEventListener('click', async (event) => {
+			event.stopPropagation();
 			event.preventDefault();
 			try {
 				await APIScanner.clearCache();
