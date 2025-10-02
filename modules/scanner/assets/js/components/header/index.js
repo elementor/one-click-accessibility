@@ -14,9 +14,14 @@ import {
 import { __ } from '@wordpress/i18n';
 
 const Header = ({ isManage }) => {
-	const { openedBlock, results, loading, isError } = useScannerWizardContext();
+	const {
+		openedBlock,
+		results,
+		loading,
+		isError,
+		violation: violationsCount,
+	} = useScannerWizardContext();
 	const { pageData, isConnected } = useScannerSettings();
-	const violationsCount = results?.summary?.counts?.violation;
 
 	const showViolationsChip =
 		PAGE_QUOTA_LIMIT &&
