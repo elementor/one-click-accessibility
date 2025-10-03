@@ -99,6 +99,7 @@ export const ResolveWithAi = ({ item, current }) => {
 			snippet: manualEdit,
 			submitted: !isEdit,
 		});
+		setIsEdit(false);
 	};
 
 	const onManualEdit = (e) => {
@@ -141,17 +142,42 @@ export const ResolveWithAi = ({ item, current }) => {
 							)}
 						</AITitle>
 						{!isEdit && (
-							<Tooltip
-								placement="top"
-								title={__('Edit', 'pojo-accessibility')}
-								PopperProps={{
-									disablePortal: true,
-								}}
-							>
-								<IconButton size="tiny" onClick={openEdit}>
-									<EditIcon fontSize="small" />
-								</IconButton>
-							</Tooltip>
+							<Box display="flex" gap={0.5}>
+								<Tooltip
+									placement="top"
+									title={__('Edit', 'pojo-accessibility')}
+									PopperProps={{
+										disablePortal: true,
+									}}
+								>
+									<IconButton size="tiny" onClick={openEdit}>
+										<EditIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+								<Tooltip
+									arrow
+									placement="top"
+									title={
+										copied
+											? __('Copied!', 'pojo-accessibility')
+											: __('Copy', 'pojo-accessibility')
+									}
+									PopperProps={{
+										disablePortal: true,
+									}}
+								>
+									<IconButton
+										size="tiny"
+										onClick={copyToClipboard(
+											aiSuggestion.snippet,
+											'fixed_snippet',
+											'assistant',
+										)}
+									>
+										<CopyIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+							</Box>
 						)}
 					</AIHeader>
 					{isEdit ? (
@@ -169,34 +195,9 @@ export const ResolveWithAi = ({ item, current }) => {
 					) : (
 						<StyledAlert color="info" icon={false} disabled={disabled}>
 							<Box display="flex" gap={0.5} alignItems="start">
-								<StyledSnippet variant="body2" sx={{ width: '290px' }}>
+								<StyledSnippet variant="body2">
 									{aiSuggestion.snippet}
 								</StyledSnippet>
-								<Box>
-									<Tooltip
-										arrow
-										placement="bottom"
-										title={
-											copied
-												? __('Copied!', 'pojo-accessibility')
-												: __('Copy', 'pojo-accessibility')
-										}
-										PopperProps={{
-											disablePortal: true,
-										}}
-									>
-										<IconButton
-											size="tiny"
-											onClick={copyToClipboard(
-												aiSuggestion.snippet,
-												'fixed_snippet',
-												'assistant',
-											)}
-										>
-											<CopyIcon fontSize="tiny" />
-										</IconButton>
-									</Tooltip>
-								</Box>
 							</Box>
 						</StyledAlert>
 					)}

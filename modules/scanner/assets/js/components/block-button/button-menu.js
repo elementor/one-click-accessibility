@@ -26,8 +26,10 @@ export const ButtonMenu = ({ group }) => {
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [isOpened, setIsOpened] = useState(false);
 
+	const count = sortedRemediation[group]?.length;
+
 	const isAllDisabled =
-		sortedRemediation[group]?.length ===
+		count ===
 		sortedRemediation[group]?.filter(
 			(remediation) => !Number(remediation.active),
 		)?.length;
@@ -112,6 +114,7 @@ export const ButtonMenu = ({ group }) => {
 				open={showDeleteModal}
 				hideConfirmation={toggleDeleteModal}
 				onDelete={onDeleteRemediation}
+				count={count}
 				isMain
 			/>
 		</Box>

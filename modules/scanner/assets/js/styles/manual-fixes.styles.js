@@ -37,7 +37,6 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 `;
 
 export const StyledSnippet = styled(Typography)`
-	width: 335px;
 	word-break: break-word;
 `;
 
@@ -70,4 +69,12 @@ export const ManualTextField = styled(TextField)`
 	textarea {
 		font-size: 14px;
 	}
+`;
+
+export const TitleBox = styled(Box)`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: ${({ theme }) => theme.spacing(0.5)};
+	gap: ${({ theme }) => theme.spacing(0.5)};
 `;

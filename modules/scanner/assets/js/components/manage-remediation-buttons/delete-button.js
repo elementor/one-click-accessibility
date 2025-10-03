@@ -1,11 +1,14 @@
 import TrashIcon from '@elementor/icons/TrashIcon';
 import IconButton from '@elementor/ui/IconButton';
+import Tooltip from '@elementor/ui/Tooltip';
 import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DeleteButton = () => {
+	const { remediations } = useScannerWizardContext();
 	const { deleteAllRemediationForPage } = useManageActions();
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -18,19 +21,24 @@ export const DeleteButton = () => {
 
 	return (
 		<>
-			<IconButton
-				size="tiny"
-				color="error"
-				aria-label={__('Remove all remediations', 'pojo-accessibility')}
-				onClick={toggleDeleteModal}
+			<Tooltip
+				arrow
+				placement="top"
+				title={__('Remove all remediations', 'pojo-accessibility')}
+				PopperProps={{
+					disablePortal: true,
+				}}
 			>
-				<TrashIcon fontSize="tiny" />
-			</IconButton>
+				<IconButton size="tiny" color="error" onClick={toggleDeleteModal}>
+					<TrashIcon fontSize="tiny" />
+				</IconButton>
+			</Tooltip>
 
 			<DeleteRemediationModal
 				open={showDeleteModal}
 				hideConfirmation={toggleDeleteModal}
 				onDelete={onDeleteRemediation}
+				count={remediations.length}
 				isMain
 			/>
 		</>

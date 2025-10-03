@@ -101,8 +101,6 @@ const disabledState = `
 export const StyledAlert = styled(Alert)`
 	align-items: center;
 	/* @noflip */
-	padding-right: ${({ theme }) => theme.spacing(0.5)};
-	/* @noflip */
 	direction: ltr;
 	& .MuiAlert-icon,
 	& .MuiAlert-content {

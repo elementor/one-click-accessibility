@@ -1,5 +1,4 @@
 import AIIcon from '@elementor/icons/AIIcon';
-import BanIcon from '@elementor/icons/BanIcon';
 import CopyIcon from '@elementor/icons/CopyIcon';
 import EditIcon from '@elementor/icons/EditIcon';
 import ReloadIcon from '@elementor/icons/ReloadIcon';
@@ -15,10 +14,14 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
+import { SetGlobal } from '@ea11y-apps/scanner/components/remediation-form/set-global';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
-import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
+import {
+	StyledAlert,
+	StyledBanIcon,
+} from '@ea11y-apps/scanner/styles/app.styles';
 import {
 	AIHeader,
 	AITitle,
@@ -91,21 +94,47 @@ export const RemediationSnippet = ({ item }) => {
 							</Typography>
 						</AITitle>
 						{!isEdit && (
-							<Tooltip
-								placement="top"
-								title={__('Edit', 'pojo-accessibility')}
-								PopperProps={{
-									disablePortal: true,
-								}}
-							>
-								<IconButton
-									size="tiny"
-									onClick={openEdit}
-									disabled={activeRequest}
+							<Box display="flex" gap={0.5}>
+								<Tooltip
+									placement="top"
+									title={__('Edit', 'pojo-accessibility')}
+									PopperProps={{
+										disablePortal: true,
+									}}
 								>
-									<EditIcon fontSize="small" />
-								</IconButton>
-							</Tooltip>
+									<IconButton
+										size="tiny"
+										onClick={openEdit}
+										disabled={activeRequest}
+									>
+										<EditIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+
+								<Tooltip
+									arrow
+									placement="top"
+									title={
+										copied
+											? __('Copied!', 'pojo-accessibility')
+											: __('Copy', 'pojo-accessibility')
+									}
+									PopperProps={{
+										disablePortal: true,
+									}}
+								>
+									<IconButton
+										size="tiny"
+										onClick={copyToClipboard(
+											content.replace,
+											'fixed_snippet',
+											'remediation',
+										)}
+									>
+										<CopyIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+							</Box>
 						)}
 					</AIHeader>
 					{isEdit ? (
@@ -128,34 +157,7 @@ export const RemediationSnippet = ({ item }) => {
 							disabled={!isActive}
 						>
 							<Box display="flex" gap={0.5} alignItems="start">
-								<StyledSnippet variant="body2" sx={{ width: '290px' }}>
-									{content.replace}
-								</StyledSnippet>
-								<Box>
-									<Tooltip
-										arrow
-										placement="bottom"
-										title={
-											copied
-												? __('Copied!', 'pojo-accessibility')
-												: __('Copy', 'pojo-accessibility')
-										}
-										PopperProps={{
-											disablePortal: true,
-										}}
-									>
-										<IconButton
-											size="tiny"
-											onClick={copyToClipboard(
-												content.replace,
-												'fixed_snippet',
-												'remediation',
-											)}
-										>
-											<CopyIcon fontSize="tiny" />
-										</IconButton>
-									</Tooltip>
-								</Box>
+								<StyledSnippet variant="body2">{content.replace}</StyledSnippet>
 							</Box>
 						</StyledAlert>
 					)}
@@ -184,39 +186,54 @@ export const RemediationSnippet = ({ item }) => {
 							</Button>
 						</>
 					) : (
-						<Box display="flex" gap={1}>
-							<IconButton
-								size="tiny"
-								color="error"
-								aria-label={__('Remove remediation', 'pojo-accessibility')}
-								onClick={toggleDeleteModal}
-								disabled={activeRequest}
-							>
-								<TrashIcon fontSize="tiny" />
-							</IconButton>
-							<Divider orientation="vertical" flexItem sx={{ my: 0.5 }} />
+						<Box
+							display="flex"
+							gap={1}
+							justifyContent="space-between"
+							sx={{ width: '100%' }}
+						>
+							<SetGlobal item={item} />
 							{isActive ? (
 								<Button
-									startIcon={<BanIcon />}
+									startIcon={<StyledBanIcon />}
 									size="small"
 									color="secondary"
-									variant="text"
+									variant="outlined"
 									disabled={activeRequest}
 									onClick={updateRemediation(false)}
 								>
-									{__('Disable', 'pojo-accessibility')}
+									{__('Disable fix', 'pojo-accessibility')}
 								</Button>
 							) : (
-								<Button
-									startIcon={<ReloadIcon />}
-									size="small"
-									color="info"
-									variant="text"
-									disabled={activeRequest}
-									onClick={updateRemediation(true)}
-								>
-									{__('Enable', 'pojo-accessibility')}
-								</Button>
+								<Box display="flex" gap={0.5}>
+									<Tooltip
+										placement="top"
+										title={__('Remove', 'pojo-accessibility')}
+										PopperProps={{
+											disablePortal: true,
+										}}
+									>
+										<IconButton
+											size="tiny"
+											color="error"
+											onClick={toggleDeleteModal}
+											disabled={activeRequest}
+										>
+											<TrashIcon fontSize="tiny" />
+										</IconButton>
+									</Tooltip>
+									<Divider orientation="vertical" flexItem sx={{ my: 0.5 }} />
+									<Button
+										startIcon={<ReloadIcon />}
+										size="small"
+										color="info"
+										variant="text"
+										disabled={activeRequest}
+										onClick={updateRemediation(true)}
+									>
+										{__('Enable fix', 'pojo-accessibility')}
+									</Button>
+								</Box>
 							)}
 						</Box>
 					)}
