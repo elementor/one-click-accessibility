@@ -27,18 +27,6 @@ const HeadingStructureSubheader = () => {
 		setOpenedBlock(isManage ? BLOCKS.management : BLOCKS.main);
 	};
 
-	if (isManage) {
-		return (
-			<>
-				<HeadingStructureTitleRow
-					success={validationStats.success}
-					error={validationStats.error}
-					warning={validationStats.warning}
-				/>
-			</>
-		);
-	}
-
 	return (
 		<>
 			<Box>

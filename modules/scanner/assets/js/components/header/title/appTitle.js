@@ -3,7 +3,7 @@ import { StyledTitle } from '@ea11y/pages/pages.styles';
 import { Logo } from '@ea11y-apps/scanner/images';
 import { __ } from '@wordpress/i18n';
 
-const MainTitle = () => {
+const AppTitle = () => {
 	return (
 		<>
 			<Logo />
@@ -23,4 +23,4 @@ const MainTitle = () => {
 	);
 };
 
-export default MainTitle;
+export default AppTitle;
