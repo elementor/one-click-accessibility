@@ -24,14 +24,8 @@ import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const {
-		remediations,
-		isManage,
-		openedBlock,
-		setOpenedBlock,
-		setIsManage,
-		runNewScan,
-	} = useScannerWizardContext();
+	const { remediations, isManage, openedBlock, setOpenedBlock, runNewScan } =
+		useScannerWizardContext();
 	const { dashboardUrl } = useScannerSettings();
 	const { error } = useToastNotification();
 	const [isOpened, setIsOpened] = useState(false);
@@ -72,7 +66,6 @@ export const DropdownMenu = () => {
 
 	const goToHeadingManager = () => {
 		handleClose();
-		setIsManage(true);
 		setOpenedBlock(BLOCKS.headingStructure);
 	};
 

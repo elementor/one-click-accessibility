@@ -9,8 +9,10 @@ export const ManageRemediationButtons = () => {
 	const { remediations } = useScannerWizardContext();
 
 	const isAllDisabled =
+		remediations.length > 0 &&
 		remediations?.length ===
-		remediations?.filter((remediation) => !Number(remediation.active))?.length;
+			remediations?.filter((remediation) => !Number(remediation.active))
+				?.length;
 
 	return (
 		<Box display="flex" gap={1}>

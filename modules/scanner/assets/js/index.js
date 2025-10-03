@@ -18,6 +18,7 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { HeadingStructureContextProvider } from '@ea11y-apps/scanner/context/heading-structure-context';
 import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { TabsContextProvider } from '@ea11y-apps/scanner/context/tabs-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -112,9 +113,11 @@ const initApp = () => {
 					<ThemeProvider colorScheme="light" theme={theme}>
 						<NotificationsProvider>
 							<ScannerWizardContextProvider>
-								<HeadingStructureContextProvider>
-									<App />
-								</HeadingStructureContextProvider>
+								<TabsContextProvider>
+									<HeadingStructureContextProvider>
+										<App />
+									</HeadingStructureContextProvider>
+								</TabsContextProvider>
 							</ScannerWizardContextProvider>
 						</NotificationsProvider>
 					</ThemeProvider>

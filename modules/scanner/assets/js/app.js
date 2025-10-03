@@ -1,7 +1,6 @@
 import Box from '@elementor/ui/Box';
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
 import Tab from '@elementor/ui/Tab';
-import useTabs from '@elementor/ui/useTabs';
 import { FocusTrap } from 'focus-trap-react';
 import { Notifications } from '@ea11y/components';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
@@ -15,6 +14,7 @@ import { QuotaMessage } from '@ea11y-apps/scanner/components/quota-message';
 import { ResolvedMessage } from '@ea11y-apps/scanner/components/resolved-message';
 import { BLOCKS, PAGE_QUOTA_LIMIT } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { useTabsContext } from '@ea11y-apps/scanner/context/tabs-context';
 import {
 	AltTextLayout,
 	MainLayout,
@@ -30,7 +30,6 @@ import {
 	AppsTabs,
 } from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
-import { getInitialTab } from '@ea11y-apps/scanner/utils/get-initial-tab';
 import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -38,7 +37,6 @@ const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const {
 		setOpenedBlock,
-		setIsManage,
 		violation,
 		resolved,
 		openedBlock,
@@ -46,11 +44,10 @@ const App = () => {
 		quotaExceeded,
 		loading,
 	} = useScannerWizardContext();
-	const containerRef = useRef(null);
-	const { getTabsProps, getTabProps, getTabPanelProps } =
-		useTabs(getInitialTab());
 
-	const tabsProps = getTabsProps();
+	const { tabsProps, getTabProps, getTabPanelProps } = useTabsContext();
+
+	const containerRef = useRef(null);
 
 	const showResolvedMessage = Boolean(
 		(resolved > 0 && violation === resolved) || violation === 0,
@@ -129,12 +126,6 @@ const App = () => {
 		}
 	};
 
-	const onTabChange = (event, newValue) => {
-		setOpenedBlock(newValue);
-		setIsManage(newValue === BLOCKS.management);
-		tabsProps.onChange(event, newValue);
-	};
-
 	return (
 		<FocusTrap
 			containerElements={[containerRef.current]}
@@ -146,7 +137,6 @@ const App = () => {
 					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
 						<AppsTabs
 							{...tabsProps}
-							onChange={onTabChange}
 							aria-label={__(
 								'Accessibility Assistant Tabs',
 								'pojo-accessibility',
