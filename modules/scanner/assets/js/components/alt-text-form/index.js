@@ -9,7 +9,6 @@ import Divider from '@elementor/ui/Divider';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
-
 import InputAdornment from '@elementor/ui/InputAdornment';
 import TextField from '@elementor/ui/TextField';
 import Tooltip from '@elementor/ui/Tooltip';
@@ -26,7 +25,7 @@ import { StyledAlert, StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
 
-export const AltTextForm = ({ items, current, setCurrent }) => {
+export const AltTextForm = ({ item, current, setCurrent }) => {
 	const { error } = useToastNotification();
 	const {
 		data,
@@ -39,7 +38,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 		generateAltText,
 	} = useAltTextForm({
 		current,
-		item: items[current],
+		item,
 	});
 
 	const onSubmit = async () => {
@@ -63,7 +62,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 		<StyledBox>
 			<Divider />
 
-			<ImagePreview element={items[current].node} />
+			<ImagePreview element={item.node} />
 
 			<StyledLabel>
 				<Checkbox
@@ -196,7 +195,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 };
 
 AltTextForm.propTypes = {
-	items: PropTypes.arrayOf(scannerItem).isRequired,
+	item: scannerItem,
 	current: PropTypes.number.isRequired,
 	setCurrent: PropTypes.func.isRequired,
 };

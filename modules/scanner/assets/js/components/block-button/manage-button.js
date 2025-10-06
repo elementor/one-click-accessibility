@@ -25,7 +25,7 @@ export const ManageButton = ({ title, count, block }) => {
 	};
 
 	const total = sortedRemediation[block].length;
-	const disabled = block === BLOCKS.colorContrast || block === BLOCKS.altText;
+	const disabled = block === BLOCKS.colorContrast;
 
 	return (
 		<ManageButtonWrap disabled={disabled}>

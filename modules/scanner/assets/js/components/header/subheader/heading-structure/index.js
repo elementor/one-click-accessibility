@@ -1,7 +1,6 @@
 import ArrowLeftIcon from '@elementor/icons/ArrowLeftIcon';
 import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import Box from '@elementor/ui/Box';
-import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
@@ -66,8 +65,6 @@ const HeadingStructureSubheader = () => {
 					</Box>
 				</StyledBreadcrumbsBox>
 			</Box>
-
-			<Divider sx={{ backgroundColor: '#ddd' }} />
 
 			{!areNoHeadingsDefined() && (
 				<HeadingStructureTitleRow

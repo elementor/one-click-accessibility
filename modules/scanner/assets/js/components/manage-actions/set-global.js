@@ -4,7 +4,7 @@ import Box from '@elementor/ui/Box';
 import Infotip from '@elementor/ui/Infotip';
 import Switch from '@elementor/ui/Switch';
 import Typography from '@elementor/ui/Typography';
-import { SetGlobalRemediationModal } from '@ea11y-apps/scanner/components/remediation-form/set-global-remediation-modal';
+import { SetGlobalRemediationModal } from '@ea11y-apps/scanner/components/manage-actions/set-global-remediation-modal';
 import { InfotipBox } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { remediationItem } from '@ea11y-apps/scanner/types/remediation-item';
 import { useState } from '@wordpress/element';

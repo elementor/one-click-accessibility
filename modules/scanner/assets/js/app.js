@@ -24,6 +24,7 @@ import {
 } from '@ea11y-apps/scanner/layouts';
 import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
 import { HeadingStructureLayout } from '@ea11y-apps/scanner/layouts/heading-structure-layout';
+import { ManageAltTextLayout } from '@ea11y-apps/scanner/layouts/manage-alt-text-layout';
 import {
 	AppContainer,
 	AppsTabPanel,
@@ -116,7 +117,7 @@ const App = () => {
 			case BLOCKS.management:
 				return <ManageMainLayout />;
 			case BLOCKS.altText:
-				return null;
+				return <ManageAltTextLayout />;
 			case BLOCKS.colorContrast:
 				return null;
 			case BLOCKS.headingStructure:

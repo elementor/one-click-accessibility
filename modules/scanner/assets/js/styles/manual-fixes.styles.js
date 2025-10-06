@@ -52,14 +52,14 @@ export const InfotipFooter = styled(Box)`
 	margin-top: ${({ theme }) => theme.spacing(2)};
 `;
 
-export const AIHeader = styled(Box)`
+export const ItemHeader = styled(Box)`
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: ${({ theme }) => theme.spacing(1)};
 	min-height: 32px;
 `;
 
-export const AITitle = styled(Box)`
+export const ItemTitle = styled(Box)`
 	display: flex;
 	gap: ${({ theme }) => theme.spacing(1)};
 	align-items: center;

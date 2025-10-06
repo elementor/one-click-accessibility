@@ -20,9 +20,9 @@ import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipbo
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/use-manual-fix-form';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
-	AIHeader,
-	AITitle,
 	InfotipBox,
+	ItemHeader,
+	ItemTitle,
 	ManualTextField,
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
@@ -111,8 +111,8 @@ export const ResolveWithAi = ({ item, current }) => {
 		<Box>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
 				<CardContent sx={{ pt: 1.5, pb: 0 }}>
-					<AIHeader>
-						<AITitle>
+					<ItemHeader>
+						<ItemTitle>
 							<AIIcon />
 							<Typography variant="subtitle2">
 								{__('Resolve with AI', 'pojo-accessibility')}
@@ -140,7 +140,7 @@ export const ResolveWithAi = ({ item, current }) => {
 									<InfoCircleIcon fontSize="small" />
 								</Infotip>
 							)}
-						</AITitle>
+						</ItemTitle>
 						{!isEdit && (
 							<Box display="flex" gap={0.5}>
 								<Tooltip
@@ -179,7 +179,7 @@ export const ResolveWithAi = ({ item, current }) => {
 								</Tooltip>
 							</Box>
 						)}
-					</AIHeader>
+					</ItemHeader>
 					{isEdit ? (
 						<ManualTextField
 							value={manualEdit}

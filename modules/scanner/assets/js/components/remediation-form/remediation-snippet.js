@@ -1,30 +1,23 @@
 import AIIcon from '@elementor/icons/AIIcon';
 import CopyIcon from '@elementor/icons/CopyIcon';
 import EditIcon from '@elementor/icons/EditIcon';
-import ReloadIcon from '@elementor/icons/ReloadIcon';
-import TrashIcon from '@elementor/icons/TrashIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
-import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
-import { SetGlobal } from '@ea11y-apps/scanner/components/remediation-form/set-global';
+import { ManageActions } from '@ea11y-apps/scanner/components/manage-actions';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
+import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
-	StyledAlert,
-	StyledBanIcon,
-} from '@ea11y-apps/scanner/styles/app.styles';
-import {
-	AIHeader,
-	AITitle,
+	ItemHeader,
+	ItemTitle,
 	ManualTextField,
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
@@ -38,15 +31,9 @@ export const RemediationSnippet = ({ item }) => {
 	const { openedBlock } = useScannerWizardContext();
 	const { copied, copyToClipboard } = useCopyToClipboard();
 
-	const {
-		activeRequest,
-		deleteRemediation,
-		updateRemediation,
-		editRemediation,
-	} = useManageActions(item);
+	const { activeRequest, editRemediation } = useManageActions(item);
 
 	const [isEdit, setIsEdit] = useState(false);
-	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [manualEdit, setManualEdit] = useState(content.replace);
 
 	const openEdit = () => {
@@ -64,13 +51,7 @@ export const RemediationSnippet = ({ item }) => {
 		setManualEdit(e.target.value);
 	};
 
-	const isActive = Number(item.active);
-
-	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
-	const onDeleteRemediation = async () => {
-		setShowDeleteModal(false);
-		await deleteRemediation();
-	};
+	const isActive = Boolean(Number(item.active));
 
 	const submitRemediation = async () => {
 		await editRemediation({
@@ -84,15 +65,15 @@ export const RemediationSnippet = ({ item }) => {
 		<Box sx={{ mb: 3 }}>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
 				<CardContent sx={{ pt: 1.5, pb: 0 }}>
-					<AIHeader>
-						<AITitle>
+					<ItemHeader>
+						<ItemTitle>
 							<AIIcon />
 							<Typography variant="subtitle2">
 								{isActive
 									? __('Active fix', 'pojo-accessibility')
 									: __('Fix (disabled)', 'pojo-accessibility')}
 							</Typography>
-						</AITitle>
+						</ItemTitle>
 						{!isEdit && (
 							<Box display="flex" gap={0.5}>
 								<Tooltip
@@ -136,7 +117,7 @@ export const RemediationSnippet = ({ item }) => {
 								</Tooltip>
 							</Box>
 						)}
-					</AIHeader>
+					</ItemHeader>
 					{isEdit ? (
 						<ManualTextField
 							value={manualEdit}
@@ -186,64 +167,10 @@ export const RemediationSnippet = ({ item }) => {
 							</Button>
 						</>
 					) : (
-						<Box
-							display="flex"
-							gap={1}
-							justifyContent="space-between"
-							sx={{ width: '100%' }}
-						>
-							<SetGlobal item={item} />
-							{isActive ? (
-								<Button
-									startIcon={<StyledBanIcon />}
-									size="small"
-									color="secondary"
-									variant="outlined"
-									disabled={activeRequest}
-									onClick={updateRemediation(false)}
-								>
-									{__('Disable fix', 'pojo-accessibility')}
-								</Button>
-							) : (
-								<Box display="flex" gap={0.5}>
-									<Tooltip
-										placement="top"
-										title={__('Remove', 'pojo-accessibility')}
-										PopperProps={{
-											disablePortal: true,
-										}}
-									>
-										<IconButton
-											size="tiny"
-											color="error"
-											onClick={toggleDeleteModal}
-											disabled={activeRequest}
-										>
-											<TrashIcon fontSize="tiny" />
-										</IconButton>
-									</Tooltip>
-									<Divider orientation="vertical" flexItem sx={{ my: 0.5 }} />
-									<Button
-										startIcon={<ReloadIcon />}
-										size="small"
-										color="info"
-										variant="text"
-										disabled={activeRequest}
-										onClick={updateRemediation(true)}
-									>
-										{__('Enable fix', 'pojo-accessibility')}
-									</Button>
-								</Box>
-							)}
-						</Box>
+						<ManageActions item={item} isActive={isActive} />
 					)}
 				</CardActions>
 			</Card>
-			<DeleteRemediationModal
-				open={showDeleteModal}
-				hideConfirmation={toggleDeleteModal}
-				onDelete={onDeleteRemediation}
-			/>
 		</Box>
 	);
 };
