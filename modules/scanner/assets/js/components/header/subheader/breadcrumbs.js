@@ -31,8 +31,11 @@ const Breadcrumbs = () => {
 		setOpenedBlock(isManage ? BLOCKS.management : BLOCKS.main);
 	};
 
+	const type = isManage ? 'manage' : 'main';
 	const itemsData =
-		openedBlock === BLOCKS.altText ? altTextData : manualData[openedBlock];
+		openedBlock === BLOCKS.altText
+			? altTextData[type]
+			: manualData[openedBlock];
 
 	const resolved =
 		itemsData?.filter((item) => item?.resolved === true).length || 0;

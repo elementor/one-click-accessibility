@@ -34,6 +34,11 @@ import {
 	useState,
 } from '@wordpress/element';
 
+const initialAltTextData = {
+	manage: [],
+	main: [],
+};
+
 export const ScannerWizardContext = createContext({
 	results: {},
 	remediations: [],
@@ -47,7 +52,7 @@ export const ScannerWizardContext = createContext({
 	isChanged: false,
 	sortedViolations: INITIAL_SORTED_VIOLATIONS,
 	sortedRemediation: INITIAL_SORTED_VIOLATIONS,
-	altTextData: [],
+	altTextData: initialAltTextData,
 	manualData: {},
 	remediationData: {},
 	violation: null,
@@ -88,7 +93,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	const [quotaExceeded, setQuotaExceeded] = useState(false);
 	const [isManage, setIsManage] = useState(false);
 	const [isManageChanged, setIsManageChanged] = useState(false);
-	const [altTextData, setAltTextData] = useState([]);
+	const [altTextData, setAltTextData] = useState(initialAltTextData);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 	const [remediationData, setRemediationData] = useState(
 		structuredClone(MANUAL_GROUPS),
@@ -137,6 +142,8 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		}
 	}, [sortedViolations, results]);
 
+	const type = isManage ? 'manage' : 'main';
+
 	const updateRemediationList = async () => {
 		try {
 			const items = await APIScanner.getRemediations(
@@ -181,7 +188,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 
 			setResults(data);
 			setSortedViolations(sorted);
-			setAltTextData([]);
+			setAltTextData(initialAltTextData);
 			setManualData(structuredClone(MANUAL_GROUPS));
 		} catch (e) {
 			if (e?.message === 'Quota exceeded') {
@@ -307,9 +314,9 @@ export const ScannerWizardContextProvider = ({ children }) => {
 		switch (block) {
 			case BLOCKS.altText:
 				return (
-					(altTextData?.length === sortedViolations[block]?.length &&
-						indexes.every((index) => index in altTextData) &&
-						altTextData.every((data) => data?.resolved)) ||
+					(altTextData?.[type]?.length === sortedViolations[block]?.length &&
+						indexes.every((index) => index in altTextData.main) &&
+						altTextData[type].every((data) => data?.resolved)) ||
 					sortedViolations[block]?.length === 0
 				);
 			case BLOCKS.headingStructure:
@@ -326,7 +333,7 @@ export const ScannerWizardContextProvider = ({ children }) => {
 	};
 
 	const isChanged =
-		altTextData.length > 0 ||
+		altTextData[type].length > 0 ||
 		Object.keys(manualData).some(
 			(key) => manualData[key] && manualData[key].length > 0,
 		) ||

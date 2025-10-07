@@ -19,13 +19,15 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
 import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
 import { StyledLabel } from '@ea11y-apps/scanner/styles/alt-text-form.styles';
 import { StyledAlert, StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
 
-export const AltTextForm = ({ item, current, setCurrent }) => {
+export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
+	const { isManage } = useScannerWizardContext();
 	const { error } = useToastNotification();
 	const {
 		data,
@@ -35,6 +37,7 @@ export const AltTextForm = ({ item, current, setCurrent }) => {
 		handleChange,
 		handleCheck,
 		handleSubmit,
+		handleUpdate,
 		generateAltText,
 	} = useAltTextForm({
 		current,
@@ -48,6 +51,11 @@ export const AltTextForm = ({ item, current, setCurrent }) => {
 		} catch (e) {
 			error(__('An error occurred.', 'pojo-accessibility'));
 		}
+	};
+
+	const onUpdate = async () => {
+		await handleUpdate();
+		setIsEdit(false);
 	};
 
 	const onUpgradeHover = () => {
@@ -186,9 +194,11 @@ export const AltTextForm = ({ item, current, setCurrent }) => {
 				fullWidth
 				loading={loading}
 				disabled={isSubmitDisabled}
-				onClick={onSubmit}
+				onClick={isManage ? onUpdate : onSubmit}
 			>
-				{__('Resolve', 'pojo-accessibility')}
+				{isManage
+					? __('Update', 'pojo-accessibility')
+					: __('Resolve', 'pojo-accessibility')}
 			</Button>
 		</StyledBox>
 	);
@@ -198,4 +208,5 @@ AltTextForm.propTypes = {
 	item: scannerItem,
 	current: PropTypes.number.isRequired,
 	setCurrent: PropTypes.func.isRequired,
+	setIsEdit: PropTypes.func,
 };
