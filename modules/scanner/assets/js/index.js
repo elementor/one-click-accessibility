@@ -17,7 +17,7 @@ import {
 	TOP_BAR_LINK,
 } from '@ea11y-apps/scanner/constants';
 import { HeadingStructureContextProvider } from '@ea11y-apps/scanner/context/heading-structure-context';
-import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import ScannerWizardContextProvider from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { TabsContextProvider } from '@ea11y-apps/scanner/context/tabs-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
