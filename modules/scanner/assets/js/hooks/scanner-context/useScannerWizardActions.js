@@ -189,7 +189,8 @@ export default function useScannerWizardActions(state) {
 
 	const isResolved = (block) => {
 		const type = state.isManage ? 'manage' : 'main';
-		const { sortedViolations, altTextData, manualData } = state;
+		const { sortedViolations, altTextData, colorContrastData, manualData } =
+			state;
 
 		const indexes = Array.from(
 			{ length: sortedViolations[block]?.length || 0 },
@@ -202,6 +203,15 @@ export default function useScannerWizardActions(state) {
 					(altTextData?.[type]?.length === sortedViolations[block]?.length &&
 						indexes.every((index) => index in altTextData.main) &&
 						altTextData[type].every((data) => data?.resolved)) ||
+					sortedViolations[block]?.length === 0
+				);
+
+			case BLOCKS.colorContrast:
+				return (
+					(colorContrastData?.[type]?.length ===
+						sortedViolations[block]?.length &&
+						indexes.every((index) => index in colorContrastData.main) &&
+						colorContrastData[type].every((data) => data?.resolved)) ||
 					sortedViolations[block]?.length === 0
 				);
 

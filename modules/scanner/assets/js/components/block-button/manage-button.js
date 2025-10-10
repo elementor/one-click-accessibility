@@ -3,7 +3,6 @@ import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ButtonMenu } from '@ea11y-apps/scanner/components/block-button/button-menu';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	ActionButton,
@@ -25,17 +24,15 @@ export const ManageButton = ({ title, count, block }) => {
 	};
 
 	const total = sortedRemediation[block].length;
-	const disabled = block === BLOCKS.colorContrast;
 
 	return (
-		<ManageButtonWrap disabled={disabled}>
+		<ManageButtonWrap>
 			<ActionButton
 				variant="text"
 				color="secondary"
 				size="large"
 				fullWidth
 				onClick={handleClick}
-				disabled={disabled}
 			>
 				<Typography noWrap variant="subtitle2" as="h4">
 					{title}

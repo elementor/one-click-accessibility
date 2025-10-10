@@ -10,6 +10,7 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
+import { buildPathToParent } from '@ea11y-apps/scanner/utils/build-path-to-parent';
 import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import {
 	focusOnElement,
@@ -22,27 +23,34 @@ import { useEffect, useState } from '@wordpress/element';
 export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const {
 		openedBlock,
-		manualData,
+		colorContrastData,
 		resolved: resolvedBlock,
 		setResolved,
 		isResolved,
+		isManage,
+		sortedRemediation,
+		setSortedRemediation,
 		setOpenedBlock,
-		setManualData,
+		setColorContrastData,
+		setIsManageChanged,
 		updateRemediationList,
 		currentScanId,
 	} = useScannerWizardContext();
+
+	const type = isManage ? 'manage' : 'main';
 
 	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
 
 	const updateData = (data) => {
-		const existing = manualData[openedBlock]?.[current] || {};
-		const updated = [...(manualData[openedBlock] || [])];
-		updated[current] = { ...existing, ...data };
-
-		setManualData({
-			...manualData,
-			[openedBlock]: updated,
+		const updData = [...colorContrastData?.[type]];
+		updData[current] = {
+			...(colorContrastData?.[type]?.[current] || {}),
+			...data,
+		};
+		setColorContrastData({
+			...colorContrastData,
+			[type]: updData,
 		});
 	};
 
@@ -53,17 +61,17 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	useEffect(() => {
-		if (!firstOpen && isResolved(BLOCKS.colorContrast)) {
+		if (!isManage && !firstOpen && isResolved(BLOCKS.colorContrast)) {
 			removeExistingFocus();
 			setOpenedBlock(BLOCKS.main);
 		}
 		setFirstOpen(false);
-	}, [manualData]);
+	}, [colorContrastData]);
 
 	useEffect(() => {
 		if (!item?.node?.getAttribute(DATA_INITIAL_COLOR)) {
 			const initialColor =
-				manualData[openedBlock]?.[current]?.color || item.messageArgs[3];
+				colorContrastData[type]?.[current]?.color || item.messageArgs[3];
 			item.node.setAttribute(DATA_INITIAL_COLOR, initialColor);
 			item.node.style.setProperty('color', initialColor, 'important');
 		}
@@ -75,10 +83,12 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				window.getComputedStyle(item.node).getPropertyValue('color'),
 			),
 		background = item.messageArgs[4],
-		parents = [item.path.dom],
+		parents = item.isEdit
+			? buildPathToParent(item.node, item.parentNode)
+			: [item.path.dom],
 		resolved = false,
 		backgroundChanged = false,
-	} = manualData[openedBlock]?.[current] || {};
+	} = colorContrastData[type]?.[current] || {};
 
 	const changeColor = (updColor) => {
 		item.node?.style?.setProperty('color', updColor, 'important');
@@ -240,6 +250,36 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 	};
 
+	const onUpdate = async () => {
+		try {
+			setLoading(true);
+			const updContent = JSON.stringify({
+				...item.data,
+				rule: buildCSSRule(),
+			});
+			await APIScanner.updateRemediationContent({
+				url: window?.ea11yScannerData?.pageData?.url,
+				id: item.id,
+				content: updContent,
+			});
+			const updated = sortedRemediation[openedBlock].map((remediation) =>
+				item.id === remediation.id
+					? { ...remediation, content: updContent }
+					: remediation,
+			);
+
+			setSortedRemediation({
+				...sortedRemediation,
+				[openedBlock]: updated,
+			});
+			setIsManageChanged(true);
+		} catch (e) {
+			console.error(e);
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	const onSubmit = async () => {
 		setLoading(true);
 		try {
@@ -287,6 +327,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		setParentLarger,
 		setParentSmaller,
 		onSubmit,
+		onUpdate,
 	};
 };
 

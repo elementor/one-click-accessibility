@@ -6,6 +6,7 @@ import {
 import { useState } from '@wordpress/element';
 
 const initialAltTextData = { manage: [], main: [] };
+const initialColorContrastData = { manage: [], main: [] };
 
 export default function useScannerWizardState() {
 	const [results, setResults] = useState();
@@ -25,6 +26,9 @@ export default function useScannerWizardState() {
 	const [isManage, setIsManage] = useState(false);
 	const [isManageChanged, setIsManageChanged] = useState(false);
 	const [altTextData, setAltTextData] = useState(initialAltTextData);
+	const [colorContrastData, setColorContrastData] = useState(
+		initialColorContrastData,
+	);
 	const [manualData, setManualData] = useState(structuredClone(MANUAL_GROUPS));
 	const [remediationData, setRemediationData] = useState(
 		structuredClone(MANUAL_GROUPS),
@@ -48,6 +52,7 @@ export default function useScannerWizardState() {
 		isManageChanged,
 		altTextData,
 		manualData,
+		colorContrastData,
 		remediationData,
 		openIndex,
 		violation,
@@ -66,6 +71,7 @@ export default function useScannerWizardState() {
 		setIsManageChanged,
 		setAltTextData,
 		setManualData,
+		setColorContrastData,
 		setRemediationData,
 		setOpenIndex,
 		setViolation,

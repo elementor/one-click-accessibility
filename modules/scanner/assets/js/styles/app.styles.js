@@ -169,8 +169,7 @@ export const ManageButtonWrap = styled(Box)`
 	&:hover,
 	&:focus .MuiPaper-root,
 	&:focus-visible .MuiPaper-root {
-		background-color: ${({ theme, disabled }) =>
-			!disabled ? theme.palette.action.hover : 'transparent'};
+		background-color: ${({ theme }) => theme.palette.action.hover};
 	}
 `;
 
@@ -217,4 +216,14 @@ export const StyledBox = styled(Box)`
 	display: flex;
 	flex-direction: column;
 	gap: ${({ theme }) => theme.spacing(3)};
+`;
+
+export const ManageColorAlert = styled(Alert)`
+	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(1.5)};`};
+	& .MuiAlert-content {
+		padding-top: 0;
+	}
+	& .MuiAlert-content > div {
+		display: block;
+	}
 `;

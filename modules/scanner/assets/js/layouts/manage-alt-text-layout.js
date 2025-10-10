@@ -1,17 +1,24 @@
 import { AltTextForm } from '@ea11y-apps/scanner/components/alt-text-form';
 import { FormNavigation } from '@ea11y-apps/scanner/components/form-navigation';
 import { ManageAltText } from '@ea11y-apps/scanner/components/manage-alt-text';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 
 export const ManageAltTextLayout = () => {
-	const { sortedRemediation } = useScannerWizardContext();
+	const { sortedRemediation, setOpenedBlock } = useScannerWizardContext();
 	const [current, setCurrent] = useState(0);
 	const [isEdit, setIsEdit] = useState(false);
 
-	const item = sortedRemediation.altText[current];
+	useEffect(() => {
+		if (!item) {
+			setOpenedBlock(BLOCKS.management);
+		}
+	});
+
+	const item = sortedRemediation[BLOCKS.altText][current];
 	const data = JSON.parse(item.content);
 	const node = getElementByXPath(data.xpath);
 
@@ -20,7 +27,7 @@ export const ManageAltTextLayout = () => {
 	};
 
 	const changeNavigation = (index) => {
-		if (index > sortedRemediation.altText.length - 1) {
+		if (index > sortedRemediation[BLOCKS.altText].length - 1) {
 			setCurrent(0);
 		} else {
 			setCurrent(index);
