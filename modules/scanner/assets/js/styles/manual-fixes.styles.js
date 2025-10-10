@@ -37,7 +37,6 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 `;
 
 export const StyledSnippet = styled(Typography)`
-	width: 335px;
 	word-break: break-word;
 `;
 
@@ -53,14 +52,14 @@ export const InfotipFooter = styled(Box)`
 	margin-top: ${({ theme }) => theme.spacing(2)};
 `;
 
-export const AIHeader = styled(Box)`
+export const ItemHeader = styled(Box)`
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: ${({ theme }) => theme.spacing(1)};
 	min-height: 32px;
 `;
 
-export const AITitle = styled(Box)`
+export const ItemTitle = styled(Box)`
 	display: flex;
 	gap: ${({ theme }) => theme.spacing(1)};
 	align-items: center;
@@ -70,4 +69,12 @@ export const ManualTextField = styled(TextField)`
 	textarea {
 		font-size: 14px;
 	}
+`;
+
+export const TitleBox = styled(Box)`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: ${({ theme }) => theme.spacing(0.5)};
+	gap: ${({ theme }) => theme.spacing(0.5)};
 `;

@@ -1,12 +1,13 @@
 import AlertOctagonFilledIcon from '@elementor/icons/AlertOctagonFilledIcon';
 import Typography from '@elementor/ui/Typography';
 import ConfirmDialog from '@ea11y-apps/global/components/confirm-dialog';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 export const DeleteRemediationModal = ({
 	open,
 	hideConfirmation,
 	onDelete,
+	count = null,
 	isMain = false,
 }) => {
 	return (
@@ -16,13 +17,17 @@ export const DeleteRemediationModal = ({
 			onCancel={hideConfirmation}
 			title={
 				isMain
-					? __('Delete fixes for this page?', 'pojo-accessibility')
-					: __('Delete this fix?', 'pojo-accessibility')
+					? sprintf(
+							// Translators: %s - fixes count
+							__('Remove %s fixes?', 'pojo-accessibility'),
+							count,
+						)
+					: __('Remove this fix?', 'pojo-accessibility')
 			}
 			approveText={
 				isMain
-					? __('Delete fixes', 'pojo-accessibility')
-					: __('Delete fix', 'pojo-accessibility')
+					? __('Remove fixes', 'pojo-accessibility')
+					: __('Remove fix', 'pojo-accessibility')
 			}
 			cancelText={__('Not now', 'pojo-accessibility')}
 			logo={<AlertOctagonFilledIcon color="error" sx={{ mt: '6px' }} />}

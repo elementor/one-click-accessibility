@@ -20,9 +20,9 @@ import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipbo
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/use-manual-fix-form';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
-	AIHeader,
-	AITitle,
 	InfotipBox,
+	ItemHeader,
+	ItemTitle,
 	ManualTextField,
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
@@ -99,6 +99,7 @@ export const ResolveWithAi = ({ item, current }) => {
 			snippet: manualEdit,
 			submitted: !isEdit,
 		});
+		setIsEdit(false);
 	};
 
 	const onManualEdit = (e) => {
@@ -110,8 +111,8 @@ export const ResolveWithAi = ({ item, current }) => {
 		<Box>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
 				<CardContent sx={{ pt: 1.5, pb: 0 }}>
-					<AIHeader>
-						<AITitle>
+					<ItemHeader>
+						<ItemTitle>
 							<AIIcon />
 							<Typography variant="subtitle2">
 								{__('Resolve with AI', 'pojo-accessibility')}
@@ -139,21 +140,46 @@ export const ResolveWithAi = ({ item, current }) => {
 									<InfoCircleIcon fontSize="small" />
 								</Infotip>
 							)}
-						</AITitle>
+						</ItemTitle>
 						{!isEdit && (
-							<Tooltip
-								placement="top"
-								title={__('Edit', 'pojo-accessibility')}
-								PopperProps={{
-									disablePortal: true,
-								}}
-							>
-								<IconButton size="tiny" onClick={openEdit}>
-									<EditIcon fontSize="small" />
-								</IconButton>
-							</Tooltip>
+							<Box display="flex" gap={0.5}>
+								<Tooltip
+									placement="top"
+									title={__('Edit', 'pojo-accessibility')}
+									PopperProps={{
+										disablePortal: true,
+									}}
+								>
+									<IconButton size="tiny" onClick={openEdit}>
+										<EditIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+								<Tooltip
+									arrow
+									placement="top"
+									title={
+										copied
+											? __('Copied!', 'pojo-accessibility')
+											: __('Copy', 'pojo-accessibility')
+									}
+									PopperProps={{
+										disablePortal: true,
+									}}
+								>
+									<IconButton
+										size="tiny"
+										onClick={copyToClipboard(
+											aiSuggestion.snippet,
+											'fixed_snippet',
+											'assistant',
+										)}
+									>
+										<CopyIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+							</Box>
 						)}
-					</AIHeader>
+					</ItemHeader>
 					{isEdit ? (
 						<ManualTextField
 							value={manualEdit}
@@ -169,34 +195,9 @@ export const ResolveWithAi = ({ item, current }) => {
 					) : (
 						<StyledAlert color="info" icon={false} disabled={disabled}>
 							<Box display="flex" gap={0.5} alignItems="start">
-								<StyledSnippet variant="body2" sx={{ width: '290px' }}>
+								<StyledSnippet variant="body2">
 									{aiSuggestion.snippet}
 								</StyledSnippet>
-								<Box>
-									<Tooltip
-										arrow
-										placement="bottom"
-										title={
-											copied
-												? __('Copied!', 'pojo-accessibility')
-												: __('Copy', 'pojo-accessibility')
-										}
-										PopperProps={{
-											disablePortal: true,
-										}}
-									>
-										<IconButton
-											size="tiny"
-											onClick={copyToClipboard(
-												aiSuggestion.snippet,
-												'fixed_snippet',
-												'assistant',
-											)}
-										>
-											<CopyIcon fontSize="tiny" />
-										</IconButton>
-									</Tooltip>
-								</Box>
 							</Box>
 						</StyledAlert>
 					)}

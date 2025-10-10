@@ -2,6 +2,7 @@ import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
 import { BLOCKS, ROOT_ID } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { useTabsContext } from '@ea11y-apps/scanner/context/tabs-context';
 import { ResolvedImage } from '@ea11y-apps/scanner/images';
 import {
 	ResolvedButtonsBox,
@@ -11,17 +12,16 @@ import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { __ } from '@wordpress/i18n';
 
 export const ResolvedMessage = () => {
-	const { remediations, setOpenedBlock, setIsManage } =
-		useScannerWizardContext();
+	const { remediations } = useScannerWizardContext();
+	const { tabsProps } = useTabsContext();
+
+	const handleChangeTab = (event) => {
+		tabsProps.onChange(event, BLOCKS.management);
+	};
 
 	const onClose = () => {
 		const widget = document.getElementById(ROOT_ID);
 		closeWidget(widget);
-	};
-
-	const showIssues = () => {
-		setIsManage(true);
-		setOpenedBlock(BLOCKS.management);
 	};
 
 	return (
@@ -45,7 +45,7 @@ export const ResolvedMessage = () => {
 						size="small"
 						variant="outlined"
 						color="secondary"
-						onClick={showIssues}
+						onClick={handleChangeTab}
 					>
 						{__('Review fixes', 'pojo-accessibility')}
 					</Button>

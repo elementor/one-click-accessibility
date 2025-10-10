@@ -1,9 +1,9 @@
 import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
+import ChecklistIcon from '@elementor/icons/ChecklistIcon';
 import ClearIcon from '@elementor/icons/ClearIcon';
 import DotsHorizontalIcon from '@elementor/icons/DotsHorizontalIcon';
 import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
 import RefreshIcon from '@elementor/icons/RefreshIcon';
-import SettingsIcon from '@elementor/icons/SettingsIcon';
 import ThemeBuilderIcon from '@elementor/icons/ThemeBuilderIcon';
 import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
@@ -11,27 +11,22 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
-import Tooltip from '@elementor/ui/Tooltip';
 import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import useScannerSettings from '@ea11y-apps/scanner/hooks/use-scanner-settings';
 import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
 import { areNoHeadingsDefined } from '@ea11y-apps/scanner/utils/page-headings';
 import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const DropdownMenu = () => {
-	const {
-		remediations,
-		isManage,
-		openedBlock,
-		setOpenedBlock,
-		setIsManage,
-		runNewScan,
-	} = useScannerWizardContext();
+	const { remediations, isManage, openedBlock, setOpenedBlock, runNewScan } =
+		useScannerWizardContext();
+	const { dashboardUrl } = useScannerSettings();
 	const { error } = useToastNotification();
 	const [isOpened, setIsOpened] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -69,16 +64,8 @@ export const DropdownMenu = () => {
 		}
 	};
 
-	const goToManagement = () => {
-		handleClose();
-		setIsManage(true);
-		setOpenedBlock(BLOCKS.management);
-		sendOnClickEvent('Manage fixes');
-	};
-
 	const goToHeadingManager = () => {
 		handleClose();
-		setIsManage(true);
 		setOpenedBlock(BLOCKS.headingStructure);
 	};
 
@@ -120,6 +107,21 @@ export const DropdownMenu = () => {
 
 					<MenuItemText>{__('Rescan', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
+
+				<MenuItem
+					component="a"
+					href={dashboardUrl}
+					onClick={() => sendOnClickEvent('View all scans')}
+					dense
+				>
+					<MenuItemIcon>
+						<ChecklistIcon />
+					</MenuItemIcon>
+					<MenuItemText>
+						{__('View all scans', 'pojo-accessibility')}
+					</MenuItemText>
+				</MenuItem>
+
 				{remediations.length > 0 ? (
 					<MenuItem
 						onClick={onClearCache}
@@ -143,51 +145,6 @@ export const DropdownMenu = () => {
 						<DisabledMenuItemText>
 							{__('Clear page cache', 'pojo-accessibility')}
 						</DisabledMenuItemText>
-					</MenuItem>
-				)}
-
-				{!remediations.length ? (
-					<Tooltip
-						arrow
-						placement="left"
-						title={__(
-							'You don’t have any fixes to manage just yet.',
-							'pojo-accessibility',
-						)}
-						PopperProps={{
-							disablePortal: true,
-							modifiers: [
-								{
-									name: 'offset',
-									options: {
-										offset: [0, -16],
-									},
-								},
-							],
-						}}
-					>
-						<MenuItem dense>
-							<MenuItemIcon>
-								<SettingsIcon color="disabled" />
-							</MenuItemIcon>
-							<DisabledMenuItemText>
-								{__('Manage fixes', 'pojo-accessibility')}
-							</DisabledMenuItemText>
-						</MenuItem>
-					</Tooltip>
-				) : (
-					<MenuItem
-						onClick={goToManagement}
-						disabled={isManage && BLOCKS.management === openedBlock}
-						selected={isManage && BLOCKS.management === openedBlock}
-						dense
-					>
-						<MenuItemIcon>
-							<SettingsIcon />
-						</MenuItemIcon>
-						<MenuItemText>
-							{__('Manage fixes', 'pojo-accessibility')}
-						</MenuItemText>
 					</MenuItem>
 				)}
 

@@ -15,9 +15,9 @@ export const AltTextLayout = () => {
 	const [current, setCurrent] = useState(0);
 
 	const resolved = isResolved(BLOCKS.altText);
+	const item = sortedViolations.altText[current];
 
 	useEffect(() => {
-		const item = sortedViolations.altText[current];
 		if (!resolved && sortedViolations.altText.length) {
 			focusOnElement(item.node);
 		} else {
@@ -43,7 +43,7 @@ export const AltTextLayout = () => {
 	return (
 		<StyledContent>
 			<AltTextForm
-				items={sortedViolations.altText}
+				item={item}
 				current={current}
 				setCurrent={changeNavigation}
 			/>
