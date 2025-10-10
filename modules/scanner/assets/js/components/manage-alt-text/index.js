@@ -67,7 +67,7 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 				<ImagePreview element={node} />
 			</Box>
 			{isDecorative ? (
-				<Alert color="info">
+				<Alert color={isActive ? 'info' : 'secondary'}>
 					<Box>
 						<AlertTitle>
 							{__('Decorative image', 'pojo-accessibility')}
@@ -83,7 +83,7 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 					<Typography variant="body2" sx={{ mb: 1 }}>
 						{__('Alt text', 'pojo-accessibility')}
 					</Typography>
-					<Alert color="info" icon={false}>
+					<Alert color={isActive ? 'info' : 'secondary'} icon={false}>
 						<Box>{data.attribute_value}</Box>
 					</Alert>
 				</Box>
