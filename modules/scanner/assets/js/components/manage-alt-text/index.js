@@ -7,6 +7,7 @@ import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
+import PropTypes from 'prop-types';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { ManageActions } from '@ea11y-apps/scanner/components/manage-actions';
 import { StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
@@ -14,6 +15,7 @@ import {
 	ItemHeader,
 	ItemTitle,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
+import { remediationItem } from '@ea11y-apps/scanner/types/remediation-item';
 import {
 	focusOnElement,
 	removeExistingFocus,
@@ -28,11 +30,7 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 	const isActive = Boolean(Number(item.active));
 
 	useEffect(() => {
-		if (data.xpath) {
-			focusOnElement(node);
-		} else {
-			removeExistingFocus();
-		}
+		void (node ? focusOnElement(node) : removeExistingFocus());
 	}, [current]);
 
 	const isDecorative =
@@ -46,7 +44,9 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 					<ItemTitle>
 						<SettingsIcon />
 						<Typography variant="subtitle2">
-							{__('Active fix', 'pojo-accessibility')}
+							{isActive
+								? __('Active fix', 'pojo-accessibility')
+								: __('Fix (disabled)', 'pojo-accessibility')}
 						</Typography>
 					</ItemTitle>
 
@@ -91,4 +91,10 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 			<ManageActions item={item} isActive={isActive} />
 		</StyledBox>
 	);
+};
+
+ManageAltText.propTypes = {
+	item: remediationItem,
+	current: PropTypes.number.isRequired,
+	openEdit: PropTypes.func.isRequired,
 };

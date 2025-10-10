@@ -4,7 +4,7 @@ import { ManageAltText } from '@ea11y-apps/scanner/components/manage-alt-text';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 export const ManageAltTextLayout = () => {
 	const { sortedRemediation } = useScannerWizardContext();
@@ -14,10 +14,6 @@ export const ManageAltTextLayout = () => {
 	const item = sortedRemediation.altText[current];
 	const data = JSON.parse(item.content);
 	const node = getElementByXPath(data.xpath);
-
-	useEffect(() => {
-		setIsEdit(false);
-	}, [current]);
 
 	const openEdit = () => {
 		setIsEdit(true);

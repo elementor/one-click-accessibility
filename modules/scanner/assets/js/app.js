@@ -42,6 +42,7 @@ const App = () => {
 		resolved,
 		openedBlock,
 		isError,
+		isManage,
 		quotaExceeded,
 		loading,
 	} = useScannerWizardContext();
@@ -51,7 +52,7 @@ const App = () => {
 	const containerRef = useRef(null);
 
 	const showResolvedMessage = Boolean(
-		(resolved > 0 && violation === resolved) || violation === 0,
+		!isManage && ((resolved > 0 && violation === resolved) || violation === 0),
 	);
 
 	useEffect(() => {

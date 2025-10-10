@@ -27,21 +27,23 @@ export const ManageActions = ({ item, isActive }) => {
 		<Box
 			display="flex"
 			gap={1}
-			justifyContent="space-between"
+			justifyContent={isActive ? 'space-between' : 'flex-end'}
 			sx={{ width: '100%' }}
 		>
-			<SetGlobal item={item} />
 			{isActive ? (
-				<Button
-					startIcon={<StyledBanIcon />}
-					size="small"
-					color="secondary"
-					variant="outlined"
-					disabled={activeRequest}
-					onClick={updateRemediation(false)}
-				>
-					{__('Disable fix', 'pojo-accessibility')}
-				</Button>
+				<>
+					<SetGlobal item={item} />
+					<Button
+						startIcon={<StyledBanIcon />}
+						size="small"
+						color="secondary"
+						variant="outlined"
+						disabled={activeRequest}
+						onClick={updateRemediation(false)}
+					>
+						{__('Disable fix', 'pojo-accessibility')}
+					</Button>
+				</>
 			) : (
 				<Box display="flex" gap={0.5}>
 					<Tooltip

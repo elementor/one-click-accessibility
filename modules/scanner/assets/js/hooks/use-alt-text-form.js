@@ -49,7 +49,7 @@ export const useAltTextForm = ({ current, item }) => {
 	}, [isManage]);
 
 	useEffect(() => {
-		if (!firstOpen && isResolved(BLOCKS.altText)) {
+		if (!isManage && !firstOpen && isResolved(BLOCKS.altText)) {
 			removeExistingFocus();
 			setOpenedBlock(BLOCKS.main);
 		}
