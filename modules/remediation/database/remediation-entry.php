@@ -73,6 +73,12 @@ class Remediation_Entry extends Entry {
 				'column' => Remediation_Table::URL,
 				'value' => $url,
 				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::GLOBAL,
+				'value' => 1,
+				'operator' => '<>',
 			],
 		];
 		$select = $total ? 'COUNT(*) as total' : '*';
@@ -97,10 +103,33 @@ class Remediation_Entry extends Entry {
 				'column' => Remediation_Table::ACTIVE,
 				'value' => 1,
 				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::GLOBAL,
+				'value' => 1,
+				'operator' => '<>',
 			],
 		];
 
-		return Remediation_Table::select( '*', $where );
+		$where_global = [
+			[
+				'column' => Remediation_Table::ACTIVE,
+				'value' => 1,
+				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::GLOBAL,
+				'value' => 1,
+				'operator' => '=',
+			],
+		];
+
+		$page_remediations = Remediation_Table::select( '*', $where );
+		$global_remediations = Remediation_Table::select( '*', $where_global );
+
+		return array_merge( $global_remediations, $page_remediations );
 	}
 
 	public static function get_all_remediations( int $period ) : array {

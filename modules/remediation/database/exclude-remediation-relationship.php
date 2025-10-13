@@ -8,23 +8,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Remediation_Table extends Table {
+class Exclude_Remediation_Relationship extends Table {
 	// override base's const:
-	const DB_VERSION = '3';
-	const DB_VERSION_FLAG_NAME = 'ea11y_remediation_db_version';
+	const DB_VERSION = '1';
+	const DB_VERSION_FLAG_NAME = 'ea11y_exclude_remediation_relationship_db_version';
 
 	const ID = 'id';
-	const URL = 'url';
-	const CATEGORY = 'category';
-	const RULE = 'rule';
-	const GROUP = 'group';
-	const CONTENT = 'content';
-	const ACTIVE = 'active';
-	const GLOBAL = 'global';
+	const PAGE_URL = 'page_url';
+	const REMEDIATION_ID = 'remediation_id';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
-	public static $table_name = 'ea11y_pages_remediation';
+	public static $table_name = 'ea11y_exclude_remediation_relationship';
 
 	public static function get_columns(): array {
 		return [
@@ -37,48 +32,20 @@ class Remediation_Table extends Table {
 				] ),
 				'key' => Database_Constants::get_primary_key_string( self::ID ),
 			],
-			self::URL => [
+			self::PAGE_URL => [
 				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 2048 ),
 				'flags' => Database_Constants::build_flags_string( [
 					Database_Constants::DEFAULT,
 					'\'\'',
 				] ),
-				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::URL ),
+				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::PAGE_URL ),
 			],
-			self::CATEGORY => [
-				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 3 ),
-				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::DEFAULT,
-					'\'\'',
-				] ),
-			],
-			self::RULE => [
-				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 128 ),
-				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::DEFAULT,
-					'\'\'',
-				] ),
-			],
-			self::GROUP => [
-				'type' => Database_Constants::get_col_type( Database_Constants::VARCHAR, 128 ),
-				'flags' => Database_Constants::build_flags_string( [
-					Database_Constants::DEFAULT,
-					'\'\'',
-				] ),
-			],
-			self::CONTENT => [
-				'type' => Database_Constants::get_col_type( Database_Constants::TEXT ),
-			],
-			self::ACTIVE => [
-				'type' => Database_Constants::get_col_type( Database_Constants::BOOLEAN ),
-			],
-			self::GLOBAL => [
-				'type' => Database_Constants::get_col_type( Database_Constants::BOOLEAN ),
+			self::REMEDIATION_ID => [
+				'type' => Database_Constants::get_col_type( Database_Constants::INT, 11 ),
 				'flags' => Database_Constants::build_flags_string( [
 					Database_Constants::NOT_NULL,
-					Database_Constants::DEFAULT,
-					'0',
 				] ),
+				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::REMEDIATION_ID ),
 			],
 			self::CREATED_AT => [
 				'type' => Database_Constants::get_col_type( Database_Constants::DATETIME ),

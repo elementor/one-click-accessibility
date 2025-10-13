@@ -108,7 +108,7 @@ class Remediation_Runner {
 		$frontend_ajax_params = [
 			'ajax_request',
 			'is_ajax',
-			'doing_ajax'
+			'doing_ajax',
 		];
 
 		foreach ( $frontend_ajax_params as $param ) {
@@ -122,7 +122,7 @@ class Remediation_Runner {
 		$frontend_ajax_patterns = [
 			'ajax=true',
 			'is_ajax=1',
-			'ajax_request=1'
+			'ajax_request=1',
 		];
 
 		foreach ( $frontend_ajax_patterns as $pattern ) {
@@ -176,18 +176,19 @@ class Remediation_Runner {
 	}
 
 	public function run_remediations( $buffer ): string {
-		if ( ! is_user_logged_in() && $this->page_html && $this->page->is_valid_hash() ) {
+		$is_params_empty = empty( $_POST ) && empty( $_GET );
+		if ( ! is_user_logged_in() && $this->page_html && $this->page->is_valid_hash() && $is_params_empty ) {
 			return $this->page_html;
 		}
 		$dom = $this->generate_remediation_dom( $buffer );
-		if ( ! is_user_logged_in() ) {
+		if ( ! is_user_logged_in() && $is_params_empty ) {
 			$this->page->update_html( $dom );
 		}
 		return $dom;
 	}
 
 	private function generate_remediation_dom( $buffer ): string {
-		$dom = new DOMDocument('1.0', 'UTF-8');
+		$dom = new DOMDocument( '1.0', 'UTF-8' );
 		$dom->loadHTML( $buffer, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR );
 
 		//Remove admin-bar for correct replace
