@@ -2,14 +2,10 @@ import Chip from '@elementor/ui/Chip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { DeleteButton } from '@ea11y-apps/scanner/components/manage-remediation-buttons/delete-button';
-import { DisableButton } from '@ea11y-apps/scanner/components/manage-remediation-buttons/disable-button';
-import { EnableButton } from '@ea11y-apps/scanner/components/manage-remediation-buttons/enable-button';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { ButtonMenu } from '@ea11y-apps/scanner/components/block-button/button-menu';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	ActionButton,
-	ManageButtonGroup,
 	ManageButtonWrap,
 } from '@ea11y-apps/scanner/styles/app.styles';
 import { __, sprintf } from '@wordpress/i18n';
@@ -28,22 +24,15 @@ export const ManageButton = ({ title, count, block }) => {
 	};
 
 	const total = sortedRemediation[block].length;
-	const disabled = block === BLOCKS.colorContrast || block === BLOCKS.altText;
-	const isAllDisabled =
-		sortedRemediation[block]?.length ===
-		sortedRemediation[block]?.filter(
-			(remediation) => !Number(remediation.active),
-		)?.length;
 
 	return (
-		<ManageButtonWrap disabled={disabled}>
+		<ManageButtonWrap>
 			<ActionButton
 				variant="text"
 				color="secondary"
 				size="large"
 				fullWidth
 				onClick={handleClick}
-				disabled={disabled}
 			>
 				<Typography noWrap variant="subtitle2" as="h4">
 					{title}
@@ -61,14 +50,7 @@ export const ManageButton = ({ title, count, block }) => {
 				size="tiny"
 				disabled={count === 0}
 			/>
-			<ManageButtonGroup>
-				{isAllDisabled ? (
-					<EnableButton group={block} />
-				) : (
-					<DisableButton group={block} />
-				)}
-				<DeleteButton group={block} />
-			</ManageButtonGroup>
+			<ButtonMenu group={block} />
 		</ManageButtonWrap>
 	);
 };

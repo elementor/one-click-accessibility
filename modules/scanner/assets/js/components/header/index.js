@@ -1,7 +1,8 @@
 import Chip from '@elementor/ui/Chip';
 import Typography from '@elementor/ui/Typography';
-import HeaderContainer from '@ea11y-apps/scanner/components/header/header-container';
-import Stats from '@ea11y-apps/scanner/components/header/stats';
+import PropTypes from 'prop-types';
+import { ManagementStats } from '@ea11y-apps/scanner/components/header/stats/management-stats';
+import { ScanStats } from '@ea11y-apps/scanner/components/header/stats/scan-stats';
 import Subheader from '@ea11y-apps/scanner/components/header/subheader';
 import { BLOCKS, PAGE_QUOTA_LIMIT } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
@@ -12,7 +13,7 @@ import {
 } from '@ea11y-apps/scanner/styles/app.styles';
 import { __ } from '@wordpress/i18n';
 
-const Header = () => {
+const Header = ({ isManage }) => {
 	const {
 		openedBlock,
 		results,
@@ -29,7 +30,7 @@ const Header = () => {
 		openedBlock === BLOCKS.main &&
 		violationsCount > 0;
 
-	const showShortHeader =
+	const hideHeader =
 		!isConnected ||
 		isError ||
 		!PAGE_QUOTA_LIMIT ||
@@ -38,44 +39,42 @@ const Header = () => {
 	const showStatsBlock =
 		openedBlock === BLOCKS.main || openedBlock === BLOCKS.management;
 
-	if (showShortHeader) {
-		return <HeaderContainer />;
+	if (hideHeader) {
+		return null;
 	}
 
 	if (showStatsBlock) {
 		return (
-			<HeaderContainer>
-				<StyledStatsBlock>
-					<TitleBox
-						sx={{
-							mb: isConnected && !isError ? 2 : 0,
-						}}
-					>
-						<Typography variant="subtitle1" as="h3" color="text.primary">
-							{pageData.title}
-						</Typography>
+			<StyledStatsBlock>
+				<TitleBox
+					sx={{
+						mb: isConnected && !isError ? 2 : 0,
+					}}
+				>
+					<Typography variant="subtitle1" as="h3" color="text.primary">
+						{pageData.title}
+					</Typography>
 
-						{showViolationsChip && (
-							<Chip
-								size="small"
-								color="error"
-								variant="outlined"
-								label={`${results ? violationsCount : ''} ${__('Issues found', 'pojo-accessibility')}`}
-							/>
-						)}
-					</TitleBox>
+					{showViolationsChip && (
+						<Chip
+							size="small"
+							color="error"
+							variant="outlined"
+							label={`${results ? violationsCount : ''} ${__('Issues found', 'pojo-accessibility')}`}
+						/>
+					)}
+				</TitleBox>
 
-					<Stats />
-				</StyledStatsBlock>
-			</HeaderContainer>
+				{isManage ? <ManagementStats /> : <ScanStats />}
+			</StyledStatsBlock>
 		);
 	}
 
-	return (
-		<HeaderContainer>
-			<Subheader />
-		</HeaderContainer>
-	);
+	return <Subheader />;
+};
+
+Header.propTypes = {
+	isManage: PropTypes.bool,
 };
 
 export default Header;

@@ -34,6 +34,7 @@ export const checkContrastAA = (el) => {
 		//some exception occurred, or not able to get color combo for some reason
 		throw new Error('unable to get color combo for element: ' + el.nodeName);
 	}
+
 	const fg = colorCombo.fg;
 	const bg = colorCombo.bg;
 	const ratio = fg.contrastRatio(bg);
@@ -43,5 +44,6 @@ export const checkContrastAA = (el) => {
 		ratio: +ratio.toFixed(2),
 		largeText: large,
 		passesAA,
+		isPotential: colorCombo.hasBGImage || colorCombo.hasGradient,
 	};
 };

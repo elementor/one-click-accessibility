@@ -1,21 +1,11 @@
 import ReloadIcon from '@elementor/icons/ReloadIcon';
 import Button from '@elementor/ui/Button';
-import IconButton from '@elementor/ui/IconButton';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { __ } from '@wordpress/i18n';
 
-export const EnableButton = ({ group }) => {
+export const EnableButton = () => {
 	const { updateAllRemediationForPage } = useManageActions();
-	return group ? (
-		<IconButton
-			size="tiny"
-			color="info"
-			aria-label={__('Enable all remediations', 'pojo-accessibility')}
-			onClick={updateAllRemediationForPage(true, group)}
-		>
-			<ReloadIcon fontSize="tiny" />
-		</IconButton>
-	) : (
+	return (
 		<Button
 			startIcon={<ReloadIcon />}
 			size="small"

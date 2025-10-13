@@ -13,7 +13,7 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 const Breadcrumbs = () => {
 	const {
@@ -31,8 +31,11 @@ const Breadcrumbs = () => {
 		setOpenedBlock(isManage ? BLOCKS.management : BLOCKS.main);
 	};
 
+	const type = isManage ? 'manage' : 'main';
 	const itemsData =
-		openedBlock === BLOCKS.altText ? altTextData : manualData[openedBlock];
+		openedBlock === BLOCKS.altText
+			? altTextData[type]
+			: manualData[openedBlock];
 
 	const resolved =
 		itemsData?.filter((item) => item?.resolved === true).length || 0;
@@ -77,11 +80,14 @@ const Breadcrumbs = () => {
 					)}
 					{items[openedBlock].length > 0 && (
 						<Chip
-							label={count}
+							label={sprintf(
+								// Translators: %1$s - count of active,
+								__('%s active', 'pojo-accessibility'),
+								count,
+							)}
 							color={isManage ? 'info' : 'error'}
 							variant="standard"
 							size="small"
-							sx={{ fontWeight: 500 }}
 						/>
 					)}
 				</Box>

@@ -17,20 +17,21 @@ import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export const ColorContrastForm = ({ items, current, setCurrent }) => {
-	const item = items[current];
+export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 	const {
 		color,
 		background,
 		parents,
 		resolved,
 		backgroundChanged,
+		parentChanged,
 		loading,
 		changeColor,
 		changeBackground,
 		setParentSmaller,
 		setParentLarger,
 		onSubmit,
+		onUpdate,
 	} = useColorContrastForm({
 		item,
 		current,
@@ -47,7 +48,8 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 		}
 	}, [item]);
 
-	const isBackgroundEnabled = item.messageArgs[3] && item.messageArgs[4];
+	const isBackgroundEnabled =
+		item.messageArgs[3] && item.messageArgs[4] && !item.isPotential;
 
 	const colorData = checkContrastAA(item.node);
 
@@ -62,6 +64,20 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 			page_url: window.ea11yScannerData?.pageData?.url,
 		});
 	};
+
+	const handleUpdate = async () => {
+		await onUpdate();
+		setIsEdit(false);
+	};
+
+	const isSubmitDisabled =
+		!colorData.passesAA ||
+		resolved ||
+		loading ||
+		(item.isEdit &&
+			color === item.messageArgs[3] &&
+			background === item.messageArgs[4] &&
+			!parentChanged);
 
 	return (
 		<StyledBox>
@@ -118,8 +134,8 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 				size="small"
 				color="info"
 				loading={loading}
-				disabled={!colorData.passesAA || resolved || loading}
-				onClick={handleSubmit}
+				disabled={isSubmitDisabled}
+				onClick={item.isEdit ? handleUpdate : handleSubmit}
 			>
 				{__('Apply changes', 'pojo-accessibility')}
 			</Button>
@@ -128,7 +144,8 @@ export const ColorContrastForm = ({ items, current, setCurrent }) => {
 };
 
 ColorContrastForm.propTypes = {
-	items: PropTypes.arrayOf(scannerItem).isRequired,
+	item: scannerItem,
 	current: PropTypes.number.isRequired,
 	setCurrent: PropTypes.func.isRequired,
+	setIsEdit: PropTypes.func,
 };

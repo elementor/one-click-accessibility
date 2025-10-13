@@ -2,6 +2,7 @@ import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -137,6 +138,7 @@ export const useManageActions = (current = null) => {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
 		} finally {
+			removeExistingFocus();
 			setActiveRequest(false);
 		}
 	};

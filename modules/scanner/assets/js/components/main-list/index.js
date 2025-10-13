@@ -19,7 +19,7 @@ export const MainList = () => {
 					return [];
 				}
 				const itemsData =
-					key === BLOCKS.altText ? altTextData : manualData[key];
+					key === BLOCKS.altText ? altTextData.main : manualData[key];
 
 				const resolved =
 					itemsData?.filter((item) => item?.resolved === true).length || 0;
