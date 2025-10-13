@@ -15,11 +15,13 @@ import { useEffect, useState } from '@wordpress/element';
 
 export const ManageColorContrastLayout = () => {
 	const { sortedRemediation, setOpenedBlock } = useScannerWizardContext();
+
 	useEffect(() => {
 		if (!item) {
 			setOpenedBlock(BLOCKS.management);
 		}
 	});
+
 	const [current, setCurrent] = useState(0);
 	const [isEdit, setIsEdit] = useState(false);
 
@@ -28,6 +30,10 @@ export const ManageColorContrastLayout = () => {
 	const node = getElementByXPath(data?.xpath);
 	const cssData = getDataFromCss(data.rule);
 	const colorData = checkContrastAA(node);
+
+	useEffect(() => {
+		focusOnElement(node);
+	}, [node]);
 
 	useEffect(() => {
 		if (cssData.background?.item) {
@@ -69,6 +75,7 @@ export const ManageColorContrastLayout = () => {
 					}}
 					current={current}
 					setCurrent={changeNavigation}
+					setIsEdit={setIsEdit}
 				/>
 			) : (
 				<ManageColorContrast

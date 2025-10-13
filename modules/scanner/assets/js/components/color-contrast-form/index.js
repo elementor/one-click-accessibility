@@ -17,13 +17,14 @@ import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export const ColorContrastForm = ({ item, current, setCurrent }) => {
+export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 	const {
 		color,
 		background,
 		parents,
 		resolved,
 		backgroundChanged,
+		parentChanged,
 		loading,
 		changeColor,
 		changeBackground,
@@ -66,6 +67,7 @@ export const ColorContrastForm = ({ item, current, setCurrent }) => {
 
 	const handleUpdate = async () => {
 		await onUpdate();
+		setIsEdit(false);
 	};
 
 	const isSubmitDisabled =
@@ -74,7 +76,8 @@ export const ColorContrastForm = ({ item, current, setCurrent }) => {
 		loading ||
 		(item.isEdit &&
 			color === item.messageArgs[3] &&
-			background === item.messageArgs[4]);
+			background === item.messageArgs[4] &&
+			!parentChanged);
 
 	return (
 		<StyledBox>
@@ -144,4 +147,5 @@ ColorContrastForm.propTypes = {
 	item: scannerItem,
 	current: PropTypes.number.isRequired,
 	setCurrent: PropTypes.func.isRequired,
+	setIsEdit: PropTypes.func,
 };

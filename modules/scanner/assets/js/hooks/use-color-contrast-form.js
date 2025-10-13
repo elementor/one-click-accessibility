@@ -41,6 +41,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
+	const [parentChanged, setParentChanged] = useState(false);
 
 	const updateData = (data) => {
 		const updData = [...colorContrastData?.[type]];
@@ -87,8 +88,17 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			? buildPathToParent(item.node, item.parentNode)
 			: [item.path.dom],
 		resolved = false,
-		backgroundChanged = false,
+		backgroundChanged = item.isEdit,
 	} = colorContrastData[type]?.[current] || {};
+
+	useEffect(() => {
+		if (parentChanged) {
+			const styles = document.getElementById('ea11y-remediation-styles');
+			if (styles) {
+				styles.innerHTML = styles.innerHTML.replace(item.data.rule, '');
+			}
+		}
+	}, [parentChanged]);
 
 	const changeColor = (updColor) => {
 		item.node?.style?.setProperty('color', updColor, 'important');
@@ -153,6 +163,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				parents: [...parents, xpath],
 				resolved: false,
 			});
+			setParentChanged(true);
 			sendEvent('plus');
 		} catch (error) {
 			console.warn('Failed to get XPath for parent element:', error);
@@ -174,6 +185,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 		setParentBackground(nextElement);
 		updateData({ parents: newParents, resolved: false });
+		setParentChanged(true);
 		sendEvent('minus');
 	};
 
@@ -232,12 +244,12 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			);
 
 			const colorRule =
-				color !== item.messageArgs[3]
+				color !== item.messageArgs[3] || (color && item.isEdit)
 					? `${colorSelector} {color: ${color} !important;}`
 					: '';
 
 			const bgRule =
-				background && background !== item.messageArgs[4]
+				background && (background !== item.messageArgs[4] || item.isEdit)
 					? `${bgSelector} {background-color: ${background} !important;}`
 					: '';
 
@@ -250,12 +262,25 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 	};
 
+	const updateCSS = (rule) => {
+		let styles = document.getElementById('ea11y-remediation-styles');
+		if (styles) {
+			styles.innerHTML = `${styles.innerHTML} ${rule}`;
+		} else {
+			styles = document.createElement('style');
+			styles.id = 'ea11y-remediation-styles';
+			document.head.appendChild(styles);
+			styles.innerHTML += rule;
+		}
+	};
+
 	const onUpdate = async () => {
+		const rule = buildCSSRule();
 		try {
 			setLoading(true);
 			const updContent = JSON.stringify({
 				...item.data,
-				rule: buildCSSRule(),
+				rule,
 			});
 			await APIScanner.updateRemediationContent({
 				url: window?.ea11yScannerData?.pageData?.url,
@@ -273,6 +298,10 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				[openedBlock]: updated,
 			});
 			setIsManageChanged(true);
+			removeExistingFocus();
+			setParentChanged(false);
+			updateCSS(rule);
+			void updateRemediationList();
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -283,10 +312,11 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const onSubmit = async () => {
 		setLoading(true);
 		try {
+			const rule = buildCSSRule();
 			await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData?.url,
 				remediation: {
-					rule: buildCSSRule(),
+					rule,
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'STYLES',
 					xpath: item.path.dom,
@@ -307,6 +337,8 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			removeExistingFocus();
 			setCurrent(current + 1);
 			setResolved(resolvedBlock + 1);
+			setParentChanged(false);
+			updateCSS(rule);
 			void updateRemediationList();
 		} catch (error) {
 			console.error('Failed to submit remediation:', error);
@@ -321,6 +353,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		parents,
 		resolved,
 		backgroundChanged,
+		parentChanged,
 		loading,
 		changeColor,
 		changeBackground,
