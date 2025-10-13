@@ -25,7 +25,8 @@ class Replace extends Remediation_Base {
 		$outer_html = $this->dom->saveHTML( $element_node );
 
 		if ( stripos( $outer_html, $this->data['find'] ) === false ) {
-			return $this->dom;
+			$this->use_frontend = true;
+			return null;
 		}
 
 		$updated_html = str_ireplace( $this->data['find'], $this->data['replace'], $outer_html );
@@ -36,7 +37,7 @@ class Replace extends Remediation_Base {
 
 		$tmp_dom = new DOMDocument( '1.0', 'UTF-8' );
 		$tmp_dom->loadHTML(
-			mb_convert_encoding( $updated_html, 'HTML-ENTITIES', 'UTF-8' ),
+			htmlentities( $updated_html, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' ),
 			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING
 		);
 
