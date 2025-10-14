@@ -31,6 +31,7 @@ class Remediation_Runner {
 				'ELEMENT'   => 'Element',
 				'REPLACE' => 'Replace',
 				'STYLES' => 'Styles',
+				'GLOBAL' => 'Global_Remediation',
 			] );
 		}
 		return $classes;
@@ -205,9 +206,10 @@ class Remediation_Runner {
 			if ( ! isset( $classes[ strtoupper( $remediation['type'] ) ] ) ) {
 				continue;
 			}
-			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
+			$remediation_class_name = $this->get_remediation_class_name( $item->global ? 'GLOBAL' : $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
 			if ( $remediation_class->use_frontend ) {
+				$remediation['global'] = $item->global;
 				$this->add_frontend_remediation( $remediation );
 				continue;
 			}

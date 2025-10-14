@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Exclude_Remediation_Relationship extends Table {
+class Exclude_Remediation_Relationship_Table extends Table {
 	// override base's const:
 	const DB_VERSION = '1';
 	const DB_VERSION_FLAG_NAME = 'ea11y_exclude_remediation_relationship_db_version';

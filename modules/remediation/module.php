@@ -4,7 +4,7 @@ namespace EA11y\Modules\Remediation;
 
 use EA11y\Classes\Module_Base;
 use EA11y\Modules\Connect\Module as Connect;
-use EA11y\Modules\Remediation\Database\Exclude_Remediation_Relationship;
+use EA11y\Modules\Remediation\Database\Exclude_Remediation_Relationship_Table;
 use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Remediation\Database\Remediation_Table;
 
@@ -45,7 +45,7 @@ class Module extends Module_Base {
 	public function run_migrations() {
 		Page_Table::install();
 		Remediation_Table::install();
-		Exclude_Remediation_Relationship::install();
+		Exclude_Remediation_Relationship_Table::install();
 	}
 
 	public function __construct() {
