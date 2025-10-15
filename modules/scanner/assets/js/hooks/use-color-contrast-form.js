@@ -236,9 +236,9 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const onUpdate = async () => {
 		const rule = buildCSSRule();
 		const find = getSnippetByXpath(item.path.dom);
-		const parentFind = getSnippetByXpath(
-			parents.length > 1 ? parents.at(-1) : null,
-		);
+		const parentXPath = parents.length > 1 ? parents.at(-1) : null;
+		const parentFind = getSnippetByXpath(parentXPath);
+
 		try {
 			setLoading(true);
 			const updContent = JSON.stringify({
@@ -246,6 +246,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				rule,
 				find,
 				parentFind,
+				parentXPath,
 			});
 			await APIScanner.updateRemediationContent({
 				url: window?.ea11yScannerData?.pageData?.url,
@@ -275,9 +276,8 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	const onSubmit = async () => {
-		const parentFind = getSnippetByXpath(
-			parents.length > 1 ? parents.at(-1) : null,
-		);
+		const parentXPath = parents.length > 1 ? parents.at(-1) : null;
+		const parentFind = getSnippetByXpath(parentXPath);
 		setLoading(true);
 		try {
 			const rule = buildCSSRule();
@@ -290,6 +290,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 					xpath: item.path.dom,
 					find: item.snippet,
 					parentFind,
+					parentXPath,
 				},
 				rule: item.ruleId,
 				group: BLOCKS.colorContrast,
