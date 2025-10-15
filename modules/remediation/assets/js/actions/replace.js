@@ -13,35 +13,11 @@ export class ReplaceRemediation extends RemediationBase {
 		);
 	}
 
-	getElementBySnippet(snippet) {
-		const temp = document.createElement('div');
-		temp.innerHTML = snippet.trim();
-		const parsed = temp.firstElementChild;
-		if (!parsed) {
-			return null;
-		}
-
-		const selectorParts = [parsed.tagName.toLowerCase()];
-
-		// Add id and class if present
-		if (parsed.id) {
-			selectorParts.push(`#${parsed.id}`);
-		}
-		if (parsed.classList.length) {
-			selectorParts.push(`.${Array.from(parsed.classList).join('.')}`);
-		}
-
-		const selector = selectorParts.join('');
-
-		// Try to find it in the document
-		return document.querySelector(selector);
-	}
-
 	run() {
 		const { xpath, find, replace, global } = this.data;
 		const el =
 			global === '1'
-				? this.getElementBySnippet(find)
+				? this.getElementBySnippet(find, xpath)
 				: this.getElementByXPath(xpath);
 
 		if (!el) {

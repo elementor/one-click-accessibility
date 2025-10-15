@@ -113,6 +113,7 @@ export const useAltTextForm = ({ current, item }) => {
 					...makeAttributeData(),
 					action: 'add',
 					xpath: item.path.dom,
+					find: item.snippet,
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'ATTRIBUTE',
 				},

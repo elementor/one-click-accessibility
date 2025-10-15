@@ -17,8 +17,11 @@ class Replace extends Remediation_Base {
 	public static string $type = 'replace';
 
 	public function run() : ?DOMDocument {
-		$element_node = $this->get_element_by_xpath( $this->data['xpath'] );
+		$element_node = $this->data['global']
+			? $this->dom->getElementsByTagName( 'body' )->item( 0 )
+			: $this->get_element_by_xpath( $this->data['xpath'] );
 		if ( ! $element_node instanceof \DOMElement ) {
+			$this->use_frontend = true;
 			return null;                    // nothing to do
 		}
 
