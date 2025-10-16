@@ -1,6 +1,7 @@
 import getXPath from 'get-xpath';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { rgbOrRgbaToHex } from '@ea11y-apps/global/utils/color-contrast-helpers';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
 	BACKGROUND_ELEMENT_CLASS,
@@ -9,14 +10,13 @@ import {
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { buildPathToParent } from '@ea11y-apps/scanner/utils/build-path-to-parent';
-import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import {
 	focusOnElement,
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 import { getElementCSSSelector } from '@ea11y-apps/scanner/utils/get-element-css-selector';
-import { getSnippetByXpath } from '@ea11y-apps/scanner/utils/get-snippet-by-xpath';
+import { getOuterHtmlByXpath } from '@ea11y-apps/scanner/utils/get-outer-html-by-xpath';
 import { useEffect, useState } from '@wordpress/element';
 
 export const useColorContrastForm = ({ item, current, setCurrent }) => {
@@ -35,6 +35,8 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		updateRemediationList,
 		currentScanId,
 	} = useScannerWizardContext();
+
+	console.log(getOuterHtmlByXpath(item.path.dom));
 
 	const type = isManage ? 'manage' : 'main';
 
@@ -235,9 +237,9 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 	const onUpdate = async () => {
 		const rule = buildCSSRule();
-		const find = getSnippetByXpath(item.path.dom);
+		const find = getOuterHtmlByXpath(item.path.dom);
 		const parentXPath = parents.length > 1 ? parents.at(-1) : null;
-		const parentFind = getSnippetByXpath(parentXPath);
+		const parentFind = getOuterHtmlByXpath(parentXPath);
 
 		try {
 			setLoading(true);
@@ -277,7 +279,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 	const onSubmit = async () => {
 		const parentXPath = parents.length > 1 ? parents.at(-1) : null;
-		const parentFind = getSnippetByXpath(parentXPath);
+		const parentFind = getOuterHtmlByXpath(parentXPath);
 		setLoading(true);
 		try {
 			const rule = buildCSSRule();

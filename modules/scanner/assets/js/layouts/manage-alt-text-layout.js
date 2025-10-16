@@ -42,6 +42,7 @@ export const ManageAltTextLayout = () => {
 						id: item.id,
 						node,
 						data,
+						path: { dom: data?.xpath },
 					}}
 					current={current}
 					setCurrent={changeNavigation}

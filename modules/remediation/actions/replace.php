@@ -40,7 +40,7 @@ class Replace extends Remediation_Base {
 
 		$tmp_dom = new DOMDocument( '1.0', 'UTF-8' );
 		$tmp_dom->loadHTML(
-			htmlentities( $updated_html, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' ),
+			mb_encode_numericentity( $updated_html, [ 0x80, 0x10FFFF, 0, 0x1FFFFF ], 'UTF-8' ),
 			LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR | LIBXML_NOWARNING
 		);
 

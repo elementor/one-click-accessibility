@@ -5,6 +5,7 @@ import Divider from '@elementor/ui/Divider';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { rgbOrRgbaToHex } from '@ea11y-apps/global/utils/color-contrast-helpers';
 import { ColorSet } from '@ea11y-apps/scanner/components/color-contrast-form/color-set';
 import { ColorSetDisabled } from '@ea11y-apps/scanner/components/color-contrast-form/color-set-disabled';
 import { ParentSelector } from '@ea11y-apps/scanner/components/color-contrast-form/parent-selector';
@@ -13,7 +14,6 @@ import { useColorContrastForm } from '@ea11y-apps/scanner/hooks/use-color-contra
 import { StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { checkContrastAA } from '@ea11y-apps/scanner/utils/calc-color-ratio';
-import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 

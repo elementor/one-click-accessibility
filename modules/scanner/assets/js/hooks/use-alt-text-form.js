@@ -6,6 +6,7 @@ import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
+import { getOuterHtmlByXpath } from '@ea11y-apps/scanner/utils/get-outer-html-by-xpath';
 import { splitDescriptions } from '@ea11y-apps/scanner/utils/split-ai-response';
 import {
 	convertSvgToPngBase64,
@@ -102,6 +103,7 @@ export const useAltTextForm = ({ current, item }) => {
 		const altText = !altTextData?.[type]?.[current]?.makeDecorative
 			? altTextData?.[type]?.[current]?.altText
 			: '';
+		const find = getOuterHtmlByXpath(item.path.dom);
 
 		try {
 			if (match && item.node.tagName !== 'svg') {
@@ -113,7 +115,7 @@ export const useAltTextForm = ({ current, item }) => {
 					...makeAttributeData(),
 					action: 'add',
 					xpath: item.path.dom,
-					find: item.snippet,
+					find,
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'ATTRIBUTE',
 				},
@@ -186,11 +188,16 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const handleUpdate = async () => {
+		const find = getOuterHtmlByXpath(
+			item.path.dom,
+			`${item.data.attribute_name}=" ${item.data.attribute_value}"`,
+		);
 		try {
 			setLoading(true);
 			const strContent = JSON.stringify({
 				...item.data,
 				...makeAttributeData(),
+				find,
 			});
 			await APIScanner.updateRemediationContent({
 				url: window?.ea11yScannerData?.pageData?.url,

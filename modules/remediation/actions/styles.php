@@ -21,10 +21,13 @@ class Styles extends Remediation_Base {
 	/**
 	 * Build a CSS selector string for a given DOMElement.
 	 *
-	 * @param DOMElement $element
+	 * @param DOMElement|null $element
 	 * @return string|null
 	 */
-	public function get_element_css_selector( DOMElement $element ): ?string {
+	public function get_element_css_selector( ?DOMElement $element ): ?string {
+		if ( ! $element ) {
+			return null;
+		}
 
 		$parts = [];
 
@@ -82,34 +85,35 @@ class Styles extends Remediation_Base {
 	 * @param string|null $bg_selector New selector for background-color rule
 	 * @return string The modified CSS
 	 */
-	public function replace_css_selectors( string $css, ?string $color_selector = null, ?string $bg_selector = null ): string {
-		// Replace color selector
-		if ( $color_selector ) {
-			$css = preg_replace_callback(
-				'/(?<!-)\bcolor\s*:\s*([#a-zA-Z0-9(),.\s%-]+)\s*!?important?;/i',
-				function( $matches ) use ( $color_selector ) {
-					$color_value = trim( $matches[1] );
-					return $color_selector . " { color: {$color_value} !important; }";
-				},
-				$css
-			);
+	public function replace_css_selectors(
+		string $css,
+		?string $color_selector = null,
+		?string $bg_selector = null
+	): string {
+		// Match full CSS blocks like "selector { ... }"
+		preg_match_all( '/([^{]+)\{([^}]+)\}/', $css, $matches, PREG_SET_ORDER );
+
+		$result = '';
+
+		foreach ( $matches as $match ) {
+			$selector = trim( $match[1] );
+			$rules = trim( $match[2] );
+
+			// Find color value
+			if ( $color_selector && preg_match( '/(?<!-)\bcolor\s*:\s*([#a-zA-Z0-9(),.\s%-]+)/i', $rules, $color_match ) ) {
+				$color_value = trim( $color_match[1] );
+				$result .= "{$color_selector} { color: {$color_value} !important; }\n";
+			}
+
+			// Find background-color value
+			if ( $bg_selector && preg_match( '/background-color\s*:\s*([#a-zA-Z0-9(),.\s%-]+)/i', $rules, $bg_match ) ) {
+				$bg_value = trim( $bg_match[1] );
+				$result .= "{$bg_selector} { background-color: {$bg_value} !important; }\n";
+			}
 		}
 
-		// Replace background-color selector
-		if ( $bg_selector ) {
-			$css = preg_replace_callback(
-				'/background-color\s*:\s*([#a-zA-Z0-9(),.\s%-]+)\s*!?important?;/i',
-				function( $matches ) use ( $bg_selector ) {
-					$bg_value = trim( $matches[1] );
-					return $bg_selector . " { background-color: {$bg_value} !important; }";
-				},
-				$css
-			);
-		}
-
-		return $css;
+		return trim( $result );
 	}
-
 
 
 	public function run() : ?DOMDocument {

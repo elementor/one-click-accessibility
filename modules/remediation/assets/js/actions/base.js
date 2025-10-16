@@ -17,7 +17,7 @@ export class RemediationBase {
 		).singleNodeValue;
 	}
 
-	getElementBySnippet(snippet, xpath = null) {
+	getElementByXPathFallbackSnippet(snippet, xpath = null) {
 		// Try XPath first
 		if (xpath) {
 			const element = this.getElementByXPath(xpath);

@@ -56,11 +56,15 @@ class Remediation_Base {
 	 * Get an element by XPath and verify it contains the given snippet.
 	 * If not, fall back to searching by the snippet itself.
 	 *
-	 * @param string      $xpath
-	 * @param string      $snippet
+	 * @param string|null      $xpath
+	 * @param string|null      $snippet
 	 * @return DOMElement|null
 	 */
-	public function get_element_by_xpath_with_snippet_fallback( string $xpath, string $snippet ): ?DOMElement {
+	public function get_element_by_xpath_with_snippet_fallback( ?string $xpath, ?string $snippet ): ?DOMElement {
+		if ( ! $xpath ) {
+			return null;
+		}
+
 		$element  = $this->get_element_by_xpath( $xpath );
 		Logger::info( "xpath = {$xpath} " );
 		Logger::info( "element = {$this->dom->saveHTML( $element )}" );
