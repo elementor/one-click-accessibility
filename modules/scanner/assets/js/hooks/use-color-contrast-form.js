@@ -1,7 +1,10 @@
 import getXPath from 'get-xpath';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { rgbOrRgbaToHex } from '@ea11y-apps/global/utils/color-contrast-helpers';
+import {
+	isValidCSS,
+	rgbOrRgbaToHex,
+} from '@ea11y-apps/global/utils/color-contrast-helpers';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
 	BACKGROUND_ELEMENT_CLASS,
@@ -152,43 +155,6 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 	const isValidHexColor = (str) =>
 		/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(str.trim());
-
-	const isValidCSS = (cssText) => {
-		try {
-			// Basic checks for common malicious patterns
-			if (!cssText || typeof cssText !== 'string') {
-				return false;
-			}
-
-			// Check for basic CSS structure and disallow dangerous patterns
-			const dangerousPatterns = [
-				/@import/i,
-				/javascript:/i,
-				/expression\s*\(/i,
-				/behavior\s*:/i,
-				/binding\s*:/i,
-				/-moz-binding/i,
-			];
-
-			if (dangerousPatterns.some((pattern) => pattern.test(cssText))) {
-				return false;
-			}
-
-			// More comprehensive CSS structure validation
-			const cssRegex = /^[\s\S]*\{\s*[\s\S]+:\s*[\s\S]+;\s*\}[\s\S]*$/;
-			const hasBasicStructure = cssRegex.test(
-				cssText.replace(/\s+/g, ' ').trim(),
-			);
-
-			// Additional validation: check for balanced braces
-			const openBraces = (cssText.match(/\{/g) || []).length;
-			const closeBraces = (cssText.match(/\}/g) || []).length;
-
-			return hasBasicStructure && openBraces === closeBraces && openBraces > 0;
-		} catch (e) {
-			return false;
-		}
-	};
 
 	const buildCSSRule = (newParents = null) => {
 		const currentParents = newParents || parents;

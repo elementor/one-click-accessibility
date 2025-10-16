@@ -37,9 +37,9 @@ export class RemediationBase {
 			}
 		}
 
-		const temp = document.createElement('div');
-		temp.innerHTML = snippet.trim();
-		const parsed = temp.firstElementChild;
+		const parser = new DOMParser();
+		const doc = parser.parseFromString(snippet.trim(), 'text/html');
+		const parsed = doc.body.firstElementChild;
 		if (!parsed) {
 			return null;
 		}

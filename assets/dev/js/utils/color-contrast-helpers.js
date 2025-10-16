@@ -1,27 +1,13 @@
+import postcss from 'postcss';
+
 export const isValidCSS = (cssText) => {
 	try {
 		// Basic checks for common malicious patterns
 		if (!cssText || typeof cssText !== 'string') {
 			return false;
 		}
-
-		// Check for basic CSS structure and disallow dangerous patterns
-		const dangerousPatterns = [
-			/@import/i,
-			/javascript:/i,
-			/expression\s*\(/i,
-			/behavior\s*:/i,
-			/binding\s*:/i,
-			/-moz-binding/i,
-		];
-
-		if (dangerousPatterns.some((pattern) => pattern.test(cssText))) {
-			return false;
-		}
-
-		// More comprehensive CSS structure validation
-		const cssRegex = /^[\s\S]*\{\s*[\s\S]+:\s*[\s\S]+;\s*\}[\s\S]*$/;
-		return cssRegex.test(cssText.replace(/\s+/g, ' ').trim());
+		postcss.parse(cssText);
+		return true;
 	} catch (e) {
 		return false;
 	}

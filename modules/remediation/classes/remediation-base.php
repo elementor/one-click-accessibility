@@ -5,7 +5,6 @@ namespace EA11y\Modules\Remediation\Classes;
 use DOMDocument;
 use DOMElement;
 use DOMXPath;
-use EA11y\Classes\Logger;
 
 class Remediation_Base {
 	public static string $type = 'remediation';
@@ -66,9 +65,6 @@ class Remediation_Base {
 		}
 
 		$element  = $this->get_element_by_xpath( $xpath );
-		Logger::info( "xpath = {$xpath} " );
-		Logger::info( "element = {$this->dom->saveHTML( $element )}" );
-		Logger::info( "snippet = {$snippet} " );
 		if ( ! $this->element_contains_snippet( $element, $snippet ) ) {
 			// XPath result doesn't contain the snippet
 			$element = null;
