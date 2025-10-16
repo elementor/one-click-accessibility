@@ -11,6 +11,7 @@ class RemediationRunner {
 			element: ElementRemediation,
 			replace: ReplaceRemediation,
 			styles: StylesRemediation,
+			global: ReplaceRemediation,
 		};
 		this.checkTimeout = null;
 
@@ -25,7 +26,9 @@ class RemediationRunner {
 	}
 
 	runRemediation(remediation) {
-		const type = (remediation.type || '').toLowerCase();
+		const type = (
+			remediation.global === '1' ? 'global' : remediation.type
+		).toLowerCase();
 		const Handler = this.classMap[type];
 
 		if (Handler) {

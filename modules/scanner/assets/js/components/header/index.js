@@ -1,6 +1,5 @@
 import Chip from '@elementor/ui/Chip';
 import Typography from '@elementor/ui/Typography';
-import PropTypes from 'prop-types';
 import { ManagementStats } from '@ea11y-apps/scanner/components/header/stats/management-stats';
 import { ScanStats } from '@ea11y-apps/scanner/components/header/stats/scan-stats';
 import Subheader from '@ea11y-apps/scanner/components/header/subheader';
@@ -13,12 +12,13 @@ import {
 } from '@ea11y-apps/scanner/styles/app.styles';
 import { __ } from '@wordpress/i18n';
 
-const Header = ({ isManage }) => {
+const Header = () => {
 	const {
 		openedBlock,
 		results,
 		loading,
 		isError,
+		isManage,
 		violation: violationsCount,
 	} = useScannerWizardContext();
 	const { pageData, isConnected } = useScannerSettings();
@@ -31,10 +31,11 @@ const Header = ({ isManage }) => {
 		violationsCount > 0;
 
 	const hideHeader =
-		!isConnected ||
-		isError ||
-		!PAGE_QUOTA_LIMIT ||
-		(!violationsCount && !loading);
+		!isManage &&
+		(!isConnected ||
+			isError ||
+			!PAGE_QUOTA_LIMIT ||
+			(!violationsCount && !loading));
 
 	const showStatsBlock =
 		openedBlock === BLOCKS.main || openedBlock === BLOCKS.management;
@@ -71,10 +72,6 @@ const Header = ({ isManage }) => {
 	}
 
 	return <Subheader />;
-};
-
-Header.propTypes = {
-	isManage: PropTypes.bool,
 };
 
 export default Header;

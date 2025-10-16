@@ -1,21 +1,24 @@
-import * as z from 'zod';
+import { z } from 'zod';
 
 const ScannerSettings = z.object({
 	wpRestNonce: z.string(),
 	dashboardUrl: z.url(),
 	scannerUrl: z.url(),
-	initialScanResult: z.object({
-		url: z.url(),
-		counts: z.object({
-			issuesResolved: z.int(),
-			manual: z.int(),
-			pass: z.int(),
-			potentialRecommendation: z.int(),
-			potentialViolation: z.int(),
-			recommendation: z.int(),
-			violation: z.int(),
+	initialScanResult: z.union([
+		z.object({
+			url: z.string().url(),
+			counts: z.object({
+				issuesResolved: z.number().int(),
+				manual: z.number().int(),
+				pass: z.number().int(),
+				potentialRecommendation: z.number().int(),
+				potentialViolation: z.number().int(),
+				recommendation: z.number().int(),
+				violation: z.number().int(),
+			}),
 		}),
-	}),
+		z.tuple([]),
+	]),
 	pageData: z.object({
 		entry_id: z.string(),
 		object_id: z.int(),
@@ -34,7 +37,7 @@ const useScannerSettings = () => {
 	const validationResult = ScannerSettings.safeParse(window.ea11yScannerData);
 
 	if (!validationResult.success) {
-		console.error(
+		console.warn(
 			'Ea11y scanner: Validation error of `window.ea11yScannerData`',
 			validationResult.error.issues,
 		);

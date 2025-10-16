@@ -1,3 +1,4 @@
+import { getDataFromCss } from '@ea11y-apps/global/utils/color-contrast-helpers';
 import { ColorContrastForm } from '@ea11y-apps/scanner/components/color-contrast-form';
 import { FormNavigation } from '@ea11y-apps/scanner/components/form-navigation';
 import { ManageColorContrast } from '@ea11y-apps/scanner/components/manage-color-contrast';
@@ -9,7 +10,6 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import { checkContrastAA } from '@ea11y-apps/scanner/utils/calc-color-ratio';
 import { focusOnElement } from '@ea11y-apps/scanner/utils/focus-on-element';
-import { getDataFromCss } from '@ea11y-apps/scanner/utils/get-data-from-css';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 import { useEffect, useState } from '@wordpress/element';
 

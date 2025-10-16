@@ -73,6 +73,12 @@ class Remediation_Entry extends Entry {
 				'column' => Remediation_Table::URL,
 				'value' => $url,
 				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::GLOBAL,
+				'value' => 1,
+				'operator' => '<>',
 			],
 		];
 		$select = $total ? 'COUNT(*) as total' : '*';
@@ -80,13 +86,33 @@ class Remediation_Entry extends Entry {
 	}
 
 	/**
-	 *  get_page_active_remediations
+	 *  Get excluded global remediation
 	 *
 	 * @param string $url
 	 * @return array
 	 */
-	public static function get_page_active_remediations( string $url ) : array {
+	public static function get_excluded_remediations( string $url ) : array {
 		$where = [
+			[
+				'column' => Exclude_Remediation_Relationship_Table::PAGE_URL,
+				'value' => $url,
+				'operator' => '=',
+			],
+		];
+
+		$result = Exclude_Remediation_Relationship_Table::select( Exclude_Remediation_Relationship_Table::REMEDIATION_ID, $where );
+		return wp_list_pluck( $result, Exclude_Remediation_Relationship_Table::REMEDIATION_ID );
+	}
+
+	/**
+	 * Get all active remediations for a page (including global ones)
+	 *
+	 * @param string $url
+	 * @return array
+	 */
+	public static function get_page_active_remediations( string $url ): array {
+		// Base conditions for a specific page
+		$page_where = [
 			[
 				'column' => Remediation_Table::URL,
 				'value' => $url,
@@ -97,11 +123,48 @@ class Remediation_Entry extends Entry {
 				'column' => Remediation_Table::ACTIVE,
 				'value' => 1,
 				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::GLOBAL,
+				'value' => 1,
+				'operator' => '<>',
 			],
 		];
 
-		return Remediation_Table::select( '*', $where );
+		// Prepare conditions for global remediations
+		$excluded = self::get_excluded_remediations( $url );
+
+		$global_where = [
+			[
+				'column' => Remediation_Table::ACTIVE,
+				'value' => 1,
+				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::GLOBAL,
+				'value' => 1,
+				'operator' => '=',
+			],
+		];
+
+		if ( ! empty( $excluded ) ) {
+			$global_where[] = [
+				'column' => Remediation_Table::ID,
+				'value'  => $excluded,
+				'operator' => 'NOT IN',
+				'relation_before' => 'AND ',
+			];
+		}
+
+		// Fetch results
+		$page_remediations   = Remediation_Table::select( '*', $page_where );
+		$global_remediations = Remediation_Table::select( '*', $global_where );
+
+		return array_merge( $global_remediations, $page_remediations );
 	}
+
 
 	public static function get_all_remediations( int $period ) : array {
 		$date_threshold = gmdate( 'Y-m-d', strtotime( "-{$period} days" ) ) . ' 00:00:00';
