@@ -14,9 +14,9 @@ export class ReplaceRemediation extends RemediationBase {
 	}
 
 	run() {
-		const { xpath, find, replace, global } = this.data;
+		const { xpath, find, replace, global: isGlobal } = this.data;
 		const el =
-			global === '1'
+			isGlobal === '1'
 				? this.getElementByXPathFallbackSnippet(find, xpath)
 				: this.getElementByXPath(xpath);
 

@@ -109,6 +109,7 @@ export class StylesRemediation extends RemediationBase {
 		}
 	}
 
+	// It should only work at the global level if the elements were not found on the backend side.
 	run() {
 		const tag = this.getStyleTag();
 
