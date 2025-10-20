@@ -13,10 +13,10 @@ export const ManageAltTextLayout = () => {
 	const [isEdit, setIsEdit] = useState(false);
 
 	useEffect(() => {
-		if (!item) {
+		if (!sortedRemediation[BLOCKS.altText][current]) {
 			setOpenedBlock(BLOCKS.management);
 		}
-	});
+	}, [current]);
 
 	const item = sortedRemediation[BLOCKS.altText][current];
 	const data = JSON.parse(item.content);
@@ -43,6 +43,7 @@ export const ManageAltTextLayout = () => {
 						node,
 						data,
 						path: { dom: data?.xpath },
+						global: item.global === '1',
 					}}
 					current={current}
 					setCurrent={changeNavigation}

@@ -39,13 +39,12 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		currentScanId,
 	} = useScannerWizardContext();
 
-	console.log(getOuterHtmlByXpath(item.path.dom));
-
 	const type = isManage ? 'manage' : 'main';
 
 	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
 	const [parentChanged, setParentChanged] = useState(false);
+	const [isGlobal, setIsGlobal] = useState(item.global || false);
 
 	const updateData = (data) => {
 		const updData = [...colorContrastData?.[type]];
@@ -66,6 +65,10 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			method,
 		});
 	};
+
+	useEffect(() => {
+		setIsGlobal(item.global || false);
+	}, [current]);
 
 	useEffect(() => {
 		if (!isManage && !firstOpen && isResolved(BLOCKS.colorContrast)) {
@@ -89,7 +92,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	} = colorContrastData[type]?.[current] || {};
 
 	useEffect(() => {
-		if (parentChanged) {
+		if (isManage && parentChanged) {
 			const styles = document.getElementById('ea11y-remediation-styles');
 			if (styles) {
 				styles.innerHTML = styles.innerHTML.replace(item.data.rule, '');
@@ -204,7 +207,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const onUpdate = async () => {
 		const rule = buildCSSRule();
 		const find = getOuterHtmlByXpath(item.path.dom);
-		const parentXPath = parents.length > 1 ? parents.at(-1) : null;
+		const parentXPath = parents.length > 0 ? parents.at(-1) : null;
 		const parentFind = getOuterHtmlByXpath(parentXPath);
 
 		try {
@@ -220,6 +223,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				url: window?.ea11yScannerData?.pageData?.url,
 				id: item.id,
 				content: updContent,
+				global: isGlobal,
 			});
 			const updated = sortedRemediation[openedBlock].map((remediation) =>
 				item.id === remediation.id
@@ -244,7 +248,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	const onSubmit = async () => {
-		const parentXPath = parents.length > 1 ? parents.at(-1) : null;
+		const parentXPath = parents.length > 0 ? parents.at(-1) : null;
 		const parentFind = getOuterHtmlByXpath(parentXPath);
 		setLoading(true);
 		try {
@@ -260,6 +264,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 					parentFind,
 					parentXPath,
 				},
+				global: isGlobal,
 				rule: item.ruleId,
 				group: BLOCKS.colorContrast,
 			});
@@ -282,6 +287,8 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	return {
+		isGlobal,
+		setIsGlobal,
 		color,
 		background,
 		parents,

@@ -5,14 +5,16 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 
+/**
+ * Return outer html for el. Should be used only for global remediation.
+ * @param {string|null} xpath
+ * @param {string|null} attr
+ * @return {string} element outer html with removed classes
+ */
 export const getOuterHtmlByXpath = (xpath, attr = null) => {
-	/**
-	 * Return outer html for el. Should be used only for global remediation.
-	 *
-	 * @param string xpath
-	 * @param string attr
-	 * @return string element outer html with removed classes
-	 */
+	if (!xpath) {
+		return '';
+	}
 	const element = getElementByXPath(xpath);
 	if (!element || element.nodeType !== Node.ELEMENT_NODE) {
 		return '';

@@ -29,6 +29,18 @@ export const useManualFixForm = ({ item, current }) => {
 	const [resolving, setResolving] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
 
+	const [isGlobal, setIsGlobal] = useState(item.global || false);
+	const [manualEdit, setManualEdit] = useState(false);
+	const [aiSuggestion, setAiSuggestion] = useState(null);
+
+	useEffect(() => {
+		setAiSuggestion({
+			...manualData[openedBlock][current]?.aiSuggestion,
+			submitted: false,
+		});
+		setManualEdit(manualData[openedBlock][current]?.aiSuggestion?.snippet);
+	}, [manualData[openedBlock][current]?.aiSuggestion]);
+
 	useEffect(() => {
 		if (!firstOpen && isResolved(openedBlock)) {
 			removeExistingFocus();
@@ -72,12 +84,12 @@ export const useManualFixForm = ({ item, current }) => {
 	};
 
 	const markResolved = () => {
-		updateData({ resolved: true });
+		updateData({ resolved: true, isGlobal });
 		setResolved(resolved + 1);
 		setOpenIndex(current + 1);
 	};
 
-	const resolveIssue = async (manualEdit) => {
+	const resolveIssue = async () => {
 		setResolving(true);
 
 		try {
@@ -93,6 +105,7 @@ export const useManualFixForm = ({ item, current }) => {
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'REPLACE',
 				},
+				global: isGlobal,
 				rule: item.ruleId,
 				group: BLOCKS[openedBlock],
 				apiId: manualData[openedBlock]?.[current]?.apiId,
@@ -122,6 +135,12 @@ export const useManualFixForm = ({ item, current }) => {
 	return {
 		aiResponseLoading,
 		resolving,
+		isGlobal,
+		setIsGlobal,
+		manualEdit,
+		setManualEdit,
+		aiSuggestion,
+		setAiSuggestion,
 		markResolved,
 		getAISuggestion,
 		resolveIssue,

@@ -1,6 +1,8 @@
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
+import WorldIcon from '@elementor/icons/WorldIcon';
 import Box from '@elementor/ui/Box';
 import Radio from '@elementor/ui/Radio';
+import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { ManualFixForm } from '@ea11y-apps/scanner/components/manual-fix-form';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
@@ -44,9 +46,20 @@ export const ManualLayout = () => {
 							aria-label={__('Resolved', 'pojo-accessibility')}
 						/>
 
-						<Typography variant="body2" as="h4" sx={{ mr: 0.5 }} noWrap>
+						<Typography variant="body2" as="h4" noWrap>
 							{uxMessaging[item.ruleId]?.violationName ?? item.category}
 						</Typography>
+						{manualData[openedBlock][index]?.isGlobal && (
+							<Tooltip
+								placement="top"
+								title={__('Cross-scan issue', 'pojo-accessibility')}
+								PopperProps={{
+									disablePortal: true,
+								}}
+							>
+								<WorldIcon color="action" fontSize="tiny" />
+							</Tooltip>
+						)}
 					</StyledAccordionSummary>
 
 					<ManualFixForm item={item} current={index} setOpen={setOpenIndex} />

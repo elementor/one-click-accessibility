@@ -207,16 +207,18 @@ class Remediation_Entry extends Entry {
 	 * @param string $by
 	 * @param string $by_value
 	 * @param string $content
+	 * @param bool $is_global
 	 *
 	 * @return void
 	 */
-	public static function update_remediation_content( string $by, string $by_value, string $content ): void {
+	public static function update_remediation_content( string $by, string $by_value, string $content, bool $is_global ): void {
 		$where = [
 			$by => $by_value,
 		];
 
 		$data = [
 			Remediation_Table::CONTENT => $content,
+			Remediation_Table::GLOBAL => $is_global,
 		];
 
 		Remediation_Table::update( $data, $where );

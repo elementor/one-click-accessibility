@@ -180,7 +180,9 @@ class Remediation_Runner {
 		if ( ! is_user_logged_in() && $this->page_html && $this->page->is_valid_hash() && $is_params_empty ) {
 			return $this->page_html;
 		}
+
 		$dom = $this->generate_remediation_dom( $buffer );
+
 		if ( ! is_user_logged_in() && $is_params_empty ) {
 			$this->page->update_html( $dom );
 		}

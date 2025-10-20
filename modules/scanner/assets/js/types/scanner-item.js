@@ -26,4 +26,5 @@ export const scannerItem = PropTypes.shape({
 	parentNode: PropTypes.object,
 	isPotential: PropTypes.bool,
 	isEdit: PropTypes.bool,
+	global: PropTypes.bool,
 });

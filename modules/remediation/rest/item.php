@@ -99,8 +99,9 @@ class Item extends Route_Base {
 			$id = sanitize_text_field( $request->get_param( 'id' ) );
 			$url = esc_url( $request->get_param( 'url' ) );
 			$content = $request->get_param( 'content' );
+			$is_global = (bool) $request->get_param( 'global' );
 
-			Remediation_Entry::update_remediation_content( Remediation_Table::ID, $id, $content );
+			Remediation_Entry::update_remediation_content( Remediation_Table::ID, $id, $content, $is_global );
 			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [

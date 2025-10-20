@@ -16,14 +16,14 @@ import { useEffect, useState } from '@wordpress/element';
 export const ManageColorContrastLayout = () => {
 	const { sortedRemediation, setOpenedBlock } = useScannerWizardContext();
 
-	useEffect(() => {
-		if (!item) {
-			setOpenedBlock(BLOCKS.management);
-		}
-	});
-
 	const [current, setCurrent] = useState(0);
 	const [isEdit, setIsEdit] = useState(false);
+
+	useEffect(() => {
+		if (!sortedRemediation[BLOCKS.colorContrast][current]) {
+			setOpenedBlock(BLOCKS.management);
+		}
+	}, [current]);
 
 	const item = sortedRemediation[BLOCKS.colorContrast][current];
 	const data = JSON.parse(item?.content);
@@ -72,6 +72,7 @@ export const ManageColorContrastLayout = () => {
 						isEdit,
 						isPotential: colorData.isPotential,
 						parentNode: cssData.background?.item,
+						global: item.global === '1',
 					}}
 					current={current}
 					setCurrent={changeNavigation}

@@ -36,6 +36,7 @@ export const useAltTextForm = ({ current, item }) => {
 	const [loadingAiText, setLoadingAiText] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
+	const [isGlobal, setIsGlobal] = useState(false);
 
 	const type = isManage ? 'manage' : 'main';
 
@@ -48,6 +49,10 @@ export const useAltTextForm = ({ current, item }) => {
 			});
 		}
 	}, [isManage]);
+
+	useEffect(() => {
+		setIsGlobal(item.global || false);
+	}, [current]);
 
 	useEffect(() => {
 		if (!isManage && !firstOpen && isResolved(BLOCKS.altText)) {
@@ -74,24 +79,19 @@ export const useAltTextForm = ({ current, item }) => {
 
 	const makeAttributeData = () => {
 		if (altTextData?.[type]?.[current]?.makeDecorative) {
-			item.node.setAttribute('role', 'presentation');
 			return {
 				attribute_name: 'role',
 				attribute_value: 'presentation',
 			};
 		}
+
 		if (item.node.tagName === 'svg') {
-			item.node.setAttribute(
-				'aria-label',
-				altTextData?.[type]?.[current]?.altText,
-			);
 			return {
 				attribute_name: 'aria-label',
 				attribute_value: altTextData?.[type]?.[current]?.altText,
 			};
 		}
 
-		item.node.setAttribute('alt', altTextData?.[type]?.[current]?.altText);
 		return {
 			attribute_name: 'alt',
 			attribute_value: altTextData?.[type]?.[current]?.altText,
@@ -103,7 +103,7 @@ export const useAltTextForm = ({ current, item }) => {
 		const altText = !altTextData?.[type]?.[current]?.makeDecorative
 			? altTextData?.[type]?.[current]?.altText
 			: '';
-		const find = getOuterHtmlByXpath(item.path.dom);
+		const find = item.snippet;
 
 		try {
 			if (match && item.node.tagName !== 'svg') {
@@ -119,6 +119,7 @@ export const useAltTextForm = ({ current, item }) => {
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'ATTRIBUTE',
 				},
+				global: isGlobal,
 				rule: item.ruleId,
 				group: BLOCKS.altText,
 				apiId: altTextData?.[type]?.[current]?.apiId,
@@ -203,6 +204,7 @@ export const useAltTextForm = ({ current, item }) => {
 				url: window?.ea11yScannerData?.pageData?.url,
 				id: item.id,
 				content: strContent,
+				global: isGlobal,
 			});
 			const updated = sortedRemediation[openedBlock].map((remediation) =>
 				item.id === remediation.id
@@ -290,13 +292,16 @@ export const useAltTextForm = ({ current, item }) => {
 
 	const isSubmitDisabled = isManage
 		? attrData.attribute_value === item.data.attribute_value &&
-			attrData.attribute_name === item.data.attribute_name
+			attrData.attribute_name === item.data.attribute_name &&
+			isGlobal === item.global
 		: (!altTextData?.[type]?.[current]?.makeDecorative &&
 				!altTextData?.[type]?.[current]?.altText) ||
 			altTextData?.[type]?.[current]?.resolved ||
 			loading;
 
 	return {
+		isGlobal,
+		setIsGlobal,
 		loadingAiText,
 		data: altTextData?.[type],
 		isSubmitDisabled,
