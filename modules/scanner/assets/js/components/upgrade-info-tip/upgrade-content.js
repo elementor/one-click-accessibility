@@ -3,7 +3,7 @@ import Button from '@elementor/ui/Button';
 import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import CrownFilled from '@ea11y/icons/crown-filled';
+import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import {
 	COMPARE_PLAN_URL,

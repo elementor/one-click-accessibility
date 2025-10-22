@@ -2,7 +2,7 @@ import Box from '@elementor/ui/Box';
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
 import Tab from '@elementor/ui/Tab';
 import { FocusTrap } from 'focus-trap-react';
-import { Notifications } from '@ea11y/components';
+import Notifications from '@ea11y-apps/global/components/notifications';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
