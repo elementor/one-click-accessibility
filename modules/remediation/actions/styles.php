@@ -96,7 +96,6 @@ class Styles extends Remediation_Base {
 		$result = '';
 
 		foreach ( $matches as $match ) {
-			$selector = trim( $match[1] );
 			$rules = trim( $match[2] );
 
 			// Find color value
