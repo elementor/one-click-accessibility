@@ -1,9 +1,9 @@
 import { InfoCircleIcon, LockFilledIcon } from '@elementor/icons';
-import { styled } from '@elementor/ui';
 import Box from '@elementor/ui/Box';
 import Infotip from '@elementor/ui/Infotip';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { QuotaBarData } from '@ea11y/components/quota-bar/data';
 import { formatPlanValue } from '../../utils/index';
 
