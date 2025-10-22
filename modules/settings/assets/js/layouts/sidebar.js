@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from '@elementor/icons';
+import ChevronLeftIcon from '@elementor/icons/ChevronLeftIcon';
 import Box from '@elementor/ui/Box';
 import Divider from '@elementor/ui/Divider';
 import Drawer from '@elementor/ui/Drawer';

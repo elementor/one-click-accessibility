@@ -1,4 +1,5 @@
-import { ChevronUpIcon, CrownIcon } from '@elementor/icons';
+import ChevronUpIcon from '@elementor/icons/ChevronUpIcon';
+import CrownIcon from '@elementor/icons/CrownIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';

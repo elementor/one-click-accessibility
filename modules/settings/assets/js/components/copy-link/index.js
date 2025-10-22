@@ -1,4 +1,4 @@
-import { LinkIcon } from '@elementor/icons';
+import LinkIcon from '@elementor/icons/LinkIcon';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import clipboardCopy from 'clipboard-copy';

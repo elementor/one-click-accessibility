@@ -1,4 +1,5 @@
-import { InfoCircleIcon, LockFilledIcon } from '@elementor/icons';
+import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
+import LockFilledIcon from '@elementor/icons/LockFilledIcon';
 import Box from '@elementor/ui/Box';
 import Infotip from '@elementor/ui/Infotip';
 import LinearProgress from '@elementor/ui/LinearProgress';
