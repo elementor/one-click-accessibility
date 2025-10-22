@@ -17,15 +17,15 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { useTabsContext } from '@ea11y-apps/scanner/context/tabs-context';
 import {
 	AltTextLayout,
+	ColorContrastLayout,
+	HeadingStructureLayout,
 	MainLayout,
+	ManageAltTextLayout,
+	ManageColorContrastLayout,
 	ManageMainLayout,
+	ManageManualLayout,
 	ManualLayout,
-	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
-import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
-import { HeadingStructureLayout } from '@ea11y-apps/scanner/layouts/heading-structure-layout';
-import { ManageAltTextLayout } from '@ea11y-apps/scanner/layouts/manage-alt-text-layout';
-import { ManageColorContrastLayout } from '@ea11y-apps/scanner/layouts/manage-color-contrast-layout';
 import {
 	AppContainer,
 	AppsTabPanel,
@@ -125,7 +125,7 @@ const App = () => {
 			case BLOCKS.headingStructure:
 				return <HeadingStructureLayout />;
 			default:
-				return <RemediationLayout />;
+				return <ManageManualLayout />;
 		}
 	};
 

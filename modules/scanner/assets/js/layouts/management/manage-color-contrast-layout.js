@@ -14,18 +14,27 @@ import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpat
 import { useEffect, useState } from '@wordpress/element';
 
 export const ManageColorContrastLayout = () => {
-	const { sortedRemediation, setOpenedBlock } = useScannerWizardContext();
+	const {
+		sortedRemediation,
+		sortedGlobalRemediation,
+		isManageGlobal,
+		setOpenedBlock,
+	} = useScannerWizardContext();
 
 	const [current, setCurrent] = useState(0);
 	const [isEdit, setIsEdit] = useState(false);
 
+	const remediations = isManageGlobal
+		? sortedGlobalRemediation
+		: sortedRemediation;
+
 	useEffect(() => {
-		if (!sortedRemediation[BLOCKS.colorContrast][current]) {
+		if (!remediations[BLOCKS.colorContrast][current]) {
 			setOpenedBlock(BLOCKS.management);
 		}
 	}, [current]);
 
-	const item = sortedRemediation[BLOCKS.colorContrast][current];
+	const item = remediations[BLOCKS.colorContrast][current];
 	const data = JSON.parse(item?.content);
 	const node = getElementByXPath(data?.xpath);
 	const cssData = getDataFromCss(data.rule);
@@ -46,7 +55,7 @@ export const ManageColorContrastLayout = () => {
 	};
 
 	const changeNavigation = (index) => {
-		if (index > sortedRemediation[BLOCKS.colorContrast].length - 1) {
+		if (index > remediations[BLOCKS.colorContrast].length - 1) {
 			setCurrent(0);
 		} else {
 			setCurrent(index);
@@ -89,7 +98,7 @@ export const ManageColorContrastLayout = () => {
 				/>
 			)}
 			<FormNavigation
-				total={sortedRemediation[BLOCKS.colorContrast].length}
+				total={remediations[BLOCKS.colorContrast].length}
 				current={current}
 				setCurrent={changeNavigation}
 			/>

@@ -3,6 +3,7 @@ import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ButtonMenu } from '@ea11y-apps/scanner/components/block-button/button-menu';
+import { GlobalButtonMenu } from '@ea11y-apps/scanner/components/block-button/global-button-menu';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	ActionButton,
@@ -10,11 +11,17 @@ import {
 } from '@ea11y-apps/scanner/styles/app.styles';
 import { __, sprintf } from '@wordpress/i18n';
 
-export const ManageButton = ({ title, count, block }) => {
-	const { sortedRemediation, setOpenedBlock } = useScannerWizardContext();
+export const ManageButton = ({ title, count, block, global = false }) => {
+	const {
+		sortedRemediation,
+		sortedGlobalRemediation,
+		setOpenedBlock,
+		setIsManageGlobal,
+	} = useScannerWizardContext();
 
 	const handleClick = () => {
 		setOpenedBlock(block);
+		setIsManageGlobal(global);
 		mixpanelService.sendEvent(mixpanelEvents.categoryClicked, {
 			page_url: window.ea11yScannerData?.pageData?.url,
 			issue_count: count,
@@ -23,7 +30,8 @@ export const ManageButton = ({ title, count, block }) => {
 		});
 	};
 
-	const total = sortedRemediation[block].length;
+	const remediations = global ? sortedGlobalRemediation : sortedRemediation;
+	const total = remediations[block].length;
 
 	return (
 		<ManageButtonWrap>
@@ -50,7 +58,11 @@ export const ManageButton = ({ title, count, block }) => {
 				size="tiny"
 				disabled={count === 0}
 			/>
-			<ButtonMenu group={block} />
+			{global ? (
+				<GlobalButtonMenu group={block} />
+			) : (
+				<ButtonMenu group={block} />
+			)}
 		</ManageButtonWrap>
 	);
 };
@@ -59,4 +71,5 @@ ManageButton.propTypes = {
 	title: PropTypes.string.isRequired,
 	count: PropTypes.number.isRequired,
 	block: PropTypes.string.isRequired,
+	global: PropTypes.bool,
 };

@@ -33,6 +33,8 @@ export default function useScannerWizardActions(state) {
 		setLoading,
 		setRemediations,
 		setSortedRemediation,
+		setGlobalRemediations,
+		setSortedGlobalRemediation,
 		setOpenIndex,
 	} = state;
 
@@ -41,9 +43,12 @@ export default function useScannerWizardActions(state) {
 			const items = await APIScanner.getRemediations(
 				window.ea11yScannerData?.pageData?.url,
 			);
-			const sorted = sortRemediation(items.data);
-			setRemediations(items.data);
+			const sorted = sortRemediation(items.data.page);
+			const sortedGlobal = sortRemediation(items.data.global);
+			setRemediations(items.data.page);
 			setSortedRemediation(sorted);
+			setGlobalRemediations(items.data.global);
+			setSortedGlobalRemediation(sortedGlobal);
 		} catch (error) {
 			setIsError(true);
 		}

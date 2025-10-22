@@ -44,7 +44,7 @@ class Scanner_Results extends Route_Base {
 
 			foreach ( $pages_scanned as $page ) {
 				$scans = Scan_Entry::get_scans( $page->url );
-				$page_remediation_count = Remediation_Entry::get_page_remediations( $page->url, true );
+				$page_remediation_count = Remediation_Entry::get_page_remediations_count( $page->url );
 
 				$scans = array_map(function( $scan ) {
 					return [

@@ -8,17 +8,26 @@ import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpat
 import { useEffect, useState } from '@wordpress/element';
 
 export const ManageAltTextLayout = () => {
-	const { sortedRemediation, setOpenedBlock } = useScannerWizardContext();
+	const {
+		sortedRemediation,
+		sortedGlobalRemediation,
+		isManageGlobal,
+		setOpenedBlock,
+	} = useScannerWizardContext();
 	const [current, setCurrent] = useState(0);
 	const [isEdit, setIsEdit] = useState(false);
 
+	const remediations = isManageGlobal
+		? sortedGlobalRemediation
+		: sortedRemediation;
+
 	useEffect(() => {
-		if (!sortedRemediation[BLOCKS.altText][current]) {
+		if (!remediations[BLOCKS.altText][current]) {
 			setOpenedBlock(BLOCKS.management);
 		}
 	}, [current]);
 
-	const item = sortedRemediation[BLOCKS.altText][current];
+	const item = remediations[BLOCKS.altText][current];
 	const data = JSON.parse(item.content);
 	const node = getElementByXPath(data.xpath);
 
@@ -27,7 +36,7 @@ export const ManageAltTextLayout = () => {
 	};
 
 	const changeNavigation = (index) => {
-		if (index > sortedRemediation[BLOCKS.altText].length - 1) {
+		if (index > remediations[BLOCKS.altText].length - 1) {
 			setCurrent(0);
 		} else {
 			setCurrent(index);
@@ -53,7 +62,7 @@ export const ManageAltTextLayout = () => {
 				<ManageAltText item={item} current={current} openEdit={openEdit} />
 			)}
 			<FormNavigation
-				total={sortedRemediation.altText.length}
+				total={remediations.altText.length}
 				current={current}
 				setCurrent={changeNavigation}
 			/>

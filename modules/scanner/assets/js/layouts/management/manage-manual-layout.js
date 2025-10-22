@@ -12,24 +12,30 @@ import {
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { useEffect } from '@wordpress/element';
 
-export const RemediationLayout = () => {
+export const ManageManualLayout = () => {
 	const {
 		openIndex,
 		handleOpen,
 		openedBlock,
 		sortedRemediation,
+		sortedGlobalRemediation,
+		isManageGlobal,
 		setOpenedBlock,
 	} = useScannerWizardContext();
 
+	const remediations = isManageGlobal
+		? sortedGlobalRemediation
+		: sortedRemediation;
+
 	useEffect(() => {
-		if (sortedRemediation[openedBlock]?.length === 0) {
+		if (remediations[openedBlock]?.length === 0) {
 			setOpenedBlock(BLOCKS.management);
 		}
-	}, [sortedRemediation[openedBlock]?.length]);
+	}, [remediations[openedBlock]?.length]);
 
 	return (
 		<Box sx={{ pb: 8 }}>
-			{sortedRemediation[openedBlock].map((item, index) => (
+			{remediations[openedBlock].map((item, index) => (
 				<StyledAccordion
 					key={`${item.rule}-${index}`}
 					elevation={0}

@@ -53,9 +53,11 @@ class Remediation_Entry extends Entry {
 	public static function remove( string $by, string $by_value, ?string $group = null ) {
 		$where = $group ? [
 			$by => $by_value,
-			'group' => $group,
+			Remediation_Table::GROUP => $group,
+			Remediation_Table::GLOBAL => 0,
 		] : [
 			$by => $by_value,
+			Remediation_Table::GLOBAL => 0,
 		];
 		Remediation_Table::delete( $where );
 	}
@@ -64,10 +66,12 @@ class Remediation_Entry extends Entry {
 	 *  get_page_remediations
 	 *
 	 * @param string $url
-	 * @param bool $total
 	 * @return array
 	 */
-	public static function get_page_remediations( string $url, bool $total = false ) : array {
+	public static function get_page_remediations( string $url ) : array {
+		$excluded_table = Exclude_Remediation_Relationship_Table::table_name();
+		$remediation_table = Remediation_Table::table_name();
+
 		$where = [
 			[
 				'column' => Remediation_Table::URL,
@@ -81,8 +85,43 @@ class Remediation_Entry extends Entry {
 				'operator' => '<>',
 			],
 		];
-		$select = $total ? 'COUNT(*) as total' : '*';
-		return Remediation_Table::select( $select, $where );
+		$global_where = [
+			[
+				'column' => "$remediation_table.global",
+				'value' => 1,
+				'operator' => '=',
+			],
+		];
+		$join = "LEFT JOIN $excluded_table ON $remediation_table.id = $excluded_table.remediation_id AND $excluded_table.page_url = '$url'";
+
+		return [
+			'page' => Remediation_Table::select( '*', $where ),
+			'global' => Remediation_Table::select( "$remediation_table.*, $excluded_table.id AS excluded", $global_where, null, null, $join ),
+		];
+	}
+
+	/**
+	 *  Get count of page remediations
+	 *
+	 * @param string $url
+	 * @return array
+	 */
+	public static function get_page_remediations_count( string $url ) : array {
+		$where = [
+			[
+				'column' => Remediation_Table::URL,
+				'value' => $url,
+				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::GLOBAL,
+				'value' => 1,
+				'operator' => '<>',
+			],
+		];
+
+		return Remediation_Table::select( 'COUNT(*) as total', $where );
 	}
 
 	/**
@@ -165,7 +204,11 @@ class Remediation_Entry extends Entry {
 		return array_merge( $global_remediations, $page_remediations );
 	}
 
-
+	/**
+	 * @param int $period
+	 *
+	 * @return array
+	 */
 	public static function get_all_remediations( int $period ) : array {
 		$date_threshold = gmdate( 'Y-m-d', strtotime( "-{$period} days" ) ) . ' 00:00:00';
 
@@ -181,6 +224,28 @@ class Remediation_Entry extends Entry {
 	}
 
 	/**
+	 * @param string $group
+	 * @return array
+	 */
+	public static function get_global_remediation_group_ids( string $group ) : array {
+		$where = [
+			[
+				'column' => Remediation_Table::GROUP,
+				'value' => $group,
+				'operator' => '=',
+				'relation_after' => 'AND',
+			],
+			[
+				'column' => Remediation_Table::GLOBAL,
+				'value' => 1,
+				'operator' => '=',
+			],
+		];
+
+		return Remediation_Table::select( Remediation_Table::ID, $where );
+	}
+
+	/**
 	 * @param string $by
 	 * @param string $by_value
 	 * @param bool $status
@@ -191,9 +256,11 @@ class Remediation_Entry extends Entry {
 	public static function update_remediations_status( string $by, string $by_value, bool $status, ?string $group = null ): void {
 		$where = $group ? [
 			$by => $by_value,
-			'group' => $group,
+			Remediation_Table::GROUP => $group,
+			Remediation_Table::GLOBAL => 0,
 		] : [
 			$by => $by_value,
+			Remediation_Table::GLOBAL => 0,
 		];
 
 		$data = [

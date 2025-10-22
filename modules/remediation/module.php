@@ -28,6 +28,8 @@ class Module extends Module_Base {
 			'Set_Alt_Text',
 			'Items',
 			'Item',
+			'Global_Item',
+			'Global_Items',
 			'Trigger_Save',
 			'Heading_Level',
 			'Dismiss_Heading_Issue',
