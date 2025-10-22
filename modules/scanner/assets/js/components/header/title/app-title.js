@@ -1,6 +1,6 @@
 import Chip from '@elementor/ui/Chip';
-import { StyledTitle } from '@ea11y/pages/pages.styles';
 import { Logo } from '@ea11y-apps/scanner/images';
+import { StyledTitle } from '@ea11y-apps/scanner/styles/app.styles';
 import { __ } from '@wordpress/i18n';
 
 const AppTitle = () => {
