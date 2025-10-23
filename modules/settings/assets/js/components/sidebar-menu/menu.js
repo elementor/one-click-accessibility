@@ -1,11 +1,13 @@
-import { ChecklistIcon, PagesIcon, SettingsIcon } from '@elementor/icons';
-import { WidgetIcon, AnalyticsIcon } from '@ea11y/icons';
+import ChecklistIcon from '@elementor/icons/ChecklistIcon';
+import PagesIcon from '@elementor/icons/PagesIcon';
+import SettingsIcon from '@elementor/icons/SettingsIcon';
+import { AnalyticsIcon, WidgetIcon } from '@ea11y/icons';
 import {
-	AccessibilityStatement,
-	Menu,
-	IconSettings,
-	Analytics,
 	AccessibilityAssistant,
+	AccessibilityStatement,
+	Analytics,
+	IconSettings,
+	Menu,
 } from '@ea11y/pages';
 import { __ } from '@wordpress/i18n';
 import { AccessibilityAssistantContextProvider } from '../../contexts/accessibility-assistant-context';

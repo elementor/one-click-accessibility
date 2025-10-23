@@ -1,4 +1,4 @@
-import { EditIcon } from '@elementor/icons';
+import EditIcon from '@elementor/icons/EditIcon';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import { useSettings } from '@ea11y/hooks';

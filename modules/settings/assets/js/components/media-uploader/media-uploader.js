@@ -1,4 +1,4 @@
-import { UploadIcon } from '@elementor/icons';
+import UploadIcon from '@elementor/icons/UploadIcon';
 import Button from '@elementor/ui/Button';
 import { ConfirmDialog } from '@ea11y/components';
 import { useIconDesign, useStorage } from '@ea11y/hooks';

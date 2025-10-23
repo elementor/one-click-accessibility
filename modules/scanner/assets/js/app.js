@@ -2,7 +2,7 @@ import Box from '@elementor/ui/Box';
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
 import Tab from '@elementor/ui/Tab';
 import { FocusTrap } from 'focus-trap-react';
-import { Notifications } from '@ea11y/components';
+import Notifications from '@ea11y-apps/global/components/notifications';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
@@ -17,15 +17,15 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { useTabsContext } from '@ea11y-apps/scanner/context/tabs-context';
 import {
 	AltTextLayout,
+	ColorContrastLayout,
+	HeadingStructureLayout,
 	MainLayout,
+	ManageAltTextLayout,
+	ManageColorContrastLayout,
 	ManageMainLayout,
+	ManageManualLayout,
 	ManualLayout,
-	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
-import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
-import { HeadingStructureLayout } from '@ea11y-apps/scanner/layouts/heading-structure-layout';
-import { ManageAltTextLayout } from '@ea11y-apps/scanner/layouts/manage-alt-text-layout';
-import { ManageColorContrastLayout } from '@ea11y-apps/scanner/layouts/manage-color-contrast-layout';
 import {
 	AppContainer,
 	AppsTabPanel,
@@ -125,7 +125,7 @@ const App = () => {
 			case BLOCKS.headingStructure:
 				return <HeadingStructureLayout />;
 			default:
-				return <RemediationLayout />;
+				return <ManageManualLayout />;
 		}
 	};
 
@@ -157,7 +157,7 @@ const App = () => {
 						</AppsTabs>
 					</Box>
 
-					<Header isManage={openedBlock === BLOCKS.management} />
+					<Header />
 
 					<AppsTabPanel {...getTabPanelProps(BLOCKS.main)}>
 						{getMsgStateBlock() || getIssuesBlock()}

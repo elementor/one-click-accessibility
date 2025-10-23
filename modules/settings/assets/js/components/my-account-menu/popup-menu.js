@@ -1,8 +1,6 @@
-import {
-	CalendarDollarIcon,
-	ExternalLinkIcon,
-	UserIcon,
-} from '@elementor/icons';
+import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
+import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
+import UserIcon from '@elementor/icons/UserIcon';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
 import Chip from '@elementor/ui/Chip';

@@ -17,6 +17,7 @@ import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
+import { SetGlobal } from '@ea11y-apps/scanner/components/manage-actions/set-global';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
 import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
@@ -30,6 +31,8 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 	const { isManage } = useScannerWizardContext();
 	const { error } = useToastNotification();
 	const {
+		isGlobal,
+		setIsGlobal,
 		data,
 		loadingAiText,
 		isSubmitDisabled,
@@ -43,6 +46,10 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 		current,
 		item,
 	});
+
+	const onGlobalChange = (value) => {
+		setIsGlobal(value);
+	};
 
 	const onSubmit = async () => {
 		try {
@@ -188,18 +195,26 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 					)}
 				</Box>
 			</StyledAlert>
-			<Button
-				variant="contained"
-				color="info"
-				fullWidth
-				loading={loading}
-				disabled={isSubmitDisabled}
-				onClick={isManage ? onUpdate : onSubmit}
-			>
-				{isManage
-					? __('Update', 'pojo-accessibility')
-					: __('Resolve', 'pojo-accessibility')}
-			</Button>
+			<Box>
+				<SetGlobal
+					item={item}
+					onGlobalChange={onGlobalChange}
+					isChecked={isGlobal}
+				/>
+				<Button
+					variant="contained"
+					color="info"
+					fullWidth
+					loading={loading}
+					disabled={isSubmitDisabled}
+					onClick={isManage ? onUpdate : onSubmit}
+					sx={{ mt: 1.5 }}
+				>
+					{isGlobal
+						? __('Apply everywhere', 'pojo-accessibility')
+						: __('Apply fix', 'pojo-accessibility')}
+				</Button>
+			</Box>
 		</StyledBox>
 	);
 };

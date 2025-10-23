@@ -1,4 +1,5 @@
-import { ChevronDownIcon, InfoCircleFilledIcon } from '@elementor/icons';
+import ChevronDownIcon from '@elementor/icons/ChevronDownIcon';
+import InfoCircleFilledIcon from '@elementor/icons/InfoCircleFilledIcon';
 import Alert from '@elementor/ui/Alert';
 import AlertTitle from '@elementor/ui/AlertTitle';
 import Box from '@elementor/ui/Box';

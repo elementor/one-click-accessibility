@@ -1,6 +1,6 @@
 import Alert from '@elementor/ui/Alert';
 import Snackbar from '@elementor/ui/Snackbar';
-import { useNotificationSettings } from '@ea11y/hooks';
+import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 
 const Notifications = ({ type, message }) => {
 	const {

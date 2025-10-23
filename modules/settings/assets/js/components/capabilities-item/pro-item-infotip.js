@@ -1,4 +1,4 @@
-import { CrownIcon } from '@elementor/icons';
+import CrownIcon from '@elementor/icons/CrownIcon';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardActions from '@elementor/ui/CardActions';

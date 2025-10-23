@@ -1,3 +1,4 @@
+import { getDataFromCss } from '@ea11y-apps/global/utils/color-contrast-helpers';
 import { ColorContrastForm } from '@ea11y-apps/scanner/components/color-contrast-form';
 import { FormNavigation } from '@ea11y-apps/scanner/components/form-navigation';
 import { ManageColorContrast } from '@ea11y-apps/scanner/components/manage-color-contrast';
@@ -9,23 +10,31 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import { checkContrastAA } from '@ea11y-apps/scanner/utils/calc-color-ratio';
 import { focusOnElement } from '@ea11y-apps/scanner/utils/focus-on-element';
-import { getDataFromCss } from '@ea11y-apps/scanner/utils/get-data-from-css';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 import { useEffect, useState } from '@wordpress/element';
 
 export const ManageColorContrastLayout = () => {
-	const { sortedRemediation, setOpenedBlock } = useScannerWizardContext();
-
-	useEffect(() => {
-		if (!item) {
-			setOpenedBlock(BLOCKS.management);
-		}
-	});
+	const {
+		sortedRemediation,
+		sortedGlobalRemediation,
+		isManageGlobal,
+		setOpenedBlock,
+	} = useScannerWizardContext();
 
 	const [current, setCurrent] = useState(0);
 	const [isEdit, setIsEdit] = useState(false);
 
-	const item = sortedRemediation[BLOCKS.colorContrast][current];
+	const remediations = isManageGlobal
+		? sortedGlobalRemediation
+		: sortedRemediation;
+
+	useEffect(() => {
+		if (!remediations[BLOCKS.colorContrast][current]) {
+			setOpenedBlock(BLOCKS.management);
+		}
+	}, [current]);
+
+	const item = remediations[BLOCKS.colorContrast][current];
 	const data = JSON.parse(item?.content);
 	const node = getElementByXPath(data?.xpath);
 	const cssData = getDataFromCss(data.rule);
@@ -46,7 +55,7 @@ export const ManageColorContrastLayout = () => {
 	};
 
 	const changeNavigation = (index) => {
-		if (index > sortedRemediation[BLOCKS.colorContrast].length - 1) {
+		if (index > remediations[BLOCKS.colorContrast].length - 1) {
 			setCurrent(0);
 		} else {
 			setCurrent(index);
@@ -72,6 +81,7 @@ export const ManageColorContrastLayout = () => {
 						isEdit,
 						isPotential: colorData.isPotential,
 						parentNode: cssData.background?.item,
+						global: item.global === '1',
 					}}
 					current={current}
 					setCurrent={changeNavigation}
@@ -88,7 +98,7 @@ export const ManageColorContrastLayout = () => {
 				/>
 			)}
 			<FormNavigation
-				total={sortedRemediation[BLOCKS.colorContrast].length}
+				total={remediations[BLOCKS.colorContrast].length}
 				current={current}
 				setCurrent={changeNavigation}
 			/>

@@ -1,24 +1,28 @@
 import Alert from '@elementor/ui/Alert';
 import AlertTitle from '@elementor/ui/AlertTitle';
+import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Divider from '@elementor/ui/Divider';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { rgbOrRgbaToHex } from '@ea11y-apps/global/utils/color-contrast-helpers';
 import { ColorSet } from '@ea11y-apps/scanner/components/color-contrast-form/color-set';
 import { ColorSetDisabled } from '@ea11y-apps/scanner/components/color-contrast-form/color-set-disabled';
 import { ParentSelector } from '@ea11y-apps/scanner/components/color-contrast-form/parent-selector';
+import { SetGlobal } from '@ea11y-apps/scanner/components/manage-actions/set-global';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useColorContrastForm } from '@ea11y-apps/scanner/hooks/use-color-contrast-form';
 import { StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { checkContrastAA } from '@ea11y-apps/scanner/utils/calc-color-ratio';
-import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
 import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 	const {
+		isGlobal,
+		setIsGlobal,
 		color,
 		background,
 		parents,
@@ -63,6 +67,10 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 			category_name: BLOCKS.colorContrast,
 			page_url: window.ea11yScannerData?.pageData?.url,
 		});
+	};
+
+	const onGlobalChange = (value) => {
+		setIsGlobal(value);
 	};
 
 	const handleUpdate = async () => {
@@ -129,16 +137,27 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 				{colorData.ratio}
 			</Alert>
 
-			<Button
-				variant="contained"
-				size="small"
-				color="info"
-				loading={loading}
-				disabled={isSubmitDisabled}
-				onClick={item.isEdit ? handleUpdate : handleSubmit}
-			>
-				{__('Apply changes', 'pojo-accessibility')}
-			</Button>
+			<Box>
+				<SetGlobal
+					item={item}
+					onGlobalChange={onGlobalChange}
+					isChecked={isGlobal}
+				/>
+				<Button
+					variant="contained"
+					size="small"
+					color="info"
+					loading={loading}
+					disabled={isSubmitDisabled}
+					onClick={item.isEdit ? handleUpdate : handleSubmit}
+					sx={{ mt: 1.5 }}
+					fullWidth
+				>
+					{isGlobal
+						? __('Apply everywhere', 'pojo-accessibility')
+						: __('Apply fix', 'pojo-accessibility')}
+				</Button>
+			</Box>
 		</StyledBox>
 	);
 };

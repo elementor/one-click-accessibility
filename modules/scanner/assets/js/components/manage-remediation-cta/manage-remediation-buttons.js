@@ -1,11 +1,11 @@
 import Box from '@elementor/ui/Box';
 import Divider from '@elementor/ui/Divider';
-import { DeleteButton } from '@ea11y-apps/scanner/components/manage-remediation-buttons/delete-button';
-import { DisableButton } from '@ea11y-apps/scanner/components/manage-remediation-buttons/disable-button';
-import { EnableButton } from '@ea11y-apps/scanner/components/manage-remediation-buttons/enable-button';
+import { DeleteButton } from '@ea11y-apps/scanner/components/manage-remediation-cta/delete-button';
+import { DisableButton } from '@ea11y-apps/scanner/components/manage-remediation-cta/disable-button';
+import { EnableButton } from '@ea11y-apps/scanner/components/manage-remediation-cta/enable-button';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 
-export const ManageRemediationButtons = () => {
+const ManageRemediationButtons = () => {
 	const { remediations } = useScannerWizardContext();
 
 	const isAllDisabled =
@@ -26,3 +26,5 @@ export const ManageRemediationButtons = () => {
 		</Box>
 	);
 };
+
+export default ManageRemediationButtons;

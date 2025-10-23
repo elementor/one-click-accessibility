@@ -2,7 +2,6 @@
 
 namespace EA11y\Modules\Remediation\Rest;
 
-use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Remediation\Classes\Route_Base;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Remediation_Entry;
@@ -85,7 +84,7 @@ class Heading_Level extends Route_Base {
 	}
 
 	private function remove_existing_remediations( string $url, string $xpath ): void {
-		$existing_entries = Remediation_Entry::get_page_remediations( $url );
+		$existing_entries = Remediation_Entry::get_page_remediations( $url )['page'];
 
 		foreach ( $existing_entries as $entry ) {
 			if ( isset( $entry->group ) && 'headingStructure' === $entry->group ) {

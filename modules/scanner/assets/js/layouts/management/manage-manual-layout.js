@@ -2,30 +2,42 @@ import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
 import Box from '@elementor/ui/Box';
 import Radio from '@elementor/ui/Radio';
 import Typography from '@elementor/ui/Typography';
-import { ManualFixForm } from '@ea11y-apps/scanner/components/manual-fix-form';
+import { RemediationForm } from '@ea11y-apps/scanner/components/remediation-form';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	StyledAccordion,
 	StyledAccordionSummary,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
-import { __ } from '@wordpress/i18n';
+import { useEffect } from '@wordpress/element';
 
-export const ManualLayout = () => {
+export const ManageManualLayout = () => {
 	const {
 		openIndex,
-		setOpenIndex,
 		handleOpen,
 		openedBlock,
-		sortedViolations,
-		manualData,
+		sortedRemediation,
+		sortedGlobalRemediation,
+		isManageGlobal,
+		setOpenedBlock,
 	} = useScannerWizardContext();
+
+	const remediations = isManageGlobal
+		? sortedGlobalRemediation
+		: sortedRemediation;
+
+	useEffect(() => {
+		if (remediations[openedBlock]?.length === 0) {
+			setOpenedBlock(BLOCKS.management);
+		}
+	}, [remediations[openedBlock]?.length]);
 
 	return (
 		<Box sx={{ pb: 8 }}>
-			{sortedViolations[openedBlock].map((item, index) => (
+			{remediations[openedBlock].map((item, index) => (
 				<StyledAccordion
-					key={`${item.ruleId}-${index}`}
+					key={`${item.rule}-${index}`}
 					elevation={0}
 					square
 					disableGutters
@@ -40,16 +52,14 @@ export const ManualLayout = () => {
 							color="info"
 							checkedIcon={<CircleCheckFilledIcon />}
 							disabled
-							checked={manualData[openedBlock][index]?.resolved || false}
-							aria-label={__('Resolved', 'pojo-accessibility')}
+							checked={Number(item.active)}
+							role="presentation"
 						/>
-
-						<Typography variant="body2" as="h4" sx={{ mr: 0.5 }} noWrap>
-							{uxMessaging[item.ruleId]?.violationName ?? item.category}
+						<Typography variant="body2" sx={{ mr: 0.5 }} noWrap>
+							{uxMessaging[item.rule]?.violationName ?? item.rule}
 						</Typography>
 					</StyledAccordionSummary>
-
-					<ManualFixForm item={item} current={index} setOpen={setOpenIndex} />
+					<RemediationForm item={item} />
 				</StyledAccordion>
 			))}
 		</Box>

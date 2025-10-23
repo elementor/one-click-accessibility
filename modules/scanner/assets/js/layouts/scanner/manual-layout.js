@@ -1,37 +1,33 @@
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
+import WorldIcon from '@elementor/icons/WorldIcon';
 import Box from '@elementor/ui/Box';
 import Radio from '@elementor/ui/Radio';
+import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
-import { RemediationForm } from '@ea11y-apps/scanner/components/remediation-form';
-import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { ManualFixForm } from '@ea11y-apps/scanner/components/manual-fix-form';
 import { uxMessaging } from '@ea11y-apps/scanner/constants/ux-messaging';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import {
 	StyledAccordion,
 	StyledAccordionSummary,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
-import { useEffect } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
-export const RemediationLayout = () => {
+export const ManualLayout = () => {
 	const {
 		openIndex,
+		setOpenIndex,
 		handleOpen,
 		openedBlock,
-		sortedRemediation,
-		setOpenedBlock,
+		sortedViolations,
+		manualData,
 	} = useScannerWizardContext();
-
-	useEffect(() => {
-		if (sortedRemediation[openedBlock]?.length === 0) {
-			setOpenedBlock(BLOCKS.management);
-		}
-	}, [sortedRemediation[openedBlock]?.length]);
 
 	return (
 		<Box sx={{ pb: 8 }}>
-			{sortedRemediation[openedBlock].map((item, index) => (
+			{sortedViolations[openedBlock].map((item, index) => (
 				<StyledAccordion
-					key={`${item.rule}-${index}`}
+					key={`${item.ruleId}-${index}`}
 					elevation={0}
 					square
 					disableGutters
@@ -46,14 +42,27 @@ export const RemediationLayout = () => {
 							color="info"
 							checkedIcon={<CircleCheckFilledIcon />}
 							disabled
-							checked={Number(item.active)}
-							role="presentation"
+							checked={manualData[openedBlock][index]?.resolved || false}
+							aria-label={__('Resolved', 'pojo-accessibility')}
 						/>
-						<Typography variant="body2" sx={{ mr: 0.5 }} noWrap>
-							{uxMessaging[item.rule]?.violationName ?? item.rule}
+
+						<Typography variant="body2" as="h4" noWrap>
+							{uxMessaging[item.ruleId]?.violationName ?? item.category}
 						</Typography>
+						{manualData[openedBlock][index]?.isGlobal && (
+							<Tooltip
+								placement="top"
+								title={__('Cross-scan issue', 'pojo-accessibility')}
+								PopperProps={{
+									disablePortal: true,
+								}}
+							>
+								<WorldIcon color="action" fontSize="tiny" />
+							</Tooltip>
+						)}
 					</StyledAccordionSummary>
-					<RemediationForm item={item} />
+
+					<ManualFixForm item={item} current={index} setOpen={setOpenIndex} />
 				</StyledAccordion>
 			))}
 		</Box>

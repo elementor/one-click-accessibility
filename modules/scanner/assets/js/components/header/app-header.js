@@ -5,7 +5,7 @@ import Paper from '@elementor/ui/Paper';
 import { styled } from '@elementor/ui/styles';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { DropdownMenu } from '@ea11y-apps/scanner/components/header/dropdown-menu';
-import AppTitle from '@ea11y-apps/scanner/components/header/title/appTitle';
+import AppTitle from '@ea11y-apps/scanner/components/header/title/app-title';
 import { ROOT_ID } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledHeaderContent } from '@ea11y-apps/scanner/styles/app.styles';

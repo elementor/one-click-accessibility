@@ -11,10 +11,14 @@ const initialColorContrastData = { manage: [], main: [] };
 export default function useScannerWizardState() {
 	const [results, setResults] = useState();
 	const [remediations, setRemediations] = useState([]);
+	const [globalRemediations, setGlobalRemediations] = useState([]);
 	const [sortedViolations, setSortedViolations] = useState(
 		INITIAL_SORTED_VIOLATIONS,
 	);
 	const [sortedRemediation, setSortedRemediation] = useState(
+		INITIAL_SORTED_VIOLATIONS,
+	);
+	const [sortedGlobalRemediation, setSortedGlobalRemediation] = useState(
 		INITIAL_SORTED_VIOLATIONS,
 	);
 	const [resolved, setResolved] = useState(0);
@@ -24,6 +28,7 @@ export default function useScannerWizardState() {
 	const [isError, setIsError] = useState(false);
 	const [quotaExceeded, setQuotaExceeded] = useState(false);
 	const [isManage, setIsManage] = useState(false);
+	const [isManageGlobal, setIsManageGlobal] = useState(false);
 	const [isManageChanged, setIsManageChanged] = useState(false);
 	const [altTextData, setAltTextData] = useState(initialAltTextData);
 	const [colorContrastData, setColorContrastData] = useState(
@@ -49,6 +54,7 @@ export default function useScannerWizardState() {
 		isError,
 		quotaExceeded,
 		isManage,
+		isManageGlobal,
 		isManageChanged,
 		altTextData,
 		manualData,
@@ -56,6 +62,8 @@ export default function useScannerWizardState() {
 		remediationData,
 		openIndex,
 		violation,
+		globalRemediations,
+		sortedGlobalRemediation,
 		// setters
 		setResults,
 		setRemediations,
@@ -68,6 +76,7 @@ export default function useScannerWizardState() {
 		setIsError,
 		setQuotaExceeded,
 		setIsManage,
+		setIsManageGlobal,
 		setIsManageChanged,
 		setAltTextData,
 		setManualData,
@@ -75,5 +84,7 @@ export default function useScannerWizardState() {
 		setRemediationData,
 		setOpenIndex,
 		setViolation,
+		setGlobalRemediations,
+		setSortedGlobalRemediation,
 	};
 }
