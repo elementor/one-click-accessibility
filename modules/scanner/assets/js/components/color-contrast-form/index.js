@@ -10,8 +10,9 @@ import { rgbOrRgbaToHex } from '@ea11y-apps/global/utils/color-contrast-helpers'
 import { ColorSet } from '@ea11y-apps/scanner/components/color-contrast-form/color-set';
 import { ColorSetDisabled } from '@ea11y-apps/scanner/components/color-contrast-form/color-set-disabled';
 import { ParentSelector } from '@ea11y-apps/scanner/components/color-contrast-form/parent-selector';
-import { SetGlobal } from '@ea11y-apps/scanner/components/manage-actions/set-global';
+import { SetGlobal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useColorContrastForm } from '@ea11y-apps/scanner/hooks/use-color-contrast-form';
 import { StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
@@ -20,6 +21,7 @@ import { useEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
+	const { isManage } = useScannerWizardContext();
 	const {
 		isGlobal,
 		setIsGlobal,
@@ -56,6 +58,10 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 		item.messageArgs[3] && item.messageArgs[4] && !item.isPotential;
 
 	const colorData = checkContrastAA(item.node);
+
+	const onCancel = () => {
+		setIsEdit(false);
+	};
 
 	const handleSubmit = async () => {
 		await onSubmit();
@@ -138,25 +144,34 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 			</Alert>
 
 			<Box>
-				<SetGlobal
-					item={item}
-					onGlobalChange={onGlobalChange}
-					isChecked={isGlobal}
-				/>
-				<Button
-					variant="contained"
-					size="small"
-					color="info"
-					loading={loading}
-					disabled={isSubmitDisabled}
-					onClick={item.isEdit ? handleUpdate : handleSubmit}
-					sx={{ mt: 1.5 }}
-					fullWidth
-				>
-					{isGlobal
-						? __('Apply everywhere', 'pojo-accessibility')
-						: __('Apply fix', 'pojo-accessibility')}
-				</Button>
+				{!isManage && (
+					<SetGlobal
+						item={item}
+						onGlobalChange={onGlobalChange}
+						isChecked={isGlobal}
+					/>
+				)}
+				<Box display="flex" gap={1} justifyContent="flex-end">
+					{isManage && (
+						<Button color="secondary" variant="text" onClick={onCancel}>
+							{__('Cancel', 'pojo-accessibility')}
+						</Button>
+					)}
+					<Button
+						variant="contained"
+						size="small"
+						color="info"
+						loading={loading}
+						disabled={isSubmitDisabled}
+						onClick={item.isEdit ? handleUpdate : handleSubmit}
+						sx={{ mt: isManage ? 0 : 1.5 }}
+						fullWidth={!isManage}
+					>
+						{isGlobal
+							? __('Apply everywhere', 'pojo-accessibility')
+							: __('Apply fix', 'pojo-accessibility')}
+					</Button>
+				</Box>
 			</Box>
 		</StyledBox>
 	);

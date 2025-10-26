@@ -205,6 +205,11 @@ class Remediation_Runner {
 		foreach ( $this->page_remediations as $item ) {
 			$remediation = json_decode( $item->content, true );
 			$remediation['global'] = $item->global;
+			Logger::info( $item->global && $item->active && ! $item->active_for_page ? 'Active for page ' : 'Not active for page ' );
+			if ( $item->global && ! $item->active_for_page ) {
+				continue;
+			}
+
 			if ( ! isset( $classes[ strtoupper( $remediation['type'] ) ] ) ) {
 				continue;
 			}

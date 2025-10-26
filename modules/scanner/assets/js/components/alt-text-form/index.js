@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
-import { SetGlobal } from '@ea11y-apps/scanner/components/manage-actions/set-global';
+import { SetGlobal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
 import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
@@ -49,6 +49,10 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 
 	const onGlobalChange = (value) => {
 		setIsGlobal(value);
+	};
+
+	const onCancel = () => {
+		setIsEdit(false);
 	};
 
 	const onSubmit = async () => {
@@ -196,24 +200,34 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 				</Box>
 			</StyledAlert>
 			<Box>
-				<SetGlobal
-					item={item}
-					onGlobalChange={onGlobalChange}
-					isChecked={isGlobal}
-				/>
-				<Button
-					variant="contained"
-					color="info"
-					fullWidth
-					loading={loading}
-					disabled={isSubmitDisabled}
-					onClick={isManage ? onUpdate : onSubmit}
-					sx={{ mt: 1.5 }}
-				>
-					{isGlobal
-						? __('Apply everywhere', 'pojo-accessibility')
-						: __('Apply fix', 'pojo-accessibility')}
-				</Button>
+				{!isManage && (
+					<SetGlobal
+						item={item}
+						onGlobalChange={onGlobalChange}
+						isChecked={isGlobal}
+					/>
+				)}
+
+				<Box display="flex" gap={1} justifyContent="flex-end">
+					{isManage && (
+						<Button color="secondary" variant="text" onClick={onCancel}>
+							{__('Cancel', 'pojo-accessibility')}
+						</Button>
+					)}
+					<Button
+						variant="contained"
+						color="info"
+						fullWidth={!isManage}
+						loading={loading}
+						disabled={isSubmitDisabled}
+						onClick={isManage ? onUpdate : onSubmit}
+						sx={{ mt: isManage ? 0 : 1.5 }}
+					>
+						{isGlobal
+							? __('Apply everywhere', 'pojo-accessibility')
+							: __('Apply fix', 'pojo-accessibility')}
+					</Button>
+				</Box>
 			</Box>
 		</StyledBox>
 	);

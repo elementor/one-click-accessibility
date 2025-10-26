@@ -1,9 +1,10 @@
 import AlertOctagonFilledIcon from '@elementor/icons/AlertOctagonFilledIcon';
 import Typography from '@elementor/ui/Typography';
+import PropTypes from 'prop-types';
 import ConfirmDialog from '@ea11y-apps/global/components/confirm-dialog';
 import { __, sprintf } from '@wordpress/i18n';
 
-export const DeleteRemediationModal = ({
+const DeleteGlobalRemediationModal = ({
 	open,
 	hideConfirmation,
 	onDelete,
@@ -19,16 +20,12 @@ export const DeleteRemediationModal = ({
 				isMain
 					? sprintf(
 							// Translators: %s - fixes count
-							__('Remove %s fixes?', 'pojo-accessibility'),
+							__('Remove %s fixes across scans', 'pojo-accessibility'),
 							count,
 						)
-					: __('Remove this fix?', 'pojo-accessibility')
+					: __('Remove fix across scans?', 'pojo-accessibility')
 			}
-			approveText={
-				isMain
-					? __('Remove fixes', 'pojo-accessibility')
-					: __('Remove fix', 'pojo-accessibility')
-			}
+			approveText={__('Remove everywhere', 'pojo-accessibility')}
 			cancelText={__('Not now', 'pojo-accessibility')}
 			logo={<AlertOctagonFilledIcon color="error" sx={{ mt: '6px' }} />}
 			onApprove={onDelete}
@@ -44,14 +41,24 @@ export const DeleteRemediationModal = ({
 			<Typography variant="body2">
 				{isMain
 					? __(
-							'This removes the fixes and marks the accessibility issues as unresolve. This can’t be undone.',
+							'These fixes will no longer apply to past or future scans, leaving the issues unresolved.',
 							'pojo-accessibility',
 						)
 					: __(
-							'This removes the fix and marks the accessibility issue as unresolve. This can’t be undone.',
+							'This fix will no longer apply to past or future scans, leaving the issue unresolved.',
 							'pojo-accessibility',
 						)}
 			</Typography>
 		</ConfirmDialog>
 	);
 };
+
+DeleteGlobalRemediationModal.propTypes = {
+	open: PropTypes.bool.isRequired,
+	hideConfirmation: PropTypes.func.isRequired,
+	onDelete: PropTypes.func.isRequired,
+	count: PropTypes.number,
+	isMain: PropTypes.bool,
+};
+
+export default DeleteGlobalRemediationModal;

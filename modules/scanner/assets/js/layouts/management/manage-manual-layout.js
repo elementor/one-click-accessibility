@@ -59,7 +59,7 @@ export const ManageManualLayout = () => {
 							{uxMessaging[item.rule]?.violationName ?? item.rule}
 						</Typography>
 					</StyledAccordionSummary>
-					<RemediationForm item={item} />
+					<RemediationForm item={{ ...item, global: item.global === '1' }} />
 				</StyledAccordion>
 			))}
 		</Box>

@@ -17,10 +17,10 @@ const ManageRemediationList = ({ global = false }) => {
 					return [];
 				}
 
-				const resolved =
-					remediations[key].filter(
-						(item) => Number(item.active) && !item.excluded,
-					).length || 0;
+				const resolved = remediations[key].filter(
+					({ active, active_for_page: activeForPage }) =>
+						global ? Number(activeForPage) : active,
+				).length;
 
 				return (
 					<ManageButton

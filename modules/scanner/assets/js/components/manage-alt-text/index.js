@@ -5,7 +5,7 @@ import Divider from '@elementor/ui/Divider';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
-import { ManageActions } from '@ea11y-apps/scanner/components/manage-actions';
+import ManageFooterActions from '@ea11y-apps/scanner/components/manage-footer-actions';
 import { ManageItemHeader } from '@ea11y-apps/scanner/components/manage-item-header';
 import { StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { remediationItem } from '@ea11y-apps/scanner/types/remediation-item';
@@ -20,7 +20,8 @@ import { __ } from '@wordpress/i18n';
 export const ManageAltText = ({ item, current, openEdit }) => {
 	const data = JSON.parse(item?.content);
 	const node = getElementByXPath(data?.xpath);
-	const isActive = Boolean(Number(item?.active));
+	const isActive =
+		item.global === '1' ? item.active_for_page === '1' : item.active === '1';
 
 	useEffect(() => {
 		void (node ? focusOnElement(node) : removeExistingFocus());
@@ -58,7 +59,7 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 					</Alert>
 				</Box>
 			)}
-			<ManageActions item={item} isActive={isActive} />
+			<ManageFooterActions item={item} isActive={isActive} />
 		</StyledBox>
 	);
 };

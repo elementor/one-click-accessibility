@@ -9,20 +9,31 @@ import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import PropTypes from 'prop-types';
-import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
+import {
+	DeleteGlobalRemediationModal,
+	DisableGlobalRemediationModal,
+	EnableGlobalRemediationModal,
+} from '@ea11y-apps/scanner/components/remediation-confirmation-modal';
 import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { useGlobalManageActions } from '@ea11y-apps/scanner/hooks/use-global-manage-actions';
 import { StyledBanIcon } from '@ea11y-apps/scanner/styles/app.styles';
 import { useRef, useState } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const GlobalButtonMenu = ({ group }) => {
 	const { sortedGlobalRemediation } = useScannerWizardContext();
-	// const { deleteAllRemediationForPage, updateAllRemediationForPage } =
-	// 	useManageActions();
+	const {
+		updateGlobalRemediationGroupForPage,
+		updateGlobalRemediationGroupForAllPages,
+		deleteGlobalRemediations,
+	} = useGlobalManageActions();
 	const anchorEl = useRef(null);
 
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [showDisableModal, setShowDisableModal] = useState(false);
+	const [showEnableModal, setShowEnableModal] = useState(false);
+
 	const [isOpened, setIsOpened] = useState(false);
 
 	const count = sortedGlobalRemediation[group]?.length;
@@ -30,7 +41,7 @@ export const GlobalButtonMenu = ({ group }) => {
 	const isAllExcluded =
 		count ===
 		sortedGlobalRemediation[group]?.filter(
-			(remediation) => remediation.excluded,
+			(remediation) => !Number(remediation.active_for_page),
 		)?.length;
 
 	const isAllDisabled =
@@ -45,10 +56,24 @@ export const GlobalButtonMenu = ({ group }) => {
 	};
 
 	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
+	const toggleDisableModal = () => setShowDisableModal(!showDisableModal);
+	const toggleEnableModal = () => setShowDisableModal(!showDisableModal);
 
-	const onDeleteRemediation = async () => {
+	const onUpdateStatus = () => {
+		void (isAllDisabled ? setShowEnableModal(true) : setShowDisableModal(true));
+	};
+
+	const onUpdateForPage = () => {
+		void updateGlobalRemediationGroupForPage(isAllExcluded, group);
+	};
+
+	const onUpdateForAllPages = () => {
+		void updateGlobalRemediationGroupForAllPages(isAllDisabled, group);
+	};
+
+	const onDeleteRemediation = () => {
 		setShowDeleteModal(false);
-		//await deleteAllRemediationForPage(group);
+		void deleteGlobalRemediations(group);
 	};
 
 	return (
@@ -86,48 +111,54 @@ export const GlobalButtonMenu = ({ group }) => {
 				}}
 				disablePortal
 			>
-				{isAllExcluded ? (
-					<MenuItem onClick={() => null} dense>
-						<MenuItemIcon>
-							<ReloadIcon fontSize="tiny" />
-						</MenuItemIcon>
+				<MenuItem onClick={onUpdateForPage} dense>
+					{isAllExcluded ? (
+						<>
+							<MenuItemIcon>
+								<ReloadIcon fontSize="tiny" />
+							</MenuItemIcon>
 
-						<MenuItemText>
-							{__('Enable on this page', 'pojo-accessibility')}
-						</MenuItemText>
-					</MenuItem>
-				) : (
-					<MenuItem onClick={() => null} dense>
-						<MenuItemIcon>
-							<StyledBanIcon fontSize="tiny" />
-						</MenuItemIcon>
+							<MenuItemText>
+								{__('Enable on this page', 'pojo-accessibility')}
+							</MenuItemText>
+						</>
+					) : (
+						<>
+							<MenuItemIcon>
+								<StyledBanIcon fontSize="tiny" />
+							</MenuItemIcon>
 
-						<MenuItemText>
-							{__('Disable on this page', 'pojo-accessibility')}
-						</MenuItemText>
-					</MenuItem>
-				)}
-				{isAllDisabled ? (
-					<MenuItem onClick={() => null} dense>
-						<MenuItemIcon>
-							<ReloadIcon fontSize="tiny" />
-						</MenuItemIcon>
+							<MenuItemText>
+								{__('Disable on this page', 'pojo-accessibility')}
+							</MenuItemText>
+						</>
+					)}
+				</MenuItem>
 
-						<MenuItemText>
-							{__('Enable across scans', 'pojo-accessibility')}
-						</MenuItemText>
-					</MenuItem>
-				) : (
-					<MenuItem onClick={() => null} dense>
-						<MenuItemIcon>
-							<StyledBanIcon fontSize="tiny" />
-						</MenuItemIcon>
+				<MenuItem onClick={onUpdateStatus} dense>
+					{isAllDisabled ? (
+						<>
+							<MenuItemIcon>
+								<ReloadIcon fontSize="tiny" />
+							</MenuItemIcon>
 
-						<MenuItemText>
-							{__('Disable across scans', 'pojo-accessibility')}
-						</MenuItemText>
-					</MenuItem>
-				)}
+							<MenuItemText>
+								{__('Enable across scans', 'pojo-accessibility')}
+							</MenuItemText>
+						</>
+					) : (
+						<>
+							<MenuItemIcon>
+								<StyledBanIcon fontSize="tiny" />
+							</MenuItemIcon>
+
+							<MenuItemText>
+								{__('Disable across scans', 'pojo-accessibility')}
+							</MenuItemText>
+						</>
+					)}
+				</MenuItem>
+
 				<MenuItem onClick={toggleDeleteModal} dense>
 					<MenuItemIcon>
 						<TrashIcon fontSize="tiny" />
@@ -138,12 +169,24 @@ export const GlobalButtonMenu = ({ group }) => {
 					</MenuItemText>
 				</MenuItem>
 			</Menu>
-			<DeleteRemediationModal
+			<DeleteGlobalRemediationModal
 				open={showDeleteModal}
 				hideConfirmation={toggleDeleteModal}
 				onDelete={onDeleteRemediation}
 				count={count}
 				isMain
+			/>
+			<DisableGlobalRemediationModal
+				open={showDisableModal}
+				hideConfirmation={toggleDisableModal}
+				onDisable={onUpdateForAllPages}
+				count={count}
+			/>
+			<EnableGlobalRemediationModal
+				open={showEnableModal}
+				hideConfirmation={toggleEnableModal}
+				onEnable={onUpdateForAllPages}
+				count={count}
 			/>
 		</Box>
 	);

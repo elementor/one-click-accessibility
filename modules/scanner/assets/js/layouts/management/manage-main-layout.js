@@ -3,11 +3,11 @@ import CardContent from '@elementor/ui/CardContent';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { EmptyManageMessage } from '@ea11y-apps/scanner/components/empty-manage-message';
-import {
-	ManageGlobalRemediationButtons,
-	ManageRemediationButtons,
-} from '@ea11y-apps/scanner/components/manage-remediation-cta';
 import ManageRemediationList from '@ea11y-apps/scanner/components/manage-remediation-list';
+import {
+	ManageGlobalRemediationControl,
+	ManageRemediationControl,
+} from '@ea11y-apps/scanner/components/manage-remediation-main-controls';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { __ } from '@wordpress/i18n';
 
@@ -22,7 +22,7 @@ export const ManageMainLayout = () => {
 						<Typography variant="body2">
 							{__('Fixes on this page', 'pojo-accessibility')}
 						</Typography>
-						<ManageRemediationButtons />
+						<ManageRemediationControl />
 					</ManageHeader>
 					<ManageRemediationList />
 				</>
@@ -34,7 +34,7 @@ export const ManageMainLayout = () => {
 						<Typography variant="body2">
 							{__('Cross-page fixes', 'pojo-accessibility')}
 						</Typography>
-						<ManageGlobalRemediationButtons />
+						<ManageGlobalRemediationControl />
 					</ManageHeader>
 					<ManageRemediationList global />
 				</>

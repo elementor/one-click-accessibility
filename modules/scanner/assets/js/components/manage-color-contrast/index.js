@@ -1,8 +1,8 @@
 import Box from '@elementor/ui/Box';
 import Divider from '@elementor/ui/Divider';
 import PropTypes from 'prop-types';
-import { ManageActions } from '@ea11y-apps/scanner/components/manage-actions';
 import { ColorData } from '@ea11y-apps/scanner/components/manage-color-contrast/color-data';
+import ManageFooterActions from '@ea11y-apps/scanner/components/manage-footer-actions';
 import { ManageItemHeader } from '@ea11y-apps/scanner/components/manage-item-header';
 import {
 	ManageColorAlert,
@@ -28,7 +28,8 @@ export const ManageColorContrast = ({
 		void (node ? focusOnElement(node) : removeExistingFocus());
 	}, [current]);
 
-	const isActive = Boolean(Number(item?.active));
+	const isActive =
+		item.global === '1' ? item.active_for_page === '1' : item.active === '1';
 
 	return (
 		<StyledBox>
@@ -55,7 +56,7 @@ export const ManageColorContrast = ({
 					</Box>
 				</ManageColorAlert>
 			</Box>
-			<ManageActions item={item} isActive={isActive} />
+			<ManageFooterActions item={item} isActive={isActive} />
 		</StyledBox>
 	);
 };

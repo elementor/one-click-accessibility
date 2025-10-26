@@ -10,7 +10,7 @@ import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { ManageActions } from '@ea11y-apps/scanner/components/manage-actions';
+import ManageFooterActions from '@ea11y-apps/scanner/components/manage-footer-actions';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
@@ -51,7 +51,9 @@ export const RemediationSnippet = ({ item }) => {
 		setManualEdit(e.target.value);
 	};
 
-	const isActive = Boolean(Number(item.active));
+	const isActive = item.global
+		? item.active_for_page === '1'
+		: item.active === '1';
 
 	const submitRemediation = async () => {
 		await editRemediation({
@@ -167,7 +169,7 @@ export const RemediationSnippet = ({ item }) => {
 							</Button>
 						</>
 					) : (
-						<ManageActions item={item} isActive={isActive} />
+						<ManageFooterActions item={item} isActive={isActive} />
 					)}
 				</CardActions>
 			</Card>
