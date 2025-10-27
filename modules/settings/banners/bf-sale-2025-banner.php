@@ -19,7 +19,7 @@ class BF_Sale_2025_Banner {
 		$sale_end_time = strtotime( '2025-12-04 04:59:00 UTC' );
 
 		$now_time = current_time( 'timestamp', true );
-		return true;
+		
 		return $now_time >= $sale_start_time && $now_time <= $sale_end_time;
 	}
 
