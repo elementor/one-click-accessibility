@@ -15,10 +15,11 @@ class BF_Sale_2025_Banner {
 	const POINTER_NONCE_KEY = 'ea11y-pointer-dismissed';
 
 	public static function is_sale_time(): bool {
-		$sale_start_time = gmmktime(13, 0, 0, 11, 25, 2025);
-		$sale_end_time = gmmktime(4, 59, 0, 12, 4, 2025);
+		$sale_start_time = strtotime( '2025-11-25 13:00:00 UTC' );
+		$sale_end_time = strtotime( '2025-12-04 04:59:00 UTC' );
 
-		$now_time = gmdate( 'U' );
+		$now_time = current_time( 'timestamp', true );
+		return true;
 		return $now_time >= $sale_start_time && $now_time <= $sale_end_time;
 	}
 
@@ -35,7 +36,7 @@ class BF_Sale_2025_Banner {
 			return;
 		}
 
-		$img = plugins_url( '/images/bf-2025.png', __FILE__ );
+		$img = plugins_url( '/images/bf-2025-banner.png', __FILE__ );
 		$url = admin_url( 'admin-ajax.php' );
 		$nonce = wp_create_nonce( self::POINTER_NONCE_KEY );
 		?>
@@ -74,7 +75,7 @@ class BF_Sale_2025_Banner {
 
 			.elementor-ea11y-banner-container {
 				position: relative;
-				max-width: 1200px;
+				max-width: 1600px;
 				margin: 0 auto;
 				display: flex;
 				justify-content: end;
@@ -96,8 +97,8 @@ class BF_Sale_2025_Banner {
 				display: inline-block;
 				padding: 12px 24px;
 				font-size: 18px;
-				color: #fff;
-				background-color: #000;
+				color: #000;
+				background-color: #FF7BE5;
 				text-decoration: none;
 				z-index: 2;
 				font-weight: 500;
