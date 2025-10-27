@@ -24,7 +24,7 @@ const DeleteGlobalButton = () => {
 			<Tooltip
 				arrow
 				placement="top"
-				title={__('Remove all global remediations', 'pojo-accessibility')}
+				title={__('Remove all', 'pojo-accessibility')}
 				PopperProps={{
 					disablePortal: true,
 				}}

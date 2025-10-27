@@ -11,6 +11,20 @@ export const useGlobalManageActions = () => {
 
 	const [activeRequest, setActiveRequest] = useState(false);
 
+	const setRemediationAsGlobal = async (id) => {
+		try {
+			setLoading(true);
+			await APIScanner.setRemediationAsGlobal({ id });
+			setIsManageChanged(true);
+			await updateRemediationList();
+		} catch (e) {
+			console.error(e);
+			error(__('An error occurred.', 'pojo-accessibility'));
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	const updateGlobalRemediationForPage = async (id, active) => {
 		try {
 			setActiveRequest(true);
@@ -148,6 +162,7 @@ export const useGlobalManageActions = () => {
 
 	return {
 		activeRequest,
+		setRemediationAsGlobal,
 		updateGlobalRemediationForPage,
 		updateGlobalRemediationForAllPages,
 		updateGlobalRemediationGroupForPage,

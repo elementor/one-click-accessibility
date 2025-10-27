@@ -104,6 +104,14 @@ export class APIScanner extends API {
 		});
 	}
 
+	static async setRemediationAsGlobal(data) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/remediation/global-item`,
+			data,
+		});
+	}
+
 	static async updateGlobalRemediationForPage(data) {
 		return APIScanner.request({
 			method: 'PUT',

@@ -69,9 +69,10 @@ const ManagePageActions = ({ item, isActive }) => {
 						startIcon={<ReloadIcon />}
 						size="small"
 						color="info"
-						variant="text"
+						variant="outlined"
 						disabled={activeRequest}
 						onClick={updateRemediation(true)}
+						sx={{ ml: 1 }}
 					>
 						{__('Enable fix', 'pojo-accessibility')}
 					</Button>

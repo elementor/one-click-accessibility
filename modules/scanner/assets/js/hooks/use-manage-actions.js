@@ -90,13 +90,7 @@ export const useManageActions = (current = null) => {
 				active,
 				id: current.id,
 			});
-			const updated = sortedRemediation[openedBlock].map((item) =>
-				item.id === current.id ? { ...item, active } : item,
-			);
-			setSortedRemediation({
-				...sortedRemediation,
-				[openedBlock]: updated,
-			});
+			await updateRemediationList();
 			setIsManageChanged(true);
 			mixpanelService.sendEvent(
 				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],

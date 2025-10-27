@@ -19,7 +19,7 @@ const ManageRemediationList = ({ global = false }) => {
 
 				const resolved = remediations[key].filter(
 					({ active, active_for_page: activeForPage }) =>
-						global ? Number(activeForPage) : active,
+						global ? Number(activeForPage) : Number(active),
 				).length;
 
 				return (

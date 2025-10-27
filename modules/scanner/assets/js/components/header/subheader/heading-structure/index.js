@@ -59,7 +59,7 @@ const HeadingStructureSubheader = () => {
 									</Typography>
 								}
 							>
-								<InfoCircleIcon fontSize="small" />
+								<InfoCircleIcon fontSize="small" color="action" />
 							</Infotip>
 						)}
 					</Box>

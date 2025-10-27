@@ -19,7 +19,7 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { SetGlobal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
-import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
+import { AI_QUOTA_LIMIT, IS_PRO_PLAN } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
 import { StyledLabel } from '@ea11y-apps/scanner/styles/alt-text-form.styles';
@@ -122,7 +122,7 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								{IS_AI_ENABLED && AI_QUOTA_LIMIT ? (
+								{IS_PRO_PLAN && AI_QUOTA_LIMIT ? (
 									<Tooltip
 										placement="top-end"
 										title={__(

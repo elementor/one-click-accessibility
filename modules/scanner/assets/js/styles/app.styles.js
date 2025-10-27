@@ -4,6 +4,7 @@ import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
+import Chip from '@elementor/ui/Chip';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
@@ -225,5 +226,15 @@ export const ManageColorAlert = styled(Alert)`
 	}
 	& .MuiAlert-content > div {
 		display: block;
+	}
+`;
+
+export const StyledProChip = styled(Chip)`
+	margin-left: ${({ theme }) => theme.spacing(1)};
+	height: 26px;
+	width: 26px;
+
+	.MuiChip-label {
+		padding: 0;
 	}
 `;

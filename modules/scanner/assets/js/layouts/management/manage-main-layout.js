@@ -19,7 +19,7 @@ export const ManageMainLayout = () => {
 			{remediations.length > 0 && (
 				<>
 					<ManageHeader>
-						<Typography variant="body2">
+						<Typography variant="body2" color="text.tertiary">
 							{__('Fixes on this page', 'pojo-accessibility')}
 						</Typography>
 						<ManageRemediationControl />
@@ -31,7 +31,7 @@ export const ManageMainLayout = () => {
 			{globalRemediations.length > 0 && (
 				<>
 					<ManageHeader sx={{ mt: 2 }}>
-						<Typography variant="body2">
+						<Typography variant="body2" color="text.tertiary">
 							{__('Cross-page fixes', 'pojo-accessibility')}
 						</Typography>
 						<ManageGlobalRemediationControl />

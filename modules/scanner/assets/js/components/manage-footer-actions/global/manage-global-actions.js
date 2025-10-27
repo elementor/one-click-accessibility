@@ -48,10 +48,11 @@ const ManageGlobalActions = ({ item }) => {
 				endIcon={<ChevronDownIcon />}
 				size="small"
 				color={isExcluded ? 'info' : 'secondary'}
-				variant={isExcluded ? 'text' : 'outlined'}
+				variant="outlined"
 				disabled={activeRequest}
 				onClick={handleOpen}
 				ref={anchorEl}
+				sx={{ ml: 1 }}
 			>
 				{isExcluded
 					? __('Enable fix', 'pojo-accessibility')

@@ -132,7 +132,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 								</InfotipBox>
 							}
 						>
-							<InfoCircleIcon fontSize="small" />
+							<InfoCircleIcon fontSize="small" color="action" />
 						</Infotip>
 					</Box>
 

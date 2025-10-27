@@ -77,7 +77,7 @@ export const RemediationSnippet = ({ item }) => {
 							</Typography>
 						</ItemTitle>
 						{!isEdit && (
-							<Box display="flex" gap={0.5}>
+							<Box>
 								<Tooltip
 									placement="top"
 									title={__('Edit', 'pojo-accessibility')}

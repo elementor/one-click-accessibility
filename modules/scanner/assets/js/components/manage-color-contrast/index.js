@@ -42,6 +42,7 @@ export const ManageColorContrast = ({
 							<ColorData
 								title={__('Text', 'pojo-accessibility')}
 								color={color.value}
+								isActive={isActive}
 							/>
 						)}
 
@@ -51,6 +52,7 @@ export const ManageColorContrast = ({
 							<ColorData
 								title={__('Background', 'pojo-accessibility')}
 								color={background.value}
+								isActive={isActive}
 							/>
 						)}
 					</Box>

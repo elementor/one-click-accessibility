@@ -19,11 +19,40 @@ class Global_Item extends Route_Base {
 	public string $path = 'global-item';
 
 	public function get_methods(): array {
-		return [ 'PUT', 'PATCH', 'DELETE' ];
+		return [ 'POST', 'PUT', 'PATCH', 'DELETE' ];
 	}
 
 	public function get_name(): string {
 		return $this->path;
+	}
+
+	/**
+	 * Enable/Disable global remediation for single page
+	 * @return WP_Error|WP_REST_Response
+	 *
+	 */
+	public function POST( $request ) {
+		try {
+			$error = $this->verify_capability();
+
+			if ( $error ) {
+				return $error;
+			}
+
+			$id = sanitize_text_field( $request->get_param( 'id' ) );
+			$remediation = new Remediation_Entry( [
+				'id' => $id,
+			] );
+			$remediation->set_remediation_global();
+			return $this->respond_success_json( [
+				'message' => 'Remediation set as global successfully',
+			] );
+		} catch ( Throwable $t ) {
+			return $this->respond_error_json( [
+				'message' => $t->getMessage(),
+				'code' => 'internal_server_error',
+			] );
+		}
 	}
 
 	/**

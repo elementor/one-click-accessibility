@@ -213,7 +213,7 @@ class Remediation_Entry extends Entry {
 			],
 		];
 		$join = "LEFT JOIN $excluded_table ON $remediation_table.id = $excluded_table.remediation_id AND $excluded_table.page_url = '$url'";
-		return Remediation_Table::select( "$remediation_table.*, COALESCE($excluded_table.active, 1) AS active_for_page", $global_where, null, null, $join );
+		return Remediation_Table::select( "$remediation_table.*, COALESCE($excluded_table.active, $remediation_table.active) AS active_for_page", $global_where, null, null, $join );
 	}
 
 	/**
@@ -284,5 +284,14 @@ class Remediation_Entry extends Entry {
 		];
 
 		Remediation_Table::update( $data, $where );
+	}
+
+	/**
+	 * Set as global
+	 * @return void
+	 */
+	public function set_remediation_global(): void {
+		$this->entry_data[ Remediation_Table::GLOBAL ] = 1;
+		$this->save();
 	}
 }

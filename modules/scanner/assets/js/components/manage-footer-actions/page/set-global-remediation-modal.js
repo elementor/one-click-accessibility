@@ -1,10 +1,13 @@
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import ConfirmDialog from '@ea11y-apps/global/components/confirm-dialog';
-import { remediationItem } from '@ea11y-apps/scanner/types/remediation-item';
 import { __ } from '@wordpress/i18n';
 
-export const SetGlobalRemediationModal = ({ open, hideConfirmation }) => {
+export const SetGlobalRemediationModal = ({
+	open,
+	hideConfirmation,
+	onApprove,
+}) => {
 	return (
 		<ConfirmDialog
 			open={open}
@@ -15,7 +18,7 @@ export const SetGlobalRemediationModal = ({ open, hideConfirmation }) => {
 			approveText={__('Apply everywhere', 'pojo-accessibility')}
 			cancelText={__('Cancel', 'pojo-accessibility')}
 			approveButtonColor="info"
-			onApprove={() => null}
+			onApprove={onApprove}
 			showCloseButton
 			disablePortal
 			PaperProps={{
@@ -38,5 +41,5 @@ export const SetGlobalRemediationModal = ({ open, hideConfirmation }) => {
 SetGlobalRemediationModal.propTypes = {
 	open: PropTypes.bool.isRequired,
 	hideConfirmation: PropTypes.func.isRequired,
-	item: remediationItem,
+	onApprove: PropTypes.func.isRequired,
 };

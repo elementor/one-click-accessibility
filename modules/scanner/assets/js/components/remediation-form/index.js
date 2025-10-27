@@ -55,7 +55,7 @@ export const RemediationForm = ({ item }) => {
 								</InfotipBox>
 							}
 						>
-							<InfoCircleIcon fontSize="small" />
+							<InfoCircleIcon fontSize="small" color="action" />
 						</Infotip>
 					</Box>
 

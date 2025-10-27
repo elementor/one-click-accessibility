@@ -23,7 +23,7 @@ export const ManageItemHeader = ({ isActive, openEdit }) => {
 				</Typography>
 			</ItemTitle>
 
-			<Box display="flex" gap={0.5}>
+			<Box>
 				<Tooltip
 					placement="top"
 					title={__('Edit', 'pojo-accessibility')}

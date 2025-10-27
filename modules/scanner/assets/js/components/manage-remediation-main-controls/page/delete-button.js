@@ -24,7 +24,7 @@ export const DeleteButton = () => {
 			<Tooltip
 				arrow
 				placement="top"
-				title={__('Remove all remediations', 'pojo-accessibility')}
+				title={__('Remove all', 'pojo-accessibility')}
 				PopperProps={{
 					disablePortal: true,
 				}}

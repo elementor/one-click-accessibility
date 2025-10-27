@@ -26,7 +26,7 @@ export const PAGE_LIMIT_URL = 'https://go.elementor.com/acc-URL-limit-scanner';
 
 export const isRTL = Boolean(window.ea11yScannerData?.isRTL);
 
-export const IS_AI_ENABLED = !window.ea11yScannerData?.planData?.plan?.name
+export const IS_PRO_PLAN = !window.ea11yScannerData?.planData?.plan?.name
 	?.toLowerCase()
 	.includes('free');
 export const AI_QUOTA_LIMIT =
