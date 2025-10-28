@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { ColorData } from '@ea11y-apps/scanner/components/manage-color-contrast/color-data';
 import ManageFooterActions from '@ea11y-apps/scanner/components/manage-footer-actions';
 import { ManageItemHeader } from '@ea11y-apps/scanner/components/manage-item-header';
+import { BACKGROUND_ELEMENT_CLASS } from '@ea11y-apps/scanner/constants';
 import {
 	ManageColorAlert,
 	StyledBox,
@@ -27,6 +28,12 @@ export const ManageColorContrast = ({
 	useEffect(() => {
 		void (node ? focusOnElement(node) : removeExistingFocus());
 	}, [current]);
+
+	useEffect(() => {
+		if (background?.item) {
+			focusOnElement(background?.item, BACKGROUND_ELEMENT_CLASS);
+		}
+	}, [background.item]);
 
 	const isActive =
 		item.global === '1' ? item.active_for_page === '1' : item.active === '1';

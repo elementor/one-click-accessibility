@@ -115,13 +115,7 @@ export const useManageActions = (current = null) => {
 				url: window?.ea11yScannerData?.pageData?.url,
 				id: current.id,
 			});
-			const updated = sortedRemediation[openedBlock].flatMap((item) =>
-				item.id !== current.id ? item : [],
-			);
-			setSortedRemediation({
-				...sortedRemediation,
-				[openedBlock]: updated,
-			});
+			await updateRemediationList();
 			setIsManageChanged(true);
 			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_specific',

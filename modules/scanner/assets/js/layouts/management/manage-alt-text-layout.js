@@ -5,7 +5,7 @@ import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 export const ManageAltTextLayout = () => {
 	const {
@@ -21,15 +21,16 @@ export const ManageAltTextLayout = () => {
 		? sortedGlobalRemediation
 		: sortedRemediation;
 
-	useEffect(() => {
-		if (!remediations[BLOCKS.altText][current]) {
-			setOpenedBlock(BLOCKS.management);
-		}
-	}, [current]);
-
 	const item = remediations[BLOCKS.altText][current];
-	const data = JSON.parse(item.content);
-	const node = getElementByXPath(data.xpath);
+
+	// Prevent to render empty list
+	if (!item) {
+		void (remediations[BLOCKS.altText].length > 0
+			? setCurrent(0)
+			: setOpenedBlock(BLOCKS.management));
+
+		return null;
+	}
 
 	const openEdit = () => {
 		setIsEdit(true);
@@ -42,6 +43,9 @@ export const ManageAltTextLayout = () => {
 			setCurrent(index);
 		}
 	};
+
+	const data = JSON.parse(item?.content || '');
+	const node = getElementByXPath(data?.xpath);
 
 	return (
 		<StyledContent>
