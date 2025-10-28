@@ -7,22 +7,25 @@ import PropTypes from 'prop-types';
 export const FormNavigation = ({ total, current, setCurrent }) => {
 	const onChange = (event, index) => setCurrent(index - 1);
 	return (
-		<Navigation>
-			<Divider />
-			<StyledBox>
-				<StyledNavigation>
-					<Pagination count={total} page={current + 1} onChange={onChange} />
-				</StyledNavigation>
-			</StyledBox>
-		</Navigation>
+		<Box sx={{ minHeight: '65px' }}>
+			<Navigation>
+				<Divider />
+				<StyledBox>
+					<StyledNavigation>
+						<Pagination count={total} page={current + 1} onChange={onChange} />
+					</StyledNavigation>
+				</StyledBox>
+			</Navigation>
+		</Box>
 	);
 };
 
 const Navigation = styled(Box)`
-	position: absolute;
+	position: fixed;
 	bottom: 0;
-	left: 0;
-	width: 100%;
+	right: 16px;
+	width: 393px;
+	background: ${({ theme }) => theme.palette.background.paper};
 `;
 const StyledBox = styled(Box)`
 	display: flex;

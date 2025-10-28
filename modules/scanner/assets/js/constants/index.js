@@ -34,6 +34,9 @@ export const AI_QUOTA_LIMIT =
 		window.ea11yScannerData?.planData?.aiCredits?.used >
 	0;
 
+export const HIDE_UPGRADE_KEY = 'ea11y-hide-upgrade-alert';
+export const ONE_WEEK_IN_MS = 7 * 24 * 60 * 60 * 1000;
+
 export const PAGE_PER_PLAN =
 	window.ea11yScannerData?.planData?.scannedPages?.allowed;
 

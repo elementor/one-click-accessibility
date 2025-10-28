@@ -1,4 +1,5 @@
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
+import WorldIcon from '@elementor/icons/WorldIcon';
 import Box from '@elementor/ui/Box';
 import Radio from '@elementor/ui/Radio';
 import Typography from '@elementor/ui/Typography';
@@ -55,11 +56,16 @@ export const ManageManualLayout = () => {
 							checked={Number(item.active)}
 							role="presentation"
 						/>
-						<Typography variant="body2" sx={{ mr: 0.5 }} noWrap>
-							{uxMessaging[item.rule]?.violationName ?? item.rule}
-						</Typography>
+						<Box display="flex" gap={0.5} alignItems="center">
+							<Typography variant="body2" noWrap>
+								{uxMessaging[item.rule]?.violationName ?? item.rule}
+							</Typography>
+							{item.global === '1' && (
+								<WorldIcon color="action" fontSize="tiny" />
+							)}
+						</Box>
 					</StyledAccordionSummary>
-					<RemediationForm item={{ ...item, global: item.global === '1' }} />
+					<RemediationForm item={item} />
 				</StyledAccordion>
 			))}
 		</Box>

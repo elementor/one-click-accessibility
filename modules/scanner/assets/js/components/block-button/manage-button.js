@@ -1,3 +1,4 @@
+import WorldIcon from '@elementor/icons/WorldIcon';
 import Chip from '@elementor/ui/Chip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
@@ -47,6 +48,7 @@ export const ManageButton = ({ title, count, block, global = false }) => {
 				</Typography>
 			</ActionButton>
 			<Chip
+				icon={global ? <WorldIcon fontSize="small" /> : null}
 				label={sprintf(
 					// Translators: %1$s - active, %2$s - total
 					__('%1$s/%2$s active', 'pojo-accessibility'),

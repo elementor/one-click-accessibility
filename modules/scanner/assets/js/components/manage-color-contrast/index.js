@@ -35,14 +35,18 @@ export const ManageColorContrast = ({
 		}
 	}, [background.item]);
 
-	const isActive =
-		item.global === '1' ? item.active_for_page === '1' : item.active === '1';
+	const global = item.global === '1';
+	const isActive = global ? item.active_for_page === '1' : item.active === '1';
 
 	return (
 		<StyledBox>
 			<Divider />
 			<Box>
-				<ManageItemHeader isActive={isActive} openEdit={openEdit} />
+				<ManageItemHeader
+					isActive={isActive}
+					openEdit={openEdit}
+					global={global}
+				/>
 				<ManageColorAlert color={isActive ? 'info' : 'secondary'} icon={false}>
 					<Box>
 						{color && (

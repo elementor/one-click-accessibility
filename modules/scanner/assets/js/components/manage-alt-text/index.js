@@ -1,4 +1,3 @@
-import Alert from '@elementor/ui/Alert';
 import AlertTitle from '@elementor/ui/AlertTitle';
 import Box from '@elementor/ui/Box';
 import Divider from '@elementor/ui/Divider';
@@ -7,7 +6,10 @@ import PropTypes from 'prop-types';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import ManageFooterActions from '@ea11y-apps/scanner/components/manage-footer-actions';
 import { ManageItemHeader } from '@ea11y-apps/scanner/components/manage-item-header';
-import { StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
+import {
+	AlertWithDisabledState,
+	StyledBox,
+} from '@ea11y-apps/scanner/styles/app.styles';
 import { remediationItem } from '@ea11y-apps/scanner/types/remediation-item';
 import {
 	focusOnElement,
@@ -20,8 +22,8 @@ import { __ } from '@wordpress/i18n';
 export const ManageAltText = ({ item, current, openEdit }) => {
 	const data = JSON.parse(item?.content);
 	const node = getElementByXPath(data?.xpath);
-	const isActive =
-		item.global === '1' ? item.active_for_page === '1' : item.active === '1';
+	const global = item.global === '1';
+	const isActive = global ? item.active_for_page === '1' : item.active === '1';
 
 	useEffect(() => {
 		void (node ? focusOnElement(node) : removeExistingFocus());
@@ -34,11 +36,18 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 		<StyledBox>
 			<Divider />
 			<Box>
-				<ManageItemHeader isActive={isActive} openEdit={openEdit} />
+				<ManageItemHeader
+					isActive={isActive}
+					openEdit={openEdit}
+					global={global}
+				/>
 				<ImagePreview element={node} />
 			</Box>
 			{isDecorative ? (
-				<Alert color={isActive ? 'info' : 'secondary'}>
+				<AlertWithDisabledState
+					color={isActive ? 'info' : 'secondary'}
+					disabled={!isActive}
+				>
 					<Box>
 						<AlertTitle>
 							{__('Decorative image', 'pojo-accessibility')}
@@ -48,15 +57,19 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 							'pojo-accessibility',
 						)}
 					</Box>
-				</Alert>
+				</AlertWithDisabledState>
 			) : (
 				<Box>
 					<Typography variant="body2" sx={{ mb: 1 }}>
 						{__('Alt text', 'pojo-accessibility')}
 					</Typography>
-					<Alert color={isActive ? 'info' : 'secondary'} icon={false}>
+					<AlertWithDisabledState
+						color={isActive ? 'info' : 'secondary'}
+						icon={false}
+						disabled={!isActive}
+					>
 						<Box>{data.attribute_value}</Box>
-					</Alert>
+					</AlertWithDisabledState>
 				</Box>
 			)}
 			<ManageFooterActions item={item} isActive={isActive} />

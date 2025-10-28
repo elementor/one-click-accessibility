@@ -258,7 +258,7 @@ export const ResolveWithAi = ({ item, current }) => {
 							variant="contained"
 							disabled={disabled || aiSuggestion?.submitted}
 							loading={resolving}
-							loadingPosition="start"
+							loadingPosition="center"
 							onClick={onResolve}
 						>
 							{isGlobal

@@ -107,7 +107,21 @@ export const StyledAlert = styled(Alert)`
 		padding-top: 0;
 		display: flex;
 	}
+`;
+
+export const AlertWithDisabledState = styled(Alert)`
 	${({ disabled }) => (disabled ? disabledState : '')}
+	${({ disabled, theme }) =>
+		disabled
+			? `
+			& * {
+				color: ${theme.palette.text.disabled};
+			}
+			& svg {
+				fill: ${theme.palette.text.disabled};
+			} 
+	`
+			: ''}
 `;
 
 export const StateContainer = styled(Box)`

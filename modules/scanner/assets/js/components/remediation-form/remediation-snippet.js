@@ -1,11 +1,13 @@
 import AIIcon from '@elementor/icons/AIIcon';
 import CopyIcon from '@elementor/icons/CopyIcon';
 import EditIcon from '@elementor/icons/EditIcon';
+import WorldIcon from '@elementor/icons/WorldIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardActions from '@elementor/ui/CardActions';
 import CardContent from '@elementor/ui/CardContent';
+import Chip from '@elementor/ui/Chip';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
@@ -51,9 +53,8 @@ export const RemediationSnippet = ({ item }) => {
 		setManualEdit(e.target.value);
 	};
 
-	const isActive = item.global
-		? item.active_for_page === '1'
-		: item.active === '1';
+	const isActive =
+		item.global === '1' ? item.active_for_page === '1' : item.active === '1';
 
 	const submitRemediation = async () => {
 		await editRemediation({
@@ -75,24 +76,52 @@ export const RemediationSnippet = ({ item }) => {
 									? __('Active fix', 'pojo-accessibility')
 									: __('Fix (disabled)', 'pojo-accessibility')}
 							</Typography>
+							{item.global && (
+								<Chip
+									icon={<WorldIcon fontSize="small" />}
+									label={__('Cross-scan')}
+									color="default"
+									variant="outlined"
+									size="tiny"
+								/>
+							)}
 						</ItemTitle>
 						{!isEdit && (
-							<Box>
-								<Tooltip
-									placement="top"
-									title={__('Edit', 'pojo-accessibility')}
-									PopperProps={{
-										disablePortal: true,
-									}}
-								>
-									<IconButton
-										size="tiny"
-										onClick={openEdit}
-										disabled={activeRequest}
+							<Box display="flex" alignItems="center">
+								{item.global === '1' ? (
+									<Tooltip
+										placement="top"
+										title={__(
+											"You can't edit cross-scan fixes with Ally",
+											'pojo-accessibility',
+										)}
+										PopperProps={{
+											disablePortal: true,
+										}}
 									>
-										<EditIcon fontSize="tiny" />
-									</IconButton>
-								</Tooltip>
+										<EditIcon
+											fontSize="tiny"
+											color="disabled"
+											sx={{ p: 0.5 }}
+										/>
+									</Tooltip>
+								) : (
+									<Tooltip
+										placement="top"
+										title={__('Edit', 'pojo-accessibility')}
+										PopperProps={{
+											disablePortal: true,
+										}}
+									>
+										<IconButton
+											size="tiny"
+											onClick={openEdit}
+											disabled={activeRequest}
+										>
+											<EditIcon fontSize="tiny" />
+										</IconButton>
+									</Tooltip>
+								)}
 
 								<Tooltip
 									arrow
