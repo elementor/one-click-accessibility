@@ -50,7 +50,7 @@ class Module extends Module_Base {
 	public function render_app() {
 		?>
 		<?php Elementor_Birthday_Banner::get_banner( 'https://go.elementor.com/acc-b-day-banner' ); ?>
-		<?php BF_Sale_2025_Banner::get_banner('https://my.elementor.com/upgrade-ally/?utm_source=acc-BF-banner&utm_medium=wp-dash&utm_campaign=acc-BF-sale'); ?>
+		<?php BF_Sale_2025_Banner::get_banner('https://go.elementor.com/acc-BF-sale'); ?>
 
 		<!-- The hack required to wrap WP notifications -->
 		<div class="wrap">
