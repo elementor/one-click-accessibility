@@ -28,7 +28,7 @@ export const ManageColorContrastLayout = () => {
 
 	// Prevent to render empty list
 	if (!item) {
-		void (remediations[BLOCKS.altText].length > 0
+		void (remediations[BLOCKS.colorContrast].length > 0
 			? setCurrent(0)
 			: setOpenedBlock(BLOCKS.management));
 
