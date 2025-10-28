@@ -41,9 +41,14 @@ const Breadcrumbs = () => {
 		itemsData?.filter((item) => item?.resolved === true).length || 0;
 
 	const items = isManage ? sortedRemediation : sortedViolations;
-	const count = isManage
-		? items[openedBlock].length
-		: items[openedBlock].length - resolved;
+	const itemsResolved =
+		items[openedBlock]?.filter((item) =>
+			item?.global === '1'
+				? item.active_for_page === '1'
+				: item?.active === '1',
+		).length || 0;
+
+	const count = isManage ? itemsResolved : items[openedBlock].length - resolved;
 
 	return (
 		<Box>
@@ -78,7 +83,7 @@ const Breadcrumbs = () => {
 							<InfoCircleIcon fontSize="small" color="action" />
 						</Infotip>
 					)}
-					{items[openedBlock].length > 0 && (
+					{count > 0 && (
 						<Chip
 							label={count}
 							color={isManage ? 'info' : 'error'}

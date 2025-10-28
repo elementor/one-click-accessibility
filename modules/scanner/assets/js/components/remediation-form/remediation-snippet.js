@@ -140,7 +140,12 @@ export const RemediationSnippet = ({ item }) => {
 							disabled={!isActive}
 						>
 							<Box display="flex" gap={0.5} alignItems="start">
-								<StyledSnippet variant="body2">{content.replace}</StyledSnippet>
+								<StyledSnippet
+									variant="body2"
+									color={isActive ? 'text.primary' : 'text.disabled'}
+								>
+									{content.replace}
+								</StyledSnippet>
 							</Box>
 						</StyledAlert>
 					)}

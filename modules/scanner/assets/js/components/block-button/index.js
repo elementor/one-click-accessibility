@@ -39,7 +39,7 @@ export const BlockButton = ({ title, count, block }) => {
 				color={resolved ? 'success' : 'default'}
 			>
 				<Box display="flex" alignItems="center" gap={0.5}>
-					<Typography variant="subtitle2" as="h4">
+					<Typography variant="subtitle2" as="h4" color="text.primary">
 						{title}
 					</Typography>
 

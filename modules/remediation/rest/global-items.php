@@ -109,7 +109,8 @@ class Global_Items extends Route_Base {
 				return $error;
 			}
 
-			Remediation_Entry::remove_all_global();
+			$group = sanitize_text_field( $request->get_param( 'group' ) );
+			Remediation_Entry::remove_all_global( $group );
 			Page_Entry::clear_all_cache();
 
 			return $this->respond_success_json( [

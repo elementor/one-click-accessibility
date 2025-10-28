@@ -40,7 +40,7 @@ export const ManageMainLayout = () => {
 				</>
 			)}
 
-			{globalRemediations.length === 0 && globalRemediations.length === 0 && (
+			{remediations.length === 0 && globalRemediations.length === 0 && (
 				<EmptyManageMessage />
 			)}
 		</StyledContent>

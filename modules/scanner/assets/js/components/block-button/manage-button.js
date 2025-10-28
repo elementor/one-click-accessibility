@@ -42,7 +42,7 @@ export const ManageButton = ({ title, count, block, global = false }) => {
 				fullWidth
 				onClick={handleClick}
 			>
-				<Typography noWrap variant="subtitle2" as="h4">
+				<Typography noWrap variant="subtitle2" as="h4" color="text.primary">
 					{title}
 				</Typography>
 			</ActionButton>

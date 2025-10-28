@@ -92,7 +92,6 @@ export const StyledSkeleton = styled(Skeleton)`
 `;
 
 const disabledState = `
-		opacity: .7;
 		cursor: not-allowed;
 		& * {
 			pointer-events: none;

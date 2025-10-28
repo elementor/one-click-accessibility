@@ -249,7 +249,7 @@ export const ResolveWithAi = ({ item, current }) => {
 							disabled={disabled}
 							onClick={closeEdit}
 						>
-							{__('Apply changes', 'pojo-accessibility')}
+							{__('Apply fix', 'pojo-accessibility')}
 						</Button>
 					) : (
 						<Button
