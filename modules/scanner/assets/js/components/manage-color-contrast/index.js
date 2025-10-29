@@ -33,7 +33,7 @@ export const ManageColorContrast = ({
 		if (background?.item) {
 			focusOnElement(background?.item, BACKGROUND_ELEMENT_CLASS);
 		}
-	}, [background.item]);
+	}, [background?.item]);
 
 	const global = item.global === '1';
 	const isActive = global ? item.active_for_page === '1' : item.active === '1';

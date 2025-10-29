@@ -51,7 +51,7 @@ export const ManageColorContrastLayout = () => {
 		}
 	};
 
-	const colorData = checkContrastAA(node);
+	const colorData = node ? checkContrastAA(node) : null;
 
 	return (
 		<StyledContent>
@@ -62,7 +62,7 @@ export const ManageColorContrastLayout = () => {
 						node,
 						data,
 						messageArgs: [
-							colorData.ratio,
+							colorData?.ratio,
 							'',
 							'',
 							cssData.color?.value,
@@ -70,7 +70,7 @@ export const ManageColorContrastLayout = () => {
 						],
 						path: { dom: data?.xpath },
 						isEdit,
-						isPotential: colorData.isPotential,
+						isPotential: colorData?.isPotential,
 						parentNode: cssData.background?.item,
 						global: item.global === '1',
 					}}
