@@ -14,7 +14,6 @@ import {
 import {
 	HIDE_UPGRADE_KEY,
 	IS_PRO_PLAN,
-	ONE_WEEK_IN_MS,
 	UPGRADE_URL,
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
@@ -32,11 +31,7 @@ export const ManageMainLayout = () => {
 
 	const isShowUpgradeAlert = () => {
 		const time = window.localStorage.getItem(HIDE_UPGRADE_KEY);
-		if (!time || showUpgradeAlert) {
-			return true;
-		}
-		const diff = Date.now() - time;
-		return diff > ONE_WEEK_IN_MS;
+		return !time || showUpgradeAlert;
 	};
 
 	const showPromo =
