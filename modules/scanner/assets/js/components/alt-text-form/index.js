@@ -77,6 +77,10 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 		});
 	};
 
+	const applyBtnText = isManage
+		? __('Apply changes', 'pojo-accessibility')
+		: __('Apply fix', 'pojo-accessibility');
+
 	return (
 		<StyledBox>
 			<Divider />
@@ -225,7 +229,7 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 					>
 						{isGlobal
 							? __('Apply everywhere', 'pojo-accessibility')
-							: __('Apply fix', 'pojo-accessibility')}
+							: applyBtnText}
 					</Button>
 				</Box>
 			</Box>

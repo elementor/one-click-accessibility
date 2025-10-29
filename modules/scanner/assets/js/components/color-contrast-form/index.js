@@ -93,6 +93,10 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 			background === item.messageArgs[4] &&
 			!parentChanged);
 
+	const applyBtnText = isManage
+		? __('Apply changes', 'pojo-accessibility')
+		: __('Apply fix', 'pojo-accessibility');
+
 	return (
 		<StyledBox>
 			<Divider />
@@ -169,7 +173,7 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 					>
 						{isGlobal
 							? __('Apply everywhere', 'pojo-accessibility')
-							: __('Apply fix', 'pojo-accessibility')}
+							: applyBtnText}
 					</Button>
 				</Box>
 			</Box>

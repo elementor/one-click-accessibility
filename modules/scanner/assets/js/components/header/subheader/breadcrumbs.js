@@ -17,9 +17,11 @@ import { __ } from '@wordpress/i18n';
 
 const Breadcrumbs = () => {
 	const {
+		isManageGlobal,
 		openedBlock,
 		sortedViolations,
 		sortedRemediation,
+		sortedGlobalRemediation,
 		setOpenedBlock,
 		altTextData,
 		manualData,
@@ -40,7 +42,10 @@ const Breadcrumbs = () => {
 	const resolved =
 		itemsData?.filter((item) => item?.resolved === true).length || 0;
 
-	const items = isManage ? sortedRemediation : sortedViolations;
+	const remediations = isManageGlobal
+		? sortedGlobalRemediation
+		: sortedRemediation;
+	const items = isManage ? remediations : sortedViolations;
 	const itemsResolved =
 		items[openedBlock]?.filter((item) =>
 			item?.global === '1'

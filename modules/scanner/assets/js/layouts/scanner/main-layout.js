@@ -38,11 +38,12 @@ export const MainLayout = () => {
 			</Typography>
 
 			<MainList />
-			{IS_PRO_PLAN && isShowUpgradeAlert() && (
+			{!IS_PRO_PLAN && isShowUpgradeAlert() && (
 				<Alert
 					icon={<CrownFilled color="promotion" />}
 					color="error"
 					onClose={hideUpgradeAlert}
+					sx={{ mt: 2 }}
 				>
 					<Typography variant="body2" sx={{ mb: 1.5, color: 'text.secondary' }}>
 						{__(
