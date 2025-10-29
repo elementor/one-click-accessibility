@@ -39,6 +39,11 @@ export const ManageMainLayout = () => {
 		return diff > ONE_WEEK_IN_MS;
 	};
 
+	const showPromo =
+		(remediations.length > 0 || globalRemediations.length > 0) &&
+		!IS_PRO_PLAN &&
+		isShowUpgradeAlert();
+
 	return (
 		<StyledContent>
 			{remediations.length > 0 && (
@@ -68,7 +73,7 @@ export const ManageMainLayout = () => {
 			{remediations.length === 0 && globalRemediations.length === 0 && (
 				<EmptyManageMessage />
 			)}
-			{!IS_PRO_PLAN && isShowUpgradeAlert() && (
+			{showPromo && (
 				<Alert
 					icon={<CrownFilled color="promotion" />}
 					color="error"
