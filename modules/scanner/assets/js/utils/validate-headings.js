@@ -1,6 +1,6 @@
 import {
-	toFlatTree,
 	getHeadingXpath,
+	toFlatTree,
 } from '@ea11y-apps/scanner/utils/page-headings';
 import { EA11Y_RULES } from '../rules';
 import { HEADING_STATUS } from '../types/heading';
@@ -48,7 +48,7 @@ export const validateHeadings = (headingTree, dismissedHeadingIssues) => {
  */
 const validateHierarchy = (
 	headings,
-	dismissedHeadingIssues,
+	dismissedHeadingIssues = [],
 	parentLevel = 0,
 ) => {
 	let previousLevel = parentLevel;
