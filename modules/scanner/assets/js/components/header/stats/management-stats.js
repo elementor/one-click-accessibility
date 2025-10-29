@@ -21,7 +21,7 @@ export const ManagementStats = () => {
 	const total = remediations?.length + globalRemediations.length;
 
 	const getStats = () =>
-		remediations.length > 0 ? (
+		active > 0 ? (
 			<Typography variant="body2" color="text.secondary">
 				{sprintf(
 					// Translators: %1$s - active, %2$s - total
