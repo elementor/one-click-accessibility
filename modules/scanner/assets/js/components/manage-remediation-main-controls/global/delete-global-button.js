@@ -1,6 +1,7 @@
 import TrashIcon from '@elementor/icons/TrashIcon';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { DeleteGlobalRemediationModal } from '@ea11y-apps/scanner/components/remediation-confirmation-modal';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useGlobalManageActions } from '@ea11y-apps/scanner/hooks/use-global-manage-actions';
@@ -12,7 +13,17 @@ const DeleteGlobalButton = () => {
 	const { deleteGlobalRemediations } = useGlobalManageActions();
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
+	const onShowDeleteModal = () => {
+		setShowDeleteModal(true);
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			data: {
+				popupType: 'global_delete_confirmation',
+				buttonName: 'Remove all',
+			},
+		});
+	};
+
+	const onHideDeleteModal = () => setShowDeleteModal(false);
 
 	const onDeleteRemediation = async () => {
 		setShowDeleteModal(false);
@@ -29,14 +40,14 @@ const DeleteGlobalButton = () => {
 					disablePortal: true,
 				}}
 			>
-				<IconButton size="tiny" color="error" onClick={toggleDeleteModal}>
+				<IconButton size="tiny" color="error" onClick={onShowDeleteModal}>
 					<TrashIcon fontSize="tiny" />
 				</IconButton>
 			</Tooltip>
 
 			<DeleteGlobalRemediationModal
 				open={showDeleteModal}
-				hideConfirmation={toggleDeleteModal}
+				hideConfirmation={onHideDeleteModal}
 				onDelete={onDeleteRemediation}
 				count={globalRemediations.length}
 				isMain

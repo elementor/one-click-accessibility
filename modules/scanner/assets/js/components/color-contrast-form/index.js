@@ -72,6 +72,7 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 			background_level: parents.length,
 			category_name: BLOCKS.colorContrast,
 			page_url: window.ea11yScannerData?.pageData?.url,
+			is_global: isGlobal ? 'yes' : 'no',
 		});
 	};
 

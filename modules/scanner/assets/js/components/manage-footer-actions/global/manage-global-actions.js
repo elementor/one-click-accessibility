@@ -32,16 +32,18 @@ const ManageGlobalActions = ({ item }) => {
 
 	const onUpdateForPage = () => {
 		handleClose();
-		void updateGlobalRemediationForPage(item.id, isExcluded);
+		void updateGlobalRemediationForPage(item.id, isExcluded, item.rule);
 	};
 	const onUpdateForAllPages = () => {
 		handleClose();
-		void updateGlobalRemediationForAllPages(item.id, isDisabled);
+		void updateGlobalRemediationForAllPages(item.id, isDisabled, item.rule);
 	};
 
 	return (
 		<Box display="flex" gap={1} justifyContent="flex-end">
-			{isDisabled && isExcluded && <DeleteGlobalItem id={item.id} />}
+			{isDisabled && isExcluded && (
+				<DeleteGlobalItem id={item.id} rule={item.rule} />
+			)}
 			<Button
 				id="global-remediation-menu-button"
 				startIcon={isExcluded ? <ReloadIcon /> : <StyledBanIcon />}

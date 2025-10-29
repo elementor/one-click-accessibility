@@ -6,6 +6,7 @@ import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import PropTypes from 'prop-types';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import {
 	DisableGlobalRemediationModal,
 	EnableGlobalRemediationModal,
@@ -37,6 +38,16 @@ const GlobalRemediationControlMenu = ({ isAllExcluded, isAllDisabled }) => {
 
 	const onUpdateStatus = () => {
 		void (isAllDisabled ? setShowEnableModal(true) : setShowDisableModal(true));
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			data: {
+				popupType: isAllDisabled
+					? 'global_enable_confirmation'
+					: 'global_disable_confirmation',
+				buttonName: isAllDisabled
+					? 'Enable across scans'
+					: 'Disable across scans',
+			},
+		});
 	};
 
 	const onUpdateForPage = () => {

@@ -8,8 +8,10 @@ import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { ProCrownIcon } from '@ea11y/icons';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { SetGlobalRemediationModal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global-remediation-modal';
 import { IS_PRO_PLAN, UPGRADE_URL } from '@ea11y-apps/scanner/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useGlobalManageActions } from '@ea11y-apps/scanner/hooks/use-global-manage-actions';
 import { StyledProChip } from '@ea11y-apps/scanner/styles/app.styles';
 import { InfotipBox } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
@@ -22,16 +24,48 @@ export const SetGlobal = ({
 	onGlobalChange = null,
 	isChecked = false,
 }) => {
+	const { openedBlock } = useScannerWizardContext();
 	const { setRemediationAsGlobal } = useGlobalManageActions();
 	const [showModal, setShowModal] = useState(false);
 
-	const toggleModal = () => setShowModal(!showModal);
+	const onShowModal = () => {
+		setShowModal(true);
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			data: {
+				popupType: 'set_as_global_confirmation',
+				buttonName: 'Apply across scans',
+			},
+		});
+	};
+
+	const changeIsGlobal = (value) => {
+		if (onGlobalChange) {
+			onGlobalChange(value);
+		}
+
+		mixpanelService.sendEvent(mixpanelEvents.markAsGlobalToggled, {
+			toggle_status: value ? 'on' : 'off',
+			source: 'assistant',
+			category_name: openedBlock,
+			issue_type: item.message,
+			rule_id: item.ruleId,
+		});
+	};
+
+	const onHideModal = () => setShowModal(false);
 	const onSwitchChange = (event, value) =>
-		onGlobalChange ? onGlobalChange(value) : setShowModal(true);
+		onGlobalChange ? changeIsGlobal(value) : onShowModal();
 
 	const onSetAsGlobal = () => {
 		setShowModal(false);
 		void setRemediationAsGlobal(item.id);
+	};
+
+	const onUpgrade = () => {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
+			current_plan: window.ea11yScannerData?.planData?.plan?.name,
+			feature_locked: 'globals',
+		});
 	};
 
 	return (
@@ -103,6 +137,7 @@ export const SetGlobal = ({
 									target="_blank"
 									rel="noreferrer"
 									startIcon={<CrownFilled />}
+									onClick={onUpgrade}
 								>
 									{__('Upgrade now', 'pojo-accessibility')}
 								</Button>
@@ -120,7 +155,7 @@ export const SetGlobal = ({
 			)}
 			<SetGlobalRemediationModal
 				open={showModal}
-				hideConfirmation={toggleModal}
+				hideConfirmation={onHideModal}
 				onApprove={onSetAsGlobal}
 				item={item}
 			/>

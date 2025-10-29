@@ -9,14 +9,14 @@ import { useGlobalManageActions } from '@ea11y-apps/scanner/hooks/use-global-man
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-const DeleteGlobalItem = ({ id }) => {
+const DeleteGlobalItem = ({ id, rule }) => {
 	const { activeRequest, deleteGlobalRemediation } = useGlobalManageActions();
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
 	const onDeleteRemediation = async () => {
 		setShowDeleteModal(false);
-		await deleteGlobalRemediation(id);
+		await deleteGlobalRemediation(id, rule);
 	};
 
 	return (
@@ -49,6 +49,7 @@ const DeleteGlobalItem = ({ id }) => {
 
 DeleteGlobalItem.propTypes = {
 	id: PropTypes.number.isRequired,
+	rule: PropTypes.string.isRequired,
 };
 
 export default DeleteGlobalItem;

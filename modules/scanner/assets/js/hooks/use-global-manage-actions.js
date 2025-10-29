@@ -1,4 +1,5 @@
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useState } from '@wordpress/element';
@@ -6,16 +7,53 @@ import { __ } from '@wordpress/i18n';
 
 export const useGlobalManageActions = () => {
 	const { error } = useToastNotification();
-	const { setLoading, updateRemediationList, setIsManageChanged } =
-		useScannerWizardContext();
+	const {
+		openedBlock,
+		globalRemediations,
+		sortedGlobalRemediation,
+		setLoading,
+		updateRemediationList,
+		setIsManageChanged,
+	} = useScannerWizardContext();
 
 	const [activeRequest, setActiveRequest] = useState(false);
+
+	const sendUpdateEvent = (active, group, context) => {
+		mixpanelService.sendEvent(
+			mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
+			{
+				action_type: active ? 'enable_all' : 'disable_all',
+				remediations_amount: group
+					? sortedGlobalRemediation[group]
+					: globalRemediations?.length,
+				category: group || 'all',
+				context,
+				is_global: 'yes',
+			},
+		);
+	};
+
+	const sendSpecificEvent = (active, rule, context) => {
+		mixpanelService.sendEvent(
+			mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
+			{
+				action_type: active ? 'enable_specific' : 'disable_specific',
+				category_name: openedBlock,
+				issue_type: rule,
+				is_global: 'yes',
+				context,
+			},
+		);
+	};
 
 	const setRemediationAsGlobal = async (id) => {
 		try {
 			setLoading(true);
 			await APIScanner.setRemediationAsGlobal({ id });
 			setIsManageChanged(true);
+			mixpanelService.sendEvent(
+				mixpanelEvents.applyGlobalFixConfirmationClicked,
+			);
 			await updateRemediationList();
 		} catch (e) {
 			console.error(e);
@@ -25,7 +63,7 @@ export const useGlobalManageActions = () => {
 		}
 	};
 
-	const updateGlobalRemediationForPage = async (id, active) => {
+	const updateGlobalRemediationForPage = async (id, active, rule) => {
 		try {
 			setActiveRequest(true);
 			await APIScanner.updateGlobalRemediationForPage({
@@ -35,6 +73,7 @@ export const useGlobalManageActions = () => {
 			});
 			setIsManageChanged(true);
 			await updateRemediationList();
+			sendSpecificEvent(active, rule, 'current_page');
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -43,7 +82,7 @@ export const useGlobalManageActions = () => {
 		}
 	};
 
-	const updateGlobalRemediationForAllPages = async (id, active) => {
+	const updateGlobalRemediationForAllPages = async (id, active, rule) => {
 		try {
 			setActiveRequest(true);
 			await APIScanner.updateGlobalRemediationForAllPages({
@@ -52,6 +91,7 @@ export const useGlobalManageActions = () => {
 			});
 			setIsManageChanged(true);
 			await updateRemediationList();
+			sendSpecificEvent(active, rule, 'all_pages');
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -60,11 +100,18 @@ export const useGlobalManageActions = () => {
 		}
 	};
 
-	const deleteGlobalRemediation = async (id) => {
+	const deleteGlobalRemediation = async (id, rule) => {
 		try {
 			setActiveRequest(true);
 			await APIScanner.deleteGlobalRemediation({
 				id,
+			});
+
+			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
+				action_type: 'remove_specific',
+				category_name: openedBlock,
+				issue_type: rule,
+				is_global: 'yes',
 			});
 
 			await updateRemediationList();
@@ -86,6 +133,7 @@ export const useGlobalManageActions = () => {
 			});
 			setIsManageChanged(true);
 			await updateRemediationList();
+			sendUpdateEvent(active, group, 'current_page');
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -103,6 +151,7 @@ export const useGlobalManageActions = () => {
 			});
 			setIsManageChanged(true);
 			await updateRemediationList();
+			sendUpdateEvent(active, group, 'all_pages');
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -120,6 +169,7 @@ export const useGlobalManageActions = () => {
 			});
 			setIsManageChanged(true);
 			await updateRemediationList();
+			sendUpdateEvent(active, 'all', 'current_page');
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -136,6 +186,7 @@ export const useGlobalManageActions = () => {
 			});
 			setIsManageChanged(true);
 			await updateRemediationList();
+			sendUpdateEvent(active, 'all', 'all_pages');
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -152,6 +203,14 @@ export const useGlobalManageActions = () => {
 			});
 
 			await updateRemediationList();
+			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
+				action_type: 'remove_all',
+				remediations_amount: group
+					? sortedGlobalRemediation[group]
+					: globalRemediations?.length,
+				category: group || 'all',
+				is_global: 'yes',
+			});
 		} catch (e) {
 			console.error(e);
 			error(__('An error occurred.', 'pojo-accessibility'));

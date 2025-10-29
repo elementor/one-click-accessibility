@@ -9,6 +9,7 @@ import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import PropTypes from 'prop-types';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import {
 	DeleteGlobalRemediationModal,
 	DisableGlobalRemediationModal,
@@ -55,12 +56,31 @@ export const GlobalButtonMenu = ({ group }) => {
 		setIsOpened(true);
 	};
 
-	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
+	const onShowDeleteModal = () => {
+		setShowDeleteModal(true);
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			data: {
+				popupType: 'global_delete_confirmation',
+				buttonName: 'Remove across scans',
+			},
+		});
+	};
+	const onHideDeleteModal = () => setShowDeleteModal(false);
 	const toggleDisableModal = () => setShowDisableModal(!showDisableModal);
 	const toggleEnableModal = () => setShowDisableModal(!showDisableModal);
 
 	const onUpdateStatus = () => {
 		void (isAllDisabled ? setShowEnableModal(true) : setShowDisableModal(true));
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			data: {
+				popupType: isAllDisabled
+					? 'global_enable_confirmation'
+					: 'global_disable_confirmation',
+				buttonName: isAllDisabled
+					? __('Enable across scans', 'pojo-accessibility')
+					: __('Disable across scans', 'pojo-accessibility'),
+			},
+		});
 	};
 
 	const onUpdateForPage = () => {
@@ -159,7 +179,7 @@ export const GlobalButtonMenu = ({ group }) => {
 					)}
 				</MenuItem>
 
-				<MenuItem onClick={toggleDeleteModal} dense>
+				<MenuItem onClick={onShowDeleteModal} dense>
 					<MenuItemIcon>
 						<TrashIcon fontSize="tiny" />
 					</MenuItemIcon>
@@ -171,7 +191,7 @@ export const GlobalButtonMenu = ({ group }) => {
 			</Menu>
 			<DeleteGlobalRemediationModal
 				open={showDeleteModal}
-				hideConfirmation={toggleDeleteModal}
+				hideConfirmation={onHideDeleteModal}
 				onDelete={onDeleteRemediation}
 				count={count}
 				isMain

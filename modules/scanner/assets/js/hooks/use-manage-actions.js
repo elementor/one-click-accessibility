@@ -38,6 +38,7 @@ export const useManageActions = (current = null) => {
 						? sortedRemediation[group]
 						: remediations?.length,
 					category: group || 'all',
+					is_global: 'no',
 				},
 			);
 		} catch (e) {
@@ -56,12 +57,13 @@ export const useManageActions = (current = null) => {
 				group,
 			});
 
-			await mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
+			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_all',
 				remediations_amount: group
 					? sortedRemediation[group]
 					: remediations?.length,
 				category: group || 'all',
+				is_global: 'no',
 			});
 
 			if (group) {
@@ -121,6 +123,7 @@ export const useManageActions = (current = null) => {
 				action_type: 'remove_specific',
 				category_name: openedBlock,
 				issue_type: current.rule,
+				is_global: 'no',
 			});
 		} catch (e) {
 			console.error(e);

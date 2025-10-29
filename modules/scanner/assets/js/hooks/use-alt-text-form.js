@@ -180,6 +180,7 @@ export const useAltTextForm = ({ current, item }) => {
 				issue_type: item.message,
 				category_name: BLOCKS.altText,
 				page_url: window.ea11yScannerData?.pageData?.url,
+				is_global: isGlobal ? 'yes' : 'no',
 			});
 		} catch (e) {
 			console.error(e);

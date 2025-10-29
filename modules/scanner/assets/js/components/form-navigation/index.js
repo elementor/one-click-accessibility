@@ -3,9 +3,18 @@ import Divider from '@elementor/ui/Divider';
 import Pagination from '@elementor/ui/Pagination';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 
 export const FormNavigation = ({ total, current, setCurrent }) => {
-	const onChange = (event, index) => setCurrent(index - 1);
+	const { openedBlock } = useScannerWizardContext();
+	const onChange = (event, index) => {
+		setCurrent(index - 1);
+		mixpanelService.sendEvent(mixpanelEvents.navigationChanged, {
+			page: index,
+			category: openedBlock,
+		});
+	};
 	return (
 		<Box sx={{ minHeight: '65px' }}>
 			<Navigation>

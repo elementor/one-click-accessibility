@@ -5,6 +5,7 @@ import CardContent from '@elementor/ui/CardContent';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { EmptyManageMessage } from '@ea11y-apps/scanner/components/empty-manage-message';
 import ManageRemediationList from '@ea11y-apps/scanner/components/manage-remediation-list';
 import {
@@ -32,6 +33,13 @@ export const ManageMainLayout = () => {
 	const isShowUpgradeAlert = () => {
 		const time = window.localStorage.getItem(HIDE_UPGRADE_KEY);
 		return !time || showUpgradeAlert;
+	};
+
+	const onUpgrade = () => {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
+			current_plan: window.ea11yScannerData?.planData?.plan?.name,
+			feature_locked: 'global_banner',
+		});
 	};
 
 	const showPromo =
@@ -88,6 +96,7 @@ export const ManageMainLayout = () => {
 						href={UPGRADE_URL}
 						target="_blank"
 						rel="noreferrer"
+						onClick={onUpgrade}
 					>
 						{__('Upgrade now', 'pojo-accessibility')}
 					</Button>
