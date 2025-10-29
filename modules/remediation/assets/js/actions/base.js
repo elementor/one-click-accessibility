@@ -7,7 +7,8 @@ export class RemediationBase {
 		throw new Error(`Action type '${this.data.type}' - not implemented`);
 	}
 
-	getElementByXPath(xpath) {
+	getElementByXPath(originXpath) {
+		const xpath = originXpath.replace('svg', "*[name()='svg']");
 		return this.dom.evaluate(
 			xpath,
 			this.dom,
