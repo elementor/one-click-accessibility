@@ -32,7 +32,7 @@ export const ManageMainLayout = () => {
 
 	const isShowUpgradeAlert = () => {
 		const time = window.localStorage.getItem(HIDE_UPGRADE_KEY);
-		return !time || showUpgradeAlert;
+		return !time && showUpgradeAlert;
 	};
 
 	const onUpgrade = () => {
