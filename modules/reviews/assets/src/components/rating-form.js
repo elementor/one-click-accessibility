@@ -16,12 +16,8 @@ import {
 } from '../icons';
 
 const RatingForm = () => {
-	const {
-		setRating,
-		setCurrentPage,
-		handleClose,
-		handleSubmit,
-	} = useSettings();
+	const { setRating, setCurrentPage, handleClose, handleSubmit } =
+		useSettings();
 
 	const ratingsMap = [
 		{
