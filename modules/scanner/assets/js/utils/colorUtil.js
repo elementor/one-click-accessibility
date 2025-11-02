@@ -166,9 +166,9 @@ export class ColorUtil {
 		whitesmoke: '#f5f5f5',
 		yellow: '#ffff00',
 		yellowgreen: '#9acd32',
-		buttontext: 'rgba(0, 0, 0, 0.847)',
+		buttontext: 'rgb(0, 0, 0, 0.847)',
 		buttonface: '#ffffff',
-		graytext: 'rgba(0, 0, 0, 0.247)',
+		graytext: 'rgb(0, 0, 0, 0.247)',
 	};
 
 	// Rewrite the color object to account for alpha
@@ -191,7 +191,7 @@ export class ColorUtil {
 			}
 
 			return new ColorObj(m[1], m[2], m[3]);
-		} else if (cssStyleColor.startsWith('rgba(')) {
+		} else if (cssStyleColor.startsWith('rgb(')) {
 			const rgbRegex =
 				/\s*rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(.+)\s*\)/;
 			const m = cssStyleColor.match(rgbRegex);
@@ -334,7 +334,7 @@ export class ColorUtil {
 				if (
 					cStyle.backgroundColor &&
 					cStyle.backgroundColor !== 'transparent' &&
-					cStyle.backgroundColor !== 'rgba(0, 0, 0, 0)'
+					cStyle.backgroundColor !== 'rgb(0, 0, 0, 0)'
 				) {
 					thisBgColor = ColorUtil.Color(cStyle.backgroundColor);
 				}
@@ -583,7 +583,7 @@ export class ColorObj {
 			thisRed = m[1];
 			thisGreen = m[2];
 			thisBlue = m[3];
-		} else if (cssStyleColor.startsWith('rgba(')) {
+		} else if (cssStyleColor.startsWith('rgb(')) {
 			const rgbRegex =
 				/\s*rgba\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(.+)\s*\)/;
 			const m = cssStyleColor.match(rgbRegex);

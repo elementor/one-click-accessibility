@@ -229,7 +229,7 @@ const AccessibilityStatement = () => {
 						justifyContent="end"
 						p={2}
 						width="100%"
-						borderTop="1px solid rgba(0, 0, 0, 0.12)"
+						borderTop="1px solid rgb(0, 0, 0, 0.12)"
 					>
 						<Button
 							color="info"
