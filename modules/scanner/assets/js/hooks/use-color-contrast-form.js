@@ -56,7 +56,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			...colorContrastData,
 			[type]: updData,
 		});
-		console.log('Update data', data);
+
 		const rule = buildCSSRule(data.parents);
 		updateCSS(rule);
 	};
@@ -175,8 +175,6 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		try {
 			const colorSelector = getElementCSSSelector(item.path.dom);
 			const bgSelector = getElementCSSSelector(currentParent);
-
-			console.log('buildRule', item, colorSelector, bgSelector);
 
 			const colorRule =
 				color !== item.messageArgs[3] || (color && item.isEdit)
