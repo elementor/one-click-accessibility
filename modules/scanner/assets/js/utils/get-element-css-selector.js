@@ -7,7 +7,7 @@ import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpat
 
 export const getElementCSSSelector = (xpath) => {
 	let element = getElementByXPath(xpath);
-	console.log(xpath, element);
+	console.log('getElementCSSSelector', xpath, element);
 	if (!element || !(element instanceof Element)) {
 		return null;
 	}
@@ -62,7 +62,7 @@ export const getElementCSSSelector = (xpath) => {
 		element = element.parentElement;
 	}
 
-	console.log(parts);
+	console.log('Parts:', parts);
 
 	return parts.join(' > ');
 };
