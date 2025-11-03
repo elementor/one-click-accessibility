@@ -161,8 +161,8 @@ class Remediation_Base {
 	public function __construct( DOMDocument $dom, $data ) {
 		$this->dom = $dom;
 		$this->data = $data;
-		// if it's not global and element does not exist, move the remediation to the Frontend
-		if ( ! $this->data['global'] && ! $this->exists() ) {
+		// if it's not global and not styles and element does not exist, move the remediation to the Frontend
+		if ( 'STYLES' !== $this->data['type'] && ! $this->data['global'] && ! $this->exists() ) {
 			$this->use_frontend = true;
 			return;
 		}
