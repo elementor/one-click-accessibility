@@ -35,7 +35,6 @@ const DismissButton = ({ variant = 'icon' }) => {
 				flexDirection="row"
 				gap={1}
 				p={currentPage === 'feedback' ? 2 : 0}
-				pt={currentPage === 'feedback' ? 0 : 2}
 				width="100%"
 				justifyContent="end"
 			>
