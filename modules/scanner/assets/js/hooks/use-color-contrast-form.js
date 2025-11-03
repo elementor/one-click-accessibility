@@ -173,8 +173,9 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 
 		try {
-			const colorSelector = getElementCSSSelector(item.path.dom);
-			const bgSelector = getElementCSSSelector(currentParent);
+			const bgElement = getElementByXPath(currentParent);
+			const colorSelector = getElementCSSSelector(item.node);
+			const bgSelector = getElementCSSSelector(bgElement);
 
 			const colorRule =
 				color !== item.messageArgs[3] || (color && item.isEdit)
