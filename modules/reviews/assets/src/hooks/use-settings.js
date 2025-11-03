@@ -87,15 +87,15 @@ const SettingsProvider = ({ children }) => {
 				});
 			}
 
-			if (!response?.success) {
+			if (!response?.success && parseInt(rating) < 4) {
 				/**
 				 * Show success message if the feedback was already submitted.
 				 */
-				successNotification(
+				await successNotification(
 					__('Feedback already submitted', 'pojo-accessibility'),
 				);
-			} else {
-				successNotification(
+			} else if (response?.success && parseInt(rating) < 4) {
+				await successNotification(
 					__('Thank you for your feedback!', 'pojo-accessibility'),
 				);
 			}
