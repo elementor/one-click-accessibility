@@ -57,7 +57,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			[type]: updData,
 		});
 
-		const rule = buildCSSRule(data.parents);
+		const rule = buildCSSRule(updData[current]);
 		updateCSS(rule);
 	};
 
@@ -160,14 +160,14 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const isValidHexColor = (str) =>
 		/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(str.trim());
 
-	const buildCSSRule = (newParents = null) => {
-		const currentParents = newParents || parents;
+	const buildCSSRule = (data) => {
+		const currentParents = data.parents || parents;
 		const currentParent =
 			currentParents.length > 0 ? currentParents.at(-1) : item.path.dom;
 
 		if (
-			!isValidHexColor(color) ||
-			(background && !isValidHexColor(background))
+			!isValidHexColor(data.color) ||
+			(data.background && !isValidHexColor(data.background))
 		) {
 			throw new Error('Invalid hex color input detected');
 		}
@@ -177,15 +177,13 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			const colorSelector = getElementCSSSelector(item.node);
 			const bgSelector = getElementCSSSelector(bgElement);
 
-			const colorRule =
-				color !== item.messageArgs[3] || (color && item.isEdit)
-					? `${colorSelector} {color: ${color} !important;}`
-					: '';
+			const colorRule = data.color
+				? `${colorSelector} {color: ${data.color} !important;}`
+				: '';
 
-			const bgRule =
-				background && (background !== item.messageArgs[4] || item.isEdit)
-					? `${bgSelector} {background-color: ${background} !important;}`
-					: '';
+			const bgRule = data.background
+				? `${bgSelector} {background-color: ${data.background} !important;}`
+				: '';
 
 			const css = `${colorRule}${bgRule}`;
 
@@ -207,7 +205,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	const onUpdate = async () => {
-		const rule = buildCSSRule();
+		const rule = buildCSSRule(colorContrastData?.[type]?.[current]);
 		const find = getOuterHtmlByXpath(item.path.dom);
 		const parentXPath = parents.length > 0 ? parents.at(-1) : null;
 		const parentFind = getOuterHtmlByXpath(parentXPath);
@@ -254,7 +252,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		const parentFind = getOuterHtmlByXpath(parentXPath);
 		setLoading(true);
 		try {
-			const rule = buildCSSRule();
+			const rule = buildCSSRule(colorContrastData?.[type]?.[current]);
 			await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData?.url,
 				remediation: {
