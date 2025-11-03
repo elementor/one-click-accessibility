@@ -87,14 +87,14 @@ const SettingsProvider = ({ children }) => {
 				});
 			}
 
-			if (!response?.success && parseInt(rating) < 4) {
+			if (!response?.success && parseInt(ratingToSubmit) < 4) {
 				/**
 				 * Show success message if the feedback was already submitted.
 				 */
 				await successNotification(
 					__('Feedback already submitted', 'pojo-accessibility'),
 				);
-			} else if (response?.success && parseInt(rating) < 4) {
+			} else if (response?.success && parseInt(ratingToSubmit) < 4) {
 				await successNotification(
 					__('Thank you for your feedback!', 'pojo-accessibility'),
 				);
@@ -137,28 +137,6 @@ const SettingsProvider = ({ children }) => {
 			{children}
 		</SettingsContext.Provider>
 	);
-};
-
-export const useNotifications = () => {
-	const { setNotificationMessage, setNotificationType, setShowNotification } =
-		useContext(SettingsContext);
-
-	const error = (message) => {
-		setNotificationMessage(message);
-		setNotificationType('error');
-		setShowNotification(true);
-	};
-
-	const success = (message) => {
-		setNotificationMessage(message);
-		setNotificationType('success');
-		setShowNotification(true);
-	};
-
-	return {
-		success,
-		error,
-	};
 };
 
 export default SettingsProvider;
