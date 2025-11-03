@@ -91,11 +91,11 @@ const SettingsProvider = ({ children }) => {
 				/**
 				 * Show success message if the feedback was already submitted.
 				 */
-				await successNotification(
+				successNotification(
 					__('Feedback already submitted', 'pojo-accessibility'),
 				);
 			} else if (response?.success && parseInt(ratingToSubmit) < 4) {
-				await successNotification(
+				successNotification(
 					__('Thank you for your feedback!', 'pojo-accessibility'),
 				);
 			}
