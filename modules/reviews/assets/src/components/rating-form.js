@@ -1,4 +1,3 @@
-import Button from '@elementor/ui/Button';
 import FormControl from '@elementor/ui/FormControl';
 import FormControlLabel from '@elementor/ui/FormControlLabel';
 import ListItem from '@elementor/ui/ListItem';
@@ -16,14 +15,9 @@ import {
 	MoodSmile,
 } from '../icons';
 
-const RatingForm = ({ close, handleSubmitForm }) => {
-	const {
-		rating,
-		setRating,
-		setCurrentPage,
-		nextButtonDisabled,
-		setNextButtonDisabled,
-	} = useSettings();
+const RatingForm = () => {
+	const { setRating, setCurrentPage, handleClose, handleSubmit } =
+		useSettings();
 
 	const ratingsMap = [
 		{
@@ -55,14 +49,14 @@ const RatingForm = ({ close, handleSubmitForm }) => {
 
 	const handleRatingChange = (event, value) => {
 		setRating(value);
-		setNextButtonDisabled(false);
+		handleNextButton(value);
 	};
 
-	const handleNextButton = async () => {
-		if (rating < 4) {
+	const handleNextButton = async (ratingValue) => {
+		if (ratingValue < 4) {
 			setCurrentPage('feedback');
 		} else {
-			const submitted = await handleSubmitForm(close, true);
+			const submitted = await handleSubmit(handleClose, true, ratingValue);
 
 			if (submitted) {
 				setCurrentPage('review');
@@ -91,14 +85,6 @@ const RatingForm = ({ close, handleSubmitForm }) => {
 					);
 				})}
 			</RadioGroup>
-			<StyledButton
-				color="secondary"
-				variant="contained"
-				onClick={handleNextButton}
-				disabled={nextButtonDisabled}
-			>
-				{__('Next', 'pojo-accessibility')}
-			</StyledButton>
 		</FormControl>
 	);
 };
@@ -109,9 +95,4 @@ const StyledFormControlLabel = styled(FormControlLabel)`
 	justify-content: space-between;
 	margin-left: 0;
 	width: 100%;
-`;
-
-const StyledButton = styled(Button)`
-	min-width: 80px;
-	align-self: flex-end;
 `;
