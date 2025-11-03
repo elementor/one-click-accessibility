@@ -107,7 +107,6 @@ const SettingsProvider = ({ children }) => {
 			return true;
 		} catch (e) {
 			errorNotification(__('Failed to submit!', 'pojo-accessibility'));
-			console.log(e);
 			return false;
 		}
 	};
