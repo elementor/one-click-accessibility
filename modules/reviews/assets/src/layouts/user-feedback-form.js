@@ -99,12 +99,12 @@ const UserFeedbackForm = () => {
 				});
 			}
 
-			if (!response?.success) {
+			if (!response?.success && parseInt(rating) < 4) {
 				/**
 				 * Show success message if the feedback was already submitted.
 				 */
 				await success(__('Feedback already submitted', 'pojo-accessibility'));
-			} else {
+			} else if (response?.success && parseInt(rating) < 4) {
 				await success(__('Thank you for your feedback!', 'pojo-accessibility'));
 			}
 
