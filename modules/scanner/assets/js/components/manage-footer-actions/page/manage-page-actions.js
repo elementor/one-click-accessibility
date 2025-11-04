@@ -25,16 +25,18 @@ const ManagePageActions = ({ item, isActive }) => {
 		await deleteRemediation();
 	};
 
+	const data = item?.content ? JSON.parse(item.content) : null;
+
 	return (
 		<Box
 			display="flex"
 			gap={1}
-			justifyContent={isActive ? 'space-between' : 'flex-end'}
+			justifyContent={isActive && data?.find ? 'space-between' : 'flex-end'}
 			sx={{ width: '100%' }}
 		>
 			{isActive ? (
 				<>
-					<SetGlobal item={item} />
+					{data?.find && <SetGlobal item={item} />}
 					<Button
 						startIcon={<StyledBanIcon />}
 						size="small"

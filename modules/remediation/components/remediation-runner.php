@@ -216,7 +216,6 @@ class Remediation_Runner {
 			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
 			if ( $remediation_class->use_frontend ) {
-				$remediation['global'] = $item->global;
 				$this->add_frontend_remediation( $remediation );
 				continue;
 			}
