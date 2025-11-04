@@ -17,19 +17,19 @@ export const FormNavigation = ({ total, current, setCurrent }) => {
 	};
 	return (
 		<Box sx={{ minHeight: '65px' }}>
-			<NavigationContainer>
+			<StyledNavigationContainer>
 				<Divider />
 				<StyledBox>
 					<StyledNavigation>
 						<Pagination count={total} page={current + 1} onChange={onChange} />
 					</StyledNavigation>
 				</StyledBox>
-			</NavigationContainer>
+			</StyledNavigationContainer>
 		</Box>
 	);
 };
 
-const NavigationContainer = styled(Box)`
+const StyledNavigationContainer = styled(Box)`
 	position: fixed;
 	bottom: 0;
 	right: 16px;
