@@ -26,7 +26,7 @@ export const ManageItemHeader = ({ isActive, openEdit, global }) => {
 				{global && (
 					<Chip
 						icon={<WorldIcon fontSize="small" />}
-						label={__('Cross-scan')}
+						label={__('Cross-scan', 'pojo-accessibility')}
 						color="default"
 						variant="outlined"
 						size="tiny"

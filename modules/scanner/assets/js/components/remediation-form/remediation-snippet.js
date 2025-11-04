@@ -79,7 +79,7 @@ export const RemediationSnippet = ({ item }) => {
 							{item.global && (
 								<Chip
 									icon={<WorldIcon fontSize="small" />}
-									label={__('Cross-scan')}
+									label={__('Cross-scan', 'pojo-accessibility')}
 									color="default"
 									variant="outlined"
 									size="tiny"
