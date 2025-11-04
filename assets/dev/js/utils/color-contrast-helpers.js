@@ -49,10 +49,6 @@ export const getDataFromCss = (cssRules) => {
 			continue; // Skip invalid selectors
 		}
 
-		if (!element) {
-			continue;
-		}
-
 		const colorMatch = declarations.match(
 			/(?<!background-)color\s*:\s*([^;!]+)/i,
 		);

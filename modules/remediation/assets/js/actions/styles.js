@@ -117,23 +117,27 @@ export class StylesRemediation extends RemediationBase {
 			return false;
 		}
 
-		const cssData = getDataFromCss(this.data.rule);
-		const colorElement = getXPath(
-			this.getElementByXPathFallbackSnippet(this.data.xpath, this.data.find),
-		);
-		const bgElement = getXPath(
-			this.getElementByXPathFallbackSnippet(
-				this.data.parentXPath,
-				this.data.parentFind,
-			),
-		);
+		let rule = this.data.rule;
 
-		const rule = this.getCssRulesForContrast(
-			colorElement,
-			cssData.color.value,
-			bgElement,
-			cssData.background.value,
-		);
+		if (this.data.global === '1') {
+			const cssData = getDataFromCss(this.data.rule);
+			const colorElement = getXPath(
+				this.getElementByXPathFallbackSnippet(this.data.xpath, this.data.find),
+			);
+			const bgElement = getXPath(
+				this.getElementByXPathFallbackSnippet(
+					this.data.parentXPath,
+					this.data.parentFind,
+				),
+			);
+
+			rule = this.getCssRulesForContrast(
+				colorElement,
+				cssData.color.value,
+				bgElement,
+				cssData.background.value,
+			);
+		}
 
 		if (isValidCSS(this.data.rule)) {
 			tag.innerText += rule;

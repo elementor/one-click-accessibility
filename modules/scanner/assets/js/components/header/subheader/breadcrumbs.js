@@ -13,13 +13,15 @@ import {
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 
 const Breadcrumbs = () => {
 	const {
+		isManageGlobal,
 		openedBlock,
 		sortedViolations,
 		sortedRemediation,
+		sortedGlobalRemediation,
 		setOpenedBlock,
 		altTextData,
 		manualData,
@@ -40,10 +42,18 @@ const Breadcrumbs = () => {
 	const resolved =
 		itemsData?.filter((item) => item?.resolved === true).length || 0;
 
-	const items = isManage ? sortedRemediation : sortedViolations;
-	const count = isManage
-		? items[openedBlock].length
-		: items[openedBlock].length - resolved;
+	const remediations = isManageGlobal
+		? sortedGlobalRemediation
+		: sortedRemediation;
+	const items = isManage ? remediations : sortedViolations;
+	const itemsResolved =
+		items[openedBlock]?.filter((item) =>
+			item?.global === '1'
+				? item.active_for_page === '1'
+				: item?.active === '1',
+		).length || 0;
+
+	const count = isManage ? itemsResolved : items[openedBlock].length - resolved;
 
 	return (
 		<Box>
@@ -75,16 +85,12 @@ const Breadcrumbs = () => {
 								</Typography>
 							}
 						>
-							<InfoCircleIcon fontSize="small" />
+							<InfoCircleIcon fontSize="small" color="action" />
 						</Infotip>
 					)}
-					{items[openedBlock].length > 0 && (
+					{count > 0 && (
 						<Chip
-							label={sprintf(
-								// Translators: %1$s - count of active,
-								__('%s active', 'pojo-accessibility'),
-								count,
-							)}
+							label={count}
 							color={isManage ? 'info' : 'error'}
 							variant="standard"
 							size="small"

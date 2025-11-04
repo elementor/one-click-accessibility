@@ -2,16 +2,12 @@ import { getDataFromCss } from '@ea11y-apps/global/utils/color-contrast-helpers'
 import { ColorContrastForm } from '@ea11y-apps/scanner/components/color-contrast-form';
 import { FormNavigation } from '@ea11y-apps/scanner/components/form-navigation';
 import { ManageColorContrast } from '@ea11y-apps/scanner/components/manage-color-contrast';
-import {
-	BACKGROUND_ELEMENT_CLASS,
-	BLOCKS,
-} from '@ea11y-apps/scanner/constants';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledContent } from '@ea11y-apps/scanner/styles/app.styles';
 import { checkContrastAA } from '@ea11y-apps/scanner/utils/calc-color-ratio';
-import { focusOnElement } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 
 export const ManageColorContrastLayout = () => {
 	const {
@@ -28,27 +24,20 @@ export const ManageColorContrastLayout = () => {
 		? sortedGlobalRemediation
 		: sortedRemediation;
 
-	useEffect(() => {
-		if (!remediations[BLOCKS.colorContrast][current]) {
-			setOpenedBlock(BLOCKS.management);
-		}
-	}, [current]);
-
 	const item = remediations[BLOCKS.colorContrast][current];
-	const data = JSON.parse(item?.content);
-	const node = getElementByXPath(data?.xpath);
-	const cssData = getDataFromCss(data.rule);
-	const colorData = checkContrastAA(node);
 
-	useEffect(() => {
-		focusOnElement(node);
-	}, [node]);
+	// Prevent to render empty list
+	if (!item) {
+		void (remediations[BLOCKS.colorContrast].length > 0
+			? setCurrent(0)
+			: setOpenedBlock(BLOCKS.management));
 
-	useEffect(() => {
-		if (cssData.background?.item) {
-			focusOnElement(cssData.background?.item, BACKGROUND_ELEMENT_CLASS);
-		}
-	}, [cssData.background.item]);
+		return null;
+	}
+
+	const data = item?.content ? JSON.parse(item.content) : null;
+	const node = data?.xpath ? getElementByXPath(data.xpath) : null;
+	const cssData = data?.rule ? getDataFromCss(data.rule) : null;
 
 	const openEdit = () => {
 		setIsEdit(true);
@@ -62,6 +51,8 @@ export const ManageColorContrastLayout = () => {
 		}
 	};
 
+	const colorData = node ? checkContrastAA(node) : null;
+
 	return (
 		<StyledContent>
 			{isEdit ? (
@@ -71,7 +62,7 @@ export const ManageColorContrastLayout = () => {
 						node,
 						data,
 						messageArgs: [
-							colorData.ratio,
+							colorData?.ratio,
 							'',
 							'',
 							cssData.color?.value,
@@ -79,7 +70,7 @@ export const ManageColorContrastLayout = () => {
 						],
 						path: { dom: data?.xpath },
 						isEdit,
-						isPotential: colorData.isPotential,
+						isPotential: colorData?.isPotential,
 						parentNode: cssData.background?.item,
 						global: item.global === '1',
 					}}

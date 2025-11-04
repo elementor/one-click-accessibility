@@ -8,18 +8,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-class Exclude_Remediation_Relationship_Table extends Table {
+class Global_Remediation_Relationship_Table extends Table {
 	// override base's const:
 	const DB_VERSION = '1';
-	const DB_VERSION_FLAG_NAME = 'ea11y_exclude_remediation_relationship_db_version';
+	const DB_VERSION_FLAG_NAME = 'ea11y_global_remediation_relationship_db_version';
 
 	const ID = 'id';
 	const PAGE_URL = 'page_url';
 	const REMEDIATION_ID = 'remediation_id';
+	const ACTIVE = 'active';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
-	public static $table_name = 'ea11y_exclude_remediation_relationship';
+	public static $table_name = 'ea11y_global_remediation_relationship';
 
 	public static function get_columns(): array {
 		return [
@@ -46,6 +47,9 @@ class Exclude_Remediation_Relationship_Table extends Table {
 					Database_Constants::NOT_NULL,
 				] ),
 				'key' => Database_Constants::build_key_string( Database_Constants::KEY, self::REMEDIATION_ID ),
+			],
+			self::ACTIVE => [
+				'type' => Database_Constants::get_col_type( Database_Constants::BOOLEAN ),
 			],
 			self::CREATED_AT => [
 				'type' => Database_Constants::get_col_type( Database_Constants::DATETIME ),

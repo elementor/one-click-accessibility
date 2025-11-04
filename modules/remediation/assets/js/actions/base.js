@@ -7,7 +7,26 @@ export class RemediationBase {
 		throw new Error(`Action type '${this.data.type}' - not implemented`);
 	}
 
-	getElementByXPath(xpath) {
+	incrementBodyDivIndex(xpath) {
+		const regex = /(\/body\[\d+\]\/div\[)(\d+)/;
+		if (xpath.match(regex)) {
+			return xpath.replace(regex, (match, prefix, x) => {
+				const currentNum = parseInt(x, 10);
+				const nextNum = currentNum + 1;
+
+				return `${prefix}${nextNum}`;
+			});
+		}
+
+		return xpath;
+	}
+
+	getElementByXPath(originXpath) {
+		let xpath = originXpath.replace('svg', "*[name()='svg']");
+		const isNavbarExist = document.getElementById('wpadminbar');
+		if (isNavbarExist) {
+			xpath = this.incrementBodyDivIndex(xpath);
+		}
 		return this.dom.evaluate(
 			xpath,
 			this.dom,

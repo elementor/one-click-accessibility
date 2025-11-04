@@ -6,33 +6,37 @@ import Divider from '@elementor/ui/Divider';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
 import PropTypes from 'prop-types';
-import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
-import { SetGlobal } from '@ea11y-apps/scanner/components/manage-actions/set-global';
+import { SetGlobal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global';
+import { DeletePageRemediationModal } from '@ea11y-apps/scanner/components/remediation-confirmation-modal';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { StyledBanIcon } from '@ea11y-apps/scanner/styles/app.styles';
 import { remediationItem } from '@ea11y-apps/scanner/types/remediation-item';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export const ManageActions = ({ item, isActive }) => {
+const ManagePageActions = ({ item, isActive }) => {
 	const { activeRequest, deleteRemediation, updateRemediation } =
 		useManageActions(item);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
+
 	const toggleDeleteModal = () => setShowDeleteModal(!showDeleteModal);
 	const onDeleteRemediation = async () => {
 		setShowDeleteModal(false);
 		await deleteRemediation();
 	};
+
+	const data = item?.content ? JSON.parse(item.content) : null;
+
 	return (
 		<Box
 			display="flex"
 			gap={1}
-			justifyContent={isActive ? 'space-between' : 'flex-end'}
+			justifyContent={isActive && data?.find ? 'space-between' : 'flex-end'}
 			sx={{ width: '100%' }}
 		>
 			{isActive ? (
 				<>
-					<SetGlobal item={item} />
+					{data?.find && <SetGlobal item={item} />}
 					<Button
 						startIcon={<StyledBanIcon />}
 						size="small"
@@ -67,15 +71,16 @@ export const ManageActions = ({ item, isActive }) => {
 						startIcon={<ReloadIcon />}
 						size="small"
 						color="info"
-						variant="text"
+						variant="outlined"
 						disabled={activeRequest}
 						onClick={updateRemediation(true)}
+						sx={{ ml: 1 }}
 					>
 						{__('Enable fix', 'pojo-accessibility')}
 					</Button>
 				</Box>
 			)}
-			<DeleteRemediationModal
+			<DeletePageRemediationModal
 				open={showDeleteModal}
 				hideConfirmation={toggleDeleteModal}
 				onDelete={onDeleteRemediation}
@@ -84,7 +89,9 @@ export const ManageActions = ({ item, isActive }) => {
 	);
 };
 
-ManageActions.propTypes = {
+ManagePageActions.propTypes = {
 	item: remediationItem,
 	isActive: PropTypes.bool.isRequired,
 };
+
+export default ManagePageActions;

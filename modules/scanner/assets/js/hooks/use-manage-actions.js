@@ -38,6 +38,7 @@ export const useManageActions = (current = null) => {
 						? sortedRemediation[group]
 						: remediations?.length,
 					category: group || 'all',
+					is_global: 'no',
 				},
 			);
 		} catch (e) {
@@ -56,12 +57,13 @@ export const useManageActions = (current = null) => {
 				group,
 			});
 
-			await mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
+			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_all',
 				remediations_amount: group
 					? sortedRemediation[group]
 					: remediations?.length,
 				category: group || 'all',
+				is_global: 'no',
 			});
 
 			if (group) {
@@ -90,13 +92,7 @@ export const useManageActions = (current = null) => {
 				active,
 				id: current.id,
 			});
-			const updated = sortedRemediation[openedBlock].map((item) =>
-				item.id === current.id ? { ...item, active } : item,
-			);
-			setSortedRemediation({
-				...sortedRemediation,
-				[openedBlock]: updated,
-			});
+			await updateRemediationList();
 			setIsManageChanged(true);
 			mixpanelService.sendEvent(
 				mixpanelEvents[active ? 'remediationEnabled' : 'remediationDisabled'],
@@ -121,18 +117,13 @@ export const useManageActions = (current = null) => {
 				url: window?.ea11yScannerData?.pageData?.url,
 				id: current.id,
 			});
-			const updated = sortedRemediation[openedBlock].flatMap((item) =>
-				item.id !== current.id ? item : [],
-			);
-			setSortedRemediation({
-				...sortedRemediation,
-				[openedBlock]: updated,
-			});
+			await updateRemediationList();
 			setIsManageChanged(true);
 			mixpanelService.sendEvent(mixpanelEvents.remediationRemoved, {
 				action_type: 'remove_specific',
 				category_name: openedBlock,
 				issue_type: current.rule,
+				is_global: 'no',
 			});
 		} catch (e) {
 			console.error(e);

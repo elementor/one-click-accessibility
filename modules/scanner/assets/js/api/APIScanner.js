@@ -104,6 +104,38 @@ export class APIScanner extends API {
 		});
 	}
 
+	static async setRemediationAsGlobal(data) {
+		return APIScanner.request({
+			method: 'POST',
+			path: `${v1Prefix}/remediation/global-item`,
+			data,
+		});
+	}
+
+	static async updateGlobalRemediationForPage(data) {
+		return APIScanner.request({
+			method: 'PUT',
+			path: `${v1Prefix}/remediation/global-item`,
+			data,
+		});
+	}
+
+	static async updateGlobalRemediationForAllPages(data) {
+		return APIScanner.request({
+			method: 'PATCH',
+			path: `${v1Prefix}/remediation/global-item`,
+			data,
+		});
+	}
+
+	static async deleteGlobalRemediation(data) {
+		return APIScanner.request({
+			method: 'DELETE',
+			path: `${v1Prefix}/remediation/global-item`,
+			data,
+		});
+	}
+
 	static async updateRemediationStatusForPage(data) {
 		return APIScanner.request({
 			method: 'PATCH',
@@ -112,10 +144,50 @@ export class APIScanner extends API {
 		});
 	}
 
+	static async updateGlobalRemediationGroupForPage(data) {
+		return APIScanner.request({
+			method: 'PUT',
+			path: `${v1Prefix}/remediation/global-items-group`,
+			data,
+		});
+	}
+
+	static async updateAllGlobalRemediationForAllPages(data) {
+		return APIScanner.request({
+			method: 'PATCH',
+			path: `${v1Prefix}/remediation/global-items`,
+			data,
+		});
+	}
+
+	static async updateAllGlobalRemediationForPage(data) {
+		return APIScanner.request({
+			method: 'PUT',
+			path: `${v1Prefix}/remediation/global-items`,
+			data,
+		});
+	}
+
+	static async updateGlobalRemediationGroupForAllPages(data) {
+		return APIScanner.request({
+			method: 'PATCH',
+			path: `${v1Prefix}/remediation/global-items-group`,
+			data,
+		});
+	}
+
 	static async deleteRemediationForPage(data) {
 		return APIScanner.request({
 			method: 'DELETE',
 			path: `${v1Prefix}/remediation/items`,
+			data,
+		});
+	}
+
+	static async deleteGlobalRemediations(data) {
+		return APIScanner.request({
+			method: 'DELETE',
+			path: `${v1Prefix}/remediation/global-items`,
 			data,
 		});
 	}

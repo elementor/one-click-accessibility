@@ -1,9 +1,10 @@
 import Box from '@elementor/ui/Box';
 import Divider from '@elementor/ui/Divider';
 import PropTypes from 'prop-types';
-import { ManageActions } from '@ea11y-apps/scanner/components/manage-actions';
 import { ColorData } from '@ea11y-apps/scanner/components/manage-color-contrast/color-data';
+import ManageFooterActions from '@ea11y-apps/scanner/components/manage-footer-actions';
 import { ManageItemHeader } from '@ea11y-apps/scanner/components/manage-item-header';
+import { BACKGROUND_ELEMENT_CLASS } from '@ea11y-apps/scanner/constants';
 import {
 	ManageColorAlert,
 	StyledBox,
@@ -28,19 +29,31 @@ export const ManageColorContrast = ({
 		void (node ? focusOnElement(node) : removeExistingFocus());
 	}, [current]);
 
-	const isActive = Boolean(Number(item?.active));
+	useEffect(() => {
+		if (background?.item) {
+			focusOnElement(background?.item, BACKGROUND_ELEMENT_CLASS);
+		}
+	}, [background?.item]);
+
+	const global = item.global === '1';
+	const isActive = global ? item.active_for_page === '1' : item.active === '1';
 
 	return (
 		<StyledBox>
 			<Divider />
 			<Box>
-				<ManageItemHeader isActive={isActive} openEdit={openEdit} />
+				<ManageItemHeader
+					isActive={isActive}
+					openEdit={openEdit}
+					global={global}
+				/>
 				<ManageColorAlert color={isActive ? 'info' : 'secondary'} icon={false}>
 					<Box>
 						{color && (
 							<ColorData
 								title={__('Text', 'pojo-accessibility')}
 								color={color.value}
+								isActive={isActive}
 							/>
 						)}
 
@@ -50,12 +63,13 @@ export const ManageColorContrast = ({
 							<ColorData
 								title={__('Background', 'pojo-accessibility')}
 								color={background.value}
+								isActive={isActive}
 							/>
 						)}
 					</Box>
 				</ManageColorAlert>
 			</Box>
-			<ManageActions item={item} isActive={isActive} />
+			<ManageFooterActions item={item} isActive={isActive} />
 		</StyledBox>
 	);
 };

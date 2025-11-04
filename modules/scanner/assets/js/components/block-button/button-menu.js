@@ -9,7 +9,7 @@ import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import PropTypes from 'prop-types';
-import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
+import { DeletePageRemediationModal } from '@ea11y-apps/scanner/components/remediation-confirmation-modal';
 import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
@@ -110,7 +110,7 @@ export const ButtonMenu = ({ group }) => {
 					<MenuItemText>{__('Remove all', 'pojo-accessibility')}</MenuItemText>
 				</MenuItem>
 			</Menu>
-			<DeleteRemediationModal
+			<DeletePageRemediationModal
 				open={showDeleteModal}
 				hideConfirmation={toggleDeleteModal}
 				onDelete={onDeleteRemediation}

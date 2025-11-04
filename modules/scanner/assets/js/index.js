@@ -23,9 +23,19 @@ import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', () => {
 	const params = new URLSearchParams(window.location.search);
+	if (
+		params.get(SCANNER_URL_PARAM) === '1' ||
+		params.get(MANAGE_URL_PARAM) === '1'
+	) {
+		setTimeout(() => {
+			initApp();
+		}, 500);
+	}
+});
 
+document.addEventListener('DOMContentLoaded', function () {
 	document
 		.querySelector(CLEAR_CACHE_LINK)
 		?.addEventListener('click', async (event) => {
@@ -56,12 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			});
 		});
-	if (
-		params.get(SCANNER_URL_PARAM) === '1' ||
-		params.get(MANAGE_URL_PARAM) === '1'
-	) {
-		initApp();
-	}
 });
 
 const initApp = () => {

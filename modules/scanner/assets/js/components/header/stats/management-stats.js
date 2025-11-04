@@ -5,17 +5,29 @@ import { StyledSkeleton } from '@ea11y-apps/scanner/styles/app.styles';
 import { __, sprintf } from '@wordpress/i18n';
 
 export const ManagementStats = () => {
-	const { loading, remediations } = useScannerWizardContext();
+	const { loading, remediations, globalRemediations } =
+		useScannerWizardContext();
+
+	const pageRemediationsActive = remediations?.filter((remediation) =>
+		Number(remediation.active),
+	).length;
+
+	const globalRemediationsActive = globalRemediations.filter(
+		({ active, active_for_page: activeForPage }) =>
+			Number(active) && (!activeForPage || Number(activeForPage)),
+	).length;
+
+	const active = pageRemediationsActive + globalRemediationsActive;
+	const total = remediations?.length + globalRemediations.length;
 
 	const getStats = () =>
-		remediations.length > 0 ? (
+		active > 0 ? (
 			<Typography variant="body2" color="text.secondary">
 				{sprintf(
 					// Translators: %1$s - active, %2$s - total
 					__('%1$s/%2$s fixes are currently active', 'pojo-accessibility'),
-					remediations?.filter((remediation) => Number(remediation.active))
-						.length,
-					remediations?.length,
+					active,
+					total,
 				)}
 			</Typography>
 		) : (

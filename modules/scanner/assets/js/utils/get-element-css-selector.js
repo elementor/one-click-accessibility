@@ -3,10 +3,8 @@ import {
 	COLOR_ELEMENT_CLASS,
 	CURRENT_ELEMENT_CLASS,
 } from '@ea11y-apps/scanner/constants';
-import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 
-export const getElementCSSSelector = (xpath) => {
-	let element = getElementByXPath(xpath);
+export const getElementCSSSelector = (element) => {
 	if (!element || !(element instanceof Element)) {
 		return null;
 	}

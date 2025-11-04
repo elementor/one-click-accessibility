@@ -14,9 +14,9 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { SetGlobal } from '@ea11y-apps/scanner/components/manage-actions/set-global';
+import { SetGlobal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global';
 import { UpgradeInfoTip } from '@ea11y-apps/scanner/components/upgrade-info-tip';
-import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
+import { AI_QUOTA_LIMIT, IS_PRO_PLAN } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/use-manual-fix-form';
@@ -66,7 +66,7 @@ export const ResolveWithAi = ({ item, current }) => {
 	const closeEdit = () => setIsEdit(false);
 
 	const handleButtonClick = async () => {
-		if (IS_AI_ENABLED && AI_QUOTA_LIMIT) {
+		if (IS_PRO_PLAN && AI_QUOTA_LIMIT) {
 			await getAISuggestion();
 			mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 				issue_type: item.message,
@@ -142,12 +142,12 @@ export const ResolveWithAi = ({ item, current }) => {
 										</InfotipBox>
 									}
 								>
-									<InfoCircleIcon fontSize="small" />
+									<InfoCircleIcon fontSize="small" color="action" />
 								</Infotip>
 							)}
 						</ItemTitle>
 						{!isEdit && (
-							<Box display="flex" gap={0.5}>
+							<Box>
 								<Tooltip
 									placement="top"
 									title={__('Edit', 'pojo-accessibility')}
@@ -249,7 +249,7 @@ export const ResolveWithAi = ({ item, current }) => {
 							disabled={disabled}
 							onClick={closeEdit}
 						>
-							{__('Apply changes', 'pojo-accessibility')}
+							{__('Apply fix', 'pojo-accessibility')}
 						</Button>
 					) : (
 						<Button
@@ -258,7 +258,7 @@ export const ResolveWithAi = ({ item, current }) => {
 							variant="contained"
 							disabled={disabled || aiSuggestion?.submitted}
 							loading={resolving}
-							loadingPosition="start"
+							loadingPosition="center"
 							onClick={onResolve}
 						>
 							{isGlobal
@@ -275,7 +275,7 @@ export const ResolveWithAi = ({ item, current }) => {
 				<Button
 					variant="contained"
 					size="small"
-					color={IS_AI_ENABLED && AI_QUOTA_LIMIT ? 'info' : 'promotion'}
+					color={IS_PRO_PLAN && AI_QUOTA_LIMIT ? 'info' : 'promotion'}
 					startIcon={<AIIcon />}
 					fullWidth
 					disabled={aiResponseLoading}

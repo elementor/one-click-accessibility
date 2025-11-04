@@ -4,6 +4,7 @@ import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
+import Chip from '@elementor/ui/Chip';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import Paper from '@elementor/ui/Paper';
 import Skeleton from '@elementor/ui/Skeleton';
@@ -91,7 +92,6 @@ export const StyledSkeleton = styled(Skeleton)`
 `;
 
 const disabledState = `
-		opacity: .7;
 		cursor: not-allowed;
 		& * {
 			pointer-events: none;
@@ -107,7 +107,21 @@ export const StyledAlert = styled(Alert)`
 		padding-top: 0;
 		display: flex;
 	}
+`;
+
+export const AlertWithDisabledState = styled(Alert)`
 	${({ disabled }) => (disabled ? disabledState : '')}
+	${({ disabled, theme }) =>
+		disabled
+			? `
+			& * {
+				color: ${theme.palette.text.disabled};
+			}
+			& svg {
+				fill: ${theme.palette.text.disabled};
+			} 
+	`
+			: ''}
 `;
 
 export const StateContainer = styled(Box)`
@@ -225,5 +239,15 @@ export const ManageColorAlert = styled(Alert)`
 	}
 	& .MuiAlert-content > div {
 		display: block;
+	}
+`;
+
+export const StyledProChip = styled(Chip)`
+	margin-left: ${({ theme }) => theme.spacing(1)};
+	height: 26px;
+	width: 26px;
+
+	.MuiChip-label {
+		padding: 0;
 	}
 `;

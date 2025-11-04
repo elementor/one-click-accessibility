@@ -1,7 +1,7 @@
 import TrashIcon from '@elementor/icons/TrashIcon';
 import IconButton from '@elementor/ui/IconButton';
 import Tooltip from '@elementor/ui/Tooltip';
-import { DeleteRemediationModal } from '@ea11y-apps/scanner/components/delete-remediation-modal';
+import { DeletePageRemediationModal } from '@ea11y-apps/scanner/components/remediation-confirmation-modal';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useManageActions } from '@ea11y-apps/scanner/hooks/use-manage-actions';
 import { useState } from '@wordpress/element';
@@ -24,7 +24,7 @@ export const DeleteButton = () => {
 			<Tooltip
 				arrow
 				placement="top"
-				title={__('Remove all remediations', 'pojo-accessibility')}
+				title={__('Remove all', 'pojo-accessibility')}
 				PopperProps={{
 					disablePortal: true,
 				}}
@@ -34,7 +34,7 @@ export const DeleteButton = () => {
 				</IconButton>
 			</Tooltip>
 
-			<DeleteRemediationModal
+			<DeletePageRemediationModal
 				open={showDeleteModal}
 				hideConfirmation={toggleDeleteModal}
 				onDelete={onDeleteRemediation}

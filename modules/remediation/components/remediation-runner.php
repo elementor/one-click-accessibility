@@ -205,13 +205,17 @@ class Remediation_Runner {
 		foreach ( $this->page_remediations as $item ) {
 			$remediation = json_decode( $item->content, true );
 			$remediation['global'] = $item->global;
+
+			if ( $item->global && ! $item->active_for_page ) {
+				continue;
+			}
+
 			if ( ! isset( $classes[ strtoupper( $remediation['type'] ) ] ) ) {
 				continue;
 			}
 			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
 			if ( $remediation_class->use_frontend ) {
-				$remediation['global'] = $item->global;
 				$this->add_frontend_remediation( $remediation );
 				continue;
 			}
