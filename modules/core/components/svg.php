@@ -17,7 +17,6 @@ class Svg {
 	const UNFILTERED_FILE_UPLOADS_KEY = 'ea11y_unfiltered_files_upload';
 
 	public function __construct() {
-		add_action( 'wp_ajax_ea11y_svg_upload', [ $this, 'enable_unfiltered_files_upload' ] );
 		add_filter( 'wp_handle_upload_prefilter', [ $this, 'handle_ea11y_wp_media_upload' ] );
 		add_filter( 'upload_mimes', [ $this, 'add_svg_to_upload_list' ] );
 	}
@@ -53,22 +52,6 @@ class Svg {
 		* @param bool $enabled Whether upload is enabled or not.
 		*/
 		return apply_filters( 'ea11y/files/allow_unfiltered_upload', $enabled );
-	}
-
-	/**
-	* Set Unfiltered Files Upload
-	*
-	* @access public
-	*/
-	public function enable_unfiltered_files_upload(): void {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		update_option( self::UNFILTERED_FILE_UPLOADS_KEY, 1 );
-
-		// Add SVG to the list
-		add_filter( 'upload_mimes', [ $this, 'add_svg_to_upload_list' ] );
 	}
 
 	/**
