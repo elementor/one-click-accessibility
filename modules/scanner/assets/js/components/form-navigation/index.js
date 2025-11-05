@@ -32,7 +32,7 @@ export const FormNavigation = ({ total, current, setCurrent }) => {
 const StyledNavigationContainer = styled(Box)`
 	position: fixed;
 	bottom: 0;
-	right: 16px;
+	right: ${({ theme }) => theme.spacing(2)};
 	width: 393px;
 	background: ${({ theme }) => theme.palette.background.paper};
 `;
