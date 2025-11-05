@@ -52,6 +52,9 @@ export const useAltTextForm = ({ current, item }) => {
 
 	useEffect(() => {
 		setIsGlobal(item.global || false);
+		updateData({
+			global: item.global || false,
+		});
 	}, [current]);
 
 	useEffect(() => {
@@ -297,7 +300,8 @@ export const useAltTextForm = ({ current, item }) => {
 			isGlobal === item.global
 		: (!altTextData?.[type]?.[current]?.makeDecorative &&
 				!altTextData?.[type]?.[current]?.altText) ||
-			altTextData?.[type]?.[current]?.resolved ||
+			(altTextData?.[type]?.[current]?.resolved &&
+				altTextData?.[type]?.[current]?.global === isGlobal) ||
 			loading;
 
 	return {
