@@ -65,7 +65,7 @@ class Remediation_Base {
 		}
 
 		$element  = $this->get_element_by_xpath( $xpath );
-		if ( ! $this->element_contains_snippet( $element, $snippet ) ) {
+		if ( $element && ! $this->element_contains_snippet( $element, $snippet ) ) {
 			// XPath result doesn't contain the snippet
 			$element = null;
 		}

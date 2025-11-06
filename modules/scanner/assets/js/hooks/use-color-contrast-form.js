@@ -51,9 +51,6 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		if (item?.node) {
 			isGlobalRef.current = isGlobal;
 		}
-		updateData({
-			isGlobal,
-		});
 	}, [current]);
 
 	const setIsGlobal = (value) => {
@@ -180,7 +177,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			currentParents.length > 0 ? currentParents.at(-1) : item.path.dom;
 
 		if (
-			!isValidHexColor(data.color) ||
+			(data.color && !isValidHexColor(data.color)) ||
 			(data.background && !isValidHexColor(data.background))
 		) {
 			throw new Error('Invalid hex color input detected');
