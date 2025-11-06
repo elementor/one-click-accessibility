@@ -52,15 +52,12 @@ export const useAltTextForm = ({ current, item }) => {
 				makeDecorative: item.data.attribute_name === 'role',
 				altText:
 					item.data.attribute_name !== 'role' ? item.data.attribute_value : '',
+				isGlobal,
 			});
+		} else {
+			updateData({ isGlobal });
 		}
-	}, [isManage]);
-
-	useEffect(() => {
-		updateData({
-			isGlobal,
-		});
-	}, [current]);
+	}, [isManage, current]);
 
 	useEffect(() => {
 		if (!isManage && !firstOpen && isResolved(BLOCKS.altText)) {
