@@ -66,7 +66,7 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 
 	const onUpdate = async () => {
 		await handleUpdate();
-		setIsEdit(false);
+		void (setIsEdit ? setIsEdit(false) : setCurrent(current + 1));
 	};
 
 	const onUpgradeHover = () => {
@@ -224,7 +224,9 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 						fullWidth={!isManage}
 						loading={loading}
 						disabled={isSubmitDisabled}
-						onClick={isManage ? onUpdate : onSubmit}
+						onClick={
+							isManage || data?.[current]?.resolved ? onUpdate : onSubmit
+						}
 						sx={{ mt: isManage ? 0 : 1.5 }}
 					>
 						{isGlobal

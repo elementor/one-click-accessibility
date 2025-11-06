@@ -20,6 +20,7 @@ class Replace extends Remediation_Base {
 		$element_node = $this->data['global']
 			? $this->get_element_by_xpath_with_snippet_fallback( $this->data['xpath'], $this->data['find'] )
 			: $this->get_element_by_xpath( $this->data['xpath'] );
+
 		if ( ! $element_node instanceof \DOMElement ) {
 			$this->use_frontend = true;
 			return null;                    // nothing to do

@@ -7,7 +7,7 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementContext } from '@ea11y-apps/scanner/utils/get-element-context';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const useManualFixForm = ({ item, current }) => {
@@ -29,9 +29,19 @@ export const useManualFixForm = ({ item, current }) => {
 	const [resolving, setResolving] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
 
-	const [isGlobal, setIsGlobal] = useState(item.global || false);
 	const [manualEdit, setManualEdit] = useState(false);
 	const [aiSuggestion, setAiSuggestion] = useState(null);
+
+	const isGlobal =
+		manualData[openedBlock][current]?.isGlobal || item.global || false;
+
+	const isGlobalRef = useRef(null);
+
+	useEffect(() => {
+		if (item?.node) {
+			isGlobalRef.current = isGlobal;
+		}
+	}, [current]);
 
 	useEffect(() => {
 		setAiSuggestion({
@@ -47,7 +57,7 @@ export const useManualFixForm = ({ item, current }) => {
 			setOpenedBlock(BLOCKS.main);
 		}
 		setFirstOpen(false);
-	}, [manualData]);
+	}, [isResolved(openedBlock)]);
 
 	const updateData = (data) => {
 		const updData = [...manualData[openedBlock]];
@@ -58,6 +68,12 @@ export const useManualFixForm = ({ item, current }) => {
 		setManualData({
 			...manualData,
 			[openedBlock]: updData,
+		});
+	};
+
+	const setIsGlobal = (value) => {
+		updateData({
+			isGlobal: value,
 		});
 	};
 
@@ -83,20 +99,58 @@ export const useManualFixForm = ({ item, current }) => {
 		}
 	};
 
-	const markResolved = () => {
-		updateData({ resolved: true, isGlobal });
+	const markResolved = (remediation) => {
+		updateData({ remediation, resolved: true, isGlobal });
 		setResolved(resolved + 1);
 		setOpenIndex(current + 1);
 	};
 
-	const resolveIssue = async () => {
+	const handleUpdate = async () => {
+		setResolving(true);
+		try {
+			const content = JSON.parse(
+				manualData[openedBlock][current]?.remediation.content,
+			);
+			const replace =
+				manualEdit || manualData[openedBlock][current]?.aiSuggestion.snippet;
+			const strContent = JSON.stringify({
+				...content,
+				replace,
+			});
+			await APIScanner.updateRemediationContent({
+				url: window?.ea11yScannerData?.pageData?.url,
+				id: manualData[openedBlock][current]?.remediation.id,
+				content: strContent,
+				global: isGlobal,
+			});
+			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
+				fix_method: 'manual',
+				issue_type: item.message,
+				snippet_content: replace,
+				category_name: openedBlock,
+				source: 'assistant',
+				page_url: window.ea11yScannerData?.pageData?.url,
+				is_global: isGlobal ? 'yes' : 'no',
+			});
+			void updateRemediationList();
+			isGlobalRef.current = isGlobal;
+			setOpenIndex(current + 1);
+		} catch (e) {
+			console.log(e);
+			error(__('An error occurred.', 'pojo-accessibility'));
+		} finally {
+			setResolving(false);
+		}
+	};
+
+	const handleSubmit = async () => {
 		setResolving(true);
 
 		try {
 			const replace =
 				manualEdit || manualData[openedBlock][current]?.aiSuggestion.snippet;
 
-			await APIScanner.submitRemediation({
+			const response = await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
 					find: item.snippet,
@@ -111,8 +165,8 @@ export const useManualFixForm = ({ item, current }) => {
 				apiId: manualData[openedBlock]?.[current]?.apiId,
 			});
 			await APIScanner.resolveIssue(currentScanId);
-
-			markResolved();
+			isGlobalRef.current = isGlobal;
+			markResolved(response.remediation);
 
 			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
 				fix_method: manualEdit ? 'manual' : 'AI',
@@ -133,10 +187,15 @@ export const useManualFixForm = ({ item, current }) => {
 		}
 	};
 
+	const isSubmitDisabled =
+		manualData[openedBlock][current]?.resolved &&
+		manualData[openedBlock][current].isGlobal === isGlobalRef.current;
+
 	return {
 		aiResponseLoading,
 		resolving,
 		isGlobal,
+		isSubmitDisabled,
 		setIsGlobal,
 		manualEdit,
 		setManualEdit,
@@ -144,7 +203,9 @@ export const useManualFixForm = ({ item, current }) => {
 		setAiSuggestion,
 		markResolved,
 		getAISuggestion,
-		resolveIssue,
+		resolveIssue: manualData[openedBlock][current]?.resolved
+			? handleUpdate
+			: handleSubmit,
 	};
 };
 

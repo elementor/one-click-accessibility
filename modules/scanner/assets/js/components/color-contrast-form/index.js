@@ -28,6 +28,7 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 		color,
 		background,
 		parents,
+		isDisabled,
 		resolved,
 		backgroundChanged,
 		parentChanged,
@@ -82,12 +83,12 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 
 	const handleUpdate = async () => {
 		await onUpdate();
-		setIsEdit(false);
+		void (setIsEdit ? setIsEdit(false) : setCurrent(current + 1));
 	};
 
 	const isSubmitDisabled =
 		!colorData.passesAA ||
-		resolved ||
+		isDisabled ||
 		loading ||
 		(item.isEdit &&
 			color === item.messageArgs[3] &&
@@ -168,7 +169,7 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 						color="info"
 						loading={loading}
 						disabled={isSubmitDisabled}
-						onClick={item.isEdit ? handleUpdate : handleSubmit}
+						onClick={item.isEdit || resolved ? handleUpdate : handleSubmit}
 						sx={{ mt: isManage ? 0 : 1.5 }}
 						fullWidth={!isManage}
 					>

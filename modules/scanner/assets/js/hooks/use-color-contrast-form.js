@@ -20,18 +20,15 @@ import {
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 import { getElementCSSSelector } from '@ea11y-apps/scanner/utils/get-element-css-selector';
 import { getOuterHtmlByXpath } from '@ea11y-apps/scanner/utils/get-outer-html-by-xpath';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 
 export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const {
-		openedBlock,
 		colorContrastData,
 		resolved: resolvedBlock,
 		setResolved,
 		isResolved,
 		isManage,
-		sortedRemediation,
-		setSortedRemediation,
 		setOpenedBlock,
 		setColorContrastData,
 		setIsManageChanged,
@@ -44,7 +41,26 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
 	const [parentChanged, setParentChanged] = useState(false);
-	const [isGlobal, setIsGlobal] = useState(item.global || false);
+
+	const isGlobal =
+		colorContrastData?.[type]?.[current]?.isGlobal || item.global || false;
+
+	const isGlobalRef = useRef(null);
+
+	useEffect(() => {
+		if (item?.node) {
+			isGlobalRef.current = isGlobal;
+		}
+		updateData({
+			isGlobal,
+		});
+	}, [current]);
+
+	const setIsGlobal = (value) => {
+		updateData({
+			isGlobal: value,
+		});
+	};
 
 	const updateData = (data) => {
 		const updData = [...colorContrastData?.[type]];
@@ -57,8 +73,10 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			[type]: updData,
 		});
 
-		const rule = buildCSSRule(updData[current]);
-		updateCSS(rule);
+		if (data.color || data.background) {
+			const rule = buildCSSRule(updData[current]);
+			updateCSS(rule);
+		}
 	};
 
 	const sendEvent = (method) => {
@@ -68,16 +86,12 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	useEffect(() => {
-		setIsGlobal(item.global || false);
-	}, [current]);
-
-	useEffect(() => {
 		if (!isManage && !firstOpen && isResolved(BLOCKS.colorContrast)) {
 			removeExistingFocus();
 			setOpenedBlock(BLOCKS.main);
 		}
 		setFirstOpen(false);
-	}, [colorContrastData]);
+	}, [isResolved(BLOCKS.colorContrast)]);
 
 	const {
 		color = item.messageArgs[3] ||
@@ -212,8 +226,11 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 		try {
 			setLoading(true);
+			const remediation = colorContrastData?.[type]?.[current]?.remediation;
+			const id = item.id || remediation.id;
+			const data = item.data || JSON.parse(remediation.content);
 			const updContent = JSON.stringify({
-				...item.data,
+				...data,
 				rule,
 				find,
 				parentFind,
@@ -221,24 +238,16 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			});
 			await APIScanner.updateRemediationContent({
 				url: window?.ea11yScannerData?.pageData?.url,
-				id: item.id,
+				id,
 				content: updContent,
 				global: isGlobal,
 			});
-			const updated = sortedRemediation[openedBlock].map((remediation) =>
-				item.id === remediation.id
-					? { ...remediation, content: updContent }
-					: remediation,
-			);
 
-			setSortedRemediation({
-				...sortedRemediation,
-				[openedBlock]: updated,
-			});
 			setIsManageChanged(true);
 			removeExistingFocus();
 			setParentChanged(false);
 			updateCSS(rule);
+			isGlobalRef.current = isGlobal;
 			void updateRemediationList();
 		} catch (e) {
 			console.error(e);
@@ -253,7 +262,7 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		setLoading(true);
 		try {
 			const rule = buildCSSRule(colorContrastData?.[type]?.[current]);
-			await APIScanner.submitRemediation({
+			const response = await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData?.url,
 				remediation: {
 					rule,
@@ -271,13 +280,14 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 
 			await APIScanner.resolveIssue(currentScanId);
 
-			updateData({ resolved: true });
+			updateData({ remediation: response.remediation, resolved: true });
 
 			removeExistingFocus();
 			setCurrent(current + 1);
 			setResolved(resolvedBlock + 1);
 			setParentChanged(false);
 			updateCSS(rule);
+			isGlobalRef.current = isGlobal;
 			void updateRemediationList();
 		} catch (error) {
 			console.error('Failed to submit remediation:', error);
@@ -286,12 +296,17 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 	};
 
+	const isDisabled =
+		resolved &&
+		colorContrastData?.[type]?.[current]?.isGlobal === isGlobalRef.current;
+
 	return {
 		isGlobal,
 		setIsGlobal,
 		color,
 		background,
 		parents,
+		isDisabled,
 		resolved,
 		backgroundChanged,
 		parentChanged,

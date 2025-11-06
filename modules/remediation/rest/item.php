@@ -73,6 +73,7 @@ class Item extends Route_Base {
 			}
 
 			return $this->respond_success_json( [
+				'remediation' => $remediation->get_data(),
 				'message' => 'Remediation added',
 			] );
 		} catch ( Throwable $t ) {

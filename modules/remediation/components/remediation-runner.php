@@ -213,6 +213,7 @@ class Remediation_Runner {
 			if ( ! isset( $classes[ strtoupper( $remediation['type'] ) ] ) ) {
 				continue;
 			}
+
 			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
 			if ( $remediation_class->use_frontend ) {

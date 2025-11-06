@@ -46,6 +46,7 @@ export const ResolveWithAi = ({ item, current }) => {
 		resolveIssue,
 		aiResponseLoading,
 		resolving,
+		isSubmitDisabled,
 	} = useManualFixForm({
 		item,
 		current,
@@ -256,7 +257,7 @@ export const ResolveWithAi = ({ item, current }) => {
 							size="small"
 							color="info"
 							variant="contained"
-							disabled={disabled || aiSuggestion?.submitted}
+							disabled={disabled || isSubmitDisabled}
 							loading={resolving}
 							loadingPosition="center"
 							onClick={onResolve}

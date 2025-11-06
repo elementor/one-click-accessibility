@@ -12,7 +12,7 @@ import {
 	convertSvgToPngBase64,
 	svgNodeToPngBase64,
 } from '@ea11y-apps/scanner/utils/svg-to-png-base64';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const useAltTextForm = ({ current, item }) => {
@@ -26,9 +26,6 @@ export const useAltTextForm = ({ current, item }) => {
 		setOpenedBlock,
 		updateRemediationList,
 		isManage,
-		sortedRemediation,
-		setSortedRemediation,
-		openedBlock,
 		setIsManageChanged,
 	} = useScannerWizardContext();
 	const { error } = useToastNotification();
@@ -36,9 +33,18 @@ export const useAltTextForm = ({ current, item }) => {
 	const [loadingAiText, setLoadingAiText] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
-	const [isGlobal, setIsGlobal] = useState(false);
 
 	const type = isManage ? 'manage' : 'main';
+	const isGlobal =
+		altTextData?.[type]?.[current]?.isGlobal || item.global || false;
+
+	const isGlobalRef = useRef(null);
+
+	useEffect(() => {
+		if (item?.node) {
+			isGlobalRef.current = isGlobal;
+		}
+	}, [current]);
 
 	useEffect(() => {
 		if (isManage) {
@@ -51,9 +57,8 @@ export const useAltTextForm = ({ current, item }) => {
 	}, [isManage]);
 
 	useEffect(() => {
-		setIsGlobal(item.global || false);
 		updateData({
-			isGlobal: item.global || false,
+			isGlobal,
 		});
 	}, [current]);
 
@@ -63,7 +68,13 @@ export const useAltTextForm = ({ current, item }) => {
 			setOpenedBlock(BLOCKS.main);
 		}
 		setFirstOpen(false);
-	}, [altTextData?.[type]]);
+	}, [isResolved(BLOCKS.altText)]);
+
+	const setIsGlobal = (value) => {
+		updateData({
+			isGlobal: value,
+		});
+	};
 
 	const updateData = (data) => {
 		const updData = [...altTextData?.[type]];
@@ -112,7 +123,7 @@ export const useAltTextForm = ({ current, item }) => {
 			if (match && item.node.tagName !== 'svg') {
 				void APIScanner.submitAltText(item.node.src, altText);
 			}
-			await APIScanner.submitRemediation({
+			const response = await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
 					...makeAttributeData(),
@@ -130,6 +141,7 @@ export const useAltTextForm = ({ current, item }) => {
 
 			await APIScanner.resolveIssue(currentScanId);
 			void updateRemediationList();
+			return response.remediation;
 		} catch (e) {
 			console.warn(e);
 		}
@@ -162,9 +174,13 @@ export const useAltTextForm = ({ current, item }) => {
 			const fixMethod = altTextData?.[type]?.[current]?.apiId
 				? 'AI alt-text'
 				: 'Manual alt-text';
-			await updateAltText(item);
+			const remediation = await updateAltText(item);
 			if (!altTextData?.[type]?.[current]?.resolved) {
-				updateData({ resolved: true });
+				updateData({
+					remediation,
+					resolved: true,
+				});
+				isGlobalRef.current = isGlobal;
 				setResolved(resolved + 1);
 			}
 
@@ -195,32 +211,30 @@ export const useAltTextForm = ({ current, item }) => {
 	const handleUpdate = async () => {
 		const find = getOuterHtmlByXpath(
 			item.path.dom,
-			`${item.data.attribute_name}=" ${item.data.attribute_value}"`,
+			item.data?.attribute_name
+				? `${item.data.attribute_name}=" ${item.data.attribute_value}"`
+				: '',
 		);
 		try {
 			setLoading(true);
+			const remediation = altTextData?.[type]?.[current]?.remediation;
+			const id = item.id || remediation.id;
+			const data = item.data || JSON.parse(remediation.content);
 			const strContent = JSON.stringify({
-				...item.data,
+				...data,
 				...makeAttributeData(),
 				find,
 			});
 			await APIScanner.updateRemediationContent({
 				url: window?.ea11yScannerData?.pageData?.url,
-				id: item.id,
+				id,
 				content: strContent,
 				global: isGlobal,
 			});
-			const updated = sortedRemediation[openedBlock].map((remediation) =>
-				item.id === remediation.id
-					? { ...remediation, content: strContent }
-					: remediation,
-			);
 
-			setSortedRemediation({
-				...sortedRemediation,
-				[openedBlock]: updated,
-			});
+			isGlobalRef.current = isGlobal;
 			setIsManageChanged(true);
+			void updateRemediationList();
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -301,7 +315,7 @@ export const useAltTextForm = ({ current, item }) => {
 		: (!altTextData?.[type]?.[current]?.makeDecorative &&
 				!altTextData?.[type]?.[current]?.altText) ||
 			(altTextData?.[type]?.[current]?.resolved &&
-				altTextData?.[type]?.[current]?.isGlobal === isGlobal) ||
+				altTextData?.[type]?.[current]?.isGlobal === isGlobalRef.current) ||
 			loading;
 
 	return {
