@@ -207,6 +207,12 @@ class Remediation_Runner {
 		$classes = $this->get_remediation_classes();
 		foreach ( $this->page_remediations as $item ) {
 			$remediation = json_decode( $item->content, true );
+			$remediation['global'] = $item->global;
+
+			if ( $item->global && ! $item->active_for_page ) {
+				continue;
+			}
+
 			if ( ! isset( $classes[ strtoupper( $remediation['type'] ) ] ) ) {
 				continue;
 			}
