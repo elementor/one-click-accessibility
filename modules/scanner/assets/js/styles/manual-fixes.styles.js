@@ -46,6 +46,11 @@ export const InfotipBox = styled(Box)`
 	white-space: normal;
 `;
 
+export const InfotipImage = styled('img')`
+	max-width: 304px;
+	height: auto;
+`;
+
 export const InfotipFooter = styled(Box)`
 	display: flex;
 	justify-content: flex-end;
