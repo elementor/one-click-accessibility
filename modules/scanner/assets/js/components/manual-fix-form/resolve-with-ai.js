@@ -263,7 +263,7 @@ export const ResolveWithAi = ({ item, current }) => {
 							onClick={onResolve}
 						>
 							{isGlobal
-								? __('Apply everywhere', 'pojo-accessibility')
+								? __('Apply to all', 'pojo-accessibility')
 								: __('Apply fix', 'pojo-accessibility')}
 						</Button>
 					)}

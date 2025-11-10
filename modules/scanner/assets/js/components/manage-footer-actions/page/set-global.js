@@ -13,8 +13,12 @@ import { SetGlobalRemediationModal } from '@ea11y-apps/scanner/components/manage
 import { IS_PRO_PLAN, UPGRADE_URL } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useGlobalManageActions } from '@ea11y-apps/scanner/hooks/use-global-manage-actions';
+import infotipImageSrc from '@ea11y-apps/scanner/static/global-infotip-image.png';
 import { StyledProChip } from '@ea11y-apps/scanner/styles/app.styles';
-import { InfotipBox } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
+import {
+	InfotipBox,
+	InfotipImage,
+} from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { remediationItem } from '@ea11y-apps/scanner/types/remediation-item';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -91,17 +95,20 @@ export const SetGlobal = ({
 						disablePortal: true,
 					}}
 					content={
-						<InfotipBox sx={{ maxWidth: '260px' }}>
-							<Typography variant="subtitle2" sx={{ mb: 1 }}>
-								{__('Remember this fix across scans', 'pojo-accessibility')}
-							</Typography>
-							<Typography variant="body2" color="text.secondary">
-								{__(
-									'Apply this fix automatically to pages already scanned and to future scans.',
-									'pojo-accessibility',
-								)}
-							</Typography>
-						</InfotipBox>
+						<>
+							<InfotipImage src={infotipImageSrc} role="presentation" />
+							<InfotipBox sx={{ maxWidth: '260px' }}>
+								<Typography variant="subtitle2" sx={{ mb: 1 }}>
+									{__('Fix once, apply everywhere', 'pojo-accessibility')}
+								</Typography>
+								<Typography variant="body2" color="text.secondary">
+									{__(
+										'Apply this fix automatically to pages already scanned and to future scans.',
+										'pojo-accessibility',
+									)}
+								</Typography>
+							</InfotipBox>
+						</>
 					}
 				>
 					<InfoCircleIcon color="action" fontSize="tiny" />

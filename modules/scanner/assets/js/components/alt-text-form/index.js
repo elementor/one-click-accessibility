@@ -229,9 +229,7 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 						}
 						sx={{ mt: isManage ? 0 : 1.5 }}
 					>
-						{isGlobal
-							? __('Apply everywhere', 'pojo-accessibility')
-							: applyBtnText}
+						{isGlobal ? __('Apply to all', 'pojo-accessibility') : applyBtnText}
 					</Button>
 				</Box>
 			</Box>
