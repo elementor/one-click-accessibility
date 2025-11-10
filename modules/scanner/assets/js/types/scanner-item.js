@@ -23,4 +23,8 @@ export const scannerItem = PropTypes.shape({
 	category: PropTypes.string.isRequired,
 	level: PropTypes.string.isRequired,
 	node: PropTypes.object,
+	parentNode: PropTypes.object,
+	isPotential: PropTypes.bool,
+	isEdit: PropTypes.bool,
+	global: PropTypes.bool,
 });

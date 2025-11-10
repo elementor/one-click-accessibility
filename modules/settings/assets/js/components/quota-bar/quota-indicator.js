@@ -1,7 +1,5 @@
-import {
-	AlertOctagonFilledIcon,
-	AlertTriangleFilledIcon,
-} from '@elementor/icons';
+import AlertOctagonFilledIcon from '@elementor/icons/AlertOctagonFilledIcon';
+import AlertTriangleFilledIcon from '@elementor/icons/AlertTriangleFilledIcon';
 import Tooltip from '@elementor/ui/Tooltip';
 import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';

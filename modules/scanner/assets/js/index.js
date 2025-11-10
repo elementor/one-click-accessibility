@@ -17,14 +17,25 @@ import {
 	TOP_BAR_LINK,
 } from '@ea11y-apps/scanner/constants';
 import { HeadingStructureContextProvider } from '@ea11y-apps/scanner/context/heading-structure-context';
-import { ScannerWizardContextProvider } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import ScannerWizardContextProvider from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { TabsContextProvider } from '@ea11y-apps/scanner/context/tabs-context';
 import { closeWidget } from '@ea11y-apps/scanner/utils/close-widget';
 import { createRoot, Fragment, StrictMode } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('load', () => {
 	const params = new URLSearchParams(window.location.search);
+	if (
+		params.get(SCANNER_URL_PARAM) === '1' ||
+		params.get(MANAGE_URL_PARAM) === '1'
+	) {
+		setTimeout(() => {
+			initApp();
+		}, 500);
+	}
+});
 
+document.addEventListener('DOMContentLoaded', function () {
 	document
 		.querySelector(CLEAR_CACHE_LINK)
 		?.addEventListener('click', async (event) => {
@@ -55,12 +66,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			});
 		});
-	if (
-		params.get(SCANNER_URL_PARAM) === '1' ||
-		params.get(MANAGE_URL_PARAM) === '1'
-	) {
-		initApp();
-	}
 });
 
 const initApp = () => {
@@ -112,9 +117,11 @@ const initApp = () => {
 					<ThemeProvider colorScheme="light" theme={theme}>
 						<NotificationsProvider>
 							<ScannerWizardContextProvider>
-								<HeadingStructureContextProvider>
-									<App />
-								</HeadingStructureContextProvider>
+								<TabsContextProvider>
+									<HeadingStructureContextProvider>
+										<App />
+									</HeadingStructureContextProvider>
+								</TabsContextProvider>
 							</ScannerWizardContextProvider>
 						</NotificationsProvider>
 					</ThemeProvider>

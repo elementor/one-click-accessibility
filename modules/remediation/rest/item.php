@@ -44,6 +44,8 @@ class Item extends Route_Base {
 			$rule = sanitize_text_field( $request->get_param( 'rule' ) );
 			$group = sanitize_text_field( $request->get_param( 'group' ) );
 			$api_id = sanitize_text_field( $request->get_param( 'apiId' ) );
+			$is_global = (bool) $request->get_param( 'global' );
+
 			$remediation = new Remediation_Entry( [
 				'data' => [
 					Remediation_Table::URL => $url,
@@ -52,6 +54,7 @@ class Item extends Route_Base {
 					Remediation_Table::GROUP => $group,
 					Remediation_Table::CONTENT => wp_json_encode( $remediation_data ),
 					Remediation_Table::ACTIVE => true,
+					Remediation_Table::GLOBAL => $is_global,
 				],
 			] );
 
@@ -70,6 +73,7 @@ class Item extends Route_Base {
 			}
 
 			return $this->respond_success_json( [
+				'remediation' => $remediation->get_data(),
 				'message' => 'Remediation added',
 			] );
 		} catch ( Throwable $t ) {
@@ -96,8 +100,9 @@ class Item extends Route_Base {
 			$id = sanitize_text_field( $request->get_param( 'id' ) );
 			$url = esc_url( $request->get_param( 'url' ) );
 			$content = $request->get_param( 'content' );
+			$is_global = (bool) $request->get_param( 'global' );
 
-			Remediation_Entry::update_remediation_content( Remediation_Table::ID, $id, $content );
+			Remediation_Entry::update_remediation_content( Remediation_Table::ID, $id, $content, $is_global );
 			Page_Entry::clear_cache( $url );
 
 			return $this->respond_success_json( [

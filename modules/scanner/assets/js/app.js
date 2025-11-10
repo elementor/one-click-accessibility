@@ -1,28 +1,39 @@
+import Box from '@elementor/ui/Box';
 import ErrorBoundary from '@elementor/ui/ErrorBoundary';
+import Tab from '@elementor/ui/Tab';
 import { FocusTrap } from 'focus-trap-react';
-import { Notifications } from '@ea11y/components';
+import Notifications from '@ea11y-apps/global/components/notifications';
 import { useNotificationSettings } from '@ea11y-apps/global/hooks/use-notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ErrorMessage } from '@ea11y-apps/scanner/components/error-message';
 import Header from '@ea11y-apps/scanner/components/header';
+import AppHeader from '@ea11y-apps/scanner/components/header/app-header';
 import { Loader } from '@ea11y-apps/scanner/components/list-loader';
 import { NotConnectedMessage } from '@ea11y-apps/scanner/components/not-connected-message';
 import { QuotaMessage } from '@ea11y-apps/scanner/components/quota-message';
 import { ResolvedMessage } from '@ea11y-apps/scanner/components/resolved-message';
 import { BLOCKS, PAGE_QUOTA_LIMIT } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { useTabsContext } from '@ea11y-apps/scanner/context/tabs-context';
 import {
 	AltTextLayout,
+	ColorContrastLayout,
+	HeadingStructureLayout,
 	MainLayout,
+	ManageAltTextLayout,
+	ManageColorContrastLayout,
 	ManageMainLayout,
+	ManageManualLayout,
 	ManualLayout,
-	RemediationLayout,
 } from '@ea11y-apps/scanner/layouts';
-import { ColorContrastLayout } from '@ea11y-apps/scanner/layouts/color-contrast-layout';
-import { HeadingStructureLayout } from '@ea11y-apps/scanner/layouts/heading-structure-layout';
-import { AppContainer } from '@ea11y-apps/scanner/styles/app.styles';
+import {
+	AppContainer,
+	AppsTabPanel,
+	AppsTabs,
+} from '@ea11y-apps/scanner/styles/app.styles';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { useEffect, useRef } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 
 const App = () => {
 	const { notificationMessage, notificationType } = useNotificationSettings();
@@ -31,15 +42,18 @@ const App = () => {
 		violation,
 		resolved,
 		openedBlock,
-		isManage,
 		isError,
+		isManage,
 		quotaExceeded,
 		loading,
 	} = useScannerWizardContext();
+
+	const { tabsProps, getTabProps, getTabPanelProps } = useTabsContext();
+
 	const containerRef = useRef(null);
 
 	const showResolvedMessage = Boolean(
-		(resolved > 0 && violation === resolved) || violation === 0,
+		!isManage && ((resolved > 0 && violation === resolved) || violation === 0),
 	);
 
 	useEffect(() => {
@@ -65,7 +79,7 @@ const App = () => {
 		}
 	}, [PAGE_QUOTA_LIMIT, quotaExceeded]);
 
-	const getBlock = () => {
+	const getMsgStateBlock = () => {
 		if (!window.ea11yScannerData?.isConnected) {
 			return <NotConnectedMessage />;
 		}
@@ -79,11 +93,16 @@ const App = () => {
 			return <Loader />;
 		}
 
+		return null;
+	};
+
+	const getIssuesBlock = () => {
+		if (showResolvedMessage) {
+			return <ResolvedMessage />;
+		}
 		switch (openedBlock) {
 			case BLOCKS.main:
 				return <MainLayout />;
-			case BLOCKS.management:
-				return <ManageMainLayout />;
 			case BLOCKS.altText:
 				return <AltTextLayout />;
 			case BLOCKS.colorContrast:
@@ -91,7 +110,22 @@ const App = () => {
 			case BLOCKS.headingStructure:
 				return <HeadingStructureLayout />;
 			default:
-				return isManage ? <RemediationLayout /> : <ManualLayout />;
+				return <ManualLayout />;
+		}
+	};
+
+	const getManageBlock = () => {
+		switch (openedBlock) {
+			case BLOCKS.management:
+				return <ManageMainLayout />;
+			case BLOCKS.altText:
+				return <ManageAltTextLayout />;
+			case BLOCKS.colorContrast:
+				return <ManageColorContrastLayout />;
+			case BLOCKS.headingStructure:
+				return <HeadingStructureLayout />;
+			default:
+				return <ManageManualLayout />;
 		}
 	};
 
@@ -102,9 +136,35 @@ const App = () => {
 		>
 			<AppContainer elevation={6} ref={containerRef}>
 				<ErrorBoundary fallback={<ErrorMessage />}>
+					<AppHeader />
+					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+						<AppsTabs
+							{...tabsProps}
+							aria-label={__(
+								'Accessibility Assistant Tabs',
+								'pojo-accessibility',
+							)}
+							variant="fullWidth"
+						>
+							<Tab
+								label={__('Issues found', 'pojo-accessibility')}
+								{...getTabProps(BLOCKS.main)}
+							/>
+							<Tab
+								label={__('Manage fixes', 'pojo-accessibility')}
+								{...getTabProps(BLOCKS.management)}
+							/>
+						</AppsTabs>
+					</Box>
+
 					<Header />
 
-					{showResolvedMessage && !isManage ? <ResolvedMessage /> : getBlock()}
+					<AppsTabPanel {...getTabPanelProps(BLOCKS.main)}>
+						{getMsgStateBlock() || getIssuesBlock()}
+					</AppsTabPanel>
+					<AppsTabPanel {...getTabPanelProps(BLOCKS.management)}>
+						{getMsgStateBlock() || getManageBlock()}
+					</AppsTabPanel>
 
 					<Notifications
 						message={notificationMessage}

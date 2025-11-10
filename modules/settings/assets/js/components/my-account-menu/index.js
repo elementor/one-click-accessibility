@@ -1,10 +1,8 @@
-import {
-	ChevronDownIcon,
-	ChevronUpIcon,
-	ExternalLinkIcon,
-	HelpIcon,
-	UserIcon,
-} from '@elementor/icons';
+import ChevronDownIcon from '@elementor/icons/ChevronDownIcon';
+import ChevronUpIcon from '@elementor/icons/ChevronUpIcon';
+import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
+import HelpIcon from '@elementor/icons/HelpIcon';
+import UserIcon from '@elementor/icons/UserIcon';
 import List from '@elementor/ui/List';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
