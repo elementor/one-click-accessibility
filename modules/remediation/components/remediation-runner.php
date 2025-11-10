@@ -91,6 +91,12 @@ class Remediation_Runner {
 			return true;
 		}
 
+		// Divi Visual Builder edit mode (et_fb parameter)
+		if ( ! empty( $_REQUEST['et_fb'] ) ||
+			! empty( $_GET['et_fb'] ) ) {
+			return true;
+		}
+
 		// Check for AJAX header on frontend requests (not admin)
 		// Only if it's not an admin request and has AJAX header
 		if ( ! is_admin() &&
