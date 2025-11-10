@@ -35,6 +35,12 @@ export const PluginSettingsProvider = ({ children }) => {
 					);
 				}
 
+				if ('closeGetStartedModal' in settings) {
+					settings.closeGetStartedModal = Boolean(
+						settings.closeGetStartedModal,
+					);
+				}
+
 				if ('isUrlMismatch' in settings) {
 					settings.isUrlMismatch = Boolean(settings.isUrlMismatch);
 				}

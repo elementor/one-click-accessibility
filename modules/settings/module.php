@@ -156,6 +156,7 @@ class Module extends Module_Base {
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'closeOnboardingModal' => Settings::get( Settings::CLOSE_ONBOARDING_MODAL ),
+			'closeGetStartedModal' => Settings::get( Settings::CLOSE_GET_STARTED_MODAL ),
 			'isRTL' => is_rtl(),
 			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
@@ -490,6 +491,9 @@ class Module extends Module_Base {
 				'type' => 'boolean',
 			],
 			'close_onboarding_modal' => [
+				'type' => 'boolean',
+			],
+			'close_get_started_modal' => [
 				'type' => 'boolean',
 			],
 		];
