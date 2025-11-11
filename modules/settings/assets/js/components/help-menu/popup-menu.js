@@ -1,4 +1,3 @@
-import { ExternalLinkIcon } from '@elementor/icons';
 import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
 import Typography from '@elementor/ui/Typography';
@@ -39,7 +38,7 @@ export const HelpPopupMenu = (menuProps) => {
 			}}
 			transformOrigin={{
 				vertical: 'top',
-				horizontal: 'left',
+				horizontal: 'right',
 			}}
 			PaperProps={{
 				sx: {
@@ -63,8 +62,6 @@ export const HelpPopupMenu = (menuProps) => {
 				<StyledTypography>
 					{__('Help center', 'pojo-accessibility')}
 				</StyledTypography>
-
-				<ExternalLinkIcon sx={{ color: 'text.primary' }} />
 			</StyledMenuItem>
 		</Menu>
 	);
