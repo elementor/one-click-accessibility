@@ -191,8 +191,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
-= 3.9.0 – 2025-11-10 =
-
+= 3.9.0 – 2025-11-11 =
+New: You can now apply fixes across all scanned pages in one click for repeating elements such as headers, footers, and more.
+New: Added the ability to manage global Alt Text and Color Contrast remediations.
+Tweak: Improved the Reviews component experience.
+Fix: Resolved a bug causing the Search page in the Dashboard not to load properly.
+Fix: Corrected an error message that appeared improperly when the quota limit was reached.
+Fix: Fixed a compatibility issue with the Divi plugin.
 
 = 3.8.1 – 2025-10-15 =
 * Tweak: Code refactor
