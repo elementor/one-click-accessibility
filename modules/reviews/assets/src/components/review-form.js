@@ -1,15 +1,16 @@
-import Button from '@elementor/ui/Button';
+import StarFilledIcon from '@elementor/icons/StarFilledIcon';
 import FormControl from '@elementor/ui/FormControl';
+import Rating from '@elementor/ui/Rating';
 import Typography from '@elementor/ui/Typography';
-import { styled } from '@elementor/ui/styles';
 import { useStorage } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import { WORDPRESS_REVIEW_LINK } from '../constants';
 import { useSettings } from '../hooks/use-settings';
+import { MoodHappy } from '../icons';
 
-const ReviewForm = ({ close }) => {
-	const { rating } = useSettings();
+const ReviewForm = () => {
+	const { rating, handleClose } = useSettings();
 	const { save, get } = useStorage();
 
 	const handleSubmit = async () => {
@@ -25,32 +26,48 @@ const ReviewForm = ({ close }) => {
 			},
 		});
 
-		close();
+		handleClose();
 		window.open(WORDPRESS_REVIEW_LINK, '_blank');
 	};
 
 	return (
-		<FormControl fullWidth>
-			<Typography variant="body1" marginBottom={1}>
-				{__(
-					'It would mean a lot if you left us a quick review, so others can discover it too.',
-					'pojo-accessibility',
-				)}
+		<FormControl
+			sx={{
+				display: 'flex',
+				alignItems: 'center',
+				gap: 1,
+				textAlign: 'center',
+			}}
+			fullWidth
+		>
+			<MoodHappy
+				sx={{
+					p: 1.5,
+					backgroundColor: '#f3f3f4',
+					borderRadius: 2,
+					fontSize: 24,
+				}}
+			/>
+			<Typography variant="h6" marginBottom={1}>
+				{__('Awesome!', 'pojo-accessibility')}
 			</Typography>
-			<StyledButton
+			<Typography
+				variant="body1"
 				color="secondary"
-				variant="contained"
-				onClick={handleSubmit}
+				marginBottom={3}
+				width="55%"
 			>
-				{__('Leave a review', 'pojo-accessibility')}
-			</StyledButton>
+				{__('Help others discover Ally on WordPress', 'pojo-accessibility')}
+			</Typography>
+			<Rating
+				emptyIcon={<StarFilledIcon fontSize="large" />}
+				icon={<StarFilledIcon fontSize="large" />}
+				onChange={handleSubmit}
+				sx={{ marginBottom: 3 }}
+				highlightSelectedOnly={false}
+			/>
 		</FormControl>
 	);
 };
 
 export default ReviewForm;
-
-const StyledButton = styled(Button)`
-	min-width: 90px;
-	align-self: flex-end;
-`;

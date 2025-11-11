@@ -1,4 +1,4 @@
-import { AlertTriangleFilledIcon } from '@elementor/icons';
+import AlertTriangleFilledIcon from '@elementor/icons/AlertTriangleFilledIcon';
 import Button from '@elementor/ui/Button';
 import Dialog from '@elementor/ui/Dialog';
 import DialogActions from '@elementor/ui/DialogActions';

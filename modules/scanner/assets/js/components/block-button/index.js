@@ -13,6 +13,8 @@ import {
 export const BlockButton = ({ title, count, block }) => {
 	const { setOpenedBlock, isResolved } = useScannerWizardContext();
 
+	const resolved = count === 0 || isResolved(block);
+
 	const handleClick = () => {
 		setOpenedBlock(block);
 		mixpanelService.sendEvent(mixpanelEvents.categoryClicked, {
@@ -22,8 +24,6 @@ export const BlockButton = ({ title, count, block }) => {
 			source: 'assistant',
 		});
 	};
-
-	const resolved = count === 0 || isResolved(block);
 
 	return (
 		<StyledButton
@@ -39,7 +39,7 @@ export const BlockButton = ({ title, count, block }) => {
 				color={resolved ? 'success' : 'default'}
 			>
 				<Box display="flex" alignItems="center" gap={0.5}>
-					<Typography variant="subtitle2" as="h4">
+					<Typography variant="subtitle2" as="h4" color="text.primary">
 						{title}
 					</Typography>
 

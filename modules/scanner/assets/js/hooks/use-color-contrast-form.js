@@ -1,49 +1,79 @@
 import getXPath from 'get-xpath';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import {
+	isValidCSS,
+	rgbOrRgbaToHex,
+} from '@ea11y-apps/global/utils/color-contrast-helpers';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import {
 	BACKGROUND_ELEMENT_CLASS,
 	BLOCKS,
-	DATA_INITIAL_BG,
-	DATA_INITIAL_COLOR,
 } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
-import { rgbOrRgbaToHex } from '@ea11y-apps/scanner/utils/convert-colors';
+import { buildPathToParent } from '@ea11y-apps/scanner/utils/build-path-to-parent';
 import {
 	focusOnElement,
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
 import { getElementCSSSelector } from '@ea11y-apps/scanner/utils/get-element-css-selector';
-import { useEffect, useState } from '@wordpress/element';
+import { getOuterHtmlByXpath } from '@ea11y-apps/scanner/utils/get-outer-html-by-xpath';
+import { useEffect, useRef, useState } from '@wordpress/element';
 
 export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	const {
-		openedBlock,
-		manualData,
+		colorContrastData,
 		resolved: resolvedBlock,
 		setResolved,
 		isResolved,
+		isManage,
 		setOpenedBlock,
-		setManualData,
+		setColorContrastData,
+		setIsManageChanged,
 		updateRemediationList,
 		currentScanId,
 	} = useScannerWizardContext();
 
+	const type = isManage ? 'manage' : 'main';
+
 	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
+	const [parentChanged, setParentChanged] = useState(false);
+
+	const isGlobal =
+		colorContrastData?.[type]?.[current]?.isGlobal || item.global || false;
+
+	const isGlobalRef = useRef(null);
+
+	useEffect(() => {
+		if (item?.node) {
+			isGlobalRef.current = isGlobal;
+		}
+	}, [current]);
+
+	const setIsGlobal = (value) => {
+		updateData({
+			isGlobal: value,
+		});
+	};
 
 	const updateData = (data) => {
-		const existing = manualData[openedBlock]?.[current] || {};
-		const updated = [...(manualData[openedBlock] || [])];
-		updated[current] = { ...existing, ...data };
-
-		setManualData({
-			...manualData,
-			[openedBlock]: updated,
+		const updData = [...colorContrastData?.[type]];
+		updData[current] = {
+			...(colorContrastData?.[type]?.[current] || {}),
+			...data,
+		};
+		setColorContrastData({
+			...colorContrastData,
+			[type]: updData,
 		});
+
+		if (data.color || data.background) {
+			const rule = buildCSSRule(updData[current]);
+			updateCSS(rule);
+		}
 	};
 
 	const sendEvent = (method) => {
@@ -53,21 +83,12 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 	};
 
 	useEffect(() => {
-		if (!firstOpen && isResolved(BLOCKS.colorContrast)) {
+		if (!isManage && !firstOpen && isResolved(BLOCKS.colorContrast)) {
 			removeExistingFocus();
 			setOpenedBlock(BLOCKS.main);
 		}
 		setFirstOpen(false);
-	}, [manualData]);
-
-	useEffect(() => {
-		if (!item?.node?.getAttribute(DATA_INITIAL_COLOR)) {
-			const initialColor =
-				manualData[openedBlock]?.[current]?.color || item.messageArgs[3];
-			item.node.setAttribute(DATA_INITIAL_COLOR, initialColor);
-			item.node.style.setProperty('color', initialColor, 'important');
-		}
-	}, [item]);
+	}, [isResolved(BLOCKS.colorContrast)]);
 
 	const {
 		color = item.messageArgs[3] ||
@@ -75,13 +96,23 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 				window.getComputedStyle(item.node).getPropertyValue('color'),
 			),
 		background = item.messageArgs[4],
-		parents = [item.path.dom],
+		parents = item.isEdit
+			? buildPathToParent(item.node, item.parentNode)
+			: [item.path.dom],
 		resolved = false,
-		backgroundChanged = false,
-	} = manualData[openedBlock]?.[current] || {};
+		backgroundChanged = item.isEdit,
+	} = colorContrastData[type]?.[current] || {};
+
+	useEffect(() => {
+		if (isManage && parentChanged) {
+			const styles = document.getElementById('ea11y-remediation-styles');
+			if (styles) {
+				styles.innerHTML = styles.innerHTML.replace(item.data.rule, '');
+			}
+		}
+	}, [parentChanged]);
 
 	const changeColor = (updColor) => {
-		item.node?.style?.setProperty('color', updColor, 'important');
 		updateData({ color: updColor, resolved: false });
 	};
 
@@ -91,40 +122,11 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			return;
 		}
 
-		if (!element.getAttribute(DATA_INITIAL_BG)) {
-			const initial = window
-				.getComputedStyle(element)
-				.getPropertyValue('background-color');
-			element.setAttribute(DATA_INITIAL_BG, initial);
-		}
-
-		element.style?.setProperty('background-color', updBackground, 'important');
 		updateData({
 			background: updBackground,
 			resolved: false,
 			backgroundChanged: true,
 		});
-	};
-
-	const setParentBackground = (nextElement, element) => {
-		if (!nextElement) {
-			return;
-		}
-
-		if (!nextElement.getAttribute(DATA_INITIAL_BG)) {
-			const initial = window
-				.getComputedStyle(nextElement)
-				.getPropertyValue('background-color');
-			nextElement.setAttribute(DATA_INITIAL_BG, initial);
-		}
-
-		element?.style?.setProperty(
-			'background-color',
-			element?.getAttribute(DATA_INITIAL_BG),
-			'important',
-		);
-
-		nextElement.style?.setProperty('background-color', background, 'important');
 	};
 
 	const setParentLarger = () => {
@@ -137,12 +139,11 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		try {
 			const xpath = getXPath(parent, { ignoreId: true });
 			focusOnElement(parent, BACKGROUND_ELEMENT_CLASS);
-			setParentBackground(parent, element);
-
 			updateData({
 				parents: [...parents, xpath],
 				resolved: false,
 			});
+			setParentChanged(true);
 			sendEvent('plus');
 		} catch (error) {
 			console.warn('Failed to get XPath for parent element:', error);
@@ -162,74 +163,38 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 			removeExistingFocus(BACKGROUND_ELEMENT_CLASS);
 		}
 
-		setParentBackground(nextElement);
 		updateData({ parents: newParents, resolved: false });
+		setParentChanged(true);
 		sendEvent('minus');
 	};
 
 	const isValidHexColor = (str) =>
 		/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/.test(str.trim());
 
-	const isValidCSS = (cssText) => {
-		try {
-			// Basic checks for common malicious patterns
-			if (!cssText || typeof cssText !== 'string') {
-				return false;
-			}
+	const buildCSSRule = (data) => {
+		const currentParents = data.parents || parents;
+		const currentParent =
+			currentParents.length > 0 ? currentParents.at(-1) : item.path.dom;
 
-			// Check for basic CSS structure and disallow dangerous patterns
-			const dangerousPatterns = [
-				/@import/i,
-				/javascript:/i,
-				/expression\s*\(/i,
-				/behavior\s*:/i,
-				/binding\s*:/i,
-				/-moz-binding/i,
-			];
-
-			if (dangerousPatterns.some((pattern) => pattern.test(cssText))) {
-				return false;
-			}
-
-			// More comprehensive CSS structure validation
-			const cssRegex = /^[\s\S]*\{\s*[\s\S]+:\s*[\s\S]+;\s*\}[\s\S]*$/;
-			const hasBasicStructure = cssRegex.test(
-				cssText.replace(/\s+/g, ' ').trim(),
-			);
-
-			// Additional validation: check for balanced braces
-			const openBraces = (cssText.match(/\{/g) || []).length;
-			const closeBraces = (cssText.match(/\}/g) || []).length;
-
-			return hasBasicStructure && openBraces === closeBraces && openBraces > 0;
-		} catch (e) {
-			return false;
-		}
-	};
-
-	const buildCSSRule = () => {
 		if (
-			!isValidHexColor(color) ||
-			(background && !isValidHexColor(background))
+			(data.color && !isValidHexColor(data.color)) ||
+			(data.background && !isValidHexColor(data.background))
 		) {
 			throw new Error('Invalid hex color input detected');
 		}
 
 		try {
-			const colorSelector = getElementCSSSelector(item.path.dom);
-			const bgSelector = getElementCSSSelector(
-				parents.length > 0 ? parents.at(-1) : item.path.dom,
-			);
+			const bgElement = getElementByXPath(currentParent);
+			const colorSelector = getElementCSSSelector(item.node);
+			const bgSelector = getElementCSSSelector(bgElement);
 
-			const colorRule =
-				color !== item.messageArgs[3]
-					? `${colorSelector} {color: ${color} !important;}`
-					: '';
+			const colorRule = data.color
+				? `${colorSelector} {color: ${data.color} !important;}`
+				: '';
 
-			const bgRule =
-				background && background !== item.messageArgs[4]
-					? `${bgSelector} {background-color: ${background} !important;}`
-					: '';
+			const bgRule = data.background
+				? `${bgSelector} {background-color: ${data.background} !important;}`
+				: '';
 
 			const css = `${colorRule}${bgRule}`;
 
@@ -240,33 +205,86 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 	};
 
+	const updateCSS = (rule) => {
+		let styles = document.getElementById('ea11y-remediation-styles-edit');
+		if (!styles) {
+			styles = document.createElement('style');
+			styles.id = 'ea11y-remediation-styles-edit';
+			document.body.appendChild(styles);
+		}
+		styles.innerHTML = rule;
+	};
+
+	const onUpdate = async () => {
+		const rule = buildCSSRule(colorContrastData?.[type]?.[current]);
+		const find = getOuterHtmlByXpath(item.path.dom);
+		const parentXPath = parents.length > 0 ? parents.at(-1) : null;
+		const parentFind = getOuterHtmlByXpath(parentXPath);
+
+		try {
+			setLoading(true);
+			const remediation = colorContrastData?.[type]?.[current]?.remediation;
+			const id = item.id || remediation.id;
+			const data = item.data || JSON.parse(remediation.content);
+			const updContent = JSON.stringify({
+				...data,
+				rule,
+				find,
+				parentFind,
+				parentXPath,
+			});
+			await APIScanner.updateRemediationContent({
+				url: window?.ea11yScannerData?.pageData?.url,
+				id,
+				content: updContent,
+				global: isGlobal,
+			});
+
+			setIsManageChanged(true);
+			removeExistingFocus();
+			setParentChanged(false);
+			updateCSS(rule);
+			isGlobalRef.current = isGlobal;
+			void updateRemediationList();
+		} catch (e) {
+			console.error(e);
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	const onSubmit = async () => {
+		const parentXPath = parents.length > 0 ? parents.at(-1) : null;
+		const parentFind = getOuterHtmlByXpath(parentXPath);
 		setLoading(true);
 		try {
-			await APIScanner.submitRemediation({
+			const rule = buildCSSRule(colorContrastData?.[type]?.[current]);
+			const response = await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData?.url,
 				remediation: {
-					rule: buildCSSRule(),
+					rule,
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'STYLES',
 					xpath: item.path.dom,
+					find: item.snippet,
+					parentFind,
+					parentXPath,
 				},
+				global: isGlobal,
 				rule: item.ruleId,
 				group: BLOCKS.colorContrast,
 			});
 
 			await APIScanner.resolveIssue(currentScanId);
 
-			updateData({ resolved: true });
-
-			item.node?.removeAttribute(DATA_INITIAL_COLOR);
-			getElementByXPath(
-				parents.length > 0 ? parents.at(-1) : item.path.dom,
-			)?.removeAttribute(DATA_INITIAL_BG);
+			updateData({ remediation: response.remediation, resolved: true });
 
 			removeExistingFocus();
 			setCurrent(current + 1);
 			setResolved(resolvedBlock + 1);
+			setParentChanged(false);
+			updateCSS(rule);
+			isGlobalRef.current = isGlobal;
 			void updateRemediationList();
 		} catch (error) {
 			console.error('Failed to submit remediation:', error);
@@ -275,18 +293,27 @@ export const useColorContrastForm = ({ item, current, setCurrent }) => {
 		}
 	};
 
+	const isDisabled =
+		resolved &&
+		colorContrastData?.[type]?.[current]?.isGlobal === isGlobalRef.current;
+
 	return {
+		isGlobal,
+		setIsGlobal,
 		color,
 		background,
 		parents,
+		isDisabled,
 		resolved,
 		backgroundChanged,
+		parentChanged,
 		loading,
 		changeColor,
 		changeBackground,
 		setParentLarger,
 		setParentSmaller,
 		onSubmit,
+		onUpdate,
 	};
 };
 

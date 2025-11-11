@@ -51,6 +51,92 @@ class Remediation_Base {
 		return null;
 	}
 
+	/**
+	 * Get an element by XPath and verify it contains the given snippet.
+	 * If not, fall back to searching by the snippet itself.
+	 *
+	 * @param string|null      $xpath
+	 * @param string|null      $snippet
+	 * @return DOMElement|null
+	 */
+	public function get_element_by_xpath_with_snippet_fallback( ?string $xpath, ?string $snippet ): ?DOMElement {
+		if ( ! $xpath ) {
+			return null;
+		}
+
+		$element  = $this->get_element_by_xpath( $xpath );
+		if ( $element && ! $this->element_contains_snippet( $element, $snippet ) ) {
+			// XPath result doesn't contain the snippet
+			$element = null;
+		}
+
+		// Fallback to snippet-based search
+		if ( ! $element ) {
+			$element = $this->get_element_by_snippet( $snippet );
+		}
+
+		return $element;
+	}
+
+	/**
+	 * Check if a DOMElement contains a given snippet of HTML.
+	 *
+	 * @param DOMElement $element
+	 * @param string     $snippet
+	 * @return bool
+	 */
+	public function element_contains_snippet( DOMElement $element, string $snippet ): bool {
+		$outer_html = $this->dom->saveHTML( $element );
+
+		return stripos( $outer_html, $snippet ) !== false;
+	}
+
+	/**
+	 * Find an element in a DOMDocument by matching its tag, ID, and/or class from a snippet.
+	 *
+	 * @param string      $snippet
+	 * @return DOMElement|null
+	 */
+	public function get_element_by_snippet( string $snippet ): ?DOMElement {
+		$temp = new DOMDocument();
+		libxml_use_internal_errors( true );
+		$temp->loadHTML( $snippet, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		libxml_clear_errors();
+
+		$parsed = $temp->documentElement;
+		if ( ! $parsed ) {
+			return null;
+		}
+
+		$tag   = strtolower( $parsed->tagName );
+		$id    = $parsed->getAttribute( 'id' );
+		$class = trim( $parsed->getAttribute( 'class' ) );
+
+		$query      = '//' . $tag;
+		$conditions = [];
+
+		if ( $id ) {
+			$conditions[] = "@id='{$id}'";
+		}
+
+		if ( $class ) {
+			$classes = preg_split( '/\s+/', $class );
+			foreach ( $classes as $c ) {
+				$conditions[] = sprintf(
+					"contains(concat(' ', normalize-space(@class), ' '), ' %s ')",
+					$c
+				);
+			}
+		}
+
+		if ( $conditions ) {
+			$query .= '[' . implode( ' and ', $conditions ) . ']';
+		}
+
+		return $this->get_element_by_xpath( $query );
+	}
+
+
 	public function run() : ?DOMDocument {
 		return $this->dom;
 	}
@@ -75,8 +161,8 @@ class Remediation_Base {
 	public function __construct( DOMDocument $dom, $data ) {
 		$this->dom = $dom;
 		$this->data = $data;
-		// if element does not exist, move the remediation to the Frontend
-		if ( ! $this->exists() ) {
+		// if it's not global and not styles and element does not exist, move the remediation to the Frontend
+		if ( 'STYLES' !== $this->data['type'] && ! $this->data['global'] && ! $this->exists() ) {
 			$this->use_frontend = true;
 			return;
 		}

@@ -19,6 +19,7 @@ use EA11y\Modules\Core\Components\{
 };
 use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
 use EA11y\Modules\Settings\Banners\Onboarding_Banner;
+use EA11y\Modules\Settings\Banners\BF_Sale_2025_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
 use EA11y\Modules\WhatsNew\Module as WhatsNewModule;
@@ -49,6 +50,7 @@ class Module extends Module_Base {
 	public function render_app() {
 		?>
 		<?php Elementor_Birthday_Banner::get_banner( 'https://go.elementor.com/acc-b-day-banner' ); ?>
+		<?php BF_Sale_2025_Banner::get_banner('https://go.elementor.com/acc-BF-sale'); ?>
 
 		<!-- The hack required to wrap WP notifications -->
 		<div class="wrap">
