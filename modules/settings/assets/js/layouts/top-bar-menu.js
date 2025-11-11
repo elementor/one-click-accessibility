@@ -1,4 +1,6 @@
-import { HelpIcon, UserIcon, PointFilledIcon } from '@elementor/icons';
+import HelpIcon from '@elementor/icons/HelpIcon';
+import PointFilledIcon from '@elementor/icons/PointFilledIcon';
+import UserIcon from '@elementor/icons/UserIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Divider from '@elementor/ui/Divider';

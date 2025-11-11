@@ -1,5 +1,9 @@
-export { MainLayout } from './main-layout';
-export { AltTextLayout } from './alt-text-layout';
-export { ManualLayout } from './manual-layout';
-export { ManageMainLayout } from './manage-main-layout';
-export { RemediationLayout } from './remediation-layout';
+export { MainLayout } from './scanner/main-layout';
+export { AltTextLayout } from './scanner/alt-text-layout';
+export { ManualLayout } from './scanner/manual-layout';
+export { ColorContrastLayout } from './scanner/color-contrast-layout';
+export { HeadingStructureLayout } from './scanner/heading-structure-layout';
+export { ManageMainLayout } from './management/manage-main-layout';
+export { ManageManualLayout } from './management/manage-manual-layout';
+export { ManageAltTextLayout } from './management/manage-alt-text-layout';
+export { ManageColorContrastLayout } from './management/manage-color-contrast-layout';

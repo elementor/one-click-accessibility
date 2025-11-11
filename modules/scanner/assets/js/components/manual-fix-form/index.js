@@ -26,6 +26,7 @@ import {
 	InfotipFooter,
 	StyledAccordionDetails,
 	StyledSnippet,
+	TitleBox,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { speak } from '@wordpress/a11y';
@@ -131,7 +132,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 								</InfotipBox>
 							}
 						>
-							<InfoCircleIcon fontSize="small" />
+							<InfoCircleIcon fontSize="small" color="action" />
 						</Infotip>
 					</Box>
 
@@ -141,39 +142,38 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 				</Box>
 
 				<Box>
-					<Typography variant="subtitle2" as="h5" sx={{ mb: 0.5 }}>
-						{__('Where is it', 'pojo-accessibility')}
-					</Typography>
+					<TitleBox>
+						<Typography variant="subtitle2" as="h5" sx={{ mb: 0.5 }}>
+							{__('Where is it', 'pojo-accessibility')}
+						</Typography>
+						<Tooltip
+							arrow
+							placement="top"
+							title={
+								copied
+									? __('Copied!', 'pojo-accessibility')
+									: __('Copy', 'pojo-accessibility')
+							}
+							PopperProps={{
+								disablePortal: true,
+							}}
+						>
+							<IconButton
+								size="tiny"
+								onClick={copyToClipboard(
+									item.snippet,
+									'error_snippet',
+									'assistant',
+								)}
+							>
+								<CopyIcon fontSize="tiny" />
+							</IconButton>
+						</Tooltip>
+					</TitleBox>
 
 					<StyledAlert color="error" icon={false}>
 						<Box display="flex" gap={0.5} alignItems="start">
 							<StyledSnippet variant="body2">{item.snippet}</StyledSnippet>
-
-							<Box>
-								<Tooltip
-									arrow
-									placement="bottom"
-									title={
-										copied
-											? __('Copied!', 'pojo-accessibility')
-											: __('Copy', 'pojo-accessibility')
-									}
-									PopperProps={{
-										disablePortal: true,
-									}}
-								>
-									<IconButton
-										size="tiny"
-										onClick={copyToClipboard(
-											item.snippet,
-											'error_snippet',
-											'assistant',
-										)}
-									>
-										<CopyIcon fontSize="tiny" />
-									</IconButton>
-								</Tooltip>
-							</Box>
 						</Box>
 					</StyledAlert>
 				</Box>

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Remediation_Table extends Table {
 	// override base's const:
-	const DB_VERSION = '2';
+	const DB_VERSION = '3';
 	const DB_VERSION_FLAG_NAME = 'ea11y_remediation_db_version';
 
 	const ID = 'id';
@@ -20,6 +20,7 @@ class Remediation_Table extends Table {
 	const GROUP = 'group';
 	const CONTENT = 'content';
 	const ACTIVE = 'active';
+	const GLOBAL = 'global';
 	const CREATED_AT = 'created_at';
 	const UPDATED_AT = 'updated_at';
 
@@ -70,6 +71,14 @@ class Remediation_Table extends Table {
 			],
 			self::ACTIVE => [
 				'type' => Database_Constants::get_col_type( Database_Constants::BOOLEAN ),
+			],
+			self::GLOBAL => [
+				'type' => Database_Constants::get_col_type( Database_Constants::BOOLEAN ),
+				'flags' => Database_Constants::build_flags_string( [
+					Database_Constants::NOT_NULL,
+					Database_Constants::DEFAULT,
+					'0',
+				] ),
 			],
 			self::CREATED_AT => [
 				'type' => Database_Constants::get_col_type( Database_Constants::DATETIME ),

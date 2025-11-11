@@ -44,7 +44,7 @@ class Scanner_Results extends Route_Base {
 
 			foreach ( $pages_scanned as $page ) {
 				$scans = Scan_Entry::get_scans( $page->url );
-				$page_remediation_count = Remediation_Entry::get_page_remediations( $page->url, true );
+				$page_remediation_count = Remediation_Entry::get_page_remediations_count( $page->url );
 
 				$scans = array_map(function( $scan ) {
 					return [
@@ -71,7 +71,7 @@ class Scanner_Results extends Route_Base {
 					'page_url' => $page->url,
 					'scans' => $scans,
 					'last_scan' => $scans[0]['date'] ?: $page->created_at,
-					'remediation_count' => isset( $page_remediation_count[0] ) ? $page_remediation_count[0]->total : 0,
+					'remediation_count' => $page_remediation_count,
 					'issues_total' => $scans[0]['issues_total'],
 					'issues_fixed' => $scans[0]['issues_fixed'],
 				];

@@ -1,4 +1,5 @@
-import { DesktopIcon, MobileIcon } from '@elementor/icons';
+import DesktopIcon from '@elementor/icons/DesktopIcon';
+import MobileIcon from '@elementor/icons/MobileIcon';
 import Box from '@elementor/ui/Box';
 import Grid from '@elementor/ui/Grid';
 import Tab from '@elementor/ui/Tab';

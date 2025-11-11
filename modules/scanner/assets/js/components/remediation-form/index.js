@@ -13,6 +13,7 @@ import {
 	InfotipBox,
 	StyledAccordionDetails,
 	StyledSnippet,
+	TitleBox,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { remediationItem } from '@ea11y-apps/scanner/types/remediation-item';
 import { __ } from '@wordpress/i18n';
@@ -54,7 +55,7 @@ export const RemediationForm = ({ item }) => {
 								</InfotipBox>
 							}
 						>
-							<InfoCircleIcon fontSize="small" />
+							<InfoCircleIcon fontSize="small" color="action" />
 						</Infotip>
 					</Box>
 
@@ -64,40 +65,38 @@ export const RemediationForm = ({ item }) => {
 				</Box>
 
 				<Box>
-					<Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-						{__('Affected element:', 'pojo-accessibility')}
-					</Typography>
+					<TitleBox>
+						<Typography variant="subtitle2">
+							{__('Affected element:', 'pojo-accessibility')}
+						</Typography>
+
+						<Tooltip
+							arrow
+							placement="top"
+							title={
+								copied
+									? __('Copied!', 'pojo-accessibility')
+									: __('Copy', 'pojo-accessibility')
+							}
+							PopperProps={{
+								disablePortal: true,
+							}}
+						>
+							<IconButton
+								size="tiny"
+								onClick={copyToClipboard(
+									content.find,
+									'error_snippet',
+									'remediation',
+								)}
+							>
+								<CopyIcon fontSize="tiny" />
+							</IconButton>
+						</Tooltip>
+					</TitleBox>
 
 					<StyledAlert color="error" icon={false}>
-						<Box display="flex" gap={0.5} alignItems="start">
-							<StyledSnippet variant="body2">{content.find}</StyledSnippet>
-
-							<Box>
-								<Tooltip
-									arrow
-									placement="bottom"
-									title={
-										copied
-											? __('Copied!', 'pojo-accessibility')
-											: __('Copy', 'pojo-accessibility')
-									}
-									PopperProps={{
-										disablePortal: true,
-									}}
-								>
-									<IconButton
-										size="tiny"
-										onClick={copyToClipboard(
-											content.find,
-											'error_snippet',
-											'remediation',
-										)}
-									>
-										<CopyIcon fontSize="tiny" />
-									</IconButton>
-								</Tooltip>
-							</Box>
-						</Box>
+						<StyledSnippet variant="body2">{content.find}</StyledSnippet>
 					</StyledAlert>
 				</Box>
 

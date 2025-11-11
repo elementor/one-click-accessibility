@@ -91,6 +91,12 @@ class Remediation_Runner {
 			return true;
 		}
 
+		// Divi Visual Builder edit mode (et_fb parameter)
+		if ( ! empty( $_REQUEST['et_fb'] ) ||
+			! empty( $_GET['et_fb'] ) ) {
+			return true;
+		}
+
 		// Check for AJAX header on frontend requests (not admin)
 		// Only if it's not an admin request and has AJAX header
 		if ( ! is_admin() &&
@@ -108,7 +114,7 @@ class Remediation_Runner {
 		$frontend_ajax_params = [
 			'ajax_request',
 			'is_ajax',
-			'doing_ajax'
+			'doing_ajax',
 		];
 
 		foreach ( $frontend_ajax_params as $param ) {
@@ -122,7 +128,7 @@ class Remediation_Runner {
 		$frontend_ajax_patterns = [
 			'ajax=true',
 			'is_ajax=1',
-			'ajax_request=1'
+			'ajax_request=1',
 		];
 
 		foreach ( $frontend_ajax_patterns as $pattern ) {
@@ -176,18 +182,21 @@ class Remediation_Runner {
 	}
 
 	public function run_remediations( $buffer ): string {
-		if ( ! is_user_logged_in() && $this->page_html && $this->page->is_valid_hash() ) {
+		$is_params_empty = empty( $_POST ) && empty( $_GET );
+		if ( ! is_user_logged_in() && $this->page_html && $this->page->is_valid_hash() && $is_params_empty ) {
 			return $this->page_html;
 		}
+
 		$dom = $this->generate_remediation_dom( $buffer );
-		if ( ! is_user_logged_in() ) {
+
+		if ( ! is_user_logged_in() && $is_params_empty ) {
 			$this->page->update_html( $dom );
 		}
 		return $dom;
 	}
 
 	private function generate_remediation_dom( $buffer ): string {
-		$dom = new DOMDocument('1.0', 'UTF-8');
+		$dom = new DOMDocument( '1.0', 'UTF-8' );
 		$dom->loadHTML( $buffer, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR );
 
 		//Remove admin-bar for correct replace
@@ -201,9 +210,16 @@ class Remediation_Runner {
 		$classes = $this->get_remediation_classes();
 		foreach ( $this->page_remediations as $item ) {
 			$remediation = json_decode( $item->content, true );
+			$remediation['global'] = $item->global;
+
+			if ( $item->global && ! $item->active_for_page ) {
+				continue;
+			}
+
 			if ( ! isset( $classes[ strtoupper( $remediation['type'] ) ] ) ) {
 				continue;
 			}
+
 			$remediation_class_name = $this->get_remediation_class_name( $remediation['type'] );
 			$remediation_class = new $remediation_class_name( $dom, $remediation );
 			if ( $remediation_class->use_frontend ) {

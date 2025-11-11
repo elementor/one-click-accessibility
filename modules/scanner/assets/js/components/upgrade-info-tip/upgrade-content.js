@@ -3,11 +3,11 @@ import Button from '@elementor/ui/Button';
 import IconButton from '@elementor/ui/IconButton';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
-import CrownFilled from '@ea11y/icons/crown-filled';
+import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import {
 	COMPARE_PLAN_URL,
-	IS_AI_ENABLED,
+	IS_PRO_PLAN,
 	UPGRADE_URL,
 } from '@ea11y-apps/scanner/constants';
 import { UpgradeContentContainer } from '@ea11y-apps/scanner/styles/app.styles';
@@ -30,7 +30,7 @@ export const UpgradeContent = ({ closeUpgrade, isAlt = false }) => {
 		<InfotipBox>
 			<UpgradeContentContainer>
 				<Typography variant="subtitle1" sx={{ mb: 3 }}>
-					{IS_AI_ENABLED
+					{IS_PRO_PLAN
 						? __("You've reached the monthly limit", 'pojo-accessibility')
 						: __('Resolve issues automatically with AI', 'pojo-accessibility')}
 				</Typography>
@@ -46,7 +46,7 @@ export const UpgradeContent = ({ closeUpgrade, isAlt = false }) => {
 				)}
 			</UpgradeContentContainer>
 			<Typography variant="body2" color="secondary" sx={{ mb: 2 }}>
-				{IS_AI_ENABLED
+				{IS_PRO_PLAN
 					? __(
 							'To work more magic with AI, upgrade your plan or wait until next month.',
 							'pojo-accessibility',
@@ -61,13 +61,13 @@ export const UpgradeContent = ({ closeUpgrade, isAlt = false }) => {
 					size="small"
 					color="promotion"
 					variant="contained"
-					href={IS_AI_ENABLED ? COMPARE_PLAN_URL : UPGRADE_URL}
+					href={IS_PRO_PLAN ? COMPARE_PLAN_URL : UPGRADE_URL}
 					target="_blank"
 					rel="noreferrer"
-					startIcon={!IS_AI_ENABLED ? <CrownFilled /> : null}
+					startIcon={!IS_PRO_PLAN ? <CrownFilled /> : null}
 					onClick={onUpgrade}
 				>
-					{IS_AI_ENABLED
+					{IS_PRO_PLAN
 						? __('Compare plans', 'pojo-accessibility')
 						: __('Upgrade now', 'pojo-accessibility')}
 				</Button>

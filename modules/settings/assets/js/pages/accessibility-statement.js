@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from '@elementor/icons';
+import ChevronLeftIcon from '@elementor/icons/ChevronLeftIcon';
 import Box from '@elementor/ui/Box';
 import FormControl from '@elementor/ui/FormControl';
 import FormLabel from '@elementor/ui/FormLabel';
