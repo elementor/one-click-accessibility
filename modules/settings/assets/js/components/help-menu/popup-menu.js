@@ -12,7 +12,8 @@ export const HelpPopupMenu = (menuProps) => {
 	const { setIsGetStartedModalOpen } = useSettings();
 
 	const handleGetStartedClick = () => {
-		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			popupType: 'get_started_with_ally',
 			buttonName: 'Get started with Ally',
 		});
 		setIsGetStartedModalOpen(true);
