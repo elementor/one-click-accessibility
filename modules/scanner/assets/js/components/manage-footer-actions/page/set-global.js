@@ -10,7 +10,7 @@ import { ProCrownIcon } from '@ea11y/icons';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { SetGlobalRemediationModal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global-remediation-modal';
-import { IS_PRO_PLAN, UPGRADE_URL } from '@ea11y-apps/scanner/constants';
+import { IS_PRO_PLAN, UPGRADE_GLOBAL_URL } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useGlobalManageActions } from '@ea11y-apps/scanner/hooks/use-global-manage-actions';
 import infotipImageSrc from '@ea11y-apps/scanner/static/global-infotip-image.png';
@@ -121,35 +121,41 @@ export const SetGlobal = ({
 						disablePortal: true,
 					}}
 					content={
-						<InfotipBox>
-							<Typography variant="subtitle1" sx={{ mb: 1 }}>
-								{__('Upgrade to unlock cross-scan fixes', 'pojo-accessibility')}
-							</Typography>
-							<Typography
-								variant="body2"
-								sx={{ mb: 1.5 }}
-								color="text.secondary"
-							>
-								{__(
-									'Cross-scan fixes let you resolve the same issue on all of your scanned pages with a click.',
-									'pojo-accessibility',
-								)}
-							</Typography>
-							<Box display="flex" justifyContent="flex-end">
-								<Button
-									size="small"
-									color="promotion"
-									variant="contained"
-									href={UPGRADE_URL}
-									target="_blank"
-									rel="noreferrer"
-									startIcon={<CrownFilled />}
-									onClick={onUpgrade}
+						<>
+							<InfotipImage src={infotipImageSrc} role="presentation" />
+							<InfotipBox sx={{ maxWidth: '265px' }}>
+								<Typography variant="subtitle1" sx={{ mb: 1 }}>
+									{__(
+										'Upgrade to unlock cross-scan fixes',
+										'pojo-accessibility',
+									)}
+								</Typography>
+								<Typography
+									variant="body2"
+									sx={{ mb: 1.5 }}
+									color="text.secondary"
 								>
-									{__('Upgrade now', 'pojo-accessibility')}
-								</Button>
-							</Box>
-						</InfotipBox>
+									{__(
+										'Cross-scan fixes let you resolve the same issue on all scanned pages with a click.',
+										'pojo-accessibility',
+									)}
+								</Typography>
+								<Box display="flex" justifyContent="flex-end">
+									<Button
+										size="small"
+										color="promotion"
+										variant="contained"
+										href={UPGRADE_GLOBAL_URL}
+										target="_blank"
+										rel="noreferrer"
+										startIcon={<CrownFilled />}
+										onClick={onUpgrade}
+									>
+										{__('Upgrade now', 'pojo-accessibility')}
+									</Button>
+								</Box>
+							</InfotipBox>
+						</>
 					}
 				>
 					<StyledProChip

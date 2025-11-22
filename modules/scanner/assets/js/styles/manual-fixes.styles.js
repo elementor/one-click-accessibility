@@ -49,6 +49,8 @@ export const InfotipBox = styled(Box)`
 export const InfotipImage = styled('img')`
 	max-width: 304px;
 	height: auto;
+	border-top-left-radius: ${({ theme }) => theme.spacing(0.5)};
+	border-top-right-radius: ${({ theme }) => theme.spacing(0.5)};
 `;
 
 export const InfotipFooter = styled(Box)`
