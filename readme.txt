@@ -4,7 +4,7 @@ Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.8.1
+Stable tag: 3.9.0
 License: GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
@@ -191,6 +191,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
+= 3.9.0 – 2025-11-11 =
+New: You can now apply fixes across all scanned pages in one click for repeating elements such as headers, footers, and more.
+New: Added the ability to manage global Alt Text and Color Contrast remediations.
+Tweak: Improved the Reviews component experience.
+Fix: Resolved a bug causing the Search page in the Dashboard not to load properly.
+Fix: Corrected an error message that appeared improperly when the quota limit was reached.
+Fix: Fixed a compatibility issue with the Divi plugin.
+
 = 3.8.1 – 2025-10-15 =
 * Tweak: Code refactor
 
