@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Config {
 	const APP_NAME = 'once-click-accessibility';
 	const APP_PREFIX = 'ea11y';
-	const APP_REST_NAMESPACE = 'ea11y';
+	const APP_REST_NAMESPACE = 'ea11y/v1';
 	const BASE_URL = 'https://my.elementor.com/connect';
 	const ADMIN_PAGE = 'accessibility-settings';
 	const APP_TYPE = 'app_access';

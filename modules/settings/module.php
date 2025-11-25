@@ -1,28 +1,16 @@
 <?php
 namespace EA11y\Modules\Settings;
 
-use EA11y\Classes\{
-	Logger,
-	Module_Base,
-	Utils
-};
-use EA11y\Modules\Connect\Classes\{
-	Config,
-	Data,
-	Exceptions\Service_Exception
-};
-use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
+use EA11y\Classes\{Logger, Module_Base, Utils};
+use EA11y\Modules\Connect\Classes\{Config,};
 use EA11y\Modules\Connect\Module as Connect;
-use EA11y\Modules\Core\Components\{
-	Notices,
-	Svg
-};
+use EA11y\Modules\Core\Components\{Notices, Svg};
+use EA11y\Modules\Settings\Banners\BF_Sale_2025_Banner;
 use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
 use EA11y\Modules\Settings\Banners\Onboarding_Banner;
-use EA11y\Modules\Settings\Banners\BF_Sale_2025_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
-use EA11y\Modules\Widget\Module as WidgetModule;
 use EA11y\Modules\WhatsNew\Module as WhatsNewModule;
+use EA11y\Modules\Widget\Module as WidgetModule;
 use Exception;
 use Throwable;
 
@@ -47,10 +35,13 @@ class Module extends Module_Base {
 		];
 	}
 
+	/**
+	 * @throws Throwable
+	 */
 	public function render_app() {
 		?>
 		<?php Elementor_Birthday_Banner::get_banner( 'https://go.elementor.com/acc-b-day-banner' ); ?>
-		<?php BF_Sale_2025_Banner::get_banner('https://go.elementor.com/acc-BF-sale'); ?>
+		<?php BF_Sale_2025_Banner::get_banner( 'https://go.elementor.com/acc-BF-sale' ); ?>
 
 		<!-- The hack required to wrap WP notifications -->
 		<div class="wrap">
@@ -61,6 +52,9 @@ class Module extends Module_Base {
 		<?php
 	}
 
+	/**
+	 * @throws Throwable
+	 */
 	public function admin_banners() {
 		Onboarding_Banner::get_banner();
 	}
@@ -126,7 +120,7 @@ class Module extends Module_Base {
 				'pluginVersion' => EA11Y_VERSION,
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
-				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+				'isUrlMismatch' => ! Connect::get_connect()->utils()->is_valid_home_url(),
 				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 
 				'homeUrl' => home_url(),
@@ -159,7 +153,7 @@ class Module extends Module_Base {
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'closeOnboardingModal' => Settings::get( Settings::CLOSE_ONBOARDING_MODAL ),
 			'isRTL' => is_rtl(),
-			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+			'isUrlMismatch' => ! Connect::get_connect()->utils()->is_valid_home_url(),
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
 			'whatsNewDataHash' => WhatsNewModule::compare_data_hash(),
@@ -206,7 +200,7 @@ class Module extends Module_Base {
 	public static function save_plan_data( $register_response ) : void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
 			$decoded_response = $register_response;
-			Data::set_subscription_id( $decoded_response->plan->subscription_id );
+			update_option( Settings::SUBSCRIPTION_ID, $register_response->id );
 			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
 			self::set_default_settings();
@@ -240,25 +234,28 @@ class Module extends Module_Base {
 			return;
 		}
 
-		try {
-			$response = Utils::get_api_client()->make_request(
-				'GET',
-				'site/info',
-				[ 'api_key' => $plan_data->public_api_key ]
-			);
+		$response = Utils::get_api_client()->make_request(
+			'GET',
+			'site/info',
+			[ 'api_key' => $plan_data->public_api_key ]
+		);
 
-			if ( ! is_wp_error( $response ) ) {
-				Settings::set( Settings::PLAN_DATA, $response );
-				Settings::set( Settings::IS_VALID_PLAN_DATA, true );
-				self::set_plan_data_refresh_transient();
-			} else {
-				Logger::error( esc_html( $response->get_error_message() ) );
-				Settings::set( Settings::IS_VALID_PLAN_DATA, false );
-			}
-		} catch ( Service_Exception $se ) {
-			Logger::error( esc_html( $se->getMessage() ) );
+		if ( ! is_wp_error( $response ) ) {
+			Settings::set( Settings::PLAN_DATA, $response );
+			Settings::set( Settings::IS_VALID_PLAN_DATA, true );
+			self::set_plan_data_refresh_transient();
+		} else {
+			Logger::error( esc_html( $response->get_error_message() ) );
 			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
 		}
+	}
+
+	/**
+	 * On disconnect
+	 * @return void
+	 */
+	public function on_disconnect() {
+		delete_option( Settings::SUBSCRIPTION_ID );
 	}
 
 	/**
@@ -577,7 +574,7 @@ class Module extends Module_Base {
 	 */
 	public function hide_admin_notices() {
 		$current_screen = get_current_screen();
-		if ( $current_screen && $current_screen->id === self::SETTING_PAGE_SLUG ) {
+		if ( $current_screen && self::SETTING_PAGE_SLUG === $current_screen->id ) {
 			remove_all_actions( 'admin_notices' );
 			remove_all_actions( 'all_admin_notices' );
 		}
@@ -597,7 +594,7 @@ class Module extends Module_Base {
 		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
 		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
-		
+
 		// Register notices
 		//add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 		add_action( 'admin_notices', [ $this, 'admin_banners' ] );

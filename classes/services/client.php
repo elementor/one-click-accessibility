@@ -2,10 +2,8 @@
 
 namespace EA11y\Classes\Services;
 
-use EA11y\Modules\Connect\Classes\Data;
-use EA11y\Modules\Connect\Classes\Exceptions\Service_Exception;
-use EA11y\Modules\Connect\Classes\Service;
 use EA11y\Modules\Connect\Module as Connect;
+use ElementorOne\Connect\Exceptions\Service_Exception;
 use Exception;
 use Throwable;
 use WP_Error;
@@ -73,9 +71,7 @@ class Client {
 		return get_rest_url( $blog_id, 'a11y/v1/webhooks/common' );
 	}
 
-	/**
-	 * @throws Service_Exception
-	 */
+
 	public function make_request( $method, $endpoint, $body = [], array $headers = [], $send_json = false, $file = false, $file_name = '' ) {
 		$headers = array_replace_recursive( [
 			'x-elementor-a11y' => EA11Y_VERSION,
@@ -136,7 +132,7 @@ class Client {
 
 	public function add_bearer_token( $headers ) {
 		if ( $this->is_connected() ) {
-			$headers['Authorization'] = 'Bearer ' . Data::get_access_token();
+			$headers['Authorization'] = 'Bearer ' . Connect::get_connect()->data()->get_access_token();
 		}
 		return $headers;
 	}
@@ -183,8 +179,7 @@ class Client {
 
 		// Return with no content on successful deletion of domain from service.
 		if ( 204 === $response_code ) {
-			$body = true;
-			return $body;
+			return true;
 		}
 
 		$body = json_decode( $body );
@@ -195,7 +190,7 @@ class Client {
 
 		// If the token is invalid, refresh it and try again once only.
 		if ( ! $this->refreshed && ! empty( $body->message ) && ( false !== strpos( $body->message, 'Invalid Token' ) ) ) {
-			Service::refresh_token();
+			Connect::get_connect()->service()->renew_access_token();
 			$this->refreshed = true;
 			$args['headers'] = $this->add_bearer_token( $args['headers'] );
 			return $this->request( $method, $endpoint, $args );
@@ -203,7 +198,7 @@ class Client {
 
 		// If there is mismatch then trigger the mismatch flow explicitly.
 		if ( ! $this->refreshed && ! empty( $body->message ) && ( false !== strpos( $body->message, 'site url mismatch' ) ) ) {
-			Data::set_home_url( 'https://wrongurl' );
+			Connect::get_connect()->data()->set_home_url( 'https://wrongurl' );
 			return new WP_Error( 401, 'site url mismatch' );
 		}
 

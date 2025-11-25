@@ -18,6 +18,7 @@ class Settings {
 	public const SKIP_TO_CONTENT = 'ea11y_skip_to_content_settings';
 	public const ANALYTICS_SETTINGS = 'ea11y_analytics_enabled';
 	public const PLAN_DATA_REFRESH_TRANSIENT = 'ea11y_plan_data_refresh';
+	public const SUBSCRIPTION_ID = 'site_mailer_subscription_id';
 
 	/**
 	 * Returns plugin settings data by option name
