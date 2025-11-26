@@ -73,6 +73,7 @@ class Register extends Route_Base {
 			);
 
 			Settings_Module::delete_plan_data_refresh_transient();
+			Settings_Module::refresh_plan_data();
 
 			if ( ! is_wp_error( $response ) ) {
 				$page->save();
