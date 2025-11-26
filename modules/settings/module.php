@@ -122,6 +122,7 @@ class Module extends Module_Base {
 				'adminUrl' => admin_url(),
 				'isUrlMismatch' => ! Connect::get_connect()->utils()->is_valid_home_url(),
 				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
+				'isElementorOne' => (Connect::get_connect()->get_config( 'app_type' ) !== Config::APP_TYPE),
 
 				'homeUrl' => home_url(),
 			]
@@ -150,13 +151,14 @@ class Module extends Module_Base {
 	public static function get_plugin_settings(): array {
 		return [
 			'isConnected' => Connect::is_connected(),
-			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
-			'closeOnboardingModal' => Settings::get( Settings::CLOSE_ONBOARDING_MODAL ),
+			'closePostConnectModal' => (bool) Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
+			'closeOnboardingModal' => (bool)Settings::get( Settings::CLOSE_ONBOARDING_MODAL ),
 			'isRTL' => is_rtl(),
 			'isUrlMismatch' => ! Connect::get_connect()->utils()->is_valid_home_url(),
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
 			'whatsNewDataHash' => WhatsNewModule::compare_data_hash(),
+			'isElementorOne' => Connect::get_connect()->get_config( 'app_type' ) !== Config::APP_TYPE,
 		];
 	}
 
