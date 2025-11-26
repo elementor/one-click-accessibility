@@ -3,6 +3,7 @@ import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
 import UserIcon from '@elementor/icons/UserIcon';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
+import Button from '@elementor/ui/Button';
 import Chip from '@elementor/ui/Chip';
 import Divider from '@elementor/ui/Divider';
 import Menu from '@elementor/ui/Menu';
@@ -17,12 +18,16 @@ import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 import { truncateEmail } from '../../helpers/popup-menu';
 
 export const PopupMenu = (menuProps) => {
 	const { save } = useStorage();
 	const { error } = useToastNotification();
 	const { planData } = useSettings();
+	const { isElementorOne } = usePluginSettingsContext();
+
+	const isOne = window?.ea11ySettingsData?.isElementorOne || isElementorOne;
 
 	const onDeactivateAndDisconnect = async () => {
 		try {
@@ -86,31 +91,43 @@ export const PopupMenu = (menuProps) => {
 					)}
 				</Box>
 			</StyledBox>
-			<Divider />
 
-			<StyledMenuItem dense onClick={onDeactivateAndDisconnect}>
-				<UserArrowIcon sx={{ color: 'action.active' }} />
+			{!isOne && (
+				<>
+					<Divider />
+					<StyledMenuItem dense onClick={onDeactivateAndDisconnect}>
+						<UserArrowIcon sx={{ color: 'action.active' }} />
 
-				<StyledTypography>
-					{__('Switch account', 'pojo-accessibility')}
-				</StyledTypography>
-			</StyledMenuItem>
+						<StyledTypography>
+							{__('Switch account', 'pojo-accessibility')}
+						</StyledTypography>
+					</StyledMenuItem>
 
-			<StyledMenuItem
-				dense
-				sx={{ width: '100%', justifyContent: 'space-between' }}
-				onClick={() => window.open(ELEMENTOR_URL)}
-			>
-				<Box display="flex" flexDirection="row">
-					<CalendarDollarIcon sx={{ color: 'action.active' }} />
+					<StyledMenuItem
+						dense
+						sx={{ width: '100%', justifyContent: 'space-between' }}
+						onClick={() => window.open(ELEMENTOR_URL)}
+					>
+						<Box display="flex" flexDirection="row">
+							<CalendarDollarIcon sx={{ color: 'action.active' }} />
 
-					<StyledTypography>
-						{__('Subscription', 'pojo-accessibility')}
-					</StyledTypography>
+							<StyledTypography>
+								{__('Subscription', 'pojo-accessibility')}
+							</StyledTypography>
+						</Box>
+
+						<ExternalLinkIcon sx={{ color: 'text.primary' }} />
+					</StyledMenuItem>
+				</>
+			)}
+
+			{isOne && (
+				<Box padding={1}>
+					<Button variant="outlined" color="info" fullWidth>
+						{__('Manage account', 'pojo-accessibility')}
+					</Button>
 				</Box>
-
-				<ExternalLinkIcon sx={{ color: 'text.primary' }} />
-			</StyledMenuItem>
+			)}
 		</Menu>
 	);
 };

@@ -14,15 +14,21 @@ import {
 	QuotaIndicator,
 } from '@ea11y/components';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 
 const QuotaBar = () => {
 	const { openSidebar } = useSettings();
 	const { loading } = useSavedSettings();
+	const { isElementorOne } = usePluginSettingsContext();
 
 	const quotaPopupMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'quotaPopupMenu',
 	});
+
+	if (window?.ea11ySettingsData?.isElementorOne || isElementorOne) {
+		return null;
+	}
 
 	if (loading) {
 		return (
