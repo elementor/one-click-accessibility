@@ -39,14 +39,14 @@ class Module extends Module_Base {
 	public function authorize_url( $authorize_url ) {
 		$utm_params = [];
 
-		$sm_campaign = get_transient( 'elementor_site_mailer_campaign' );
-		if ( false === $sm_campaign ) {
+		$a11y_campaign = get_transient( 'elementor_ea11y_campaign' );
+		if ( false === $a11y_campaign ) {
 			return $authorize_url;
 		}
 
 		foreach ( [ 'source', 'medium', 'campaign' ] as $key ) {
-			if ( ! empty( $sm_campaign[ $key ] ) ) {
-				$utm_params[ 'utm_' . $key ] = $sm_campaign[ $key ];
+			if ( ! empty( $a11y_campaign[ $key ] ) ) {
+				$utm_params[ 'utm_' . $key ] = $a11y_campaign[ $key ];
 			}
 		}
 
@@ -58,7 +58,7 @@ class Module extends Module_Base {
 	}
 
 	public function __construct() {
-		add_filter( 'elementor_one/site_mailer_connect_authorize_url', [ $this, 'authorize_url' ] );
+		add_filter( 'elementor_one/ea11y_connect_authorize_url', [ $this, 'authorize_url' ] );
 
 		Facade::make( [
 			'app_name' => Config::APP_NAME,
