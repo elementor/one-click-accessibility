@@ -13,7 +13,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
-import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
+import { SUBSCRIPTION_URL } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
@@ -49,6 +49,12 @@ export const PopupMenu = (menuProps) => {
 			console.error(e);
 		}
 	};
+
+	const handleSubscriptionClick = () => {
+		const subscriptionId = planData?.subscription?.ids || '';
+		window.open(SUBSCRIPTION_URL + subscriptionId, '_blank');
+	};
+
 	return (
 		<Menu
 			{...menuProps}
@@ -106,7 +112,7 @@ export const PopupMenu = (menuProps) => {
 					<StyledMenuItem
 						dense
 						sx={{ width: '100%', justifyContent: 'space-between' }}
-						onClick={() => window.open(ELEMENTOR_URL)}
+						onClick={handleSubscriptionClick}
 					>
 						<Box display="flex" flexDirection="row">
 							<CalendarDollarIcon sx={{ color: 'action.active' }} />

@@ -14,3 +14,5 @@ export const GOLINKS = {
 	HELP_FEEDBACK: 'https://go.elementor.com/acc-assistant-feedback',
 };
 export const ELEMENTOR_URL = 'https://my.elementor.com';
+export const SUBSCRIPTION_URL =
+	'https://my.elementor.com/billing/subscriptions/';
