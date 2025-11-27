@@ -557,11 +557,20 @@ class Module extends Module_Base {
 			return 0;
 		}
 
-		if ( ! isset( $plan_data->visits ) ) {
-			return 0;
+		$usage_percentages = array();
+
+		// Calculate scanned pages usage percentage
+		if ( isset( $plan_data->scannedPages ) && isset( $plan_data->scannedPages->allowed ) && isset( $plan_data->scannedPages->used ) && $plan_data->scannedPages->allowed > 0 ) {
+			$usage_percentages[] = round( $plan_data->scannedPages->used / $plan_data->scannedPages->allowed * 100, 2 );
 		}
 
-		return round( $plan_data->visits->used / $plan_data->visits->allowed * 100, 2 );
+		// Calculate AI credits usage percentage
+		if ( isset( $plan_data->aiCredits ) && isset( $plan_data->aiCredits->allowed ) && isset( $plan_data->aiCredits->used ) && $plan_data->aiCredits->allowed > 0 ) {
+			$usage_percentages[] = round( $plan_data->aiCredits->used / $plan_data->aiCredits->allowed * 100, 2 );
+		}
+
+		// Return the maximum usage percentage, or 0 if none exist
+		return empty( $usage_percentages ) ? 0 : max( $usage_percentages );
 	}
 
 	/**
@@ -599,7 +608,7 @@ class Module extends Module_Base {
 		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
 		
 		// Register notices
-		//add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
 	}
 }
