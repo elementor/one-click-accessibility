@@ -70,12 +70,20 @@ export const useSavedSettings = () => {
 					result?.data?.ea11y_plan_data?.plan?.features?.analytics,
 				);
 				setPlanData(result.data.ea11y_plan_data);
-				setPlanUsage(
-					calculatePlanUsage(
+				setPlanUsage({
+					aiCredits: calculatePlanUsage(
+						result?.data?.ea11y_plan_data?.aiCredits?.allowed,
+						result?.data?.ea11y_plan_data?.aiCredits?.used,
+					),
+					scannedPages: calculatePlanUsage(
+						result?.data?.ea11y_plan_data?.scannedPages?.allowed,
+						result?.data?.ea11y_plan_data?.scannedPages?.used,
+					),
+					visits: calculatePlanUsage(
 						result?.data?.ea11y_plan_data?.visits?.allowed,
 						result?.data?.ea11y_plan_data?.visits?.used,
 					),
-				);
+				});
 			}
 
 			if (result?.data?.ea11y_accessibility_statement_data) {
