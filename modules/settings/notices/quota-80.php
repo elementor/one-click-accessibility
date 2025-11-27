@@ -42,8 +42,6 @@ class Quota_80 extends Notice_Base {
 
 		$plan_usage = (int) SettingsModule::get_plan_usage();
 
-		error_log(print_r($plan_usage, true));
-
 		if ( $plan_usage > 80 && $plan_usage < 100 ) {
 			$this->conditions = true;
 		} elseif ( $plan_usage < 80 ) {
