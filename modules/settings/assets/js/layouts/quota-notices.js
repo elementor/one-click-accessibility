@@ -1,6 +1,7 @@
 import Alert from '@elementor/ui/Alert';
 import AlertAction from '@elementor/ui/AlertAction';
 import AlertTitle from '@elementor/ui/AlertTitle';
+import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
@@ -43,7 +44,7 @@ const QuotaNotices = () => {
 	) {
 		sendQuotaNoticeTriggeredEvent('80%');
 		return (
-			<Alert severity="warning" square>
+			<StyledAlert severity="warning" square>
 				<AlertTitle>
 					{__(
 						'You’ve reached 80% of your monthly plan usage',
@@ -61,7 +62,7 @@ const QuotaNotices = () => {
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</AlertAction>
-			</Alert>
+			</StyledAlert>
 		);
 	}
 
@@ -71,7 +72,7 @@ const QuotaNotices = () => {
 	) {
 		sendQuotaNoticeTriggeredEvent('95%');
 		return (
-			<Alert severity="error" square>
+			<StyledAlert severity="error" square>
 				<AlertTitle>
 					{__('Only 5% of your monthly plan usage left', 'pojo-accessibility')}
 				</AlertTitle>
@@ -86,7 +87,7 @@ const QuotaNotices = () => {
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</AlertAction>
-			</Alert>
+			</StyledAlert>
 		);
 	}
 
@@ -96,7 +97,7 @@ const QuotaNotices = () => {
 	) {
 		sendQuotaNoticeTriggeredEvent('100%');
 		return (
-			<Alert severity="error" square>
+			<StyledAlert severity="error" square>
 				<AlertTitle>
 					{__("You've reached your monthly plan usage", 'pojo-accessibility')}
 				</AlertTitle>
@@ -111,14 +112,14 @@ const QuotaNotices = () => {
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</AlertAction>
-			</Alert>
+			</StyledAlert>
 		);
 	}
 
 	if (planUsage.scannedPages === 100 && isFree) {
 		sendQuotaNoticeTriggeredEvent('100%');
 		return (
-			<Alert severity="error" square>
+			<StyledAlert severity="error" square>
 				<AlertTitle>
 					{__('You’ve reached your free plan limit', 'pojo-accessibility')}
 				</AlertTitle>
@@ -133,9 +134,17 @@ const QuotaNotices = () => {
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</AlertAction>
-			</Alert>
+			</StyledAlert>
 		);
 	}
 };
 
 export default QuotaNotices;
+
+const StyledAlert = styled(Alert)`
+	.MuiAlert-content div {
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+	}
+`;
