@@ -11,7 +11,7 @@ export const QuotaBarData = {
 	scanner: {
 		title: __('Pages scanned', 'pojo-accessibility'),
 		infotipDescription: __(
-			'This is how many URLs (like site pages, blog posts, or product pages) you’ve scanned for accessibility this month. Upgrade if you’re nearing your limit to keep scanning more.',
+			'This shows how many URLs you’ve scanned for accessibility in total. If you’re reaching your limit, consider upgrading to keep scanning new pages.',
 			'pojo-accessibility',
 		),
 	},
