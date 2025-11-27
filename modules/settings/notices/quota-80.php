@@ -22,8 +22,8 @@ class Quota_80 extends Notice_Base {
 
 	public function content(): string {
 		return sprintf( '<h3>%s</h3><p>%s</p><p><a class="button button-primary ea11y-dismiss-button" href="%s">%s</a></p>',
-			__( 'You\'ve reached 80% of your widget monthly visits in Ally!', 'pojo-accessibility' ),
-			__( 'Upgrade now to increase your plan\'s monthly widget visits limit and ensure all accessibility features remain available for every visitor.', 'pojo-accessibility' ),
+			__( 'You\'ve reached 80% of your monthly plan usage!', 'pojo-accessibility' ),
+			__( 'Upgrade now to increase your limit and ensure all accessibility features stay fully available.', 'pojo-accessibility' ),
 			SettingsModule::get_upgrade_link( 'acc-80-quota' ),
 			__( 'Upgrade Now', 'pojo-accessibility' ),
 		);
@@ -36,7 +36,13 @@ class Quota_80 extends Notice_Base {
 			$this->conditions = false;
 		}
 
+		if ( $plan_data->plan->name === 'Free' ) {
+			$this->conditions = false;
+		}
+
 		$plan_usage = (int) SettingsModule::get_plan_usage();
+
+		error_log(print_r($plan_usage, true));
 
 		if ( $plan_usage > 80 && $plan_usage < 100 ) {
 			$this->conditions = true;
