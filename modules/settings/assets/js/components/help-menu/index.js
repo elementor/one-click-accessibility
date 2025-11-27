@@ -16,6 +16,12 @@ const HelpMenu = () => {
 	});
 
 	const triggerProps = bindTrigger(helpMenuState);
+	const handleHelpButtonClick = (e) => {
+		triggerProps.onClick(e);
+		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
+			buttonName: 'Help',
+		});
+	};
 
 	return (
 		<>
@@ -38,12 +44,7 @@ const HelpMenu = () => {
 						fontSize="small"
 					/>
 				}
-				onClick={(e) => {
-					triggerProps.onClick(e);
-					mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
-						buttonName: 'Help',
-					});
-				}}
+				onClick={handleHelpButtonClick}
 			>
 				{__('Help', 'pojo-accessibility')}
 			</Button>
