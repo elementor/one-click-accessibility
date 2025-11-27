@@ -15,7 +15,7 @@ import {
 	useSavedSettings,
 	useSettings,
 } from '@ea11y/hooks';
-import { Sidebar, TopBar } from '@ea11y/layouts';
+import { QuotaNotices, Sidebar, TopBar } from '@ea11y/layouts';
 import Notifications from '@ea11y-apps/global/components/notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
@@ -61,6 +61,7 @@ const App = () => {
 					<Sidebar />
 
 					<StyledContainer>
+						<QuotaNotices />
 						<PageContent
 							// Looks the best if we have both checks
 							isLoading={!hasFinishedResolution || loading}

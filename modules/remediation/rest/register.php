@@ -6,6 +6,7 @@ use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Modules\Remediation\Classes\Route_Base;
 use EA11y\Modules\Remediation\Database\Page_Entry;
 use EA11y\Modules\Remediation\Database\Page_Table;
+use EA11y\Modules\Settings\Module as Settings_Module;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
@@ -71,6 +72,9 @@ class Register extends Route_Base {
 				true,
 			);
 
+			Settings_Module::delete_plan_data_refresh_transient();
+			Settings_Module::refresh_plan_data();
+
 			if ( ! is_wp_error( $response ) ) {
 				$page->save();
 			}
@@ -78,6 +82,7 @@ class Register extends Route_Base {
 			if ( is_wp_error( $response ) && str_contains( $response->get_error_message(), 'Quota exceeded' ) ) {
 				return $this->respond_error_json( [
 					'message' => 'Quota exceeded',
+					'code' => 'internal_server_error',
 				] );
 			}
 
