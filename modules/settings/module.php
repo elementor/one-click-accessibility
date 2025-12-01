@@ -159,8 +159,15 @@ class Module extends Module_Base {
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
 			'whatsNewDataHash' => WhatsNewModule::compare_data_hash(),
-			'isElementorOne' => Connect::get_connect()->get_config( 'app_type' ) !== Config::APP_TYPE,
+			'isElementorOne' => self::is_elementor_one(),
 		];
+	}
+
+	/**
+	 * Check if the plan is Elementor One
+	 */
+	public static function is_elementor_one(): bool {
+		return Connect::get_connect()->get_config( 'app_type' ) !== Config::APP_TYPE;
 	}
 
 	/**
@@ -611,7 +618,9 @@ class Module extends Module_Base {
 		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
 
 		// Register notices
-		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		if ( ! self::is_elementor_one() ) {
+			add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		}
 		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
 	}
 }
