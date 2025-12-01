@@ -1,4 +1,3 @@
-import HelpIcon from '@elementor/icons/HelpIcon';
 import PointFilledIcon from '@elementor/icons/PointFilledIcon';
 import UserIcon from '@elementor/icons/UserIcon';
 import Box from '@elementor/ui/Box';
@@ -20,6 +19,7 @@ import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import HelpMenu from '../components/help-menu';
 import WhatsNewDrawer from '../components/whats-new/drawer';
 import { usePluginSettingsContext } from '../contexts/plugin-settings';
 import { openLink } from '../utils/index';
@@ -43,13 +43,6 @@ const TopBarMenu = () => {
 		});
 		open();
 		setShowWhatsNewDataHash(false);
-	};
-
-	const handleHelpButtonClick = () => {
-		mixpanelService.sendEvent(mixpanelEvents.helpButtonClicked, {
-			source: 'Header',
-		});
-		openLink(GOLINKS.HELP);
 	};
 
 	return (
@@ -89,21 +82,7 @@ const TopBarMenu = () => {
 					{__("What's new", 'pojo-accessibility')}
 					{showWhatsNewDataHash && <StyledPointFilledIcon />}
 				</Button>
-				<Button
-					size="medium"
-					color="secondary"
-					aria-label={__('Help', 'pojo-accessibility')}
-					startIcon={
-						<HelpIcon
-							role="presentation"
-							sx={{ color: 'common.black' }}
-							fontSize="small"
-						/>
-					}
-					onClick={handleHelpButtonClick}
-				>
-					{__('Help', 'pojo-accessibility')}
-				</Button>
+				<HelpMenu />
 				<Divider orientation="vertical" flexItem />
 				<IconButton {...bindTrigger(accountMenuState)}>
 					<Tooltip title={__('My Account', 'pojo-accessibility')}>

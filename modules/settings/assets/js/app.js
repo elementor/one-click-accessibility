@@ -5,6 +5,7 @@ import Grid from '@elementor/ui/Grid';
 import { styled, ThemeProvider } from '@elementor/ui/styles';
 import {
 	ConnectModal,
+	GetStartedModal,
 	MenuItems,
 	OnboardingModal,
 	PostConnectModal,
@@ -54,6 +55,7 @@ const App = () => {
 				{isConnected && !closePostConnectModal && <PostConnectModal />}
 				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
 				<OnboardingModal />
+				<GetStartedModal />
 
 				<TopBar />
 
