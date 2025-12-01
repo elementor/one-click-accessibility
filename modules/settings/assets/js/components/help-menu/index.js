@@ -1,4 +1,5 @@
-import { ChevronDownIcon, HelpIcon } from '@elementor/icons';
+import ChevronDownIcon from '@elementor/icons/ChevronDownIcon';
+import HelpIcon from '@elementor/icons/HelpIcon';
 import Button from '@elementor/ui/Button';
 import {
 	bindMenu,
