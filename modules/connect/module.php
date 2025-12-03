@@ -33,7 +33,7 @@ class Module extends Module_Base {
 	}
 
 	public static function get_connect(): Facade {
-		return Facade::get( Config::APP_NAME );
+		return Facade::get( Config::APP_TYPE );
 	}
 
 	public function authorize_url( $authorize_url ) {
