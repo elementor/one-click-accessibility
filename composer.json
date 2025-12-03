@@ -37,7 +37,7 @@
 		"elementor/wp-notifications-package": "^1.2.0",
 		"ext-ctype": "*",
 		"ext-mbstring": "*",
-		"elementor/wp-one-package": "^1.0.0"
+		"elementor/wp-one-package": "^1.0.3"
 	},
 	"config": {
 		"allow-plugins": {
@@ -64,11 +64,8 @@
 			"url": "git@github.com:elementor/eunit.git"
 		},
 		{
-			"type": "path",
-			"url": "../wp-one-package",
-			"options": {
-				"symlink": true
-			}
-		}
+            "type": "vcs",
+            "url": "git@github.com:elementor/wp-one-package.git"
+        }
 	]
 }
