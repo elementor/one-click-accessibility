@@ -1,3 +1,5 @@
+@import "./widgets/ally_dashboard_widget";
+
 #accessibility_status, .accessibility_status {
   width: auto;
 }
@@ -64,7 +66,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      
+
       .button {
         min-width: 80px;
         text-align: center;
@@ -212,7 +214,7 @@
     background: #2c3338;
     color: #f0f0f1;
   }
-  
+
   .ea11y-tooltip-n::before {
     border-top-color: #2c3338;
   }
