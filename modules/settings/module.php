@@ -540,6 +540,11 @@ class Module extends Module_Base {
 	 * @param Notices $notice_manager
 	 */
 	public function register_notices( Notices $notice_manager ) {
+
+		if( ! Connect::is_connected() && ! Settings::get( Settings::PLAN_DATA ) ) {
+			return;
+		}
+
 		$notices = [
 			'Quota_80',
 			'Quota_100',
