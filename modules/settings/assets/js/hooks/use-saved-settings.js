@@ -18,6 +18,7 @@ export const useSavedSettings = () => {
 		setAccessibilityStatementData,
 		setShowAccessibilityGeneratedInfotip,
 		setSkipToContentSettings,
+		setDismissedQuotaNotices,
 	} = useSettings();
 
 	const { setIsAnalyticsEnabled, setIsProVersion } = useAnalyticsContext();
@@ -103,6 +104,10 @@ export const useSavedSettings = () => {
 
 			if (result?.data?.ea11y_analytics_enabled) {
 				setIsAnalyticsEnabled(result?.data?.ea11y_analytics_enabled);
+			}
+
+			if (result?.data?.ea11y_dismissed_quota_notices) {
+				setDismissedQuotaNotices(result?.data?.ea11y_dismissed_quota_notices);
 			}
 		}
 	}, [result.hasFinishedResolution]);
