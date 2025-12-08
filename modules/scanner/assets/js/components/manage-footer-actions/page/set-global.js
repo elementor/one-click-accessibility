@@ -73,46 +73,47 @@ export const SetGlobal = ({
 	};
 
 	return (
-		<Box display="flex" gap={0.5} alignItems="center">
-			<Box display="flex" alignItems="center">
-				<Switch
-					checked={isChecked}
-					size="small"
-					color={isChecked ? 'info' : 'secondary'}
-					onChange={onSwitchChange}
-					disabled={!IS_PRO_PLAN}
-				/>
-				<WorldIcon color="action" fontSize="small" />
-			</Box>
-			<Typography variant="body2" color="action">
-				{__('Apply across scans', 'pojo-accessibility')}
-			</Typography>
-			{IS_PRO_PLAN ? (
-				<Infotip
-					tabIndex="0"
-					placement="top"
-					PopperProps={{
-						disablePortal: true,
-					}}
-					content={
-						<>
-							<InfotipImage src={infotipImageSrc} role="presentation" />
-							<InfotipBox sx={{ maxWidth: '260px' }}>
-								<Typography variant="subtitle2" sx={{ mb: 1 }}>
-									{__('Fix once, apply everywhere', 'pojo-accessibility')}
-								</Typography>
-								<Typography variant="body2" color="text.secondary">
-									{__(
-										'Apply this fix automatically to pages already scanned and to future scans.',
-										'pojo-accessibility',
-									)}
-								</Typography>
-							</InfotipBox>
-						</>
-					}
-				>
-					<InfoCircleIcon color="action" fontSize="tiny" />
-				</Infotip>
+		<Box>
+			{!IS_PRO_PLAN ? (
+				<Box display="flex" gap={0.5} alignItems="center">
+					<Box display="flex" alignItems="center">
+						<Switch
+							checked={isChecked}
+							size="small"
+							color={isChecked ? 'info' : 'secondary'}
+							onChange={onSwitchChange}
+						/>
+						<WorldIcon color="action" fontSize="small" />
+					</Box>
+					<Typography variant="body2" color="action">
+						{__('Apply across scans', 'pojo-accessibility')}
+					</Typography>
+					<Infotip
+						tabIndex="0"
+						placement="top"
+						PopperProps={{
+							disablePortal: true,
+						}}
+						content={
+							<>
+								<InfotipImage src={infotipImageSrc} role="presentation" />
+								<InfotipBox sx={{ maxWidth: '260px' }}>
+									<Typography variant="subtitle2" sx={{ mb: 1 }}>
+										{__('Fix once, apply everywhere', 'pojo-accessibility')}
+									</Typography>
+									<Typography variant="body2" color="text.secondary">
+										{__(
+											'Apply this fix automatically to pages already scanned and to future scans.',
+											'pojo-accessibility',
+										)}
+									</Typography>
+								</InfotipBox>
+							</>
+						}
+					>
+						<InfoCircleIcon color="action" fontSize="tiny" />
+					</Infotip>
+				</Box>
 			) : (
 				<Infotip
 					tabIndex="0"
@@ -158,12 +159,31 @@ export const SetGlobal = ({
 						</>
 					}
 				>
-					<StyledProChip
-						color="promotion"
-						variant="standard"
-						icon={<ProCrownIcon />}
-						size="small"
-					/>
+					<Box display="flex" gap={0.5} alignItems="center">
+						<Box display="flex" alignItems="center">
+							<Switch
+								checked={false}
+								size="small"
+								color="secondary"
+								onChange={onSwitchChange}
+								disabled
+							/>
+							<WorldIcon color="action" fontSize="small" />
+						</Box>
+						<Typography
+							variant="body2"
+							color="action"
+							sx={{ cursor: 'default' }}
+						>
+							{__('Apply across scans', 'pojo-accessibility')}
+						</Typography>
+						<StyledProChip
+							color="promotion"
+							variant="standard"
+							icon={<ProCrownIcon />}
+							size="small"
+						/>
+					</Box>
 				</Infotip>
 			)}
 			<SetGlobalRemediationModal
