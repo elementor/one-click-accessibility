@@ -74,7 +74,7 @@ export const SetGlobal = ({
 
 	return (
 		<Box>
-			{!IS_PRO_PLAN ? (
+			{IS_PRO_PLAN ? (
 				<Box display="flex" gap={0.5} alignItems="center">
 					<Box display="flex" alignItems="center">
 						<Switch
