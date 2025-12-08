@@ -72,6 +72,55 @@ export const SetGlobal = ({
 		});
 	};
 
+	const UpgradeInfoTip = ({ children }) => {
+		return (
+			<Infotip
+				tabIndex="0"
+				placement="top"
+				PopperProps={{
+					disablePortal: true,
+				}}
+				disableFocusListener
+				content={
+					<>
+						<InfotipImage src={infotipImageSrc} role="presentation" />
+						<InfotipBox sx={{ maxWidth: '265px' }}>
+							<Typography variant="subtitle1" sx={{ mb: 1 }}>
+								{__('Upgrade to unlock cross-scan fixes', 'pojo-accessibility')}
+							</Typography>
+							<Typography
+								variant="body2"
+								sx={{ mb: 1.5 }}
+								color="text.secondary"
+							>
+								{__(
+									'Cross-scan fixes let you resolve the same issue on all scanned pages with a click.',
+									'pojo-accessibility',
+								)}
+							</Typography>
+							<Box display="flex" justifyContent="flex-end">
+								<Button
+									size="small"
+									color="promotion"
+									variant="contained"
+									href={UPGRADE_GLOBAL_URL}
+									target="_blank"
+									rel="noreferrer"
+									startIcon={<CrownFilled />}
+									onClick={onUpgrade}
+								>
+									{__('Upgrade now', 'pojo-accessibility')}
+								</Button>
+							</Box>
+						</InfotipBox>
+					</>
+				}
+			>
+				{children}
+			</Infotip>
+		);
+	};
+
 	return (
 		<Box>
 			{IS_PRO_PLAN ? (
@@ -115,76 +164,33 @@ export const SetGlobal = ({
 					</Infotip>
 				</Box>
 			) : (
-				<Infotip
-					tabIndex="0"
-					placement="top"
-					PopperProps={{
-						disablePortal: true,
-					}}
-					content={
-						<>
-							<InfotipImage src={infotipImageSrc} role="presentation" />
-							<InfotipBox sx={{ maxWidth: '265px' }}>
-								<Typography variant="subtitle1" sx={{ mb: 1 }}>
-									{__(
-										'Upgrade to unlock cross-scan fixes',
-										'pojo-accessibility',
-									)}
-								</Typography>
-								<Typography
-									variant="body2"
-									sx={{ mb: 1.5 }}
-									color="text.secondary"
-								>
-									{__(
-										'Cross-scan fixes let you resolve the same issue on all scanned pages with a click.',
-										'pojo-accessibility',
-									)}
-								</Typography>
-								<Box display="flex" justifyContent="flex-end">
-									<Button
-										size="small"
-										color="promotion"
-										variant="contained"
-										href={UPGRADE_GLOBAL_URL}
-										target="_blank"
-										rel="noreferrer"
-										startIcon={<CrownFilled />}
-										onClick={onUpgrade}
-									>
-										{__('Upgrade now', 'pojo-accessibility')}
-									</Button>
-								</Box>
-							</InfotipBox>
-						</>
-					}
-				>
-					<Box display="flex" gap={0.5} alignItems="center">
-						<Box display="flex" alignItems="center">
-							<Switch
-								checked={false}
-								size="small"
-								color="secondary"
-								onChange={onSwitchChange}
-								disabled
-							/>
-							<WorldIcon color="action" fontSize="small" />
-						</Box>
-						<Typography
-							variant="body2"
-							color="action"
-							sx={{ cursor: 'default' }}
-						>
-							{__('Apply across scans', 'pojo-accessibility')}
-						</Typography>
+				<Box display="flex" gap={0.5} alignItems="center">
+					<Box display="flex" alignItems="center">
+						<UpgradeInfoTip>
+							<Box>
+								<Switch
+									checked={false}
+									size="small"
+									color="secondary"
+									onChange={onSwitchChange}
+									disabled
+								/>
+							</Box>
+						</UpgradeInfoTip>
+						<WorldIcon color="action" fontSize="small" />
+					</Box>
+					<Typography variant="body2" color="action" sx={{ cursor: 'default' }}>
+						{__('Apply across scans', 'pojo-accessibility')}
+					</Typography>
+					<UpgradeInfoTip>
 						<StyledProChip
 							color="promotion"
 							variant="standard"
 							icon={<ProCrownIcon />}
 							size="small"
 						/>
-					</Box>
-				</Infotip>
+					</UpgradeInfoTip>
+				</Box>
 			)}
 			<SetGlobalRemediationModal
 				open={showModal}
