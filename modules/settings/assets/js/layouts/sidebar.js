@@ -19,8 +19,8 @@ const Sidebar = () => {
 				aria-label={__('Toggle sidebar', 'pojo-accessibility')}
 			>
 				<ChevronLeftIcon
+					aria-hidden={true}
 					fontSize="tiny"
-					role="img"
 					sx={{ rotate: !openSidebar ? '180deg' : '0' }}
 				/>
 			</StyledToggleButton>
