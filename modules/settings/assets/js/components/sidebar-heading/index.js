@@ -13,7 +13,7 @@ const SidebarHeading = () => {
 				role="img"
 				sx={{
 					margin: openSidebar ? 0 : '0 auto',
-					padding: openSidebar ? 1.25 : 1,
+					padding: 1.25,
 				}}
 			/>
 			{openSidebar && (
