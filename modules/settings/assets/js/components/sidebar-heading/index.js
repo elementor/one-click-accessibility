@@ -1,7 +1,7 @@
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import { UserCheckIcon } from '@ea11y/icons';
+import { WidgetIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
 
 const SidebarHeading = () => {
@@ -9,7 +9,7 @@ const SidebarHeading = () => {
 
 	return (
 		<StyledHeader>
-			<StyledUserCheckIcon
+			<StyledHeaderIcon
 				aria-hidden={true}
 				sx={{ margin: openSidebar ? 0 : '0 auto' }}
 			/>
@@ -32,9 +32,11 @@ const StyledHeader = styled('div')`
 	padding: 0;
 `;
 
-const StyledUserCheckIcon = styled(UserCheckIcon)`
+/* TODO: Replace the icon when marketing decide which icon to use */
+const StyledHeaderIcon = styled(WidgetIcon)`
 	font-size: 2.75rem;
 	padding: ${({ theme }) => theme.spacing(1.25)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	border-radius: ${({ theme }) => theme.spacing(1)};
+	color: rgb(0 0 0 / 0.54);
 `;
