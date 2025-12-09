@@ -10,11 +10,8 @@ const SidebarHeading = () => {
 	return (
 		<StyledHeader>
 			<StyledUserCheckIcon
-				role="img"
-				sx={{
-					margin: openSidebar ? 0 : '0 auto',
-					padding: 1.25,
-				}}
+				aria-hidden={true}
+				sx={{ margin: openSidebar ? 0 : '0 auto' }}
 			/>
 			{openSidebar && (
 				<Typography variant="subtitle1" as="div">
@@ -37,7 +34,7 @@ const StyledHeader = styled('div')`
 
 const StyledUserCheckIcon = styled(UserCheckIcon)`
 	font-size: 2.75rem;
-	padding: ${({ theme }) => theme.spacing(1)};
+	padding: ${({ theme }) => theme.spacing(1.25)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	border-radius: ${({ theme }) => theme.spacing(1)};
 `;
