@@ -21,9 +21,20 @@ class Quota_100 extends Notice_Base {
 	public string $id = 'quota-banner-100';
 
 	public function content(): string {
+		$plan = Settings::get( Settings::PLAN_DATA )->plan->name;
+
+		if ( $plan === 'Free' ) {
+			return sprintf( '<h3>%s</h3><p>%s</p><p><a class="button button-primary ea11y-dismiss-button" style="background-color: #93003F; border-color: #93003F;" href="%s">%s</a></p>',
+				__( 'You’ve reached your free plan limit', 'pojo-accessibility' ),
+				__( 'Upgrade to scan more pages, unlock AI fixes, and access all accessibility features.', 'pojo-accessibility' ),
+				SettingsModule::get_upgrade_link( 'acc-100-quota' ),
+				__( 'Upgrade Now', 'pojo-accessibility' ),
+			);
+		}
+
 		return sprintf( '<h3>%s</h3><p>%s</p><p><a class="button button-primary ea11y-dismiss-button" style="background-color: #93003F; border-color: #93003F;" href="%s">%s</a></p>',
-			__( 'Oh no! Ally has reached the monthly widget visits limit.', 'pojo-accessibility' ),
-			__( 'Upgrade now to increase your plan\'s monthly widget visits limit and ensure all accessibility features remain available for every visitor.', 'pojo-accessibility' ),
+			__( 'You’ve reached your monthly plan usage', 'pojo-accessibility' ),
+			__( 'Upgrade now to raise your limit and maintain complete access to all accessibility features.', 'pojo-accessibility' ),
 			SettingsModule::get_upgrade_link( 'acc-100-quota' ),
 			__( 'Upgrade Now', 'pojo-accessibility' ),
 		);
