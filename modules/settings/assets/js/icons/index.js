@@ -28,3 +28,4 @@ export { default as AccessibilityAssistantNoResultsIcon } from './accessibility-
 export { default as AnalyticsIcon } from './analytics-icon';
 export { default as DashboardIcon } from './dashboard-icon';
 export { default as BulbIcon } from './bulb';
+export { default as UserCheckIcon } from './user-check';
