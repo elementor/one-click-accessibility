@@ -28,7 +28,7 @@ import WidgetPreviewSkeleton from './preview-skeleton';
 const StyledPreviewContainer = styled(Box)`
 	margin-top: ${({ theme }) => theme.spacing(2)};
 
-	border-radius: 4px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 
 	height: 250px;

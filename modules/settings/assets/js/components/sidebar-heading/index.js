@@ -37,6 +37,6 @@ const StyledHeaderIcon = styled(WidgetIcon)`
 	font-size: 2.75rem;
 	padding: ${({ theme }) => theme.spacing(1.25)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
-	border-radius: ${({ theme }) => theme.spacing(1)};
+	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px
 	color: rgb(0 0 0 / 0.54);
 `;
