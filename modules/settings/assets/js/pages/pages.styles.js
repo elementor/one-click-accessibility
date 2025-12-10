@@ -36,10 +36,7 @@ export const StyledTitle = styled(Typography)`
 	margin: 0;
 
 	color: ${({ theme }) => theme.palette.common.black};
-	font-size: 32px;
-	font-weight: 400;
-	line-height: 130%;
-	letter-spacing: 0.25px;
+	line-height: 1.75;
 
 	.MuiChip-root {
 		margin-inline-start: ${({ theme }) => theme.spacing(1)};
