@@ -93,7 +93,11 @@ const MenuItem = ({ keyName, item }) => {
 						</ListItemIcon>
 					</Tooltip>
 
-					<ListItemText primary={item.name} hidden={!openSidebar} />
+					<ListItemText
+						primary={item.name}
+						hidden={!openSidebar}
+						sx={{ textAlign: 'start' }}
+					/>
 
 					{
 						/* Show infotip */
