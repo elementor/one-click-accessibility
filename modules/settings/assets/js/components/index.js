@@ -3,6 +3,7 @@ export { default as MyAccountMenu } from './my-account-menu';
 export { default as PopupMenu } from './my-account-menu/popup-menu';
 export { default as HelpMenu } from './help-menu';
 export { default as SidebarAppBar } from './sidebar-app-bar';
+export { default as SidebarHeading } from './sidebar-heading';
 export { default as SidebarMenu } from './sidebar-menu';
 export { default as IconSize } from './icon-size';
 export { default as IconSelect } from './icon-select';
