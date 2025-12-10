@@ -25,11 +25,7 @@ const Analytics = () => {
 		<StyledBox sx={{ position: 'relative' }}>
 			<StyledWideBox>
 				<StyledWrap>
-					<StyledTitle
-						variant="h4"
-						color="text.primary"
-						sx={{ mb: 0, position: 'relative', zIndex: 3 }}
-					>
+					<StyledTitle variant="h5">
 						{__('Analytics', 'pojo-accessibility')}
 					</StyledTitle>
 					<AnalyticsToggle />
@@ -60,10 +56,7 @@ const StyledWrap = styled(Box)`
 	align-items: center;
 	justify-content: space-between;
 	max-width: 1200px;
-
-	margin-bottom: 40px;
-	margin-right: auto;
-	margin-left: auto;
+	margin: 0 auto 24px;
 `;
 
 export default Analytics;
