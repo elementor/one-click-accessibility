@@ -9,7 +9,7 @@ export const StyledStatsItem = styled(Box)`
 
 	padding: ${({ theme }) => `${theme.spacing(2)} ${theme.spacing(2.5)}`};
 
-	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	background: ${({ theme }) => theme.palette.background.default};
 
 	:nth-of-type(1) {
