@@ -5,6 +5,7 @@ import ListItem from '@elementor/ui/ListItem';
 import ListItemButton from '@elementor/ui/ListItemButton';
 import ListItemIcon from '@elementor/ui/ListItemIcon';
 import ListItemText from '@elementor/ui/ListItemText';
+import Rotate from '@elementor/ui/Rotate';
 import Tooltip from '@elementor/ui/Tooltip';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
@@ -129,10 +130,9 @@ const SidebarMenuItem = ({ keyName, item }) => {
 							marginInlineStart: 2,
 						}}
 					>
-						<ChevronUpIcon
-							fontSize="small"
-							sx={{ rotate: expandedItems[key] ? '180deg' : '0' }}
-						/>
+						<Rotate in={expandedItems[key]}>
+							<ChevronUpIcon fontSize="small" />
+						</Rotate>
 					</ListItemIcon>
 				)}
 				{showProIcon(item) && openSidebar && (
