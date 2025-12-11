@@ -50,14 +50,14 @@ export const PositionSettings = (props) => {
 				>
 					<Tab
 						{...getTabProps(TABS.one)}
-						label="Desktop"
+						label={__('Desktop', 'pojo-accessibility')}
 						icon={<DesktopIcon />}
 						iconPosition="start"
 						onClick={changeTab(TABS.one)}
 					/>
 					<Tab
 						{...getTabProps(TABS.two)}
-						label="Mobile"
+						label={__('Mobile', 'pojo-accessibility')}
 						icon={<MobileIcon />}
 						iconPosition="start"
 						onClick={changeTab(TABS.two)}
