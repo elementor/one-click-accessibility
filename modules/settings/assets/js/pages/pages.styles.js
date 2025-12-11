@@ -52,7 +52,6 @@ export const StyledStatementPaper = styled(Paper)`
 	padding: 24px;
 	width: 376px;
 	min-height: 264px;
-	border-radius: ${({ theme }) => theme.shape.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows[0]};
 	cursor: pointer;
 
