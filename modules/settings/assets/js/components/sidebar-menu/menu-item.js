@@ -20,7 +20,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 		popupPositionAbove: 0,
 		popupPositionBefore: 0,
 	});
-	const itemRef = useRef(null);
+	const menuItemRef = useRef(null);
 	const key = keyName;
 
 	const proFeatures = planData?.plan?.features
@@ -55,8 +55,8 @@ const SidebarMenuItem = ({ keyName, item }) => {
 		proFeatures && menuItem.proIcon && !proFeatures.includes(menuItem.proIcon);
 
 	const updatePopupPosition = () => {
-		if (itemRef.current && !openSidebar && item?.children) {
-			const rect = itemRef.current.getBoundingClientRect();
+		if (menuItemRef.current && !openSidebar && item?.children) {
+			const rect = menuItemRef.current.getBoundingClientRect();
 			const isRTL = document.dir === 'rtl';
 			setPopupPosition({
 				popupPositionAbove: rect.top,
@@ -70,7 +70,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 
 	return (
 		<ListItemContainer
-			ref={itemRef}
+			ref={menuItemRef}
 			key={item?.key}
 			hasChildren={!!item?.children}
 			isCollapsed={!openSidebar}
@@ -97,6 +97,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					disableHoverListener={openSidebar || !!item?.children}
 				>
 					<ListItemIcon
+						aria-hidden={openSidebar}
 						sx={{
 							/* For smoother sidebar */
 							padding: openSidebar ? 'auto' : 0.5,

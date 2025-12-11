@@ -17,7 +17,7 @@ export const MenuItems = {
 	scanOverview: {
 		key: 'scan-overview',
 		name: __('Accessibility assistant', 'pojo-accessibility'),
-		icon: <ChecklistIcon aria-hidden={false} sx={{ color: 'common.black' }} />,
+		icon: <ChecklistIcon aria-hidden={true} sx={{ color: 'common.black' }} />,
 		page: (
 			<AccessibilityAssistantContextProvider>
 				<AccessibilityAssistant />
@@ -27,7 +27,7 @@ export const MenuItems = {
 	widget: {
 		key: 'widget',
 		name: __('Widget', 'pojo-accessibility'),
-		icon: <WidgetIcon aria-hidden={false} sx={{ color: 'common.black' }} />,
+		icon: <WidgetIcon aria-hidden={true} sx={{ color: 'common.black' }} />,
 		children: {
 			design: {
 				key: 'design',
@@ -51,7 +51,7 @@ export const MenuItems = {
 	accessibilityStatement: {
 		key: 'accessibility-statement',
 		name: __('Statement', 'pojo-accessibility'),
-		icon: <PagesIcon aria-hidden={false} sx={{ color: 'common.black' }} />,
+		icon: <PagesIcon aria-hidden={true} sx={{ color: 'common.black' }} />,
 		infotip: <AccessibilityStatementTooltip />,
 		page: <AccessibilityStatement />,
 	},
