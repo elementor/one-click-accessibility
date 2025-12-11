@@ -31,7 +31,7 @@ const StyledGrid = styled(Grid)`
 	background-color: ${({ theme }) => theme.palette.background.paper};
 	padding: ${({ theme }) => theme.spacing(5)};
 	text-align: center;
-	border-radius: 4px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 `;
 
 const StyledListItemText = styled(ListItemText)`
