@@ -35,11 +35,13 @@ export const StyledTitle = styled(Typography)`
 
 	margin: 0;
 
-	color: #0c0d0e;
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 130%;
-	letter-spacing: 0.15px;
+	color: ${({ theme }) => theme.palette.common.black};
+	line-height: 1.75;
+
+	.MuiChip-root {
+		margin-inline-start: ${({ theme }) => theme.spacing(1)};
+		font-weight: 400;
+	}
 `;
 
 export const StyledStatementPaper = styled(Paper)`
