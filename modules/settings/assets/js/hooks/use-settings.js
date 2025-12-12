@@ -4,6 +4,37 @@ import {
 	useContext,
 	useEffect,
 } from '@wordpress/element';
+import { MenuItems } from '../components/sidebar-menu/menu';
+
+/**
+ * Resolves a URL hash to the correct parent/child menu selection.
+ * If the hash is a parent key, returns { parent: hash }.
+ * If the hash is a child key, returns { parent: parentKey, child: hash }.
+ * Falls back to scanOverview if not found.
+ *
+ * @param {string} hash - The URL hash value (without #)
+ * @return {Object} The selectedMenu object with parent and optionally child
+ */
+const resolveHashToMenu = (hash) => {
+	if (!hash) {
+		return { parent: 'scanOverview' };
+	}
+
+	// Check if it's a parent key
+	if (MenuItems[hash]) {
+		return { parent: hash };
+	}
+
+	// Check if it's a child key
+	for (const [parentKey, parentItem] of Object.entries(MenuItems)) {
+		if (parentItem.children && parentItem.children[hash]) {
+			return { parent: parentKey, child: hash };
+		}
+	}
+
+	// Fallback to default
+	return { parent: 'scanOverview' };
+};
 
 /**
  * Context Component.
@@ -21,9 +52,8 @@ export const SettingsProvider = ({ children }) => {
 	});
 
 	useEffect(() => {
-		setSelectedMenu({
-			parent: window.location.hash.replace('#', '') || 'scanOverview',
-		});
+		const hash = window.location.hash.replace('#', '');
+		setSelectedMenu(resolveHashToMenu(hash));
 	}, []);
 
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
