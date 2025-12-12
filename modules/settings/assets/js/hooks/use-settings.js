@@ -7,15 +7,12 @@ import {
 import { MenuItems } from '../components/sidebar-menu/menu';
 
 /**
- * Resolves a URL hash to the correct parent/child menu selection.
- * If the hash is a parent key, returns { parent: hash }.
- * If the hash is a child key, returns { parent: parentKey, child: hash }.
- * Falls back to `scans` if not found.
+ * URL hash to the correct parent/child menu selection.
  *
  * @param {string} hash - The URL hash value (without #)
  * @return {Object} The selectedMenu object with parent and optionally child
  */
-const resolveHashToMenu = (hash) => {
+const hashToMenu = (hash) => {
 	if (!hash) {
 		return { parent: 'scans' };
 	}
@@ -32,7 +29,6 @@ const resolveHashToMenu = (hash) => {
 		}
 	}
 
-	// Fallback to default
 	return { parent: 'scans' };
 };
 
@@ -53,7 +49,7 @@ export const SettingsProvider = ({ children }) => {
 
 	useEffect(() => {
 		const hash = window.location.hash.replace('#', '');
-		setSelectedMenu(resolveHashToMenu(hash));
+		setSelectedMenu(hashToMenu(hash));
 	}, []);
 
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
