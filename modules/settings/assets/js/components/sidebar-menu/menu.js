@@ -14,7 +14,7 @@ import AccessibilityStatementTooltip from './tooltips/accessibility-statement';
 import AnalyticsTooltip from './tooltips/analytics';
 
 export const MenuItems = {
-	scanOverview: {
+	scans: {
 		key: 'scan-overview',
 		name: __('Accessibility assistant', 'pojo-accessibility'),
 		icon: <ChecklistIcon aria-hidden={true} sx={{ color: 'common.black' }} />,

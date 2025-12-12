@@ -10,14 +10,14 @@ import { MenuItems } from '../components/sidebar-menu/menu';
  * Resolves a URL hash to the correct parent/child menu selection.
  * If the hash is a parent key, returns { parent: hash }.
  * If the hash is a child key, returns { parent: parentKey, child: hash }.
- * Falls back to scanOverview if not found.
+ * Falls back to `scans` if not found.
  *
  * @param {string} hash - The URL hash value (without #)
  * @return {Object} The selectedMenu object with parent and optionally child
  */
 const resolveHashToMenu = (hash) => {
 	if (!hash) {
-		return { parent: 'scanOverview' };
+		return { parent: 'scans' };
 	}
 
 	// Check if it's a parent key
@@ -33,7 +33,7 @@ const resolveHashToMenu = (hash) => {
 	}
 
 	// Fallback to default
-	return { parent: 'scanOverview' };
+	return { parent: 'scans' };
 };
 
 /**
