@@ -69,12 +69,17 @@ const SidebarMenuItem = ({ keyName, item }) => {
 		}
 	};
 
+	const isSidebarCollapsed = !openSidebar;
+	const hasChildItems = !!item?.children;
+	const isItemExpanded = expandedItems[key];
+	const shouldShowProIcon = showProIcon(item);
+
 	return (
 		<ListItemContainer
 			ref={menuItemRef}
 			key={item?.key}
-			hasChildren={!!item?.children}
-			isCollapsed={!openSidebar}
+			hasChildItems={hasChildItems}
+			isSidebarCollapsed={isSidebarCollapsed}
 			disableGutters
 			disablePadding
 			dense
@@ -83,26 +88,27 @@ const SidebarMenuItem = ({ keyName, item }) => {
 		>
 			<ListItemButton
 				onClick={() =>
-					item?.children
+					hasChildItems
 						? handleToggleItem(item.name, key)
 						: handleSelectedMenu(item.name, key)
 				}
-				sx={{ justifyContent: 'center', borderRadius: 1 }}
 				selected={
-					key === selectedMenu?.parent && (!selectedMenu?.child || !openSidebar)
+					key === selectedMenu?.parent &&
+					(!selectedMenu?.child || isSidebarCollapsed)
 				}
+				sx={{ justifyContent: 'center', borderRadius: 1 }}
 			>
 				<Tooltip
 					title={item?.name}
 					placement="right"
-					disableHoverListener={openSidebar || !!item?.children}
+					disableHoverListener={openSidebar || hasChildItems}
 				>
 					<ListItemIcon
-						aria-hidden={openSidebar}
+						aria-hidden={!isSidebarCollapsed}
 						sx={{
 							/* For smoother sidebar */
-							padding: openSidebar ? 'auto' : 0.5,
-							marginInlineEnd: openSidebar ? 1 : '0 !important',
+							padding: isSidebarCollapsed ? 0.5 : 'auto',
+							marginInlineEnd: isSidebarCollapsed ? '0 !important' : 1,
 						}}
 					>
 						{item.icon}
@@ -111,7 +117,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 
 				<ListItemText
 					primary={item.name}
-					hidden={!openSidebar}
+					hidden={isSidebarCollapsed}
 					sx={{
 						textAlign: 'start',
 						whiteSpace: 'nowrap',
@@ -123,19 +129,19 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					openSidebar && !showProIcon(item) && item?.infotip
 				}
 
-				{item?.children && (
+				{hasChildItems && (
 					<ListItemIcon
 						sx={{
-							display: !openSidebar ? 'none' : 'default',
+							display: isSidebarCollapsed ? 'none' : 'default',
 							marginInlineStart: 2,
 						}}
 					>
-						<Rotate in={expandedItems[key]}>
+						<Rotate in={isItemExpanded}>
 							<ChevronUpIcon fontSize="small" />
 						</Rotate>
 					</ListItemIcon>
 				)}
-				{showProIcon(item) && openSidebar && (
+				{shouldShowProIcon && !isSidebarCollapsed && (
 					<ListItemIcon>
 						<StyledChip
 							color="promotion"
@@ -146,13 +152,13 @@ const SidebarMenuItem = ({ keyName, item }) => {
 				)}
 			</ListItemButton>
 
-			{item?.children && (
+			{hasChildItems && (
 				<PopupChildrenContainer
-					isCollapsed={!openSidebar}
-					isExpanded={expandedItems[key]}
+					isSidebarCollapsed={isSidebarCollapsed}
+					isItemExpanded={isItemExpanded}
 					popupPosition={popupPosition}
 				>
-					{!openSidebar && (
+					{isSidebarCollapsed && (
 						<ListItemText
 							primary={item.name}
 							sx={{
@@ -168,8 +174,8 @@ const SidebarMenuItem = ({ keyName, item }) => {
 							<ListItem key={childKey} sx={{ p: 0 }} dense>
 								<ListItemButton
 									sx={{
-										color: openSidebar ? '#69727D' : '#000',
-										paddingInlineStart: openSidebar ? '48px' : '16px',
+										color: isSidebarCollapsed ? '#000' : '#69727D',
+										paddingInlineStart: isSidebarCollapsed ? '16px' : '48px',
 										borderRadius: 1,
 									}}
 									selected={childKey === selectedMenu?.child}
@@ -201,15 +207,16 @@ const StyledChip = styled(Chip)`
 `;
 
 const ListItemContainer = styled(ListItem, {
-	shouldForwardProp: (prop) => prop !== 'hasChildren' && prop !== 'isCollapsed',
+	shouldForwardProp: (prop) =>
+		prop !== 'hasChildItems' && prop !== 'isSidebarCollapsed',
 })`
 	position: relative;
 	flex-direction: column;
 	align-items: stretch;
 
-	${({ hasChildren, isCollapsed }) =>
-		hasChildren &&
-		isCollapsed &&
+	${({ hasChildItems, isSidebarCollapsed }) =>
+		hasChildItems &&
+		isSidebarCollapsed &&
 		`
 		&:hover > div:last-child,
 		&:focus-within > div:last-child {
@@ -220,10 +227,12 @@ const ListItemContainer = styled(ListItem, {
 
 const PopupChildrenContainer = styled('div', {
 	shouldForwardProp: (prop) =>
-		prop !== 'isCollapsed' && prop !== 'isExpanded' && prop !== 'popupPosition',
+		prop !== 'isSidebarCollapsed' &&
+		prop !== 'isItemExpanded' &&
+		prop !== 'popupPosition',
 })`
-	${({ isCollapsed, isExpanded, popupPosition, theme }) => {
-		if (isCollapsed) {
+	${({ isSidebarCollapsed, isItemExpanded, popupPosition, theme }) => {
+		if (isSidebarCollapsed) {
 			return `
 				display: none;
 				position: fixed;
@@ -237,10 +246,6 @@ const PopupChildrenContainer = styled('div', {
 			`;
 		}
 
-		if (isExpanded) {
-			return `display: block;`;
-		}
-
-		return `display: none;`;
+		return isItemExpanded ? 'display: block;' : 'display: none;';
 	}}
 `;
