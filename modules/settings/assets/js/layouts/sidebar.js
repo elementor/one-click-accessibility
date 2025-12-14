@@ -65,7 +65,7 @@ const StyledDrawer = styled(Drawer, {
 	width: auto;
 	& .MuiDrawer-paper {
 		position: relative;
-		width: ${({ open }) => (open ? '260px' : '74px')};
+		width: ${({ open }) => (open ? '240px' : '72px')};
 		height: 100%;
 		justify-content: space-between;
 		padding-block-start: 0;
