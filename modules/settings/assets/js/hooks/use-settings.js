@@ -13,8 +13,10 @@ import { MenuItems } from '../components/sidebar-menu/menu';
  * @return {Object} The selectedMenu object with parent and optionally child
  */
 const hashToMenu = (hash) => {
+	const defaultHash = 'scans';
+
 	if (!hash) {
-		return { parent: 'scans' };
+		return { parent: defaultHash };
 	}
 
 	// Check if it's a parent key
@@ -29,7 +31,7 @@ const hashToMenu = (hash) => {
 		}
 	}
 
-	return { parent: 'scans' };
+	return { parent: defaultHash };
 };
 
 /**
