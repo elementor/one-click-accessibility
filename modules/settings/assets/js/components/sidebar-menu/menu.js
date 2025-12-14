@@ -16,7 +16,7 @@ import AnalyticsTooltip from './tooltips/analytics';
 export const MenuItems = {
 	scans: {
 		key: 'scan-overview',
-		name: __('Accessibility assistant', 'pojo-accessibility'),
+		name: __('Accessibility scans', 'pojo-accessibility'),
 		icon: <ChecklistIcon aria-hidden={true} sx={{ color: 'common.black' }} />,
 		page: (
 			<AccessibilityAssistantContextProvider>
