@@ -158,38 +158,17 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					isItemExpanded={isItemExpanded}
 					popupPosition={popupPosition}
 				>
-					{isSidebarCollapsed && (
-						<ListItemText
-							primary={item.name}
-							sx={(theme) => ({
-								color: theme.palette.text.secondary,
-								padding: theme.spacing(1, 2),
-								margin: 0,
-								textAlign: 'start',
-							})}
-						/>
-					)}
+					{isSidebarCollapsed && <CollapsedMenuTitle primary={item.name} />}
 					<List disablePadding>
 						{Object.entries(item?.children).map(([childKey, child]) => (
 							<ListItem key={childKey} sx={{ p: 0 }} dense>
-								<ListItemButton
-									sx={(theme) => ({
-										color: isSidebarCollapsed
-											? theme.palette.text.primary
-											: theme.palette.text.secondary,
-										paddingInlineStart: isSidebarCollapsed
-											? theme.spacing(2)
-											: theme.spacing(6),
-										borderRadius: 1,
-									})}
+								<ChildMenuButton
+									isSidebarCollapsed={isSidebarCollapsed}
 									selected={childKey === selectedMenu?.child}
 									onClick={() => handleSelectedMenu(child.name, key, childKey)}
 								>
-									<ListItemText
-										primary={child?.name}
-										sx={{ textAlign: 'start', whiteSpace: 'nowrap' }}
-									/>
-								</ListItemButton>
+									<ChildMenuText primary={child?.name} />
+								</ChildMenuButton>
 							</ListItem>
 						))}
 					</List>
@@ -227,6 +206,30 @@ const ListItemContainer = styled(ListItem, {
 			display: block;
 		}
 	`}
+`;
+
+const CollapsedMenuTitle = styled(ListItemText)`
+	color: ${({ theme }) => theme.palette.text.secondary};
+	padding: ${({ theme }) => theme.spacing(1, 2)};
+	margin: 0;
+	text-align: start;
+`;
+
+const ChildMenuButton = styled(ListItemButton, {
+	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
+})`
+	color: ${({ isSidebarCollapsed, theme }) =>
+		isSidebarCollapsed
+			? theme.palette.text.primary
+			: theme.palette.text.secondary};
+	padding-inline-start: ${({ isSidebarCollapsed, theme }) =>
+		isSidebarCollapsed ? theme.spacing(2) : theme.spacing(6)};
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+`;
+
+const ChildMenuText = styled(ListItemText)`
+	text-align: start;
+	white-space: nowrap;
 `;
 
 const PopupChildrenContainer = styled('div', {
