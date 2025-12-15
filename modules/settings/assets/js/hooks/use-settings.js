@@ -12,7 +12,7 @@ import { MenuItems } from '../components/sidebar-menu/menu';
  * @param {string} hash - The URL hash value (without #)
  * @return {Object} The selectedMenu object with parent and optionally child
  */
-const hashToMenu = (hash) => {
+const hashToMenuId = (hash) => {
 	const defaultHash = 'scans';
 
 	if (!hash) {
@@ -51,7 +51,8 @@ export const SettingsProvider = ({ children }) => {
 
 	useEffect(() => {
 		const hash = window.location.hash.replace('#', '');
-		setSelectedMenu(hashToMenu(hash));
+		const menuId = hashToMenuId(hash);
+		setSelectedMenu(menuId);
 	}, []);
 
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
