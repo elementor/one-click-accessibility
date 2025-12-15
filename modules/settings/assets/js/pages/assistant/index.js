@@ -118,7 +118,6 @@ export const StyledBox = styled(Box)`
 `;
 
 const StyledHeadingWrapper = styled(Box)`
-	background-color: #f3f3f4;
 	width: 100%;
 `;
 

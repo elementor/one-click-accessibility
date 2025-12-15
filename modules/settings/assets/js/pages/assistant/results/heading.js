@@ -53,7 +53,7 @@ const AccessibilityAssistantResultsHeading = () => {
 
 				<Button
 					size="medium"
-					color="info"
+					color="primary"
 					variant="contained"
 					endIcon={
 						pagesMenuState.isOpen ? (

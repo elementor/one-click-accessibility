@@ -1,12 +1,12 @@
 import {
-	ColorBlue100,
-	ColorBlue200,
-	ColorBlue300,
-	ColorBlue400,
-	ColorBlue500,
+	ColorBurgundy900,
+	ColorPink400,
 	ColorBlue700,
-	ColorBlue900,
-} from '@elementor/design-tokens/primitives';
+	ColorBlue500,
+	ColorGreen700,
+	ColorGreen500,
+	ColorCyan400,
+} from '@elementor/design-tokens';
 import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
@@ -104,13 +104,13 @@ const StyledIssueLevel = styled(Box)`
 		border-radius: 100%;
 		background-color: ${({ colorIndex }) => {
 			const colors = [
-				ColorBlue900,
+				ColorBurgundy900,
+				ColorPink400,
 				ColorBlue700,
 				ColorBlue500,
-				ColorBlue400,
-				ColorBlue300,
-				ColorBlue200,
-				ColorBlue100, // (for "other")
+				ColorGreen700,
+				ColorGreen500,
+				ColorCyan400, // for "other"
 			];
 			return colors[colorIndex % colors.length];
 		}};
