@@ -9,36 +9,6 @@ export const expandHex = (hex) => {
 	return `#${hex}`;
 };
 
-export const rgbOrRgbaToHex = (color) => {
-	const match = color.match(
-		/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/i,
-	);
-	if (!match) {
-		return null;
-	} // Not an RGB or RGBA string
-
-	const r = parseInt(match[1]).toString(16).padStart(2, '0');
-	const g = parseInt(match[2]).toString(16).padStart(2, '0');
-	const b = parseInt(match[3]).toString(16).padStart(2, '0');
-
-	// If alpha present and less than 1, include it
-	if (match[4] !== undefined && parseFloat(match[4]) < 1) {
-		const a = Math.round(parseFloat(match[4]) * 255)
-			.toString(16)
-			.padStart(2, '0');
-		return `#${r}${g}${b}${a}`.toUpperCase(); // 8-digit hex with alpha
-	}
-
-	return `#${r}${g}${b}`.toUpperCase(); // 6-digit hex
-};
-
-export const hexToRGB = (hex) => {
-	hex = expandHex(hex).replace(/^#/, '');
-	const num = parseInt(hex, 16);
-	// eslint-disable-next-line no-bitwise
-	return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
-};
-
 export const hexToHsl = (hex) => {
 	hex = expandHex(hex).replace(/^#/, '');
 

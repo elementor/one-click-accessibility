@@ -1,7 +1,7 @@
-import { useTheme } from '@elementor/ui';
 import Card from '@elementor/ui/Card';
 import CardHeader from '@elementor/ui/CardHeader';
 import Typography from '@elementor/ui/Typography';
+import { useTheme } from '@elementor/ui/styles';
 import { LineChart as MuiLineChart } from '@mui/x-charts/LineChart';
 import { LineChartTitle } from '@ea11y/components/analytics/components/line-chart-title';
 import { LineTooltip } from '@ea11y/components/analytics/components/line-tooltip';

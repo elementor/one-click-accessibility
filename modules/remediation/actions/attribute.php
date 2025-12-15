@@ -17,10 +17,15 @@ class Attribute extends Remediation_Base {
 	public static string $type = 'attribute';
 
 	public function run() : ?DOMDocument {
-		$element_node = $this->get_element_by_xpath( $this->data['xpath'] );
+		$element_node = $this->data['global']
+			? $this->get_element_by_xpath_with_snippet_fallback( $this->data['xpath'], $this->data['find'] )
+			: $this->get_element_by_xpath( $this->data['xpath'] );
+
 		if ( ! $element_node ) {
+			$this->use_frontend = true;
 			return null;
 		}
+
 		switch ( $this->data['action'] ) {
 			case 'update':
 			case 'add':

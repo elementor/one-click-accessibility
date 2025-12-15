@@ -1,10 +1,9 @@
-import { ChevronLeftIcon } from '@elementor/icons';
-import Box from '@elementor/ui/Box';
+import ChevronLeftIcon from '@elementor/icons/ChevronLeftIcon';
 import Divider from '@elementor/ui/Divider';
 import Drawer from '@elementor/ui/Drawer';
 import IconButton from '@elementor/ui/IconButton';
 import { styled } from '@elementor/ui/styles';
-import { SidebarMenu } from '@ea11y/components';
+import { SidebarHeading, SidebarMenu } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { QuotaBar } from '@ea11y/layouts';
 import { __ } from '@wordpress/i18n';
@@ -14,40 +13,48 @@ const Sidebar = () => {
 
 	return (
 		<StyledDrawer variant="permanent" open={openSidebar}>
-			<StyledIconButton
+			<StyledToggleButton
 				onClick={() => setOpenSidebar(!openSidebar)}
 				size="small"
 				aria-label={__('Toggle sidebar', 'pojo-accessibility')}
 			>
 				<ChevronLeftIcon
+					aria-hidden={true}
 					fontSize="tiny"
-					role="img"
 					sx={{ rotate: !openSidebar ? '180deg' : '0' }}
 				/>
-			</StyledIconButton>
-			<Box padding={1.5}>
+			</StyledToggleButton>
+
+			<SidebarHeaderWrapper>
+				<SidebarHeading />
+				<Divider />
+			</SidebarHeaderWrapper>
+
+			<SidebarMenuWrapper>
 				<SidebarMenu />
-			</Box>
-			<Box>
+			</SidebarMenuWrapper>
+
+			<SidebarFooterWrapper>
 				<Divider />
 				<QuotaBar />
-			</Box>
+			</SidebarFooterWrapper>
 		</StyledDrawer>
 	);
 };
 
 export default Sidebar;
 
-const StyledIconButton = styled(IconButton)`
+const StyledToggleButton = styled(IconButton)`
 	position: absolute;
-	right: -15px;
-	top: 20px;
+	inset-inline-end: -15px;
+	inset-block-start: 61px;
 	z-index: 999999;
 
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	background: ${({ theme }) => theme.palette.background.paper};
 
-	:hover {
+	:hover,
+	:focus-visible {
 		background: #f3f3f4;
 	}
 `;
@@ -58,11 +65,30 @@ const StyledDrawer = styled(Drawer, {
 	width: auto;
 	& .MuiDrawer-paper {
 		position: relative;
-		width: ${({ open }) => (open ? '260px' : '81px')};
+		width: ${({ open }) => (open ? '240px' : '72px')};
 		height: 100%;
 		justify-content: space-between;
-		padding-top: 0;
+		padding-block-start: 0;
 		overflow: visible;
 		transition: all 0.3s;
 	}
+`;
+
+const SidebarHeaderWrapper = styled('div')`
+	flex-shrink: 0;
+	padding-block: ${({ theme }) => theme.spacing(2.5, 1)};
+	padding-inline: ${({ theme }) => theme.spacing(1.5)};
+	display: flex;
+	flex-direction: column;
+	gap: ${({ theme }) => theme.spacing(1.5)};
+`;
+
+const SidebarMenuWrapper = styled('div')`
+	flex: 1;
+	padding-inline: ${({ theme }) => theme.spacing(1.5)};
+	overflow-y: auto;
+`;
+
+const SidebarFooterWrapper = styled('div')`
+	flex-shrink: 0;
 `;

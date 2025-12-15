@@ -9,7 +9,6 @@ import Divider from '@elementor/ui/Divider';
 import FormHelperText from '@elementor/ui/FormHelperText';
 import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
-
 import InputAdornment from '@elementor/ui/InputAdornment';
 import TextField from '@elementor/ui/TextField';
 import Tooltip from '@elementor/ui/Tooltip';
@@ -18,17 +17,22 @@ import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
+import { SetGlobal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
-import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
+import { AI_QUOTA_LIMIT, IS_PRO_PLAN } from '@ea11y-apps/scanner/constants';
+import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
 import { StyledLabel } from '@ea11y-apps/scanner/styles/alt-text-form.styles';
 import { StyledAlert, StyledBox } from '@ea11y-apps/scanner/styles/app.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { __ } from '@wordpress/i18n';
 
-export const AltTextForm = ({ items, current, setCurrent }) => {
+export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
+	const { isManage } = useScannerWizardContext();
 	const { error } = useToastNotification();
 	const {
+		isGlobal,
+		setIsGlobal,
 		data,
 		loadingAiText,
 		isSubmitDisabled,
@@ -36,11 +40,20 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 		handleChange,
 		handleCheck,
 		handleSubmit,
+		handleUpdate,
 		generateAltText,
 	} = useAltTextForm({
 		current,
-		item: items[current],
+		item,
 	});
+
+	const onGlobalChange = (value) => {
+		setIsGlobal(value);
+	};
+
+	const onCancel = () => {
+		setIsEdit(false);
+	};
 
 	const onSubmit = async () => {
 		try {
@@ -51,6 +64,11 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 		}
 	};
 
+	const onUpdate = async () => {
+		await handleUpdate();
+		void (setIsEdit ? setIsEdit(false) : setCurrent(current + 1));
+	};
+
 	const onUpgradeHover = () => {
 		mixpanelService.sendEvent(mixpanelEvents.upgradeSuggestionViewed, {
 			current_plan: window.ea11yScannerData?.planData?.plan?.name,
@@ -59,11 +77,15 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 		});
 	};
 
+	const applyBtnText = isManage
+		? __('Apply changes', 'pojo-accessibility')
+		: __('Apply fix', 'pojo-accessibility');
+
 	return (
 		<StyledBox>
 			<Divider />
 
-			<ImagePreview element={items[current].node} />
+			<ImagePreview element={item.node} />
 
 			<StyledLabel>
 				<Checkbox
@@ -104,7 +126,7 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 					InputProps={{
 						endAdornment: (
 							<InputAdornment position="end">
-								{IS_AI_ENABLED && AI_QUOTA_LIMIT ? (
+								{IS_PRO_PLAN && AI_QUOTA_LIMIT ? (
 									<Tooltip
 										placement="top-end"
 										title={__(
@@ -181,22 +203,43 @@ export const AltTextForm = ({ items, current, setCurrent }) => {
 					)}
 				</Box>
 			</StyledAlert>
-			<Button
-				variant="contained"
-				color="info"
-				fullWidth
-				loading={loading}
-				disabled={isSubmitDisabled}
-				onClick={onSubmit}
-			>
-				{__('Resolve', 'pojo-accessibility')}
-			</Button>
+			<Box>
+				{!isManage && (
+					<SetGlobal
+						item={item}
+						onGlobalChange={onGlobalChange}
+						isChecked={isGlobal}
+					/>
+				)}
+
+				<Box display="flex" gap={1} justifyContent="flex-end">
+					{isManage && (
+						<Button color="secondary" variant="text" onClick={onCancel}>
+							{__('Cancel', 'pojo-accessibility')}
+						</Button>
+					)}
+					<Button
+						variant="contained"
+						color="info"
+						fullWidth={!isManage}
+						loading={loading}
+						disabled={isSubmitDisabled}
+						onClick={
+							isManage || data?.[current]?.resolved ? onUpdate : onSubmit
+						}
+						sx={{ mt: isManage ? 0 : 1.5 }}
+					>
+						{isGlobal ? __('Apply to all', 'pojo-accessibility') : applyBtnText}
+					</Button>
+				</Box>
+			</Box>
 		</StyledBox>
 	);
 };
 
 AltTextForm.propTypes = {
-	items: PropTypes.arrayOf(scannerItem).isRequired,
+	item: scannerItem,
 	current: PropTypes.number.isRequired,
 	setCurrent: PropTypes.func.isRequired,
+	setIsEdit: PropTypes.func,
 };

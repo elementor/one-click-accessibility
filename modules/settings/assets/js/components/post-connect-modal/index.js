@@ -26,7 +26,7 @@ const StyledGrid = styled(Grid)`
 	background-color: ${({ theme }) => theme.palette.background.paper};
 	padding: 20px;
 	text-align: center;
-	border-radius: 4px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 `;
 
 const PostConnectModal = () => {

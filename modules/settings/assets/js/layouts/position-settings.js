@@ -1,4 +1,5 @@
-import { DesktopIcon, MobileIcon } from '@elementor/icons';
+import DesktopIcon from '@elementor/icons/DesktopIcon';
+import MobileIcon from '@elementor/icons/MobileIcon';
 import Box from '@elementor/ui/Box';
 import Grid from '@elementor/ui/Grid';
 import Tab from '@elementor/ui/Tab';
@@ -49,14 +50,14 @@ export const PositionSettings = (props) => {
 				>
 					<Tab
 						{...getTabProps(TABS.one)}
-						label="Desktop"
+						label={__('Desktop', 'pojo-accessibility')}
 						icon={<DesktopIcon />}
 						iconPosition="start"
 						onClick={changeTab(TABS.one)}
 					/>
 					<Tab
 						{...getTabProps(TABS.two)}
-						label="Mobile"
+						label={__('Mobile', 'pojo-accessibility')}
 						icon={<MobileIcon />}
 						iconPosition="start"
 						onClick={changeTab(TABS.two)}
@@ -82,6 +83,7 @@ export default PositionSettings;
 const StyledWrapper = styled(Grid)`
 	padding: ${({ theme }) => theme.spacing(2)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 1200px;

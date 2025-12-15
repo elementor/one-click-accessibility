@@ -82,7 +82,6 @@ const StyledPaper = styled(Paper)`
 	min-width: 10px;
 	width: 100px;
 	min-height: 100px;
-	border-radius: ${({ theme }) => theme.shape.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows[0]};
 	cursor: pointer;
 	position: relative;

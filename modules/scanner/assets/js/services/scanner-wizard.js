@@ -1,8 +1,8 @@
 const load = async () => {
 	return new Promise((resolve, reject) => {
-		const { scannerUrl, planData } = window?.ea11yScannerData;
+		const { scannerUrl, planData, pageData } = window?.ea11yScannerData;
 
-		const scriptSrc = `${scannerUrl}?api_key=${planData?.public_api_key}`;
+		const scriptSrc = `${scannerUrl}?api_key=${planData?.public_api_key}&page_url=${pageData?.url}`;
 
 		// Check if script already exists
 		if (document.querySelector(`script[src="${scriptSrc}"]`)) {

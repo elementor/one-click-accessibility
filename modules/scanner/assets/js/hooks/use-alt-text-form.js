@@ -6,12 +6,13 @@ import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
+import { getOuterHtmlByXpath } from '@ea11y-apps/scanner/utils/get-outer-html-by-xpath';
 import { splitDescriptions } from '@ea11y-apps/scanner/utils/split-ai-response';
 import {
 	convertSvgToPngBase64,
 	svgNodeToPngBase64,
 } from '@ea11y-apps/scanner/utils/svg-to-png-base64';
-import { useEffect, useState } from '@wordpress/element';
+import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const useAltTextForm = ({ current, item }) => {
@@ -24,6 +25,8 @@ export const useAltTextForm = ({ current, item }) => {
 		isResolved,
 		setOpenedBlock,
 		updateRemediationList,
+		isManage,
+		setIsManageChanged,
 	} = useScannerWizardContext();
 	const { error } = useToastNotification();
 
@@ -31,81 +34,111 @@ export const useAltTextForm = ({ current, item }) => {
 	const [loading, setLoading] = useState(false);
 	const [firstOpen, setFirstOpen] = useState(true);
 
-	const isSubmitDisabled =
-		(!altTextData?.[current]?.makeDecorative &&
-			!altTextData?.[current]?.altText) ||
-		altTextData?.[current]?.resolved ||
-		loading;
+	const type = isManage ? 'manage' : 'main';
+	const isGlobal =
+		altTextData?.[type]?.[current]?.isGlobal || item.global || false;
+
+	const isGlobalRef = useRef(null);
 
 	useEffect(() => {
-		if (!firstOpen && isResolved(BLOCKS.altText)) {
+		if (item?.node) {
+			isGlobalRef.current = isGlobal;
+		}
+	}, [current]);
+
+	useEffect(() => {
+		if (isManage) {
+			updateData({
+				makeDecorative: item.data.attribute_name === 'role',
+				altText:
+					item.data.attribute_name !== 'role' ? item.data.attribute_value : '',
+				isGlobal,
+			});
+		} else {
+			updateData({ isGlobal });
+		}
+	}, [isManage, current]);
+
+	useEffect(() => {
+		if (!isManage && !firstOpen && isResolved(BLOCKS.altText)) {
 			removeExistingFocus();
 			setOpenedBlock(BLOCKS.main);
 		}
 		setFirstOpen(false);
-	}, [altTextData]);
+	}, [isResolved(BLOCKS.altText)]);
+
+	const setIsGlobal = (value) => {
+		updateData({
+			isGlobal: value,
+		});
+	};
 
 	const updateData = (data) => {
-		const updData = [...altTextData];
-		if (altTextData?.[current]?.resolved && !data.resolved) {
+		const updData = [...altTextData?.[type]];
+		if (altTextData?.[type]?.[current]?.resolved && !data.resolved) {
 			setResolved(resolved - 1);
 		}
 		updData[current] = {
-			...(altTextData?.[current] || {}),
+			...(altTextData?.[type]?.[current] || {}),
 			...data,
 		};
-		setAltTextData(updData);
+		setAltTextData({
+			...altTextData,
+			[type]: updData,
+		});
 	};
 
 	const makeAttributeData = () => {
-		if (altTextData?.[current]?.makeDecorative) {
-			item.node.setAttribute('role', 'presentation');
+		if (altTextData?.[type]?.[current]?.makeDecorative) {
 			return {
 				attribute_name: 'role',
 				attribute_value: 'presentation',
 			};
 		}
+
 		if (item.node.tagName === 'svg') {
-			item.node.setAttribute('aria-label', altTextData?.[current]?.altText);
 			return {
 				attribute_name: 'aria-label',
-				attribute_value: altTextData?.[current]?.altText,
+				attribute_value: altTextData?.[type]?.[current]?.altText,
 			};
 		}
 
-		item.node.setAttribute('alt', altTextData?.[current]?.altText);
 		return {
 			attribute_name: 'alt',
-			attribute_value: altTextData?.[current]?.altText,
+			attribute_value: altTextData?.[type]?.[current]?.altText,
 		};
 	};
 
 	const updateAltText = async () => {
 		const match = item.node.className.toString().match(/wp-image-(\d+)/);
-		const altText = !altTextData?.[current]?.makeDecorative
-			? altTextData?.[current]?.altText
+		const altText = !altTextData?.[type]?.[current]?.makeDecorative
+			? altTextData?.[type]?.[current]?.altText
 			: '';
+		const find = item.snippet;
 
 		try {
 			if (match && item.node.tagName !== 'svg') {
 				void APIScanner.submitAltText(item.node.src, altText);
 			}
-			await APIScanner.submitRemediation({
+			const response = await APIScanner.submitRemediation({
 				url: window?.ea11yScannerData?.pageData.url,
 				remediation: {
 					...makeAttributeData(),
 					action: 'add',
 					xpath: item.path.dom,
+					find,
 					category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
 					type: 'ATTRIBUTE',
 				},
+				global: isGlobal,
 				rule: item.ruleId,
 				group: BLOCKS.altText,
-				apiId: altTextData?.[current]?.apiId,
+				apiId: altTextData?.[type]?.[current]?.apiId,
 			});
 
 			await APIScanner.resolveIssue(currentScanId);
 			void updateRemediationList();
+			return response.remediation;
 		} catch (e) {
 			console.warn(e);
 		}
@@ -135,31 +168,70 @@ export const useAltTextForm = ({ current, item }) => {
 	const handleSubmit = async () => {
 		try {
 			setLoading(true);
-			const fixMethod = altTextData?.[current]?.apiId
+			const fixMethod = altTextData?.[type]?.[current]?.apiId
 				? 'AI alt-text'
 				: 'Manual alt-text';
-			await updateAltText(item);
-			if (!altTextData?.[current]?.resolved) {
-				updateData({ resolved: true });
+			const remediation = await updateAltText(item);
+			if (!altTextData?.[type]?.[current]?.resolved) {
+				updateData({
+					remediation,
+					resolved: true,
+				});
+				isGlobalRef.current = isGlobal;
 				setResolved(resolved + 1);
 			}
 
-			if (altTextData?.[current]?.apiId) {
+			if (altTextData?.[type]?.[current]?.apiId) {
 				mixpanelService.sendEvent(mixpanelEvents.aiSuggestionAccepted, {
 					element_selector: item.path.dom,
 					image_src: item.node?.src,
-					final_text: altTextData?.[current]?.altText,
+					final_text: altTextData?.[type]?.[current]?.altText,
 					credit_used: 1,
 				});
 			}
 			mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
-				fix_method: altTextData?.[current]?.makeDecorative
+				fix_method: altTextData?.[type]?.[current]?.makeDecorative
 					? 'Mark as decorative'
 					: fixMethod,
 				issue_type: item.message,
 				category_name: BLOCKS.altText,
 				page_url: window.ea11yScannerData?.pageData?.url,
+				is_global: isGlobal ? 'yes' : 'no',
 			});
+		} catch (e) {
+			console.error(e);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const handleUpdate = async () => {
+		const find = getOuterHtmlByXpath(
+			item.path.dom,
+			item.data?.attribute_name
+				? `${item.data.attribute_name}=" ${item.data.attribute_value}"`
+				: '',
+		);
+		try {
+			setLoading(true);
+			const remediation = altTextData?.[type]?.[current]?.remediation;
+			const id = item.id || remediation.id;
+			const data = item.data || JSON.parse(remediation.content);
+			const strContent = JSON.stringify({
+				...data,
+				...makeAttributeData(),
+				find,
+			});
+			await APIScanner.updateRemediationContent({
+				url: window?.ea11yScannerData?.pageData?.url,
+				id,
+				content: strContent,
+				global: isGlobal,
+			});
+
+			isGlobalRef.current = isGlobal;
+			setIsManageChanged(true);
+			void updateRemediationList();
 		} catch (e) {
 			console.error(e);
 		} finally {
@@ -212,33 +284,48 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const generateAltText = async () => {
-		if (altTextData?.[current]?.aiText?.length) {
+		if (altTextData?.[type]?.[current]?.aiText?.length) {
 			const index =
-				altTextData?.[current]?.aiTextIndex + 1 <
-				altTextData?.[current]?.aiText?.length
-					? altTextData?.[current]?.aiTextIndex + 1
+				altTextData?.[type]?.[current]?.aiTextIndex + 1 <
+				altTextData?.[type]?.[current]?.aiText?.length
+					? altTextData?.[type]?.[current]?.aiTextIndex + 1
 					: 0;
 
 			updateData({
-				altText: altTextData?.[current]?.aiText[index],
+				altText: altTextData?.[type]?.[current]?.aiText[index],
 				aiTextIndex: index,
 				resolved: false,
 			});
 
-			sendMixpanelEvent(altTextData?.[current]?.aiText[index]);
+			sendMixpanelEvent(altTextData?.[type]?.[current]?.aiText[index]);
 		} else {
 			await getAiText();
 		}
 	};
 
+	const attrData = makeAttributeData();
+
+	const isSubmitDisabled = isManage
+		? attrData.attribute_value === item.data.attribute_value &&
+			attrData.attribute_name === item.data.attribute_name &&
+			isGlobal === item.global
+		: (!altTextData?.[type]?.[current]?.makeDecorative &&
+				!altTextData?.[type]?.[current]?.altText) ||
+			(altTextData?.[type]?.[current]?.resolved &&
+				altTextData?.[type]?.[current]?.isGlobal === isGlobalRef.current) ||
+			loading;
+
 	return {
+		isGlobal,
+		setIsGlobal,
 		loadingAiText,
-		data: altTextData,
+		data: altTextData?.[type],
 		isSubmitDisabled,
 		loading,
 		handleCheck,
 		handleChange,
 		handleSubmit,
+		handleUpdate,
 		generateAltText,
 	};
 };

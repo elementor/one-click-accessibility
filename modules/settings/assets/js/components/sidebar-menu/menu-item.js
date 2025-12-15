@@ -9,7 +9,7 @@ import ListSubheader from '@elementor/ui/ListSubheader';
 import Tooltip from '@elementor/ui/Tooltip';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import CrownFilled from '@ea11y/icons/crown-filled';
+import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { Fragment, useState } from '@wordpress/element';
 
@@ -93,7 +93,11 @@ const MenuItem = ({ keyName, item }) => {
 						</ListItemIcon>
 					</Tooltip>
 
-					<ListItemText primary={item.name} hidden={!openSidebar} />
+					<ListItemText
+						primary={item.name}
+						hidden={!openSidebar}
+						sx={{ textAlign: 'start' }}
+					/>
 
 					{
 						/* Show infotip */

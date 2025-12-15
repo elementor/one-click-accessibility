@@ -166,7 +166,7 @@ const StyledGuideStep = styled(Box)`
 	align-items: center;
 	padding: ${({ theme }) => `${theme.spacing(2)} ${theme.spacing(3)}`};
 
-	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 
 	color: ${({ theme }) => theme.palette.text.secondary};
 	background: #f3f3f4;

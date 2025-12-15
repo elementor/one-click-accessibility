@@ -98,7 +98,7 @@ const MenuSettings = () => {
 							return (
 								<Box key={parentKey}>
 									<ListItem as="div" disableGutters>
-										<ListItemText>
+										<ListItemText sx={{ textAlign: 'start' }}>
 											<Typography variant="subtitle2">
 												{parentItem.title}
 											</Typography>

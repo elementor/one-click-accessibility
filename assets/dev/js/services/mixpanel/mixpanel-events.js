@@ -38,7 +38,7 @@ export const mixpanelEvents = {
 	fixWithAiButtonClicked: 'fix_with_ai_button_clicked',
 	markAsDecorativeSelected: 'mark_as_decorative_selected',
 	resolveButtonClicked: 'resolve_button_clicked',
-	navigationImageClicked: 'navigation_image_clicked',
+	navigationChanged: 'navigation_changed',
 	aiSuggestionAccepted: 'ai_suggestion_accepted',
 	markAsResolveClicked: 'mark_as_resolve_clicked',
 	issueSkipped: 'issue_skipped',
@@ -50,6 +50,9 @@ export const mixpanelEvents = {
 	contrastResetClicked: 'contrast_reset_clicked',
 	backgroundAdaptorTriggered: 'background_adaptor_triggered',
 	backgroundAdaptorChanged: 'background_adaptor_changed',
+	tabSelected: 'tab_selected',
+	markAsGlobalToggled: 'mark_as_global_toggled',
+	applyGlobalFixConfirmationClicked: 'apply_global_fix_confirmation_clicked',
 
 	// Accessibility assistant dashboard
 	assistantDashboardHistoryLogsButtonClicked: 'history_logs_button_clicked',

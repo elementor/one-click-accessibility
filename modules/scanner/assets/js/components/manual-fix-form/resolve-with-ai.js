@@ -2,6 +2,7 @@ import AIIcon from '@elementor/icons/AIIcon';
 import CopyIcon from '@elementor/icons/CopyIcon';
 import EditIcon from '@elementor/icons/EditIcon';
 import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
+import ResetIcon from '@elementor/icons/ResetIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
@@ -13,44 +14,46 @@ import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { SetGlobal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global';
 import { UpgradeInfoTip } from '@ea11y-apps/scanner/components/upgrade-info-tip';
-import { AI_QUOTA_LIMIT, IS_AI_ENABLED } from '@ea11y-apps/scanner/constants';
+import { AI_QUOTA_LIMIT, IS_PRO_PLAN } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { useCopyToClipboard } from '@ea11y-apps/scanner/hooks/use-copy-to-clipboard';
 import { useManualFixForm } from '@ea11y-apps/scanner/hooks/use-manual-fix-form';
 import { StyledAlert } from '@ea11y-apps/scanner/styles/app.styles';
 import {
-	AIHeader,
-	AITitle,
 	InfotipBox,
+	ItemHeader,
+	ItemTitle,
 	ManualTextField,
 	StyledSnippet,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
-import { useEffect, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export const ResolveWithAi = ({ item, current }) => {
-	const { manualData, openedBlock } = useScannerWizardContext();
+	const { openedBlock } = useScannerWizardContext();
 	const { copied, copyToClipboard } = useCopyToClipboard();
-	const { getAISuggestion, resolveIssue, aiResponseLoading, resolving } =
-		useManualFixForm({
-			item,
-			current,
-		});
+	const {
+		isGlobal,
+		setIsGlobal,
+		manualEdit,
+		setManualEdit,
+		aiSuggestion,
+		setAiSuggestion,
+		getAISuggestion,
+		resolveIssue,
+		aiResponseLoading,
+		resolving,
+		isSubmitDisabled,
+	} = useManualFixForm({
+		item,
+		current,
+	});
 
 	const [openUpgrade, setOpenUpgrade] = useState(false);
 	const [isEdit, setIsEdit] = useState(false);
-	const [manualEdit, setManualEdit] = useState(false);
-	const [aiSuggestion, setAiSuggestion] = useState(null);
-
-	useEffect(() => {
-		setAiSuggestion({
-			...manualData[openedBlock][current]?.aiSuggestion,
-			submitted: false,
-		});
-		setManualEdit(manualData[openedBlock][current]?.aiSuggestion?.snippet);
-	}, [manualData[openedBlock][current]?.aiSuggestion]);
 
 	const openEdit = () => {
 		setIsEdit(true);
@@ -64,7 +67,7 @@ export const ResolveWithAi = ({ item, current }) => {
 	const closeEdit = () => setIsEdit(false);
 
 	const handleButtonClick = async () => {
-		if (IS_AI_ENABLED && AI_QUOTA_LIMIT) {
+		if (IS_PRO_PLAN && AI_QUOTA_LIMIT) {
 			await getAISuggestion();
 			mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 				issue_type: item.message,
@@ -85,6 +88,9 @@ export const ResolveWithAi = ({ item, current }) => {
 	};
 
 	const closeUpgrade = () => setOpenUpgrade(false);
+	const onGlobalChange = (value) => {
+		setIsGlobal(value);
+	};
 
 	const disabled =
 		aiResponseLoading ||
@@ -93,12 +99,13 @@ export const ResolveWithAi = ({ item, current }) => {
 		(isEdit && manualEdit === aiSuggestion?.snippet);
 
 	const onResolve = async () => {
-		await resolveIssue(isEdit ? manualEdit : null);
+		await resolveIssue();
 		setAiSuggestion({
 			...aiSuggestion,
 			snippet: manualEdit,
 			submitted: !isEdit,
 		});
+		setIsEdit(false);
 	};
 
 	const onManualEdit = (e) => {
@@ -110,8 +117,8 @@ export const ResolveWithAi = ({ item, current }) => {
 		<Box>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
 				<CardContent sx={{ pt: 1.5, pb: 0 }}>
-					<AIHeader>
-						<AITitle>
+					<ItemHeader>
+						<ItemTitle>
 							<AIIcon />
 							<Typography variant="subtitle2">
 								{__('Resolve with AI', 'pojo-accessibility')}
@@ -136,24 +143,65 @@ export const ResolveWithAi = ({ item, current }) => {
 										</InfotipBox>
 									}
 								>
-									<InfoCircleIcon fontSize="small" />
+									<InfoCircleIcon fontSize="small" color="action" />
 								</Infotip>
 							)}
-						</AITitle>
+						</ItemTitle>
 						{!isEdit && (
-							<Tooltip
-								placement="top"
-								title={__('Edit', 'pojo-accessibility')}
-								PopperProps={{
-									disablePortal: true,
-								}}
-							>
-								<IconButton size="tiny" onClick={openEdit}>
-									<EditIcon fontSize="small" />
-								</IconButton>
-							</Tooltip>
+							<Box>
+								<Tooltip
+									placement="top"
+									title={__('Edit', 'pojo-accessibility')}
+									PopperProps={{
+										disablePortal: true,
+									}}
+								>
+									<IconButton size="tiny" onClick={openEdit}>
+										<EditIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+								<Tooltip
+									placement="top"
+									title={__('Retry', 'pojo-accessibility')}
+									PopperProps={{
+										disablePortal: true,
+									}}
+								>
+									<IconButton
+										size="tiny"
+										onClick={handleButtonClick}
+										disabled={disabled}
+										loading={aiResponseLoading}
+									>
+										<ResetIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+								<Tooltip
+									arrow
+									placement="top"
+									title={
+										copied
+											? __('Copied!', 'pojo-accessibility')
+											: __('Copy', 'pojo-accessibility')
+									}
+									PopperProps={{
+										disablePortal: true,
+									}}
+								>
+									<IconButton
+										size="tiny"
+										onClick={copyToClipboard(
+											aiSuggestion.snippet,
+											'fixed_snippet',
+											'assistant',
+										)}
+									>
+										<CopyIcon fontSize="tiny" />
+									</IconButton>
+								</Tooltip>
+							</Box>
 						)}
-					</AIHeader>
+					</ItemHeader>
 					{isEdit ? (
 						<ManualTextField
 							value={manualEdit}
@@ -169,39 +217,14 @@ export const ResolveWithAi = ({ item, current }) => {
 					) : (
 						<StyledAlert color="info" icon={false} disabled={disabled}>
 							<Box display="flex" gap={0.5} alignItems="start">
-								<StyledSnippet variant="body2" sx={{ width: '290px' }}>
-									{aiSuggestion.snippet}
-								</StyledSnippet>
-								<Box>
-									<Tooltip
-										arrow
-										placement="bottom"
-										title={
-											copied
-												? __('Copied!', 'pojo-accessibility')
-												: __('Copy', 'pojo-accessibility')
-										}
-										PopperProps={{
-											disablePortal: true,
-										}}
-									>
-										<IconButton
-											size="tiny"
-											onClick={copyToClipboard(
-												aiSuggestion.snippet,
-												'fixed_snippet',
-												'assistant',
-											)}
-										>
-											<CopyIcon fontSize="tiny" />
-										</IconButton>
-									</Tooltip>
-								</Box>
+								<StyledSnippet variant="body2">{manualEdit}</StyledSnippet>
 							</Box>
 						</StyledAlert>
 					)}
 				</CardContent>
-				<CardActions sx={{ p: 2 }}>
+				<CardActions
+					sx={{ p: 2, justifyContent: isEdit ? 'flex-end' : 'space-between' }}
+				>
 					{isEdit ? (
 						<Button
 							size="small"
@@ -212,42 +235,38 @@ export const ResolveWithAi = ({ item, current }) => {
 							{__('Cancel', 'pojo-accessibility')}
 						</Button>
 					) : (
-						<Tooltip
-							arrow
-							placement="bottom"
-							title={__('Generate another solution', 'pojo-accessibility')}
-							PopperProps={{
-								disablePortal: true,
-							}}
-						>
-							<Button
-								size="small"
-								color="secondary"
-								variant="text"
-								onClick={handleButtonClick}
-								disabled={disabled}
-								loading={aiResponseLoading}
-								loadingPosition="start"
-								aria-label={__('Retry', 'pojo-accessibility')}
-							>
-								{__('Retry', 'pojo-accessibility')}
-							</Button>
-						</Tooltip>
+						<SetGlobal
+							item={item}
+							onGlobalChange={onGlobalChange}
+							isChecked={isGlobal}
+						/>
 					)}
 
-					<Button
-						size="small"
-						color="info"
-						variant="contained"
-						disabled={disabled || aiSuggestion?.submitted}
-						loading={resolving}
-						loadingPosition="start"
-						onClick={onResolve}
-					>
-						{isEdit
-							? __('Apply changes', 'pojo-accessibility')
-							: __('Apply fix', 'pojo-accessibility')}
-					</Button>
+					{isEdit ? (
+						<Button
+							size="small"
+							color="info"
+							variant="contained"
+							disabled={disabled}
+							onClick={closeEdit}
+						>
+							{__('Apply fix', 'pojo-accessibility')}
+						</Button>
+					) : (
+						<Button
+							size="small"
+							color="info"
+							variant="contained"
+							disabled={disabled || isSubmitDisabled}
+							loading={resolving}
+							loadingPosition="center"
+							onClick={onResolve}
+						>
+							{isGlobal
+								? __('Apply to all', 'pojo-accessibility')
+								: __('Apply fix', 'pojo-accessibility')}
+						</Button>
+					)}
 				</CardActions>
 			</Card>
 		</Box>
@@ -257,7 +276,7 @@ export const ResolveWithAi = ({ item, current }) => {
 				<Button
 					variant="contained"
 					size="small"
-					color={IS_AI_ENABLED && AI_QUOTA_LIMIT ? 'info' : 'promotion'}
+					color={IS_PRO_PLAN && AI_QUOTA_LIMIT ? 'info' : 'promotion'}
 					startIcon={<AIIcon />}
 					fullWidth
 					disabled={aiResponseLoading}

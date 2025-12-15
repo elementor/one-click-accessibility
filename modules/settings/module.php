@@ -19,6 +19,7 @@ use EA11y\Modules\Core\Components\{
 };
 use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
 use EA11y\Modules\Settings\Banners\Onboarding_Banner;
+use EA11y\Modules\Settings\Banners\BF_Sale_2025_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Widget\Module as WidgetModule;
 use EA11y\Modules\WhatsNew\Module as WhatsNewModule;
@@ -49,6 +50,7 @@ class Module extends Module_Base {
 	public function render_app() {
 		?>
 		<?php Elementor_Birthday_Banner::get_banner( 'https://go.elementor.com/acc-b-day-banner' ); ?>
+		<?php BF_Sale_2025_Banner::get_banner('https://go.elementor.com/acc-BF-sale'); ?>
 
 		<!-- The hack required to wrap WP notifications -->
 		<div class="wrap">
@@ -156,6 +158,7 @@ class Module extends Module_Base {
 			'isConnected' => Connect::is_connected(),
 			'closePostConnectModal' => Settings::get( Settings::CLOSE_POST_CONNECT_MODAL ),
 			'closeOnboardingModal' => Settings::get( Settings::CLOSE_ONBOARDING_MODAL ),
+			'closeGetStartedModal' => Settings::get( Settings::CLOSE_GET_STARTED_MODAL ),
 			'isRTL' => is_rtl(),
 			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
@@ -492,6 +495,21 @@ class Module extends Module_Base {
 			'close_onboarding_modal' => [
 				'type' => 'boolean',
 			],
+			'close_get_started_modal' => [
+				'type' => 'boolean',
+			],
+			'dismissed_quota_notices' => [
+				'type' => 'array',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'array',
+						'items' => [
+							'type' => 'string',
+						],
+					],
+				],
+				'default' => [],
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {
@@ -534,6 +552,11 @@ class Module extends Module_Base {
 	 * @param Notices $notice_manager
 	 */
 	public function register_notices( Notices $notice_manager ) {
+
+		if( ! Connect::is_connected() && ! Settings::get( Settings::PLAN_DATA ) ) {
+			return;
+		}
+
 		$notices = [
 			'Quota_80',
 			'Quota_100',
@@ -555,11 +578,20 @@ class Module extends Module_Base {
 			return 0;
 		}
 
-		if ( ! isset( $plan_data->visits ) ) {
-			return 0;
+		$usage_percentages = array();
+
+		// Calculate scanned pages usage percentage
+		if ( isset( $plan_data->scannedPages ) && isset( $plan_data->scannedPages->allowed ) && isset( $plan_data->scannedPages->used ) && $plan_data->scannedPages->allowed > 0 ) {
+			$usage_percentages[] = round( $plan_data->scannedPages->used / $plan_data->scannedPages->allowed * 100, 2 );
 		}
 
-		return round( $plan_data->visits->used / $plan_data->visits->allowed * 100, 2 );
+		// Calculate AI credits usage percentage
+		if ( isset( $plan_data->aiCredits ) && isset( $plan_data->aiCredits->allowed ) && isset( $plan_data->aiCredits->used ) && $plan_data->aiCredits->allowed > 0 ) {
+			$usage_percentages[] = round( $plan_data->aiCredits->used / $plan_data->aiCredits->allowed * 100, 2 );
+		}
+
+		// Return the maximum usage percentage, or 0 if none exist
+		return empty( $usage_percentages ) ? 0 : max( $usage_percentages );
 	}
 
 	/**
@@ -597,7 +629,7 @@ class Module extends Module_Base {
 		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
 		
 		// Register notices
-		//add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
+		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
 	}
 }

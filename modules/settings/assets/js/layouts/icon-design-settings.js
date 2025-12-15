@@ -48,6 +48,7 @@ export default IconDesignSettings;
 const StyledWrapper = styled(Box)`
 	padding: ${({ theme }) => theme.spacing(2)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: 1200px;

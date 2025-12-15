@@ -1,4 +1,4 @@
-import { CalendarDollarIcon } from '@elementor/icons';
+import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
 import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Skeleton from '@elementor/ui/Skeleton';
@@ -61,13 +61,13 @@ const StyledBox = styled(Box)`
 	margin: ${({ theme }) => theme.spacing(2)};
 	padding: 0;
 
-	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 `;
 
 const StyledIconButton = styled(IconButton)`
 	padding: ${({ theme }) => theme.spacing(1)} ${({ theme }) => theme.spacing(2)};
 	background-color: ${({ theme }) => theme.palette.background.paper};
-	border-radius: 8px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 
 	&:hover {
 		background-color: ${({ theme }) => theme.palette.action.hover};

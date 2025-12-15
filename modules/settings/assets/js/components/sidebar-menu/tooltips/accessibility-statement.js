@@ -1,4 +1,4 @@
-import { InfoCircleIcon } from '@elementor/icons';
+import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
 import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardActions from '@elementor/ui/CardActions';

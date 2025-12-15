@@ -152,6 +152,10 @@ export const SettingsProvider = ({ children }) => {
 
 	const [planUsage, setPlanUsage] = useState(0);
 
+	const [dismissedQuotaNotices, setDismissedQuotaNotices] = useState([]);
+
+	const [isGetStartedModalOpen, setIsGetStartedModalOpen] = useState(false);
+
 	return (
 		<SettingsContext.Provider
 			value={{
@@ -185,6 +189,10 @@ export const SettingsProvider = ({ children }) => {
 				setShowAccessibilityGeneratedInfotip,
 				planUsage,
 				setPlanUsage,
+				dismissedQuotaNotices,
+				setDismissedQuotaNotices,
+				isGetStartedModalOpen,
+				setIsGetStartedModalOpen,
 			}}
 		>
 			{children}

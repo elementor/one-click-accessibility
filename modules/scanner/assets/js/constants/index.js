@@ -21,18 +21,22 @@ export const RULE_TEXT_CONTRAST = 'text_contrast_sufficient';
 export const RATIO_EXCLUDED = 1;
 
 export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
+export const UPGRADE_GLOBAL_URL =
+	'https://go.elementor.com/acc-global-remediation';
 export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';
 export const PAGE_LIMIT_URL = 'https://go.elementor.com/acc-URL-limit-scanner';
 
 export const isRTL = Boolean(window.ea11yScannerData?.isRTL);
 
-export const IS_AI_ENABLED = !window.ea11yScannerData?.planData?.plan?.name
+export const IS_PRO_PLAN = !window.ea11yScannerData?.planData?.plan?.name
 	?.toLowerCase()
 	.includes('free');
 export const AI_QUOTA_LIMIT =
 	window.ea11yScannerData?.planData?.aiCredits?.allowed -
 		window.ea11yScannerData?.planData?.aiCredits?.used >
 	0;
+
+export const HIDE_UPGRADE_KEY = 'ea11y-hide-upgrade-alert';
 
 export const PAGE_PER_PLAN =
 	window.ea11yScannerData?.planData?.scannedPages?.allowed;
