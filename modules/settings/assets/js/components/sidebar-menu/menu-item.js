@@ -161,23 +161,27 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					{isSidebarCollapsed && (
 						<ListItemText
 							primary={item.name}
-							sx={{
-								color: '#69727D',
-								padding: '8px 16px',
+							sx={(theme) => ({
+								color: theme.palette.text.secondary,
+								padding: theme.spacing(1, 2),
 								margin: 0,
 								textAlign: 'start',
-							}}
+							})}
 						/>
 					)}
 					<List disablePadding>
 						{Object.entries(item?.children).map(([childKey, child]) => (
 							<ListItem key={childKey} sx={{ p: 0 }} dense>
 								<ListItemButton
-									sx={{
-										color: isSidebarCollapsed ? '#000' : '#69727D',
-										paddingInlineStart: isSidebarCollapsed ? '16px' : '48px',
+									sx={(theme) => ({
+										color: isSidebarCollapsed
+											? theme.palette.text.primary
+											: theme.palette.text.secondary,
+										paddingInlineStart: isSidebarCollapsed
+											? theme.spacing(2)
+											: theme.spacing(6),
 										borderRadius: 1,
-									}}
+									})}
 									selected={childKey === selectedMenu?.child}
 									onClick={() => handleSelectedMenu(child.name, key, childKey)}
 								>
