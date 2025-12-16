@@ -149,7 +149,7 @@ const StyledCard = styled(Box)`
 	width: 38%;
 	padding: 40px;
 
-	border: 1px solid rgb(0, 0, 0, 0.12);
+	border: 1px solid rgb(0 0 0 / 0.12);
 	border-radius: 4px;
 
 	text-align: center;

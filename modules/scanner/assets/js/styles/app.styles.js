@@ -45,7 +45,7 @@ export const StyledStatsBlock = styled(Card)`
 	padding: ${({ theme }) => theme.spacing(2)};
 
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-	box-shadow: 0 3px 14px 2px rgb(0, 0, 0, 0.12);
+	box-shadow: 0 3px 14px 2px rgb(0 0 0 / 0.12);
 `;
 
 export const TitleBox = styled(Box)`

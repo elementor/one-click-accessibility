@@ -16,7 +16,7 @@
     margin: 0 !important;
     width: 600px !important;
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgb(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.3);
 }
 
 .ea11y-feedback-thickbox #TB_ajaxContent {
@@ -142,6 +142,6 @@
 }
 
 .ea11y-btn:focus {
-    box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgb(30, 140, 190, 0.8);
+    box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgb(30 140 190 / 0.8);
     outline: none;
 }

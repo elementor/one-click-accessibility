@@ -36,7 +36,7 @@ html[dir="rtl"] #ea11y-app {
 	height: 40px;
 	padding: 8px 12px;
 	box-shadow: none;
-	border-color: rgb(12, 13, 14, 0.23);
+	border-color: rgb(12 13 14 / 0.23);
 }
 
 /* Widget Preview in Menu Settings */

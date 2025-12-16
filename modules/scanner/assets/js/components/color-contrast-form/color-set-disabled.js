@@ -70,11 +70,7 @@ export const ColorSetDisabled = ({ title, description }) => {
 						),
 					}}
 				/>
-				<UnstableColorIndicator
-					value="rgba(0, 0, 0, 0)"
-					disabled
-					size="small"
-				/>
+				<UnstableColorIndicator value="#000" disabled size="small" />
 				<Tooltip
 					arrow
 					placement="top"
