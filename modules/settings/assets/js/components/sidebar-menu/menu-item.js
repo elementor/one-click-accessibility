@@ -86,7 +86,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 			onMouseEnter={updatePopupPosition}
 			onFocus={updatePopupPosition}
 		>
-			<ListItemButton
+			<ParentMenuButton
 				onClick={() =>
 					hasChildItems
 						? handleToggleItem(item.name, key)
@@ -96,33 +96,21 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					key === selectedMenu?.parent &&
 					(!selectedMenu?.child || isSidebarCollapsed)
 				}
-				sx={{ justifyContent: 'center', borderRadius: 1 }}
 			>
 				<Tooltip
 					title={item?.name}
 					placement="right"
 					disableHoverListener={openSidebar || hasChildItems}
 				>
-					<ListItemIcon
+					<MenuItemIconWrapper
 						aria-hidden={!isSidebarCollapsed}
-						sx={{
-							/* For smoother sidebar */
-							padding: isSidebarCollapsed ? 0.5 : 'auto',
-							marginInlineEnd: isSidebarCollapsed ? '0 !important' : 1,
-						}}
+						isSidebarCollapsed={isSidebarCollapsed}
 					>
 						{item.icon}
-					</ListItemIcon>
+					</MenuItemIconWrapper>
 				</Tooltip>
 
-				<ListItemText
-					primary={item.name}
-					hidden={isSidebarCollapsed}
-					sx={{
-						textAlign: 'start',
-						whiteSpace: 'nowrap',
-					}}
-				/>
+				<MenuItemText primary={item.name} hidden={isSidebarCollapsed} />
 
 				{
 					/* Show infotip */
@@ -130,16 +118,11 @@ const SidebarMenuItem = ({ keyName, item }) => {
 				}
 
 				{hasChildItems && (
-					<ListItemIcon
-						sx={{
-							display: isSidebarCollapsed ? 'none' : 'default',
-							marginInlineStart: 2,
-						}}
-					>
+					<ExpandIconWrapper isSidebarCollapsed={isSidebarCollapsed}>
 						<Rotate in={isItemExpanded}>
 							<ChevronUpIcon fontSize="small" />
 						</Rotate>
-					</ListItemIcon>
+					</ExpandIconWrapper>
 				)}
 				{shouldShowProIcon && !isSidebarCollapsed && (
 					<ListItemIcon>
@@ -150,7 +133,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 						/>
 					</ListItemIcon>
 				)}
-			</ListItemButton>
+			</ParentMenuButton>
 
 			{hasChildItems && (
 				<PopupChildrenContainer
@@ -161,7 +144,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					{isSidebarCollapsed && <CollapsedMenuTitle primary={item.name} />}
 					<List disablePadding>
 						{Object.entries(item?.children).map(([childKey, child]) => (
-							<ListItem key={childKey} sx={{ p: 0 }} dense>
+							<ChildListItem key={childKey} dense>
 								<ChildMenuButton
 									isSidebarCollapsed={isSidebarCollapsed}
 									selected={childKey === selectedMenu?.child}
@@ -169,7 +152,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 								>
 									<ChildMenuText primary={child?.name} />
 								</ChildMenuButton>
-							</ListItem>
+							</ChildListItem>
 						))}
 					</List>
 				</PopupChildrenContainer>
@@ -179,6 +162,38 @@ const SidebarMenuItem = ({ keyName, item }) => {
 };
 
 export default SidebarMenuItem;
+
+const ParentMenuButton = styled(ListItemButton)`
+	justify-content: center;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+`;
+
+const MenuItemIconWrapper = styled(ListItemIcon, {
+	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
+})`
+	/* For smoother sidebar */
+	padding: ${({ isSidebarCollapsed, theme }) =>
+		isSidebarCollapsed ? theme.spacing(0.5) : 'auto'};
+	margin-inline-end: ${({ isSidebarCollapsed, theme }) =>
+		isSidebarCollapsed ? '0 !important' : theme.spacing(1)};
+`;
+
+const MenuItemText = styled(ListItemText)`
+	text-align: start;
+	white-space: nowrap;
+`;
+
+const ExpandIconWrapper = styled(ListItemIcon, {
+	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
+})`
+	display: ${({ isSidebarCollapsed }) =>
+		isSidebarCollapsed ? 'none' : 'default'};
+	margin-inline-start: ${({ theme }) => theme.spacing(2)};
+`;
+
+const ChildListItem = styled(ListItem)`
+	padding: 0;
+`;
 
 const StyledChip = styled(Chip)`
 	height: 26px;
