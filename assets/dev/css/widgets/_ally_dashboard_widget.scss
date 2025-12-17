@@ -58,8 +58,8 @@
     &:before {
       content: '';
       position: absolute;
-      left: 0;
-      top: 50%;
+      inset-inline-start: 0;
+      inset-block-start: 50%;
       transform: translateY(-50%);
       width: 8px;
       height: 8px;
