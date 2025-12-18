@@ -16,6 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 
 
+
 	/**
 	 * Get module name.
 	 * Retrieve the module name.
@@ -71,6 +72,7 @@ class Module extends Module_Base {
 			'scopes' => Config::SCOPES,
 			'state_nonce' => Config::STATE_NONCE,
 			'connect_mode' => Config::CONNECT_MODE,
+			'plugin_slug' => Config::PLUGIN_SLUG,
 		]);
 	}
 }
