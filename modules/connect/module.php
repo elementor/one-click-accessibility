@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Module extends Module_Base {
 
+
 	/**
 	 * Get module name.
 	 * Retrieve the module name.
@@ -33,7 +34,7 @@ class Module extends Module_Base {
 	}
 
 	public static function get_connect(): Facade {
-		return Facade::get( Config::APP_TYPE );
+		return Facade::get( Config::PLUGIN_SLUG );
 	}
 
 	public function authorize_url( $authorize_url ) {
@@ -58,9 +59,9 @@ class Module extends Module_Base {
 	}
 
 	public function __construct() {
-		add_filter( 'elementor_one/ea11y_connect_authorize_url', [ $this, 'authorize_url' ] );
+		 add_filter( 'elementor_one/ea11y_connect_authorize_url', [ $this, 'authorize_url' ] );
 
-		Facade::make( [
+		Facade::make([
 			'app_name' => Config::APP_NAME,
 			'app_prefix' => Config::APP_PREFIX,
 			'app_rest_namespace' => Config::APP_REST_NAMESPACE,
@@ -70,7 +71,7 @@ class Module extends Module_Base {
 			'scopes' => Config::SCOPES,
 			'state_nonce' => Config::STATE_NONCE,
 			'connect_mode' => Config::CONNECT_MODE,
-		] );
+		]);
 	}
 }
 
