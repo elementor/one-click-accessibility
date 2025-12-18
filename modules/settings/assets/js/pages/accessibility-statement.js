@@ -214,7 +214,7 @@ const AccessibilityStatement = () => {
 					)}
 
 					{(accessibilityStatementData?.pageId || showStatementLink) && (
-						<>
+						<Box width="100%" maxWidth="1200px" marginInline="auto">
 							{!accessibilityStatementData?.pageId && (
 								<Button
 									size="large"
@@ -226,7 +226,7 @@ const AccessibilityStatement = () => {
 								</Button>
 							)}
 							<StatementLink />
-						</>
+						</Box>
 					)}
 				</StyledWideBox>
 
