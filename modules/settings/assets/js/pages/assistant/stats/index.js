@@ -56,7 +56,6 @@ const StyledStatsContainer = styled(Box)`
 
 	display: grid;
 	grid-template-columns: 1fr 1fr 2fr;
-	grid-template-rows: 104px 206px;
 	grid-column-gap: ${({ theme }) => theme.spacing(2)};
 	grid-row-gap: ${({ theme }) => theme.spacing(2)};
 
