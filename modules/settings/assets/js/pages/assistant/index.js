@@ -30,7 +30,7 @@ const AccessibilityAssistant = () => {
 	if (!loading && !scannerResults.length) {
 		return (
 			<StyledBox>
-				<StyledContainer>
+				<StyledContainer disableGutters>
 					<AccessibilityAssistantHeading
 						period={period}
 						onPeriodChange={onPeriodChange}
@@ -52,7 +52,7 @@ const AccessibilityAssistant = () => {
 			<>
 				<StyledBox>
 					<StyledHeadingWrapper>
-						<StyledHeadingContainer>
+						<StyledHeadingContainer disableGutters>
 							<AccessibilityAssistantHeading
 								period={period}
 								onPeriodChange={onPeriodChange}
@@ -67,7 +67,7 @@ const AccessibilityAssistant = () => {
 						</StyledHeadingContainer>
 					</StyledHeadingWrapper>
 
-					<StyledContainer>
+					<StyledContainer disableGutters>
 						<AccessibilityAssistantResultsHeading />
 						<AccessibilityAssistantResultsTable
 							scannerResults={getFilteredScannerResults()}
@@ -84,7 +84,7 @@ const AccessibilityAssistant = () => {
 		<>
 			<StyledBox>
 				<StyledHeadingWrapper>
-					<StyledHeadingContainer>
+					<StyledHeadingContainer disableGutters>
 						<AccessibilityAssistantHeading
 							period={period}
 							onPeriodChange={onPeriodChange}
@@ -95,7 +95,7 @@ const AccessibilityAssistant = () => {
 					</StyledHeadingContainer>
 				</StyledHeadingWrapper>
 
-				<StyledContainer>
+				<StyledContainer disableGutters>
 					<AccessibilityAssistantResultsHeading />
 					<AccessibilityAssistantResultsTable
 						scannerResults={getFilteredScannerResults()}
@@ -122,26 +122,18 @@ const StyledHeadingWrapper = styled(Box)`
 `;
 
 const StyledHeadingContainer = styled(Container)`
-	padding-top: ${({ theme }) => theme.spacing(4)};
-	padding-bottom: ${({ theme }) => theme.spacing(4)};
-	padding-left: ${({ theme }) => theme.spacing(4)};
-	padding-right: ${({ theme }) => theme.spacing(4)};
+	padding: ${({ theme }) => theme.spacing(4)};
 
 	@media (min-width: ${({ theme }) => theme.breakpoints.values.xl}px) {
-		padding-left: 0;
-		padding-right: 0;
+		padding-inline: 0;
 	}
 `;
 
 export const StyledContainer = styled(Container)`
-	padding-top: ${({ theme }) => theme.spacing(4)};
-	padding-bottom: ${({ theme }) => theme.spacing(4)};
-	padding-left: ${({ theme }) => theme.spacing(4)};
-	padding-right: ${({ theme }) => theme.spacing(4)};
+	padding: ${({ theme }) => theme.spacing(4)};
 
 	@media (min-width: ${({ theme }) => theme.breakpoints.values.xl}px) {
-		padding-left: 0;
-		padding-right: 0;
+		padding-inline: 0;
 	}
 `;
 

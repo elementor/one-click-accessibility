@@ -93,7 +93,6 @@ const PieChart = ({ issueByCategory, loading, noResultsState }) => {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				marginRight: 1.5,
 			}}
 		>
 			<MuiPieChart

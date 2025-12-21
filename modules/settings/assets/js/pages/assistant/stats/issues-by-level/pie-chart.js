@@ -43,7 +43,6 @@ const PieChart = ({
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				marginRight: 0.5,
 				position: 'relative',
 			}}
 		>
