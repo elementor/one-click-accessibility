@@ -21,7 +21,7 @@ const QuotaBar = ({ type, quotaData }) => {
 	 */
 	const progressBarColor = () => {
 		if (planUsage < 80) {
-			return 'info';
+			return 'primary';
 		}
 		if (planUsage >= 80 && planUsage < 95) {
 			return 'warning';

@@ -1,8 +1,10 @@
 import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
-import ExternalLinkIcon from '@elementor/icons/ExternalLinkIcon';
+import CrownIcon from '@elementor/icons/CrownIcon';
+import PlugXIcon from '@elementor/icons/PlugXIcon';
 import UserIcon from '@elementor/icons/UserIcon';
 import Avatar from '@elementor/ui/Avatar';
 import Box from '@elementor/ui/Box';
+import Button from '@elementor/ui/Button';
 import Chip from '@elementor/ui/Chip';
 import Divider from '@elementor/ui/Divider';
 import Menu from '@elementor/ui/Menu';
@@ -10,21 +12,25 @@ import MenuItem from '@elementor/ui/MenuItem';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { QuotaBar } from '@ea11y/components';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { UserArrowIcon } from '@ea11y/icons';
-import { ELEMENTOR_URL } from '@ea11y-apps/global/constants';
+import { GOLINKS } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
 import { truncateEmail } from '../../helpers/popup-menu';
+import { openLink } from '../../utils';
 
 export const PopupMenu = (menuProps) => {
 	const { save } = useStorage();
 	const { error } = useToastNotification();
 	const { planData } = useSettings();
 
-	const onDeactivateAndDisconnect = async () => {
+	const isFree = planData?.plan?.name === 'Free';
+
+	const handleAccountSwitch = async () => {
 		try {
 			await API.deactivate();
 			await API.redirectToConnect();
@@ -44,6 +50,29 @@ export const PopupMenu = (menuProps) => {
 			console.error(e);
 		}
 	};
+
+	const handlePlanUpgrade = () => {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
+			feature: 'upgrade plan',
+			component: 'my account popup',
+		});
+		openLink(GOLINKS.ADD_VISITS);
+	};
+
+	const handleSubscriptionDeactivation = () => {
+		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
+			buttonName: 'Deactivate subscription',
+		});
+		openLink(GOLINKS.MANAGE_SUBSCRIPTION);
+	};
+
+	const handleSubscriptionManagement = () => {
+		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
+			buttonName: 'Manage subscription',
+		});
+		openLink(GOLINKS.MANAGE_SUBSCRIPTION);
+	};
+
 	return (
 		<Menu
 			{...menuProps}
@@ -58,12 +87,13 @@ export const PopupMenu = (menuProps) => {
 			PaperProps={{
 				sx: {
 					backgroundColor: 'common.white',
+					minWidth: 230,
 				},
 			}}
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
 			autoFocus={false}
 		>
-			<StyledBox>
+			<StyledBox as="li">
 				<Avatar sx={{ width: 32, height: 32 }}>
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
@@ -77,8 +107,7 @@ export const PopupMenu = (menuProps) => {
 
 					{planData?.plan?.name && (
 						<Chip
-							color="info"
-							variant="standard"
+							variant="filled"
 							label={planData?.plan?.name}
 							size="tiny"
 							sx={{ width: 'fit-content', marginTop: 0.5 }}
@@ -86,9 +115,31 @@ export const PopupMenu = (menuProps) => {
 					)}
 				</Box>
 			</StyledBox>
-			<Divider />
 
-			<StyledMenuItem dense onClick={onDeactivateAndDisconnect}>
+			<Divider sx={{ mb: 1 }} />
+
+			<QuotaSection>
+				<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
+				<QuotaBar type="ai" quotaData={planData?.aiCredits} />
+
+				<Button
+					variant="outlined"
+					startIcon={isFree ? <CrownIcon /> : null}
+					onClick={handlePlanUpgrade}
+					size="small"
+					fullWidth
+					color={isFree ? 'promotion' : 'info'}
+					sx={{ marginTop: 0.5 }}
+				>
+					{isFree
+						? __('Upgrade plan', 'pojo-accessibility')
+						: __('View more plans', 'pojo-accessibility')}
+				</Button>
+			</QuotaSection>
+
+			<Divider sx={{ mb: 1 }} />
+
+			<StyledMenuItem dense onClick={handleAccountSwitch}>
 				<UserArrowIcon sx={{ color: 'action.active' }} />
 
 				<StyledTypography>
@@ -96,20 +147,22 @@ export const PopupMenu = (menuProps) => {
 				</StyledTypography>
 			</StyledMenuItem>
 
-			<StyledMenuItem
-				dense
-				sx={{ width: '100%', justifyContent: 'space-between' }}
-				onClick={() => window.open(ELEMENTOR_URL)}
-			>
-				<Box display="flex" flexDirection="row">
-					<CalendarDollarIcon sx={{ color: 'action.active' }} />
+			<StyledMenuItem dense onClick={handleSubscriptionDeactivation}>
+				<PlugXIcon sx={{ color: 'action.active' }} />
 
-					<StyledTypography>
-						{__('Subscription', 'pojo-accessibility')}
-					</StyledTypography>
-				</Box>
+				<StyledTypography>
+					{__('Deactivate subscription', 'pojo-accessibility')}
+				</StyledTypography>
+			</StyledMenuItem>
 
-				<ExternalLinkIcon sx={{ color: 'text.primary' }} />
+			<Divider />
+
+			<StyledMenuItem dense onClick={handleSubscriptionManagement}>
+				<CalendarDollarIcon sx={{ color: 'action.active' }} />
+
+				<StyledTypography>
+					{__('Manage subscription', 'pojo-accessibility')}
+				</StyledTypography>
 			</StyledMenuItem>
 		</Menu>
 	);
@@ -128,14 +181,21 @@ const StyledBox = styled(Box)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 
-	gap: ${({ theme }) => theme.spacing(1)};
-	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(2)}`};
+	gap: ${({ theme }) => theme.spacing(1.5)};
+	padding: ${({ theme }) => theme.spacing(0.5, 2)};
+`;
+
+const QuotaSection = styled(Box)`
+	display: flex;
+	flex-direction: column;
+	gap: ${({ theme }) => theme.spacing(0.5)};
+	padding: ${({ theme }) => theme.spacing(1, 2, 2)};
 `;
 
 const StyledTypography = styled(Typography)`
 	color: ${({ theme }) => theme.palette.text.primary};
-	margin-left: ${({ theme }) => theme.spacing(1)};
+	margin-inline-start: ${({ theme }) => theme.spacing(1)};
 	font-size: 14px;
 `;
