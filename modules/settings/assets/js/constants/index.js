@@ -1,9 +1,11 @@
 import {
-	ColorBlue100,
-	ColorBlue300,
-	ColorBlue400,
-	ColorBlue50,
-	ColorBlue600,
+	ColorBurgundy900,
+	ColorPink400,
+	ColorBlue700,
+	ColorBlue500,
+	ColorGreen700,
+	ColorGreen500,
+	ColorCyan400,
 } from '@elementor/design-tokens/primitives';
 import AlignLeftIcon from '@elementor/icons/AlignLeftIcon';
 import LinkIcon from '@elementor/icons/LinkIcon';
@@ -138,9 +140,11 @@ export const FEATURE_MAPPER = {
 };
 
 export const CHARTS_COLORS = [
-	ColorBlue600,
-	ColorBlue400,
-	ColorBlue300,
-	ColorBlue100,
-	ColorBlue50,
+	ColorBurgundy900,
+	ColorPink400,
+	ColorBlue700,
+	ColorBlue500,
+	ColorGreen700,
+	ColorGreen500,
+	ColorCyan400,
 ];

@@ -10,6 +10,7 @@ import CardHeader from '@elementor/ui/CardHeader';
 import Chip from '@elementor/ui/Chip';
 import Collapse from '@elementor/ui/Collapse';
 import Rotate from '@elementor/ui/Rotate';
+import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import {
 	QuotaBar as QuotaBarComponent,
@@ -41,7 +42,9 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 
 	const QuotaTitle = () => (
 		<Box display="flex" alignItems="center" gap={1} whiteSpace="nowrap">
-			{__('Current Plan', 'pojo-accessibility')}
+			<Typography variant="body2" as="div">
+				{__('Current Plan', 'pojo-accessibility')}
+			</Typography>
 			<Chip variant="filled" label={planData?.plan?.name} size="tiny" />
 			<QuotaIndicator />
 		</Box>
@@ -110,7 +113,7 @@ const StyledBox = styled(Box, {
 	justify-content: center;
 	max-width: 230px;
 
-	margin: ${({ popup, theme }) => (popup ? '0' : theme.spacing(2))};
+	margin: ${({ popup, theme }) => (popup ? '0' : theme.spacing(1))};
 	padding: 0;
 
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
@@ -122,9 +125,13 @@ const StyledBox = styled(Box, {
 `;
 
 const StyledCardGroup = styled(CardGroup)`
+	display: flex;
+	flex-direction: column;
+	gap: ${({ theme }) => theme.spacing(1)};
+
 	border: none;
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-	padding: ${({ theme }) => `${theme.spacing(1.5)} ${theme.spacing(2)}`};
+	padding: ${({ theme }) => theme.spacing(1.5)};
 	width: 100%;
 	background-color: transparent;
 
@@ -136,6 +143,7 @@ const StyledCardGroup = styled(CardGroup)`
 const StyledCardContent = styled(CardContent)`
 	padding: 0;
 	background-color: transparent;
+
 	:last-child {
 		padding-bottom: 0;
 	}
@@ -153,11 +161,12 @@ const StyledCardContentInner = styled(CardContent)`
 const StyledCardHeader = styled(CardHeader)`
 	padding: 0;
 	background-color: transparent;
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
 `;
 
 const StyledCardActionArea = styled(CardActionArea)`
 	background-color: transparent;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+
 	button {
 		&:hover {
 			background-color: transparent;
