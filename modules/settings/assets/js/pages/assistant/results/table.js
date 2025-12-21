@@ -99,7 +99,9 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 										{result.page_title}
 									</StyledShortCell>
 
-									<StyledLongCell>{result.page_url}</StyledLongCell>
+									<StyledLongCell>
+										<span title={result.page_url}>{result.page_url}</span>
+									</StyledLongCell>
 
 									<StyledShortCell>
 										{formatDate(result.last_scan)}
