@@ -47,7 +47,7 @@ export default Sidebar;
 const StyledToggleButton = styled(IconButton)`
 	position: absolute;
 	inset-inline-end: -15px;
-	inset-block-start: 61px;
+	inset-block-start: 58px;
 	z-index: 999999;
 
 	border: 1px solid ${({ theme }) => theme.palette.divider};
@@ -76,16 +76,15 @@ const StyledDrawer = styled(Drawer, {
 
 const SidebarHeaderWrapper = styled('div')`
 	flex-shrink: 0;
-	padding-block: ${({ theme }) => theme.spacing(2.5, 1)};
-	padding-inline: ${({ theme }) => theme.spacing(1.5)};
+	padding: ${({ theme }) => theme.spacing(2, 2, 0)};
 	display: flex;
 	flex-direction: column;
-	gap: ${({ theme }) => theme.spacing(1.5)};
+	gap: ${({ theme }) => theme.spacing(2)};
 `;
 
 const SidebarMenuWrapper = styled('div')`
 	flex: 1;
-	padding-inline: ${({ theme }) => theme.spacing(1.5)};
+	padding-inline: ${({ theme }) => theme.spacing(2)};
 	overflow-y: auto;
 `;
 

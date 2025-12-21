@@ -7,7 +7,7 @@ export const StyledStatsItem = styled(Box)`
 	justify-content: space-between;
 	align-items: center;
 
-	padding: ${({ theme }) => `${theme.spacing(2)} ${theme.spacing(2.5)}`};
+	padding: ${({ theme }) => theme.spacing(2, 2.5)};
 
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
