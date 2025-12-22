@@ -8,26 +8,33 @@ import CardContent from '@elementor/ui/CardContent';
 import CardGroup from '@elementor/ui/CardGroup';
 import CardHeader from '@elementor/ui/CardHeader';
 import Chip from '@elementor/ui/Chip';
-import Collapse from '@elementor/ui/Collapse';
 import Rotate from '@elementor/ui/Rotate';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import {
-	QuotaBar as QuotaBarComponent,
-	QuotaIndicator,
-} from '@ea11y/components';
+	bindMenu,
+	bindTrigger,
+	usePopupState,
+} from '@elementor/ui/usePopupState';
+import { PopupMenu, QuotaIndicator } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { useState } from '@wordpress/element';
+import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { openLink } from '../../utils';
 
-const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
+const QuotaBarGroup = () => {
 	const { planData } = useSettings();
-	const [open, setOpen] = useState(false);
+	const anchorEl = useRef(null);
+	const [isOpened, setIsOpened] = useState(false);
 
-	const toggleOpen = () => setOpen((prev) => !prev);
+	const handleClick = () => setIsOpened(!isOpened);
+
+	const quotaPopupMenuState = usePopupState({
+		variant: 'popover',
+		popupId: 'popupMenuCollapsedSidebar',
+	});
 
 	/**
 	 * Send an event to the Mixpanel when the user clicks on the "Add visits" button and open the link.
@@ -41,45 +48,57 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 	};
 
 	const QuotaTitle = () => (
-		<Box display="flex" alignItems="center" gap={1} whiteSpace="nowrap">
+		<Box
+			display="flex"
+			alignItems="center"
+			gap={1}
+			whiteSpace="nowrap"
+			{...bindTrigger(quotaPopupMenuState)}
+		>
 			<Typography variant="body2" as="div">
-				{__('Current Plan', 'pojo-accessibility')}
+				{__('Current plan', 'pojo-accessibility')}
 			</Typography>
-			<Chip variant="filled" label={planData?.plan?.name} size="tiny" />
+			<Chip
+				variant="filled"
+				size="tiny"
+				label={planData?.plan?.name}
+				sx={{ fontWeight: '400' }}
+			/>
 			<QuotaIndicator />
 		</Box>
 	);
 
-	const QuotaBars = () => (
-		<StyledCardContentInner>
-			<QuotaBarComponent type="scanner" quotaData={planData?.scannedPages} />
-			<QuotaBarComponent type="ai" quotaData={planData?.aiCredits} />
-		</StyledCardContentInner>
-	);
-
 	return (
-		<StyledBox popup={popup}>
-			<StyledCardGroup>
+		<StyledBox>
+			<StyledCardGroup ref={anchorEl}>
 				<Card elevation={0} sx={{ overflow: 'visible' }}>
-					<StyledCardActionArea onClick={toggleOpen}>
+					<StyledCardActionArea onClick={handleClick}>
 						<StyledCardHeader
 							title={<QuotaTitle />}
 							action={
-								collapsible && (
-									<Rotate in={open}>
-										<ChevronUpIcon />
-									</Rotate>
-								)
+								<Rotate in={isOpened}>
+									<ChevronUpIcon />
+								</Rotate>
 							}
 							disableActionOffset
 						/>
 					</StyledCardActionArea>
-					{collapsible && (
-						<Collapse in={open}>
-							<QuotaBars />
-						</Collapse>
-					)}
-					{!collapsible && <QuotaBars />}
+					<PopupMenu
+						{...bindMenu(quotaPopupMenuState)}
+						closeAction={quotaPopupMenuState.close}
+						showUpgradeButton="false"
+						anchorOrigin={{
+							vertical: 'top',
+							horizontal: 'center',
+						}}
+						transformOrigin={{
+							vertical: 'bottom',
+							horizontal: 'center',
+						}}
+						open={isOpened}
+						onClose={handleClick}
+						anchorEl={anchorEl.current}
+					/>
 				</Card>
 				<Card elevation={0}>
 					<StyledCardContent>
@@ -104,23 +123,20 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 
 export default QuotaBarGroup;
 
-const StyledBox = styled(Box, {
-	shouldForwardProp: (prop) => prop !== 'popup',
-})`
+const StyledBox = styled(Box)`
 	display: flex;
 	flex-direction: row;
 	align-items: start;
 	justify-content: center;
-	max-width: 230px;
-
-	margin: ${({ popup, theme }) => (popup ? '0' : theme.spacing(1))};
+	max-width: 224px;
+	margin: ${({ theme }) => theme.spacing(1)};
 	padding: 0;
 
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 
-	:hover {
-		background-color: ${({ popup, theme }) =>
-			popup ? theme.palette.common.white : theme.palette.action.hover};
+	:hover,
+	:focus-visible {
+		background-color: ${({ theme }) => theme.palette.action.hover};
 	}
 `;
 
@@ -149,17 +165,8 @@ const StyledCardContent = styled(CardContent)`
 	}
 `;
 
-const StyledCardContentInner = styled(CardContent)`
-	padding: 0;
-	background-color: transparent;
-	padding-top: ${({ theme }) => theme.spacing(1)};
-	:last-child {
-		padding-bottom: ${({ theme }) => theme.spacing(2)};
-	}
-`;
-
 const StyledCardHeader = styled(CardHeader)`
-	padding: 0;
+	padding: ${({ theme }) => theme.spacing(0.5)} 0;
 	background-color: transparent;
 `;
 
@@ -167,9 +174,10 @@ const StyledCardActionArea = styled(CardActionArea)`
 	background-color: transparent;
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 
-	button {
-		&:hover {
-			background-color: transparent;
-		}
+	&:hover {
+		background-color: transparent;
+	}
+	.MuiCardActionArea-focusHighlight {
+		background-color: transparent;
 	}
 `;

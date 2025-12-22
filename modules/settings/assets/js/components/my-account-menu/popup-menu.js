@@ -76,24 +76,16 @@ export const PopupMenu = (menuProps) => {
 	return (
 		<Menu
 			{...menuProps}
-			anchorOrigin={{
-				vertical: 'bottom',
-				horizontal: 'right',
-			}}
-			transformOrigin={{
-				vertical: 'top',
-				horizontal: 'left',
-			}}
 			PaperProps={{
 				sx: {
 					backgroundColor: 'common.white',
-					minWidth: 230,
+					minWidth: 224,
 				},
 			}}
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
 			autoFocus={false}
 		>
-			<StyledBox as="li">
+			<StyledBox>
 				<Avatar sx={{ width: 32, height: 32 }}>
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
@@ -118,23 +110,25 @@ export const PopupMenu = (menuProps) => {
 
 			<Divider sx={{ mb: 1 }} />
 
-			<QuotaSection>
+			<QuotaSection as="li">
 				<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
 				<QuotaBar type="ai" quotaData={planData?.aiCredits} />
 
-				<Button
-					variant="outlined"
-					startIcon={isFree ? <CrownIcon /> : null}
-					onClick={handlePlanUpgrade}
-					size="small"
-					fullWidth
-					color={isFree ? 'promotion' : 'info'}
-					sx={{ marginTop: 0.5 }}
-				>
-					{isFree
-						? __('Upgrade plan', 'pojo-accessibility')
-						: __('View more plans', 'pojo-accessibility')}
-				</Button>
+				{!menuProps.showUpgradeButton && (
+					<Button
+						variant="outlined"
+						startIcon={isFree ? <CrownIcon /> : null}
+						onClick={handlePlanUpgrade}
+						size="small"
+						fullWidth
+						color={isFree ? 'promotion' : 'info'}
+						sx={{ marginTop: 0.5 }}
+					>
+						{isFree
+							? __('Upgrade plan', 'pojo-accessibility')
+							: __('View more plans', 'pojo-accessibility')}
+					</Button>
+				)}
 			</QuotaSection>
 
 			<Divider sx={{ mb: 1 }} />
@@ -177,7 +171,7 @@ const StyledMenuItem = styled(MenuItem)`
 	}
 `;
 
-const StyledBox = styled(Box)`
+const StyledBox = styled(MenuItem)`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -191,7 +185,7 @@ const QuotaSection = styled(Box)`
 	display: flex;
 	flex-direction: column;
 	gap: ${({ theme }) => theme.spacing(0.5)};
-	padding: ${({ theme }) => theme.spacing(1, 2, 2)};
+	padding: ${({ theme }) => theme.spacing(1, 2)};
 `;
 
 const StyledTypography = styled(Typography)`

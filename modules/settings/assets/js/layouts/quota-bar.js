@@ -8,11 +8,7 @@ import {
 	bindTrigger,
 	usePopupState,
 } from '@elementor/ui/usePopupState';
-import {
-	QuotaBarGroup,
-	QuotaBarPopupMenu,
-	QuotaIndicator,
-} from '@ea11y/components';
+import { PopupMenu, QuotaBarGroup, QuotaIndicator } from '@ea11y/components';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
 
 const QuotaBar = () => {
@@ -21,7 +17,7 @@ const QuotaBar = () => {
 
 	const quotaPopupMenuState = usePopupState({
 		variant: 'popover',
-		popupId: 'quotaPopupMenu',
+		popupId: 'popupMenuExpandedSidebar',
 	});
 
 	if (loading) {
@@ -36,12 +32,20 @@ const QuotaBar = () => {
 		return (
 			<StyledBox>
 				<StyledIconButton {...bindTrigger(quotaPopupMenuState)}>
-					<CalendarDollarIcon sx={{ color: 'common.black', marginRight: 1 }} />
+					<CalendarDollarIcon sx={{ color: 'common.black' }} />
 					<QuotaIndicator />
 				</StyledIconButton>
-				<QuotaBarPopupMenu
+				<PopupMenu
 					{...bindMenu(quotaPopupMenuState)}
 					closeAction={quotaPopupMenuState.close}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'right',
+					}}
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'left',
+					}}
 				/>
 			</StyledBox>
 		);
@@ -65,7 +69,7 @@ const StyledBox = styled(Box)`
 `;
 
 const StyledIconButton = styled(IconButton)`
-	padding: ${({ theme }) => theme.spacing(1)} ${({ theme }) => theme.spacing(2)};
+	padding: ${({ theme }) => theme.spacing(1)};
 	background-color: ${({ theme }) => theme.palette.background.paper};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 
