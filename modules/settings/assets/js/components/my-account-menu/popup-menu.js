@@ -9,6 +9,7 @@ import Chip from '@elementor/ui/Chip';
 import Divider from '@elementor/ui/Divider';
 import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
+import MenuSubheader from '@elementor/ui/MenuSubheader';
 import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
@@ -108,7 +109,9 @@ export const PopupMenu = (menuProps) => {
 				</Box>
 			</StyledBox>
 
-			<Divider sx={{ mb: 1 }} />
+			<MenuSubheader disableGutters>
+				<Divider sx={{ my: 1 }} />
+			</MenuSubheader>
 
 			<QuotaSection as="li">
 				<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
@@ -131,7 +134,9 @@ export const PopupMenu = (menuProps) => {
 				)}
 			</QuotaSection>
 
-			<Divider sx={{ mb: 1 }} />
+			<MenuSubheader disableGutters>
+				<Divider sx={{ my: 1 }} />
+			</MenuSubheader>
 
 			<StyledMenuItem dense onClick={handleAccountSwitch}>
 				<UserArrowIcon sx={{ color: 'action.active' }} />
@@ -149,7 +154,9 @@ export const PopupMenu = (menuProps) => {
 				</StyledTypography>
 			</StyledMenuItem>
 
-			<Divider />
+			<MenuSubheader disableGutters>
+				<Divider sx={{ my: 1 }} />
+			</MenuSubheader>
 
 			<StyledMenuItem dense onClick={handleSubscriptionManagement}>
 				<CalendarDollarIcon sx={{ color: 'action.active' }} />
