@@ -165,6 +165,8 @@ export const PopupMenu = (menuProps) => {
 export default PopupMenu;
 
 const StyledMenuItem = styled(MenuItem)`
+	gap: ${({ theme }) => theme.spacing(1)};
+
 	&.MuiMenuItem-gutters:focus,
 	&.MuiMenuItem-gutters:focus-visible {
 		box-shadow: inset 0 0 0 3px #5e9ed6;
@@ -190,6 +192,5 @@ const QuotaSection = styled(Box)`
 
 const StyledTypography = styled(Typography)`
 	color: ${({ theme }) => theme.palette.text.primary};
-	margin-inline-start: ${({ theme }) => theme.spacing(1)};
 	font-size: 14px;
 `;
