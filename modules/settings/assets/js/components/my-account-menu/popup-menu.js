@@ -90,7 +90,7 @@ export const PopupMenu = (menuProps) => {
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
 
-				<Box display="flex" flexDirection="column" gap={0}>
+				<Box display="flex" flexDirection="column" gap={0.5}>
 					<Tooltip title={planData?.user?.email}>
 						<Typography variant="caption" color="text.primary">
 							{truncateEmail(planData?.user?.email)}
@@ -102,7 +102,7 @@ export const PopupMenu = (menuProps) => {
 							variant="filled"
 							label={planData?.plan?.name}
 							size="tiny"
-							sx={{ width: 'fit-content', marginTop: 0.5 }}
+							sx={{ width: 'fit-content' }}
 						/>
 					)}
 				</Box>
