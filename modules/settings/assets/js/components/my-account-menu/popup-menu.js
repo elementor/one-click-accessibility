@@ -86,7 +86,7 @@ export const PopupMenu = (menuProps) => {
 			autoFocus={false}
 		>
 			<StyledBox>
-				<Avatar sx={{ width: 32, height: 32 }}>
+				<Avatar sx={{ width: 24, height: 24 }}>
 					<UserIcon sx={{ color: 'common.white' }} />
 				</Avatar>
 
