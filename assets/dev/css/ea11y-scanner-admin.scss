@@ -112,7 +112,7 @@
     height: 0;
     border: 5px solid transparent;
     opacity: 0;
-    color: rgb(0, 0, 0, 0.8);
+    color: rgb(0 0 0 / 0.8);
     content: "\00a0";
     pointer-events: none;
   }
@@ -141,7 +141,7 @@
     right: 50%;
     bottom: auto;
     margin-right: -5px;
-    border-top-color: rgb(0, 0, 0, 0.8);
+    border-top-color: rgb(0 0 0 / 0.8);
   }
 
   &-hidden::before,
@@ -171,7 +171,7 @@
 
   &:hover {
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgb(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
   }
 
   &:focus {
