@@ -84,7 +84,7 @@ const SidebarHeaderWrapper = styled('div')`
 
 const SidebarMenuWrapper = styled('div')`
 	flex: 1;
-	padding-inline: ${({ theme }) => theme.spacing(2)};
+	padding: ${({ theme }) => theme.spacing(2)};
 	overflow-y: auto;
 `;
 
