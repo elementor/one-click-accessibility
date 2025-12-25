@@ -9,14 +9,14 @@ export const QuotaBarData = {
 		),
 	},
 	scanner: {
-		title: __('Pages scanned', 'pojo-accessibility'),
+		title: __('Scanned URLs', 'pojo-accessibility'),
 		infotipDescription: __(
 			'This shows how many URLs you’ve scanned for accessibility in total. If you’re reaching your limit, consider upgrading to keep scanning new pages.',
 			'pojo-accessibility',
 		),
 	},
 	ai: {
-		title: __('AI credits', 'pojo-accessibility'),
+		title: __('AI credits used', 'pojo-accessibility'),
 		infotipDescription: __(
 			'This is how many AI credits you’ve used to resolve issues or to generate content. Upgrade if you’re nearing your plan limit to keep full functionality.',
 			'pojo-accessibility',
