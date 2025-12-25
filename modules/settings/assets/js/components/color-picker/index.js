@@ -13,7 +13,7 @@ import './style.css';
 
 const StyledHexColorInput = styled(HexColorInput)`
 	width: 100%;
-	border: 1px solid rgba(0, 0, 0, 0.12);
+	border: 1px solid rgb(0 0 0 / 0.12);
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	padding-left: 10px;
 `;

@@ -87,7 +87,7 @@ const StyledPaper = styled(Paper)`
 	position: relative;
 
 	:hover {
-		box-shadow: 0 0 15px 0 rgba(37, 99, 235, 0.15);
+		box-shadow: 0 0 15px 0 rgb(37 99 235 / 0.15);
 		border-color: ${({ theme }) => theme.palette.info.main};
 	}
 `;
