@@ -29,6 +29,8 @@ const QuotaBarGroup = () => {
 	const anchorEl = useRef(null);
 	const [isOpened, setIsOpened] = useState(false);
 
+	const isFree = planData?.plan?.name === 'Free';
+
 	const handleClick = () => setIsOpened(!isOpened);
 
 	const quotaPopupMenuState = usePopupState({
@@ -104,13 +106,13 @@ const QuotaBarGroup = () => {
 					<StyledCardContent>
 						<Button
 							variant="outlined"
-							startIcon={planData?.plan?.name === 'Free' ? <CrownIcon /> : null}
+							startIcon={isFree ? <CrownIcon /> : null}
 							onClick={handleAddVisitsClick}
 							size="small"
 							fullWidth
-							color={planData?.plan?.name === 'Free' ? 'promotion' : 'info'}
+							color={isFree ? 'promotion' : 'secondary'}
 						>
-							{planData?.plan?.name === 'Free'
+							{isFree
 								? __('Upgrade plan', 'pojo-accessibility')
 								: __('View more plans', 'pojo-accessibility')}
 						</Button>

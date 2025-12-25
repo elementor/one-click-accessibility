@@ -124,7 +124,7 @@ export const PopupMenu = (menuProps) => {
 						onClick={handlePlanUpgrade}
 						size="small"
 						fullWidth
-						color={isFree ? 'promotion' : 'info'}
+						color={isFree ? 'promotion' : 'secondary'}
 						sx={{ marginTop: 0.5 }}
 					>
 						{isFree
