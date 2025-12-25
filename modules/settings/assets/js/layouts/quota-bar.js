@@ -76,4 +76,8 @@ const StyledIconButton = styled(IconButton)`
 	&:hover {
 		background-color: ${({ theme }) => theme.palette.action.hover};
 	}
+
+	&:focus {
+		background-color: ${({ theme }) => theme.palette.action.focus};
+	}
 `;

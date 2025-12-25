@@ -134,8 +134,8 @@ const StyledBox = styled(Box)`
 
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 
-	:hover,
-	:focus-visible {
+	&:hover,
+	&:focus-within {
 		background-color: ${({ theme }) => theme.palette.action.hover};
 	}
 `;
