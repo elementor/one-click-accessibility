@@ -1,4 +1,4 @@
-import ChevronUpIcon from '@elementor/icons/ChevronUpIcon';
+import ChevronDownSmallIcon from '@elementor/icons/ChevronDownSmallIcon';
 import CrownIcon from '@elementor/icons/CrownIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
@@ -78,8 +78,8 @@ const QuotaBarGroup = () => {
 						<StyledCardHeader
 							title={<QuotaTitle />}
 							action={
-								<Rotate in={isOpened}>
-									<ChevronUpIcon />
+								<Rotate in={!isOpened}>
+									<ChevronDownSmallIcon />
 								</Rotate>
 							}
 							disableActionOffset
