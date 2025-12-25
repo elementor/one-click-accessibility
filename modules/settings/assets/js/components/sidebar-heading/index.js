@@ -34,8 +34,8 @@ const StyledHeader = styled('div')`
 
 /* TODO: Replace the icon when marketing decide which icon to use */
 const StyledHeaderIcon = styled(WidgetIcon)`
-	font-size: 2.75rem;
-	padding: ${({ theme }) => theme.spacing(1.25)};
+	font-size: 2.5rem;
+	padding: ${({ theme }) => theme.spacing(0.75)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
 	color: rgb(0 0 0 / 0.54);
