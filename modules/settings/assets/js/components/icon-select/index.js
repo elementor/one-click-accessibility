@@ -54,11 +54,11 @@ const IconSelect = (props) => {
 export default IconSelect;
 
 const StyledRadioGroup = styled(RadioGroup)`
-	display: grid;
+	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	justify-content: space-between;
 	gap: ${({ theme }) => theme.spacing(2)};
-	grid-template-columns: repeat(4, 1fr);
 `;
 
 const StyledFormLabel = styled(FormLabel)`
