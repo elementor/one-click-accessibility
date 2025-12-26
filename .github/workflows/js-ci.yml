@@ -38,7 +38,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Lint
+      - name: Lint Styles
+        run: npm run lint:css
+
+      - name: Lint JS/TS
         run: npm run lint:js
 
 #      - name: Test

@@ -2,25 +2,19 @@
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   pointer-events: none;
-
   position: fixed;
-
   height: 1px;
   width: 1px;
   margin: -1px;
   padding: 0;
   overflow: hidden;
-
   display: flex;
   align-items: center;
   gap: 8px;
-
   border-radius: 12px;
   border: 1px solid #2563EB;
-
   background-color: #fff;
   color: #0C0D0E;
-
   text-decoration: none;
   word-wrap: normal !important;
 }
@@ -29,12 +23,9 @@
   clip: auto !important;
   clip-path: none;
   pointer-events: auto;
-
   top: 30px;
   left: 30px;
   z-index: 100000;
-
-
   height: auto;
   width: auto;
   padding: 16px 24px;
@@ -42,13 +33,10 @@
 
 .ea11y-skip-to-content-link:focus + .ea11y-skip-to-content-backdrop {
   position: fixed;
-
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-
   z-index: 9999;
-
-  background-color: rgba(0, 0, 0, 0.50);
+  background-color: rgb(0 0 0 / 0.5);
 }
