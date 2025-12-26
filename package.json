@@ -8,6 +8,7 @@
 		"build": "NODE_ENV=production wp-scripts build",
 		"start": "NODE_ENV=development wp-scripts start",
 		"format": "wp-scripts format",
+		"lint": "npm run lint:css && npm run lint:js && npm run lint:php",
 		"lint:css": "wp-scripts lint-style",
 		"lint:css:fix": "wp-scripts lint-style --fix",
 		"lint:js": "wp-scripts lint-js",
