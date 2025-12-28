@@ -4,6 +4,35 @@ import {
 	useContext,
 	useEffect,
 } from '@wordpress/element';
+import { MenuItems } from '../components/sidebar-menu/menu';
+
+/**
+ * URL hash to the correct parent/child menu selection.
+ *
+ * @param {string} hash - The URL hash value (without #)
+ * @return {Object} The selectedMenu object with parent and optionally child
+ */
+const hashToMenuId = (hash) => {
+	const defaultHash = 'scans';
+
+	if (!hash) {
+		return { parent: defaultHash };
+	}
+
+	// Check if it's a parent key
+	if (MenuItems[hash]) {
+		return { parent: hash };
+	}
+
+	// Check if it's a child key
+	for (const [parentKey, parentItem] of Object.entries(MenuItems)) {
+		if (parentItem.children && parentItem.children[hash]) {
+			return { parent: parentKey, child: hash };
+		}
+	}
+
+	return { parent: defaultHash };
+};
 
 /**
  * Context Component.
@@ -21,9 +50,9 @@ export const SettingsProvider = ({ children }) => {
 	});
 
 	useEffect(() => {
-		setSelectedMenu({
-			parent: window.location.hash.replace('#', '') || 'scanOverview',
-		});
+		const hash = window.location.hash.replace('#', '');
+		const menuId = hashToMenuId(hash);
+		setSelectedMenu(menuId);
 	}, []);
 
 	const [widgetMenuSettings, setWidgetMenuSettings] = useState({
