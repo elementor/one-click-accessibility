@@ -3,7 +3,7 @@ import { MenuItems, MenuItem } from '@ea11y/components';
 
 const SidebarMenu = () => {
 	return (
-		<List>
+		<List disablePadding>
 			{Object.entries(MenuItems).map(([key, item]) => (
 				<MenuItem key={key} keyName={key} item={item} />
 			))}
