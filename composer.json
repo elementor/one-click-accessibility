@@ -23,7 +23,8 @@
     "yoast/phpunit-polyfills": "^2.0"
   },
   "scripts": {
-    "lint": "phpcs --standard=./ruleset.xml ./**/*.php"
+    "lint": "vendor/bin/phpcs --standard=./ruleset.xml ./**/*.php",
+    "lint:fix": "vendor/bin/phpcbf --standard=./ruleset.xml ./**/*.php "
   },
   "require": {
     "firebase/php-jwt": "^6.10",
