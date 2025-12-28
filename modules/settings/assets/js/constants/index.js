@@ -10,22 +10,20 @@ import {
 import AlignLeftIcon from '@elementor/icons/AlignLeftIcon';
 import LinkIcon from '@elementor/icons/LinkIcon';
 import WorldIcon from '@elementor/icons/WorldIcon';
-import {
-	ContrastIcon,
-	GrayscaleIcon,
-	HideImagesIcon,
-	LineHeightIcon,
-	PageStructureIcon,
-	PauseAnimationsIcon,
-	ReadableFontIcon,
-	ReadingPanelIcon,
-	TextSizeIcon,
-} from '@ea11y/icons';
+import ContrastIcon from '@ea11y/icons/contrast';
 import FocusIcon from '@ea11y/icons/focus-icon';
+import GrayscaleIcon from '@ea11y/icons/graysacale';
+import HideImagesIcon from '@ea11y/icons/hide-images';
 import HideWidgetIcon from '@ea11y/icons/hide-widget-icon';
+import LineHeightIcon from '@ea11y/icons/line-height';
+import PageStructureIcon from '@ea11y/icons/page-structure';
+import PauseAnimationsIcon from '@ea11y/icons/pause-animations';
+import ReadableFontIcon from '@ea11y/icons/readable-font';
+import ReadingPanelIcon from '@ea11y/icons/reading-panel';
 import ScreenReaderIcon from '@ea11y/icons/screen-reader-icon';
 import SitemapIcon from '@ea11y/icons/sitemap-icon';
 import StatementIcon from '@ea11y/icons/statement-icon';
+import TextSizeIcon from '@ea11y/icons/text-size';
 import { __ } from '@wordpress/i18n';
 
 export const SKELETON_OPTIONS = Object.freeze({
