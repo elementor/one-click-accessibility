@@ -12,7 +12,6 @@ export { default as ColorPicker } from './color-picker';
 export { default as AlignmentMatrixControl } from './alignment-matrix-control';
 export { default as PositionControl } from './position-control';
 export { MenuItems } from '../components/sidebar-menu/menu';
-export { default as AdminTopBar } from './admin-top-bar';
 export { default as BottomBar } from './bottom-bar';
 export { default as PostConnectModal } from './post-connect-modal';
 export { default as StatementGenerator } from './statement-generator';

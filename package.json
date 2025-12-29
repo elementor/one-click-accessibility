@@ -46,6 +46,7 @@
 	},
 	"dependencies": {
 		"@elementor/design-tokens": "^1.1.4",
+		"@elementor/elementor-one-assets": "^0.4.4",
 		"@elementor/icons": "^1.46.0",
 		"@elementor/ui": "^1.36.14",
 		"@emotion/cache": "^11.14.0",

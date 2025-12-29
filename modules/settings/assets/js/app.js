@@ -1,4 +1,8 @@
 import '../css/style.css';
+import {
+	ElementorOneAssetsProvider,
+	ElementorOneHeader,
+} from '@elementor/elementor-one-assets';
 import Box from '@elementor/ui/Box';
 import DirectionProvider from '@elementor/ui/DirectionProvider';
 import Grid from '@elementor/ui/Grid';
@@ -16,7 +20,7 @@ import {
 	useSavedSettings,
 	useSettings,
 } from '@ea11y/hooks';
-import { QuotaNotices, Sidebar, TopBar } from '@ea11y/layouts';
+import { QuotaNotices, Sidebar } from '@ea11y/layouts';
 import Notifications from '@ea11y-apps/global/components/notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
@@ -24,6 +28,7 @@ import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
 
 const App = () => {
+	const { ea11ySettingsData } = window;
 	const { hasFinishedResolution, loading } = useSavedSettings();
 
 	const { isConnected, isRTL, closePostConnectModal, isUrlMismatch } =
@@ -32,14 +37,14 @@ const App = () => {
 	const { selectedMenu } = useSettings();
 
 	useEffect(() => {
-		if (window.ea11ySettingsData?.planData?.user?.id) {
+		if (ea11ySettingsData?.planData?.user?.id) {
 			mixpanelService.init().then(() => {
 				mixpanelService.sendEvent(mixpanelEvents.pageView, {
 					page: 'Button',
 				});
 			});
 		}
-	}, [window.ea11ySettingsData?.planData?.user?.id]);
+	}, [ea11ySettingsData?.planData?.user?.id]);
 
 	const selectedParent = MenuItems[selectedMenu?.parent];
 	const selectedChild = selectedMenu?.child
@@ -49,30 +54,42 @@ const App = () => {
 	return (
 		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
-				{isConnected !== undefined && !isUrlMismatch && !isConnected && (
-					<ConnectModal />
-				)}
-				{isConnected && !closePostConnectModal && <PostConnectModal />}
-				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
-				<OnboardingModal />
-				<GetStartedModal />
+				<ElementorOneAssetsProvider env={ea11ySettingsData?.pluginEnv}>
+					<ElementorOneHeader
+						appSettings={{
+							slug: 'ally', // Intentionally different than the plugin slug.
+							version: ea11ySettingsData?.pluginVersion,
+						}}
+					/>
 
-				<TopBar />
+					{isConnected !== undefined && !isUrlMismatch && !isConnected && (
+						<ConnectModal />
+					)}
+					{isConnected && !closePostConnectModal && <PostConnectModal />}
+					{isUrlMismatch && !isConnected && <UrlMismatchModal />}
+					<OnboardingModal />
+					<GetStartedModal />
 
-				<StyledGrid>
-					<Sidebar />
+					<StyledGrid>
+						<Sidebar />
 
-					<StyledContainer>
-						<QuotaNotices />
-						<PageContent
-							// Looks the best if we have both checks
-							isLoading={!hasFinishedResolution || loading}
-							page={selectedChild ? selectedChild?.page : selectedParent?.page}
-						/>
-					</StyledContainer>
-				</StyledGrid>
+						<StyledContainer>
+							<QuotaNotices />
+							<PageContent
+								// Looks the best if we have both checks
+								isLoading={!hasFinishedResolution || loading}
+								page={
+									selectedChild ? selectedChild?.page : selectedParent?.page
+								}
+							/>
+						</StyledContainer>
+					</StyledGrid>
 
-				<Notifications message={notificationMessage} type={notificationType} />
+					<Notifications
+						message={notificationMessage}
+						type={notificationType}
+					/>
+				</ElementorOneAssetsProvider>
 			</ThemeProvider>
 		</DirectionProvider>
 	);
