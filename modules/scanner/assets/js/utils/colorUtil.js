@@ -166,9 +166,9 @@ export class ColorUtil {
 		whitesmoke: '#f5f5f5',
 		yellow: '#ffff00',
 		yellowgreen: '#9acd32',
-		buttontext: 'rgba(0, 0, 0, 0.847)',
+		buttontext: 'rgb(0 0 0 / 0.847)',
 		buttonface: '#ffffff',
-		graytext: 'rgba(0, 0, 0, 0.247)',
+		graytext: 'rgb(0 0 0 / 0.247)',
 	};
 
 	// Rewrite the color object to account for alpha

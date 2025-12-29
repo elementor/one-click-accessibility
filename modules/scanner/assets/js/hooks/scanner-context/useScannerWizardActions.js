@@ -79,7 +79,6 @@ export default function useScannerWizardActions(state) {
 					data.summary,
 				);
 				window.ea11yScannerData.pageData.unregistered = false;
-				runNewScan();
 			}
 
 			setResults(data);

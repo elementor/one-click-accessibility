@@ -1,6 +1,6 @@
 import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
-import { AnalyticsToggle, ChartsList } from '@ea11y/components/analytics';
+import { ChartsList } from '@ea11y/components/analytics';
 import UpgradeModal from '@ea11y/components/upgrade-modal';
 import {
 	StyledBox,
@@ -24,16 +24,9 @@ const Analytics = () => {
 	return (
 		<StyledBox sx={{ position: 'relative' }}>
 			<StyledWideBox>
-				<StyledWrap>
-					<StyledTitle
-						variant="h4"
-						color="text.primary"
-						sx={{ mb: 0, position: 'relative', zIndex: 3 }}
-					>
-						{__('Analytics', 'pojo-accessibility')}
-					</StyledTitle>
-					<AnalyticsToggle />
-				</StyledWrap>
+				<StyledPageTitle variant="h5">
+					{__('Analytics', 'pojo-accessibility')}
+				</StyledPageTitle>
 				<ChartsList />
 			</StyledWideBox>
 			{!isProVersion && (
@@ -45,6 +38,11 @@ const Analytics = () => {
 	);
 };
 
+const StyledPageTitle = styled(StyledTitle)`
+	max-width: 1200px;
+	margin: 0 auto 24px;
+`;
+
 const Blur = styled(Box)`
 	position: absolute;
 	top: 0;
@@ -53,17 +51,6 @@ const Blur = styled(Box)`
 	height: 100%;
 	backdrop-filter: blur(5px);
 	z-index: 2;
-`;
-
-const StyledWrap = styled(Box)`
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	max-width: 1200px;
-
-	margin-bottom: 40px;
-	margin-right: auto;
-	margin-left: auto;
 `;
 
 export default Analytics;

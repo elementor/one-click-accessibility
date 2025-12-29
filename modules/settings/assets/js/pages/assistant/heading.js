@@ -3,9 +3,9 @@ import Chip from '@elementor/ui/Chip';
 import FormLabel from '@elementor/ui/FormLabel';
 import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
-import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
+import { StyledTitle } from '@ea11y/pages/pages.styles';
 import { __ } from '@wordpress/i18n';
 
 const AccessibilityAssistantHeading = ({
@@ -18,7 +18,7 @@ const AccessibilityAssistantHeading = ({
 
 	return (
 		<StyledHeadingContainer>
-			<StyledPageTitle variant="h5" as="h1">
+			<StyledTitle variant="h5">
 				{__('Accessibility scans', 'pojo-accessibility')}
 
 				<Chip
@@ -27,7 +27,7 @@ const AccessibilityAssistantHeading = ({
 					color="default"
 					label={__('Beta', 'pojo-accessibility')}
 				/>
-			</StyledPageTitle>
+			</StyledTitle>
 
 			<Box>
 				<StyledTimeFilterLabel htmlFor={periodSelectId}>
@@ -66,20 +66,6 @@ AccessibilityAssistantHeading.propTypes = {
 	isEmpty: PropTypes.bool,
 	loading: PropTypes.bool,
 };
-
-const StyledPageTitle = styled(Typography)`
-	color: ${({ theme }) => theme.palette.common.black};
-	font-size: 32px;
-	font-weight: 400;
-	letter-spacing: 0.25px;
-	margin: 0;
-
-	.MuiChip-root {
-		margin-inline-start: ${({ theme }) => theme.spacing(1)};
-
-		font-weight: 400;
-	}
-`;
 
 const StyledHeadingContainer = styled(Box)`
 	display: flex;
