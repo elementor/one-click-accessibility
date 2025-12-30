@@ -38,8 +38,10 @@ export const PieChart = () => {
 	const sortedArray = Object.entries(combined)
 		.map(([event, total]) => ({ event, total }))
 		.sort((a, b) => b.value - a.value);
-	const topItems = sortedArray.slice(0, 4); // Top 3 items
-	const otherItems = sortedArray.slice(4); // Items ranked 4 and below
+
+	const showTotalTopItems = 6;
+	const topItems = sortedArray.slice(0, showTotalTopItems);
+	const otherItems = sortedArray.slice(showTotalTopItems);
 
 	const otherTotal = otherItems.reduce(
 		(sum, item) => sum + Number(item.total),

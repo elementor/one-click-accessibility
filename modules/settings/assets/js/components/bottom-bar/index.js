@@ -56,7 +56,7 @@ const BottomBar = () => {
 		<StyledContainer>
 			<Button
 				variant="contained"
-				color="info"
+				color="primary"
 				onClick={saveSettings}
 				disabled={
 					!hasChanges || Object.keys(hasError).some((key) => hasError[key])

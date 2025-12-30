@@ -232,7 +232,7 @@ const StatementLink = () => {
 
 			<CardActions>
 				<Button
-					color="info"
+					color="primary"
 					variant="contained"
 					onClick={savePage}
 					disabled={disabled}
