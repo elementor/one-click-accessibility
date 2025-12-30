@@ -26,7 +26,7 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 	};
 
 	// Function to transform HTML elements into Typography components
-	const transform = (node) => {
+	const transform = (node, index) => {
 		if (node.type === 'tag') {
 			const tagName = node.name; // Extract the HTML tag name
 
@@ -46,13 +46,15 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 			if (supportedTags.includes(tagName)) {
 				return (
 					<Typography
+						key={index}
 						variant={tagName === 'p' ? 'body2' : 'subtitle2'}
 						component={tagName}
 						marginBottom={1}
-						sx={node.attribs.class ? { textAlign: 'center' } : {}} //for correct render on preview
+						sx={node.attribs?.class ? { textAlign: 'center' } : {}} //for correct render on preview
 						color={tagName === 'p' ? 'text.secondary' : 'text.primary'}
 					>
-						{node.children && node.children.map((child) => transform(child))}
+						{node.children &&
+							node.children.map((child, i) => transform(child, i))}
 					</Typography>
 				);
 			}

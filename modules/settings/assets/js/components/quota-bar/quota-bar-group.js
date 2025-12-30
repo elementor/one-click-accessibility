@@ -88,7 +88,7 @@ const QuotaBarGroup = () => {
 					<PopupMenu
 						{...bindMenu(quotaPopupMenuState)}
 						closeAction={quotaPopupMenuState.close}
-						showUpgradeButton="false"
+						showupgradebutton="false"
 						anchorOrigin={{
 							vertical: 'top',
 							horizontal: 'center',
@@ -162,7 +162,7 @@ const StyledCardContent = styled(CardContent)`
 	padding: 0;
 	background-color: transparent;
 
-	:last-child {
+	:last-of-type {
 		padding-bottom: 0;
 	}
 `;

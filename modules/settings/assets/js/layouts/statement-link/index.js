@@ -159,7 +159,7 @@ const StatementLink = () => {
 							<Box
 								display="flex"
 								flexDirection="row"
-								fullWidth
+								width="100%"
 								alignItems="center"
 							>
 								<PageSelect />
@@ -194,11 +194,11 @@ const StatementLink = () => {
 										color="info"
 										size="small"
 										sx={{ marginLeft: 3 }}
+										checked={!!accessibilityStatementData?.hideLink}
 									/>
 								}
 								sx={{ marginBottom: 3, alignSelf: 'start', ml: 0 }}
 								onChange={onHideLink}
-								checked={accessibilityStatementData?.hideLink}
 							/>
 						</FormControl>
 					</Box>

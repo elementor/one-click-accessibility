@@ -84,7 +84,9 @@ IssueList.propTypes = {
 	issueByCategory: PropTypes.object.isRequired,
 };
 
-const StyledIssueLevel = styled(Box)`
+const StyledIssueLevel = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'colorIndex',
+})`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;

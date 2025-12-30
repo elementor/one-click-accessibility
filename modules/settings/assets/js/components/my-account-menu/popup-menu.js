@@ -117,7 +117,7 @@ export const PopupMenu = (menuProps) => {
 				<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
 				<QuotaBar type="ai" quotaData={planData?.aiCredits} />
 
-				{!menuProps.showUpgradeButton && (
+				{!menuProps.showupgradebutton && (
 					<Button
 						variant="outlined"
 						startIcon={isFree ? <CrownIcon /> : null}
