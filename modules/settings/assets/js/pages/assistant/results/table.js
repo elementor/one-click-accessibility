@@ -10,6 +10,7 @@ import TableContainer from '@elementor/ui/TableContainer';
 import TableFooter from '@elementor/ui/TableFooter';
 import TableHead from '@elementor/ui/TableHead';
 import TableRow from '@elementor/ui/TableRow';
+import Tooltip from '@elementor/ui/Tooltip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
@@ -96,11 +97,17 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 							<Fragment key={result.id}>
 								<TableRow>
 									<StyledShortCell component="th" scope="row">
-										{result.page_title}
+										<Tooltip arrow title={result.page_title}>
+											{result.page_title}
+										</Tooltip>
 									</StyledShortCell>
 
 									<StyledLongCell>
-										<span title={result.page_url}>{result.page_url}</span>
+										<span>
+											<Tooltip arrow title={result.page_url}>
+												{result.page_url}
+											</Tooltip>
+										</span>
 									</StyledLongCell>
 
 									<StyledShortCell>
@@ -219,6 +226,9 @@ AccessibilityAssistantResultsTable.propTypes = {
 
 const StyledTableContainer = styled(TableContainer)`
 	margin-top: ${({ theme }) => theme.spacing(3)};
+	padding: ${({ theme }) => theme.spacing(2)};
+	border: 1px solid ${({ theme }) => theme.palette.divider};
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 `;
 
 const StyledProgressContainer = styled(Box)`

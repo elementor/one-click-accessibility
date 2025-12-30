@@ -86,7 +86,7 @@ const PostConnectModal = () => {
 					variant="contained"
 					sx={{ padding: '8px 22px', width: '300px' }}
 					onClick={onClose}
-					color="info"
+					color="primary"
 				>
 					{__('Done', 'pojo-accessibility')}
 				</Button>

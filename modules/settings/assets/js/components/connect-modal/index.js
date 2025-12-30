@@ -120,7 +120,7 @@ const ConnectModal = () => {
 
 					<Button
 						variant="contained"
-						color="info"
+						color="primary"
 						size="large"
 						onClick={redirectToConnect}
 						fullWidth
