@@ -8,7 +8,7 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
 import { openLink } from '../../utils';
 
-export const HelpPopupMenu = (menuProps) => {
+export const HelpPopupMenu = ({ closeAction, ...menuProps }) => {
 	const { setIsGetStartedModalOpen } = useSettings();
 
 	const handleGetStartedClick = () => {
@@ -18,8 +18,8 @@ export const HelpPopupMenu = (menuProps) => {
 		});
 		setIsGetStartedModalOpen(true);
 
-		if (menuProps.closeAction) {
-			menuProps.closeAction();
+		if (closeAction) {
+			closeAction();
 		}
 	};
 

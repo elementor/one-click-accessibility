@@ -88,7 +88,7 @@ const QuotaBarGroup = () => {
 					<PopupMenu
 						{...bindMenu(quotaPopupMenuState)}
 						closeAction={quotaPopupMenuState.close}
-						showupgradebutton="false"
+						showUpgradeButton="false"
 						anchorOrigin={{
 							vertical: 'top',
 							horizontal: 'center',
