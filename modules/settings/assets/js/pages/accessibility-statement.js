@@ -239,7 +239,7 @@ const AccessibilityStatement = () => {
 						borderTop="1px solid rgb(0 0 0 / 0.12)"
 					>
 						<Button
-							color="info"
+							color="primary"
 							variant="contained"
 							disabled={continueDisabled}
 							onClick={handleContinue}

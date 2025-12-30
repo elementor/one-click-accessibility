@@ -130,7 +130,7 @@ const StyledHeadingContainer = styled(Container)`
 `;
 
 export const StyledContainer = styled(Container)`
-	padding: ${({ theme }) => theme.spacing(4)};
+	padding: ${({ theme }) => theme.spacing(1, 4, 4)};
 
 	@media (min-width: ${({ theme }) => theme.breakpoints.values.xl}px) {
 		padding-inline: 0;
