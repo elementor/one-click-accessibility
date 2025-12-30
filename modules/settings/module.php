@@ -21,8 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module extends Module_Base {
 
-
-
 	const SETTING_PREFIX = 'ea11y_';
 	const SETTING_GROUP = 'ea11y_settings';
 	const SETTING_BASE_SLUG = 'accessibility-settings';
@@ -162,6 +160,7 @@ class Module extends Module_Base {
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
 			'whatsNewDataHash' => WhatsNewModule::compare_data_hash(),
+			'isElementorOne' => self::is_elementor_one(),
 		];
 	}
 
@@ -174,6 +173,14 @@ class Module extends Module_Base {
 		}
 
 		self::register_site_with_data();
+	}
+
+	/**
+	 * Check if elementor one
+	 * @return bool
+	 */
+	public static function is_elementor_one(): bool {
+		return Connect::get_connect()->get_config( 'app_type' ) !== Config::APP_TYPE;
 	}
 
 	/**
