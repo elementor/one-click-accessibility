@@ -41,7 +41,7 @@ const AccessibilityAssistantEmptyState = () => {
 
 			<StyledButton
 				size="medium"
-				color="info"
+				color="primary"
 				variant="contained"
 				href={startScanUrl}
 				onClick={sendAnalytics}

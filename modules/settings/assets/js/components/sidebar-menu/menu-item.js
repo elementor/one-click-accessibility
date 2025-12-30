@@ -1,4 +1,4 @@
-import ChevronUpIcon from '@elementor/icons/ChevronUpIcon';
+import ChevronDownSmallIcon from '@elementor/icons/ChevronDownSmallIcon';
 import Chip from '@elementor/ui/Chip';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
@@ -119,8 +119,8 @@ const SidebarMenuItem = ({ keyName, item }) => {
 
 				{hasChildItems && (
 					<ExpandIconWrapper isSidebarCollapsed={isSidebarCollapsed}>
-						<Rotate in={isItemExpanded}>
-							<ChevronUpIcon fontSize="small" />
+						<Rotate in={!isItemExpanded}>
+							<ChevronDownSmallIcon />
 						</Rotate>
 					</ExpandIconWrapper>
 				)}
