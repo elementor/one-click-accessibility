@@ -79,7 +79,7 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 						</TableCell>
 						<TableCell>
 							<VisuallyHidden>
-								<Typography as="span">
+								<Typography component="span">
 									{__('Actions', 'pojo-accessibility')}
 								</Typography>
 							</VisuallyHidden>
@@ -98,16 +98,14 @@ const AccessibilityAssistantResultsTable = ({ scannerResults, loading }) => {
 								<TableRow>
 									<StyledShortCell component="th" scope="row">
 										<Tooltip arrow title={result.page_title}>
-											{result.page_title}
+											<span>{result.page_title}</span>
 										</Tooltip>
 									</StyledShortCell>
 
 									<StyledLongCell>
-										<span>
-											<Tooltip arrow title={result.page_url}>
-												{result.page_url}
-											</Tooltip>
-										</span>
+										<Tooltip arrow title={result.page_url}>
+											<span>{result.page_url}</span>
+										</Tooltip>
 									</StyledLongCell>
 
 									<StyledShortCell>
