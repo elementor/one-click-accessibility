@@ -59,7 +59,7 @@ class Settings_Pointer {
 			}
 
 			jQuery( document ).ready( function( $ ) {
-				$( '#toplevel_page_accessibility-settings' ).pointer( {
+				$( '#elementor_page_accessibility-settings' ).pointer( {
 					content: '<?php echo wp_kses( $pointer_content, $allowed_tags ); ?>',
 					pointerClass: 'ea11y-settings-pointer',
 					position: {
