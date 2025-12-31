@@ -55,7 +55,11 @@ const App = () => {
 	return (
 		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
-				<ElementorOneAssetsProvider env={ea11ySettingsData?.pluginEnv}>
+				<ElementorOneAssetsProvider
+					env={
+						ea11ySettingsData?.pluginEnv === 'stg' ? 'staging' : 'production'
+					}
+				>
 					<ElementorOneHeader
 						appSettings={{
 							slug: 'ally', // Intentionally different than the plugin slug.
