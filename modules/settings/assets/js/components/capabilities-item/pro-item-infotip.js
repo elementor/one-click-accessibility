@@ -137,15 +137,17 @@ const ProItemInfotip = ({
 			}}
 			onOpen={handleOnOpenEvent}
 		>
-			{showIcon && (
-				<StyledChip
-					color="promotion"
-					variant="standard"
-					icon={<ProCrownIcon />}
-					size="small"
-				/>
-			)}
-			{children}
+			<>
+				{showIcon && (
+					<StyledChip
+						color="promotion"
+						variant="standard"
+						icon={<ProCrownIcon />}
+						size="small"
+					/>
+				)}
+				{children}
+			</>
 		</Infotip>
 	);
 };
