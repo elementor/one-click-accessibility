@@ -216,8 +216,8 @@ const ListItemContainer = styled(ListItem, {
 		hasChildItems &&
 		isSidebarCollapsed &&
 		`
-		&:hover > div:last-of-type,
-		&:focus-within > div:last-of-type {
+		&:hover > div:last-child,
+		&:focus-within > div:last-child {
 			display: block;
 		}
 	`}

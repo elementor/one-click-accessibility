@@ -80,7 +80,7 @@ export const StyledStatementContainer = styled(Container)`
 `;
 
 export const StyledCardContent = styled(CardContent)`
-	&:last-of-type {
+	&:last-child {
 		padding-bottom: 16px;
 	}
 `;

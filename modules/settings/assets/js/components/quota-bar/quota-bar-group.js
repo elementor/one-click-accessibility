@@ -162,7 +162,7 @@ const StyledCardContent = styled(CardContent)`
 	padding: 0;
 	background-color: transparent;
 
-	:last-of-type {
+	:last-child {
 		padding-bottom: 0;
 	}
 `;
