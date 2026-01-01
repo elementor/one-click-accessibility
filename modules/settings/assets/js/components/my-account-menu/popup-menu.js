@@ -113,7 +113,7 @@ export const PopupMenu = ({ closeAction, showUpgradeButton, ...menuProps }) => {
 				<Divider sx={{ my: 1 }} />
 			</MenuSubheader>
 
-			<QuotaSection as="li">
+			<QuotaSection component="li">
 				<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
 				<QuotaBar type="ai" quotaData={planData?.aiCredits} />
 

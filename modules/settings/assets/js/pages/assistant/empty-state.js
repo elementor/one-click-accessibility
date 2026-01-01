@@ -28,7 +28,7 @@ const AccessibilityAssistantEmptyState = () => {
 		<StyledWrapper>
 			<AccessibilityAssistantDashboardIcon />
 
-			<StyledTitle variant="h6" as="h2">
+			<StyledTitle variant="h6" component="h2">
 				{__('Start by scanning your home page', 'pojo-accessibility')}
 			</StyledTitle>
 
@@ -51,13 +51,13 @@ const AccessibilityAssistantEmptyState = () => {
 			</StyledButton>
 
 			<StyledGuideContainer>
-				<StyledGuideTitle variant="subtitle1" as="h2">
+				<StyledGuideTitle variant="subtitle1" component="h2">
 					{__('Here’s how it works', 'pojo-accessibility')}
 				</StyledGuideTitle>
 
 				<StyledGuideStepsContainer>
 					<StyledGuideStep>
-						<StyledGuideStepTitle variant="subtitle2" as="h3">
+						<StyledGuideStepTitle variant="subtitle2" component="h3">
 							<NumberOneIcon />
 
 							{__('Scan a page', 'pojo-accessibility')}
@@ -72,7 +72,7 @@ const AccessibilityAssistantEmptyState = () => {
 					</StyledGuideStep>
 
 					<StyledGuideStep>
-						<StyledGuideStepTitle variant="subtitle2" as="h3">
+						<StyledGuideStepTitle variant="subtitle2" component="h3">
 							<NumberTwoIcon />
 
 							{__('Resolve issues', 'pojo-accessibility')}
@@ -87,7 +87,7 @@ const AccessibilityAssistantEmptyState = () => {
 					</StyledGuideStep>
 
 					<StyledGuideStep>
-						<StyledGuideStepTitle variant="subtitle2" as="h3">
+						<StyledGuideStepTitle variant="subtitle2" component="h3">
 							<NumberThreeIcon />
 
 							{__('Track everything', 'pojo-accessibility')}

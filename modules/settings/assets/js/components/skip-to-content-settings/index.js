@@ -158,7 +158,7 @@ const SkipToContentSettings = () => {
 
 					{hasError.skipToContent && (
 						<Typography
-							as="p"
+							component="p"
 							variant="caption"
 							color="error"
 							sx={{ marginTop: '4px' }}

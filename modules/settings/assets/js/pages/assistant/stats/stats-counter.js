@@ -11,13 +11,13 @@ const StatsCounter = ({ stat, loading, title, tooltip }) => {
 	return (
 		<StyledStatsItem className="scanned-urls">
 			<StyledStatsItemContent>
-				<StyledStatsItemTitle variant="subtitle1" as="p">
+				<StyledStatsItemTitle variant="subtitle1" component="p">
 					{title}
 
 					<AccessibilityAssistantTooltip content={tooltip} />
 				</StyledStatsItemTitle>
 
-				<Typography variant="h4" as="p">
+				<Typography variant="h4" component="div">
 					{loading ? <ValueLoader /> : stat}
 				</Typography>
 			</StyledStatsItemContent>

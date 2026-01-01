@@ -89,7 +89,7 @@ const CapabilitiesItem = ({
 	};
 
 	return (
-		<ListItem as="div" key={childKey} disableGutters sx={{ p: '4px' }}>
+		<ListItem component="div" key={childKey} disableGutters sx={{ p: '4px' }}>
 			{childKey === 'sitemap' ? (
 				<SitemapSettings sitemap={childValue} />
 			) : (

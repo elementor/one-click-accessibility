@@ -14,7 +14,7 @@ const IssuesByCategory = ({ stats, loading, noResultsState }) => {
 	return (
 		<StyledStatsItem className="resolved-issues-by-category">
 			<StyledStatsItemContent>
-				<StyledStatsItemTitle variant="subtitle1" as="p" spacing={3}>
+				<StyledStatsItemTitle variant="subtitle1" component="p" spacing={3}>
 					{__('Resolved issues by category', 'pojo-accessibility')}
 
 					<AccessibilityAssistantTooltip

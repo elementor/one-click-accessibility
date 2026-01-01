@@ -34,7 +34,7 @@ const WhatsNewDrawerBase = ({ isOpen, onClose, children }) => {
 		<>
 			<StyledDrawer open={isOpen} onClose={onClose} anchor="right">
 				<StyledHeader>
-					<Typography variant="overline" as="h1">
+					<Typography variant="overline" component="h1">
 						{__("What's New", 'image-optimization')}
 					</Typography>
 

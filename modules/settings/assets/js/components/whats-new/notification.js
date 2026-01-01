@@ -76,7 +76,7 @@ const WhatsNewNotification = ({
 		<StyledContainer>
 			<StyledSubHeading variant="caption">{topic}</StyledSubHeading>
 
-			<StyledHeading as="h2" variant="subtitle1">
+			<StyledHeading component="h2" variant="subtitle1">
 				{title}
 			</StyledHeading>
 

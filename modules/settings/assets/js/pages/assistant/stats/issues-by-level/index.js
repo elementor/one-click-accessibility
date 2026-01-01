@@ -29,7 +29,7 @@ const IssuesByLevel = ({ stats, loading, noResultsState }) => {
 	return (
 		<StyledStatsItem className="resolved-issues-by-level">
 			<StyledStatsItemContent>
-				<StyledStatsItemTitle variant="subtitle1" as="p" spacing={3}>
+				<StyledStatsItemTitle variant="subtitle1" component="p" spacing={3}>
 					{__('Resolved issues by level', 'pojo-accessibility')}
 
 					<AccessibilityAssistantTooltip
