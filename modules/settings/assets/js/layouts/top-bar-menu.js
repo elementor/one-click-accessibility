@@ -98,6 +98,14 @@ const TopBarMenu = () => {
 			<PopupMenu
 				{...bindMenu(accountMenuState)}
 				closeAction={accountMenuState.close}
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'right',
+				}}
+				transformOrigin={{
+					vertical: 'top',
+					horizontal: 'left',
+				}}
 			/>
 			{isSidebarOpen && <WhatsNewDrawer onClose={close} />}
 		</>

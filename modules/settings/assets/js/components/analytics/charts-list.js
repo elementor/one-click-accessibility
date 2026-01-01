@@ -10,6 +10,7 @@ import Select from '@elementor/ui/Select';
 import SvgIcon from '@elementor/ui/SvgIcon';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
+import { AnalyticsToggle } from '@ea11y/components/analytics';
 import {
 	LineChart,
 	PieChart,
@@ -115,33 +116,38 @@ export const ChartsList = () => {
 				</Alert>
 			)}
 
-			<Box display="flex" alignItems="center" gap={2}>
-				<Typography variant="subtitle1">
-					{__('Display data from', 'pojo-accessibility')}
-				</Typography>
-				<Select
-					name={__('Period', 'pojo-accessibility')}
-					onChange={changePeriod}
-					value={period}
-					size="small"
-					IconComponent={() => (
-						<StyledIcon>
-							<ChevronDownIcon />
-						</StyledIcon>
-					)}
-					color="secondary"
-					sx={{ width: '270px', position: 'relative' }}
-					variant="outlined"
-				>
-					<MenuItem value={0}>{__('Today', 'pojo-accessibility')}</MenuItem>
-					<MenuItem value={1}>{__('Yesterday', 'pojo-accessibility')}</MenuItem>
-					<MenuItem value={7}>
-						{__('Last 7 days', 'pojo-accessibility')}
-					</MenuItem>
-					<MenuItem value={30}>
-						{__('Last 30 days', 'pojo-accessibility')}
-					</MenuItem>
-				</Select>
+			<Box display="flex" justifyContent="space-between" gap={2} width="100%">
+				<AnalyticsToggle />
+				<Box display="flex" alignItems="center" gap={2}>
+					<Typography variant="subtitle1">
+						{__('Display data from', 'pojo-accessibility')}
+					</Typography>
+					<Select
+						name={__('Period', 'pojo-accessibility')}
+						onChange={changePeriod}
+						value={period}
+						size="small"
+						IconComponent={() => (
+							<StyledIcon>
+								<ChevronDownIcon />
+							</StyledIcon>
+						)}
+						color="secondary"
+						sx={{ width: '270px', position: 'relative' }}
+						variant="outlined"
+					>
+						<MenuItem value={0}>{__('Today', 'pojo-accessibility')}</MenuItem>
+						<MenuItem value={1}>
+							{__('Yesterday', 'pojo-accessibility')}
+						</MenuItem>
+						<MenuItem value={7}>
+							{__('Last 7 days', 'pojo-accessibility')}
+						</MenuItem>
+						<MenuItem value={30}>
+							{__('Last 30 days', 'pojo-accessibility')}
+						</MenuItem>
+					</Select>
+				</Box>
 			</Box>
 
 			<Grid container spacing={4}>
@@ -178,7 +184,5 @@ const StyledBox = styled(Box)`
 	align-items: start;
 	gap: ${({ theme }) => theme.spacing(4)};
 	max-width: 1200px;
-
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 `;

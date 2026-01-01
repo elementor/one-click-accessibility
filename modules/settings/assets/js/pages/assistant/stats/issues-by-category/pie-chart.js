@@ -1,12 +1,13 @@
 import {
-	ColorBlue100,
-	ColorBlue200,
-	ColorBlue300,
-	ColorBlue400,
-	ColorBlue500,
+	ColorBurgundy900,
+	ColorPink400,
 	ColorBlue700,
-	ColorBlue900,
-} from '@elementor/design-tokens/primitives';
+	ColorBlue500,
+	ColorGreen700,
+	ColorGreen500,
+	ColorCyan400,
+	ColorGrey50,
+} from '@elementor/design-tokens';
 import Box from '@elementor/ui/Box';
 import {
 	PieChart as MuiPieChart,
@@ -52,7 +53,7 @@ const PieChart = ({ issueByCategory, loading, noResultsState }) => {
 		}
 
 		if (loading || totalIssues === 0 || noResultsState) {
-			return [{ label: 'Loading...', value: 100, color: '#f3f3f4' }];
+			return [{ label: 'Loading...', value: 100, color: ColorGrey50 }];
 		}
 
 		// Convert to MUI PieChart format with percentages and colors
@@ -63,14 +64,14 @@ const PieChart = ({ issueByCategory, loading, noResultsState }) => {
 					: 0;
 			const color =
 				[
-					ColorBlue900,
+					ColorBurgundy900,
+					ColorPink400,
 					ColorBlue700,
 					ColorBlue500,
-					ColorBlue400,
-					ColorBlue300,
-					ColorBlue200,
-					ColorBlue100, // for "other"
-				][index] || ColorBlue100;
+					ColorGreen700,
+					ColorGreen500,
+					ColorCyan400, // for "other"
+				][index] || ColorCyan400;
 
 			return {
 				label: `${category.title}: ${percentage}%`,
@@ -92,7 +93,6 @@ const PieChart = ({ issueByCategory, loading, noResultsState }) => {
 				display: 'flex',
 				justifyContent: 'center',
 				alignItems: 'center',
-				marginRight: 1.5,
 			}}
 		>
 			<MuiPieChart

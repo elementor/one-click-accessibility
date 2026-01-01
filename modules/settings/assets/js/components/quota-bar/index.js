@@ -21,7 +21,7 @@ const QuotaBar = ({ type, quotaData }) => {
 	 */
 	const progressBarColor = () => {
 		if (planUsage < 80) {
-			return 'info';
+			return 'primary';
 		}
 		if (planUsage >= 80 && planUsage < 95) {
 			return 'warning';
@@ -37,17 +37,23 @@ const QuotaBar = ({ type, quotaData }) => {
 					color={!isLocked ? 'text.secondary' : 'text.disabled'}
 					display="flex"
 					alignItems="center"
+					gap={0.5}
 					sx={{ fontSize: '12px' }}
 				>
 					{QuotaBarData[type]?.title}
 					<Infotip
-						placement="right"
+						placement="bottom"
 						PopperProps={{
-							sx: { width: '300px', marginLeft: 1 },
+							sx: { width: '210px' },
 							disablePortal: true,
 						}}
 						content={
-							<Typography color="text.secondary" variant="body2" padding={2}>
+							<Typography
+								variant="body2"
+								color="text.secondary"
+								fontSize="0.75rem"
+								padding={2}
+							>
 								{!isLocked
 									? QuotaBarData[type]?.infotipDescription
 									: QuotaBarData[type]?.lockedDescription}

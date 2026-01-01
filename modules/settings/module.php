@@ -498,6 +498,18 @@ class Module extends Module_Base {
 			'close_get_started_modal' => [
 				'type' => 'boolean',
 			],
+			'dismissed_quota_notices' => [
+				'type' => 'array',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'array',
+						'items' => [
+							'type' => 'string',
+						],
+					],
+				],
+				'default' => [],
+			],
 		];
 
 		foreach ( $settings as $setting => $args ) {
@@ -540,6 +552,11 @@ class Module extends Module_Base {
 	 * @param Notices $notice_manager
 	 */
 	public function register_notices( Notices $notice_manager ) {
+
+		if( ! Connect::is_connected() && ! Settings::get( Settings::PLAN_DATA ) ) {
+			return;
+		}
+
 		$notices = [
 			'Quota_80',
 			'Quota_100',

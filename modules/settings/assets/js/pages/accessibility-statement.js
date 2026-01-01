@@ -6,6 +6,7 @@ import Link from '@elementor/ui/Link';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import { StatementGenerator } from '@ea11y/components';
 import Button from '@ea11y/components/button';
 import { useModal, useSettings } from '@ea11y/hooks';
@@ -76,11 +77,17 @@ const AccessibilityStatement = () => {
 		<>
 			<StyledBox>
 				<StyledWideBox>
-					<StyledTitle variant="h4" color="text.primary" sx={{ mb: 0 }}>
+					<StyledPageTitle variant="h5">
 						{__('Accessibility statement', 'pojo-accessibility')}
-					</StyledTitle>
+					</StyledPageTitle>
 
-					<Typography variant="body2" color="text.primary" width="60%">
+					<Typography
+						variant="body2"
+						color="text.primary"
+						maxWidth="1200px"
+						margin="0 auto 24px"
+						paddingInlineEnd="40%"
+					>
 						{injectTemplateVars(
 							__(
 								'An accessibility statement showcases your efforts to create an inclusive online space, highlighting helpful features and a commitment to accessibility. {{link}}Learn more{{/link}}',
@@ -207,7 +214,7 @@ const AccessibilityStatement = () => {
 					)}
 
 					{(accessibilityStatementData?.pageId || showStatementLink) && (
-						<>
+						<Box width="100%" maxWidth="1200px" marginInline="auto">
 							{!accessibilityStatementData?.pageId && (
 								<Button
 									size="large"
@@ -219,7 +226,7 @@ const AccessibilityStatement = () => {
 								</Button>
 							)}
 							<StatementLink />
-						</>
+						</Box>
 					)}
 				</StyledWideBox>
 
@@ -229,10 +236,10 @@ const AccessibilityStatement = () => {
 						justifyContent="end"
 						p={2}
 						width="100%"
-						borderTop="1px solid rgba(0, 0, 0, 0.12)"
+						borderTop="1px solid rgb(0 0 0 / 0.12)"
 					>
 						<Button
-							color="info"
+							color="primary"
 							variant="contained"
 							disabled={continueDisabled}
 							onClick={handleContinue}
@@ -250,3 +257,8 @@ const AccessibilityStatement = () => {
 };
 
 export default AccessibilityStatement;
+
+const StyledPageTitle = styled(StyledTitle)`
+	max-width: 1200px;
+	margin: 0 auto 24px;
+`;

@@ -1,29 +1,29 @@
 import {
-	ColorBlue100,
-	ColorBlue300,
-	ColorBlue400,
-	ColorBlue50,
-	ColorBlue600,
+	ColorBurgundy900,
+	ColorPink400,
+	ColorBlue700,
+	ColorBlue500,
+	ColorGreen700,
+	ColorGreen500,
+	ColorCyan400,
 } from '@elementor/design-tokens/primitives';
 import AlignLeftIcon from '@elementor/icons/AlignLeftIcon';
 import LinkIcon from '@elementor/icons/LinkIcon';
 import WorldIcon from '@elementor/icons/WorldIcon';
-import {
-	ContrastIcon,
-	GrayscaleIcon,
-	HideImagesIcon,
-	LineHeightIcon,
-	PageStructureIcon,
-	PauseAnimationsIcon,
-	ReadableFontIcon,
-	ReadingPanelIcon,
-	TextSizeIcon,
-} from '@ea11y/icons';
+import ContrastIcon from '@ea11y/icons/contrast';
 import FocusIcon from '@ea11y/icons/focus-icon';
+import GrayscaleIcon from '@ea11y/icons/graysacale';
+import HideImagesIcon from '@ea11y/icons/hide-images';
 import HideWidgetIcon from '@ea11y/icons/hide-widget-icon';
+import LineHeightIcon from '@ea11y/icons/line-height';
+import PageStructureIcon from '@ea11y/icons/page-structure';
+import PauseAnimationsIcon from '@ea11y/icons/pause-animations';
+import ReadableFontIcon from '@ea11y/icons/readable-font';
+import ReadingPanelIcon from '@ea11y/icons/reading-panel';
 import ScreenReaderIcon from '@ea11y/icons/screen-reader-icon';
 import SitemapIcon from '@ea11y/icons/sitemap-icon';
 import StatementIcon from '@ea11y/icons/statement-icon';
+import TextSizeIcon from '@ea11y/icons/text-size';
 import { __ } from '@wordpress/i18n';
 
 export const SKELETON_OPTIONS = Object.freeze({
@@ -138,9 +138,11 @@ export const FEATURE_MAPPER = {
 };
 
 export const CHARTS_COLORS = [
-	ColorBlue600,
-	ColorBlue400,
-	ColorBlue300,
-	ColorBlue100,
-	ColorBlue50,
+	ColorBurgundy900,
+	ColorPink400,
+	ColorBlue700,
+	ColorBlue500,
+	ColorGreen700,
+	ColorGreen500,
+	ColorCyan400,
 ];

@@ -39,13 +39,11 @@
   font-size: 200%;
   line-height: 0;
   padding: 10px;
-  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 0.1);
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a:hover,
 #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a:focus {
-  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 0.2);
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle svg {
   max-width: inherit;
@@ -64,8 +62,7 @@
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay.pojo-a11y-toolbar-open .pojo-a11y-toolbar-toggle a,
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay.pojo-a11y-toolbar-open .pojo-a11y-toolbar-overlay {
-  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px 0 rgb(0 0 0 / 0.2);
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items {
   list-style: none;
@@ -131,7 +128,6 @@ body.pojo-a11y-high-contrast .placebo {
   line-height: normal;
 }
 body.pojo-a11y-high-contrast * {
-  -webkit-box-shadow: none !important;
   box-shadow: none !important;
 }
 body.pojo-a11y-high-contrast a,
@@ -1449,7 +1445,7 @@ body.pojo-a11y-readable-font *:not(i):not(span) {
   z-index: 100000;
   line-height: normal;
   text-decoration: none;
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 2px 2px rgb(0 0 0 / 0.6);
 }
 body.rtl .pojo-skip-link:focus {
   right: 50px;

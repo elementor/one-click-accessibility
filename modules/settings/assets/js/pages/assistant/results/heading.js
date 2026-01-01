@@ -53,7 +53,7 @@ const AccessibilityAssistantResultsHeading = () => {
 
 				<Button
 					size="medium"
-					color="info"
+					color="primary"
 					variant="contained"
 					endIcon={
 						pagesMenuState.isOpen ? (
@@ -109,20 +109,17 @@ const AccessibilityAssistantResultsHeading = () => {
 const StyledMenu = styled(Menu)`
 	.MuiPaper-root {
 		min-width: 195px;
-		margin-top: ${({ theme }) => theme.spacing(1)};
+		margin-block-start: ${({ theme }) => theme.spacing(1)};
 	}
 
 	.MuiList-root {
-		padding-top: ${({ theme }) => theme.spacing(1.25)};
-		padding-bottom: ${({ theme }) => theme.spacing(1.25)};
+		padding-block: ${({ theme }) => theme.spacing(1.25)};
 	}
 `;
 
 const StyledMenuItem = styled(MenuItem)`
-	padding-top: 0;
-	padding-bottom: 0;
-	padding-inline-start: ${({ theme }) => theme.spacing(1.25)};
-	padding-inline-end: ${({ theme }) => theme.spacing(0.75)};
+	padding-block: 0;
+	padding-inline: ${({ theme }) => theme.spacing(1.25, 0.75)};
 `;
 
 const StyledMenuButton = styled(Button)`

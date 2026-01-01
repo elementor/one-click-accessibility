@@ -35,11 +35,13 @@ export const StyledTitle = styled(Typography)`
 
 	margin: 0;
 
-	color: #0c0d0e;
-	font-size: 16px;
-	font-weight: 500;
-	line-height: 130%;
-	letter-spacing: 0.15px;
+	color: ${({ theme }) => theme.palette.common.black};
+	line-height: 1.75;
+
+	.MuiChip-root {
+		margin-inline-start: ${({ theme }) => theme.spacing(1)};
+		font-weight: 400;
+	}
 `;
 
 export const StyledStatementPaper = styled(Paper)`
@@ -50,12 +52,11 @@ export const StyledStatementPaper = styled(Paper)`
 	padding: 24px;
 	width: 376px;
 	min-height: 264px;
-	border-radius: ${({ theme }) => theme.shape.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows[0]};
 	cursor: pointer;
 
 	:hover {
-		box-shadow: 0 0 15px 0 rgba(37, 99, 235, 0.15);
+		box-shadow: 0 0 15px 0 rgb(37 99 235 / 0.15);
 		border-color: ${({ theme }) => theme.palette.info.main};
 	}
 `;
