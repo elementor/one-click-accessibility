@@ -112,10 +112,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 
 				<MenuItemText primary={item.name} hidden={isSidebarCollapsed} />
 
-				{
-					/* Show infotip */
-					openSidebar && !showProIcon(item) && item?.infotip
-				}
+				{openSidebar && !showProIcon(item) && item?.infotip}
 
 				{hasChildItems && (
 					<ExpandIconWrapper isSidebarCollapsed={isSidebarCollapsed}>
@@ -151,6 +148,8 @@ const SidebarMenuItem = ({ keyName, item }) => {
 									onClick={() => handleSelectedMenu(child.name, key, childKey)}
 								>
 									<ChildMenuText primary={child?.name} />
+
+									{openSidebar && !showProIcon(child) && child?.infotip}
 								</ChildMenuButton>
 							</ChildListItem>
 						))}
