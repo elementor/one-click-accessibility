@@ -13,14 +13,14 @@ import { useSavedSettings, useSettings } from '@ea11y/hooks';
 
 const QuotaBar = () => {
 	const { openSidebar } = useSettings();
-	const { loading } = useSavedSettings();
+	const { loading, isElementorOne } = useSavedSettings();
 
 	const quotaPopupMenuState = usePopupState({
 		variant: 'popover',
 		popupId: 'popupMenuExpandedSidebar',
 	});
 
-	if (loading) {
+	if (loading && !isElementorOne) {
 		return (
 			<StyledBox>
 				<Skeleton width="100%" height={91} />

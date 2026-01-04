@@ -69,7 +69,7 @@ class Module extends Module_Base {
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			15
+			80
 		);
 	}
 
