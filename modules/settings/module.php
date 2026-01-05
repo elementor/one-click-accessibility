@@ -264,7 +264,7 @@ class Module extends Module_Base {
 			return;
 		}
 
-		$client_id = Settings::get( Settings::CLIENT_ID );
+		$client_id = Connect::get_connect()->data()->get_client_id();
 
 		if ( $client_id ) {
 			try {
