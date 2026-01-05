@@ -72,7 +72,6 @@ const SidebarMenuItem = ({ keyName, item }) => {
 	const isSidebarCollapsed = !openSidebar;
 	const hasChildItems = !!item?.children;
 	const isItemExpanded = expandedItems[key];
-	const shouldShowProIcon = showProIcon(item);
 
 	return (
 		<ListItemContainer
@@ -110,25 +109,26 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					</MenuItemIconWrapper>
 				</Tooltip>
 
-				<MenuItemText primary={item.name} hidden={isSidebarCollapsed} />
+				{!isSidebarCollapsed && (
+					<>
+						<MenuItemText primary={item.name} />
 
-				{openSidebar && !showProIcon(item) && item?.infotip}
+						{!showProIcon(item) && item?.infotip}
 
-				{hasChildItems && (
-					<ExpandIconWrapper isSidebarCollapsed={isSidebarCollapsed}>
-						<Rotate in={!isItemExpanded}>
-							<ChevronDownSmallIcon />
-						</Rotate>
-					</ExpandIconWrapper>
-				)}
-				{shouldShowProIcon && !isSidebarCollapsed && (
-					<ListItemIcon>
-						<StyledChip
-							color="promotion"
-							variant="standard"
-							icon={<CrownFilled size="tiny" />}
-						/>
-					</ListItemIcon>
+						{hasChildItems && (
+							<Rotate in={!isItemExpanded}>
+								<ChevronDownSmallIcon />
+							</Rotate>
+						)}
+
+						{showProIcon(item) && (
+							<StyledChip
+								color="promotion"
+								variant="standard"
+								icon={<CrownFilled size="tiny" />}
+							/>
+						)}
+					</>
 				)}
 			</ParentMenuButton>
 
@@ -149,7 +149,15 @@ const SidebarMenuItem = ({ keyName, item }) => {
 								>
 									<ChildMenuText primary={child?.name} />
 
-									{openSidebar && !showProIcon(child) && child?.infotip}
+									{!showProIcon(child) && child?.infotip}
+
+									{showProIcon(child) && (
+										<StyledChip
+											color="promotion"
+											variant="standard"
+											icon={<CrownFilled size="tiny" />}
+										/>
+									)}
 								</ChildMenuButton>
 							</ChildListItem>
 						))}
@@ -180,14 +188,6 @@ const MenuItemIconWrapper = styled(ListItemIcon, {
 const MenuItemText = styled(ListItemText)`
 	text-align: start;
 	white-space: nowrap;
-`;
-
-const ExpandIconWrapper = styled(ListItemIcon, {
-	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
-})`
-	display: ${({ isSidebarCollapsed }) =>
-		isSidebarCollapsed ? 'none' : 'default'};
-	margin-inline-start: ${({ theme }) => theme.spacing(2)};
 `;
 
 const ChildListItem = styled(ListItem)`
