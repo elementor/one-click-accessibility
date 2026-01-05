@@ -2,6 +2,7 @@ import CalendarDollarIcon from '@elementor/icons/CalendarDollarIcon';
 import Box from '@elementor/ui/Box';
 import IconButton from '@elementor/ui/IconButton';
 import Skeleton from '@elementor/ui/Skeleton';
+import Tooltip from '@elementor/ui/Tooltip';
 import { styled } from '@elementor/ui/styles';
 import {
 	bindMenu,
@@ -10,6 +11,7 @@ import {
 } from '@elementor/ui/usePopupState';
 import { PopupMenu, QuotaBarGroup, QuotaIndicator } from '@ea11y/components';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
+import { __ } from '@wordpress/i18n';
 
 const QuotaBar = () => {
 	const { openSidebar } = useSettings();
@@ -31,10 +33,12 @@ const QuotaBar = () => {
 	if (!openSidebar) {
 		return (
 			<StyledBox>
-				<StyledIconButton {...bindTrigger(quotaPopupMenuState)}>
-					<CalendarDollarIcon sx={{ color: 'common.black' }} />
-					<QuotaIndicator />
-				</StyledIconButton>
+				<Tooltip title={__('My account', 'site-mailer')} placement="right">
+					<StyledIconButton {...bindTrigger(quotaPopupMenuState)}>
+						<CalendarDollarIcon sx={{ color: 'common.black' }} />
+						<QuotaIndicator />
+					</StyledIconButton>
+				</Tooltip>
 				<PopupMenu
 					{...bindMenu(quotaPopupMenuState)}
 					closeAction={quotaPopupMenuState.close}
