@@ -205,7 +205,7 @@ class Module extends Module_Base {
 	public static function save_plan_data( $register_response ): void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
 			$decoded_response = $register_response;
-			update_option( Settings::SUBSCRIPTION_ID, $register_response->id );
+			update_option( Settings::SUBSCRIPTION_ID, $decoded_response->plan->subscription_id );
 			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
 			self::set_default_settings();
