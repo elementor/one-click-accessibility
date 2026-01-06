@@ -5,7 +5,6 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ConfirmDialog } from '@ea11y/components';
 import { useModal } from '@ea11y/hooks';
-import { AppLogo } from '@ea11y/icons';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -56,7 +55,7 @@ const UrlMismatchModal = () => {
 			<StyledConfirmDialog
 				open={open}
 				onClose={close}
-				logo={<AppLogo />}
+				logo={false}
 				title={__('Fix mismatched URL', 'pojo-accessibility')}
 				showCancelButton={false}
 				showApproveButton={false}

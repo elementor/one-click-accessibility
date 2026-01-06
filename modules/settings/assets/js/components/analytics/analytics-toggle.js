@@ -91,7 +91,7 @@ export const AnalyticsToggle = () => {
 				aria-labelledby="confirm-enable-analytics-title"
 				aria-describedby="confirm-enable-analytics-description"
 			>
-				<DialogHeader>
+				<DialogHeader logo={false}>
 					<DialogTitle>
 						{__('Enable widget tracking?', 'pojo-accessibility')}
 					</DialogTitle>

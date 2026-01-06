@@ -150,7 +150,7 @@ const StatementGenerator = ({ open, close }) => {
 				maxWidth="lg"
 				sx={{ zIndex: 99999 }}
 			>
-				<DialogHeader onClose={handleClose}>
+				<DialogHeader logo={false} onClose={handleClose}>
 					<DialogTitle>
 						{__('Statement generator', 'pojo-accessibility')}
 					</DialogTitle>
