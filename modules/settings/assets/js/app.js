@@ -24,7 +24,6 @@ import { QuotaNotices, Sidebar } from '@ea11y/layouts';
 import Notifications from '@ea11y-apps/global/components/notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
 
@@ -66,7 +65,6 @@ const App = () => {
 							version: ea11ySettingsData?.pluginVersion,
 						}}
 						isWithinWpAdmin
-						title={__('Ally', 'pojo-accessibility')}
 					/>
 
 					{isConnected !== undefined && !isUrlMismatch && !isConnected && (
