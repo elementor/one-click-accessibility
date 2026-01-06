@@ -93,7 +93,7 @@ const OnboardingModal = () => {
 					href={`${homeUrl}?open-ea11y-assistant=1&open-ea11y-assistant-src=Ally_dashboard`}
 					target="_blank"
 					variant="contained"
-					color="info"
+					color="primary"
 					onClick={() => {
 						mixpanelService.sendEvent(mixpanelEvents.scanHomePageButtonClicked);
 						onClose();

@@ -117,7 +117,7 @@ export const AnalyticsToggle = () => {
 					<Button onClick={handleClose} color="secondary">
 						{__('Not now', 'pojo-accessibility')}
 					</Button>
-					<Button onClick={handleConfirm} variant="contained" color="info">
+					<Button onClick={handleConfirm} variant="contained" color="primary">
 						{__('Confirm & enable', 'pojo-accessibility')}
 					</Button>
 				</DialogActions>

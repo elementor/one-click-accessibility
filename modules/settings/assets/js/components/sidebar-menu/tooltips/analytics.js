@@ -56,7 +56,7 @@ const AnalyticsTooltip = () => {
 				<Button
 					size="small"
 					variant="contained"
-					color="info"
+					color="primary"
 					tabIndex="0"
 					onClick={handleEnableTracking}
 				>

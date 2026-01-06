@@ -92,7 +92,7 @@ const GetStartedModal = () => {
 			</DialogContent>
 
 			<DialogActions>
-				<Button onClick={handleClose} color="info" variant="contained">
+				<Button onClick={handleClose} color="primary" variant="contained">
 					{__('Got it', 'pojo-accessibility')}
 				</Button>
 			</DialogActions>

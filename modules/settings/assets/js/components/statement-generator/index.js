@@ -291,7 +291,7 @@ const StatementGenerator = ({ open, close }) => {
 					<Button
 						onClick={createPage}
 						variant="contained"
-						color="info"
+						color="primary"
 						disabled={!isSubmitEnabled}
 					>
 						{__('Create statement & page', 'pojo-accessibility')}
