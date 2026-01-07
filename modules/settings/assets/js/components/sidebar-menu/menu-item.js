@@ -85,7 +85,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 			onMouseEnter={updatePopupPosition}
 			onFocus={updatePopupPosition}
 		>
-			<ParentMenuButton
+			<ParentItemButton
 				onClick={() =>
 					hasChildItems
 						? handleToggleItem(item.name, key)
@@ -101,17 +101,17 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					placement="right"
 					disableHoverListener={openSidebar || hasChildItems}
 				>
-					<MenuItemIconWrapper
+					<ParentItemIcon
 						aria-hidden={!isSidebarCollapsed}
 						isSidebarCollapsed={isSidebarCollapsed}
 					>
 						{item.icon}
-					</MenuItemIconWrapper>
+					</ParentItemIcon>
 				</Tooltip>
 
 				{!isSidebarCollapsed && (
 					<>
-						<MenuItemText primary={item.name} />
+						<ParentItemText primary={item.name} />
 
 						{!showProIcon(item) && item?.infotip}
 
@@ -130,7 +130,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 						)}
 					</>
 				)}
-			</ParentMenuButton>
+			</ParentItemButton>
 
 			{hasChildItems && (
 				<PopupChildrenContainer
@@ -142,12 +142,12 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					<List disablePadding>
 						{Object.entries(item?.children).map(([childKey, child]) => (
 							<ChildListItem key={childKey} dense>
-								<ChildMenuButton
+								<ChildItemButton
 									isSidebarCollapsed={isSidebarCollapsed}
 									selected={childKey === selectedMenu?.child}
 									onClick={() => handleSelectedMenu(child.name, key, childKey)}
 								>
-									<ChildMenuText primary={child?.name} />
+									<ChildItemText primary={child?.name} />
 
 									{!showProIcon(child) && child?.infotip}
 
@@ -158,7 +158,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 											icon={<CrownFilled size="tiny" />}
 										/>
 									)}
-								</ChildMenuButton>
+								</ChildItemButton>
 							</ChildListItem>
 						))}
 					</List>
@@ -170,12 +170,13 @@ const SidebarMenuItem = ({ keyName, item }) => {
 
 export default SidebarMenuItem;
 
-const ParentMenuButton = styled(ListItemButton)`
+const ParentItemButton = styled(ListItemButton)`
 	justify-content: center;
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+	padding: ${({ theme }) => theme.spacing(0.5, 1.5)};
 `;
 
-const MenuItemIconWrapper = styled(ListItemIcon, {
+const ParentItemIcon = styled(ListItemIcon, {
 	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
 })`
 	/* For smoother sidebar */
@@ -185,7 +186,7 @@ const MenuItemIconWrapper = styled(ListItemIcon, {
 		isSidebarCollapsed ? '0 !important' : theme.spacing(1)};
 `;
 
-const MenuItemText = styled(ListItemText)`
+const ParentItemText = styled(ListItemText)`
 	text-align: start;
 	white-space: nowrap;
 `;
@@ -229,7 +230,7 @@ const CollapsedMenuTitle = styled(ListItemText)`
 	text-align: start;
 `;
 
-const ChildMenuButton = styled(ListItemButton, {
+const ChildItemButton = styled(ListItemButton, {
 	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
 })`
 	color: ${({ isSidebarCollapsed, theme }) =>
@@ -241,7 +242,7 @@ const ChildMenuButton = styled(ListItemButton, {
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 `;
 
-const ChildMenuText = styled(ListItemText)`
+const ChildItemText = styled(ListItemText)`
 	text-align: start;
 	white-space: nowrap;
 `;
