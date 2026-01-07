@@ -115,18 +115,18 @@ const SidebarMenuItem = ({ keyName, item }) => {
 
 						{!showProIcon(item) && item?.infotip}
 
-						{hasChildItems && (
-							<Rotate in={!isItemExpanded}>
-								<ChevronDownSmallIcon />
-							</Rotate>
-						)}
-
 						{showProIcon(item) && (
 							<StyledChip
 								color="promotion"
 								variant="standard"
 								icon={<CrownFilled size="tiny" />}
 							/>
+						)}
+
+						{hasChildItems && (
+							<Rotate in={!isItemExpanded}>
+								<ChevronDownSmallIcon />
+							</Rotate>
 						)}
 					</>
 				)}
