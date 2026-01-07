@@ -12,10 +12,13 @@ import { useSettings } from '@ea11y/hooks';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useRef, useState } from '@wordpress/element';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 
 const SidebarMenuItem = ({ keyName, item }) => {
 	const { openSidebar, selectedMenu, setSelectedMenu, planData } =
 		useSettings();
+	const { isElementorOne } = usePluginSettingsContext();
+
 	const [expandedItems, setExpandedItems] = useState({ widget: true });
 	const [popupPosition, setPopupPosition] = useState({
 		popupPositionAbove: 0,
@@ -53,7 +56,10 @@ const SidebarMenuItem = ({ keyName, item }) => {
 	};
 
 	const showProIcon = (menuItem) =>
-		proFeatures && menuItem.proIcon && !proFeatures.includes(menuItem.proIcon);
+		!isElementorOne &&
+		proFeatures &&
+		menuItem.proIcon &&
+		!proFeatures.includes(menuItem.proIcon);
 
 	const updatePopupPosition = () => {
 		if (menuItemRef.current && !openSidebar && item?.children) {
