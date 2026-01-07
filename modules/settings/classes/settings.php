@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Settings {
 
+
 	public const CLOSE_POST_CONNECT_MODAL = 'ea11y_close_post_connect_modal';
 	public const CLOSE_ONBOARDING_MODAL = 'ea11y_close_onboarding_modal';
 	public const CLOSE_GET_STARTED_MODAL = 'ea11y_close_get_started_modal';
@@ -21,7 +22,6 @@ class Settings {
 	public const ANALYTICS_SETTINGS = 'ea11y_analytics_enabled';
 	public const PLAN_DATA_REFRESH_TRANSIENT = 'ea11y_plan_data_refresh';
 	public const SUBSCRIPTION_ID = 'ea11y_subscription_id';
-	public const CLIENT_ID = 'site_mailer_client_id';
 
 	/**
 	 * Returns plugin settings data by option name

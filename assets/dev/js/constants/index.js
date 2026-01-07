@@ -13,6 +13,6 @@ export const GOLINKS = {
 	UPGRADE: 'https://go.elementor.com/acc-upgrade',
 	HELP_FEEDBACK: 'https://go.elementor.com/acc-assistant-feedback',
 	MANAGE_SUBSCRIPTION:
-		'https://my.elementor.com/account-settings/purchases/subscriptions/',
+		'https://my.elementor.com/account-settings/purchases/subscriptions/{subscriptionId}/',
 };
 export const ELEMENTOR_URL = 'https://my.elementor.com';

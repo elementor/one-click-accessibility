@@ -65,11 +65,11 @@ class Module extends Module_Base {
 		add_submenu_page(
 			'elementor-home',
 			__( 'Ally - Web Accessibility', 'pojo-accessibility' ),
-			__( 'Ally', 'pojo-accessibility' ),
+			__( 'Accessibility', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			15
+			80
 		);
 	}
 
@@ -205,7 +205,7 @@ class Module extends Module_Base {
 	public static function save_plan_data( $register_response ): void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
 			$decoded_response = $register_response;
-			update_option( Settings::SUBSCRIPTION_ID, $register_response->id );
+			update_option( Settings::SUBSCRIPTION_ID, $decoded_response->plan->subscription_id );
 			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
 			self::set_default_settings();
@@ -264,7 +264,7 @@ class Module extends Module_Base {
 			return;
 		}
 
-		$client_id = Settings::get( Settings::CLIENT_ID );
+		$client_id = Connect::get_connect()->data()->get_client_id();
 
 		if ( $client_id ) {
 			try {

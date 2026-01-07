@@ -150,7 +150,7 @@ const StatementGenerator = ({ open, close }) => {
 				maxWidth="lg"
 				sx={{ zIndex: 99999 }}
 			>
-				<DialogHeader onClose={handleClose}>
+				<DialogHeader logo={false} onClose={handleClose}>
 					<DialogTitle>
 						{__('Statement generator', 'pojo-accessibility')}
 					</DialogTitle>
@@ -291,7 +291,7 @@ const StatementGenerator = ({ open, close }) => {
 					<Button
 						onClick={createPage}
 						variant="contained"
-						color="info"
+						color="primary"
 						disabled={!isSubmitEnabled}
 					>
 						{__('Create statement & page', 'pojo-accessibility')}

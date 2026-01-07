@@ -66,7 +66,6 @@ const App = () => {
 							version: ea11ySettingsData?.pluginVersion,
 						}}
 						isWithinWpAdmin
-						title={__('Ally', 'pojo-accessibility')}
 					/>
 
 					{isConnected !== undefined && !isUrlMismatch && !isConnected && (
@@ -80,7 +79,10 @@ const App = () => {
 					<StyledGrid>
 						<Sidebar />
 
-						<StyledContainer>
+						<StyledContainer
+							role="main"
+							aria-label={__('Main Content', 'pojo-accessibility')}
+						>
 							<QuotaNotices />
 							<PageContent
 								// Looks the best if we have both checks

@@ -6,7 +6,6 @@ import DialogContentText from '@elementor/ui/DialogContentText';
 import DialogHeader from '@elementor/ui/DialogHeader';
 import DialogTitle from '@elementor/ui/DialogTitle';
 import { useSettings, useStorage } from '@ea11y/hooks';
-import { AppLogo } from '@ea11y/icons';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -67,8 +66,8 @@ const GetStartedModal = () => {
 			aria-labelledby="get-started-dialog-title"
 			aria-describedby="get-started-dialog-description"
 		>
-			<DialogHeader logo={<AppLogo />} onClose={handleClose}>
-				<DialogTitle>{__('Ally', 'pojo-accessibility')}</DialogTitle>
+			<DialogHeader logo={false} onClose={handleClose}>
+				<DialogTitle>{__('Accessibility', 'pojo-accessibility')}</DialogTitle>
 			</DialogHeader>
 
 			<DialogContent dividers>
@@ -93,7 +92,7 @@ const GetStartedModal = () => {
 			</DialogContent>
 
 			<DialogActions>
-				<Button onClick={handleClose} color="info" variant="contained">
+				<Button onClick={handleClose} color="primary" variant="contained">
 					{__('Got it', 'pojo-accessibility')}
 				</Button>
 			</DialogActions>
