@@ -22,6 +22,10 @@ class Settings_Pointer {
 			return;
 		}
 
+		if ( SettingsModule::is_elementor_one() ) {
+			return;
+		}
+
         if ( Utils::is_plugin_settings_page() ) {
             return;
         }
