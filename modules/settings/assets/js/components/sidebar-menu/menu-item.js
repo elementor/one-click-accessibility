@@ -126,6 +126,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 								color="promotion"
 								variant="standard"
 								icon={<CrownFilled size="tiny" />}
+								size="tiny"
 							/>
 						)}
 
@@ -145,7 +146,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					popupPosition={popupPosition}
 				>
 					{isSidebarCollapsed && <CollapsedMenuTitle primary={item.name} />}
-					<List disablePadding>
+					<List disablePadding dense>
 						{Object.entries(item?.children).map(([childKey, child]) => (
 							<ChildListItem key={childKey} dense>
 								<ChildItemButton
@@ -153,7 +154,10 @@ const SidebarMenuItem = ({ keyName, item }) => {
 									selected={childKey === selectedMenu?.child}
 									onClick={() => handleSelectedMenu(child.name, key, childKey)}
 								>
-									<ChildItemText primary={child?.name} />
+									<ChildItemText
+										primary={child?.name}
+										primaryTypographyProps={{ color: 'text.secondary' }}
+									/>
 
 									{!showProIcon(child) && child?.infotip}
 
@@ -162,6 +166,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 											color="promotion"
 											variant="standard"
 											icon={<CrownFilled size="tiny" />}
+											size="tiny"
 										/>
 									)}
 								</ChildItemButton>
@@ -243,6 +248,7 @@ const ChildItemButton = styled(ListItemButton, {
 		isSidebarCollapsed
 			? theme.palette.text.primary
 			: theme.palette.text.secondary};
+	padding: 0;
 	padding-inline-start: ${({ isSidebarCollapsed, theme }) =>
 		isSidebarCollapsed ? theme.spacing(2) : theme.spacing(6)};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
