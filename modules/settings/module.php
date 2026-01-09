@@ -581,6 +581,10 @@ class Module extends Module_Base {
 	 */
 	public function register_notices( Notices $notice_manager ) {
 
+		if ( self::is_elementor_one() ) {
+			return;
+		}
+
 		if ( ! Connect::is_connected() && ! Settings::get( Settings::PLAN_DATA ) ) {
 			return;
 		}
