@@ -21,6 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module extends Module_Base {
 
+
 	const SETTING_PREFIX = 'ea11y_';
 	const SETTING_GROUP = 'ea11y_settings';
 	const SETTING_BASE_SLUG = 'accessibility-settings';
@@ -268,12 +269,12 @@ class Module extends Module_Base {
 
 		if ( $client_id ) {
 			try {
-				Utils::get_api_client()->make_request(
+				$migration_response = Utils::get_api_client()->make_request(
 					'POST',
 					'site/migration',
 					[ 'old_client_id' => $client_id ],
 				);
-				self::refresh_plan_data();
+				self::save_plan_data( $migration_response );
 			} catch ( Throwable $t ) {
 				Logger::error( esc_html( $t->getMessage() ) );
 			}
