@@ -81,6 +81,7 @@ const AnalyticsTooltip = () => {
 				sx={{ ml: 1 }}
 				onMouseEnter={handleOpen}
 				onFocus={handleOpen}
+				fontSize="small"
 			/>
 		</Infotip>
 	);
