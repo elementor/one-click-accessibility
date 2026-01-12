@@ -52,7 +52,7 @@ const AccessibilityStatementTooltip = () => {
 
 	return (
 		<Infotip placement="right" content={TooltipCard} tabIndex="0">
-			<InfoCircleIcon color="info" sx={{ ml: 1 }} />
+			<InfoCircleIcon color="info" sx={{ ml: 1 }} fontSize="small" />
 		</Infotip>
 	);
 };

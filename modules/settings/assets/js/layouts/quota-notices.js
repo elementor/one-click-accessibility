@@ -6,6 +6,7 @@ import { useSettings, useStorage } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 import { openLink } from '../utils';
 
 const QuotaNotices = () => {
@@ -17,6 +18,7 @@ const QuotaNotices = () => {
 	} = useSettings();
 	const { save } = useStorage();
 	const isFree = planData?.plan?.name === 'Free';
+	const { isElementorOne } = usePluginSettingsContext();
 
 	/**
 	 * Handle the click on the upgrade button.
@@ -59,6 +61,10 @@ const QuotaNotices = () => {
 			console.error('Failed to save dismissed notice:', error);
 		}
 	};
+
+	if (isElementorOne) {
+		return null;
+	}
 
 	if (planUsage.aiCredits < 80 && planUsage.scannedPages < 80) {
 		return null;

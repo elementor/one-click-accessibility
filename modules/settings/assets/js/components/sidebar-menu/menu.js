@@ -1,5 +1,5 @@
-import ChecklistIcon from '@elementor/icons/ChecklistIcon';
 import PagesIcon from '@elementor/icons/PagesIcon';
+import SearchResultsTemplateIcon from '@elementor/icons/SearchResultsTemplateIcon';
 import { WidgetIcon } from '@ea11y/icons';
 import {
 	AccessibilityAssistant,
@@ -18,7 +18,7 @@ export const MenuItems = {
 		key: 'scan-overview',
 		name: __('Accessibility scans', 'pojo-accessibility'),
 		icon: (
-			<ChecklistIcon
+			<SearchResultsTemplateIcon
 				aria-hidden={true}
 				sx={{ color: 'common.black' }}
 				fontSize="small"
