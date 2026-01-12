@@ -9,5 +9,3 @@ export { default as StatementLink } from './statement-link';
 export { default as QuotaBar } from './quota-bar';
 export { default as QuotaNotices } from './quota-notices';
 export { default as LogoSettings } from './logo-settings';
-export { default as TopBarMenu } from './top-bar-menu';
-export { default as TopBar } from './top-bar';

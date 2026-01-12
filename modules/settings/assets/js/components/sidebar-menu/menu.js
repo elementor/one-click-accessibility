@@ -1,5 +1,5 @@
-import ChecklistIcon from '@elementor/icons/ChecklistIcon';
 import PagesIcon from '@elementor/icons/PagesIcon';
+import SearchResultsTemplateIcon from '@elementor/icons/SearchResultsTemplateIcon';
 import { WidgetIcon } from '@ea11y/icons';
 import {
 	AccessibilityAssistant,
@@ -17,7 +17,13 @@ export const MenuItems = {
 	scans: {
 		key: 'scan-overview',
 		name: __('Accessibility scans', 'pojo-accessibility'),
-		icon: <ChecklistIcon aria-hidden={true} sx={{ color: 'common.black' }} />,
+		icon: (
+			<SearchResultsTemplateIcon
+				aria-hidden={true}
+				sx={{ color: 'common.black' }}
+				fontSize="small"
+			/>
+		),
 		page: (
 			<AccessibilityAssistantContextProvider>
 				<AccessibilityAssistant />
@@ -27,7 +33,13 @@ export const MenuItems = {
 	widget: {
 		key: 'widget',
 		name: __('Widget', 'pojo-accessibility'),
-		icon: <WidgetIcon aria-hidden={true} sx={{ color: 'common.black' }} />,
+		icon: (
+			<WidgetIcon
+				aria-hidden={true}
+				sx={{ color: 'common.black' }}
+				fontSize="small"
+			/>
+		),
 		children: {
 			design: {
 				key: 'design',
@@ -51,7 +63,13 @@ export const MenuItems = {
 	accessibilityStatement: {
 		key: 'accessibility-statement',
 		name: __('Statement', 'pojo-accessibility'),
-		icon: <PagesIcon aria-hidden={true} sx={{ color: 'common.black' }} />,
+		icon: (
+			<PagesIcon
+				aria-hidden={true}
+				sx={{ color: 'common.black' }}
+				fontSize="small"
+			/>
+		),
 		infotip: <AccessibilityStatementTooltip />,
 		page: <AccessibilityStatement />,
 	},

@@ -265,4 +265,3 @@ abstract class Module_Base {
 		}
 	}
 }
-
