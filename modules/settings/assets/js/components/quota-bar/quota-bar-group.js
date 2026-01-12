@@ -20,7 +20,8 @@ import { PopupMenu, QuotaIndicator } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { useEffect, useRef, useState } from '@wordpress/element';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
+import { useRef, useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 import { openLink } from '../../utils';
@@ -55,7 +56,7 @@ const QuotaBarGroup = () => {
 			feature: 'add visits',
 			component: 'quota counter',
 		});
-		openLink(GOLINKS.ADD_VISITS);
+		openLink(getUpgradeLink(GOLINKS.ADD_VISITS));
 	};
 
 	const QuotaTitle = () => (

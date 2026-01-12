@@ -11,6 +11,7 @@ import { styled } from '@elementor/ui/styles';
 import { ProCrownIcon } from '@ea11y/icons';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { __ } from '@wordpress/i18n';
 import { PRO_FEATURES } from '../../constants/index';
 import { openLink } from '../../utils/index';
@@ -28,7 +29,7 @@ const ProItemInfotip = ({
 	 */
 	const handleUpgradeButton = () => {
 		if ('screen-reader' === childKey && 'icon' === source) {
-			openLink(GOLINKS.SCREEN_READER_ICON);
+			openLink(getUpgradeLink(GOLINKS.SCREEN_READER_ICON));
 			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'screen reader',
 				component: 'pro icon',
@@ -44,7 +45,7 @@ const ProItemInfotip = ({
 		}
 
 		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'icon' === source) {
-			openLink(GOLINKS.ALLY_LABEL_ICON);
+			openLink(getUpgradeLink(GOLINKS.ALLY_LABEL_ICON));
 			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'ally label',
 				component: 'pro icon',
@@ -52,7 +53,7 @@ const ProItemInfotip = ({
 		}
 
 		if (PRO_FEATURES.REMOVE_BRANDING === childKey && 'toggle' === source) {
-			openLink(GOLINKS.ALLY_LABEL_TOGGLE);
+			openLink(getUpgradeLink(GOLINKS.ALLY_LABEL_TOGGLE));
 			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 				feature: 'ally label',
 				component: 'toggle',
