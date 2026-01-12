@@ -67,8 +67,10 @@ class Settings_Pointer {
 					content: '<?php echo wp_kses( $pointer_content, $allowed_tags ); ?>',
 					pointerClass: 'ea11y-settings-pointer',
 					position: {
-						edge: <?php echo is_rtl() ? "'right'" : "'left'"; ?>,
-						align: 'center'
+						edge: 'top',
+						align: 'left',
+						at: 'left+20 bottom',
+						my: 'left top'
 					},
 					close: onClose
 				} ).pointer( 'open' );
