@@ -146,7 +146,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					popupPosition={popupPosition}
 				>
 					{isSidebarCollapsed && <CollapsedMenuTitle primary={item.name} />}
-					<List disablePadding dense>
+					<List disablePadding dense sx={{ pt: 1 }}>
 						{Object.entries(item?.children).map(([childKey, child]) => (
 							<ChildListItem key={childKey} dense>
 								<ChildItemButton
@@ -248,9 +248,9 @@ const ChildItemButton = styled(ListItemButton, {
 		isSidebarCollapsed
 			? theme.palette.text.primary
 			: theme.palette.text.secondary};
-	padding: 0;
-	padding-inline-start: ${({ isSidebarCollapsed, theme }) =>
-		isSidebarCollapsed ? theme.spacing(2) : theme.spacing(6)};
+	padding: ${({ theme }) => theme.spacing(0.5)};
+	padding-inline: ${({ isSidebarCollapsed, theme }) =>
+		isSidebarCollapsed ? theme.spacing(2) : theme.spacing(5, 1.5)};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 `;
 
