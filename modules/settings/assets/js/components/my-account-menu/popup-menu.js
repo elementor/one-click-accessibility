@@ -22,6 +22,7 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 import { truncateEmail } from '../../helpers/popup-menu';
 import { openLink } from '../../utils';
 
@@ -29,6 +30,7 @@ export const PopupMenu = (menuProps) => {
 	const { save } = useStorage();
 	const { error } = useToastNotification();
 	const { planData } = useSettings();
+	const { isElementorOne } = usePluginSettingsContext();
 
 	const isFree = planData?.plan?.name === 'Free';
 
@@ -87,57 +89,65 @@ export const PopupMenu = (menuProps) => {
 			/* eslint-disable-next-line jsx-a11y/no-autofocus */
 			autoFocus={false}
 		>
-			<StyledBox>
-				<Avatar sx={{ width: 24, height: 24 }}>
-					<UserIcon sx={{ color: 'common.white' }} />
-				</Avatar>
+			{planData?.plan && (
+				<>
+					<StyledBox>
+						<Avatar sx={{ width: 24, height: 24 }}>
+							<UserIcon sx={{ color: 'common.white' }} />
+						</Avatar>
 
-				<Box display="flex" flexDirection="column" gap={0.5}>
-					<Tooltip title={planData?.user?.email}>
-						<Typography variant="caption" color="text.primary">
-							{truncateEmail(planData?.user?.email)}
-						</Typography>
-					</Tooltip>
+						<Box display="flex" flexDirection="column" gap={0.5}>
+							<Tooltip title={planData?.user?.email}>
+								<Typography variant="caption" color="text.primary">
+									{truncateEmail(planData?.user?.email)}
+								</Typography>
+							</Tooltip>
 
-					{planData?.plan?.name && (
-						<Chip
-							variant="filled"
-							label={planData?.plan?.name}
-							size="tiny"
-							sx={{ width: 'fit-content' }}
-						/>
-					)}
-				</Box>
-			</StyledBox>
+							{planData?.plan?.name && (
+								<Chip
+									variant="filled"
+									label={planData?.plan?.name}
+									size="tiny"
+									sx={{ width: 'fit-content' }}
+								/>
+							)}
+						</Box>
+					</StyledBox>
 
-			<MenuSubheader disableGutters>
-				<Divider sx={{ my: 1 }} />
-			</MenuSubheader>
+					<MenuSubheader disableGutters>
+						<Divider sx={{ my: 1 }} />
+					</MenuSubheader>
+				</>
+			)}
 
-			<QuotaSection as="li">
-				<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
-				<QuotaBar type="ai" quotaData={planData?.aiCredits} />
+			{!isElementorOne && planData?.plan && (
+				<>
+					<QuotaSection as="li">
+						<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
+						<QuotaBar type="ai" quotaData={planData?.aiCredits} />
 
-				{!menuProps.showUpgradeButton && (
-					<Button
-						variant="outlined"
-						startIcon={isFree ? <CrownIcon /> : null}
-						onClick={handlePlanUpgrade}
-						size="small"
-						fullWidth
-						color={isFree ? 'promotion' : 'secondary'}
-						sx={{ marginTop: 0.5 }}
-					>
-						{isFree
-							? __('Upgrade plan', 'pojo-accessibility')
-							: __('View more plans', 'pojo-accessibility')}
-					</Button>
-				)}
-			</QuotaSection>
+						{!menuProps.showUpgradeButton && (
+							<Button
+								variant="outlined"
+								startIcon={isFree ? <CrownIcon /> : null}
+								onClick={handlePlanUpgrade}
+								size="small"
+								fullWidth
+								color={isFree ? 'promotion' : 'secondary'}
+								sx={{ marginTop: 0.5 }}
+							>
+								{isFree
+									? __('Upgrade plan', 'pojo-accessibility')
+									: __('View more plans', 'pojo-accessibility')}
+							</Button>
+						)}
+					</QuotaSection>
 
-			<MenuSubheader disableGutters>
-				<Divider sx={{ my: 1 }} />
-			</MenuSubheader>
+					<MenuSubheader disableGutters>
+						<Divider sx={{ my: 1 }} />
+					</MenuSubheader>
+				</>
+			)}
 
 			<StyledMenuItem dense onClick={handleAccountSwitch}>
 				<UserArrowIcon sx={{ color: 'action.active' }} />

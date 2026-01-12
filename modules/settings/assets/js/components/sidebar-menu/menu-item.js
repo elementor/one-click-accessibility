@@ -12,10 +12,13 @@ import { useSettings } from '@ea11y/hooks';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useRef, useState } from '@wordpress/element';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 
 const SidebarMenuItem = ({ keyName, item }) => {
 	const { openSidebar, selectedMenu, setSelectedMenu, planData } =
 		useSettings();
+	const { isElementorOne } = usePluginSettingsContext();
+
 	const [expandedItems, setExpandedItems] = useState({ widget: true });
 	const [popupPosition, setPopupPosition] = useState({
 		popupPositionAbove: 0,
@@ -53,7 +56,10 @@ const SidebarMenuItem = ({ keyName, item }) => {
 	};
 
 	const showProIcon = (menuItem) =>
-		proFeatures && menuItem.proIcon && !proFeatures.includes(menuItem.proIcon);
+		!isElementorOne &&
+		proFeatures &&
+		menuItem.proIcon &&
+		!proFeatures.includes(menuItem.proIcon);
 
 	const updatePopupPosition = () => {
 		if (menuItemRef.current && !openSidebar && item?.children) {
@@ -72,7 +78,6 @@ const SidebarMenuItem = ({ keyName, item }) => {
 	const isSidebarCollapsed = !openSidebar;
 	const hasChildItems = !!item?.children;
 	const isItemExpanded = expandedItems[key];
-	const shouldShowProIcon = showProIcon(item);
 
 	return (
 		<ListItemContainer
@@ -86,7 +91,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 			onMouseEnter={updatePopupPosition}
 			onFocus={updatePopupPosition}
 		>
-			<ParentMenuButton
+			<ParentItemButton
 				onClick={() =>
 					hasChildItems
 						? handleToggleItem(item.name, key)
@@ -102,38 +107,37 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					placement="right"
 					disableHoverListener={openSidebar || hasChildItems}
 				>
-					<MenuItemIconWrapper
+					<ParentItemIcon
 						aria-hidden={!isSidebarCollapsed}
 						isSidebarCollapsed={isSidebarCollapsed}
 					>
 						{item.icon}
-					</MenuItemIconWrapper>
+					</ParentItemIcon>
 				</Tooltip>
 
-				<MenuItemText primary={item.name} hidden={isSidebarCollapsed} />
+				{!isSidebarCollapsed && (
+					<>
+						<ParentItemText primary={item.name} />
 
-				{
-					/* Show infotip */
-					openSidebar && !showProIcon(item) && item?.infotip
-				}
+						{!showProIcon(item) && item?.infotip}
 
-				{hasChildItems && (
-					<ExpandIconWrapper isSidebarCollapsed={isSidebarCollapsed}>
-						<Rotate in={!isItemExpanded}>
-							<ChevronDownSmallIcon />
-						</Rotate>
-					</ExpandIconWrapper>
+						{showProIcon(item) && (
+							<StyledChip
+								color="promotion"
+								variant="standard"
+								icon={<CrownFilled size="tiny" />}
+								size="tiny"
+							/>
+						)}
+
+						{hasChildItems && (
+							<Rotate in={!isItemExpanded}>
+								<ChevronDownSmallIcon />
+							</Rotate>
+						)}
+					</>
 				)}
-				{shouldShowProIcon && !isSidebarCollapsed && (
-					<ListItemIcon>
-						<StyledChip
-							color="promotion"
-							variant="standard"
-							icon={<CrownFilled size="tiny" />}
-						/>
-					</ListItemIcon>
-				)}
-			</ParentMenuButton>
+			</ParentItemButton>
 
 			{hasChildItems && (
 				<PopupChildrenContainer
@@ -142,16 +146,30 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					popupPosition={popupPosition}
 				>
 					{isSidebarCollapsed && <CollapsedMenuTitle primary={item.name} />}
-					<List disablePadding>
+					<List disablePadding dense>
 						{Object.entries(item?.children).map(([childKey, child]) => (
 							<ChildListItem key={childKey} dense>
-								<ChildMenuButton
+								<ChildItemButton
 									isSidebarCollapsed={isSidebarCollapsed}
 									selected={childKey === selectedMenu?.child}
 									onClick={() => handleSelectedMenu(child.name, key, childKey)}
 								>
-									<ChildMenuText primary={child?.name} />
-								</ChildMenuButton>
+									<ChildItemText
+										primary={child?.name}
+										primaryTypographyProps={{ color: 'text.secondary' }}
+									/>
+
+									{!showProIcon(child) && child?.infotip}
+
+									{showProIcon(child) && (
+										<StyledChip
+											color="promotion"
+											variant="standard"
+											icon={<CrownFilled size="tiny" />}
+											size="tiny"
+										/>
+									)}
+								</ChildItemButton>
 							</ChildListItem>
 						))}
 					</List>
@@ -163,12 +181,13 @@ const SidebarMenuItem = ({ keyName, item }) => {
 
 export default SidebarMenuItem;
 
-const ParentMenuButton = styled(ListItemButton)`
+const ParentItemButton = styled(ListItemButton)`
 	justify-content: center;
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+	padding: ${({ theme }) => theme.spacing(0.5, 1.5)};
 `;
 
-const MenuItemIconWrapper = styled(ListItemIcon, {
+const ParentItemIcon = styled(ListItemIcon, {
 	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
 })`
 	/* For smoother sidebar */
@@ -178,17 +197,9 @@ const MenuItemIconWrapper = styled(ListItemIcon, {
 		isSidebarCollapsed ? '0 !important' : theme.spacing(1)};
 `;
 
-const MenuItemText = styled(ListItemText)`
+const ParentItemText = styled(ListItemText)`
 	text-align: start;
 	white-space: nowrap;
-`;
-
-const ExpandIconWrapper = styled(ListItemIcon, {
-	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
-})`
-	display: ${({ isSidebarCollapsed }) =>
-		isSidebarCollapsed ? 'none' : 'default'};
-	margin-inline-start: ${({ theme }) => theme.spacing(2)};
 `;
 
 const ChildListItem = styled(ListItem)`
@@ -230,19 +241,20 @@ const CollapsedMenuTitle = styled(ListItemText)`
 	text-align: start;
 `;
 
-const ChildMenuButton = styled(ListItemButton, {
+const ChildItemButton = styled(ListItemButton, {
 	shouldForwardProp: (prop) => prop !== 'isSidebarCollapsed',
 })`
 	color: ${({ isSidebarCollapsed, theme }) =>
 		isSidebarCollapsed
 			? theme.palette.text.primary
 			: theme.palette.text.secondary};
+	padding: 0;
 	padding-inline-start: ${({ isSidebarCollapsed, theme }) =>
 		isSidebarCollapsed ? theme.spacing(2) : theme.spacing(6)};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 `;
 
-const ChildMenuText = styled(ListItemText)`
+const ChildItemText = styled(ListItemText)`
 	text-align: start;
 	white-space: nowrap;
 `;

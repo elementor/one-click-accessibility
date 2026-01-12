@@ -1,10 +1,8 @@
 import { __ } from '@wordpress/i18n';
-import {
-	AccessibilityPersonIcon,
-	AccessibilityTextIcon,
-	AccessibilityEyeIcon,
-	AccessibilityControlsIcon,
-} from '../icons';
+import AccessibilityControlsIcon from '../icons/accessibility-controls';
+import AccessibilityEyeIcon from '../icons/accessibility-eye';
+import AccessibilityPersonIcon from '../icons/accessibility-person';
+import AccessibilityTextIcon from '../icons/accessibility-text';
 
 const optionStyle = {
 	color: 'info.main',

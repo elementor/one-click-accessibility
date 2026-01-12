@@ -9,55 +9,67 @@
 			"email": "yakir@pojo.me"
 		}
 	],
-  "require-dev": {
-    "johnpbloch/wordpress-core": "^6.0",
-    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-    "squizlabs/php_codesniffer": "^3.6",
-    "wp-coding-standards/wpcs": "^2.3.0",
-    "php-stubs/wordpress-stubs": "^6.0",
-    "elementor/eunit": "^0.0.10",
-    "phpcompatibility/phpcompatibility-wp": "^2.1",
-    "phpunit/php-code-coverage": "^9.2",
-    "wildwolf/wordpress-test-library-stubs": "^6.0",
-    "wp-phpunit/wp-phpunit": "^6.0",
-    "yoast/phpunit-polyfills": "^2.0"
-  },
-  "scripts": {
-    "lint": "vendor/bin/phpcs --standard=./ruleset.xml ./**/*.php",
-    "lint:fix": "vendor/bin/phpcbf --standard=./ruleset.xml ./**/*.php "
-  },
-  "require": {
-    "firebase/php-jwt": "^6.10",
-    "ext-json": "*",
-    "ext-fileinfo": "*",
-    "ext-curl": "*",
-    "ext-exif": "*",
-    "ext-libxml": "*",
-    "ext-zlib": "*",
-    "ext-dom": "*",
-    "elementor/wp-notifications-package": "^1.2.0",
-    "ext-ctype": "*",
-    "ext-mbstring": "*"
-  },
-  "config": {
-    "allow-plugins": {
-      "composer/installers": true,
-      "dealerdirect/phpcodesniffer-composer-installer": true
-    }
-  },
-  "extra": {
-    "imposter": {
-      "namespace": "...",
-      "excludes": [ "firebase/php-jwt"]
-    },
-    "installer-paths": {
-      "vendor/{$vendor}/{$name}/": [ "firebase/php-jwt"]
-    }
-  },
-  "repositories":[
-    {
-      "type": "vcs",
-      "url": "git@github.com:elementor/eunit.git"
-    }
-  ]
+	"require-dev": {
+		"johnpbloch/wordpress-core": "^6.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+		"squizlabs/php_codesniffer": "^3.6",
+		"wp-coding-standards/wpcs": "^2.3.0",
+		"php-stubs/wordpress-stubs": "^6.0",
+		"elementor/eunit": "^0.0.10",
+		"phpcompatibility/phpcompatibility-wp": "^2.1",
+		"phpunit/php-code-coverage": "^9.2",
+		"wildwolf/wordpress-test-library-stubs": "^6.0",
+		"wp-phpunit/wp-phpunit": "^6.0",
+		"yoast/phpunit-polyfills": "^2.0"
+	},
+	"scripts": {
+		"lint": "vendor/bin/phpcs --standard=./ruleset.xml ./**/*.php",
+		"lint:fix": "vendor/bin/phpcbf --standard=./ruleset.xml ./**/*.php "
+	},
+	"require": {
+		"firebase/php-jwt": "^6.10",
+		"ext-json": "*",
+		"ext-fileinfo": "*",
+		"ext-curl": "*",
+		"ext-exif": "*",
+		"ext-libxml": "*",
+		"ext-zlib": "*",
+		"ext-dom": "*",
+		"elementor/wp-notifications-package": "^1.2.0",
+		"ext-ctype": "*",
+		"ext-mbstring": "*",
+		"elementor/wp-one-package": "^1.0"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"extra": {
+		"imposter": {
+			"namespace": "...",
+			"excludes": [
+				"firebase/php-jwt"
+			]
+		},
+		"installer-paths": {
+			"vendor/{$vendor}/{$name}/": [
+				"firebase/php-jwt"
+			]
+		}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:elementor/eunit.git"
+		},
+		{
+			"type": "composer",
+			"url": "https://composer.elementor.com",
+			"only": [
+				"elementor/wp-one-package"
+			]
+		}
+	]
 }
