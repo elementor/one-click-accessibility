@@ -67,14 +67,19 @@ export const PopupMenu = (menuProps) => {
 		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 			buttonName: 'Deactivate subscription',
 		});
-		openLink(getUpgradeLink(GOLINKS.MANAGE_SUBSCRIPTION));
+		openLink(GOLINKS.MANAGE_SUBSCRIPTION.replace('{subscriptionId}/', ''));
 	};
 
 	const handleSubscriptionManagement = () => {
 		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 			buttonName: 'Manage subscription',
 		});
-		openLink(getUpgradeLink(GOLINKS.MANAGE_SUBSCRIPTION));
+		openLink(
+			GOLINKS.MANAGE_SUBSCRIPTION.replace(
+				'{subscriptionId}',
+				planData?.plan?.subscription_id,
+			),
+		);
 	};
 
 	return (
