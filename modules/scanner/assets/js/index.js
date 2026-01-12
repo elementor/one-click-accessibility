@@ -105,8 +105,6 @@ const initApp = () => {
 		stylisPlugins: isRTL ? [prefixer, rtlPlugin] : [],
 	});
 
-	console.log(cache);
-
 	const theme = createTheme({
 		direction: isRTL ? 'rtl' : 'ltr',
 	});
