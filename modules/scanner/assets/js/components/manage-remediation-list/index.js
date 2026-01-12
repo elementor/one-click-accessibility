@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import { BLOCK_TITLES } from '@ea11y-apps/global/constants';
 import { ManageButton } from '@ea11y-apps/scanner/components/block-button/manage-button';
-import { BLOCK_TITLES, BLOCKS } from '@ea11y-apps/scanner/constants';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { StyledBlockButtonsBox } from '@ea11y-apps/scanner/styles/app.styles';
 

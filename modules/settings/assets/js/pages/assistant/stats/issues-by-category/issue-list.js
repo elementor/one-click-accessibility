@@ -1,17 +1,17 @@
 import {
-	ColorBurgundy900,
-	ColorPink400,
-	ColorBlue700,
 	ColorBlue500,
-	ColorGreen700,
-	ColorGreen500,
+	ColorBlue700,
+	ColorBurgundy900,
 	ColorCyan400,
+	ColorGreen500,
+	ColorGreen700,
+	ColorPink400,
 } from '@elementor/design-tokens';
 import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
-import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
+import { BLOCK_TITLES } from '@ea11y-apps/global/constants';
 import { __ } from '@wordpress/i18n';
 
 // Override titles for specific category keys

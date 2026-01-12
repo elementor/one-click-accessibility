@@ -6,11 +6,8 @@ import IconButton from '@elementor/ui/IconButton';
 import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
-import {
-	BLOCK_INFO,
-	BLOCK_TITLES,
-	BLOCKS,
-} from '@ea11y-apps/scanner/constants';
+import { BLOCK_TITLES } from '@ea11y-apps/global/constants';
+import { BLOCK_INFO, BLOCKS } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { __ } from '@wordpress/i18n';

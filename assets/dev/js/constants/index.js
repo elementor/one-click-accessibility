@@ -1,3 +1,5 @@
+import { __ } from '@wordpress/i18n';
+
 export const GOLINKS = {
 	UPGRADE_80: 'https://go.elementor.com/acc-80-quota',
 	UPGRADE_95: 'https://go.elementor.com/acc-95-quota',
@@ -16,3 +18,18 @@ export const GOLINKS = {
 		'https://my.elementor.com/account-settings/purchases/subscriptions/{subscriptionId}/',
 };
 export const ELEMENTOR_URL = 'https://my.elementor.com';
+
+export const BLOCK_TITLES = {
+	altText: __('Alternative text', 'pojo-accessibility'),
+	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
+	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
+	keyboardAssistiveTech: __(
+		'Keyboard & Assistive Technologies',
+		'pojo-accessibility',
+	),
+	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
+	headingStructure: __('Heading Structure', 'pojo-accessibility'),
+	tables: __('Tables', 'pojo-accessibility'),
+	colorContrast: __('Color contrast', 'pojo-accessibility'),
+	other: __('Other Accessibility Issues', 'pojo-accessibility'),
+};

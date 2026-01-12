@@ -8,9 +8,9 @@ import MenuItem from '@elementor/ui/MenuItem';
 import MenuItemIcon from '@elementor/ui/MenuItemIcon';
 import MenuItemText from '@elementor/ui/MenuItemText';
 import Tooltip from '@elementor/ui/Tooltip';
+import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { DisabledMenuItemText } from '@ea11y-apps/scanner/styles/app.styles';
 import { useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
@@ -144,6 +144,10 @@ export const DropdownMenu = ({ pageUrl, remediationCount }) => {
 		</Box>
 	);
 };
+
+const DisabledMenuItemText = styled(MenuItemText)`
+	color: ${({ theme }) => theme.palette.text.disabled};
+`;
 
 DropdownMenu.propTypes = {
 	pageUrl: PropTypes.string.isRequired,

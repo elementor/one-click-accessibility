@@ -1,4 +1,3 @@
-import DirectionProvider from '@elementor/ui/DirectionProvider';
 import { createTheme, ThemeProvider } from '@elementor/ui/styles';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
@@ -106,6 +105,8 @@ const initApp = () => {
 		stylisPlugins: isRTL ? [prefixer, rtlPlugin] : [],
 	});
 
+	console.log(cache);
+
 	const theme = createTheme({
 		direction: isRTL ? 'rtl' : 'ltr',
 	});
@@ -113,19 +114,17 @@ const initApp = () => {
 	createRoot(shadowRootElement).render(
 		<AppWrapper>
 			<CacheProvider value={cache}>
-				<DirectionProvider rtl={isRTL}>
-					<ThemeProvider colorScheme="light" theme={theme}>
-						<NotificationsProvider>
-							<ScannerWizardContextProvider>
-								<TabsContextProvider>
-									<HeadingStructureContextProvider>
-										<App />
-									</HeadingStructureContextProvider>
-								</TabsContextProvider>
-							</ScannerWizardContextProvider>
-						</NotificationsProvider>
-					</ThemeProvider>
-				</DirectionProvider>
+				<ThemeProvider colorScheme="light" theme={theme}>
+					<NotificationsProvider>
+						<ScannerWizardContextProvider>
+							<TabsContextProvider>
+								<HeadingStructureContextProvider>
+									<App />
+								</HeadingStructureContextProvider>
+							</TabsContextProvider>
+						</ScannerWizardContextProvider>
+					</NotificationsProvider>
+				</ThemeProvider>
 			</CacheProvider>
 		</AppWrapper>,
 	);
