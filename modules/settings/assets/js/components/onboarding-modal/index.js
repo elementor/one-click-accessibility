@@ -6,7 +6,6 @@ import DialogContentText from '@elementor/ui/DialogContentText';
 import DialogHeader from '@elementor/ui/DialogHeader';
 import DialogTitle from '@elementor/ui/DialogTitle';
 import { useModal, useStorage } from '@ea11y/hooks';
-import { AppLogo } from '@ea11y/icons';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -59,8 +58,10 @@ const OnboardingModal = () => {
 			aria-labelledby="alert-dialog-title"
 			aria-describedby="alert-dialog-description"
 		>
-			<DialogHeader logo={<AppLogo />} onClose={onClose}>
-				<DialogTitle>{__('Ally', 'pojo-accessibility')}</DialogTitle>
+			<DialogHeader logo={false} onClose={onClose}>
+				<DialogTitle>
+					{__('Ally Accessibility', 'pojo-accessibility')}
+				</DialogTitle>
 			</DialogHeader>
 
 			<DialogContent dividers>
@@ -92,7 +93,7 @@ const OnboardingModal = () => {
 					href={`${homeUrl}?open-ea11y-assistant=1&open-ea11y-assistant-src=Ally_dashboard`}
 					target="_blank"
 					variant="contained"
-					color="info"
+					color="primary"
 					onClick={() => {
 						mixpanelService.sendEvent(mixpanelEvents.scanHomePageButtonClicked);
 						onClose();

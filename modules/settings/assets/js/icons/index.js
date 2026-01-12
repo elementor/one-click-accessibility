@@ -5,6 +5,7 @@ export { default as UserArrowIcon } from './user-arrow';
 export { default as CreditCardIcon } from './credit-card';
 export { default as TextSizeIcon } from './text-size';
 export { default as LineHeightIcon } from './line-height';
+export { default as LogoIcon } from './logo-icon';
 export { default as GrayscaleIcon } from './graysacale';
 export { default as ContrastIcon } from './contrast';
 export { default as VolumeIcon } from './volume';

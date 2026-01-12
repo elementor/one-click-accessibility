@@ -21,11 +21,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module extends Module_Base {
 
+
 	const SETTING_PREFIX = 'ea11y_';
 	const SETTING_GROUP = 'ea11y_settings';
 	const SETTING_BASE_SLUG = 'accessibility-settings';
 	const SETTING_CAPABILITY = 'manage_options';
-	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
+	const SETTING_PAGE_SLUG = 'elementor_page_' . self::SETTING_BASE_SLUG;
 
 	public function get_name(): string {
 		return 'settings';
@@ -62,22 +63,15 @@ class Module extends Module_Base {
 	}
 
 	public function register_page(): void {
-		add_menu_page(
+		add_submenu_page(
+			'elementor-home',
 			__( 'Ally - Web Accessibility', 'pojo-accessibility' ),
-			__( 'Ally', 'pojo-accessibility' ),
+			__( 'Accessibility', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			$this->get_menu_icon(),
+			55
 		);
-	}
-
-	private function get_menu_icon(): string {
-		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 383 383">
-										<path fill="#a7aaad" d="M191.47,0C85.73,0,0,85.73,0,191.47s85.73,191.47,191.47,191.47,191.47-85.73,191.47-191.47S297.22,0,191.47,0ZM191.47,64.82c15.33,0,27.75,12.42,27.75,27.75s-12.42,27.75-27.75,27.75-27.75-12.42-27.75-27.75,12.42-27.75,27.75-27.75ZM296.71,150.59l-51.42,9.25c-9.25.3-16.6,7.89-16.6,17.14l5.14,126.4c0,8.16-6.6,14.76-14.76,14.76-7.72,0-14.12-5.96-14.72-13.65l-4.65-61.58c-.3-3.88-3.54-6.88-7.42-6.88s-7.12,2.99-7.42,6.88l-4.65,61.58c-.57,7.69-7,13.65-14.71,13.65-8.16,0-14.77-6.6-14.77-14.76l5.52-137.01,40.04-2.92-63.61-6.75-46.45-6.13c-10.16-1.16-15.66-7-15.66-16.12s7.57-16.42,16.67-16.12l61.85,9.72c28.07,2.77,55.77,2.84,83.1,0l63.51-9.74v.02c9.1-.3,16.64,7.02,16.64,16.15s-5.42,14.32-15.65,16.12Z"/>
-								</svg>';
-
-		return 'data:image/svg+xml;base64,' . base64_encode( $svg );
 	}
 
 	/**
@@ -275,12 +269,12 @@ class Module extends Module_Base {
 
 		if ( $client_id ) {
 			try {
-				Utils::get_api_client()->make_request(
+				$migration_response = Utils::get_api_client()->make_request(
 					'POST',
 					'site/migration',
 					[ 'old_client_id' => $client_id ],
 				);
-				self::refresh_plan_data();
+				self::save_plan_data( $migration_response );
 			} catch ( Throwable $t ) {
 				Logger::error( esc_html( $t->getMessage() ) );
 			}
@@ -587,6 +581,10 @@ class Module extends Module_Base {
 	 * @param Notices $notice_manager
 	 */
 	public function register_notices( Notices $notice_manager ) {
+
+		if ( self::is_elementor_one() ) {
+			return;
+		}
 
 		if ( ! Connect::is_connected() && ! Settings::get( Settings::PLAN_DATA ) ) {
 			return;

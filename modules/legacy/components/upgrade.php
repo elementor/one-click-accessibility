@@ -5,6 +5,7 @@ namespace EA11y\Modules\Legacy\Components;
 use EA11y\Modules\Connect\Classes\Config;
 use EA11y\Modules\Core\Components\Notices;
 use EA11y\Modules\Core\Components\Pointers;
+use EA11y\Modules\Settings\Module as SettingsModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -580,6 +581,10 @@ class Upgrade {
 		}
 
 		if ( Pointers::is_dismissed( self::AJAX_ACTION ) ) {
+			return;
+		}
+
+		if ( SettingsModule::is_elementor_one() ) {
 			return;
 		}
 

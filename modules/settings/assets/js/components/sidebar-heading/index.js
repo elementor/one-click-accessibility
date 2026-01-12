@@ -1,7 +1,7 @@
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { useSettings } from '@ea11y/hooks';
-import { WidgetIcon } from '@ea11y/icons';
+import { LogoIcon } from '@ea11y/icons';
 import { __ } from '@wordpress/i18n';
 
 const SidebarHeading = () => {
@@ -33,7 +33,7 @@ const StyledHeader = styled('div')`
 `;
 
 /* TODO: Replace the icon when marketing decide which icon to use */
-const StyledHeaderIcon = styled(WidgetIcon)`
+const StyledHeaderIcon = styled(LogoIcon)`
 	font-size: 2.5rem;
 	padding: ${({ theme }) => theme.spacing(0.75)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};

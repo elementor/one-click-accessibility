@@ -14,7 +14,12 @@ const Sidebar = () => {
 	const { isElementorOne } = usePluginSettingsContext();
 
 	return (
-		<StyledDrawer variant="permanent" open={openSidebar}>
+		<StyledDrawer
+			variant="permanent"
+			open={openSidebar}
+			role="navigation"
+			aria-label={__('Sidebar', 'pojo-accessibility')}
+		>
 			<StyledToggleButton
 				onClick={() => setOpenSidebar(!openSidebar)}
 				size="small"
