@@ -5,6 +5,7 @@ import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { __ } from '@wordpress/i18n';
 import { openLink } from '../utils';
 
@@ -27,7 +28,7 @@ const QuotaNotices = () => {
 			feature: 'quota notice ' + type,
 			component: 'upgrade button',
 		});
-		openLink(GOLINKS[`UPGRADE_${type}`]);
+		openLink(getUpgradeLink(GOLINKS[`UPGRADE_${type}`]));
 	};
 
 	/**

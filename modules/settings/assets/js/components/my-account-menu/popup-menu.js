@@ -19,6 +19,7 @@ import { UserArrowIcon } from '@ea11y/icons';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { __ } from '@wordpress/i18n';
 import API from '../../api/index';
 import { truncateEmail } from '../../helpers/popup-menu';
@@ -57,21 +58,21 @@ export const PopupMenu = (menuProps) => {
 			feature: 'upgrade plan',
 			component: 'my account popup',
 		});
-		openLink(GOLINKS.ADD_VISITS);
+		openLink(getUpgradeLink(GOLINKS.ADD_VISITS));
 	};
 
 	const handleSubscriptionDeactivation = () => {
 		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 			buttonName: 'Deactivate subscription',
 		});
-		openLink(GOLINKS.MANAGE_SUBSCRIPTION);
+		openLink(getUpgradeLink(GOLINKS.MANAGE_SUBSCRIPTION));
 	};
 
 	const handleSubscriptionManagement = () => {
 		mixpanelService.sendEvent(mixpanelEvents.menuButtonClicked, {
 			buttonName: 'Manage subscription',
 		});
-		openLink(GOLINKS.MANAGE_SUBSCRIPTION);
+		openLink(getUpgradeLink(GOLINKS.MANAGE_SUBSCRIPTION));
 	};
 
 	return (

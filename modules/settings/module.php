@@ -540,6 +540,16 @@ class Module extends Module_Base {
 	 * @return string
 	 */
 	public static function get_upgrade_link( $campaign ) : string {
+		$subscription_id = get_option('ea11y_subscription_id');
+
+		if ( $subscription_id ) {
+			return add_query_arg([
+				'utm_source' => $campaign . '-upgrade',
+				'utm_medium' => 'wp-dash',
+				'subscription_id' => $subscription_id,
+			], 'https://go.elementor.com/' . $campaign );
+		}
+
 		return add_query_arg([
 			'utm_source' => $campaign . '-upgrade',
 			'utm_medium' => 'wp-dash',
