@@ -159,8 +159,8 @@ const StatementLink = () => {
 							<Box
 								display="flex"
 								flexDirection="row"
-								fullWidth
 								alignItems="center"
+								width="100%"
 							>
 								<PageSelect />
 
