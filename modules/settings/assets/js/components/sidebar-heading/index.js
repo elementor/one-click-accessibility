@@ -14,7 +14,7 @@ const SidebarHeading = () => {
 				sx={{ margin: openSidebar ? 0 : '0 auto' }}
 			/>
 			{openSidebar && (
-				<Typography variant="subtitle1" component="div">
+				<Typography variant="subtitle1" as="div">
 					{__('Accessibility', 'pojo-accessibility')}
 				</Typography>
 			)}

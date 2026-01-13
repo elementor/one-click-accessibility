@@ -93,11 +93,11 @@ const MenuSettings = () => {
 				)}
 
 				<StyledCardContent>
-					<List component="div">
+					<List as="div">
 						{Object.entries(MENU_SETTINGS).map(([parentKey, parentItem], i) => {
 							return (
 								<Box key={parentKey}>
-									<ListItem component="div" disableGutters>
+									<ListItem as="div" disableGutters>
 										<ListItemText sx={{ textAlign: 'start' }}>
 											<Typography variant="subtitle2">
 												{parentItem.title}

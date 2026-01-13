@@ -7,12 +7,12 @@ import { __, sprintf } from '@wordpress/i18n';
 const IssueList = ({ issueLevels }) => {
 	return (
 		<>
-			<StyledIssueLevel component="p">
-				<Typography variant="body2" component="span">
+			<StyledIssueLevel>
+				<Typography variant="body2">
 					{__('Level A', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2" component="span">
+				<StyledIssuesCount variant="subtitle2" as="p">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),
@@ -21,12 +21,12 @@ const IssueList = ({ issueLevels }) => {
 				</StyledIssuesCount>
 			</StyledIssueLevel>
 
-			<StyledIssueLevel component="p">
-				<Typography variant="body2" component="span">
+			<StyledIssueLevel>
+				<Typography variant="body2">
 					{__('Level AA', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2" component="span">
+				<StyledIssuesCount variant="subtitle2" as="p">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),
@@ -35,12 +35,12 @@ const IssueList = ({ issueLevels }) => {
 				</StyledIssuesCount>
 			</StyledIssueLevel>
 
-			<StyledIssueLevel component="p">
-				<Typography variant="body2" component="span">
+			<StyledIssueLevel>
+				<Typography variant="body2">
 					{__('Level AAA', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2" component="span">
+				<StyledIssuesCount variant="subtitle2" as="p">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),

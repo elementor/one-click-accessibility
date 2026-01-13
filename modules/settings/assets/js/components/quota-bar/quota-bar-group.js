@@ -57,7 +57,7 @@ const QuotaBarGroup = () => {
 			whiteSpace="nowrap"
 			{...bindTrigger(quotaPopupMenuState)}
 		>
-			<Typography variant="body2" component="div">
+			<Typography variant="body2" as="div">
 				{__('Current plan', 'pojo-accessibility')}
 			</Typography>
 			<Chip

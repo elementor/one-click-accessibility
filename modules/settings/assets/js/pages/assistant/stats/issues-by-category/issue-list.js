@@ -23,9 +23,8 @@ const CATEGORY_TITLE_OVERRIDES = {
 const IssueList = ({ issueByCategory }) => {
 	// Process categories to show top 6 by usage + "other"
 	const processedCategories = () => {
-		// Convert to array, filter out existing "other" entries, and sort by count (descending)
+		// Convert to array and sort by count (descending)
 		const sortedCategories = Object.entries(issueByCategory || {})
-			.filter(([key]) => key !== 'other')
 			.map(([key, count]) => ({
 				key,
 				title: CATEGORY_TITLE_OVERRIDES[key] || BLOCK_TITLES[key] || key,
@@ -33,20 +32,18 @@ const IssueList = ({ issueByCategory }) => {
 			}))
 			.sort((a, b) => b.count - a.count);
 
-		// Calculate total issues across all categories (including any existing "other")
-		const totalIssues = Object.values(issueByCategory || {}).reduce(
-			(sum, count) => sum + (count || 0),
+		// Calculate total issues across all categories
+		const totalIssues = sortedCategories.reduce(
+			(sum, category) => sum + category.count,
 			0,
 		);
 
 		// Take top 6 categories
 		const top6 = sortedCategories.slice(0, 6);
-		// Calculate "other" count from remaining categories plus any existing "other" count
-		const otherCount =
-			sortedCategories
-				.slice(6)
-				.reduce((sum, category) => sum + category.count, 0) +
-			(issueByCategory?.other || 0);
+		// Calculate "other" count from remaining categories
+		const otherCount = sortedCategories
+			.slice(6)
+			.reduce((sum, category) => sum + category.count, 0);
 
 		// Add "other" category if there are remaining categories or if it has count
 		const result = [...top6];
@@ -71,16 +68,10 @@ const IssueList = ({ issueByCategory }) => {
 	return (
 		<>
 			{categories.map(({ key, title, percentage }, index) => (
-				<StyledIssueLevel
-					key={`${key}-${index}`}
-					colorIndex={index}
-					component="p"
-				>
-					<Typography variant="body2" component="span">
-						{title}
-					</Typography>
+				<StyledIssueLevel key={key} colorIndex={index}>
+					<Typography variant="body2">{title}</Typography>
 
-					<StyledIssuesCount variant="subtitle2" component="span">
+					<StyledIssuesCount variant="subtitle2" as="p">
 						{percentage === 0 ? '-' : `${percentage}%`}
 					</StyledIssuesCount>
 				</StyledIssueLevel>
@@ -99,7 +90,7 @@ const StyledIssueLevel = styled(Box, {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	gap: ${({ theme }) => theme.spacing(2)};
+	gap: ${({ theme }) => theme.spacing(1)};
 
 	margin-inline-start: ${({ theme }) => theme.spacing(0.5)};
 
@@ -111,6 +102,7 @@ const StyledIssueLevel = styled(Box, {
 		content: '';
 		width: 10px;
 		height: 10px;
+		margin-inline-end: ${({ theme }) => theme.spacing(1)};
 		border-radius: 100%;
 		background-color: ${({ colorIndex }) => {
 			const colors = [

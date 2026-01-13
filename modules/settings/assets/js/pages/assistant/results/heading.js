@@ -44,7 +44,7 @@ const AccessibilityAssistantResultsHeading = () => {
 
 	return (
 		<StyledHeadingContainer>
-			<Typography variant="h6" component="h2">
+			<Typography variant="h6" as="h2">
 				{__('Scanned URLs', 'pojo-accessibility')}
 			</Typography>
 

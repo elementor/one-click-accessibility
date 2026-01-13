@@ -85,7 +85,7 @@ const PieChart = ({
 					alignItems: 'center',
 				}}
 			>
-				<Typography variant="h4" component="span">
+				<Typography variant="h4" as="span">
 					{value}
 				</Typography>
 			</Box>
