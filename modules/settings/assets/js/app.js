@@ -32,8 +32,13 @@ const App = () => {
 	const { ea11ySettingsData } = window;
 	const { hasFinishedResolution, loading } = useSavedSettings();
 
-	const { isConnected, isRTL, closePostConnectModal, isUrlMismatch } =
-		usePluginSettingsContext();
+	const {
+		isConnected,
+		isRTL,
+		closePostConnectModal,
+		isUrlMismatch,
+		refreshPluginSettings,
+	} = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
 
@@ -66,6 +71,7 @@ const App = () => {
 							version: ea11ySettingsData?.pluginVersion,
 						}}
 						isWithinWpAdmin
+						onDisconnect={refreshPluginSettings}
 					/>
 
 					{isConnected !== undefined && !isUrlMismatch && !isConnected && (
