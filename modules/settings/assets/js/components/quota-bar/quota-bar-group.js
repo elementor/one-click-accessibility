@@ -19,6 +19,7 @@ import {
 import { PopupMenu, QuotaIndicator } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
+import { useAuth } from '@ea11y-apps/global/hooks/use-auth';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { useRef, useState, useEffect } from '@wordpress/element';
@@ -32,6 +33,7 @@ const QuotaBarGroup = () => {
 	const [isOpened, setIsOpened] = useState(false);
 	const [showRenew, setShowRenew] = useState(false);
 	const { isConnected } = usePluginSettingsContext();
+	const { redirectToConnect } = useAuth();
 
 	useEffect(() => {
 		if (new Date(planData?.plan?.next_cycle_date) < new Date()) {
@@ -127,18 +129,30 @@ const QuotaBarGroup = () => {
 				</Card>
 				<Card elevation={0}>
 					<StyledCardContent>
-						<Button
-							variant="outlined"
-							startIcon={isFree ? <CrownIcon /> : null}
-							onClick={handleAddVisitsClick}
-							size="small"
-							fullWidth
-							color={isFree ? 'promotion' : 'secondary'}
-						>
-							{isFree
-								? __('Upgrade plan', 'pojo-accessibility')
-								: __('View more plans', 'pojo-accessibility')}
-						</Button>
+						{isConnected || showRenew ? (
+							<Button
+								variant="outlined"
+								startIcon={isFree || showRenew ? <CrownIcon /> : null}
+								size="small"
+								fullWidth
+								color={isFree || showRenew ? 'promotion' : 'secondary'}
+								onClick={handleAddVisitsClick}
+							>
+								{isFree || showRenew
+									? __('Upgrade plan', 'pojo-accessibility')
+									: __('View more plans', 'pojo-accessibility')}
+							</Button>
+						) : (
+							<Button
+								variant="outlined"
+								size="small"
+								fullWidth
+								color={'promotion'}
+								onClick={redirectToConnect}
+							>
+								{__('Connect to start', 'pojo-accessibility')}
+							</Button>
+						)}
 					</StyledCardContent>
 				</Card>
 			</StyledCardGroup>
