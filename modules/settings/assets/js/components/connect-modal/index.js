@@ -47,11 +47,11 @@ const StyledListItem = styled(ListItem)`
 `;
 
 const ConnectModal = () => {
-	const { isOpen, close } = useModal();
+	const { isOpen } = useModal();
 	const { redirectToConnect } = useAuth();
 
 	return (
-		<Modal open={isOpen} onClose={close}>
+		<Modal open={isOpen}>
 			<StyledGrid
 				container
 				tabindex="0"
