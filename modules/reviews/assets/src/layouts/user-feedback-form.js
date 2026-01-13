@@ -116,7 +116,9 @@ const Header = styled(Box)`
 	margin-bottom: ${({ theme }) => theme.spacing(2)};
 `;
 
-const Footer = styled(Box)`
+const Footer = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'currentPage',
+})`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
