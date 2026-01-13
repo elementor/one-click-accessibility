@@ -44,7 +44,7 @@ class Onboarding_Banner {
 		}
 
 		if ( self::user_viewed_banner() || self::user_has_scanned_pages() ) {
-			//return;
+			return;
 		}
 
 		$url = admin_url( 'admin-ajax.php' );
