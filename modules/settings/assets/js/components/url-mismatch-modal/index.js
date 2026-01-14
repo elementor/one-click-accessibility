@@ -90,7 +90,11 @@ const UrlMismatchModal = () => {
 								)}
 							</StyledCardSubtitle>
 
-							<Button variant="text" onClick={onUpdateConnectUrl} color="info">
+							<Button
+								variant="contained"
+								onClick={onUpdateConnectUrl}
+								color="primary"
+							>
 								{__('Update URL', 'pojo-accessibility')}
 							</Button>
 						</StyledCard>
@@ -107,7 +111,11 @@ const UrlMismatchModal = () => {
 								)}
 							</StyledCardSubtitle>
 
-							<Button variant="text" onClick={showConfirmation} color="info">
+							<Button
+								variant="contained"
+								onClick={showConfirmation}
+								color="primary"
+							>
 								{__('Connect new site', 'pojo-accessibility')}
 							</Button>
 						</StyledCard>
