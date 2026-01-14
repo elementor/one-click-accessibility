@@ -21,7 +21,9 @@ const StatsPieTooltip = (props) => {
 
 export default StatsPieTooltip;
 
-const StyledStatsPieTooltipTitle = styled(Typography)`
+const StyledStatsPieTooltipTitle = styled(Typography, {
+	shouldForwardProp: (prop) => prop !== 'itemColor',
+})`
 	position: relative;
 	padding-left: 18px;
 	&:before {

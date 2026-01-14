@@ -20,7 +20,9 @@ export const PieTooltip = (props) => {
 	);
 };
 
-const StyledTitle = styled(Typography)`
+const StyledTitle = styled(Typography, {
+	shouldForwardProp: (prop) => prop !== 'itemColor',
+})`
 	position: relative;
 	padding-left: 18px;
 	&:before {

@@ -83,7 +83,9 @@ const ParentIndicator = styled(Box)`
 	justify-content: center;
 `;
 
-const Square = styled(Box)`
+const Square = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'size' && prop !== 'filled',
+})`
 	position: absolute;
 	width: ${({ size }) => size}px;
 	height: ${({ size }) => size}px;
