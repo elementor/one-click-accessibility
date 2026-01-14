@@ -11,7 +11,7 @@ class APISettings extends API {
 			path: `${v1Prefix}/connect/authorize`,
 			data: {
 				wp_rest: window?.ea11ySettingsData?.wpRestNonce,
-				clear_session: true,
+				clearSession: true,
 			},
 		});
 	}
