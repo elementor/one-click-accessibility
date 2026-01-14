@@ -69,9 +69,11 @@ const IssueList = ({ issueByCategory }) => {
 		<>
 			{categories.map(({ key, title, percentage }, index) => (
 				<StyledIssueLevel key={key} colorIndex={index}>
-					<Typography variant="body2">{title}</Typography>
+					<Typography variant="body2" as="span">
+						{title}
+					</Typography>
 
-					<StyledIssuesCount variant="subtitle2" as="p">
+					<StyledIssuesCount variant="subtitle2" as="span">
 						{percentage === 0 ? '-' : `${percentage}%`}
 					</StyledIssuesCount>
 				</StyledIssueLevel>

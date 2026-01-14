@@ -26,7 +26,7 @@ import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 import { truncateEmail } from '../../helpers/popup-menu';
 import { openLink } from '../../utils';
 
-export const PopupMenu = (menuProps) => {
+export const PopupMenu = ({ closeAction, showUpgradeButton, ...menuProps }) => {
 	const { save } = useStorage();
 	const { error } = useToastNotification();
 	const { planData } = useSettings();
@@ -131,7 +131,7 @@ export const PopupMenu = (menuProps) => {
 						<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
 						<QuotaBar type="ai" quotaData={planData?.aiCredits} />
 
-						{!menuProps.showUpgradeButton && (
+						{!showUpgradeButton && (
 							<Button
 								variant="outlined"
 								startIcon={isFree ? <CrownIcon /> : null}

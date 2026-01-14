@@ -99,7 +99,7 @@ export const UsageTable = () => {
 							</TableRow>
 						))}
 					</TableBody>
-					{tablePageData.length > 1 && (
+					{tablePageData?.length > 1 && (
 						<TableFooter>
 							<TableRow>
 								<TablePagination
