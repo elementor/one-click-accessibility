@@ -19,6 +19,7 @@ require_once $_tests_dir . '/includes/functions.php';
 
 function _manually_load_plugin(): void {
 	require dirname( __DIR__ ) . '/pojo-accessibility.php';
+	require dirname( __DIR__ ) . '/vendor/elementor/wp-one-package/runner.php';
 }
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );

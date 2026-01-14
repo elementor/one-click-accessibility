@@ -198,7 +198,7 @@ class Client {
 
 		// If there is mismatch then trigger the mismatch flow explicitly.
 		if ( ! $this->refreshed && ! empty( $body->message ) && ( false !== strpos( $body->message, 'site url mismatch' ) ) ) {
-			Connect::get_connect()->data()->set_home_url( 'https://wrongurl' );
+			// Connect::get_connect()->data()->set_home_url( 'https://wrongurl' );
 			return new WP_Error( 401, 'site url mismatch' );
 		}
 
