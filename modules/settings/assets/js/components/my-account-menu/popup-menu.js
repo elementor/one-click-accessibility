@@ -95,63 +95,63 @@ export const PopupMenu = ({ closeAction, showUpgradeButton, ...menuProps }) => {
 			autoFocus={false}
 		>
 			{planData?.plan && (
-				<>
-					<StyledBox>
-						<Avatar sx={{ width: 24, height: 24 }}>
-							<UserIcon sx={{ color: 'common.white' }} />
-						</Avatar>
+				<StyledBox>
+					<Avatar sx={{ width: 24, height: 24 }}>
+						<UserIcon sx={{ color: 'common.white' }} />
+					</Avatar>
 
-						<Box display="flex" flexDirection="column" gap={0.5}>
-							<Tooltip title={planData?.user?.email}>
-								<Typography variant="caption" color="text.primary">
-									{truncateEmail(planData?.user?.email)}
-								</Typography>
-							</Tooltip>
+					<Box display="flex" flexDirection="column" gap={0.5}>
+						<Tooltip title={planData?.user?.email}>
+							<Typography variant="caption" color="text.primary">
+								{truncateEmail(planData?.user?.email)}
+							</Typography>
+						</Tooltip>
 
-							{planData?.plan?.name && (
-								<Chip
-									variant="filled"
-									label={planData?.plan?.name}
-									size="tiny"
-									sx={{ width: 'fit-content' }}
-								/>
-							)}
-						</Box>
-					</StyledBox>
+						{planData?.plan?.name && (
+							<Chip
+								variant="filled"
+								label={planData?.plan?.name}
+								size="tiny"
+								sx={{ width: 'fit-content' }}
+							/>
+						)}
+					</Box>
+				</StyledBox>
+			)}
 
-					<MenuSubheader disableGutters>
-						<Divider sx={{ my: 1 }} />
-					</MenuSubheader>
-				</>
+			{planData?.plan && (
+				<MenuSubheader disableGutters>
+					<Divider sx={{ my: 1 }} />
+				</MenuSubheader>
 			)}
 
 			{!isElementorOne && planData?.plan && (
-				<>
-					<QuotaSection as="li">
-						<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
-						<QuotaBar type="ai" quotaData={planData?.aiCredits} />
+				<QuotaSection as="li">
+					<QuotaBar type="scanner" quotaData={planData?.scannedPages} />
+					<QuotaBar type="ai" quotaData={planData?.aiCredits} />
 
-						{!showUpgradeButton && (
-							<Button
-								variant="outlined"
-								startIcon={isFree ? <CrownIcon /> : null}
-								onClick={handlePlanUpgrade}
-								size="small"
-								fullWidth
-								color={isFree ? 'promotion' : 'secondary'}
-								sx={{ marginTop: 0.5 }}
-							>
-								{isFree
-									? __('Upgrade plan', 'pojo-accessibility')
-									: __('View more plans', 'pojo-accessibility')}
-							</Button>
-						)}
-					</QuotaSection>
+					{!showUpgradeButton && (
+						<Button
+							variant="outlined"
+							startIcon={isFree ? <CrownIcon /> : null}
+							onClick={handlePlanUpgrade}
+							size="small"
+							fullWidth
+							color={isFree ? 'promotion' : 'secondary'}
+							sx={{ marginTop: 0.5 }}
+						>
+							{isFree
+								? __('Upgrade plan', 'pojo-accessibility')
+								: __('View more plans', 'pojo-accessibility')}
+						</Button>
+					)}
+				</QuotaSection>
+			)}
 
-					<MenuSubheader disableGutters>
-						<Divider sx={{ my: 1 }} />
-					</MenuSubheader>
-				</>
+			{!isElementorOne && planData?.plan && (
+				<MenuSubheader disableGutters>
+					<Divider sx={{ my: 1 }} />
+				</MenuSubheader>
 			)}
 
 			<StyledMenuItem dense onClick={handleAccountSwitch}>
