@@ -8,11 +8,11 @@ const IssueList = ({ issueLevels }) => {
 	return (
 		<>
 			<StyledIssueLevel>
-				<Typography variant="body2">
+				<Typography variant="body2" as="span">
 					{__('Level A', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2" as="p">
+				<StyledIssuesCount variant="subtitle2" as="span">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),
@@ -22,11 +22,11 @@ const IssueList = ({ issueLevels }) => {
 			</StyledIssueLevel>
 
 			<StyledIssueLevel>
-				<Typography variant="body2">
+				<Typography variant="body2" as="span">
 					{__('Level AA', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2" as="p">
+				<StyledIssuesCount variant="subtitle2" as="span">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),
@@ -36,11 +36,11 @@ const IssueList = ({ issueLevels }) => {
 			</StyledIssueLevel>
 
 			<StyledIssueLevel>
-				<Typography variant="body2">
+				<Typography variant="body2" as="span">
 					{__('Level AAA', 'pojo-accessibility')}
 				</Typography>
 
-				<StyledIssuesCount variant="subtitle2" as="p">
+				<StyledIssuesCount variant="subtitle2" as="span">
 					{sprintf(
 						// Translators: %s count of issues
 						__('%s issues', 'pojo-accessibility'),
