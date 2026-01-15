@@ -12,6 +12,7 @@ use EA11y\Modules\Settings\Banners\Onboarding_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\WhatsNew\Module as WhatsNewModule;
 use EA11y\Modules\Widget\Module as WidgetModule;
+use ElementorOne\Connect\Classes\GrantTypes;
 use Exception;
 use Throwable;
 
@@ -569,7 +570,7 @@ class Module extends Module_Base {
 	 * @return string
 	 */
 	public static function get_upgrade_link( $campaign ) : string {
-		$subscription_id = get_option('ea11y_subscription_id');
+		$subscription_id = get_option( 'ea11y_subscription_id' );
 
 		if ( $subscription_id ) {
 			return add_query_arg([
@@ -678,5 +679,13 @@ class Module extends Module_Base {
 		// Register notices
 		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
+
+		// Add action on switch domain for update access token
+		if ( ! self::is_elementor_one() ) {
+			add_action( 'elementor_one/' . Config::APP_PREFIX . '_switched_domain', function( $facade ) {
+				$refresh_token = $facade->data()->get_refresh_token();
+				$facade->service()->renew_access_token( $refresh_token ? GrantTypes::REFRESH_TOKEN : GrantTypes::CLIENT_CREDENTIALS );
+			} );
+		}
 	}
 }
