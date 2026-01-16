@@ -569,7 +569,7 @@ class Module extends Module_Base {
 	 * @return string
 	 */
 	public static function get_upgrade_link( $campaign ) : string {
-		$subscription_id = get_option('ea11y_subscription_id');
+		$subscription_id = get_option( 'ea11y_subscription_id' );
 
 		if ( $subscription_id ) {
 			return add_query_arg([
@@ -678,5 +678,10 @@ class Module extends Module_Base {
 		// Register notices
 		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
+
+		// Add action on switch domain for update access token
+		add_action( 'elementor_one/' . Config::APP_PREFIX . '_switched_domain', function( $facade ) {
+			$facade->service()->renew_access_token();
+		} );
 	}
 }
