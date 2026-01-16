@@ -5,6 +5,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ConfirmDialog } from '@ea11y/components';
 import { useModal } from '@ea11y/hooks';
+import { ONE_MISMATCH_URL } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
@@ -21,8 +22,7 @@ const UrlMismatchModal = () => {
 
 	const onUpdateConnectUrl = async () => {
 		if (isElementorOne) {
-			window.location.href =
-				'/wp-admin/admin.php?page=elementor-home#/home/url-mismatch';
+			window.location.href = ONE_MISMATCH_URL;
 			return;
 		}
 
@@ -40,8 +40,7 @@ const UrlMismatchModal = () => {
 
 	const onConnectAsNewSite = async () => {
 		if (isElementorOne) {
-			window.location.href =
-				'/wp-admin/admin.php?page=elementor-home#/home/url-mismatch';
+			window.location.href = ONE_MISMATCH_URL;
 			return;
 		}
 
