@@ -78,7 +78,7 @@ const App = () => {
 						<ConnectModal />
 					)}
 					{isConnected && !closePostConnectModal && <PostConnectModal />}
-					{isUrlMismatch && !isConnected && <UrlMismatchModal />}
+					{isUrlMismatch && isConnected && <UrlMismatchModal />}
 					<OnboardingModal />
 					<GetStartedModal />
 
