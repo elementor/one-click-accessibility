@@ -10,14 +10,22 @@ import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import APISettings from '../../api';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 
 const UrlMismatchModal = () => {
 	const { open, close } = useModal(true);
 	const { error } = useToastNotification();
 	const [showNewConnectionConfirmation, setShowNewConnectionConfirmation] =
 		useState(false);
+	const { isElementorOne } = usePluginSettingsContext();
 
 	const onUpdateConnectUrl = async () => {
+		if (isElementorOne) {
+			window.location.href =
+				'/wp-admin/admin.php?page=elementor-home#/home/url-mismatch';
+			return;
+		}
+
 		try {
 			await APISettings.initConnect('update');
 
@@ -31,6 +39,12 @@ const UrlMismatchModal = () => {
 	};
 
 	const onConnectAsNewSite = async () => {
+		if (isElementorOne) {
+			window.location.href =
+				'/wp-admin/admin.php?page=elementor-home#/home/url-mismatch';
+			return;
+		}
+
 		try {
 			setShowNewConnectionConfirmation(false);
 			await APISettings.clearSession();
