@@ -5,19 +5,27 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ConfirmDialog } from '@ea11y/components';
 import { useModal } from '@ea11y/hooks';
+import { ONE_MISMATCH_URL } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import APISettings from '../../api';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 
 const UrlMismatchModal = () => {
 	const { open, close } = useModal(true);
 	const { error } = useToastNotification();
 	const [showNewConnectionConfirmation, setShowNewConnectionConfirmation] =
 		useState(false);
+	const { isElementorOne } = usePluginSettingsContext();
 
 	const onUpdateConnectUrl = async () => {
+		if (isElementorOne) {
+			window.location.href = ONE_MISMATCH_URL;
+			return;
+		}
+
 		try {
 			await APISettings.initConnect('update');
 
@@ -31,6 +39,11 @@ const UrlMismatchModal = () => {
 	};
 
 	const onConnectAsNewSite = async () => {
+		if (isElementorOne) {
+			window.location.href = ONE_MISMATCH_URL;
+			return;
+		}
+
 		try {
 			setShowNewConnectionConfirmation(false);
 			await APISettings.clearSession();
