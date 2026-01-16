@@ -680,8 +680,8 @@ class Module extends Module_Base {
 		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
 
 		// Add action on switch domain for update access token
-    add_action( 'elementor_one/' . Config::APP_PREFIX . '_switched_domain', function( $facade ) {
-      $facade->service()->renew_access_token();
-    } );
+		add_action( 'elementor_one/' . Config::APP_PREFIX . '_switched_domain', function( $facade ) {
+			$facade->service()->renew_access_token();
+		} );
 	}
 }
