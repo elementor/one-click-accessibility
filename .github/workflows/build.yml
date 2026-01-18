@@ -78,7 +78,7 @@ jobs:
           retention-days: 14
 
       - name: Push to Slack on PR merge
-        if: ${{ github.event.pull_request.merged == true }}
+        if: ${{ github.event.pull_request.merged == 'true' }}
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: files.uploadV2
@@ -98,7 +98,7 @@ jobs:
           token: ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}
           payload: |
             channel_id: "C07LFCFNGDB"
-            title: "Manuall ${{ github.event.pull_request.title }}"
+            title: "{{ github.event.pull_request.title }}"
             initial_comment: "Ally - A new build was triggered by ${{ github.actor }}."
             file: "pojo-accessibility.zip"
             filename: "pojo-accessibility.zip"
