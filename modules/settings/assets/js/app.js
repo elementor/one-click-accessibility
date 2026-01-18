@@ -121,7 +121,7 @@ const StyledContainer = styled(Box)`
 `;
 
 const StyledGrid = styled(Grid)`
-	height: calc(100% - 54.5px);
+	height: calc(100% - 48px);
 
 	display: flex;
 	flex-direction: row;
