@@ -3,6 +3,7 @@
 namespace EA11y\Classes\Services;
 
 use EA11y\Modules\Connect\Module as Connect;
+use EA11y\Modules\Settings\Module as Settings_Module;
 use ElementorOne\Connect\Exceptions\Service_Exception;
 use Exception;
 use Throwable;
@@ -198,7 +199,9 @@ class Client {
 
 		// If there is mismatch then trigger the mismatch flow explicitly.
 		if ( ! $this->refreshed && ! empty( $body->message ) && ( false !== strpos( $body->message, 'site url mismatch' ) ) ) {
-			Connect::get_connect()->data()->set_home_url( 'https://wrongurl' );
+			if ( ! Settings_Module::is_elementor_one() ) {
+				Connect::get_connect()->data()->set_home_url( 'https://wrongurl' );
+			}
 			return new WP_Error( 401, 'site url mismatch' );
 		}
 
