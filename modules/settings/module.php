@@ -274,7 +274,24 @@ class Module extends Module_Base {
 					'site/migration',
 					[ 'old_client_id' => $client_id ],
 				);
+
 				self::save_plan_data( $migration_response );
+
+				$old_options = [
+					'ea11y_client_secret',
+					'ea11y_home_url',
+					'ea11y_access_token',
+					'ea11y_token_id',
+					'ea11y_refresh_token',
+					'ea11y_user_access_token',
+					'ea11y_owner_user_id',
+					Settings::SUBSCRIPTION_ID,
+					Settings::CLIENT_ID,
+				];
+
+				foreach ( $old_options as $option ) {
+					delete_option( $option );
+				}
 			} catch ( Throwable $t ) {
 				Logger::error( esc_html( $t->getMessage() ) );
 			}
