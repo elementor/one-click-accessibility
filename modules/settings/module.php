@@ -265,7 +265,7 @@ class Module extends Module_Base {
 			return;
 		}
 
-		$client_id = Connect::get_connect()->data()->get_client_id();
+		$client_id = Settings::get( Settings::CLIENT_ID );
 
 		if ( $client_id ) {
 			try {
@@ -274,7 +274,24 @@ class Module extends Module_Base {
 					'site/migration',
 					[ 'old_client_id' => $client_id ],
 				);
+
 				self::save_plan_data( $migration_response );
+
+				$old_options = [
+					'ea11y_client_secret',
+					'ea11y_home_url',
+					'ea11y_access_token',
+					'ea11y_token_id',
+					'ea11y_refresh_token',
+					'ea11y_user_access_token',
+					'ea11y_owner_user_id',
+					Settings::SUBSCRIPTION_ID,
+					Settings::CLIENT_ID,
+				];
+
+				foreach ( $old_options as $option ) {
+					delete_option( $option );
+				}
 			} catch ( Throwable $t ) {
 				Logger::error( esc_html( $t->getMessage() ) );
 			}
@@ -681,6 +698,9 @@ class Module extends Module_Base {
 
 		// Add action on switch domain for update access token
 		add_action( 'elementor_one/' . Config::APP_PREFIX . '_switched_domain', function( $facade ) {
+			$facade->service()->renew_access_token();
+		} );
+		add_action( 'elementor_one/switched_domain', function( $facade ) {
 			$facade->service()->renew_access_token();
 		} );
 	}

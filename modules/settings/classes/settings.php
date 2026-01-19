@@ -22,6 +22,7 @@ class Settings {
 	public const ANALYTICS_SETTINGS = 'ea11y_analytics_enabled';
 	public const PLAN_DATA_REFRESH_TRANSIENT = 'ea11y_plan_data_refresh';
 	public const SUBSCRIPTION_ID = 'ea11y_subscription_id';
+	public const CLIENT_ID = 'ea11y_client_id';
 
 	/**
 	 * Returns plugin settings data by option name
