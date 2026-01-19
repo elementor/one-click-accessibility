@@ -683,5 +683,8 @@ class Module extends Module_Base {
 		add_action( 'elementor_one/' . Config::APP_PREFIX . '_switched_domain', function( $facade ) {
 			$facade->service()->renew_access_token();
 		} );
+		add_action( 'elementor_one/switched_domain', function( $facade ) {
+			$facade->service()->renew_access_token();
+		} );
 	}
 }
