@@ -4,7 +4,7 @@ Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
 Requires at least: 6.6
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 3.9.1
+Stable tag: 4.0.0
 License: GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
