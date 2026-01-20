@@ -193,7 +193,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 == Changelog ==
 
 = 4.0.1 – 2026-01-20 =
-* Fix: Fix ally widget action to toggle open/close state instead of only opening
+* Fix: Fix ally widget action to toggle open/close state.
 * Fix: Fix PHP error in legacy module
 
 = 4.0.0 – 2026-01-20 =
