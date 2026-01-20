@@ -26,7 +26,7 @@ const StyledGrid = styled(Grid)`
 	background-color: ${({ theme }) => theme.palette.background.paper};
 	padding: 20px;
 	text-align: center;
-	border-radius: 4px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 `;
 
 const PostConnectModal = () => {
@@ -86,7 +86,7 @@ const PostConnectModal = () => {
 					variant="contained"
 					sx={{ padding: '8px 22px', width: '300px' }}
 					onClick={onClose}
-					color="info"
+					color="primary"
 				>
 					{__('Done', 'pojo-accessibility')}
 				</Button>

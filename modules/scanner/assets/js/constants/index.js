@@ -71,21 +71,6 @@ export const MANUAL_GROUPS = {
 	other: [],
 };
 
-export const BLOCK_TITLES = {
-	altText: __('Alternative text', 'pojo-accessibility'),
-	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),
-	formsInputsError: __('Forms & Input Errors', 'pojo-accessibility'),
-	keyboardAssistiveTech: __(
-		'Keyboard & Assistive Technologies',
-		'pojo-accessibility',
-	),
-	pageStructureNav: __('Page Structure & Navigation', 'pojo-accessibility'),
-	headingStructure: __('Heading Structure', 'pojo-accessibility'),
-	tables: __('Tables', 'pojo-accessibility'),
-	colorContrast: __('Color contrast', 'pojo-accessibility'),
-	other: __('Other Accessibility Issues', 'pojo-accessibility'),
-};
-
 export const BLOCK_INFO = {
 	altText: __(
 		"Clearly describe images so people using screen readers understand what's displayed.",

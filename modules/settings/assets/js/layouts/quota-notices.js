@@ -5,7 +5,9 @@ import { styled } from '@elementor/ui/styles';
 import { useSettings, useStorage } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 import { openLink } from '../utils';
 
 const QuotaNotices = () => {
@@ -17,6 +19,7 @@ const QuotaNotices = () => {
 	} = useSettings();
 	const { save } = useStorage();
 	const isFree = planData?.plan?.name === 'Free';
+	const { isElementorOne } = usePluginSettingsContext();
 
 	/**
 	 * Handle the click on the upgrade button.
@@ -27,7 +30,7 @@ const QuotaNotices = () => {
 			feature: 'quota notice ' + type,
 			component: 'upgrade button',
 		});
-		openLink(GOLINKS[`UPGRADE_${type}`]);
+		openLink(getUpgradeLink(GOLINKS[`UPGRADE_${type}`]));
 	};
 
 	/**
@@ -59,6 +62,10 @@ const QuotaNotices = () => {
 			console.error('Failed to save dismissed notice:', error);
 		}
 	};
+
+	if (isElementorOne) {
+		return null;
+	}
 
 	if (planUsage.aiCredits < 80 && planUsage.scannedPages < 80) {
 		return null;

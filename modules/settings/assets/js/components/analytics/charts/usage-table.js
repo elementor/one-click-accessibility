@@ -4,6 +4,7 @@ import CardHeader from '@elementor/ui/CardHeader';
 import Table from '@elementor/ui/Table';
 import TableBody from '@elementor/ui/TableBody';
 import TableCell from '@elementor/ui/TableCell';
+import TableFooter from '@elementor/ui/TableFooter';
 import TableHead from '@elementor/ui/TableHead';
 import TablePagination from '@elementor/ui/TablePagination';
 import TableRow from '@elementor/ui/TableRow';
@@ -98,20 +99,22 @@ export const UsageTable = () => {
 							</TableRow>
 						))}
 					</TableBody>
+					{tablePageData?.length > 1 && (
+						<TableFooter>
+							<TableRow>
+								<TablePagination
+									disabled={!stats.elements.length}
+									count={stats.elements.length}
+									onPageChange={(event, page) => setCurrentPage(page)}
+									page={currentPage}
+									rowsPerPage={TABLE_PER_PAGE}
+									rowsPerPageOptions={[]}
+									sx={{ borderBottom: 'none' }}
+								/>
+							</TableRow>
+						</TableFooter>
+					)}
 				</Table>
-				{tablePageData.length > 1 && (
-					<Box display="flex" justifyContent="end">
-						<TablePagination
-							disabled={!stats.elements.length}
-							count={stats.elements.length}
-							onPageChange={(event, page) => setCurrentPage(page)}
-							page={currentPage}
-							rowsPerPage={TABLE_PER_PAGE}
-							rowsPerPageOptions={[]}
-							sx={{ borderBottom: 'none' }}
-						/>
-					</Box>
-				)}
 				{stats.elements.length === 0 && <NoData />}
 			</StyledCardContent>
 		</Card>

@@ -18,8 +18,8 @@ export const ColorPickerStyles = css`
 		border-bottom: 12px solid #000;
 		border-radius: 8px 8px 0 0;
 		background-image:
-			linear-gradient(to top, #000, rgba(0, 0, 0, 0)),
-			linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
+			linear-gradient(to top, #000, rgb(0 0 0 / 0)),
+			linear-gradient(to right, #fff, rgb(255 255 255 / 0));
 	}
 
 	.react-colorful__pointer-fill,
@@ -38,7 +38,7 @@ export const ColorPickerStyles = css`
 
 	.react-colorful__alpha-gradient,
 	.react-colorful__saturation {
-		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+		box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.05);
 	}
 
 	.react-colorful__hue,
@@ -88,7 +88,7 @@ export const ColorPickerStyles = css`
 		background-color: #fff;
 		border: 2px solid #fff;
 		border-radius: 50%;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+		box-shadow: 0 2px 4px rgb(0 0 0 / 0.2);
 	}
 
 	.react-colorful__interactive:focus .react-colorful__pointer {

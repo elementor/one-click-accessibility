@@ -28,7 +28,7 @@ import WidgetPreviewSkeleton from './preview-skeleton';
 const StyledPreviewContainer = styled(Box)`
 	margin-top: ${({ theme }) => theme.spacing(2)};
 
-	border-radius: 4px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 
 	height: 250px;
@@ -159,8 +159,8 @@ const StatementLink = () => {
 							<Box
 								display="flex"
 								flexDirection="row"
-								fullWidth
 								alignItems="center"
+								width="100%"
 							>
 								<PageSelect />
 
@@ -232,7 +232,7 @@ const StatementLink = () => {
 
 			<CardActions>
 				<Button
-					color="info"
+					color="primary"
 					variant="contained"
 					onClick={savePage}
 					disabled={disabled}

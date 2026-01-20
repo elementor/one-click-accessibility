@@ -7,9 +7,10 @@ export const StyledStatsItem = styled(Box)`
 	justify-content: space-between;
 	align-items: center;
 
-	padding: ${({ theme }) => `${theme.spacing(2)} ${theme.spacing(2.5)}`};
+	padding: ${({ theme }) => theme.spacing(2, 2.5)};
 
-	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
+	border: 1px solid ${({ theme }) => theme.palette.divider};
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 	background: ${({ theme }) => theme.palette.background.default};
 
 	:nth-of-type(1) {
@@ -50,7 +51,7 @@ export const StyledStatsItem = styled(Box)`
 export const StyledStatsItemContent = styled(Box)`
 	min-width: 150px;
 	min-height: 50px;
-	height: 100%;
+	align-self: start;
 `;
 
 export const StyledStatsItemChart = styled(Box)`
@@ -63,7 +64,9 @@ export const StyledStatsItemChart = styled(Box)`
 	}
 `;
 
-export const StyledStatsItemTitle = styled(Typography)`
+export const StyledStatsItemTitle = styled(Typography, {
+	shouldForwardProp: (prop) => prop !== 'spacing',
+})`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;

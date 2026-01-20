@@ -29,6 +29,7 @@ const Save = ({ attributes }) => {
 };
 
 registerBlockType('ally/custom-link', {
+	apiVersion: 3,
 	title: __('Ally Widget Trigger', 'pojo-accessibility'),
 	icon: 'admin-links',
 	category: 'widgets',
@@ -38,8 +39,6 @@ registerBlockType('ally/custom-link', {
 			default: __('Open Ally Widget', 'pojo-accessibility'),
 		},
 	},
-
 	edit: Edit,
-
 	save: Save,
 });

@@ -6,7 +6,6 @@
     padding: 20px;
 }
 
-/* Thickbox auto-height adjustments */
 #TB_window.ea11y-feedback-thickbox {
     height: auto !important;
     max-height: 90vh;
@@ -16,12 +15,8 @@
     transform: translate(-50%, -50%) !important;
     margin: 0 !important;
     width: 600px !important;
-}
-
-/* Custom styles for Ally feedback thickbox */
-#TB_window.ea11y-feedback-thickbox {
     border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.3);
 }
 
 .ea11y-feedback-thickbox #TB_ajaxContent {
@@ -93,7 +88,7 @@
     width: 100%;
     padding: 6px 8px;
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 4px;
     font-size: 13px;
     resize: vertical;
 }
@@ -119,7 +114,7 @@
     border: none;
     background: none;
     text-decoration: none;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 13px;
     font-weight: 600;
@@ -133,8 +128,8 @@
 }
 
 .ea11y-btn-primary {
-    background: rgb(240, 171, 252);
-    border-color: rgb(240, 171, 252);
+    background: #f0abfc;
+    border-color: #f0abfc;
     color: #000;
     font-weight: 600;
     transition: all 0.3s ease;
@@ -147,6 +142,6 @@
 }
 
 .ea11y-btn:focus {
-    box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, 0.8);
+    box-shadow: 0 0 0 1px #5b9dd9, 0 0 2px 1px rgb(30 140 190 / 0.8);
     outline: none;
 }

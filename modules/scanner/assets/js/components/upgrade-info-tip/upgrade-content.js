@@ -5,6 +5,7 @@ import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import {
 	COMPARE_PLAN_URL,
 	IS_PRO_PLAN,
@@ -61,7 +62,7 @@ export const UpgradeContent = ({ closeUpgrade, isAlt = false }) => {
 					size="small"
 					color="promotion"
 					variant="contained"
-					href={IS_PRO_PLAN ? COMPARE_PLAN_URL : UPGRADE_URL}
+					href={IS_PRO_PLAN ? COMPARE_PLAN_URL : getUpgradeLink(UPGRADE_URL)}
 					target="_blank"
 					rel="noreferrer"
 					startIcon={!IS_PRO_PLAN ? <CrownFilled /> : null}

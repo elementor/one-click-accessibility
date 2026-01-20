@@ -5,27 +5,32 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { ConfirmDialog } from '@ea11y/components';
 import { useModal } from '@ea11y/hooks';
-import { AppLogo } from '@ea11y/icons';
+import { ONE_MISMATCH_URL } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { addQueryArgs } from '@wordpress/url';
 import APISettings from '../../api';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 
 const UrlMismatchModal = () => {
 	const { open, close } = useModal(true);
 	const { error } = useToastNotification();
 	const [showNewConnectionConfirmation, setShowNewConnectionConfirmation] =
 		useState(false);
+	const { isElementorOne } = usePluginSettingsContext();
 
 	const onUpdateConnectUrl = async () => {
+		if (isElementorOne) {
+			window.location.href = ONE_MISMATCH_URL;
+			return;
+		}
+
 		try {
-			const response = await APISettings.initConnect('update');
+			await APISettings.initConnect('update');
 
 			// Reload the URL if update redirect URI is successful.
-			if (response?.success) {
-				window.location.reload();
-			}
+			window.location.reload();
 		} catch (e) {
 			error(__('An error occurred.', 'pojo-accessibility'));
 		}
@@ -34,6 +39,11 @@ const UrlMismatchModal = () => {
 	};
 
 	const onConnectAsNewSite = async () => {
+		if (isElementorOne) {
+			window.location.href = ONE_MISMATCH_URL;
+			return;
+		}
+
 		try {
 			setShowNewConnectionConfirmation(false);
 			await APISettings.clearSession();
@@ -56,7 +66,7 @@ const UrlMismatchModal = () => {
 			<StyledConfirmDialog
 				open={open}
 				onClose={close}
-				logo={<AppLogo />}
+				logo={false}
 				title={__('Fix mismatched URL', 'pojo-accessibility')}
 				showCancelButton={false}
 				showApproveButton={false}
@@ -91,7 +101,11 @@ const UrlMismatchModal = () => {
 								)}
 							</StyledCardSubtitle>
 
-							<Button variant="text" onClick={onUpdateConnectUrl} color="info">
+							<Button
+								variant="contained"
+								onClick={onUpdateConnectUrl}
+								color="primary"
+							>
 								{__('Update URL', 'pojo-accessibility')}
 							</Button>
 						</StyledCard>
@@ -108,7 +122,11 @@ const UrlMismatchModal = () => {
 								)}
 							</StyledCardSubtitle>
 
-							<Button variant="text" onClick={showConfirmation} color="info">
+							<Button
+								variant="contained"
+								onClick={showConfirmation}
+								color="primary"
+							>
 								{__('Connect new site', 'pojo-accessibility')}
 							</Button>
 						</StyledCard>
@@ -149,7 +167,7 @@ const StyledCard = styled(Box)`
 	width: 38%;
 	padding: 40px;
 
-	border: 1px solid rgba(0, 0, 0, 0.12);
+	border: 1px solid rgb(0 0 0 / 0.12);
 	border-radius: 4px;
 
 	text-align: center;

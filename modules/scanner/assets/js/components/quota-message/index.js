@@ -2,6 +2,7 @@ import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { PAGE_LIMIT_URL, PAGE_PER_PLAN } from '@ea11y-apps/scanner/constants';
 import { QuotaImage } from '@ea11y-apps/scanner/images/quota-image';
 import {
@@ -42,7 +43,7 @@ export const QuotaMessage = () => {
 				size="small"
 				color="promotion"
 				variant="contained"
-				href={PAGE_LIMIT_URL}
+				href={getUpgradeLink(PAGE_LIMIT_URL)}
 				target="_blank"
 				rel="noreferrer"
 				startIcon={<CrownFilled />}

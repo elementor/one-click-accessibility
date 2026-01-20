@@ -82,13 +82,12 @@ const StyledPaper = styled(Paper)`
 	min-width: 10px;
 	width: 100px;
 	min-height: 100px;
-	border-radius: ${({ theme }) => theme.shape.borderRadius};
 	box-shadow: ${({ theme }) => theme.shadows[0]};
 	cursor: pointer;
 	position: relative;
 
 	:hover {
-		box-shadow: 0 0 15px 0 rgba(37, 99, 235, 0.15);
+		box-shadow: 0 0 15px 0 rgb(37 99 235 / 0.15);
 		border-color: ${({ theme }) => theme.palette.info.main};
 	}
 `;

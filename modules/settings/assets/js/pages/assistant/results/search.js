@@ -80,7 +80,9 @@ const StyledSearchButton = styled(Button)`
 	margin-inline-end: ${({ theme }) => theme.spacing(2)};
 `;
 
-const StyledTextField = styled(TextField)`
+const StyledTextField = styled(TextField, {
+	shouldForwardProp: (prop) => prop !== 'expanded',
+})`
 	width: ${({ expanded }) => (expanded ? '250px' : '0')};
 
 	opacity: ${({ expanded }) => (expanded ? 1 : 0)};

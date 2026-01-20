@@ -3,25 +3,24 @@
 	<description>Elementor Coding Standard</description>
 
 	<arg name="parallel" value="8" />
+	<!-- Colorize the output -->
+	<arg value="-colors" />
+	<!-- Show sniff codes in all reports -->
+	<arg value="ns" />
+	<!-- Scan only PHP files -->
+	<arg name="extensions" value="php" />
 
 	<config name="text_domain" value="pojo-accessibility" />
 
-	<exclude-pattern>vendor/</exclude-pattern>
-	<exclude-pattern>tmp/</exclude-pattern>
 	<exclude-pattern>build/</exclude-pattern>
 	<exclude-pattern>node_modules/</exclude-pattern>
-	<exclude-pattern>includes/libraries/</exclude-pattern>
+	<exclude-pattern>tmp/</exclude-pattern>
+	<exclude-pattern>vendor/</exclude-pattern>
 
 	<!-- Scan all files in directory -->
 	<file>.</file>
-	<!-- Scan only PHP files -->
-	<arg name="extensions" value="php"/>
-	<!-- Show sniff codes in all reports -->
-	<arg value="ns"/>
-	
+
 	<rule ref="WordPress.Security" />
-	<!-- Optional: enforce short arrays. -->
-	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
 	<rule ref="WordPress-Extra">
 		<exclude name="Generic.Commenting.DocComment.MissingShort" />
@@ -36,12 +35,9 @@
 		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen" />
 		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeEnd" />
 		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />
-		<exclude name="WordPress.Arrays.MultipleStatementAlignment" />
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
-		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
-		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralSingle" />
-		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralPlural" />
-		<exclude name="WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet" />
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals" />
+		<exclude name="WordPress.WP.I18n" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
@@ -49,7 +45,7 @@
 
 	<rule ref="WordPress.WP.DeprecatedFunctions">
 		<properties>
-			<property name="minimum_supported_version" value="4.7" />
+			<property name="minimum_supported_version" value="6.6" />
 		</properties>
 	</rule>
 

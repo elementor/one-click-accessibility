@@ -23,12 +23,12 @@ const BottomBar = () => {
 	const saveSettings = async () => {
 		let savedData = {};
 
-		if (selectedMenu.parent === 'capabilities') {
+		if (selectedMenu.child === 'capabilities') {
 			savedData = {
 				ea11y_widget_menu_settings: widgetMenuSettings,
 				ea11y_skip_to_content_settings: skipToContentSettings,
 			};
-		} else if (selectedMenu.parent === 'design') {
+		} else if (selectedMenu.child === 'design') {
 			savedData = {
 				ea11y_widget_icon_settings: {
 					style: iconDesign,
@@ -56,7 +56,7 @@ const BottomBar = () => {
 		<StyledContainer>
 			<Button
 				variant="contained"
-				color="info"
+				color="primary"
 				onClick={saveSettings}
 				disabled={
 					!hasChanges || Object.keys(hasError).some((key) => hasError[key])

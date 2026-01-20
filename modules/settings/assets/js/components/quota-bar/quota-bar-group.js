@@ -1,4 +1,4 @@
-import ChevronUpIcon from '@elementor/icons/ChevronUpIcon';
+import ChevronDownSmallIcon from '@elementor/icons/ChevronDownSmallIcon';
 import CrownIcon from '@elementor/icons/CrownIcon';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
@@ -8,25 +8,47 @@ import CardContent from '@elementor/ui/CardContent';
 import CardGroup from '@elementor/ui/CardGroup';
 import CardHeader from '@elementor/ui/CardHeader';
 import Chip from '@elementor/ui/Chip';
-import Collapse from '@elementor/ui/Collapse';
 import Rotate from '@elementor/ui/Rotate';
+import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import {
-	QuotaBar as QuotaBarComponent,
-	QuotaIndicator,
-} from '@ea11y/components';
+	bindMenu,
+	bindTrigger,
+	usePopupState,
+} from '@elementor/ui/usePopupState';
+import { PopupMenu, QuotaIndicator } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
+import { useAuth } from '@ea11y-apps/global/hooks/use-auth';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { useState } from '@wordpress/element';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
+import { useRef, useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 import { openLink } from '../../utils';
 
-const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
+const QuotaBarGroup = () => {
 	const { planData } = useSettings();
-	const [open, setOpen] = useState(false);
+	const anchorEl = useRef(null);
+	const [isOpened, setIsOpened] = useState(false);
+	const [showRenew, setShowRenew] = useState(false);
+	const { isConnected } = usePluginSettingsContext();
+	const { redirectToConnect } = useAuth();
 
-	const toggleOpen = () => setOpen((prev) => !prev);
+	useEffect(() => {
+		if (new Date(planData?.plan?.next_cycle_date) < new Date()) {
+			setShowRenew(true);
+		}
+	}, [planData?.plan?.next_cycle_date]);
+
+	const isFree = planData?.plan?.name === 'Free';
+
+	const handleClick = () => setIsOpened(!isOpened);
+
+	const quotaPopupMenuState = usePopupState({
+		variant: 'popover',
+		popupId: 'popupMenuCollapsedSidebar',
+	});
 
 	/**
 	 * Send an event to the Mixpanel when the user clicks on the "Add visits" button and open the link.
@@ -36,62 +58,101 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 			feature: 'add visits',
 			component: 'quota counter',
 		});
-		openLink(GOLINKS.ADD_VISITS);
+		openLink(getUpgradeLink(GOLINKS.ADD_VISITS));
 	};
 
 	const QuotaTitle = () => (
-		<Box display="flex" alignItems="center" gap={1} whiteSpace="nowrap">
-			{__('Current Plan', 'pojo-accessibility')}
-			<Chip variant="filled" label={planData?.plan?.name} size="tiny" />
+		<Box
+			display="flex"
+			alignItems="center"
+			gap={1}
+			whiteSpace="nowrap"
+			{...bindTrigger(quotaPopupMenuState)}
+		>
+			<Typography variant="body2" as="div">
+				{__('Current plan', 'pojo-accessibility')}
+			</Typography>
+			{showRenew ? (
+				<Chip
+					variant="filled"
+					color="error"
+					label={__('Expired', 'pojo-accessibility')}
+					size="tiny"
+				/>
+			) : (
+				<Chip
+					variant="filled"
+					color={isConnected ? 'default' : 'error'}
+					label={
+						isConnected
+							? planData?.plan?.name
+							: __('Not connected', 'pojo-accessibility')
+					}
+					size="tiny"
+				/>
+			)}
 			<QuotaIndicator />
 		</Box>
 	);
 
-	const QuotaBars = () => (
-		<StyledCardContentInner>
-			<QuotaBarComponent type="scanner" quotaData={planData?.scannedPages} />
-			<QuotaBarComponent type="ai" quotaData={planData?.aiCredits} />
-		</StyledCardContentInner>
-	);
-
 	return (
-		<StyledBox popup={popup}>
-			<StyledCardGroup>
+		<StyledBox>
+			<StyledCardGroup ref={anchorEl}>
 				<Card elevation={0} sx={{ overflow: 'visible' }}>
-					<StyledCardActionArea onClick={toggleOpen}>
+					<StyledCardActionArea onClick={handleClick}>
 						<StyledCardHeader
 							title={<QuotaTitle />}
 							action={
-								collapsible && (
-									<Rotate in={open}>
-										<ChevronUpIcon />
-									</Rotate>
-								)
+								<Rotate in={!isOpened}>
+									<ChevronDownSmallIcon />
+								</Rotate>
 							}
 							disableActionOffset
 						/>
 					</StyledCardActionArea>
-					{collapsible && (
-						<Collapse in={open}>
-							<QuotaBars />
-						</Collapse>
-					)}
-					{!collapsible && <QuotaBars />}
+					<PopupMenu
+						{...bindMenu(quotaPopupMenuState)}
+						closeAction={quotaPopupMenuState.close}
+						showUpgradeButton="false"
+						anchorOrigin={{
+							vertical: 'top',
+							horizontal: 'center',
+						}}
+						transformOrigin={{
+							vertical: 'bottom',
+							horizontal: 'center',
+						}}
+						open={isOpened}
+						onClose={handleClick}
+						anchorEl={anchorEl.current}
+					/>
 				</Card>
 				<Card elevation={0}>
 					<StyledCardContent>
-						<Button
-							variant="outlined"
-							startIcon={planData?.plan?.name === 'Free' ? <CrownIcon /> : null}
-							onClick={handleAddVisitsClick}
-							size="small"
-							fullWidth
-							color={planData?.plan?.name === 'Free' ? 'promotion' : 'info'}
-						>
-							{planData?.plan?.name === 'Free'
-								? __('Upgrade plan', 'pojo-accessibility')
-								: __('View more plans', 'pojo-accessibility')}
-						</Button>
+						{isConnected || showRenew ? (
+							<Button
+								variant="outlined"
+								startIcon={isFree || showRenew ? <CrownIcon /> : null}
+								size="small"
+								fullWidth
+								color={isFree || showRenew ? 'promotion' : 'secondary'}
+								onClick={handleAddVisitsClick}
+							>
+								{isFree || showRenew
+									? __('Upgrade plan', 'pojo-accessibility')
+									: __('View more plans', 'pojo-accessibility')}
+							</Button>
+						) : (
+							<Button
+								variant="outlined"
+								size="small"
+								fullWidth
+								color={'promotion'}
+								onClick={redirectToConnect}
+							>
+								{__('Connect to start', 'pojo-accessibility')}
+							</Button>
+						)}
 					</StyledCardContent>
 				</Card>
 			</StyledCardGroup>
@@ -101,30 +162,31 @@ const QuotaBarGroup = ({ collapsible = true, popup = false }) => {
 
 export default QuotaBarGroup;
 
-const StyledBox = styled(Box, {
-	shouldForwardProp: (prop) => prop !== 'popup',
-})`
+const StyledBox = styled(Box)`
 	display: flex;
 	flex-direction: row;
 	align-items: start;
 	justify-content: center;
-	max-width: 230px;
-
-	margin: ${({ popup, theme }) => (popup ? '0' : theme.spacing(2))};
+	max-width: 224px;
+	margin: ${({ theme }) => theme.spacing(1)};
 	padding: 0;
 
-	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
 
-	:hover {
-		background-color: ${({ popup, theme }) =>
-			popup ? theme.palette.common.white : theme.palette.action.hover};
+	&:hover,
+	&:focus-within {
+		background-color: ${({ theme }) => theme.palette.action.hover};
 	}
 `;
 
 const StyledCardGroup = styled(CardGroup)`
+	display: flex;
+	flex-direction: column;
+	gap: ${({ theme }) => theme.spacing(1)};
+
 	border: none;
-	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
-	padding: ${({ theme }) => `${theme.spacing(1.5)} ${theme.spacing(2)}`};
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+	padding: ${({ theme }) => theme.spacing(1.5)};
 	width: 100%;
 	background-color: transparent;
 
@@ -136,31 +198,25 @@ const StyledCardGroup = styled(CardGroup)`
 const StyledCardContent = styled(CardContent)`
 	padding: 0;
 	background-color: transparent;
+
 	:last-child {
 		padding-bottom: 0;
 	}
 `;
 
-const StyledCardContentInner = styled(CardContent)`
-	padding: 0;
-	background-color: transparent;
-	padding-top: ${({ theme }) => theme.spacing(1)};
-	:last-child {
-		padding-bottom: ${({ theme }) => theme.spacing(2)};
-	}
-`;
-
 const StyledCardHeader = styled(CardHeader)`
-	padding: 0;
+	padding: ${({ theme }) => theme.spacing(0.5)} 0;
 	background-color: transparent;
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
 `;
 
 const StyledCardActionArea = styled(CardActionArea)`
 	background-color: transparent;
-	button {
-		&:hover {
-			background-color: transparent;
-		}
+	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
+
+	&:hover {
+		background-color: transparent;
+	}
+	.MuiCardActionArea-focusHighlight {
+		background-color: transparent;
 	}
 `;

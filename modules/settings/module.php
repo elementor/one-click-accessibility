@@ -1,28 +1,17 @@
 <?php
+
 namespace EA11y\Modules\Settings;
 
-use EA11y\Classes\{
-	Logger,
-	Module_Base,
-	Utils
-};
-use EA11y\Modules\Connect\Classes\{
-	Config,
-	Data,
-	Exceptions\Service_Exception
-};
-use EA11y\Modules\Connect\Classes\Utils as Connect_Utils;
+use EA11y\Classes\{Logger, Module_Base, Utils};
+use EA11y\Modules\Connect\Classes\{Config,};
 use EA11y\Modules\Connect\Module as Connect;
-use EA11y\Modules\Core\Components\{
-	Notices,
-	Svg
-};
+use EA11y\Modules\Core\Components\{Notices, Svg};
+use EA11y\Modules\Settings\Banners\BF_Sale_2025_Banner;
 use EA11y\Modules\Settings\Banners\Elementor_Birthday_Banner;
 use EA11y\Modules\Settings\Banners\Onboarding_Banner;
-use EA11y\Modules\Settings\Banners\BF_Sale_2025_Banner;
 use EA11y\Modules\Settings\Classes\Settings;
-use EA11y\Modules\Widget\Module as WidgetModule;
 use EA11y\Modules\WhatsNew\Module as WhatsNewModule;
+use EA11y\Modules\Widget\Module as WidgetModule;
 use Exception;
 use Throwable;
 
@@ -31,11 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Module extends Module_Base {
-	const SETTING_PREFIX     = 'ea11y_';
-	const SETTING_GROUP      = 'ea11y_settings';
-	const SETTING_BASE_SLUG  = 'accessibility-settings';
+
+
+	const SETTING_PREFIX = 'ea11y_';
+	const SETTING_GROUP = 'ea11y_settings';
+	const SETTING_BASE_SLUG = 'accessibility-settings';
 	const SETTING_CAPABILITY = 'manage_options';
-	const SETTING_PAGE_SLUG = 'toplevel_page_' . self::SETTING_BASE_SLUG;
+	const SETTING_PAGE_SLUG = 'elementor_page_' . self::SETTING_BASE_SLUG;
 
 	public function get_name(): string {
 		return 'settings';
@@ -47,47 +38,46 @@ class Module extends Module_Base {
 		];
 	}
 
+	/**
+	 * @throws Throwable
+	 */
 	public function render_app() {
 		?>
 		<?php Elementor_Birthday_Banner::get_banner( 'https://go.elementor.com/acc-b-day-banner' ); ?>
-		<?php BF_Sale_2025_Banner::get_banner('https://go.elementor.com/acc-BF-sale'); ?>
+		<?php BF_Sale_2025_Banner::get_banner( 'https://go.elementor.com/acc-BF-sale' ); ?>
 
-		<!-- The hack required to wrap WP notifications -->
-		<div class="wrap">
-			<h1 style="display: none;" role="presentation"></h1>
-		</div>
+	<!-- The hack required to wrap WP notifications -->
+	<div class="wrap">
+	  <h1 style="display: none;" role="presentation"></h1>
+	</div>
 
-		<div id="ea11y-app"></div>
+	<div id="ea11y-app"></div>
 		<?php
 	}
 
+	/**
+	 * @throws Throwable
+	 */
 	public function admin_banners() {
 		Onboarding_Banner::get_banner();
 	}
 
-	public function register_page() : void {
-		add_menu_page(
+	public function register_page(): void {
+		add_submenu_page(
+			'elementor-home',
 			__( 'Ally - Web Accessibility', 'pojo-accessibility' ),
-			__( 'Ally', 'pojo-accessibility' ),
+			__( 'Accessibility', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			$this->get_menu_icon(),
+			55
 		);
-	}
-
-	private function get_menu_icon() : string {
-		$svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 383 383">
-										<path fill="#a7aaad" d="M191.47,0C85.73,0,0,85.73,0,191.47s85.73,191.47,191.47,191.47,191.47-85.73,191.47-191.47S297.22,0,191.47,0ZM191.47,64.82c15.33,0,27.75,12.42,27.75,27.75s-12.42,27.75-27.75,27.75-27.75-12.42-27.75-27.75,12.42-27.75,27.75-27.75ZM296.71,150.59l-51.42,9.25c-9.25.3-16.6,7.89-16.6,17.14l5.14,126.4c0,8.16-6.6,14.76-14.76,14.76-7.72,0-14.12-5.96-14.72-13.65l-4.65-61.58c-.3-3.88-3.54-6.88-7.42-6.88s-7.12,2.99-7.42,6.88l-4.65,61.58c-.57,7.69-7,13.65-14.71,13.65-8.16,0-14.77-6.6-14.77-14.76l5.52-137.01,40.04-2.92-63.61-6.75-46.45-6.13c-10.16-1.16-15.66-7-15.66-16.12s7.57-16.42,16.67-16.12l61.85,9.72c28.07,2.77,55.77,2.84,83.1,0l63.51-9.74v.02c9.1-.3,16.64,7.02,16.64,16.15s-5.42,14.32-15.65,16.12Z"/>
-								</svg>';
-
-		return 'data:image/svg+xml;base64,' . base64_encode( $svg );
 	}
 
 	/**
 	 * Enqueue Scripts and Styles
 	 */
-	public function enqueue_scripts( $hook ) : void {
+	public function enqueue_scripts( $hook ): void {
 		if ( self::SETTING_PAGE_SLUG !== $hook ) {
 			return;
 		}
@@ -126,7 +116,7 @@ class Module extends Module_Base {
 				'pluginVersion' => EA11Y_VERSION,
 				'widgetUrl' => WidgetModule::get_widget_url(),
 				'adminUrl' => admin_url(),
-				'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+				'isUrlMismatch' => ! Connect::get_connect()->utils()->is_valid_home_url(),
 				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
 
 				'homeUrl' => home_url(),
@@ -138,11 +128,11 @@ class Module extends Module_Base {
 	 * Get Mixpanel project Token
 	 * @return string
 	 */
-	public static function get_plugin_env() : string {
+	public static function get_plugin_env(): string {
 		return apply_filters( 'ea11y_plugin_env', 'production' );
 	}
 
-	public static function routes_list() : array {
+	public static function routes_list(): array {
 		return [
 			'Get_Settings',
 			'Get_Media',
@@ -160,10 +150,11 @@ class Module extends Module_Base {
 			'closeOnboardingModal' => Settings::get( Settings::CLOSE_ONBOARDING_MODAL ),
 			'closeGetStartedModal' => Settings::get( Settings::CLOSE_GET_STARTED_MODAL ),
 			'isRTL' => is_rtl(),
-			'isUrlMismatch' => ! Connect_Utils::is_valid_home_url(),
+			'isUrlMismatch' => ! Connect::get_connect()->utils()->is_valid_home_url(),
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
 			'whatsNewDataHash' => WhatsNewModule::compare_data_hash(),
+			'isElementorOne' => self::is_elementor_one(),
 		];
 	}
 
@@ -179,10 +170,18 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * Check if elementor one
+	 * @return bool
+	 */
+	public static function is_elementor_one(): bool {
+		return Connect::get_connect()->get_config( 'app_type' ) !== Config::APP_TYPE;
+	}
+
+	/**
 	 * Register the website and save the plan data.
 	 * @return void
 	 */
-	public static function register_site_with_data() : void {
+	public static function register_site_with_data(): void {
 		$register_response = Utils::get_api_client()->make_request(
 			'POST',
 			'site/register'
@@ -204,10 +203,10 @@ class Module extends Module_Base {
 	 *
 	 * @return void
 	 */
-	public static function save_plan_data( $register_response ) : void {
+	public static function save_plan_data( $register_response ): void {
 		if ( $register_response && ! is_wp_error( $register_response ) ) {
 			$decoded_response = $register_response;
-			Data::set_subscription_id( $decoded_response->plan->subscription_id );
+			update_option( Settings::SUBSCRIPTION_ID, $decoded_response->plan->subscription_id );
 			update_option( Settings::PLAN_DATA, $decoded_response );
 			update_option( Settings::IS_VALID_PLAN_DATA, true );
 			self::set_default_settings();
@@ -222,9 +221,9 @@ class Module extends Module_Base {
 	 * Refresh the plan data after 12 hours
 	 * @return void
 	 */
-	public static function refresh_plan_data() : void {
+	public static function refresh_plan_data(): void {
 		if ( ! Connect::is_connected() ) {
-				return;
+			return;
 		}
 
 		// Refresh only if refresh transient is expired
@@ -241,25 +240,72 @@ class Module extends Module_Base {
 			return;
 		}
 
-		try {
-			$response = Utils::get_api_client()->make_request(
-				'GET',
-				'site/info',
-				[ 'api_key' => $plan_data->public_api_key ]
-			);
+		$response = Utils::get_api_client()->make_request(
+			'GET',
+			'site/info',
+			[ 'api_key' => $plan_data->public_api_key ]
+		);
 
-			if ( ! is_wp_error( $response ) ) {
-				Settings::set( Settings::PLAN_DATA, $response );
-				Settings::set( Settings::IS_VALID_PLAN_DATA, true );
-				self::set_plan_data_refresh_transient();
-			} else {
-				Logger::error( esc_html( $response->get_error_message() ) );
-				Settings::set( Settings::IS_VALID_PLAN_DATA, false );
-			}
-		} catch ( Service_Exception $se ) {
-			Logger::error( esc_html( $se->getMessage() ) );
+		if ( ! is_wp_error( $response ) ) {
+			Settings::set( Settings::PLAN_DATA, $response );
+			Settings::set( Settings::IS_VALID_PLAN_DATA, true );
+			self::set_plan_data_refresh_transient();
+		} else {
+			Logger::error( esc_html( $response->get_error_message() ) );
 			Settings::set( Settings::IS_VALID_PLAN_DATA, false );
 		}
+	}
+
+	/**
+	 * Register or update site data for One connect
+	 * @throws Exception
+	 */
+	public function on_migration_run() {
+		if ( ! Connect::is_connected() ) {
+			return;
+		}
+
+		$client_id = Settings::get( Settings::CLIENT_ID );
+
+		if ( $client_id ) {
+			try {
+				$migration_response = Utils::get_api_client()->make_request(
+					'POST',
+					'site/migration',
+					[ 'old_client_id' => $client_id ],
+				);
+
+				self::save_plan_data( $migration_response );
+
+				$old_options = [
+					'ea11y_client_secret',
+					'ea11y_home_url',
+					'ea11y_access_token',
+					'ea11y_token_id',
+					'ea11y_refresh_token',
+					'ea11y_user_access_token',
+					'ea11y_owner_user_id',
+					Settings::SUBSCRIPTION_ID,
+					Settings::CLIENT_ID,
+				];
+
+				foreach ( $old_options as $option ) {
+					delete_option( $option );
+				}
+			} catch ( Throwable $t ) {
+				Logger::error( esc_html( $t->getMessage() ) );
+			}
+		} else {
+			$this->on_connect();
+		}
+	}
+
+	/**
+	 * On disconnect
+	 * @return void
+	 */
+	public function on_disconnect() {
+		delete_option( Settings::SUBSCRIPTION_ID );
 	}
 
 	/**
@@ -374,7 +420,7 @@ class Module extends Module_Base {
 	 * Set default values after successful registration.
 	 * @return void
 	 */
-	private static function set_default_settings() : void {
+	private static function set_default_settings(): void {
 
 		if ( ! get_option( Settings::WIDGET_MENU_SETTINGS ) ) {
 			update_option( Settings::WIDGET_MENU_SETTINGS, self::get_default_settings( 'widget_menu_settings' ) );
@@ -395,7 +441,7 @@ class Module extends Module_Base {
 	 * @param $current_screen
 	 * @return void
 	 */
-	public function check_plan_data( $current_screen ) : void {
+	public function check_plan_data( $current_screen ): void {
 		if ( self::SETTING_PAGE_SLUG !== $current_screen->base ) {
 			return;
 		}
@@ -540,10 +586,20 @@ class Module extends Module_Base {
 	 * @return string
 	 */
 	public static function get_upgrade_link( $campaign ) : string {
+		$subscription_id = get_option( 'ea11y_subscription_id' );
+
+		if ( $subscription_id ) {
+			return add_query_arg([
+				'utm_source' => $campaign . '-upgrade',
+				'utm_medium' => 'wp-dash',
+				'subscription_id' => $subscription_id,
+			], 'https://go.elementor.com/' . $campaign );
+		}
+
 		return add_query_arg([
 			'utm_source' => $campaign . '-upgrade',
 			'utm_medium' => 'wp-dash',
-		], 'https://go.elementor.com/' . $campaign );
+		], 'https://go.elementor.com/' . $campaign);
 	}
 
 	/**
@@ -553,7 +609,11 @@ class Module extends Module_Base {
 	 */
 	public function register_notices( Notices $notice_manager ) {
 
-		if( ! Connect::is_connected() && ! Settings::get( Settings::PLAN_DATA ) ) {
+		if ( self::is_elementor_one() ) {
+			return;
+		}
+
+		if ( ! Connect::is_connected() && ! Settings::get( Settings::PLAN_DATA ) ) {
 			return;
 		}
 
@@ -571,7 +631,7 @@ class Module extends Module_Base {
 	/**
 	 * @return float
 	 */
-	public static function get_plan_usage() : float {
+	public static function get_plan_usage(): float {
 		$plan_data = Settings::get( Settings::PLAN_DATA );
 
 		if ( ! $plan_data ) {
@@ -607,7 +667,7 @@ class Module extends Module_Base {
 	 */
 	public function hide_admin_notices() {
 		$current_screen = get_current_screen();
-		if ( $current_screen && $current_screen->id === self::SETTING_PAGE_SLUG ) {
+		if ( $current_screen && self::SETTING_PAGE_SLUG === $current_screen->id ) {
 			remove_all_actions( 'admin_notices' );
 			remove_all_actions( 'all_admin_notices' );
 		}
@@ -624,12 +684,24 @@ class Module extends Module_Base {
 		add_action( 'admin_menu', [ $this, 'register_page' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ], 9 );
 		add_action( 'rest_api_init', [ $this, 'register_settings' ] );
-		add_action( 'on_connect_' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
+
+		add_action( 'elementor_one/' . Config::APP_PREFIX . '_connected', [ $this, 'on_connect' ] );
+		add_action( 'elementor_one/' . Config::APP_PREFIX . '_disconnected', [ $this, 'on_disconnect' ] );
+		add_action( 'elementor_one/' . Config::APP_PREFIX . '_migration_run', [ $this, 'on_migration_run' ] );
+
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
 		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
-		
+
 		// Register notices
 		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
 		add_action( 'admin_notices', [ $this, 'admin_banners' ] );
+
+		// Add action on switch domain for update access token
+		add_action( 'elementor_one/' . Config::APP_PREFIX . '_switched_domain', function( $facade ) {
+			$facade->service()->renew_access_token();
+		} );
+		add_action( 'elementor_one/switched_domain', function( $facade ) {
+			$facade->service()->renew_access_token();
+		} );
 	}
 }

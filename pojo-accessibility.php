@@ -5,7 +5,7 @@
  * Description: Improve your website’s accessibility with ease. Customize capabilities such as text resizing, contrast modes, link highlights, and easily generate an accessibility statement to demonstrate your commitment to inclusivity.
  * Author: Elementor.com
  * Author URI: https://elementor.com/
- * Version: 3.9.1
+ * Version: 4.0.0
  * Text Domain: pojo-accessibility
  * Domain Path: /languages/
  */
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Legacy
 define( 'POJO_A11Y_CUSTOMIZER_OPTIONS', 'pojo_a11y_customizer_options' );
-define( 'EA11Y_VERSION', '3.9.1' );
+define( 'EA11Y_VERSION', '4.0.0' );
 define( 'EA11Y_MAIN_FILE', __FILE__ );
 define( 'EA11Y_BASE', plugin_basename( EA11Y_MAIN_FILE ) );
 define( 'EA11Y_PATH', plugin_dir_path( __FILE__ ) );
@@ -79,6 +79,9 @@ final class Pojo_Accessibility {
 	}
 
 	private function __construct() {
+		// Load Composer autoloader
+		require_once EA11Y_PATH . 'vendor/autoload.php';
+
 		// Init Plugin
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
 	}
