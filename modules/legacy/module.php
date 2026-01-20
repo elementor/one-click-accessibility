@@ -60,8 +60,10 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
+		$connect = new Connect();
+
 		if (
-			( Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() && ! Connect::is_connected() )
+			( Upgrade::has_legacy_data() && ! Upgrade::is_upgraded() && ! $connect::is_connected() )
 			|| Upgrade::is_reverted()
 		) {
 			return true;
