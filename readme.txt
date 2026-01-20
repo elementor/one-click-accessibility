@@ -192,6 +192,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 4.0.1 – 2026-01-20 =
+* Fix: Fix ally widget action to toggle open/close state instead of only opening
+* Fix: Fix PHP error in legacy module
+
 = 4.0.0 – 2026-01-20 =
 * Tweak: Moved the plugin entry point under a unified Elementor menu
 * Tweak: Redesigned the plugin settings interface for a unified look and feel
