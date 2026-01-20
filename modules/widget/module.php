@@ -224,8 +224,10 @@ class Module extends Module_Base {
 					}
 
 					elementorFrontend.utils.urlActions.addAction( 'allyWidget:open', () => {
-						if ( window?.ea11yWidget?.widget?.open ) {
-							window.ea11yWidget.widget.open();
+						if (window?.ea11yWidget?.widget?.open) {
+							return window.ea11yWidget.widget.isOpen()
+								? window.ea11yWidget.widget.close()
+								: window.ea11yWidget.widget.open();
 						}
 					} );
 				};
