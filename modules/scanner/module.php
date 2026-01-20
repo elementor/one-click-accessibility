@@ -11,6 +11,7 @@ use EA11y\Modules\Scanner\Database\Scan_Entry;
 use EA11y\Modules\Scanner\Database\Scans_Table;
 use EA11y\Modules\Settings\Classes\Settings;
 use EA11y\Modules\Settings\Module as Settings_Module;
+use EA11y\Modules\Legacy\Module as LegacyModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -128,6 +129,11 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
+		
+		if ( LegacyModule::is_active() ) {
+			return false;
+		}
+
 		return (
 			self::has_required_permissions() &&
 			self::is_connected_and_enabled()

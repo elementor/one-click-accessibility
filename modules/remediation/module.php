@@ -7,6 +7,7 @@ use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Remediation\Database\Global_Remediation_Relationship_Table;
 use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Remediation\Database\Remediation_Table;
+use EA11y\Modules\Legacy\Module as LegacyModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -19,6 +20,11 @@ class Module extends Module_Base {
 	}
 
 	public static function is_active(): bool {
+
+		if ( LegacyModule::is_active() ) {
+			return false;
+		}
+		
 		return Connect::is_connected();
 	}
 
