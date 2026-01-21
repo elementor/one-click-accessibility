@@ -26,6 +26,7 @@
 		<exclude name="Generic.Commenting.DocComment.MissingShort" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+		<exclude name="Generic.Functions.CallTimePassByReference" />
 		<exclude name="Squiz.Commenting.ClassComment.Missing" />
 		<exclude name="Squiz.Commenting.FileComment.Missing" />
 		<exclude name="Squiz.Commenting.FunctionComment.Missing" />
@@ -35,6 +36,7 @@
 		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen" />
 		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeEnd" />
 		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />
+		<exclude name="Squiz.WhiteSpace.LanguageConstructSpacing" />
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 		<exclude name="WordPress.NamingConventions.PrefixAllGlobals" />
 		<exclude name="WordPress.WP.I18n" />
