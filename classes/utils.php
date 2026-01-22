@@ -15,7 +15,7 @@ class Utils {
 
 	public static function is_plugin_settings_page(): bool {
 		$current_screen = get_current_screen();
-		return str_contains( $current_screen->id, 'elementor_page_accessibility-settings' );
+		return str_contains( $current_screen->id, '_page_accessibility-settings' );
 	}
 
 	public static function is_elementor_installed() :bool {

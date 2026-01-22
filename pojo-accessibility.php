@@ -7,8 +7,8 @@
  * Author URI: https://elementor.com/
  * Version: 4.0.1
  * Text Domain: pojo-accessibility
- * Domain Path: /languages/
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
