@@ -93,11 +93,10 @@ class Module extends Module_Base {
 
 	/**
 	 * Load scripts in admin
-	 * @param $hook
 	 *
 	 * @return void
 	 */
-	public function enqueue_accessibility_widget_admin( $hook ) : void {
+	public function enqueue_accessibility_widget_admin() : void {
 		if ( ! Utils::is_plugin_settings_page() ) {
 			return;
 		}
