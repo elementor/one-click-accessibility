@@ -69,7 +69,7 @@ final class Pojo_Accessibility {
 	 * Do your Validations here:
 	 * for example checks for basic plugin requirements, if one check fail don't continue,
 	 * if all check have passed include the plugin class.
-	 * Fired by `init` action hook.
+	 * Fired by `plugins_loaded` action hook.
 	 * @since 2.2.0
 	 * @access public
 	 */
@@ -83,7 +83,7 @@ final class Pojo_Accessibility {
 		require_once EA11Y_PATH . 'vendor/autoload.php';
 
 		// Init Plugin
-		add_action( 'init', [ $this, 'init' ] );
+		add_action( 'plugins_loaded', [ $this, 'init' ] );
 	}
 
 }
