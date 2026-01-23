@@ -2,6 +2,7 @@
   justify-content: start;
   gap: 8px;
 }
+
 #dashboard-widgets .ea11y-dashboard-widget {
   padding: 28px 0;
 
@@ -55,7 +56,8 @@
   .ea11y-dashboard-widget-stats-details {
     position: relative;
     padding-inline-start: 16px;
-    &:before {
+
+    &::before {
       content: '';
       position: absolute;
       inset-inline-start: 0;
@@ -66,10 +68,11 @@
       border-radius: 50%;
     }
 
-    &--green:before {
+    &--green::before {
       background-color: #10B981;
     }
-    &--red:before {
+
+    &--red::before {
       background-color: #DC2626;
     }
   }
