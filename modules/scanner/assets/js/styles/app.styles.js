@@ -109,7 +109,9 @@ export const StyledAlert = styled(Alert)`
 	}
 `;
 
-export const AlertWithDisabledState = styled(Alert)`
+export const AlertWithDisabledState = styled(Alert, {
+	shouldForwardProp: (prop) => prop !== 'disabled',
+})`
 	${({ disabled }) => (disabled ? disabledState : '')}
 	${({ disabled, theme }) =>
 		disabled

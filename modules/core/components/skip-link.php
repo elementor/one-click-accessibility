@@ -43,7 +43,7 @@ class Skip_Link {
 		<nav aria-label="<?php esc_attr_e( 'Skip to content navigation', 'pojo-accessibility' ); ?>">
 			<a class="ea11y-skip-to-content-link"
 				href="<?php echo esc_url( $this->settings['anchor'] ); ?>"
-				tabindex="1"
+				tabindex="-1"
 				onclick="onSkipLinkClick()"
 			>
 				<?php esc_attr_e( 'Skip to content', 'pojo-accessibility' ); ?>

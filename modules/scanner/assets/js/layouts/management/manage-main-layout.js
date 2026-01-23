@@ -6,6 +6,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { EmptyManageMessage } from '@ea11y-apps/scanner/components/empty-manage-message';
 import ManageRemediationList from '@ea11y-apps/scanner/components/manage-remediation-list';
 import {
@@ -93,7 +94,7 @@ export const ManageMainLayout = () => {
 						size="small"
 						color="promotion"
 						variant="contained"
-						href={UPGRADE_URL}
+						href={getUpgradeLink(UPGRADE_URL)}
 						target="_blank"
 						rel="noreferrer"
 						onClick={onUpgrade}

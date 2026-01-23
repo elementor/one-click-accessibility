@@ -1,20 +1,20 @@
 import {
-	ColorBurgundy900,
-	ColorPink400,
-	ColorBlue700,
 	ColorBlue500,
-	ColorGreen700,
-	ColorGreen500,
+	ColorBlue700,
+	ColorBurgundy900,
 	ColorCyan400,
+	ColorGreen500,
+	ColorGreen700,
 	ColorGrey50,
+	ColorPink400,
 } from '@elementor/design-tokens';
 import Box from '@elementor/ui/Box';
 import {
-	PieChart as MuiPieChart,
 	pieArcLabelClasses,
+	PieChart as MuiPieChart,
 } from '@mui/x-charts/PieChart';
 import PropTypes from 'prop-types';
-import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
+import { BLOCK_TITLES } from '@ea11y-apps/global/constants';
 import { __ } from '@wordpress/i18n';
 import StatsPieTooltip from '../tooltip';
 

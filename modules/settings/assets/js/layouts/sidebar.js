@@ -7,12 +7,19 @@ import { SidebarHeading, SidebarMenu } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { QuotaBar } from '@ea11y/layouts';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 
 const Sidebar = () => {
 	const { openSidebar, setOpenSidebar } = useSettings();
+	const { isElementorOne } = usePluginSettingsContext();
 
 	return (
-		<StyledDrawer variant="permanent" open={openSidebar}>
+		<StyledDrawer
+			variant="permanent"
+			open={openSidebar}
+			role="navigation"
+			aria-label={__('Sidebar', 'pojo-accessibility')}
+		>
 			<StyledToggleButton
 				onClick={() => setOpenSidebar(!openSidebar)}
 				size="small"
@@ -34,10 +41,12 @@ const Sidebar = () => {
 				<SidebarMenu />
 			</SidebarMenuWrapper>
 
-			<SidebarFooterWrapper>
-				<Divider />
-				<QuotaBar />
-			</SidebarFooterWrapper>
+			{!isElementorOne && (
+				<SidebarFooterWrapper>
+					<Divider />
+					<QuotaBar />
+				</SidebarFooterWrapper>
+			)}
 		</StyledDrawer>
 	);
 };

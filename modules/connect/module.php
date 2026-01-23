@@ -3,8 +3,8 @@
 namespace EA11y\Modules\Connect;
 
 use EA11y\Classes\Module_Base;
-use EA11y\Modules\Connect\Classes\Data;
-use EA11y\Modules\Connect\Classes\Utils;
+use EA11y\Modules\Connect\Classes\Config;
+use ElementorOne\Connect\Facade;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Module
  */
 class Module extends Module_Base {
+
+
 
 	/**
 	 * Get module name.
@@ -25,33 +27,19 @@ class Module extends Module_Base {
 		return 'connect';
 	}
 
-	/**
-	 * component_list
-	 * @return string[]
-	 */
-	public static function component_list() : array {
-		return [
-			'Handler',
-		];
+	public static function is_connected(): bool {
+		$facade = self::get_connect();
+		if ( ! $facade ) {
+			return false;
+		}
+
+		$access_token = $facade->data()->get_access_token();
+
+		return ! ! $access_token && $facade->utils()->is_valid_home_url();
 	}
 
-	/**
-	 * routes_list
-	 * @return string[]
-	 */
-	public static function routes_list() : array {
-		return [
-			'Authorize',
-			'Disconnect',
-			'Deactivate',
-			'Deactivate_And_Disconnect',
-			'Switch_Domain',
-			'Reconnect',
-		];
-	}
-
-	public static function is_connected() : bool {
-		return ! ! Data::get_access_token() && Utils::is_valid_home_url();
+	public static function get_connect(): ?Facade {
+		return Facade::get( Config::PLUGIN_SLUG );
 	}
 
 	public function authorize_url( $authorize_url ) {
@@ -76,9 +64,20 @@ class Module extends Module_Base {
 	}
 
 	public function __construct() {
-		$this->register_components();
-		$this->register_routes();
-		add_filter( 'ea11y_connect_authorize_url', [ $this, 'authorize_url' ] );
+		 add_filter( 'elementor_one/ea11y_connect_authorize_url', [ $this, 'authorize_url' ] );
+
+		Facade::make([
+			'app_name' => Config::APP_NAME,
+			'app_prefix' => Config::APP_PREFIX,
+			'app_rest_namespace' => Config::APP_REST_NAMESPACE,
+			'base_url' => Config::BASE_URL,
+			'admin_page' => Config::ADMIN_PAGE,
+			'app_type' => Config::APP_TYPE,
+			'scopes' => Config::SCOPES,
+			'state_nonce' => Config::STATE_NONCE,
+			'connect_mode' => Config::CONNECT_MODE,
+			'plugin_slug' => Config::PLUGIN_SLUG,
+		]);
 	}
 }
 

@@ -19,15 +19,27 @@ import {
 import { PopupMenu, QuotaIndicator } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
 import { GOLINKS } from '@ea11y-apps/global/constants';
+import { useAuth } from '@ea11y-apps/global/hooks/use-auth';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { useRef, useState } from '@wordpress/element';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
+import { useRef, useState, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 import { openLink } from '../../utils';
 
 const QuotaBarGroup = () => {
 	const { planData } = useSettings();
 	const anchorEl = useRef(null);
 	const [isOpened, setIsOpened] = useState(false);
+	const [showRenew, setShowRenew] = useState(false);
+	const { isConnected } = usePluginSettingsContext();
+	const { redirectToConnect } = useAuth();
+
+	useEffect(() => {
+		if (new Date(planData?.plan?.next_cycle_date) < new Date()) {
+			setShowRenew(true);
+		}
+	}, [planData?.plan?.next_cycle_date]);
 
 	const isFree = planData?.plan?.name === 'Free';
 
@@ -46,7 +58,7 @@ const QuotaBarGroup = () => {
 			feature: 'add visits',
 			component: 'quota counter',
 		});
-		openLink(GOLINKS.ADD_VISITS);
+		openLink(getUpgradeLink(GOLINKS.ADD_VISITS));
 	};
 
 	const QuotaTitle = () => (
@@ -60,12 +72,25 @@ const QuotaBarGroup = () => {
 			<Typography variant="body2" as="div">
 				{__('Current plan', 'pojo-accessibility')}
 			</Typography>
-			<Chip
-				variant="filled"
-				size="tiny"
-				label={planData?.plan?.name}
-				sx={{ fontWeight: '400' }}
-			/>
+			{showRenew ? (
+				<Chip
+					variant="filled"
+					color="error"
+					label={__('Expired', 'pojo-accessibility')}
+					size="tiny"
+				/>
+			) : (
+				<Chip
+					variant="filled"
+					color={isConnected ? 'default' : 'error'}
+					label={
+						isConnected
+							? planData?.plan?.name
+							: __('Not connected', 'pojo-accessibility')
+					}
+					size="tiny"
+				/>
+			)}
 			<QuotaIndicator />
 		</Box>
 	);
@@ -104,18 +129,30 @@ const QuotaBarGroup = () => {
 				</Card>
 				<Card elevation={0}>
 					<StyledCardContent>
-						<Button
-							variant="outlined"
-							startIcon={isFree ? <CrownIcon /> : null}
-							onClick={handleAddVisitsClick}
-							size="small"
-							fullWidth
-							color={isFree ? 'promotion' : 'secondary'}
-						>
-							{isFree
-								? __('Upgrade plan', 'pojo-accessibility')
-								: __('View more plans', 'pojo-accessibility')}
-						</Button>
+						{isConnected || showRenew ? (
+							<Button
+								variant="outlined"
+								startIcon={isFree || showRenew ? <CrownIcon /> : null}
+								size="small"
+								fullWidth
+								color={isFree || showRenew ? 'promotion' : 'secondary'}
+								onClick={handleAddVisitsClick}
+							>
+								{isFree || showRenew
+									? __('Upgrade plan', 'pojo-accessibility')
+									: __('View more plans', 'pojo-accessibility')}
+							</Button>
+						) : (
+							<Button
+								variant="outlined"
+								size="small"
+								fullWidth
+								color={'promotion'}
+								onClick={redirectToConnect}
+							>
+								{__('Connect to start', 'pojo-accessibility')}
+							</Button>
+						)}
 					</StyledCardContent>
 				</Card>
 			</StyledCardGroup>

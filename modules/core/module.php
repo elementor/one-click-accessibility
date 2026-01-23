@@ -37,13 +37,14 @@ class Module extends Module_Base {
 			),
 		];
 
-		if ( Connect::is_connected() ) {
+		if ( Connect::is_connected() && ! Settings::is_elementor_one() ) {
 			$custom_links['upgrade'] = sprintf(
 				'<a href="%s" style="color: #524CFF; font-weight: 700;" target="_blank" rel="noopener noreferrer">%s</a>',
 				'https://go.elementor.com/ally-plugins-upgrade/',
 				esc_html__( 'Upgrade', 'pojo-accessibility' )
 			);
-		} else {
+		}
+		if ( ! Connect::is_connected() ) {
 			$custom_links['connect'] = sprintf(
 				'<a href="%s" style="color: #524CFF; font-weight: 700;">%s</a>',
 				admin_url( 'admin.php?page=' . Settings::SETTING_BASE_SLUG ),

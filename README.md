@@ -3,9 +3,9 @@
 **Contributors:** elemntor \
 **Tags:** Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement \
 **Requires at least:** 6.6 \
-**Tested up to:** 6.8 \
+**Tested up to:** 6.9 \
 **Requires PHP:** 7.4 \
-**Stable tag:** 3.8.0 \
+**Stable tag:** 4.0.1 \
 **License:** GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
@@ -46,7 +46,7 @@ Ensuring that your website complies with all applicable accessibility requiremen
 * Scan any URL on demand to detect accessibility gaps
 * Launch directly from WordPress or Elementor
 * Step-by-step guidance to fix issues
-* AI-powered remediation suggestions 
+* AI-powered remediation suggestions
 * Progress tracking via a visual dashboard
 * No accessibility expertise required
 
@@ -68,12 +68,12 @@ Ally Assistant helps you:
 
 * Auto-generate a complete  accessibility statement
 * Customize and publish to a dedicated page
-* Link it using the widget 
+* Link it using the widget
 
 ### Usability Widget
 
 * Offer visitors a customizable menu with features like:
-* Contrast Modes (high, dark, light, negative) 
+* Contrast Modes (high, dark, light, negative)
 * Font resizing & readable font toggle
 * Pause animations & hide images
 * Line height & text alignment options
@@ -177,7 +177,7 @@ Yes, it automatically adjusts to your site’s language settings.
 
 ### What is the Accessibility Assistant?
 
-The Accessibility Assistant is a tool that scans individual URLs for accessibility violations, organizes them into categories, and guides you to fix them manually or with AI suggestions 
+The Accessibility Assistant is a tool that scans individual URLs for accessibility violations, organizes them into categories, and guides you to fix them manually or with AI suggestions
 
 
 ### Can I scan the same URL more than once?
@@ -227,6 +227,41 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 ## Changelog
 
+### 4.0.1 – 2026-01-20
+
+* Fix: Fix ally widget action to toggle open/close state.
+* Fix: Fix PHP error in legacy module
+
+### 4.0.0 – 2026-01-20
+
+* Tweak: Moved the plugin entry point under a unified Elementor menu
+* Tweak: Redesigned the plugin settings interface for a unified look and feel
+* Tweak: Added support for "Elementor One"
+* Fix: Improved accessibility by correcting the tabindex value
+* Fix: Added automatic cache synchronization to ensure content updates remain consistent across the site
+* Fix: Corrected the direct upgrade link to include the specific subscription ID
+
+### 3.9.1 – 2025-12-08
+
+* New: Added the Walkthrough video to assist during Ally onboarding.
+* Tweak: Updated the tooltip for Site-Wide Fixes for better clarity.
+* Tweak: Made the Ally widget footer more prominent.
+* Fix: Resolved an issue where the quota-limit indication did not appear correctly.
+* Fix: Fixed a blink issue that occurred when triggering a scan from the admin.
+
+### 3.9.0 – 2025-11-11
+
+* New: You can now apply fixes across all scanned pages in one click for repeating elements such as headers, footers, and more.
+* New: Added the ability to manage global Alt Text and Color Contrast remediations.
+* Tweak: Improved the Reviews component experience.
+* Fix: Resolved a bug causing the Search page in the Dashboard not to load properly.
+* Fix: Corrected an error message that appeared improperly when the quota limit was reached.
+* Fix: Fixed a compatibility issue with the Divi plugin.
+
+### 3.8.1 – 2025-10-15
+
+* Tweak: Code refactor
+
 ### 3.8.0 – 2025-09-29
 
 * New: Headings Remediation Management - Review and correct heading hierarchy with a guided flow
@@ -248,7 +283,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * New: Smart color contrast remediation flow in the accessibility assistant
 * Tweak: Updated scan dashboard to show open issues and issue breakdown by category
 * Tweak: Tooltip on analytics tab encouraging tracking activation
-* Tweak: Improve accessibility column in WP admin for better user experience 
+* Tweak: Improve accessibility column in WP admin for better user experience
 * Fix: Added WPML compatibility
 * Fix: WooCommerce AJAX conflict
 
@@ -262,16 +297,15 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Tweak: Admin panel UI updates
 * Tweak: Assistant UI updates
 * Tweak: Ensure case sensitive attributes in remediations
-* Fix: Assistant accessibility issues 
+* Fix: Assistant accessibility issues
 * Fix: Custom Icon issue in edge cases
 * Fix: Critical Error on plugin conflict
-
 
 ### 3.5.0 - 2025-07-08
 
 * New: Introducing URL Scanner – find 180+ issues instantly (WCAG 2.1 AA)
-* New: Introducing Remediation Engine – get in-context guided, AI-powered accessibility fixes  
-* New: Introducing Overview Dashboard – track scans and accessibility progress in real-time  
+* New: Introducing Remediation Engine – get in-context guided, AI-powered accessibility fixes
+* New: Introducing Overview Dashboard – track scans and accessibility progress in real-time
 * New: Introducing Auto-Fix – fix common issues with one click: alt text, forms, keyboard nav, and tables
 * Tweak: New admin UI design
 
@@ -280,7 +314,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * New: Added widget languages selector
 * Tweak: Load widget's font locally for better compliance
 * Fix: Estonian language translation
-* Fix: Admin UI unused frame  
+* Fix: Admin UI unused frame
 
 ### 3.3.0 - 2025-05-14
 
@@ -290,7 +324,6 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * New: Added "What's new" section in the admin panel
 * Tweak: Improved accessibility statement page selector
 * Fix: Notice on loading translations too early
-
 
 ### 3.2.0 - 2025-04-20
 
@@ -312,7 +345,6 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Fix: Settings Screen Display Issue – Resolved UI inconsistencies.
 * Fix: URL Mismatch Flow .
 * Fix: Force referer header in widget script tag
-
 
 ### 3.0.3 2025-03-17
 

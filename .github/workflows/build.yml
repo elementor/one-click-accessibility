@@ -78,11 +78,27 @@ jobs:
           retention-days: 14
 
       - name: Push to Slack on PR merge
-        if: ${{ github.event.pull_request.merged == true }}
-        run: |
-          curl -F file=@pojo-accessibility.zip -F "initial_comment=Ally - A new PR has been pushed to the master branch by ${{ github.actor }}."  title="${{ github.event.pull_request.title }}" -F channels=C07LFCFNGDB -H "Authorization: Bearer ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}" https://slack.com/api/files.upload
+        if: ${{ github.event.pull_request.merged == 'true' }}
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: files.uploadV2
+          token: ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}
+          payload: |
+            channel_id: "C07LFCFNGDB"
+            title: "${{ github.event.pull_request.title }}"
+            initial_comment: "Ally - A new PR has been pushed to the master branch by ${{ github.actor }}."
+            file: "pojo-accessibility.zip"
+            filename: "pojo-accessibility.zip""
 
       - name: Push to Slack on Manual Trigger
         if: ${{ github.event.inputs.push_to_slack == 'true'  }}
-        run: |
-          curl -F file=@pojo-accessibility.zip -F "initial_comment=Ally - A new build was triggered by ${{ github.actor }}."  title="Manuall ${{ steps.date.outputs.date }}" -F channels=C07LFCFNGDB -H "Authorization: Bearer ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}" https://slack.com/api/files.upload
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          method: files.uploadV2
+          token: ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}
+          payload: |
+            channel_id: "C07LFCFNGDB"
+            title: "{{ github.event.pull_request.title }}"
+            initial_comment: "Ally - A new build was triggered by ${{ github.actor }}."
+            file: "pojo-accessibility.zip"
+            filename: "pojo-accessibility.zip"

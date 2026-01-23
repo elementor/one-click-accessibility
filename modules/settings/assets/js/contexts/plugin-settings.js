@@ -53,8 +53,8 @@ export const PluginSettingsProvider = ({ children }) => {
 					settings.homeUrl = settings.homeUrl;
 				}
 
-				if ('whatsNewDataHash' in settings) {
-					settings.whatsNewDataHash = Boolean(settings.whatsNewDataHash);
+				if ('isElementorOne' in settings) {
+					settings.isElementorOne = Boolean(settings.isElementorOne);
 				}
 
 				setPluginSettings(settings);

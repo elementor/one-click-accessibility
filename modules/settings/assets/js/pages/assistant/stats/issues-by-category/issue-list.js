@@ -1,17 +1,17 @@
 import {
-	ColorBurgundy900,
-	ColorPink400,
-	ColorBlue700,
 	ColorBlue500,
-	ColorGreen700,
-	ColorGreen500,
+	ColorBlue700,
+	ColorBurgundy900,
 	ColorCyan400,
+	ColorGreen500,
+	ColorGreen700,
+	ColorPink400,
 } from '@elementor/design-tokens';
 import Box from '@elementor/ui/Box';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
-import { BLOCK_TITLES } from '@ea11y-apps/scanner/constants';
+import { BLOCK_TITLES } from '@ea11y-apps/global/constants';
 import { __ } from '@wordpress/i18n';
 
 // Override titles for specific category keys
@@ -69,9 +69,11 @@ const IssueList = ({ issueByCategory }) => {
 		<>
 			{categories.map(({ key, title, percentage }, index) => (
 				<StyledIssueLevel key={key} colorIndex={index}>
-					<Typography variant="body2">{title}</Typography>
+					<Typography variant="body2" as="span">
+						{title}
+					</Typography>
 
-					<StyledIssuesCount variant="subtitle2" as="p">
+					<StyledIssuesCount variant="subtitle2" as="span">
 						{percentage === 0 ? '-' : `${percentage}%`}
 					</StyledIssuesCount>
 				</StyledIssueLevel>
@@ -84,7 +86,9 @@ IssueList.propTypes = {
 	issueByCategory: PropTypes.object.isRequired,
 };
 
-const StyledIssueLevel = styled(Box)`
+const StyledIssueLevel = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'colorIndex',
+})`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;

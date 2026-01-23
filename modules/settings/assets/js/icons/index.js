@@ -1,19 +1,11 @@
-export { default as AppLogo } from './app-logo';
 export { default as SquareRoundedChevronsLeft } from './square-rounded-chevrons-left';
 export { default as WidgetIcon } from './widget';
 export { default as UserArrowIcon } from './user-arrow';
-export { default as CreditCardIcon } from './credit-card';
-export { default as AccessibilityPersonIcon } from './accessibility-person';
-export { default as AccessibilityEyeIcon } from './accessibility-eye';
-export { default as AccessibilityTextIcon } from './accessibility-text';
-export { default as AccessibilityControlsIcon } from './accessibility-controls';
 export { default as TextSizeIcon } from './text-size';
 export { default as LineHeightIcon } from './line-height';
 export { default as GrayscaleIcon } from './graysacale';
 export { default as ContrastIcon } from './contrast';
-export { default as VolumeIcon } from './volume';
 export { default as PageStructureIcon } from './page-structure';
-export { default as SiteMapIcon } from './site-map';
 export { default as ReadingPanelIcon } from './reading-panel';
 export { default as HideImagesIcon } from './hide-images';
 export { default as PauseAnimationsIcon } from './pause-animations';
@@ -25,6 +17,3 @@ export { default as AccessibilityStatementExistingIcon } from './accessibility-s
 export { default as ProCrownIcon } from './pro-crown';
 export { default as AccessibilityAssistantDashboardIcon } from './accessibility-assistant-dashboard-icon';
 export { default as AccessibilityAssistantNoResultsIcon } from './accessibility-assistant-no-results-icon';
-export { default as AnalyticsIcon } from './analytics-icon';
-export { default as DashboardIcon } from './dashboard-icon';
-export { default as BulbIcon } from './bulb';

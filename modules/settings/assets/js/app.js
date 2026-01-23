@@ -1,4 +1,8 @@
 import '../css/style.css';
+import {
+	ElementorOneAssetsProvider,
+	ElementorOneHeader,
+} from '@elementor/elementor-one-assets';
 import Box from '@elementor/ui/Box';
 import DirectionProvider from '@elementor/ui/DirectionProvider';
 import Grid from '@elementor/ui/Grid';
@@ -16,30 +20,37 @@ import {
 	useSavedSettings,
 	useSettings,
 } from '@ea11y/hooks';
-import { QuotaNotices, Sidebar, TopBar } from '@ea11y/layouts';
+import { QuotaNotices, Sidebar } from '@ea11y/layouts';
 import Notifications from '@ea11y-apps/global/components/notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { useEffect } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
 
 const App = () => {
+	const { ea11ySettingsData } = window;
 	const { hasFinishedResolution, loading } = useSavedSettings();
 
-	const { isConnected, isRTL, closePostConnectModal, isUrlMismatch } =
-		usePluginSettingsContext();
+	const {
+		isConnected,
+		isRTL,
+		closePostConnectModal,
+		isUrlMismatch,
+		refreshPluginSettings,
+	} = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
 
 	useEffect(() => {
-		if (window.ea11ySettingsData?.planData?.user?.id) {
+		if (ea11ySettingsData?.planData?.user?.id) {
 			mixpanelService.init().then(() => {
 				mixpanelService.sendEvent(mixpanelEvents.pageView, {
 					page: 'Button',
 				});
 			});
 		}
-	}, [window.ea11ySettingsData?.planData?.user?.id]);
+	}, [ea11ySettingsData?.planData?.user?.id]);
 
 	const selectedParent = MenuItems[selectedMenu?.parent];
 	const selectedChild = selectedMenu?.child
@@ -49,30 +60,51 @@ const App = () => {
 	return (
 		<DirectionProvider rtl={isRTL}>
 			<ThemeProvider colorScheme="light">
-				{isConnected !== undefined && !isUrlMismatch && !isConnected && (
-					<ConnectModal />
-				)}
-				{isConnected && !closePostConnectModal && <PostConnectModal />}
-				{isUrlMismatch && !isConnected && <UrlMismatchModal />}
-				<OnboardingModal />
-				<GetStartedModal />
+				<ElementorOneAssetsProvider
+					env={
+						ea11ySettingsData?.pluginEnv === 'stg' ? 'staging' : 'production'
+					}
+				>
+					<ElementorOneHeader
+						appSettings={{
+							slug: 'ally', // Intentionally different than the plugin slug.
+							version: ea11ySettingsData?.pluginVersion,
+						}}
+						isWithinWpAdmin
+						onDisconnect={refreshPluginSettings}
+					/>
 
-				<TopBar />
+					{isConnected !== undefined && !isUrlMismatch && !isConnected && (
+						<ConnectModal />
+					)}
+					{isConnected && !closePostConnectModal && <PostConnectModal />}
+					{isUrlMismatch && <UrlMismatchModal />}
+					<OnboardingModal />
+					<GetStartedModal />
 
-				<StyledGrid>
-					<Sidebar />
+					<StyledGrid>
+						<Sidebar />
 
-					<StyledContainer>
-						<QuotaNotices />
-						<PageContent
-							// Looks the best if we have both checks
-							isLoading={!hasFinishedResolution || loading}
-							page={selectedChild ? selectedChild?.page : selectedParent?.page}
-						/>
-					</StyledContainer>
-				</StyledGrid>
+						<StyledContainer
+							role="main"
+							aria-label={__('Main Content', 'pojo-accessibility')}
+						>
+							<QuotaNotices />
+							<PageContent
+								// Looks the best if we have both checks
+								isLoading={!hasFinishedResolution || loading}
+								page={
+									selectedChild ? selectedChild?.page : selectedParent?.page
+								}
+							/>
+						</StyledContainer>
+					</StyledGrid>
 
-				<Notifications message={notificationMessage} type={notificationType} />
+					<Notifications
+						message={notificationMessage}
+						type={notificationType}
+					/>
+				</ElementorOneAssetsProvider>
 			</ThemeProvider>
 		</DirectionProvider>
 	);
@@ -89,7 +121,7 @@ const StyledContainer = styled(Box)`
 `;
 
 const StyledGrid = styled(Grid)`
-	height: calc(100% - 54.5px);
+	height: calc(100% - 48px);
 
 	display: flex;
 	flex-direction: row;

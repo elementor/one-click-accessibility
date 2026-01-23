@@ -98,7 +98,6 @@ class Onboarding_Banner {
 
 			.elementor-ea11y-banner {
 				overflow: hidden;
-				margin-inline-start: -20px;
 				border-left-color: #2563EB;
 				padding: 0;
 			}
@@ -136,7 +135,10 @@ class Onboarding_Banner {
 
 			a.elementor-ea11y-run-scan-button {
 				background-color: #2563EB !important;
+				color: #fff !important;
 				padding: 4px 10px !important;
+				border: none !important;
+				line-height: 28px !important;
 			}
 
 			a.elementor-ea11y-run-scan-button:hover {

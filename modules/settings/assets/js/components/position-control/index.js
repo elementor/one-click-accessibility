@@ -28,7 +28,9 @@ const verticalOptions = [
 	{ value: 'bottom', label: __('Lower', 'pojo-accessibility') },
 ];
 
-const StyledContainer = styled(Box)`
+const StyledContainer = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'isError',
+})`
 	display: flex;
 	gap: ${({ theme }) => theme.spacing(1)};
 	margin-top: ${({ theme }) => theme.spacing(2)};

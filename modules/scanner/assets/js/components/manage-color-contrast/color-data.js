@@ -23,7 +23,9 @@ export const ColorData = ({ title, color, isActive }) => {
 	);
 };
 
-const StyledBox = styled(Box)`
+const StyledBox = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'isActive',
+})`
 	color: ${({ isActive, theme }) =>
 		isActive ? theme.palette.text.primary : theme.palette.text.disabled};
 

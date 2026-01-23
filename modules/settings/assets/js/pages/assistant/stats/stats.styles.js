@@ -64,7 +64,9 @@ export const StyledStatsItemChart = styled(Box)`
 	}
 `;
 
-export const StyledStatsItemTitle = styled(Typography)`
+export const StyledStatsItemTitle = styled(Typography, {
+	shouldForwardProp: (prop) => prop !== 'spacing',
+})`
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;

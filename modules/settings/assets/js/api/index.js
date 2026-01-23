@@ -8,10 +8,10 @@ class APISettings extends API {
 	static async clearSession() {
 		return APISettings.request({
 			method: 'POST',
-			path: `${v1Prefix}/connect/deactivate_and_disconnect`,
+			path: `${v1Prefix}/connect/authorize`,
 			data: {
 				wp_rest: window?.ea11ySettingsData?.wpRestNonce,
-				clear_session: true,
+				clearSession: true,
 			},
 		});
 	}
@@ -96,13 +96,6 @@ class APISettings extends API {
 			method: 'POST',
 			path: `${v1Prefix}/settings/get-media`,
 			data,
-		});
-	}
-
-	static async getNotifications() {
-		return API.request({
-			method: 'GET',
-			path: `${v1Prefix}/whats-new`,
 		});
 	}
 

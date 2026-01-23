@@ -17,7 +17,7 @@ const StatsCounter = ({ stat, loading, title, tooltip }) => {
 					<AccessibilityAssistantTooltip content={tooltip} />
 				</StyledStatsItemTitle>
 
-				<Typography variant="h4" as="p">
+				<Typography variant="h4" as="div">
 					{loading ? <ValueLoader /> : stat}
 				</Typography>
 			</StyledStatsItemContent>

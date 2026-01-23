@@ -44,13 +44,11 @@ class API {
 				window?.ea11yScannerData?.wpRestNonce,
 		};
 
-		if ('update' === context) {
-			data.update_redirect_uri = true;
-		}
+		const path = `${v1Prefix}/connect/${'update' === context ? 'switch-domain' : 'authorize'}`;
 
 		return API.request({
 			method: 'POST',
-			path: `${v1Prefix}/connect/authorize`,
+			path,
 			data,
 		});
 	}

@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { ProCrownIcon } from '@ea11y/icons';
 import CrownFilled from '@ea11y-apps/global/icons/crown-filled';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
+import { getUpgradeLink } from '@ea11y-apps/global/utils/upgrade-link';
 import { SetGlobalRemediationModal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global-remediation-modal';
 import { IS_PRO_PLAN, UPGRADE_GLOBAL_URL } from '@ea11y-apps/scanner/constants';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
@@ -103,7 +104,7 @@ export const SetGlobal = ({
 									size="small"
 									color="promotion"
 									variant="contained"
-									href={UPGRADE_GLOBAL_URL}
+									href={getUpgradeLink(UPGRADE_GLOBAL_URL)}
 									target="_blank"
 									rel="noreferrer"
 									startIcon={<CrownFilled />}

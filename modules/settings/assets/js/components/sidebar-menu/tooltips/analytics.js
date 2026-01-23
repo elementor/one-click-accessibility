@@ -56,7 +56,7 @@ const AnalyticsTooltip = () => {
 				<Button
 					size="small"
 					variant="contained"
-					color="info"
+					color="primary"
 					tabIndex="0"
 					onClick={handleEnableTracking}
 				>
@@ -81,6 +81,7 @@ const AnalyticsTooltip = () => {
 				sx={{ ml: 1 }}
 				onMouseEnter={handleOpen}
 				onFocus={handleOpen}
+				fontSize="small"
 			/>
 		</Infotip>
 	);
