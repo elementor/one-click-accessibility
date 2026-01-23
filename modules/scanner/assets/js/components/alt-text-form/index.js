@@ -17,6 +17,7 @@ import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
+import BulkAltTextBanner from '@ea11y-apps/scanner/components/bulk-alt-text/bulk-alt-text-banner';
 import { SetGlobal } from '@ea11y-apps/scanner/components/manage-footer-actions/page/set-global';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
 import { AI_QUOTA_LIMIT, IS_PRO_PLAN } from '@ea11y-apps/scanner/constants';
@@ -82,158 +83,162 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 		: __('Apply fix', 'pojo-accessibility');
 
 	return (
-		<StyledBox>
+		<>
 			<Divider />
+			<BulkAltTextBanner />
+			<StyledBox padding={2}>
+				<ImagePreview element={item.node} />
 
-			<ImagePreview element={item.node} />
-
-			<StyledLabel>
-				<Checkbox
-					checked={data?.[current]?.makeDecorative ?? false}
-					color="info"
-					sx={{ margin: '-7px 0 0 -10px' }}
-					size="small"
-					onChange={handleCheck}
-				/>
-				<Box>
-					<Typography variant="body1">
-						{__('Mark image as decorative', 'pojo-accessibility')}
-					</Typography>
-					<FormHelperText sx={{ mt: 0 }}>
-						{__(
-							"(decorative images don't need description)",
+				<StyledLabel>
+					<Checkbox
+						checked={data?.[current]?.makeDecorative ?? false}
+						color="info"
+						sx={{ margin: '-7px 0 0 -10px' }}
+						size="small"
+						onChange={handleCheck}
+					/>
+					<Box>
+						<Typography variant="body1">
+							{__('Mark image as decorative', 'pojo-accessibility')}
+						</Typography>
+						<FormHelperText sx={{ mt: 0 }}>
+							{__(
+								"(decorative images don't need description)",
+								'pojo-accessibility',
+							)}
+						</FormHelperText>
+					</Box>
+				</StyledLabel>
+				{!data?.[current]?.makeDecorative ? (
+					<TextField
+						placeholder={__(
+							'Add or generate the description here',
 							'pojo-accessibility',
 						)}
-					</FormHelperText>
-				</Box>
-			</StyledLabel>
-			{!data?.[current]?.makeDecorative ? (
-				<TextField
-					placeholder={__(
-						'Add or generate the description here',
-						'pojo-accessibility',
-					)}
-					aria-label={__(
-						'Add or generate the description here',
-						'pojo-accessibility',
-					)}
-					color="secondary"
-					value={data?.[current]?.altText ?? ''}
-					onChange={handleChange}
-					fullWidth
-					multiline
-					disabled={loadingAiText}
-					InputProps={{
-						endAdornment: (
-							<InputAdornment position="end">
-								{IS_PRO_PLAN && AI_QUOTA_LIMIT ? (
-									<Tooltip
-										placement="top-end"
-										title={__(
-											'Generate an Alt text description with AI.',
-											'pojo-accessibility',
-										)}
-										PopperProps={{
-											disablePortal: true,
-										}}
-										slotProps={{
-											tooltip: {
-												sx: {
-													maxWidth: '101px',
-													whiteSpace: 'normal',
-													lineHeight: 1.4,
-												},
-											},
-										}}
-									>
-										<IconButton
-											size="small"
-											onClick={generateAltText}
-											disabled={loadingAiText}
-										>
-											{loadingAiText ? (
-												<CircularProgress color="info" size={24} />
-											) : (
-												<AIIcon color="info" />
+						aria-label={__(
+							'Add or generate the description here',
+							'pojo-accessibility',
+						)}
+						color="secondary"
+						value={data?.[current]?.altText ?? ''}
+						onChange={handleChange}
+						fullWidth
+						multiline
+						disabled={loadingAiText}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position="end">
+									{IS_PRO_PLAN && AI_QUOTA_LIMIT ? (
+										<Tooltip
+											placement="top-end"
+											title={__(
+												'Generate an Alt text description with AI.',
+												'pojo-accessibility',
 											)}
-										</IconButton>
-									</Tooltip>
-								) : (
-									<Infotip
-										placement="top-end"
-										slotProps={{
-											tooltip: {
-												id: 'ai-btn-description',
-											},
-										}}
-										PopperProps={{
-											disablePortal: true,
-										}}
-										content={<UpgradeContent isAlt />}
-									>
-										<IconButton
-											size="small"
-											aria-labelledby="ai-btn-description"
-											onHover={onUpgradeHover}
+											PopperProps={{
+												disablePortal: true,
+											}}
+											slotProps={{
+												tooltip: {
+													sx: {
+														maxWidth: '101px',
+														whiteSpace: 'normal',
+														lineHeight: 1.4,
+													},
+												},
+											}}
 										>
-											<AIIcon color="promotion" />
-										</IconButton>
-									</Infotip>
-								)}
-							</InputAdornment>
-						),
-					}}
-				/>
-			) : (
-				<Box display="flex" gap={1}>
-					<CircleCheckFilledIcon color="success" />
-					<Typography variant="body1">
-						{__('no description needed', 'pojo-accessibility')}
-					</Typography>
-				</Box>
-			)}
-			<StyledAlert color="info" sx={{ p: 2 }} icon={false}>
-				<Box>
-					<AlertTitle sx={{ display: 'inline-block' }}>
-						{__('Tips:', 'pojo-accessibility')}
-					</AlertTitle>
-					{__(
-						"Keep descriptions short and simple, describing what the image shows or why it's on the page.",
-						'pojo-accessibility',
-					)}
-				</Box>
-			</StyledAlert>
-			<Box>
-				{!isManage && (
-					<SetGlobal
-						item={item}
-						onGlobalChange={onGlobalChange}
-						isChecked={isGlobal}
+											<IconButton
+												size="small"
+												onClick={generateAltText}
+												disabled={loadingAiText}
+											>
+												{loadingAiText ? (
+													<CircularProgress color="info" size={24} />
+												) : (
+													<AIIcon color="info" />
+												)}
+											</IconButton>
+										</Tooltip>
+									) : (
+										<Infotip
+											placement="top-end"
+											slotProps={{
+												tooltip: {
+													id: 'ai-btn-description',
+												},
+											}}
+											PopperProps={{
+												disablePortal: true,
+											}}
+											content={<UpgradeContent isAlt />}
+										>
+											<IconButton
+												size="small"
+												aria-labelledby="ai-btn-description"
+												onHover={onUpgradeHover}
+											>
+												<AIIcon color="promotion" />
+											</IconButton>
+										</Infotip>
+									)}
+								</InputAdornment>
+							),
+						}}
 					/>
+				) : (
+					<Box display="flex" gap={1}>
+						<CircleCheckFilledIcon color="success" />
+						<Typography variant="body1">
+							{__('no description needed', 'pojo-accessibility')}
+						</Typography>
+					</Box>
 				)}
-
-				<Box display="flex" gap={1} justifyContent="flex-end">
-					{isManage && (
-						<Button color="secondary" variant="text" onClick={onCancel}>
-							{__('Cancel', 'pojo-accessibility')}
-						</Button>
+				<StyledAlert color="info" sx={{ p: 2 }} icon={false}>
+					<Box>
+						<AlertTitle sx={{ display: 'inline-block' }}>
+							{__('Tips:', 'pojo-accessibility')}
+						</AlertTitle>
+						{__(
+							"Keep descriptions short and simple, describing what the image shows or why it's on the page.",
+							'pojo-accessibility',
+						)}
+					</Box>
+				</StyledAlert>
+				<Box>
+					{!isManage && (
+						<SetGlobal
+							item={item}
+							onGlobalChange={onGlobalChange}
+							isChecked={isGlobal}
+						/>
 					)}
-					<Button
-						variant="contained"
-						color="info"
-						fullWidth={!isManage}
-						loading={loading}
-						disabled={isSubmitDisabled}
-						onClick={
-							isManage || data?.[current]?.resolved ? onUpdate : onSubmit
-						}
-						sx={{ mt: isManage ? 0 : 1.5 }}
-					>
-						{isGlobal ? __('Apply to all', 'pojo-accessibility') : applyBtnText}
-					</Button>
+
+					<Box display="flex" gap={1} justifyContent="flex-end">
+						{isManage && (
+							<Button color="secondary" variant="text" onClick={onCancel}>
+								{__('Cancel', 'pojo-accessibility')}
+							</Button>
+						)}
+						<Button
+							variant="contained"
+							color="info"
+							fullWidth={!isManage}
+							loading={loading}
+							disabled={isSubmitDisabled}
+							onClick={
+								isManage || data?.[current]?.resolved ? onUpdate : onSubmit
+							}
+							sx={{ mt: isManage ? 0 : 1.5 }}
+						>
+							{isGlobal
+								? __('Apply to all', 'pojo-accessibility')
+								: applyBtnText}
+						</Button>
+					</Box>
 				</Box>
-			</Box>
-		</StyledBox>
+			</StyledBox>
+		</>
 	);
 };
 
