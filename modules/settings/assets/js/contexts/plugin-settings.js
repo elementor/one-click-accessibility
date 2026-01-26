@@ -57,6 +57,10 @@ export const PluginSettingsProvider = ({ children }) => {
 					settings.isElementorOne = Boolean(settings.isElementorOne);
 				}
 
+				if ('isElementorOne' in settings) {
+					settings.isElementorOne = Boolean(settings.isElementorOne);
+				}
+
 				setPluginSettings(settings);
 				setLoaded(true);
 			})
