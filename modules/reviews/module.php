@@ -57,7 +57,7 @@ class Module extends Module_Base {
 			return;
 		}
 
-		Utils\Assets::enqueue_app_assets( 'reviews' );
+		Utils\Assets::enqueue_app_assets( 'reviews', false );
 
 		wp_localize_script(
 			'reviews',
