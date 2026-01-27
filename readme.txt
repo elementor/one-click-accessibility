@@ -192,6 +192,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
+= 4.0.2 – 2026-01-27 =
+* Tweak: Added a dashboard widget to trigger scans and view results
+* Fix: Resolved layout issues on the settings page for RTL
+* Fix: Corrected widget trigger functionality when users are logged out
+
 = 4.0.1 – 2026-01-20 =
 * Fix: Fix ally widget action to toggle open/close state.
 * Fix: PHP error in Ally legacy product
