@@ -26,6 +26,7 @@ final class Manager {
 			'Scanner',
 			'Deactivation',
 			'Reviews',
+			'Dashboard',
 		];
 	}
 

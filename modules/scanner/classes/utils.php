@@ -2,6 +2,9 @@
 
 namespace EA11y\Modules\Scanner\Classes;
 
+use EA11y\Modules\Remediation\Database\Page_Entry;
+use EA11y\Modules\Remediation\Database\Remediation_Entry;
+use EA11y\Modules\Scanner\Database\Scan_Entry;
 use Exception;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,5 +35,30 @@ class Utils {
 		file_put_contents( $tmp_path, $image_data );
 
 		return $tmp_path;
+	}
+
+	public static function get_scanner_stats(  ): array{
+		$output = [
+			'pages' => 0,
+			'issues_total' => 0,
+			'issues_fixed' => 0,
+		];
+
+		$pages_scanned = Page_Entry::get_pages();
+
+
+		foreach ( $pages_scanned as $page ) {
+			$scans = Scan_Entry::get_scans( $page->url, 1);
+			$remediation_count = Remediation_Entry::get_page_remediations_count($page->url);
+
+			if ( count( $scans ) > 0 ) {
+				$output['issues_total'] += $scans[0]->summary['counts']['violation'] ?? 0;
+				$output['issues_fixed'] += $remediation_count;
+			}
+		}
+
+		$output['pages'] = count( $pages_scanned );
+
+		return $output;
 	}
 }
