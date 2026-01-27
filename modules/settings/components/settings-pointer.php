@@ -26,9 +26,9 @@ class Settings_Pointer {
 			return;
 		}
 
-        if ( Utils::is_plugin_settings_page() ) {
-            return;
-        }
+		if ( Utils::is_plugin_settings_page() ) {
+			return;
+		}
 
 		wp_enqueue_script( 'wp-pointer' );
 		wp_enqueue_style( 'wp-pointer' );

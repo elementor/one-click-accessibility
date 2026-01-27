@@ -19,13 +19,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Module extends Module_Base {
-
-
 	const SETTING_PREFIX = 'ea11y_';
 	const SETTING_GROUP = 'ea11y_settings';
 	const SETTING_BASE_SLUG = 'accessibility-settings';
 	const SETTING_CAPABILITY = 'manage_options';
-	const SETTING_PAGE_SLUG = 'elementor_page_' . self::SETTING_BASE_SLUG;
 
 	public function get_name(): string {
 		return 'settings';
@@ -117,7 +114,6 @@ class Module extends Module_Base {
 				'adminUrl' => admin_url(),
 				'isUrlMismatch' => ! Connect::get_connect()->utils()->is_valid_home_url(),
 				'isDevelopment' => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG,
-
 				'homeUrl' => home_url(),
 			]
 		);
@@ -440,7 +436,7 @@ class Module extends Module_Base {
 	 * @return void
 	 */
 	public function check_plan_data( $current_screen ): void {
-		if ( self::SETTING_PAGE_SLUG !== $current_screen->base ) {
+		if ( ! str_contains( $current_screen->base, '_page_accessibility-settings' ) ) {
 			return;
 		}
 
@@ -456,9 +452,7 @@ class Module extends Module_Base {
 	}
 
 	public function remove_admin_footer_text( $text ) {
-		$screen = get_current_screen();
-
-		if ( self::SETTING_PAGE_SLUG === $screen->base ) {
+		if ( Utils::is_plugin_settings_page() ) {
 			remove_filter( 'update_footer', 'core_update_footer' );
 			return '';
 		}
@@ -664,8 +658,7 @@ class Module extends Module_Base {
 	 * Hide all admin notices on the settings page
 	 */
 	public function hide_admin_notices() {
-		$current_screen = get_current_screen();
-		if ( $current_screen && self::SETTING_PAGE_SLUG === $current_screen->id ) {
+		if ( Utils::is_plugin_settings_page() ) {
 			remove_all_actions( 'admin_notices' );
 			remove_all_actions( 'all_admin_notices' );
 		}
