@@ -34,7 +34,7 @@ class Ally_Dashboard_Widget {
 			<div class="ea11y-dashboard-widget-info">
 				<h4 class="ea11y-dashboard-widget-title">
 					<?php $is_not_empty
-						? esc_html_e( "Keep improving your accessibility", 'pojo-accessibility' )
+						? esc_html_e( 'Keep improving your accessibility', 'pojo-accessibility' )
 						: esc_html_e( "Important: your site hasn't been scanned", 'pojo-accessibility' ); ?>
 				</h4>
 				<?php if ($is_not_empty): ?>
