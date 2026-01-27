@@ -76,8 +76,8 @@ class Module extends Module_Base {
 	/**
 	 * Enqueue Scripts and Styles
 	 */
-	public function enqueue_scripts( $hook ): void {
-		if ( self::SETTING_PAGE_SLUG !== $hook ) {
+	public function enqueue_scripts(): void {
+		if ( ! Utils::is_plugin_settings_page() ) {
 			return;
 		}
 
