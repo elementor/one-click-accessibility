@@ -85,7 +85,7 @@ jobs:
           token: ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}
           payload: |
             channel_id: "C07LFCFNGDB"
-            title: "${{ github.event.pull_request.title }}"
+            title: "${{ github.event.pull_request.title }} pojo-accessibility.zip"
             initial_comment: "Ally - A new PR has been pushed to the master branch by ${{ github.actor }}."
             file: "pojo-accessibility.zip"
             filename: "pojo-accessibility.zip""
@@ -98,7 +98,7 @@ jobs:
           token: ${{ secrets.CLOUD_SLACK_BOT_TOKEN }}
           payload: |
             channel_id: "C07LFCFNGDB"
-            title: "{{ github.event.pull_request.title }}"
+            title: "${{ github.event.pull_request.title }} - pojo-accessibility.zip"
             initial_comment: "Ally - A new build was triggered by ${{ github.actor }}."
             file: "pojo-accessibility.zip"
             filename: "pojo-accessibility.zip"
