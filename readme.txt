@@ -193,7 +193,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 == Changelog ==
 
 = 4.0.3 – 2026-01-28 =
-// TODO
+* Tweak - Security enhancements for access control
 
 = 4.0.2 – 2026-01-28 =
 * Tweak: Added a dashboard widget to trigger scans and view results
