@@ -22,11 +22,11 @@ final class Manager {
 			'Widget',
 			'Core',
 			'Analytics',
-			'whats-new',
 			'Remediation',
 			'Scanner',
 			'Deactivation',
 			'Reviews',
+			'Dashboard',
 		];
 	}
 

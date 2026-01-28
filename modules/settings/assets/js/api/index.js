@@ -99,13 +99,6 @@ class APISettings extends API {
 		});
 	}
 
-	static async getNotifications() {
-		return API.request({
-			method: 'GET',
-			path: `${v1Prefix}/whats-new`,
-		});
-	}
-
 	static async getPostTypes() {
 		return API.request({
 			method: 'GET',

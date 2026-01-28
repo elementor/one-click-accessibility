@@ -7,6 +7,7 @@ use EA11y\Modules\Connect\Module as Connect;
 use EA11y\Modules\Settings\Module as SettingsModule;
 use EA11y\Modules\Analytics\Module as AnalyticsModule;
 use EA11y\Modules\Settings\Classes\Settings;
+use EA11y\Classes\Utils;
 use Exception;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -92,12 +93,11 @@ class Module extends Module_Base {
 
 	/**
 	 * Load scripts in admin
-	 * @param $hook
 	 *
 	 * @return void
 	 */
-	public function enqueue_accessibility_widget_admin( $hook ) : void {
-		if ( SettingsModule::SETTING_PAGE_SLUG !== $hook ) {
+	public function enqueue_accessibility_widget_admin() : void {
+		if ( ! Utils::is_plugin_settings_page() ) {
 			return;
 		}
 
@@ -219,7 +219,7 @@ class Module extends Module_Base {
 		?>
 			<script>
 				const registerAllyAction = () => {
-					if ( ! window?.elementorAppConfig?.hasPro || ! window?.elementorFrontend?.utils?.urlActions ) {
+					if ( ! window?.ElementorProFrontendConfig || ! window?.elementorFrontend?.utils?.urlActions ) {
 						return;
 					}
 
