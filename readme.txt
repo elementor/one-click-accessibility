@@ -4,7 +4,7 @@ Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
 Requires at least: 6.6
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
@@ -191,6 +191,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
+
+= 4.0.3 – 2026-01-28 =
+* Tweak - Security enhancements for access control
 
 = 4.0.2 – 2026-01-28 =
 * Tweak: Added a dashboard widget to trigger scans and view results
