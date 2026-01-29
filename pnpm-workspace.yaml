@@ -1,0 +1,6 @@
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - core-js
+  - core-js-pure
+  - fs-ext
+  - unrs-resolver
