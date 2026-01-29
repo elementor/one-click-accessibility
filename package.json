@@ -45,6 +45,8 @@
 		"prettier": "^3.4.1"
 	},
 	"dependencies": {
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
 		"@elementor/design-tokens": "^1.1.4",
 		"@elementor/elementor-one-assets": "0.4.24",
 		"@elementor/icons": "^1.65.0",
