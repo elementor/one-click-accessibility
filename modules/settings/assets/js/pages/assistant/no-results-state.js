@@ -46,14 +46,14 @@ const AccessibilityAssistantNoResultsState = () => {
 };
 
 const StyledWrapper = styled(Box)`
-	margin-top: ${({ theme }) => theme.spacing(6)};
+	margin-block-start: ${({ theme }) => theme.spacing(6)};
 
 	text-align: center;
 `;
 
 const StyledTitle = styled(Typography)`
-	margin-top: 0;
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
+	margin-block-start: 0;
+	margin-block-end: ${({ theme }) => theme.spacing(1)};
 
 	font-size: 16px;
 	font-weight: 500;

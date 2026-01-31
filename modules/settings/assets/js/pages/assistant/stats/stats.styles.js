@@ -55,8 +55,6 @@ export const StyledStatsItemContent = styled(Box)`
 `;
 
 export const StyledStatsItemChart = styled(Box)`
-	margin-inline-start: ${({ theme }) => theme.spacing(2)};
-
 	@media screen and (max-width: 1200px) {
 		& {
 			display: none;
@@ -72,7 +70,7 @@ export const StyledStatsItemTitle = styled(Typography, {
 	align-items: center;
 
 	margin: 0;
-	margin-bottom: ${({ spacing, theme }) => theme.spacing(spacing || 2)};
+	margin-block-end: ${({ spacing, theme }) => theme.spacing(spacing || 2)};
 
 	color: ${({ theme }) => theme.palette.text.primary};
 	font-feature-settings:

@@ -76,5 +76,5 @@ const StyledContainer = styled(Box)`
 	justify-content: flex-end;
 
 	padding: ${({ theme }) => theme.spacing(2)};
-	border-top: 1px solid ${({ theme }) => theme.palette.divider};
+	border-block-start: 1px solid ${({ theme }) => theme.palette.divider};
 `;

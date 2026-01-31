@@ -40,7 +40,7 @@
 }
 
 .ea11y-deactivation-content h3 {
-    margin-top: 0;
+    margin-block-start: 0;
     color: #23282d;
     font-size: 18px;
     font-weight: 600;
@@ -48,15 +48,15 @@
 
 .ea11y-deactivation-content p {
     color: #666;
-    margin-bottom: 20px;
+    margin-block-end: 20px;
 }
 
 .ea11y-feedback-options {
-    margin-bottom: 20px;
+    margin-block-end: 20px;
 }
 
 .ea11y-feedback-option {
-    margin-bottom: 15px;
+    margin-block-end: 15px;
 }
 
 .ea11y-feedback-option > label {
@@ -64,23 +64,23 @@
     align-items: center;
     cursor: pointer;
     color: #23282d;
-    margin-bottom: 8px;
+    margin-block-end: 8px;
 }
 
 .ea11y-feedback-option input[type="radio"] {
-    margin-right: 8px;
+    margin-inline-end: 8px;
 }
 
 .ea11y-feedback-text-field {
-    margin-left: 24px;
-    margin-top: 8px;
+    margin-inline-start: 24px;
+    margin-block-start: 8px;
 }
 
 .ea11y-feedback-text-field label {
     display: block;
     font-size: 12px;
     color: #666;
-    margin-bottom: 4px;
+    margin-block-end: 4px;
 }
 
 .ea11y-feedback-text-field input,
@@ -105,8 +105,8 @@
     flex-direction: row-reverse;
     justify-content: space-between;
     gap: 10px;
-    border-top: 1px solid #e1e1e1;
-    padding-top: 20px;
+    border-block-start: 1px solid #e1e1e1;
+    padding-block-start: 20px;
 }
 
 .ea11y-btn {

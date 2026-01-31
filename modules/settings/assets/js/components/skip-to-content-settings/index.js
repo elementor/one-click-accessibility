@@ -176,8 +176,7 @@ const StyledCard = styled(Card)`
 	padding: ${({ theme }) => theme.spacing(2)};
 	margin-block: ${({ theme }) => theme.spacing(4)};
 	max-width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 `;
 
 const StyledBox = styled(Box)`
@@ -198,7 +197,7 @@ const StyledFormItem = styled(Box)`
 	gap: 16px;
 	align-items: flex-start;
 	justify-content: start;
-	padding-top: 16px;
+	padding-block-start: 16px;
 `;
 
 const StyledFormLabel = styled(FormLabel)`
@@ -206,7 +205,7 @@ const StyledFormLabel = styled(FormLabel)`
 	align-items: center;
 	gap: 8px;
 	white-space: nowrap;
-	padding-top: 7px;
+	padding-block-start: 7px;
 `;
 
 const StyledTextField = styled(TextField)`

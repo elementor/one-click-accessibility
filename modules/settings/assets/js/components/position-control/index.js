@@ -33,8 +33,8 @@ const StyledContainer = styled(Box, {
 })`
 	display: flex;
 	gap: ${({ theme }) => theme.spacing(1)};
-	margin-top: ${({ theme }) => theme.spacing(2)};
-	margin-bottom: ${({ theme, isError }) =>
+	margin-block-start: ${({ theme }) => theme.spacing(2)};
+	margin-block-end: ${({ theme, isError }) =>
 		isError ? theme.spacing(4) : 'initial'};
 
 	transition: all 100ms ease-in-out;

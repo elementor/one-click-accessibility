@@ -138,7 +138,7 @@ const StyledFormLabel = styled(FormLabel)`
 	align-items: center;
 	gap: 8px;
 	white-space: nowrap;
-	padding-top: 7px;
+	padding-block-start: 7px;
 `;
 
 const StyledTextField = styled(TextField)`

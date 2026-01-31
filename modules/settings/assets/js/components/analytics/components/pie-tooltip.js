@@ -24,7 +24,7 @@ const StyledTitle = styled(Typography, {
 	shouldForwardProp: (prop) => prop !== 'itemColor',
 })`
 	position: relative;
-	padding-left: 18px;
+	padding-inline-start: 18px;
 	&:before {
 		content: '';
 		position: absolute;

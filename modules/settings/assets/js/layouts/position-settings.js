@@ -84,7 +84,6 @@ const StyledWrapper = styled(Grid)`
 	padding: ${({ theme }) => theme.spacing(2)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 	max-width: 1200px;
 `;

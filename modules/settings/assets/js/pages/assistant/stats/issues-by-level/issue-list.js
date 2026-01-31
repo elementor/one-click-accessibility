@@ -66,7 +66,7 @@ const StyledIssueLevel = styled(Box)`
 	margin-inline-start: ${({ theme }) => theme.spacing(0.5)};
 
 	&:not(:last-of-type) {
-		margin-bottom: ${({ theme }) => theme.spacing(1)};
+		margin-block-end: ${({ theme }) => theme.spacing(1)};
 	}
 
 	:first-of-type::before,

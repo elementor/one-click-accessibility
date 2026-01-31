@@ -43,7 +43,11 @@ class Onboarding_Banner {
 			return;
 		}
 
-		if ( self::user_viewed_banner() || self::user_has_scanned_pages() ) {
+		if ( self::user_viewed_banner() ) {
+			return;
+		}
+
+		if ( self::user_has_scanned_pages() ) {
 			return;
 		}
 
@@ -91,14 +95,13 @@ class Onboarding_Banner {
 		</div>
 
 		<style>
-			html[dir="rtl"] #ea11y-app,
-			html:not([dir="rtl"]) #ea11y-app {
+			#ea11y-app {
 				height: calc(100vh - 32px - 80px);
 			}
 
 			.elementor-ea11y-banner {
 				overflow: hidden;
-				border-left-color: #2563EB;
+				border-inline-start-color: #2563EB;
 				padding: 0;
 			}
 

@@ -10,9 +10,8 @@ import { WIDGET_PREVIEW_ID } from '../../constants';
 import WidgetPreviewSkeleton from './preview-skeleton';
 
 const StyledPreview = styled(CardContent)`
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: ${({ theme }) => theme.spacing(4)};
+	margin-inline: auto;
+	margin-block-start: ${({ theme }) => theme.spacing(4)};
 	padding: 0 24px;
 
 	overflow: auto;
