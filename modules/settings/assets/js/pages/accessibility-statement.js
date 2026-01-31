@@ -126,8 +126,8 @@ const AccessibilityStatement = () => {
 										variant="h6"
 										color="text.primary"
 										align="center"
-										marginBottom="4px"
-										marginTop={4}
+										marginBlockEnd="4px"
+										marginBlockStart={4}
 									>
 										{__(
 											'Need an accessibility statement?',
@@ -138,7 +138,7 @@ const AccessibilityStatement = () => {
 									<Typography
 										variant="body2"
 										color="text.secondary"
-										marginBottom={3}
+										marginBlockEnd={3}
 										align="center"
 									>
 										{__(
@@ -175,7 +175,7 @@ const AccessibilityStatement = () => {
 									>
 										<AccessibilityStatementCreateIcon />
 
-										<Typography marginTop={1}>
+										<Typography marginBlockStart={1}>
 											{__('Yes, I need one', 'pojo-accessibility')}
 										</Typography>
 
@@ -199,7 +199,7 @@ const AccessibilityStatement = () => {
 									>
 										<AccessibilityStatementExistingIcon />
 
-										<Typography marginTop={1}>
+										<Typography marginBlockStart={1}>
 											{__('No, I already have one', 'pojo-accessibility')}
 										</Typography>
 
@@ -236,7 +236,7 @@ const AccessibilityStatement = () => {
 						justifyContent="end"
 						p={2}
 						width="100%"
-						borderTop="1px solid rgb(0 0 0 / 0.12)"
+						borderBlockStart="1px solid rgb(0 0 0 / 0.12)"
 					>
 						<Button
 							color="primary"

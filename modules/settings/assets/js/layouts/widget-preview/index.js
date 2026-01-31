@@ -54,7 +54,7 @@ const WidgetPreview = () => {
 							)}
 						</Typography>
 					}
-					sx={{ paddingBottom: 0 }}
+					sx={{ paddingBlockEnd: 0 }}
 				/>
 
 				<StyledPreview id={WIDGET_PREVIEW_ID}>
