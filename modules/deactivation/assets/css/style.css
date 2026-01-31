@@ -3,6 +3,7 @@
 }
 
 .ea11y-deactivation-content {
+    text-align: start;
     padding: 20px;
 }
 
@@ -28,6 +29,11 @@
     padding: 5px;
     display: flex;
     flex-direction: row;
+    text-align: start;
+}
+
+.ea11y-feedback-thickbox #TB_closeWindowButton {
+    inset-inline: auto 5px;
 }
 
 .ea11y-feedback-thickbox #TB_closeWindowButton .tb-close-icon {
@@ -37,6 +43,9 @@
 .ea11y-feedback-thickbox #TB_ajaxWindowTitle {
     font-size: 14px;
     letter-spacing: 1px;
+    padding: 0;
+    padding-inline-start: 10px;
+    float: unset;
 }
 
 .ea11y-deactivation-content h3 {
