@@ -17,13 +17,14 @@ import { usePluginSettingsContext } from '../../contexts/plugin-settings';
 const SidebarMenuItem = ({ keyName, item }) => {
 	const { openSidebar, selectedMenu, setSelectedMenu, planData } =
 		useSettings();
-	const { isElementorOne } = usePluginSettingsContext();
+	const { isElementorOne, isRTL } = usePluginSettingsContext();
 
 	const [expandedItems, setExpandedItems] = useState({ widget: true });
 	const [popupPosition, setPopupPosition] = useState({
 		popupPositionAbove: 0,
 		popupPositionBefore: 0,
 	});
+	const TooltipPlacement = isRTL ? 'left' : 'right';
 	const menuItemRef = useRef(null);
 	const key = keyName;
 
@@ -64,7 +65,6 @@ const SidebarMenuItem = ({ keyName, item }) => {
 	const updatePopupPosition = () => {
 		if (menuItemRef.current && !openSidebar && item?.children) {
 			const rect = menuItemRef.current.getBoundingClientRect();
-			const isRTL = document.dir === 'rtl';
 			setPopupPosition({
 				popupPositionAbove: rect.top,
 				// For RTL, calculate distance from the right edge of viewport
@@ -104,7 +104,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 			>
 				<Tooltip
 					title={item?.name}
-					placement="right"
+					placement={TooltipPlacement}
 					disableHoverListener={openSidebar || hasChildItems}
 				>
 					<ParentItemIcon

@@ -94,7 +94,7 @@ const SkipToContentSettings = () => {
 								<Typography variant="body2">{titleTooltipText}</Typography>
 							</Box>
 						}
-						placement="right"
+						placement="top"
 						arrow={true}
 					>
 						<InfoCircleIcon fontSize="small" />
@@ -137,7 +137,7 @@ const SkipToContentSettings = () => {
 								<Typography variant="body2">{idTooltipText}</Typography>
 							</Box>
 						}
-						placement="right"
+						placement="top"
 						arrow={true}
 					>
 						<InfoCircleIcon fontSize="small" />

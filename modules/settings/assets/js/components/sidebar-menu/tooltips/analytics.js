@@ -10,11 +10,14 @@ import { useSettings } from '@ea11y/hooks';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../../contexts/analytics-context';
+import { usePluginSettingsContext } from '../../../contexts/plugin-settings';
 
 const AnalyticsTooltip = () => {
 	const { setSelectedMenu } = useSettings();
+	const { isRTL } = usePluginSettingsContext();
 	const { handleAnalyticsToggle, isAnalyticsEnabled } = useAnalyticsContext();
 	const [isOpen, setIsOpen] = useState(false);
+	const TooltipPlacement = isRTL ? 'left' : 'right';
 
 	// Don't show tooltip if analytics is already enabled
 	if (isAnalyticsEnabled) {
@@ -68,7 +71,7 @@ const AnalyticsTooltip = () => {
 
 	return (
 		<Infotip
-			placement="right"
+			placement={TooltipPlacement}
 			content={TooltipCard}
 			tabIndex="0"
 			open={isOpen}

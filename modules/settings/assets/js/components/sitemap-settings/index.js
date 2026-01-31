@@ -77,7 +77,7 @@ const SitemapSettings = ({ sitemap }) => {
 									)}
 								</Typography>
 							}
-							placement="right"
+							placement="top"
 							arrow={true}
 						>
 							<InfoCircleIcon fontSize="small" />
