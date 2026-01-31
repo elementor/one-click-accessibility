@@ -114,7 +114,8 @@ const StyledAccordion = styled(Accordion)`
 const StyledAccordionSummary = styled(AccordionSummary)`
 	padding: 0;
 	min-height: auto;
-	justify-content: left;
+	justify-content: flex-start;
+
 	&.Mui-expanded {
 		min-height: auto;
 	}

@@ -131,7 +131,7 @@ const StyledIssuesCount = styled(Typography)`
 	line-height: 130%;
 	letter-spacing: 0.1px;
 	min-width: 50px;
-	text-align: left;
+	text-align: start;
 `;
 
 export default IssueList;
