@@ -2,6 +2,7 @@ import ChevronLeftIcon from '@elementor/icons/ChevronLeftIcon';
 import Divider from '@elementor/ui/Divider';
 import Drawer from '@elementor/ui/Drawer';
 import IconButton from '@elementor/ui/IconButton';
+import Rotate from '@elementor/ui/Rotate';
 import { styled } from '@elementor/ui/styles';
 import { SidebarHeading, SidebarMenu } from '@ea11y/components';
 import { useSettings } from '@ea11y/hooks';
@@ -25,11 +26,9 @@ const Sidebar = () => {
 				size="small"
 				aria-label={__('Toggle sidebar', 'pojo-accessibility')}
 			>
-				<ChevronLeftIcon
-					aria-hidden={true}
-					fontSize="tiny"
-					sx={{ rotate: !openSidebar ? '180deg' : '0' }}
-				/>
+				<Rotate in={!openSidebar}>
+					<ChevronLeftIcon aria-hidden={true} fontSize="tiny" />
+				</Rotate>
 			</StyledToggleButton>
 
 			<SidebarHeaderWrapper>

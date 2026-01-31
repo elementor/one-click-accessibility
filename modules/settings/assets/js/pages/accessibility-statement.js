@@ -5,6 +5,7 @@ import FormLabel from '@elementor/ui/FormLabel';
 import Link from '@elementor/ui/Link';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
+import Rotate from '@elementor/ui/Rotate';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { StatementGenerator } from '@ea11y/components';
@@ -26,6 +27,7 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { injectTemplateVars } from '@ea11y-apps/global/utils/inject-template-vars';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 
 const AccessibilityStatement = () => {
 	const { accessibilityStatementData } = useSettings();
@@ -34,6 +36,7 @@ const AccessibilityStatement = () => {
 	// Store statement option - generate or existing
 	const [statementOption, setStatementOption] = useState('');
 	const [showStatementLink, setShowStatementLink] = useState(false);
+	const { isRTL } = usePluginSettingsContext();
 
 	useEffect(() => {
 		mixpanelService.sendEvent(mixpanelEvents.pageView, {
@@ -219,7 +222,11 @@ const AccessibilityStatement = () => {
 								<Button
 									size="large"
 									color="secondary"
-									startIcon={<ChevronLeftIcon fontSize="small" />}
+									startIcon={
+										<Rotate in={isRTL}>
+											<ChevronLeftIcon aria-hidden={true} fontSize="small" />
+										</Rotate>
+									}
 									onClick={handleBackButton}
 								>
 									{__('Back', 'pojo-accessibility')}
