@@ -118,7 +118,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 								<InfotipBox>
 									<Typography
 										variant="subtitle1"
-										sx={{ mb: 1, textTransform: 'none' }}
+										sx={{ marginBlockEnd: 1, textTransform: 'none' }}
 									>
 										{__(
 											"What's the issue and why it matters?",
@@ -143,7 +143,11 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 
 				<Box>
 					<TitleBox>
-						<Typography variant="subtitle2" as="h5" sx={{ mb: 0.5 }}>
+						<Typography
+							variant="subtitle2"
+							as="h5"
+							sx={{ marginBlockEnd: 0.5 }}
+						>
 							{__('Where is it', 'pojo-accessibility')}
 						</Typography>
 						<Tooltip
@@ -208,7 +212,11 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 												justifyContent="space-between"
 												alignItems="start"
 											>
-												<Typography variant="subtitle1" as="h5" sx={{ mb: 3 }}>
+												<Typography
+													variant="subtitle1"
+													as="h5"
+													sx={{ marginBlockEnd: 3 }}
+												>
 													{__('See an example', 'pojo-accessibility')}
 												</Typography>
 
@@ -217,7 +225,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 													aria-label={__('Close tooltip', 'pojo-accessibility')}
 													size="small"
 													edge="end"
-													sx={{ mt: -1 }}
+													sx={{ marginBlockStart: -1 }}
 												>
 													<XIcon />
 												</IconButton>
@@ -230,7 +238,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 											<Typography
 												variant="body2"
 												color="secondary"
-												sx={{ mb: 2 }}
+												sx={{ marginBlockEnd: 2 }}
 											>
 												{uxMessaging[item.ruleId].seeAnExample.issue}
 											</Typography>
@@ -245,7 +253,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 														variant="body2"
 														color="secondary"
 														key={`resolution-${index}`}
-														sx={{ mb: 2 }}
+														sx={{ marginBlockEnd: 2 }}
 													>
 														{resolution}
 													</Typography>
@@ -269,7 +277,7 @@ export const ManualFixForm = ({ item, current, setOpen }) => {
 										underline="none"
 										color="info.main"
 										onClick={handleLinkClick}
-										sx={{ mx: 0.5 }}
+										sx={{ marginInline: 0.5 }}
 									>
 										{__('See an example', 'pojo-accessibility')}
 									</Link>

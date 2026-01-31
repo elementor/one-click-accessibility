@@ -136,21 +136,25 @@ const StatementLink = () => {
 	};
 
 	return (
-		<Card elevation={0} variant="outlined" sx={{ marginTop: 1, width: '100%' }}>
+		<Card
+			elevation={0}
+			variant="outlined"
+			sx={{ marginBlockStart: 1, width: '100%' }}
+		>
 			<CardHeader
 				title={__('Statement link', 'pojo-accessibility')}
 				subheader={__(
 					'Link your accessibility statement page to your accessibility widget.',
 					'pojo-accessibility',
 				)}
-				sx={{ borderBottom: '1px solid', borderBottomColor: 'divider' }}
+				sx={{ borderBlockEnd: '1px solid', borderBlockEndColor: 'divider' }}
 			/>
 
 			<CardContent>
 				<Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={5}>
 					<Box display="flex" flexDirection="column">
-						<FormControl fullWidth sx={{ marginBottom: 2 }}>
-							<FormLabel sx={{ marginBottom: 1 }}>
+						<FormControl fullWidth sx={{ marginBlockEnd: 2 }}>
+							<FormLabel sx={{ marginBlockEnd: 1 }}>
 								<Typography variant="subtitle2" color="text.primary">
 									{__('Choose which page to link', 'pojo-accessibility')}
 								</Typography>
@@ -180,7 +184,7 @@ const StatementLink = () => {
 						</FormControl>
 
 						<FormControl fullWidth>
-							<FormLabel sx={{ marginBottom: 2, marginTop: 2 }}>
+							<FormLabel sx={{ marginBlockEnd: 2, marginBlockStart: 2 }}>
 								<Typography variant="subtitle2" color="text.primary">
 									{__('Want to hide the link?', 'pojo-accessibility')}
 								</Typography>
@@ -193,10 +197,14 @@ const StatementLink = () => {
 									<StyledSwitch
 										color="info"
 										size="small"
-										sx={{ marginLeft: 3 }}
+										sx={{ marginInlineStart: 3 }}
 									/>
 								}
-								sx={{ marginBottom: 3, alignSelf: 'start', ml: 0 }}
+								sx={{
+									alignSelf: 'start',
+									marginBlockEnd: 3,
+									marginInlineStart: 0,
+								}}
 								onChange={onHideLink}
 								checked={accessibilityStatementData?.hideLink}
 							/>

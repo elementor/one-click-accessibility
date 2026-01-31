@@ -40,13 +40,13 @@ export const PieChartSkeleton = ({ animated }) => {
 				}
 				sx={{ height: '60px', alignItems: 'start' }}
 			/>
-			<StyledCardContent ref={containerRef} sx={{ pt: 5 }}>
+			<StyledCardContent ref={containerRef} sx={{ paddingBlockStart: 5 }}>
 				<Stack
 					direction="row"
 					spacing={6}
 					alignItems="center"
 					justifyContent="center"
-					sx={{ pb: 4 }}
+					sx={{ paddingBlockEnd: 4 }}
 				>
 					<StyledCircle
 						variant="circular"

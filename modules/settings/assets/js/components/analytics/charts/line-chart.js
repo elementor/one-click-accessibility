@@ -30,7 +30,7 @@ export const LineChart = () => {
 						</Typography>
 					) : null
 				}
-				sx={{ pb: 0 }}
+				sx={{ paddingBlockEnd: 0 }}
 			/>
 			{showChart && (
 				<MuiLineChart

@@ -48,13 +48,13 @@ const ReviewForm = () => {
 					fontSize: 24,
 				}}
 			/>
-			<Typography variant="h6" marginBottom={1}>
+			<Typography variant="h6" marginBlockEnd={1}>
 				{__('Awesome!', 'pojo-accessibility')}
 			</Typography>
 			<Typography
 				variant="body1"
 				color="secondary"
-				marginBottom={3}
+				marginBlockEnd={3}
 				width="55%"
 			>
 				{__('Help others discover Ally on WordPress', 'pojo-accessibility')}
@@ -63,7 +63,7 @@ const ReviewForm = () => {
 				emptyIcon={<StarFilledIcon fontSize="large" />}
 				icon={<StarFilledIcon fontSize="large" />}
 				onChange={handleSubmit}
-				sx={{ marginBottom: 3 }}
+				sx={{ marginBlockEnd: 3 }}
 				highlightSelectedOnly={false}
 			/>
 		</FormControl>

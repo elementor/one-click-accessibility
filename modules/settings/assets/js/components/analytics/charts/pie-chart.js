@@ -67,7 +67,7 @@ export const PieChart = () => {
 
 	return (
 		<Card variant="outlined" sx={{ height: '100%' }} ref={containerRef}>
-			<CardHeader title={<PieChartTitle />} sx={{ pb: 0 }} />
+			<CardHeader title={<PieChartTitle />} sx={{ paddingBlockEnd: 0 }} />
 			{showChart && (
 				<MuiPieChart
 					series={[

@@ -48,7 +48,7 @@ const HtmlToTypography = ({ htmlString, replacements }) => {
 					<Typography
 						variant={tagName === 'p' ? 'body2' : 'subtitle2'}
 						component={tagName}
-						marginBottom={1}
+						marginBlockEnd={1}
 						sx={node.attribs.class ? { textAlign: 'center' } : {}} //for correct render on preview
 						color={tagName === 'p' ? 'text.secondary' : 'text.primary'}
 					>

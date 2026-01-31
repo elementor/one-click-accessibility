@@ -90,11 +90,11 @@ const UrlMismatchModal = () => {
 
 					<StyledGridContainerContent>
 						<StyledCard>
-							<StyledCardTitle variant="h6" marginBottom={3}>
+							<StyledCardTitle variant="h6" marginBlockEnd={3}>
 								{__('Update the connected URL', 'pojo-accessibility')}
 							</StyledCardTitle>
 
-							<StyledCardSubtitle variant="body1" marginBottom={3}>
+							<StyledCardSubtitle variant="body1" marginBlockEnd={3}>
 								{__(
 									'For cases where you’re moving the same site from staging to production or changing from HTTP to HTTPs.',
 									'pojo-accessibility',
@@ -111,11 +111,11 @@ const UrlMismatchModal = () => {
 						</StyledCard>
 
 						<StyledCard>
-							<StyledCardTitle variant="h6" marginBottom={3}>
+							<StyledCardTitle variant="h6" marginBlockEnd={3}>
 								{__('Connect the URL as a new site', 'pojo-accessibility')}
 							</StyledCardTitle>
 
-							<StyledCardSubtitle variant="body1" marginBottom={3}>
+							<StyledCardSubtitle variant="body1" marginBlockEnd={3}>
 								{__(
 									'For when you want to connect the plugin to a new site entirely—deleting the previous history.',
 									'pojo-accessibility',

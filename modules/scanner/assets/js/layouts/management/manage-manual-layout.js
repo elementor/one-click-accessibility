@@ -37,7 +37,7 @@ export const ManageManualLayout = () => {
 	}, [remediations[openedBlock]?.length]);
 
 	return (
-		<Box sx={{ pb: 8 }}>
+		<Box sx={{ paddingBlockEnd: 8 }}>
 			{remediations[openedBlock].map((item, index) => (
 				<StyledAccordion
 					key={`${item.rule}-${index}`}

@@ -30,7 +30,7 @@ const ColorPicker = () => {
 	return (
 		<FormControl fullWidth>
 			<FormLabel id="color-picker-label" color="secondary">
-				<Typography variant="subtitle2" marginBottom={1} color="text.primary">
+				<Typography variant="subtitle2" marginBlockEnd={1} color="text.primary">
 					{__('Color', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
@@ -45,12 +45,12 @@ const ColorPicker = () => {
 					className="widget-settings-color-picker"
 				/>
 
-				<Grid marginTop={2} display="flex">
+				<Grid marginBlockStart={2} display="flex">
 					<Box
 						padding={2}
 						sx={{ backgroundColor: iconDesign.color }}
 						borderRadius={1}
-						marginRight={1}
+						marginInlineEnd={1}
 					/>
 
 					<StyledHexColorInput

@@ -82,7 +82,11 @@ const UserFeedbackForm = () => {
 		>
 			<StyledBox>
 				<Header>
-					<Typography variant="subtitle1" color="text.primary" marginTop={1}>
+					<Typography
+						variant="subtitle1"
+						color="text.primary"
+						marginBlockStart={1}
+					>
 						{headerMessage?.[currentPage]}
 					</Typography>
 				</Header>

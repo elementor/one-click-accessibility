@@ -49,7 +49,7 @@ const AlignmentMatrixControl = ({ mode }) => {
 	return (
 		<FormControl>
 			<FormLabel id="alignment-matrix-control" color="secondary">
-				<Typography variant="subtitle2" marginBottom={3} color="text.primary">
+				<Typography variant="subtitle2" marginBlockEnd={3} color="text.primary">
 					{__('Default Position', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>

@@ -30,7 +30,7 @@ export const PositionSettings = (props) => {
 
 	return (
 		<StyledWrapper {...props}>
-			<Box marginBottom={2}>
+			<Box marginBlockEnd={2}>
 				<Typography variant="subtitle1">
 					{__('Position', 'pojo-accessibility')}
 				</Typography>
@@ -44,7 +44,7 @@ export const PositionSettings = (props) => {
 			<Box padding={2}>
 				<Tabs
 					value={currentTab}
-					sx={{ borderBottom: 'none', height: '65px' }}
+					sx={{ borderBlockEnd: 'none', height: '65px' }}
 					indicatorColor="secondary"
 					textColor="secondary"
 				>

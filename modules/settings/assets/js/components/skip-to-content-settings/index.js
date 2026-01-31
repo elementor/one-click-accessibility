@@ -87,7 +87,7 @@ const SkipToContentSettings = () => {
 						tabIndex="0"
 						content={
 							<Box sx={{ p: 2, maxWidth: '250px' }}>
-								<Typography variant="subtitle2" sx={{ mb: 1 }}>
+								<Typography variant="subtitle2" sx={{ marginBlockEnd: 1 }}>
 									{__('Skip to main content', 'pojo-accessibility')}
 								</Typography>
 
@@ -130,7 +130,7 @@ const SkipToContentSettings = () => {
 						tabIndex="0"
 						content={
 							<Box sx={{ p: 2, maxWidth: '250px' }}>
-								<Typography variant="subtitle2" sx={{ mb: 1 }}>
+								<Typography variant="subtitle2" sx={{ marginBlockEnd: 1 }}>
 									{__('Skip to main content', 'pojo-accessibility')}
 								</Typography>
 
@@ -161,7 +161,7 @@ const SkipToContentSettings = () => {
 							as="p"
 							variant="caption"
 							color="error"
-							sx={{ marginTop: '4px' }}
+							sx={{ marginBlockStart: '4px' }}
 						>
 							{__('Please enter valid ID!', 'pojo-accessibility')}
 						</Typography>

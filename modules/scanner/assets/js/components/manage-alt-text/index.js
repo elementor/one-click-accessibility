@@ -60,7 +60,7 @@ export const ManageAltText = ({ item, current, openEdit }) => {
 				</AlertWithDisabledState>
 			) : (
 				<Box>
-					<Typography variant="body2" sx={{ mb: 1 }}>
+					<Typography variant="body2" sx={{ marginBlockEnd: 1 }}>
 						{__('Alt text', 'pojo-accessibility')}
 					</Typography>
 					<AlertWithDisabledState

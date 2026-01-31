@@ -86,12 +86,12 @@ export const SetGlobal = ({
 					<>
 						<InfotipImage src={infotipImageSrc} role="presentation" />
 						<InfotipBox sx={{ maxWidth: '265px' }}>
-							<Typography variant="subtitle1" sx={{ mb: 1 }}>
+							<Typography variant="subtitle1" sx={{ marginBlockEnd: 1 }}>
 								{__('Upgrade to unlock cross-scan fixes', 'pojo-accessibility')}
 							</Typography>
 							<Typography
 								variant="body2"
-								sx={{ mb: 1.5 }}
+								sx={{ marginBlockEnd: 1.5 }}
 								color="text.secondary"
 							>
 								{__(
@@ -148,7 +148,7 @@ export const SetGlobal = ({
 							<>
 								<InfotipImage src={infotipImageSrc} role="presentation" />
 								<InfotipBox sx={{ maxWidth: '260px' }}>
-									<Typography variant="subtitle2" sx={{ mb: 1 }}>
+									<Typography variant="subtitle2" sx={{ marginBlockEnd: 1 }}>
 										{__('Fix once, apply everywhere', 'pojo-accessibility')}
 									</Typography>
 									<Typography variant="body2" color="text.secondary">

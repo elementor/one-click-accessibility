@@ -146,7 +146,7 @@ const SidebarMenuItem = ({ keyName, item }) => {
 					popupPosition={popupPosition}
 				>
 					{isSidebarCollapsed && <CollapsedMenuTitle primary={item.name} />}
-					<List disablePadding dense sx={{ pt: 1 }}>
+					<List disablePadding dense sx={{ paddingBlockStart: 1 }}>
 						{Object.entries(item?.children).map(([childKey, child]) => (
 							<ChildListItem key={childKey} dense>
 								<ChildItemButton

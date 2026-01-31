@@ -78,7 +78,7 @@ const AnalyticsTooltip = () => {
 		>
 			<InfoCircleIcon
 				color="info"
-				sx={{ ml: 1 }}
+				sx={{ marginInlineStart: 1 }}
 				onMouseEnter={handleOpen}
 				onFocus={handleOpen}
 				fontSize="small"

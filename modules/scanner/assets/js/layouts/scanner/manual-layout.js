@@ -24,7 +24,7 @@ export const ManualLayout = () => {
 	} = useScannerWizardContext();
 
 	return (
-		<Box sx={{ pb: 8 }}>
+		<Box sx={{ paddingBlockEnd: 8 }}>
 			{sortedViolations[openedBlock].map((item, index) => (
 				<StyledAccordion
 					key={`${item.ruleId}-${index}`}

@@ -64,7 +64,7 @@ export const ManageMainLayout = () => {
 
 			{globalRemediations.length > 0 && (
 				<>
-					<ManageHeader sx={{ mt: 2 }}>
+					<ManageHeader sx={{ marginBlockStart: 2 }}>
 						<Typography variant="body2" color="text.tertiary">
 							{__('Cross-page fixes', 'pojo-accessibility')}
 						</Typography>
@@ -82,9 +82,12 @@ export const ManageMainLayout = () => {
 					icon={<CrownFilled color="promotion" />}
 					color="error"
 					onClose={hideUpgradeAlert}
-					sx={{ mt: 2 }}
+					sx={{ marginBlockStart: 2 }}
 				>
-					<Typography variant="body2" sx={{ mb: 1.5, color: 'text.secondary' }}>
+					<Typography
+						variant="body2"
+						sx={{ marginBlockEnd: 1.5, color: 'text.secondary' }}
+					>
 						{__(
 							'Resolve these issues on all of your scanned pages with a click.',
 							'pojo-accessibility',
