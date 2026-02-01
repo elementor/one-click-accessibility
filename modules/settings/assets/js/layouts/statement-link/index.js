@@ -147,7 +147,7 @@ const StatementLink = () => {
 					'Link your accessibility statement page to your accessibility widget.',
 					'pojo-accessibility',
 				)}
-				sx={{ borderBlockEnd: '1px solid', borderBlockEndColor: 'divider' }}
+				sx={{ borderBlockEnd: '1px solid rgb(0 0 0 / 0.12)' }}
 			/>
 
 			<CardContent>

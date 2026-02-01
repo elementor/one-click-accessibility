@@ -48,9 +48,8 @@ const ColorPicker = () => {
 				<Grid marginBlockStart={2} display="flex">
 					<Box
 						padding={2}
-						sx={{ backgroundColor: iconDesign.color }}
+						sx={{ backgroundColor: iconDesign.color, marginInlineEnd: 1 }}
 						borderRadius={1}
-						marginInlineEnd={1}
 					/>
 
 					<StyledHexColorInput

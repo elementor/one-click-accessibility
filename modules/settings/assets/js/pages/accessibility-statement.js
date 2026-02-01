@@ -243,7 +243,7 @@ const AccessibilityStatement = () => {
 						justifyContent="end"
 						p={2}
 						width="100%"
-						borderBlockStart="1px solid rgb(0 0 0 / 0.12)"
+						sx={{ borderBlockStart: '1px solid rgb(0 0 0 / 0.12)' }}
 					>
 						<Button
 							color="primary"
