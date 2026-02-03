@@ -51,7 +51,7 @@ const WidgetActivationSettings = () => {
 
 								<Typography variant="body2">
 									{__(
-										'Enable or disable the accessibility widget on your website.',
+										'Disabling it will prevent the widget from loading entirely.',
 										'pojo-accessibility',
 									)}
 								</Typography>
@@ -77,7 +77,7 @@ const WidgetActivationSettings = () => {
 
 			<Typography variant="body1">
 				{__(
-					'Disabling the widget will prevent the widget from loading entirely.',
+					'Enable or disable the accessibility widget on your website.',
 					'pojo-accessibility',
 				)}
 			</Typography>
