@@ -436,7 +436,7 @@ class Module extends Module_Base {
 		}
 
 		if ( ! get_option( Settings::WIDGET_ACTIVATION ) ) {
-			update_option( Settings::WIDGET_ACTIVATION, self::get_default_settings( 'widget_activation' ) );
+			update_option( Settings::WIDGET_ACTIVATION, self::get_default_settings( 'widget_activation_settings' ) );
 		}
 	}
 
