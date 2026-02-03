@@ -149,6 +149,7 @@ class Module extends Module_Base {
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
 			'isElementorOne' => self::is_elementor_one(),
+			'widgetActivationSettings' => Settings::get( Settings::WIDGET_ACTIVATION ),
 		];
 	}
 
@@ -398,6 +399,10 @@ class Module extends Module_Base {
 			'anchor' => '#content',
 		];
 
+		$widget_activation = [
+			'enabled' => true,
+		];
+
 		switch ( $setting ) {
 			case 'widget_menu_settings':
 				return $widget_menu_settings;
@@ -405,6 +410,8 @@ class Module extends Module_Base {
 				return $widget_icon_settings;
 			case 'skip_to_content_settings':
 				return $skip_to_content_setting;
+			case 'widget_activation_settings':
+				return $widget_activation;
 			default:
 				return [];
 		}
@@ -426,6 +433,10 @@ class Module extends Module_Base {
 
 		if ( ! get_option( Settings::SKIP_TO_CONTENT ) ) {
 			update_option( Settings::SKIP_TO_CONTENT, self::get_default_settings( 'skip_to_content_settings' ) );
+		}
+
+		if ( ! get_option( Settings::WIDGET_ACTIVATION ) ) {
+			update_option( Settings::WIDGET_ACTIVATION, self::get_default_settings( 'widget_activation' ) );
 		}
 	}
 
@@ -489,6 +500,15 @@ class Module extends Module_Base {
 				],
 			],
 			'skip_to_content_settings' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
+			],
+			'widget_activation_settings' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [
