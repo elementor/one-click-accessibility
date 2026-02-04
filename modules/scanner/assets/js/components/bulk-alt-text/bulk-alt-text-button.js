@@ -1,12 +1,16 @@
 import CrownFilledIcon from '@elementor/icons/CrownFilledIcon';
 import Button from '@elementor/ui/Button';
 import Infotip from '@elementor/ui/Infotip';
+import { useModal } from '@ea11y/hooks';
+import BulkAltTextManager from '@ea11y-apps/scanner/components/bulk-alt-text/bulk-alt-text-manager';
 import UpgradeInfotip from '@ea11y-apps/scanner/components/bulk-alt-text/upgrade-infotip';
 import { IS_PRO_PLAN } from '@ea11y-apps/scanner/constants';
 import WandIcon from '@ea11y-apps/scanner/icons/wand-icon';
 import { __ } from '@wordpress/i18n';
 
 const BulkAltTextButton = () => {
+	const { open, close, isOpen } = useModal(false);
+
 	if (!IS_PRO_PLAN) {
 		return (
 			<Infotip
@@ -30,14 +34,18 @@ const BulkAltTextButton = () => {
 	}
 
 	return (
-		<Button
-			color="info"
-			variant="outlined"
-			startIcon={<WandIcon />}
-			size="small"
-		>
-			{__('Bulk alt text', 'pojo-accessibility')}
-		</Button>
+		<>
+			<Button
+				color="info"
+				variant="outlined"
+				startIcon={<WandIcon />}
+				size="small"
+				onClick={open}
+			>
+				{__('Bulk alt text', 'pojo-accessibility')}
+			</Button>
+			<BulkAltTextManager open={isOpen} close={close} />
+		</>
 	);
 };
 
