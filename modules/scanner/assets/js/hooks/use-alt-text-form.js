@@ -15,6 +15,32 @@ import {
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+export const getPayload = async (item) => {
+	if (item.node?.src) {
+		return item.node.src.toLowerCase().endsWith('.svg')
+			? { svg: await convertSvgToPngBase64(item.node.src) }
+			: { image: item.node.src };
+	}
+	return { svg: await svgNodeToPngBase64(item.node) };
+};
+
+export const generateAiAltText = async (item, signal = null) => {
+	const data = await getPayload(item);
+	const result = await APIScanner.generateAltText(data, signal);
+	const descriptions = splitDescriptions(result.data.response);
+
+	if (!descriptions[0]) {
+		throw new Error('No description generated');
+	}
+
+	return {
+		altText: descriptions[0],
+		aiText: descriptions,
+		apiId: result.data.apiId,
+		aiTextIndex: 0,
+	};
+};
+
 export const useAltTextForm = ({ current, item }) => {
 	const {
 		altTextData,
@@ -239,15 +265,6 @@ export const useAltTextForm = ({ current, item }) => {
 		}
 	};
 
-	const getPayload = async () => {
-		if (item.node?.src) {
-			return item.node.src.toLowerCase().endsWith('.svg')
-				? { svg: await convertSvgToPngBase64(item.node.src) }
-				: { image: item.node.src };
-		}
-		return { svg: await svgNodeToPngBase64(item.node) };
-	};
-
 	const sendMixpanelEvent = (text) => {
 		mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 			issue_type: item.message,
@@ -261,20 +278,13 @@ export const useAltTextForm = ({ current, item }) => {
 
 	const getAiText = async () => {
 		setLoadingAiText(true);
-		const data = await getPayload();
 		try {
-			const result = await APIScanner.generateAltText(data);
-			const descriptions = splitDescriptions(result.data.response);
-			if (descriptions[0]) {
-				updateData({
-					altText: descriptions[0],
-					aiText: descriptions,
-					apiId: result.data.apiId,
-					aiTextIndex: 0,
-					resolved: false,
-				});
-				sendMixpanelEvent(descriptions[0]);
-			}
+			const aiData = await generateAiAltText(item);
+			updateData({
+				...aiData,
+				resolved: false,
+			});
+			sendMixpanelEvent(aiData.altText);
 		} catch (e) {
 			console.log(e);
 			error(__('An error occurred.', 'pojo-accessibility'));
@@ -327,10 +337,74 @@ export const useAltTextForm = ({ current, item }) => {
 		handleSubmit,
 		handleUpdate,
 		generateAltText,
+		updateData,
 	};
 };
 
 useAltTextForm.propTypes = {
 	current: PropTypes.number.isRequired,
 	item: scannerItem.isRequired,
+};
+
+export const submitAltTextRemediation = async ({
+	item,
+	altText,
+	makeDecorative,
+	isGlobal,
+	apiId,
+	currentScanId,
+	updateRemediationList,
+}) => {
+	const makeAttributeData = () => {
+		if (makeDecorative) {
+			return {
+				attribute_name: 'role',
+				attribute_value: 'presentation',
+			};
+		}
+
+		if (item.node.tagName === 'svg') {
+			return {
+				attribute_name: 'aria-label',
+				attribute_value: altText,
+			};
+		}
+
+		return {
+			attribute_name: 'alt',
+			attribute_value: altText,
+		};
+	};
+
+	const match = item.node.className.toString().match(/wp-image-(\d+)/);
+	const finalAltText = !makeDecorative ? altText : '';
+	const find = item.snippet;
+
+	try {
+		if (match && item.node.tagName !== 'svg') {
+			void APIScanner.submitAltText(item.node.src, finalAltText);
+		}
+		const response = await APIScanner.submitRemediation({
+			url: window?.ea11yScannerData?.pageData.url,
+			remediation: {
+				...makeAttributeData(),
+				action: 'add',
+				xpath: item.path.dom,
+				find,
+				category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
+				type: 'ATTRIBUTE',
+			},
+			global: isGlobal,
+			rule: item.ruleId,
+			group: BLOCKS.altText,
+			apiId,
+		});
+
+		await APIScanner.resolveIssue(currentScanId);
+		void updateRemediationList();
+		return response.remediation;
+	} catch (e) {
+		console.warn(e);
+		throw e;
+	}
 };
