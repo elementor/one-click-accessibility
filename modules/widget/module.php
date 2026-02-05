@@ -21,6 +21,34 @@ class Module extends Module_Base {
 	}
 
 	/**
+	 * Check if widget module is active
+	 *
+	 * @return bool
+	 */
+	public static function is_active(): bool {
+		// Check parent (legacy mode check)
+		if ( ! parent::is_active() ) {
+			return false;
+		}
+
+		// Check if widget is enabled in settings (default to `true` for backward compatibility)
+		$widget_activation = get_option( Settings::WIDGET_ACTIVATION, [ 'enabled' => true ] );
+
+		// Handle array format (expected)
+		if ( is_array( $widget_activation ) ) {
+			return isset( $widget_activation['enabled'] ) ? (bool) $widget_activation['enabled'] : true;
+		}
+
+		// Backward compatibility: if old boolean format exists
+		if ( is_bool( $widget_activation ) ) {
+			return $widget_activation;
+		}
+
+		// Default to enabled
+		return true;
+	}
+
+	/**
 	 * Enqueue scripts
 	 *
 	 * @return void
