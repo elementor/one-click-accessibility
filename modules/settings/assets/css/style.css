@@ -19,6 +19,7 @@ body {
 #ea11y-app {
 	position: fixed;
 	z-index: 1;
+	height: calc(100vh - 32px);
 	inset-block: 32px 0; /* 32px is for WP admin bar. */
 	inset-inline: 180px 0;
 	margin-inline-start: -20px;
