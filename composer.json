@@ -38,7 +38,7 @@
 		"elementor/wp-notifications-package": "^1.2.0",
 		"ext-ctype": "*",
 		"ext-mbstring": "*",
-		"elementor/wp-one-package": "1.0.47"
+		"elementor/wp-one-package": "1.0.48"
 	},
 	"config": {
 		"allow-plugins": {
