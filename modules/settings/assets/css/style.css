@@ -25,6 +25,11 @@ body {
 	background: #fff;
 }
 
+body.folded #ea11y-app {
+	inset-inline-start: 36px;
+	margin-inline-start: 0;
+}
+
 #ea11y-app * {
 	box-sizing: border-box;
 }
