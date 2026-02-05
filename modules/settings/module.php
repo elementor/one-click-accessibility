@@ -655,16 +655,6 @@ class Module extends Module_Base {
 	}
 
 	/**
-	 * Hide all admin notices on the settings page
-	 */
-	public function hide_admin_notices() {
-		if ( Utils::is_plugin_settings_page() ) {
-			remove_all_actions( 'admin_notices' );
-			remove_all_actions( 'all_admin_notices' );
-		}
-	}
-
-	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
@@ -681,7 +671,6 @@ class Module extends Module_Base {
 		add_action( 'elementor_one/' . Config::APP_PREFIX . '_migration_run', [ $this, 'on_migration_run' ] );
 
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
-		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
 
 		// Register notices
 		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );
