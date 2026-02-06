@@ -19,7 +19,7 @@ import { MENU_SETTINGS } from '../constants/menu-settings';
 const StyledCardContent = styled(CardContent)`
 	height: 55vh;
 	overflow: auto;
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	margin-block-end: ${({ theme }) => theme.spacing(2)};
 	padding: 0 ${({ theme }) => theme.spacing(2)};
 `;
 

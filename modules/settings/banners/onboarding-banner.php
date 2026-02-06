@@ -43,7 +43,11 @@ class Onboarding_Banner {
 			return;
 		}
 
-		if ( self::user_viewed_banner() || self::user_has_scanned_pages() ) {
+		if ( self::user_viewed_banner() ) {
+			return;
+		}
+
+		if ( self::user_has_scanned_pages() ) {
 			return;
 		}
 
@@ -93,7 +97,7 @@ class Onboarding_Banner {
 		<style>
 			.elementor-ea11y-banner {
 				overflow: hidden;
-				border-left-color: #2563EB;
+				border-inline-start-color: #2563EB;
 				padding: 0;
 			}
 

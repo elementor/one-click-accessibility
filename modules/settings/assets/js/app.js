@@ -87,7 +87,7 @@ const App = () => {
 
 						<StyledContainer
 							role="main"
-							aria-label={__('Main Content', 'pojo-accessibility')}
+							aria-label={__('Plugin settings', 'pojo-accessibility')}
 						>
 							<QuotaNotices />
 							<PageContent

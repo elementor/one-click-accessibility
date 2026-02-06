@@ -8,7 +8,7 @@ export const ErrorMessage = () => (
 	<StateContainer>
 		<ErrorImage />
 		<Box sx={{ maxWidth: '300px' }}>
-			<Typography variant="h5" align="center" sx={{ mb: 2 }}>
+			<Typography variant="h5" align="center" sx={{ marginBlockEnd: 2 }}>
 				{__('Well this is unexpected…', 'pojo-accessibility')}
 			</Typography>
 			<Typography variant="body2" align="center">

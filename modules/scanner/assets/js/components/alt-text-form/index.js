@@ -99,7 +99,7 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 					<Typography variant="body1">
 						{__('Mark image as decorative', 'pojo-accessibility')}
 					</Typography>
-					<FormHelperText sx={{ mt: 0 }}>
+					<FormHelperText sx={{ marginBlockStart: 0 }}>
 						{__(
 							"(decorative images don't need description)",
 							'pojo-accessibility',
@@ -227,7 +227,7 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 						onClick={
 							isManage || data?.[current]?.resolved ? onUpdate : onSubmit
 						}
-						sx={{ mt: isManage ? 0 : 1.5 }}
+						sx={{ marginBlockStart: isManage ? 0 : 1.5 }}
 					>
 						{isGlobal ? __('Apply to all', 'pojo-accessibility') : applyBtnText}
 					</Button>

@@ -65,9 +65,9 @@ export const RemediationSnippet = ({ item }) => {
 	};
 
 	return (
-		<Box sx={{ mb: 3 }}>
+		<Box sx={{ marginBlockEnd: 3 }}>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
-				<CardContent sx={{ pt: 1.5, pb: 0 }}>
+				<CardContent sx={{ paddingBlockStart: 1.5, paddingBlockEnd: 0 }}>
 					<ItemHeader>
 						<ItemTitle>
 							<AIIcon />
