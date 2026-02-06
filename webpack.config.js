@@ -40,26 +40,6 @@ const entryPoints = {
 	),
 };
 
-// React JSX Runtime Polyfill
-const reactJSXRuntimePolyfill = {
-	entry: {
-		'react-jsx-runtime': {
-			import: 'react/jsx-runtime',
-		},
-	},
-	output: {
-		path: path.resolve(__dirname, 'assets/lib'),
-		filename: 'react-jsx-runtime.js',
-		library: {
-			name: 'ReactJSXRuntime',
-			type: 'window',
-		},
-	},
-	externals: {
-		react: 'React',
-	},
-};
-
 module.exports = [
 	{
 		...defaultConfig,
@@ -112,6 +92,4 @@ module.exports = [
 			],
 		},
 	},
-
-	reactJSXRuntimePolyfill,
 ];

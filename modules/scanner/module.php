@@ -58,16 +58,6 @@ class Module extends Module_Base {
 			return;
 		}
 
-		if ( version_compare( get_bloginfo( 'version' ), '6.6', '<' ) ) {
-			wp_register_script(
-				'react-jsx-runtime',
-				EA11Y_ASSETS_URL . 'lib/react-jsx-runtime.js',
-				[ 'react' ],
-				'18.3.0',
-				true
-			);
-		}
-
 		wp_enqueue_style(
 			'ea11y-scanner-wizard',
 			EA11Y_ASSETS_URL . 'build/ea11y-scanner-wizard.css',
