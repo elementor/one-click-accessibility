@@ -35,7 +35,7 @@ body.folded #ea11y-app {
 	box-sizing: border-box;
 }
 
-#ea11y-app .wrap {
+#ea11y-app .wrap:not(:empty) {
 	padding: 20px 40px 0;
 }
 

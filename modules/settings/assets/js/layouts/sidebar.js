@@ -19,7 +19,7 @@ const Sidebar = () => {
 			variant="permanent"
 			open={openSidebar}
 			role="navigation"
-			aria-label={__('Sidebar', 'pojo-accessibility')}
+			aria-label={__('Plugin sidebar', 'pojo-accessibility')}
 		>
 			<StyledToggleButton
 				onClick={() => setOpenSidebar(!openSidebar)}
