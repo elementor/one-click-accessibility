@@ -75,7 +75,7 @@ class Module extends Module_Base {
 
 		wp_enqueue_style(
 			'ea11y-widget-fonts',
-			EA11Y_ASSETS_URL . 'build/fonts.css',
+			EA11Y_ASSETS_URL . 'css/fonts.css',
 			[],
 			EA11Y_VERSION
 		);

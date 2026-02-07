@@ -61,7 +61,7 @@ class Module extends Module_Base {
 
 	public function enqueue_scripts() : void {
 		wp_enqueue_style(
-			'ea11y-global-style',
+			'ea11y-global-admin-style',
 			EA11Y_ASSETS_URL . 'css/admin.css',
 			[],
 			EA11Y_VERSION

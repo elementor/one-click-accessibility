@@ -21,7 +21,6 @@ const entryPoints = {
 		'assets/dev/css',
 		'ea11y-scanner-admin.scss',
 	),
-	fonts: path.resolve(process.cwd(), 'assets/css', 'fonts.css'),
 	'skip-link': path.resolve(process.cwd(), 'assets/dev/css', 'skip-link.scss'),
 	'gutenberg-custom-link': path.resolve(
 		process.cwd(),
