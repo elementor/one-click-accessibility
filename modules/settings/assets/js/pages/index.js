@@ -1,5 +1,9 @@
-export { default as AccessibilityStatement } from './accessibility-statement';
-export { default as Analytics } from './analytics';
-export { default as IconSettings } from './icon-settings';
-export { default as Menu } from './menu';
-export { default as AccessibilityAssistant } from './assistant';
+import { lazy } from '@wordpress/element';
+
+export const AccessibilityStatement = lazy(
+	() => import('./accessibility-statement'),
+);
+export const Analytics = lazy(() => import('./analytics'));
+export const IconSettings = lazy(() => import('./icon-settings'));
+export const Menu = lazy(() => import('./menu'));
+export const AccessibilityAssistant = lazy(() => import('./assistant'));
