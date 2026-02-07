@@ -1,7 +1,8 @@
-import mixpanel from 'mixpanel-browser';
-
 const SHARE_USAGE_DATA = 'share_usage_data';
 const MIXPANEL_TOKEN = '150605b3b9f979922f2ac5a52e2dcfe9';
+
+// Store the mixpanel instance once loaded
+let mixpanel = null;
 
 const init = async () => {
 	const { ea11ySettingsData, ea11yScannerData } = window;
@@ -14,6 +15,12 @@ const init = async () => {
 		!planScope?.includes(SHARE_USAGE_DATA)
 	) {
 		return;
+	}
+
+	// Lazy load mixpanel-browser only when analytics is enabled
+	if (!mixpanel) {
+		const mixpanelModule = await import('mixpanel-browser');
+		mixpanel = mixpanelModule.default;
 	}
 
 	const pluginEnv = ea11ySettingsData?.pluginEnv || ea11yScannerData?.pluginEnv;
@@ -51,7 +58,7 @@ const init = async () => {
 };
 
 const sendEvent = (name, event) => {
-	if (mixpanel.__loaded) {
+	if (mixpanel?.__loaded) {
 		mixpanel.track(name, event);
 	}
 };
