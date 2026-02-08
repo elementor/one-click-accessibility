@@ -1,7 +1,6 @@
 const SHARE_USAGE_DATA = 'share_usage_data';
 const MIXPANEL_TOKEN = '150605b3b9f979922f2ac5a52e2dcfe9';
 
-// Store the mixpanel instance once loaded
 let mixpanel = null;
 
 const init = async () => {
@@ -17,9 +16,11 @@ const init = async () => {
 		return;
 	}
 
-	// Lazy load mixpanel-browser only when analytics is enabled
+	// Lazy load mixpanel
 	if (!mixpanel) {
-		const mixpanelModule = await import('mixpanel-browser');
+		const mixpanelModule = await import(
+			/* webpackChunkName: "mixpanel" */ 'mixpanel-browser'
+		);
 		mixpanel = mixpanelModule.default;
 	}
 
