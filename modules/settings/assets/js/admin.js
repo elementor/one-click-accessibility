@@ -3,6 +3,7 @@ import { StrictMode, Fragment, createRoot } from '@wordpress/element';
 import App from './app';
 import { AnalyticsContextProvider } from './contexts/analytics-context';
 import { PluginSettingsProvider } from './contexts/plugin-settings';
+import { initNoticeRelocation } from './utils/move-notices';
 
 const rootNode = document.getElementById('ea11y-app');
 
@@ -10,18 +11,23 @@ const rootNode = document.getElementById('ea11y-app');
 const isDevelopment = window?.ea11ySettingsData?.isDevelopment;
 const AppWrapper = Boolean(isDevelopment) ? StrictMode : Fragment;
 
-const root = createRoot(rootNode);
+if (rootNode) {
+	const root = createRoot(rootNode);
 
-root.render(
-	<AppWrapper>
-		<NotificationsProvider>
-			<SettingsProvider>
-				<PluginSettingsProvider>
-					<AnalyticsContextProvider>
-						<App />
-					</AnalyticsContextProvider>
-				</PluginSettingsProvider>
-			</SettingsProvider>
-		</NotificationsProvider>
-	</AppWrapper>,
-);
+	root.render(
+		<AppWrapper>
+			<NotificationsProvider>
+				<SettingsProvider>
+					<PluginSettingsProvider>
+						<AnalyticsContextProvider>
+							<App />
+						</AnalyticsContextProvider>
+					</PluginSettingsProvider>
+				</SettingsProvider>
+			</NotificationsProvider>
+		</AppWrapper>,
+	);
+
+	// Move WordPress admin notices into the React app after rendering starts
+	initNoticeRelocation();
+}
