@@ -5,6 +5,7 @@ import DialogContent from '@elementor/ui/DialogContent';
 import DialogHeader from '@elementor/ui/DialogHeader';
 import DialogTitle from '@elementor/ui/DialogTitle';
 import Divider from '@elementor/ui/Divider';
+import { FocusTrap } from 'focus-trap-react';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
 import BulkAltTextProgress from '@ea11y-apps/scanner/components/bulk-alt-text/bulk-alt-text-progress';
@@ -15,7 +16,7 @@ import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wiz
 import WandIcon from '@ea11y-apps/scanner/icons/wand-icon';
 import { submitAltTextRemediation } from '@ea11y-apps/scanner/utils/submit-alt-text';
 import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 const BulkAltTextManager = ({ open, close }) => {
 	const { success, error } = useToastNotification();
@@ -89,28 +90,39 @@ const BulkAltTextManager = ({ open, close }) => {
 		try {
 			for (let i = 0; i < altTextViolations.length; i++) {
 				const item = altTextViolations[i];
-				if (altTextData?.[type]?.[i]?.selected) {
-					try {
-						const remediation = await submitAltTextRemediation({
-							item,
-							altText: altTextData?.[type]?.[i]?.altText || '',
-							makeDecorative: altTextData?.[type]?.[i]?.makeDecorative || false,
-							isGlobal:
-								altTextData?.[type]?.[i]?.isGlobal || item.global || false,
-							apiId: altTextData?.[type]?.[i]?.apiId,
-							currentScanId,
-							updateRemediationList,
-						});
-						updatedData[i] = {
-							...(updatedData[i] || {}),
-							remediation,
-							resolved: true,
-						};
-						successCount++;
-					} catch (e) {
-						errorCount++;
-						console.error(`Failed to submit item ${i}:`, e);
-					}
+				const itemData = altTextData?.[type]?.[i];
+
+				if (!itemData?.selected) {
+					continue;
+				}
+
+				// Validate: if not decorative, altText must exist
+				const isDecorative = itemData.makeDecorative || false;
+				if (!isDecorative && !itemData.altText?.trim()) {
+					console.warn(`Skipping item ${i}: No alt text provided`);
+					errorCount++;
+					continue;
+				}
+
+				try {
+					const remediation = await submitAltTextRemediation({
+						item,
+						altText: itemData.altText || '',
+						makeDecorative: isDecorative,
+						isGlobal: itemData.isGlobal || item.global || false,
+						apiId: itemData.apiId,
+						currentScanId,
+						updateRemediationList,
+					});
+					updatedData[i] = {
+						...(updatedData[i] || {}),
+						remediation,
+						resolved: true,
+					};
+					successCount++;
+				} catch (e) {
+					errorCount++;
+					console.error(`Failed to submit item ${i}:`, e);
 				}
 			}
 
@@ -129,7 +141,15 @@ const BulkAltTextManager = ({ open, close }) => {
 				close();
 			} else if (successCount > 0 && errorCount > 0) {
 				success(
-					`${successCount} ${__('items applied successfully.', 'pojo-accessibility')} ${errorCount} ${__('items failed.', 'pojo-accessibility')}`,
+					sprintf(
+						// Translators: %1$d successful count, %2$d failed count
+						__(
+							'%1$d items applied successfully. %2$d items failed.',
+							'pojo-accessibility',
+						),
+						successCount,
+						errorCount,
+					),
 				);
 				if (closeAfter) {
 					setShowConfirmDialog(false);
@@ -156,41 +176,42 @@ const BulkAltTextManager = ({ open, close }) => {
 
 	return (
 		<>
-			<Dialog
-				open={open}
-				aria-labelledby="Bulk Alt Text Manager"
-				aria-describedby="Edit alt text for the images in bulk"
-				disablePortal
-				maxWidth="lg"
-				fullWidth
-			>
-				<DialogHeader onClose={handleClose} logo={<WandIcon />}>
-					<DialogTitle>
-						{__('Alt Text Manager', 'pojo-accessibility')}
-					</DialogTitle>
-				</DialogHeader>
+			<FocusTrap open={open}>
+				<Dialog
+					open={open}
+					aria-label={__('Bulk Alt Text Manager', 'pojo-accessibility')}
+					disablePortal
+					maxWidth="lg"
+					fullWidth
+				>
+					<DialogHeader onClose={handleClose} logo={<WandIcon />}>
+						<DialogTitle>
+							{__('Alt Text Manager', 'pojo-accessibility')}
+						</DialogTitle>
+					</DialogHeader>
 
-				<DialogContent dividers sx={{ padding: 0 }}>
-					<BulkAltTextProgress onGeneratingChange={handleGeneratingChange} />
-					<Divider />
-					<ImageGrid />
-				</DialogContent>
+					<DialogContent dividers sx={{ padding: 0 }}>
+						<BulkAltTextProgress onGeneratingChange={handleGeneratingChange} />
+						<Divider />
+						<ImageGrid />
+					</DialogContent>
 
-				<DialogActions>
-					<Button onClick={handleClose} color="secondary" disabled={loading}>
-						{__('Cancel', 'pojo-accessibility')}
-					</Button>
-					<Button
-						onClick={() => handleApply(false)}
-						variant="contained"
-						disabled={loading || selectedItems.length === 0}
-					>
-						{loading
-							? __('Applying…', 'pojo-accessibility')
-							: __('Apply', 'pojo-accessibility')}
-					</Button>
-				</DialogActions>
-			</Dialog>
+					<DialogActions>
+						<Button onClick={handleClose} color="secondary" disabled={loading}>
+							{__('Cancel', 'pojo-accessibility')}
+						</Button>
+						<Button
+							onClick={() => handleApply(false)}
+							variant="contained"
+							disabled={loading || selectedItems.length === 0}
+						>
+							{loading
+								? __('Applying…', 'pojo-accessibility')
+								: __('Apply', 'pojo-accessibility')}
+						</Button>
+					</DialogActions>
+				</Dialog>
+			</FocusTrap>
 
 			<ConfirmStopGenerationDialog
 				open={showStopGenerationDialog}
