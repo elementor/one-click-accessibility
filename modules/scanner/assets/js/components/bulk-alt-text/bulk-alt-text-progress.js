@@ -5,8 +5,11 @@ import Button from '@elementor/ui/Button';
 import Grid from '@elementor/ui/Grid';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents } from '@ea11y-apps/global/services/mixpanel/mixpanel-events';
+import { mixpanelService } from '@ea11y-apps/global/services/mixpanel/mixpanel-service';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { generateAiAltText } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
 import PencilTickIcon from '@ea11y-apps/scanner/icons/pencil-tick-icon';
@@ -210,6 +213,7 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 	};
 
 	const handleStopGenerating = () => {
+		mixpanelService.sendEvent(mixpanelEvents.stopButtonClicked);
 		shouldCancelRef.current = true;
 		if (abortControllerRef.current) {
 			abortControllerRef.current.abort();
@@ -279,43 +283,20 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 
 	return (
 		<>
-			<Grid
-				container
-				direction="row"
-				flexWrap="nowrap"
-				width="100%"
-				alignItems="center"
-				justifyContent="space-between"
-				gap={1}
-				padding={2}
-			>
-				<Grid
-					container
-					direction="row"
-					flexWrap="nowrap"
-					gap={1}
-					alignItems="center"
-					width="auto"
-				>
+			<StyledMainWrapperGrid container>
+				<StyledActionsGrid>
 					{`${selectedCount}/${totalImages}`}
 					<Typography variant="body2" color="text.secondary">
 						ready to apply
 					</Typography>
-				</Grid>
+				</StyledActionsGrid>
 				<LinearProgress
 					value={totalImages > 0 ? (selectedCount / totalImages) * 100 : 0}
 					variant="determinate"
 					color={selectedCount > 0 ? 'success' : 'secondary'}
 					sx={{ flexGrow: 1 }}
 				/>
-				<Grid
-					item
-					container
-					direction="row"
-					flexWrap="nowrap"
-					gap={1}
-					width="auto"
-				>
+				<StyledActionsGrid>
 					<Button
 						color="secondary"
 						variant="text"
@@ -341,8 +322,8 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 					>
 						{getGenerateButtonText()}
 					</Button>
-				</Grid>
-			</Grid>
+				</StyledActionsGrid>
+			</StyledMainWrapperGrid>
 		</>
 	);
 };
@@ -352,3 +333,22 @@ BulkAltTextProgress.propTypes = {
 };
 
 export default BulkAltTextProgress;
+
+const StyledMainWrapperGrid = styled(Grid)(({ theme }) => ({
+	display: 'flex',
+	flexDirection: 'row',
+	alignItems: 'center',
+	justifyContent: 'space-between',
+	flexWrap: 'nowrap',
+	gap: theme.spacing(1),
+	padding: theme.spacing(2),
+	width: '100%',
+}));
+
+const StyledActionsGrid = styled(Grid)(({ theme }) => ({
+	display: 'flex',
+	flexDirection: 'row',
+	flexWrap: 'nowrap',
+	gap: theme.spacing(1),
+	width: 'auto',
+}));

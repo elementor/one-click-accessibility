@@ -2,6 +2,8 @@ import CrownFilledIcon from '@elementor/icons/CrownFilledIcon';
 import Button from '@elementor/ui/Button';
 import Infotip from '@elementor/ui/Infotip';
 import { useModal } from '@ea11y/hooks';
+import { mixpanelEvents } from '@ea11y-apps/global/services/mixpanel/mixpanel-events';
+import { mixpanelService } from '@ea11y-apps/global/services/mixpanel/mixpanel-service';
 import BulkAltTextManager from '@ea11y-apps/scanner/components/bulk-alt-text/bulk-alt-text-manager';
 import UpgradeInfotip from '@ea11y-apps/scanner/components/bulk-alt-text/upgrade-infotip';
 import { IS_PRO_PLAN } from '@ea11y-apps/scanner/constants';
@@ -10,6 +12,11 @@ import { __ } from '@wordpress/i18n';
 
 const BulkAltTextButton = () => {
 	const { open, close, isOpen } = useModal(false);
+
+	const handleBulkAltTextClick = () => {
+		mixpanelService.sendEvent(mixpanelEvents.bulkAltTextClicked);
+		open();
+	};
 
 	if (!IS_PRO_PLAN) {
 		return (
@@ -40,7 +47,7 @@ const BulkAltTextButton = () => {
 				variant="outlined"
 				startIcon={<WandIcon />}
 				size="small"
-				onClick={open}
+				onClick={handleBulkAltTextClick}
 			>
 				{__('Bulk alt text', 'pojo-accessibility')}
 			</Button>

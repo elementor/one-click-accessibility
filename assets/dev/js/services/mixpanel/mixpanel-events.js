@@ -76,4 +76,8 @@ export const mixpanelEvents = {
 	// Heading Structure
 	headingClicked: 'heading_clicked',
 	headingSelected: 'heading_selected',
+
+	// Bulk Alt Text
+	stopButtonClicked: 'stop_button_clicked',
+	bulkAltTextClicked: 'bulk_alt_text_clicked',
 };
