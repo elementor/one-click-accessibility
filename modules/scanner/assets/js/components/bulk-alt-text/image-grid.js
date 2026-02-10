@@ -8,11 +8,15 @@ const ImageGrid = () => {
 
 	return (
 		<Grid container spacing={2} padding={2}>
-			{altTextViolations.map((image, index) => (
-				<Grid item xs={3} key={`${index}-img-card`}>
-					<ImageCard item={image} current={index} />
-				</Grid>
-			))}
+			{altTextViolations.map((image, index) => {
+				const stableKey =
+					image.path?.dom || image.node?.src || `img-card-${index}`;
+				return (
+					<Grid item xs={3} key={stableKey}>
+						<ImageCard item={image} current={index} />
+					</Grid>
+				);
+			})}
 		</Grid>
 	);
 };
