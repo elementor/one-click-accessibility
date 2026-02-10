@@ -1,8 +1,9 @@
-import { Typography } from '@elementor/ui';
 import Chip from '@elementor/ui/Chip';
 import Grid from '@elementor/ui/Grid';
-import Image from '@elementor/ui/Image';
+import Typography from '@elementor/ui/Typography';
+import { styled } from '@elementor/ui/styles';
 import BulkAltTextButton from '@ea11y-apps/scanner/components/bulk-alt-text/bulk-alt-text-button';
+import BulkBannerImageStack from '@ea11y-apps/scanner/components/bulk-alt-text/bulk-banner-image-stack';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import bulk1 from '@ea11y-apps/scanner/images/bulk-1.png';
 import bulk2 from '@ea11y-apps/scanner/images/bulk-2.png';
@@ -20,31 +21,12 @@ const BulkAltTextBanner = () => {
 			: Number(sortedViolations.altText.length);
 
 	return (
-		<Grid
-			container
-			justifyContent="space-between"
-			alignItems="center"
-			paddingInline={2}
-			flexWrap="nowrap"
-			marginBottom={2}
-			boxShadow="0 3px 14px 2px rgba(0, 0, 0, 0.12)"
-			padding={2}
-		>
+		<StyledBannerGrid container>
 			<Grid item container width="auto" alignItems="center" flexWrap="nowrap">
-				{Array.from({ length: imagesToShow }).map((_, index) => (
-					<Image
-						key={index}
-						src={bulkImages[index]}
-						alt={`Image ${index + 1}`}
-						height={44}
-						sx={{
-							marginInlineStart: index > 0 ? -2 : 0,
-						}}
-					/>
-				))}
+				<BulkBannerImageStack images={bulkImages} count={imagesToShow} />
 				<Chip
 					label={
-						<Typography fontWeight={500}>
+						<Typography fontSize={12} fontWeight={500}>
 							{sprintf(
 								// Translators: %d number of images
 								_n('%d image', '%d images', 14, 'pojo-accessibility'),
@@ -58,8 +40,18 @@ const BulkAltTextBanner = () => {
 				/>
 			</Grid>
 			<BulkAltTextButton />
-		</Grid>
+		</StyledBannerGrid>
 	);
 };
 
 export default BulkAltTextBanner;
+
+const StyledBannerGrid = styled(Grid)(({ theme }) => ({
+	justifyContent: 'space-between',
+	alignItems: 'center',
+	paddingInline: theme.spacing(2),
+	flexWrap: 'nowrap',
+	marginBottom: theme.spacing(2),
+	boxShadow: '0 3px 14px 2px rgba(0, 0, 0, 0.12)',
+	padding: theme.spacing(2),
+}));
