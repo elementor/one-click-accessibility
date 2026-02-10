@@ -16,11 +16,13 @@ import InputAdornment from '@elementor/ui/InputAdornment';
 import Radio from '@elementor/ui/Radio';
 import TextField from '@elementor/ui/TextField';
 import Tooltip from '@elementor/ui/Tooltip';
+import PropTypes from 'prop-types';
 import { mixpanelService, mixpanelEvents } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/upgrade-content';
 import { IS_PRO_PLAN, AI_QUOTA_LIMIT } from '@ea11y-apps/scanner/constants';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
+import { memo } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 const ImageCard = ({ item, current }) => {
@@ -211,4 +213,9 @@ const ImageCard = ({ item, current }) => {
 	);
 };
 
-export default ImageCard;
+ImageCard.propTypes = {
+	item: PropTypes.object.isRequired,
+	current: PropTypes.number.isRequired,
+};
+
+export default memo(ImageCard);
