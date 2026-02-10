@@ -65,10 +65,14 @@ export const useAltTextForm = ({ current, item }) => {
 		altTextData?.[type]?.[current]?.isGlobal || item.global || false;
 
 	const isGlobalRef = useRef(null);
+	const savedAltTextRef = useRef('');
 
 	useEffect(() => {
 		if (item?.node) {
 			isGlobalRef.current = isGlobal;
+			if (altTextData?.[type]?.[current]?.hasValidAltText) {
+				savedAltTextRef.current = altTextData?.[type]?.[current]?.altText || '';
+			}
 		}
 	}, [current]);
 
@@ -175,6 +179,9 @@ export const useAltTextForm = ({ current, item }) => {
 			makeDecorative: e.target.checked,
 			apiId: null,
 			resolved: false,
+			hasValidAltText: e.target.checked,
+			isDraft: false,
+			selected: e.target.checked,
 		});
 		if (e.target.checked) {
 			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
@@ -184,10 +191,36 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const handleChange = (e) => {
+		if (!altTextData?.[type]?.[current]?.isDraft) {
+			savedAltTextRef.current = altTextData?.[type]?.[current]?.altText || '';
+		}
+
 		updateData({
 			altText: e.target.value,
 			apiId: null,
 			resolved: false,
+			isDraft: true,
+			hasValidAltText: false,
+		});
+	};
+
+	const handleSave = () => {
+		const altText = altTextData?.[type]?.[current]?.altText?.trim();
+		if (altText) {
+			savedAltTextRef.current = altText;
+			updateData({
+				hasValidAltText: true,
+				isDraft: false,
+				selected: true,
+			});
+		}
+	};
+
+	const handleCancel = () => {
+		updateData({
+			altText: savedAltTextRef.current,
+			isDraft: false,
+			hasValidAltText: !!savedAltTextRef.current,
 		});
 	};
 
@@ -283,6 +316,9 @@ export const useAltTextForm = ({ current, item }) => {
 			updateData({
 				...aiData,
 				resolved: false,
+				hasValidAltText: true,
+				isDraft: false,
+				selected: true,
 			});
 			sendMixpanelEvent(aiData.altText);
 		} catch (e) {
@@ -334,6 +370,8 @@ export const useAltTextForm = ({ current, item }) => {
 		loading,
 		handleCheck,
 		handleChange,
+		handleSave,
+		handleCancel,
 		handleSubmit,
 		handleUpdate,
 		generateAltText,

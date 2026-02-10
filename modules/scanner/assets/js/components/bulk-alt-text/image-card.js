@@ -1,6 +1,8 @@
 import AIIcon from '@elementor/icons/AIIcon';
 import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
 import InfoCircleIcon from '@elementor/icons/InfoCircleIcon';
+import Box from '@elementor/ui/Box';
+import Button from '@elementor/ui/Button';
 import Card from '@elementor/ui/Card';
 import CardContent from '@elementor/ui/CardContent';
 import Checkbox from '@elementor/ui/Checkbox';
@@ -27,6 +29,8 @@ const ImageCard = ({ item, current }) => {
 		loadingAiText,
 		handleChange,
 		handleCheck,
+		handleSave,
+		handleCancel,
 		generateAltText,
 		updateData,
 	} = useAltTextForm({
@@ -61,7 +65,11 @@ const ImageCard = ({ item, current }) => {
 						checked={data?.[current]?.selected ?? false}
 						checkedIcon={<CircleCheckFilledIcon />}
 						sx={{ position: 'absolute', top: 4, right: 4 }}
-						color="info"
+						color={
+							data?.[current]?.selected && data?.[current]?.hasValidAltText
+								? 'success'
+								: 'info'
+						}
 						onClick={handleRadioClick}
 					/>
 					<ImagePreview element={item.node} />
@@ -157,6 +165,35 @@ const ImageCard = ({ item, current }) => {
 						variant="standard"
 						sx={{ margin: 2 }}
 					/>
+				)}
+				{data?.[current]?.isDraft && !data?.[current]?.makeDecorative && (
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: 'flex-end',
+							gap: 1,
+							paddingX: 2,
+							paddingBottom: 2,
+						}}
+					>
+						<Button
+							size="small"
+							variant="text"
+							color="secondary"
+							onClick={handleCancel}
+						>
+							{__('Cancel', 'pojo-accessibility')}
+						</Button>
+						<Button
+							size="small"
+							variant="contained"
+							color="info"
+							onClick={handleSave}
+							disabled={!data?.[current]?.altText?.trim()}
+						>
+							{__('Save', 'pojo-accessibility')}
+						</Button>
+					</Box>
 				)}
 				<FormControlLabel
 					sx={{ padding: 2 }}
