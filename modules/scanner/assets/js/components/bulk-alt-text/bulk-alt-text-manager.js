@@ -15,7 +15,7 @@ import ImageGrid from '@ea11y-apps/scanner/components/bulk-alt-text/image-grid';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import WandIcon from '@ea11y-apps/scanner/icons/wand-icon';
 import { submitAltTextRemediation } from '@ea11y-apps/scanner/utils/submit-alt-text';
-import { useState } from '@wordpress/element';
+import { useState, useCallback, useRef } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
 const BulkAltTextManager = ({ open, close }) => {
@@ -35,13 +35,14 @@ const BulkAltTextManager = ({ open, close }) => {
 	const [showStopGenerationDialog, setShowStopGenerationDialog] =
 		useState(false);
 	const [isGenerating, setIsGenerating] = useState(false);
-	const [stopGenerationFn, setStopGenerationFn] = useState(null);
-
+	const stopGenerationFnRef = useRef(null);
 	const altTextViolations = sortedViolations.altText;
 	const type = isManage ? 'manage' : 'main';
 
 	const selectedItems = altTextViolations.filter(
-		(item, index) => altTextData?.[type]?.[index]?.selected === true,
+		(item, index) =>
+			altTextData?.[type]?.[index]?.selected === true &&
+			altTextData?.[type]?.[index]?.hasValidAltText === true,
 	);
 
 	const hasUnsavedChanges = selectedItems.length > 0;
@@ -57,9 +58,8 @@ const BulkAltTextManager = ({ open, close }) => {
 	};
 
 	const handleLeaveWhileGenerating = () => {
-		// Stop the generation process
-		if (stopGenerationFn) {
-			stopGenerationFn();
+		if (stopGenerationFnRef.current) {
+			stopGenerationFnRef.current();
 		}
 		setShowStopGenerationDialog(false);
 		close();
@@ -69,12 +69,10 @@ const BulkAltTextManager = ({ open, close }) => {
 		setShowStopGenerationDialog(false);
 	};
 
-	const handleGeneratingChange = (generating, stopFn) => {
+	const handleGeneratingChange = useCallback((generating, stopFn) => {
 		setIsGenerating(generating);
-		if (stopFn) {
-			setStopGenerationFn(() => stopFn);
-		}
-	};
+		stopGenerationFnRef.current = stopFn;
+	}, []);
 
 	const handleDiscard = () => {
 		setShowConfirmDialog(false);
@@ -92,11 +90,10 @@ const BulkAltTextManager = ({ open, close }) => {
 				const item = altTextViolations[i];
 				const itemData = altTextData?.[type]?.[i];
 
-				if (!itemData?.selected) {
+				if (!itemData?.selected || !itemData?.hasValidAltText) {
 					continue;
 				}
 
-				// Validate: if not decorative, altText must exist
 				const isDecorative = itemData.makeDecorative || false;
 				if (!isDecorative && !itemData.altText?.trim()) {
 					console.warn(`Skipping item ${i}: No alt text provided`);
@@ -176,41 +173,56 @@ const BulkAltTextManager = ({ open, close }) => {
 
 	return (
 		<>
-			<FocusTrap open={open}>
-				<Dialog
-					open={open}
-					aria-label={__('Bulk Alt Text Manager', 'pojo-accessibility')}
-					disablePortal
-					maxWidth="lg"
-					fullWidth
-				>
-					<DialogHeader onClose={handleClose} logo={<WandIcon />}>
-						<DialogTitle>
-							{__('Alt Text Manager', 'pojo-accessibility')}
-						</DialogTitle>
-					</DialogHeader>
+			<FocusTrap
+				active={open}
+				focusTrapOptions={{
+					allowOutsideClick: true,
+					escapeDeactivates: false,
+					returnFocusOnDeactivate: true,
+				}}
+			>
+				<div>
+					<Dialog
+						open={open}
+						aria-label={__('Bulk Alt Text Manager', 'pojo-accessibility')}
+						disablePortal
+						maxWidth="lg"
+						fullWidth
+					>
+						<DialogHeader onClose={handleClose} logo={<WandIcon />}>
+							<DialogTitle>
+								{__('Alt Text Manager', 'pojo-accessibility')}
+							</DialogTitle>
+						</DialogHeader>
 
-					<DialogContent dividers sx={{ padding: 0 }}>
-						<BulkAltTextProgress onGeneratingChange={handleGeneratingChange} />
-						<Divider />
-						<ImageGrid />
-					</DialogContent>
+						<DialogContent dividers sx={{ padding: 0 }}>
+							<BulkAltTextProgress
+								onGeneratingChange={handleGeneratingChange}
+							/>
+							<Divider />
+							<ImageGrid />
+						</DialogContent>
 
-					<DialogActions>
-						<Button onClick={handleClose} color="secondary" disabled={loading}>
-							{__('Cancel', 'pojo-accessibility')}
-						</Button>
-						<Button
-							onClick={() => handleApply(false)}
-							variant="contained"
-							disabled={loading || selectedItems.length === 0}
-						>
-							{loading
-								? __('Applying…', 'pojo-accessibility')
-								: __('Apply', 'pojo-accessibility')}
-						</Button>
-					</DialogActions>
-				</Dialog>
+						<DialogActions>
+							<Button
+								onClick={handleClose}
+								color="secondary"
+								disabled={loading}
+							>
+								{__('Cancel', 'pojo-accessibility')}
+							</Button>
+							<Button
+								onClick={() => handleApply(false)}
+								variant="contained"
+								disabled={loading || selectedItems.length === 0}
+							>
+								{loading
+									? __('Applying…', 'pojo-accessibility')
+									: __('Apply', 'pojo-accessibility')}
+							</Button>
+						</DialogActions>
+					</Dialog>
+				</div>
 			</FocusTrap>
 
 			<ConfirmStopGenerationDialog

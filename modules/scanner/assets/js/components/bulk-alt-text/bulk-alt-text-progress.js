@@ -15,7 +15,13 @@ import { generateAiAltText } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
 import PencilTickIcon from '@ea11y-apps/scanner/icons/pencil-tick-icon';
 import PencilUndoIcon from '@ea11y-apps/scanner/icons/pencil-undo-icon';
 import PlayerStopIcon from '@ea11y-apps/scanner/icons/player-stop-icon';
-import { useState, useRef, useEffect } from '@wordpress/element';
+import {
+	useState,
+	useRef,
+	useEffect,
+	useMemo,
+	useCallback,
+} from '@wordpress/element';
 import { __, sprintf, _n } from '@wordpress/i18n';
 
 const BulkAltTextProgress = ({ onGeneratingChange }) => {
@@ -32,27 +38,121 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 	const altTextViolations = sortedViolations.altText;
 	const type = isManage ? 'manage' : 'main';
 
-	// Notify parent when generation state changes and provide stop function
+	const handleStopGenerating = useCallback(() => {
+		mixpanelService.sendEvent(mixpanelEvents.stopButtonClicked);
+		shouldCancelRef.current = true;
+		if (abortControllerRef.current) {
+			abortControllerRef.current.abort();
+		}
+	}, []);
+
+	useEffect(() => {
+		return () => {
+			if (abortControllerRef.current) {
+				abortControllerRef.current.abort();
+			}
+			shouldCancelRef.current = false;
+		};
+	}, []);
+
 	useEffect(() => {
 		if (onGeneratingChange) {
 			onGeneratingChange(generatingAll, handleStopGenerating);
 		}
-	}, [generatingAll, onGeneratingChange]);
+	}, [generatingAll, onGeneratingChange, handleStopGenerating]);
 
 	const totalImages = altTextViolations.length;
-	const selectedCount = altTextViolations.filter(
-		(item, index) => altTextData?.[type]?.[index]?.selected === true,
-	).length;
 
-	const selectedNonDecorativeCount = altTextViolations.filter(
-		(item, index) =>
-			altTextData?.[type]?.[index]?.selected === true &&
-			altTextData?.[type]?.[index]?.makeDecorative !== true,
-	).length;
+	const {
+		selectedNonDecorativeCount,
+		manuallySelectedCount,
+		completedSelectedCount,
+		areAllMarkedAsDecorative,
+	} = useMemo(() => {
+		let selectedNonDecorative = 0;
+		let manuallySelected = 0;
+		let completedSelected = 0;
+		let allDecorative = true;
 
-	const areAllMarkedAsDecorative = altTextViolations.every(
-		(item, index) => altTextData?.[type]?.[index]?.makeDecorative === true,
-	);
+		altTextViolations.forEach((item, index) => {
+			const itemData = altTextData?.[type]?.[index];
+			const isSelected = itemData?.selected === true;
+			const isDecorative = itemData?.makeDecorative === true;
+			const hasValidAlt = itemData?.hasValidAltText === true;
+
+			if (isSelected && !isDecorative) {
+				selectedNonDecorative++;
+			}
+
+			if (isSelected && !hasValidAlt) {
+				manuallySelected++;
+			}
+
+			if (isSelected && hasValidAlt) {
+				completedSelected++;
+			}
+
+			if (!isDecorative) {
+				allDecorative = false;
+			}
+		});
+
+		return {
+			selectedNonDecorativeCount: selectedNonDecorative,
+			manuallySelectedCount: manuallySelected,
+			completedSelectedCount: completedSelected,
+			areAllMarkedAsDecorative: allDecorative,
+		};
+	}, [altTextViolations, altTextData, type]);
+
+	const showManualSelectionMode = manuallySelectedCount > 0;
+
+	const handleClearSelection = () => {
+		const updatedData = [...(altTextData?.[type] || [])];
+
+		altTextViolations.forEach((item, index) => {
+			if (
+				altTextData?.[type]?.[index]?.selected &&
+				!altTextData?.[type]?.[index]?.hasValidAltText
+			) {
+				updatedData[index] = {
+					...(updatedData[index] || {}),
+					selected: false,
+				};
+			}
+		});
+
+		setAltTextData({
+			...altTextData,
+			[type]: updatedData,
+		});
+	};
+
+	const handleMarkSelectedAsDecorative = () => {
+		const updatedData = [...(altTextData?.[type] || [])];
+
+		altTextViolations.forEach((item, index) => {
+			if (
+				altTextData?.[type]?.[index]?.selected &&
+				!altTextData?.[type]?.[index]?.hasValidAltText
+			) {
+				updatedData[index] = {
+					...(updatedData[index] || {}),
+					makeDecorative: true,
+					hasValidAltText: true,
+					isDraft: false,
+					altText: '',
+					apiId: null,
+					resolved: false,
+				};
+			}
+		});
+
+		setAltTextData({
+			...altTextData,
+			[type]: updatedData,
+		});
+	};
 
 	const handleToggleAllDecorative = () => {
 		const updatedData = [...(altTextData?.[type] || [])];
@@ -62,6 +162,7 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 				...(updatedData[index] || {}),
 				makeDecorative: !areAllMarkedAsDecorative,
 				selected: !areAllMarkedAsDecorative,
+				hasValidAltText: !areAllMarkedAsDecorative,
 				apiId: null,
 				resolved: false,
 			};
@@ -130,6 +231,8 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 							...aiData,
 							selected: true,
 							resolved: false,
+							hasValidAltText: true,
+							isDraft: false,
 						};
 						successCount++;
 						setGeneratingProgress({
@@ -212,14 +315,6 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 		}
 	};
 
-	const handleStopGenerating = () => {
-		mixpanelService.sendEvent(mixpanelEvents.stopButtonClicked);
-		shouldCancelRef.current = true;
-		if (abortControllerRef.current) {
-			abortControllerRef.current.abort();
-		}
-	};
-
 	const getGenerateButtonText = () => {
 		if (generatingAll) {
 			return __('Generating…', 'pojo-accessibility');
@@ -281,19 +376,66 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 		);
 	}
 
+	if (showManualSelectionMode) {
+		return (
+			<>
+				<StyledMainWrapperGrid container bgcolor="divider">
+					<StyledActionsGrid>
+						<Typography variant="h6" color="text.primary">
+							{sprintf(
+								// Translators: %d number of selected items
+								__('%d selected', 'pojo-accessibility'),
+								manuallySelectedCount,
+							)}
+						</Typography>
+						<Button
+							size="small"
+							variant="text"
+							color="secondary"
+							onClick={handleClearSelection}
+						>
+							{__('Clear', 'pojo-accessibility')}
+						</Button>
+					</StyledActionsGrid>
+					<StyledActionsGrid>
+						<Button
+							color="secondary"
+							variant="text"
+							startIcon={<PencilTickIcon />}
+							onClick={handleMarkSelectedAsDecorative}
+						>
+							{__('Mark as decorative', 'pojo-accessibility')}
+						</Button>
+						<Button
+							color="info"
+							variant="outlined"
+							startIcon={<AIIcon />}
+							onClick={handleGenerateAll}
+							disabled={generatingAll}
+						>
+							{__('Generate', 'pojo-accessibility')}
+						</Button>
+					</StyledActionsGrid>
+				</StyledMainWrapperGrid>
+			</>
+		);
+	}
+
 	return (
 		<>
 			<StyledMainWrapperGrid container>
 				<StyledActionsGrid>
-					{`${selectedCount}/${totalImages}`}
+					{`${completedSelectedCount}/${totalImages}`}
 					<Typography variant="body2" color="text.secondary">
 						ready to apply
 					</Typography>
 				</StyledActionsGrid>
 				<LinearProgress
-					value={totalImages > 0 ? (selectedCount / totalImages) * 100 : 0}
+					value={
+						totalImages > 0 ? (completedSelectedCount / totalImages) * 100 : 0
+					}
 					variant="determinate"
-					color={selectedCount > 0 ? 'success' : 'secondary'}
+					color={completedSelectedCount > 0 ? 'success' : 'secondary'}
 					sx={{ flexGrow: 1 }}
 				/>
 				<StyledActionsGrid>
