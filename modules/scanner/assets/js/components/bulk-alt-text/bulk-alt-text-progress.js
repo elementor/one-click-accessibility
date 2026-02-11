@@ -149,16 +149,31 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 
 	const handleToggleAllDecorative = () => {
 		const updatedData = [...(altTextData?.[type] || [])];
+		const isMarking = !areAllMarkedAsDecorative;
 
 		altTextViolations.forEach((item, index) => {
-			updatedData[index] = {
-				...(updatedData[index] || {}),
-				makeDecorative: !areAllMarkedAsDecorative,
-				selected: !areAllMarkedAsDecorative,
-				hasValidAltText: !areAllMarkedAsDecorative,
-				apiId: null,
-				resolved: false,
-			};
+			if (isMarking) {
+				updatedData[index] = {
+					...(updatedData[index] || {}),
+					makeDecorative: true,
+					selected: true,
+					hasValidAltText: true,
+					apiId: null,
+					resolved: false,
+				};
+			} else {
+				const currentAltText = updatedData[index]?.altText?.trim();
+				const hasAltText = !!currentAltText;
+
+				updatedData[index] = {
+					...(updatedData[index] || {}),
+					makeDecorative: false,
+					selected: hasAltText,
+					hasValidAltText: hasAltText,
+					apiId: null,
+					resolved: false,
+				};
+			}
 		});
 
 		setAltTextData({
@@ -176,8 +191,10 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 		let successCount = 0;
 		let errorCount = 0;
 
-		const hasSelectedItems = altTextViolations.some(
-			(item, index) => altTextData?.[type]?.[index]?.selected === true,
+		const hasManuallySelectedItems = altTextViolations.some(
+			(item, index) =>
+				altTextData?.[type]?.[index]?.selected === true &&
+				!altTextData?.[type]?.[index]?.hasValidAltText,
 		);
 
 		const itemsToProcess = altTextViolations.filter((item, index) => {
@@ -188,7 +205,7 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 			if (isMarkedDecorative || hasValidAlt) {
 				return false;
 			}
-			return hasSelectedItems ? itemData?.selected === true : true;
+			return hasManuallySelectedItems ? itemData?.selected === true : true;
 		});
 
 		setGeneratingProgress({ current: 0, total: itemsToProcess.length });
@@ -208,11 +225,20 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 					continue;
 				}
 
-				const shouldProcess = hasSelectedItems
+				const shouldProcess = hasManuallySelectedItems
 					? itemData?.selected === true
 					: true;
 
 				if (shouldProcess) {
+					updatedData[i] = {
+						...(updatedData[i] || {}),
+						isGenerating: true,
+					};
+					setAltTextData({
+						...altTextData,
+						[type]: updatedData,
+					});
+
 					try {
 						const aiData = await generateAiAltText(
 							item,
@@ -229,6 +255,7 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 							resolved: false,
 							hasValidAltText: true,
 							isDraft: false,
+							isGenerating: false,
 						};
 						successCount++;
 						setGeneratingProgress({
@@ -236,6 +263,10 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 							total: itemsToProcess.length,
 						});
 					} catch (e) {
+						updatedData[i] = {
+							...(updatedData[i] || {}),
+							isGenerating: false,
+						};
 						if (!shouldCancelRef.current) {
 							console.error(`Failed to generate AI text for item ${i}:`, e);
 							errorCount++;

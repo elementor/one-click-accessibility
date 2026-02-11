@@ -175,22 +175,37 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const handleCheck = (e) => {
-		updateData({
-			makeDecorative: e.target.checked,
-			apiId: null,
-			resolved: false,
-			hasValidAltText: e.target.checked,
-			isDraft: false,
-			selected: e.target.checked,
-		});
-		if (e.target.checked) {
+		const isChecking = e.target.checked;
+		const currentAltText = altTextData?.[type]?.[current]?.altText?.trim();
+
+		if (isChecking) {
+			updateData({
+				makeDecorative: true,
+				apiId: null,
+				resolved: false,
+				hasValidAltText: true,
+				isDraft: false,
+				selected: true,
+			});
 			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
 				category_name: BLOCKS.altText,
+			});
+		} else {
+			const hasAltText = !!currentAltText;
+			updateData({
+				makeDecorative: false,
+				apiId: null,
+				resolved: false,
+				hasValidAltText: hasAltText,
+				isDraft: false,
+				selected: hasAltText,
 			});
 		}
 	};
 
 	const handleChange = (e) => {
+		const wasValidBefore = altTextData?.[type]?.[current]?.hasValidAltText;
+
 		if (!altTextData?.[type]?.[current]?.isDraft) {
 			savedAltTextRef.current = altTextData?.[type]?.[current]?.altText || '';
 		}
@@ -201,6 +216,9 @@ export const useAltTextForm = ({ current, item }) => {
 			resolved: false,
 			isDraft: true,
 			hasValidAltText: false,
+			selected: wasValidBefore
+				? false
+				: altTextData?.[type]?.[current]?.selected,
 		});
 	};
 
@@ -217,10 +235,14 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const handleCancel = () => {
+		const restoredHasValidAlt = !!savedAltTextRef.current;
 		updateData({
 			altText: savedAltTextRef.current,
 			isDraft: false,
-			hasValidAltText: !!savedAltTextRef.current,
+			hasValidAltText: restoredHasValidAlt,
+			selected: restoredHasValidAlt
+				? true
+				: altTextData?.[type]?.[current]?.selected,
 		});
 	};
 

@@ -16,6 +16,7 @@ import InputAdornment from '@elementor/ui/InputAdornment';
 import Radio from '@elementor/ui/Radio';
 import TextField from '@elementor/ui/TextField';
 import Tooltip from '@elementor/ui/Tooltip';
+import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import { mixpanelService, mixpanelEvents } from '@ea11y-apps/global/services';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
@@ -49,13 +50,33 @@ const ImageCard = ({ item, current }) => {
 	};
 
 	const handleRadioClick = () => {
+		const hasValidAltText = data?.[current]?.hasValidAltText;
+		const isCurrentlySelected = data?.[current]?.selected;
+
+		if (isCurrentlySelected && hasValidAltText) {
+			return;
+		}
+
 		updateData({
-			selected: !data?.[current]?.selected,
+			selected: !isCurrentlySelected,
 		});
 	};
 
+	const isLoading = loadingAiText || data?.[current]?.isGenerating;
+
 	return (
-		<Card elevation={0} variant="outlined">
+		<Card
+			elevation={0}
+			variant="outlined"
+			sx={{
+				borderRadius: 2,
+				...(isLoading && {
+					borderRadius: '8px',
+					border: '2px solid #2563EB',
+					background: '#FFF',
+				}),
+			}}
+		>
 			<CardContent sx={{ padding: 0 }}>
 				<Grid
 					container
@@ -63,17 +84,37 @@ const ImageCard = ({ item, current }) => {
 					justifyContent="center"
 					bgcolor="action.hover"
 				>
-					<Radio
-						checked={data?.[current]?.selected ?? false}
-						checkedIcon={<CircleCheckFilledIcon />}
-						sx={{ position: 'absolute', top: 4, right: 4 }}
-						color={
-							data?.[current]?.selected && data?.[current]?.hasValidAltText
-								? 'success'
-								: 'info'
-						}
-						onClick={handleRadioClick}
-					/>
+					{isLoading ? (
+						<CircularProgress
+							size={18}
+							color="info"
+							sx={{
+								position: 'absolute',
+								top: 4,
+								right: 4,
+							}}
+						/>
+					) : (
+						<Radio
+							checked={data?.[current]?.selected ?? false}
+							checkedIcon={<CircleCheckFilledIcon />}
+							sx={{
+								position: 'absolute',
+								top: 4,
+								right: 4,
+								cursor:
+									data?.[current]?.selected && data?.[current]?.hasValidAltText
+										? 'not-allowed'
+										: 'pointer',
+							}}
+							color={
+								data?.[current]?.selected && data?.[current]?.hasValidAltText
+									? 'success'
+									: 'info'
+							}
+							onClick={handleRadioClick}
+						/>
+					)}
 					<ImagePreview element={item.node} />
 				</Grid>
 				{!data?.[current]?.makeDecorative ? (
@@ -91,13 +132,15 @@ const ImageCard = ({ item, current }) => {
 							'& fieldset': {
 								padding: 2,
 								border: 'none',
+								overflow: 'auto',
 							},
 						}}
 						value={data?.[current]?.altText ?? ''}
 						onChange={handleChange}
 						fullWidth
 						multiline
-						disabled={loadingAiText}
+						maxRows={3}
+						disabled={isLoading}
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position="end">
@@ -124,13 +167,9 @@ const ImageCard = ({ item, current }) => {
 											<IconButton
 												size="small"
 												onClick={generateAltText}
-												disabled={loadingAiText}
+												disabled={isLoading}
 											>
-												{loadingAiText ? (
-													<CircularProgress color="info" size={24} />
-												) : (
-													<AIIcon color="info" />
-												)}
+												<AIIcon color="info" />
 											</IconButton>
 										</Tooltip>
 									) : (
@@ -205,7 +244,11 @@ const ImageCard = ({ item, current }) => {
 							checked={data?.[current]?.makeDecorative ?? false}
 						/>
 					}
-					label={__('Mark as decorative', 'pojo-accessibility')}
+					label={
+						<Typography variant="body2" color="text.secondary">
+							{__('Mark as decorative', 'pojo-accessibility')}
+						</Typography>
+					}
 					onChange={handleCheck}
 				/>
 			</CardContent>
