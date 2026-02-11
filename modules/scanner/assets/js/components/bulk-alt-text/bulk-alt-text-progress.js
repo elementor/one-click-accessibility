@@ -64,12 +64,10 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 	const totalImages = altTextViolations.length;
 
 	const {
-		selectedNonDecorativeCount,
 		manuallySelectedCount,
 		completedSelectedCount,
 		areAllMarkedAsDecorative,
 	} = useMemo(() => {
-		let selectedNonDecorative = 0;
 		let manuallySelected = 0;
 		let completedSelected = 0;
 		let allDecorative = true;
@@ -79,10 +77,6 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 			const isSelected = itemData?.selected === true;
 			const isDecorative = itemData?.makeDecorative === true;
 			const hasValidAlt = itemData?.hasValidAltText === true;
-
-			if (isSelected && !isDecorative) {
-				selectedNonDecorative++;
-			}
 
 			if (isSelected && !hasValidAlt) {
 				manuallySelected++;
@@ -98,7 +92,6 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 		});
 
 		return {
-			selectedNonDecorativeCount: selectedNonDecorative,
 			manuallySelectedCount: manuallySelected,
 			completedSelectedCount: completedSelected,
 			areAllMarkedAsDecorative: allDecorative,
@@ -188,13 +181,14 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 		);
 
 		const itemsToProcess = altTextViolations.filter((item, index) => {
-			const isMarkedDecorative = altTextData?.[type]?.[index]?.makeDecorative;
-			if (isMarkedDecorative) {
+			const itemData = altTextData?.[type]?.[index];
+			const isMarkedDecorative = itemData?.makeDecorative;
+			const hasValidAlt = itemData?.hasValidAltText;
+
+			if (isMarkedDecorative || hasValidAlt) {
 				return false;
 			}
-			return hasSelectedItems
-				? altTextData?.[type]?.[index]?.selected === true
-				: true;
+			return hasSelectedItems ? itemData?.selected === true : true;
 		});
 
 		setGeneratingProgress({ current: 0, total: itemsToProcess.length });
@@ -206,14 +200,16 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 				}
 
 				const item = altTextViolations[i];
-				const isMarkedDecorative = altTextData?.[type]?.[i]?.makeDecorative;
+				const itemData = altTextData?.[type]?.[i];
+				const isMarkedDecorative = itemData?.makeDecorative;
+				const hasValidAlt = itemData?.hasValidAltText;
 
-				if (isMarkedDecorative) {
+				if (isMarkedDecorative || hasValidAlt) {
 					continue;
 				}
 
 				const shouldProcess = hasSelectedItems
-					? altTextData?.[type]?.[i]?.selected === true
+					? itemData?.selected === true
 					: true;
 
 				if (shouldProcess) {
@@ -229,7 +225,7 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 						updatedData[i] = {
 							...(updatedData[i] || {}),
 							...aiData,
-							selected: true,
+							selected: updatedData[i]?.selected || false,
 							resolved: false,
 							hasValidAltText: true,
 							isDraft: false,
@@ -319,11 +315,11 @@ const BulkAltTextProgress = ({ onGeneratingChange }) => {
 		if (generatingAll) {
 			return __('Generating…', 'pojo-accessibility');
 		}
-		if (selectedNonDecorativeCount > 0) {
+		if (manuallySelectedCount > 0) {
 			return sprintf(
 				// Translators: %d number of images to generate
 				__('Generate (%d)', 'pojo-accessibility'),
-				selectedNonDecorativeCount,
+				manuallySelectedCount,
 			);
 		}
 		return __('Generate all', 'pojo-accessibility');
