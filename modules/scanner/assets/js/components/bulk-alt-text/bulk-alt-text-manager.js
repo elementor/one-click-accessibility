@@ -12,6 +12,7 @@ import ConfirmCloseDialog from '@ea11y-apps/scanner/components/bulk-alt-text/con
 import ConfirmStopGenerationDialog from '@ea11y-apps/scanner/components/bulk-alt-text/confirm-stop-generation-dialog';
 import ImageGrid from '@ea11y-apps/scanner/components/bulk-alt-text/image-grid';
 import BulkAltTextProgress from '@ea11y-apps/scanner/components/bulk-alt-text/progress-bar';
+import QuotaErrorAlert from '@ea11y-apps/scanner/components/bulk-alt-text/quota-error-alert';
 import { BulkGenerationProvider } from '@ea11y-apps/scanner/context/bulk-generation-context';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import WandIcon from '@ea11y-apps/scanner/icons/wand-icon';
@@ -207,6 +208,7 @@ const BulkAltTextManager = ({ open, close }) => {
 									onGeneratingChange={handleGeneratingChange}
 								/>
 								<Divider />
+								<QuotaErrorAlert />
 								<ImageGrid />
 							</DialogContent>
 

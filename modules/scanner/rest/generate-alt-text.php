@@ -59,6 +59,20 @@ class Generate_Alt_Text extends Route_Base {
 			);
 
 			if ( is_wp_error( $result ) ) {
+				// Check if the error is due to quota being exceeded
+				$error_message = $result->get_error_message();
+				$error_code = $result->get_error_code();
+
+				// Check both string and int comparison, and broader quota message check
+				if ( ( '400' === $error_code || 400 === $error_code ) &&
+				 ( false !== strpos( $error_message, 'Quota exceeded' ) ||
+				   false !== strpos( $error_message, 'quota' ) ) ) {
+					return $this->respond_error_json( [
+						'message' => 'AI credits quota has been exceeded.',
+						'code' => 'quota_exceeded',
+					] );
+				}
+
 				return $this->respond_error_json( [
 					'message' => 'Failed to generate Alt Text',
 					'code' => 'internal_server_error',

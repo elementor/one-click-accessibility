@@ -12,6 +12,7 @@ const BulkGenerationContext = createContext(null);
 export const BulkGenerationProvider = ({ children }) => {
 	const [currentGeneratingIndex, setCurrentGeneratingIndex] = useState(null);
 	const [isGenerating, setIsGenerating] = useState(false);
+	const [quotaError, setQuotaError] = useState(null);
 	const shouldAbortRef = useRef(false);
 	const queueRef = useRef([]);
 	const progressRef = useRef({ completed: 0, total: 0, errors: 0 });
@@ -30,6 +31,7 @@ export const BulkGenerationProvider = ({ children }) => {
 			errors: 0,
 		};
 		setProgress({ completed: 0, total: cardIndices.length, errors: 0 });
+		setQuotaError(null);
 		setIsGenerating(true);
 
 		if (cardIndices.length > 0) {
@@ -70,6 +72,15 @@ export const BulkGenerationProvider = ({ children }) => {
 		setCurrentGeneratingIndex(null);
 		progressRef.current = { completed: 0, total: 0, errors: 0 };
 		setProgress({ completed: 0, total: 0, errors: 0 });
+		setQuotaError(null);
+	}, []);
+
+	const setQuotaExceeded = useCallback((errorMessage) => {
+		setQuotaError(errorMessage);
+		shouldAbortRef.current = true;
+		queueRef.current = [];
+		setCurrentGeneratingIndex(null);
+		setIsGenerating(false);
 	}, []);
 
 	const value = {
@@ -77,10 +88,12 @@ export const BulkGenerationProvider = ({ children }) => {
 		isGenerating,
 		shouldAbort: shouldAbortRef,
 		progress,
+		quotaError,
 		startBulkGeneration,
 		stopBulkGeneration,
 		onCardComplete,
 		resetProgress,
+		setQuotaExceeded,
 	};
 
 	return (
