@@ -15,6 +15,10 @@ const BulkAltTextBanner = () => {
 	const { sortedViolations } = useScannerWizardContext();
 	const bulkImages = [bulk1, bulk2, bulk3, bulk4];
 
+	if (sortedViolations.altText.length <= 2) {
+		return null;
+	}
+
 	const imagesToShow =
 		sortedViolations.altText.length > 3
 			? 4
