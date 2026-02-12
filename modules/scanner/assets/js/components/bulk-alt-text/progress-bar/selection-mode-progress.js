@@ -1,9 +1,9 @@
-import AIIcon from '@elementor/icons/AIIcon';
 import Button from '@elementor/ui/Button';
 import Typography from '@elementor/ui/Typography';
 import PropTypes from 'prop-types';
 import PencilTickIcon from '@ea11y-apps/scanner/icons/pencil-tick-icon';
 import { __, sprintf } from '@wordpress/i18n';
+import GenerateAllButton from './generate-all-button';
 import { StyledMainWrapperGrid, StyledActionsGrid } from './styled-components';
 
 const SelectionModeProgress = ({
@@ -40,15 +40,11 @@ const SelectionModeProgress = ({
 				>
 					{__('Mark as decorative', 'pojo-accessibility')}
 				</Button>
-				<Button
-					color="info"
-					variant="outlined"
-					startIcon={<AIIcon />}
+				<GenerateAllButton
 					onClick={onGenerate}
 					disabled={isGenerating}
-				>
-					{__('Generate', 'pojo-accessibility')}
-				</Button>
+					text={__('Generate', 'pojo-accessibility')}
+				/>
 			</StyledActionsGrid>
 		</StyledMainWrapperGrid>
 	);
