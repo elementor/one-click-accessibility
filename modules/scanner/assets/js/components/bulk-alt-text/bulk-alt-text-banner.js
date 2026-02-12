@@ -39,7 +39,9 @@ const BulkAltTextBanner = () => {
 					sx={{ marginInlineStart: -2 }}
 				/>
 			</Grid>
-			<BulkAltTextButton />
+			<Grid item>
+				<BulkAltTextButton />
+			</Grid>
 		</StyledBannerGrid>
 	);
 };
