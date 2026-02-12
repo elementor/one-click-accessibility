@@ -3,6 +3,7 @@ import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { useBulkGeneration } from '@ea11y-apps/scanner/context/bulk-generation-context';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
@@ -55,6 +56,11 @@ export const useAltTextForm = ({ current, item }) => {
 		setIsManageChanged,
 	} = useScannerWizardContext();
 	const { error } = useToastNotification();
+	const bulkGeneration = useBulkGeneration();
+
+	const currentGeneratingIndex = bulkGeneration?.currentGeneratingIndex;
+	const shouldAbort = bulkGeneration?.shouldAbort || { current: false };
+	const onCardComplete = bulkGeneration?.onCardComplete || (() => {});
 
 	const [loadingAiText, setLoadingAiText] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -66,6 +72,8 @@ export const useAltTextForm = ({ current, item }) => {
 
 	const isGlobalRef = useRef(null);
 	const savedAltTextRef = useRef('');
+	const abortControllerRef = useRef(null);
+	const hasInitializedRef = useRef(false);
 
 	useEffect(() => {
 		if (item?.node) {
@@ -77,6 +85,21 @@ export const useAltTextForm = ({ current, item }) => {
 	}, [current]);
 
 	useEffect(() => {
+		if (hasInitializedRef.current === current) {
+			return;
+		}
+
+		const hasExistingData =
+			altTextData?.[type]?.[current]?.hasValidAltText ||
+			altTextData?.[type]?.[current]?.altText ||
+			altTextData?.[type]?.[current]?.isGenerating ||
+			altTextData?.[type]?.[current]?.makeDecorative !== undefined;
+
+		if (hasExistingData) {
+			hasInitializedRef.current = current;
+			return;
+		}
+
 		if (isManage) {
 			updateData({
 				makeDecorative: item.data.attribute_name === 'role',
@@ -87,6 +110,8 @@ export const useAltTextForm = ({ current, item }) => {
 		} else {
 			updateData({ isGlobal });
 		}
+
+		hasInitializedRef.current = current;
 	}, [isManage, current]);
 
 	useEffect(() => {
@@ -97,6 +122,68 @@ export const useAltTextForm = ({ current, item }) => {
 		setFirstOpen(false);
 	}, [isResolved(BLOCKS.altText)]);
 
+	useEffect(() => {
+		const isMyTurn = currentGeneratingIndex === current;
+
+		if (!isMyTurn) {
+			return;
+		}
+
+		const itemData = altTextData?.[type]?.[current];
+		const hasValidAlt = itemData?.hasValidAltText;
+		const isDecorative = itemData?.makeDecorative;
+
+		const shouldGenerate = !hasValidAlt && !isDecorative;
+
+		if (shouldGenerate) {
+			const generateForCard = async () => {
+				if (shouldAbort.current) {
+					return;
+				}
+
+				updateData({ isGenerating: true });
+				abortControllerRef.current = new AbortController();
+
+				try {
+					const aiData = await generateAiAltText(
+						item,
+						abortControllerRef.current.signal,
+					);
+
+					if (shouldAbort.current) {
+						updateData({ isGenerating: false });
+						return;
+					}
+
+					updateData({
+						...aiData,
+						selected: true,
+						resolved: false,
+						hasValidAltText: true,
+						isDraft: false,
+						isGenerating: false,
+					});
+
+					onCardComplete(true);
+				} catch (e) {
+					if (!shouldAbort.current) {
+						console.error(`Failed to generate AI text for card ${current}:`, e);
+						onCardComplete(false);
+					}
+					updateData({ isGenerating: false });
+				}
+			};
+
+			generateForCard();
+		}
+
+		return () => {
+			if (abortControllerRef.current) {
+				abortControllerRef.current.abort();
+			}
+		};
+	}, [currentGeneratingIndex]);
+
 	const setIsGlobal = (value) => {
 		updateData({
 			isGlobal: value,
@@ -104,17 +191,19 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const updateData = (data) => {
-		const updData = [...altTextData?.[type]];
-		if (altTextData?.[type]?.[current]?.resolved && !data.resolved) {
-			setResolved(resolved - 1);
-		}
-		updData[current] = {
-			...(altTextData?.[type]?.[current] || {}),
-			...data,
-		};
-		setAltTextData({
-			...altTextData,
-			[type]: updData,
+		setAltTextData((prevAltTextData) => {
+			const updData = [...(prevAltTextData?.[type] || [])];
+			if (prevAltTextData?.[type]?.[current]?.resolved && !data.resolved) {
+				setResolved((prev) => prev - 1);
+			}
+			updData[current] = {
+				...(prevAltTextData?.[type]?.[current] || {}),
+				...data,
+			};
+			return {
+				...prevAltTextData,
+				[type]: updData,
+			};
 		});
 	};
 

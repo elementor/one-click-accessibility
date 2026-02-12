@@ -8,14 +8,15 @@ import Divider from '@elementor/ui/Divider';
 import { FocusTrap } from 'focus-trap-react';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
-import BulkAltTextProgress from '@ea11y-apps/scanner/components/bulk-alt-text/bulk-alt-text-progress';
 import ConfirmCloseDialog from '@ea11y-apps/scanner/components/bulk-alt-text/confirm-close-dialog';
 import ConfirmStopGenerationDialog from '@ea11y-apps/scanner/components/bulk-alt-text/confirm-stop-generation-dialog';
 import ImageGrid from '@ea11y-apps/scanner/components/bulk-alt-text/image-grid';
+import BulkAltTextProgress from '@ea11y-apps/scanner/components/bulk-alt-text/progress-bar';
+import { BulkGenerationProvider } from '@ea11y-apps/scanner/context/bulk-generation-context';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import WandIcon from '@ea11y-apps/scanner/icons/wand-icon';
 import { submitAltTextRemediation } from '@ea11y-apps/scanner/utils/submit-alt-text';
-import { useState, useCallback, useRef } from '@wordpress/element';
+import { useState, useCallback, useRef, useMemo } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
 const BulkAltTextManager = ({ open, close }) => {
@@ -39,13 +40,18 @@ const BulkAltTextManager = ({ open, close }) => {
 	const altTextViolations = sortedViolations.altText;
 	const type = isManage ? 'manage' : 'main';
 
-	const selectedItems = altTextViolations.filter(
-		(item, index) =>
-			altTextData?.[type]?.[index]?.selected === true &&
-			altTextData?.[type]?.[index]?.hasValidAltText === true,
-	);
+	const selectedItemsCount = useMemo(() => {
+		let count = 0;
+		for (let i = 0; i < altTextViolations.length; i++) {
+			const itemData = altTextData?.[type]?.[i];
+			if (itemData?.selected === true && itemData?.hasValidAltText === true) {
+				count++;
+			}
+		}
+		return count;
+	}, [altTextViolations, altTextData, type]);
 
-	const hasUnsavedChanges = selectedItems.length > 0;
+	const hasUnsavedChanges = selectedItemsCount > 0;
 
 	const handleClose = () => {
 		if (isGenerating) {
@@ -182,46 +188,48 @@ const BulkAltTextManager = ({ open, close }) => {
 				}}
 			>
 				<div>
-					<Dialog
-						open={open}
-						aria-label={__('Bulk Alt Text Manager', 'pojo-accessibility')}
-						disablePortal
-						maxWidth="lg"
-						fullWidth
-					>
-						<DialogHeader onClose={handleClose} logo={<WandIcon />}>
-							<DialogTitle>
-								{__('Alt Text Manager', 'pojo-accessibility')}
-							</DialogTitle>
-						</DialogHeader>
+					<BulkGenerationProvider>
+						<Dialog
+							open={open}
+							aria-label={__('Bulk Alt Text Manager', 'pojo-accessibility')}
+							disablePortal
+							maxWidth="lg"
+							fullWidth
+						>
+							<DialogHeader onClose={handleClose} logo={<WandIcon />}>
+								<DialogTitle>
+									{__('Alt Text Manager', 'pojo-accessibility')}
+								</DialogTitle>
+							</DialogHeader>
 
-						<DialogContent dividers sx={{ padding: 0 }}>
-							<BulkAltTextProgress
-								onGeneratingChange={handleGeneratingChange}
-							/>
-							<Divider />
-							<ImageGrid />
-						</DialogContent>
+							<DialogContent dividers sx={{ padding: 0 }}>
+								<BulkAltTextProgress
+									onGeneratingChange={handleGeneratingChange}
+								/>
+								<Divider />
+								<ImageGrid />
+							</DialogContent>
 
-						<DialogActions>
-							<Button
-								onClick={handleClose}
-								color="secondary"
-								disabled={loading}
-							>
-								{__('Cancel', 'pojo-accessibility')}
-							</Button>
-							<Button
-								onClick={() => handleApply(false)}
-								variant="contained"
-								disabled={loading || selectedItems.length === 0}
-							>
-								{loading
-									? __('Applying…', 'pojo-accessibility')
-									: __('Apply', 'pojo-accessibility')}
-							</Button>
-						</DialogActions>
-					</Dialog>
+							<DialogActions>
+								<Button
+									onClick={handleClose}
+									color="secondary"
+									disabled={loading}
+								>
+									{__('Cancel', 'pojo-accessibility')}
+								</Button>
+								<Button
+									onClick={() => handleApply(false)}
+									variant="contained"
+									disabled={loading || selectedItemsCount === 0}
+								>
+									{loading
+										? __('Applying…', 'pojo-accessibility')
+										: __('Apply', 'pojo-accessibility')}
+								</Button>
+							</DialogActions>
+						</Dialog>
+					</BulkGenerationProvider>
 				</div>
 			</FocusTrap>
 

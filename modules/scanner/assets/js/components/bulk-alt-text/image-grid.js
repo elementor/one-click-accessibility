@@ -21,7 +21,7 @@ const ImageGrid = () => {
 	const altTextViolations = sortedViolations.altText;
 
 	return (
-		<Grid container spacing={2} padding={2}>
+		<Grid container spacing={2} padding={4} rowGap={4}>
 			{altTextViolations.map((image, index) => {
 				const stableKey =
 					image.path?.dom || image.node?.src || `img-card-${index}`;
