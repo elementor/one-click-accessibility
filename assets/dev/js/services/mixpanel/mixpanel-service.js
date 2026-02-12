@@ -24,6 +24,8 @@ const init = async () => {
 		debug: pluginEnv === 'dev',
 		track_pageview: false,
 		persistence: 'localStorage',
+		record_sessions_percent: 2,
+		record_heatmap_data: true,
 	});
 
 	mixpanel.register({
