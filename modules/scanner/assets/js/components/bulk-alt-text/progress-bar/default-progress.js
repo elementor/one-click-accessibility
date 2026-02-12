@@ -1,4 +1,3 @@
-import AIIcon from '@elementor/icons/AIIcon';
 import Button from '@elementor/ui/Button';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
@@ -6,6 +5,7 @@ import PropTypes from 'prop-types';
 import PencilTickIcon from '@ea11y-apps/scanner/icons/pencil-tick-icon';
 import PencilUndoIcon from '@ea11y-apps/scanner/icons/pencil-undo-icon';
 import { __ } from '@wordpress/i18n';
+import GenerateAllButton from './generate-all-button';
 import { StyledMainWrapperGrid, StyledActionsGrid } from './styled-components';
 
 const DefaultProgress = ({
@@ -46,15 +46,11 @@ const DefaultProgress = ({
 						? __('Undo Decorative', 'pojo-accessibility')
 						: __('Mark all as decorative', 'pojo-accessibility')}
 				</Button>
-				<Button
-					color="info"
-					variant="outlined"
-					startIcon={<AIIcon />}
+				<GenerateAllButton
 					onClick={onGenerateAll}
 					disabled={isGenerating}
-				>
-					{generateButtonText}
-				</Button>
+					text={generateButtonText}
+				/>
 			</StyledActionsGrid>
 		</StyledMainWrapperGrid>
 	);
