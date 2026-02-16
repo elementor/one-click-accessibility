@@ -51,6 +51,16 @@ export const UpgradeContent = ({
 		}
 	};
 
+	const getURL = () => {
+		if (isBulkAlt) {
+			return getUpgradeLink(BULK_UPGRADE_URL);
+		}
+		if (IS_PRO_PLAN) {
+			return getUpgradeLink(COMPARE_PLAN_URL);
+		}
+		return getUpgradeLink(UPGRADE_URL);
+	};
+
 	return (
 		<InfotipBox>
 			<UpgradeContentContainer>
@@ -86,11 +96,7 @@ export const UpgradeContent = ({
 					size="small"
 					color="promotion"
 					variant="contained"
-					href={
-						IS_PRO_PLAN
-							? COMPARE_PLAN_URL
-							: getUpgradeLink(isBulkAlt ? BULK_UPGRADE_URL : UPGRADE_URL)
-					}
+					href={getURL()}
 					target="_blank"
 					rel="noreferrer"
 					startIcon={!IS_PRO_PLAN ? <CrownFilled /> : null}
