@@ -6,7 +6,7 @@ import CardHeader from '@elementor/ui/CardHeader';
 import Typography from '@elementor/ui/Typography';
 import { mixpanelEvents } from '@ea11y-apps/global/services/mixpanel/mixpanel-events';
 import { mixpanelService } from '@ea11y-apps/global/services/mixpanel/mixpanel-service';
-import { UPGRADE_URL } from '@ea11y-apps/scanner/constants';
+import { BULK_UPGRADE_URL } from '@ea11y-apps/scanner/constants';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -46,7 +46,7 @@ const UpgradeInfotip = ({ trigger, action }) => {
 					size="small"
 					color="promotion"
 					variant="contained"
-					href={UPGRADE_URL}
+					href={BULK_UPGRADE_URL}
 					target="_blank"
 					onClick={onUpgrade}
 				>

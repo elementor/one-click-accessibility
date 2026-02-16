@@ -10,6 +10,7 @@ import {
 	COMPARE_PLAN_URL,
 	IS_PRO_PLAN,
 	UPGRADE_URL,
+	BULK_UPGRADE_URL,
 } from '@ea11y-apps/scanner/constants';
 import { UpgradeContentContainer } from '@ea11y-apps/scanner/styles/app.styles';
 import {
@@ -85,7 +86,11 @@ export const UpgradeContent = ({
 					size="small"
 					color="promotion"
 					variant="contained"
-					href={IS_PRO_PLAN ? COMPARE_PLAN_URL : getUpgradeLink(UPGRADE_URL)}
+					href={
+						IS_PRO_PLAN
+							? COMPARE_PLAN_URL
+							: getUpgradeLink(isBulkAlt ? BULK_UPGRADE_URL : UPGRADE_URL)
+					}
 					target="_blank"
 					rel="noreferrer"
 					startIcon={!IS_PRO_PLAN ? <CrownFilled /> : null}
