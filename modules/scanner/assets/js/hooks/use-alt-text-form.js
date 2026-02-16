@@ -286,7 +286,7 @@ export const useAltTextForm = ({ current, item }) => {
 
 		// Calculate the number of decorative images after this action
 		const currentDecorativeCount = (altTextData?.[type] || []).filter(
-			(item) => item?.makeDecorative === true,
+			(itm) => itm?.makeDecorative === true,
 		).length;
 		const numOfImages = isChecking
 			? currentDecorativeCount + 1
