@@ -192,7 +192,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 = 4.0.4 – 2026-02-17 =
-* Tweak: Added the ability to enable/disable the accessibility widget on your site
+* Tweak: Added the ability to disable the accessibility widget to prevent it from loading on your site
 * Fix: Display WordPress admin notices inside the settings page
 
 = 4.0.3 – 2026-01-28 =
