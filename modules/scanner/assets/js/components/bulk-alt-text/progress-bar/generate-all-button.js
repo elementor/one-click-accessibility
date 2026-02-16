@@ -10,7 +10,7 @@ const GenerateAllButton = ({ onClick, disabled, text }) => {
 	const onUpgradeHover = () => {
 		mixpanelService.sendEvent(mixpanelEvents.upgradeTooltipTriggered, {
 			feature: 'bulk_alt_text',
-			component: 'generate_all_button',
+			component: 'bulk_wizard_main_button',
 		});
 	};
 
@@ -39,7 +39,7 @@ const GenerateAllButton = ({ onClick, disabled, text }) => {
 			PopperProps={{
 				disablePortal: true,
 			}}
-			content={<UpgradeContent isAlt />}
+			content={<UpgradeContent isAlt isBulkAlt />}
 		>
 			<Button
 				color="promotion"

@@ -16,15 +16,38 @@ import {
 	InfotipBox,
 	InfotipFooter,
 } from '@ea11y-apps/scanner/styles/manual-fixes.styles';
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export const UpgradeContent = ({ closeUpgrade, isAlt = false }) => {
-	const onUpgrade = () => {
-		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
+export const UpgradeContent = ({
+	closeUpgrade,
+	isAlt = false,
+	isBulkAlt = false,
+	isBulkSingleImage = false,
+}) => {
+	useEffect(() => {
+		mixpanelService.sendEvent(mixpanelEvents.upgradeTooltipTriggered, {
 			current_plan: window.ea11yScannerData?.planData?.plan?.name,
-			action_trigger: 'ai_suggestion_accepted',
-			feature_locked: isAlt ? 'AI alt-text' : 'AI manual',
+			component: 'button_wizard_main_button',
+			feature: 'bulk_alt_text',
 		});
+	}, [isBulkAlt]);
+	const onUpgrade = () => {
+		if (isBulkAlt) {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
+				current_plan: window.ea11yScannerData?.planData?.plan?.name,
+				component: 'button',
+				feature: isBulkSingleImage
+					? 'bulk_wizard_single_image'
+					: 'bulk_wizard_main_cta',
+			});
+		} else {
+			mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
+				current_plan: window.ea11yScannerData?.planData?.plan?.name,
+				action_trigger: 'ai_suggestionf_accepted',
+				feature_locked: isAlt ? 'AI alt-text' : 'AI manual',
+			});
+		}
 	};
 
 	return (

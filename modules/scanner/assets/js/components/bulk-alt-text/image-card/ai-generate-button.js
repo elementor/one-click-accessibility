@@ -14,8 +14,8 @@ const AIGenerateButton = ({ onGenerate, disabled }) => {
 	const onUpgradeHover = () => {
 		mixpanelService.sendEvent(mixpanelEvents.upgradeSuggestionViewed, {
 			current_plan: window.ea11yScannerData?.planData?.plan?.name,
-			action_trigger: 'fix_with_ai',
-			feature_locked: 'AI alt-text',
+			component: 'bulk_wizard_single_image',
+			feature: 'bulk_alt_text',
 		});
 	};
 
@@ -63,7 +63,7 @@ const AIGenerateButton = ({ onGenerate, disabled }) => {
 					PopperProps={{
 						disablePortal: true,
 					}}
-					content={<UpgradeContent isAlt />}
+					content={<UpgradeContent isAlt isBulkAlt isBulkSingleImage />}
 				>
 					<IconButton
 						size="small"

@@ -21,7 +21,18 @@ const BulkAltTextButton = () => {
 	if (!IS_PRO_PLAN) {
 		return (
 			<Infotip
-				content={<UpgradeInfotip />}
+				content={
+					<UpgradeInfotip
+						trigger={{
+							feature: 'bulk_alt_text',
+							component: 'bulk_assistant_button',
+						}}
+						action={{
+							feature: 'bulk_wizard_banner',
+							component: 'button',
+						}}
+					/>
+				}
 				placement="bottom"
 				PopperProps={{
 					disablePortal: true,

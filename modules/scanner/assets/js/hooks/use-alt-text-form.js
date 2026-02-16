@@ -165,6 +165,7 @@ export const useAltTextForm = ({ current, item }) => {
 						isGenerating: false,
 					});
 
+					sendMixpanelEvent(aiData.altText);
 					onCardComplete(true);
 				} catch (e) {
 					updateData({ isGenerating: false });
@@ -283,6 +284,18 @@ export const useAltTextForm = ({ current, item }) => {
 		const isChecking = e.target.checked;
 		const currentAltText = altTextData?.[type]?.[current]?.altText?.trim();
 
+		// Calculate the number of decorative images after this action
+		const currentDecorativeCount = (altTextData?.[type] || []).filter(
+			(item) => item?.makeDecorative === true,
+		).length;
+		const numOfImages = isChecking
+			? currentDecorativeCount + 1
+			: Math.max(0, currentDecorativeCount - 1);
+
+		// Determine if we're in bulk mode
+		const isBulkMode =
+			currentGeneratingIndex !== null && currentGeneratingIndex !== undefined;
+
 		if (isChecking) {
 			updateData({
 				makeDecorative: true,
@@ -294,6 +307,9 @@ export const useAltTextForm = ({ current, item }) => {
 			});
 			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
 				category_name: BLOCKS.altText,
+				type: isBulkMode ? 'bulk' : 'single',
+				num_of_images: numOfImages,
+				action_type: 'mark',
 			});
 		} else {
 			const hasAltText = !!currentAltText;
@@ -304,6 +320,12 @@ export const useAltTextForm = ({ current, item }) => {
 				hasValidAltText: hasAltText,
 				isDraft: false,
 				selected: hasAltText,
+			});
+			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
+				category_name: BLOCKS.altText,
+				type: isBulkMode ? 'bulk' : 'single',
+				num_of_images: numOfImages,
+				action_type: 'undo',
 			});
 		}
 	};
@@ -426,6 +448,8 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const sendMixpanelEvent = (text) => {
+		const isBulkMode =
+			currentGeneratingIndex !== null && currentGeneratingIndex !== undefined;
 		mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 			issue_type: item.message,
 			rule_id: item.ruleId,
@@ -433,6 +457,7 @@ export const useAltTextForm = ({ current, item }) => {
 			category_name: BLOCKS.altText,
 			ai_text_response: text,
 			page_url: window.ea11yScannerData?.pageData?.url,
+			type: isBulkMode ? 'bulk' : 'single',
 		});
 	};
 

@@ -10,19 +10,19 @@ import { UPGRADE_URL } from '@ea11y-apps/scanner/constants';
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-const UpgradeInfotip = () => {
+const UpgradeInfotip = ({ trigger, action }) => {
 	useEffect(() => {
 		mixpanelService.sendEvent(mixpanelEvents.upgradeTooltipTriggered, {
-			feature: 'bulk_alt_text',
-			component: 'bulk_wizard_banner',
+			feature: trigger?.feature,
+			component: trigger?.component,
 		});
 	}, []);
 
 	const onUpgrade = () => {
 		mixpanelService.sendEvent(mixpanelEvents.upgradeButtonClicked, {
 			current_plan: window.ea11yScannerData?.planData?.plan?.name,
-			feature: 'bulk_alt_text',
-			component: 'bulk_wizard_banner',
+			feature: action?.feature,
+			component: action?.component,
 		});
 	};
 	return (

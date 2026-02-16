@@ -8,11 +8,13 @@ import Divider from '@elementor/ui/Divider';
 import { FocusTrap } from 'focus-trap-react';
 import PropTypes from 'prop-types';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import ConfirmCloseDialog from '@ea11y-apps/scanner/components/bulk-alt-text/confirm-close-dialog';
 import ConfirmStopGenerationDialog from '@ea11y-apps/scanner/components/bulk-alt-text/confirm-stop-generation-dialog';
 import ImageGrid from '@ea11y-apps/scanner/components/bulk-alt-text/image-grid';
 import BulkAltTextProgress from '@ea11y-apps/scanner/components/bulk-alt-text/progress-bar';
 import QuotaErrorAlert from '@ea11y-apps/scanner/components/bulk-alt-text/quota-error-alert';
+import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { BulkGenerationProvider } from '@ea11y-apps/scanner/context/bulk-generation-context';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import WandIcon from '@ea11y-apps/scanner/icons/wand-icon';
@@ -55,6 +57,10 @@ const BulkAltTextManager = ({ open, close }) => {
 	const hasUnsavedChanges = selectedItemsCount > 0;
 
 	const handleClose = () => {
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			popupType: 'bulk_alt_text',
+			buttonName: 'x_button',
+		});
 		if (isGenerating) {
 			setShowStopGenerationDialog(true);
 		} else if (hasUnsavedChanges && !loading) {
@@ -65,6 +71,10 @@ const BulkAltTextManager = ({ open, close }) => {
 	};
 
 	const handleLeaveWhileGenerating = () => {
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			popupType: 'bulk_alt_text',
+			buttonName: 'Leave without generating',
+		});
 		if (stopGenerationFnRef.current) {
 			stopGenerationFnRef.current();
 		}
@@ -82,11 +92,18 @@ const BulkAltTextManager = ({ open, close }) => {
 	}, []);
 
 	const handleDiscard = () => {
+		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
+			popupType: 'bulk_alt_text',
+			buttonName: 'Discard changes',
+		});
 		setShowConfirmDialog(false);
 		close();
 	};
 
-	const handleApply = async (closeAfter = false) => {
+	const handleApply = async (
+		closeAfter = false,
+		source = 'bulk_main_action',
+	) => {
 		setLoading(true);
 		let successCount = 0;
 		let errorCount = 0;
@@ -137,6 +154,18 @@ const BulkAltTextManager = ({ open, close }) => {
 
 			setResolved(resolved + successCount);
 
+			// Send mixpanel event for successful submissions
+			if (successCount > 0) {
+				mixpanelService.sendEvent(mixpanelEvents.applyFixButtonClicked, {
+					fix_method: 'Bulk Alt Text',
+					source,
+					num_of_images: successCount,
+					category_name: BLOCKS.altText,
+					page_url: window.ea11yScannerData?.pageData?.url,
+					is_global: 'no',
+				});
+			}
+
 			if (successCount > 0 && errorCount === 0) {
 				success(
 					__('All selected items applied successfully!', 'pojo-accessibility'),
@@ -175,7 +204,7 @@ const BulkAltTextManager = ({ open, close }) => {
 	};
 
 	const handleApplyAndClose = () => {
-		handleApply(true);
+		handleApply(true, 'bulk_close_popup');
 	};
 
 	return (
