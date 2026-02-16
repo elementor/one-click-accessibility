@@ -2,20 +2,22 @@ import { lazy } from '@wordpress/element';
 
 export const AccessibilityAssistant = lazy(
 	() =>
-		import(/* webpackChunkName: "page-accessibility-scans" */ './assistant'),
+		import(
+			/* webpackChunkName: "chunk-page-accessibility-scans" */ './assistant'
+		),
 );
 export const IconSettings = lazy(
-	() => import(/* webpackChunkName: "page-design" */ './icon-settings'),
+	() => import(/* webpackChunkName: "chunk-page-design" */ './icon-settings'),
 );
 export const Menu = lazy(
-	() => import(/* webpackChunkName: "page-capabilities" */ './menu'),
+	() => import(/* webpackChunkName: "chunk-page-capabilities" */ './menu'),
 );
 export const Analytics = lazy(
-	() => import(/* webpackChunkName: "page-analytics" */ './analytics'),
+	() => import(/* webpackChunkName: "chunk-page-analytics" */ './analytics'),
 );
 export const AccessibilityStatement = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "page-accessibility-statement" */ './accessibility-statement'
+			/* webpackChunkName: "chunk-page-accessibility-statement" */ './accessibility-statement'
 		),
 );

@@ -25,31 +25,31 @@ import PageContent from './page-content';
 const ConnectModal = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "modal-connect" */ './components/connect-modal'
+			/* webpackChunkName: "chunk-modal-connect" */ './components/connect-modal'
 		),
 );
 const PostConnectModal = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "modal-post-connect" */ './components/post-connect-modal'
+			/* webpackChunkName: "chunk-modal-post-connect" */ './components/post-connect-modal'
 		),
 );
 const UrlMismatchModal = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "modal-url-mismatch" */ './components/url-mismatch-modal'
+			/* webpackChunkName: "chunk-modal-url-mismatch" */ './components/url-mismatch-modal'
 		),
 );
 const OnboardingModal = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "modal-onboarding" */ './components/onboarding-modal'
+			/* webpackChunkName: "chunk-modal-onboarding" */ './components/onboarding-modal'
 		),
 );
 const GetStartedModal = lazy(
 	() =>
 		import(
-			/* webpackChunkName: "modal-get-started" */ './components/help-menu/get-started-modal'
+			/* webpackChunkName: "chunk-modal-get-started" */ './components/help-menu/get-started-modal'
 		),
 );
 

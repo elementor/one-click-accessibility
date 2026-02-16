@@ -11,7 +11,7 @@ import {
 import IssueList from './issue-list';
 
 const PieChart = lazy(() =>
-	import(/* webpackChunkName: "charts-assistant" */ './pie-chart').then(
+	import(/* webpackChunkName: "chunk-charts-assistant" */ './pie-chart').then(
 		(module) => ({ default: module.default }),
 	),
 );

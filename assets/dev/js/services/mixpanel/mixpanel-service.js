@@ -19,7 +19,7 @@ const init = async () => {
 	// Lazy load mixpanel
 	if (!mixpanel) {
 		const mixpanelModule = await import(
-			/* webpackChunkName: "mixpanel" */ 'mixpanel-browser'
+			/* webpackChunkName: "chunk-mixpanel-browser" */ 'mixpanel-browser'
 		);
 		mixpanel = mixpanelModule.default;
 	}
