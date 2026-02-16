@@ -1,5 +1,6 @@
 import ValueLoader from '@ea11y/pages/assistant/loaders/value-loader';
 import AccessibilityAssistantTooltip from '@ea11y/pages/assistant/tooltip';
+import { lazy, Suspense } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	StyledStatsItem,
@@ -8,7 +9,12 @@ import {
 	StyledStatsItemTitle,
 } from '../stats.styles';
 import IssueList from './issue-list';
-import PieChart from './pie-chart';
+
+const PieChart = lazy(() =>
+	import(/* webpackChunkName: "chunk-charts-assistant" */ './pie-chart').then(
+		(module) => ({ default: module.default }),
+	),
+);
 
 const IssuesByLevel = ({ stats, loading, noResultsState }) => {
 	const levelsTotal =
@@ -48,14 +54,16 @@ const IssuesByLevel = ({ stats, loading, noResultsState }) => {
 			</StyledStatsItemContent>
 
 			<StyledStatsItemChart>
-				<PieChart
-					loading={loading}
-					value={levelsTotal.toString()}
-					firstSectorPercentage={firstLevelPercentage}
-					secondSectorPercentage={secondLevelPercentage}
-					thirdSectorPercentage={thirdLevelPercentage}
-					noResultsState={noResultsState}
-				/>
+				<Suspense fallback={<ValueLoader />}>
+					<PieChart
+						loading={loading}
+						value={levelsTotal.toString()}
+						firstSectorPercentage={firstLevelPercentage}
+						secondSectorPercentage={secondLevelPercentage}
+						thirdSectorPercentage={thirdLevelPercentage}
+						noResultsState={noResultsState}
+					/>
+				</Suspense>
 			</StyledStatsItemChart>
 		</StyledStatsItem>
 	);
