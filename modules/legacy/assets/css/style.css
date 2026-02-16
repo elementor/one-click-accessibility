@@ -70,7 +70,7 @@
   padding: 10px 0;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items.pojo-a11y-links {
-  border-top: 1px solid;
+  border-block-start: 1px solid;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a {
   display: block;
@@ -82,7 +82,7 @@
   font-weight: bold;
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a svg {
-  padding-right: 6px;
+  padding-inline-end: 6px;
   display: inline-block;
   width: 1.5em;
   font-style: normal;
@@ -95,10 +95,6 @@
 }
 #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a .pojo-a11y-toolbar-text {
   vertical-align: middle;
-}
-body.rtl #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay ul.pojo-a11y-toolbar-items li.pojo-a11y-toolbar-item a svg {
-  padding-left: 6px;
-  padding-right: 0;
 }
 @media (max-width: 767px) {
   #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay p.pojo-a11y-toolbar-title {
@@ -593,7 +589,7 @@ body.pojo-a11y-high-contrast u span {
   color: #FFFF80 !important;
 }
 body.pojo-a11y-high-contrast dt {
-  border-top: thin solid grey !important;
+  border-block-start: thin solid grey !important;
 }
 body.pojo-a11y-high-contrast h1,
 body.pojo-a11y-high-contrast h1 a,
@@ -639,7 +635,7 @@ body.pojo-a11y-high-contrast img {
 }
 body.pojo-a11y-high-contrast abbr,
 body.pojo-a11y-high-contrast acronym {
-  border-bottom: 1px dotted !important;
+  border-block-end: 1px dotted !important;
 }
 body.pojo-a11y-high-contrast :focus {
   outline: thin dotted !important;
@@ -1428,11 +1424,11 @@ body.pojo-a11y-readable-font *:not(i):not(span) {
 }
 .pojo-skip-link {
   position: absolute;
-  top: -1000em;
+  inset-block-start: -1000em;
 }
 .pojo-skip-link:focus {
-  left: 50px;
-  top: 50px;
+  inset-inline-start: 50px;
+  inset-block-start: 50px;
   height: auto;
   width: 200px;
   display: block;
@@ -1446,10 +1442,6 @@ body.pojo-a11y-readable-font *:not(i):not(span) {
   line-height: normal;
   text-decoration: none;
   box-shadow: 0 0 2px 2px rgb(0 0 0 / 0.6);
-}
-body.rtl .pojo-skip-link:focus {
-  right: 50px;
-  left: auto;
 }
 #pojo-a11y-toolbar *,
 #pojo-a11y-toolbar ::before,

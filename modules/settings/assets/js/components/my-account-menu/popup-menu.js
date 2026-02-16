@@ -138,7 +138,7 @@ export const PopupMenu = ({ closeAction, showUpgradeButton, ...menuProps }) => {
 							size="small"
 							fullWidth
 							color={isFree ? 'promotion' : 'secondary'}
-							sx={{ marginTop: 0.5 }}
+							sx={{ marginBlockStart: 0.5 }}
 						>
 							{isFree
 								? __('Upgrade plan', 'pojo-accessibility')

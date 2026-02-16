@@ -21,7 +21,7 @@ const StyledLoaderContainer = styled(Box)`
 	display: flex;
 	flex-direction: column;
 
-	margin-top: ${({ theme }) => theme.spacing(2)};
+	margin-block-start: ${({ theme }) => theme.spacing(2)};
 	gap: ${({ theme }) => theme.spacing(1.5)};
 `;
 

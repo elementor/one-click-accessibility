@@ -100,7 +100,7 @@ const QuotaNotices = () => {
 				<AlertAction
 					variant="outlined"
 					onClick={() => handleUpgradeClick('80')}
-					sx={{ marginTop: 1 }}
+					sx={{ marginBlockStart: 1 }}
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</AlertAction>
@@ -134,7 +134,7 @@ const QuotaNotices = () => {
 				<AlertAction
 					variant="outlined"
 					onClick={() => handleUpgradeClick('95')}
-					sx={{ marginTop: 1 }}
+					sx={{ marginBlockStart: 1 }}
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</AlertAction>
@@ -168,7 +168,7 @@ const QuotaNotices = () => {
 				<AlertAction
 					variant="outlined"
 					onClick={() => handleUpgradeClick('100')}
-					sx={{ marginTop: 1 }}
+					sx={{ marginBlockStart: 1 }}
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</AlertAction>
@@ -200,7 +200,7 @@ const QuotaNotices = () => {
 				<AlertAction
 					variant="outlined"
 					onClick={() => handleUpgradeClick('100')}
-					sx={{ marginTop: 1 }}
+					sx={{ marginBlockStart: 1 }}
 				>
 					{__('Upgrade now', 'pojo-accessibility')}
 				</AlertAction>

@@ -23,7 +23,9 @@ const EnableGlobalRemediationModal = ({
 			approveButtonColor="info"
 			approveText={__('Enable everywhere', 'pojo-accessibility')}
 			cancelText={__('Not now', 'pojo-accessibility')}
-			logo={<InfoCircleFilledIcon color="info" sx={{ mt: '6px' }} />}
+			logo={
+				<InfoCircleFilledIcon color="info" sx={{ marginBlockStart: '6px' }} />
+			}
 			onApprove={onEnable}
 			showCloseButton
 			disablePortal

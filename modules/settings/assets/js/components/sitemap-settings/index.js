@@ -59,7 +59,7 @@ const SitemapSettings = ({ sitemap }) => {
 				</AccordionSummaryIcon>
 				<ListItemText
 					primary={sitemap?.title}
-					sx={{ flexGrow: 0, marginRight: 1 }}
+					sx={{ flexGrow: 0, marginInlineEnd: 1 }}
 					id={`ea11y-sitemap-toggle`}
 				/>
 			</StyledAccordionSummary>
@@ -77,7 +77,7 @@ const SitemapSettings = ({ sitemap }) => {
 									)}
 								</Typography>
 							}
-							placement="right"
+							placement="top"
 							arrow={true}
 						>
 							<InfoCircleIcon fontSize="small" />
@@ -114,7 +114,8 @@ const StyledAccordion = styled(Accordion)`
 const StyledAccordionSummary = styled(AccordionSummary)`
 	padding: 0;
 	min-height: auto;
-	justify-content: left;
+	justify-content: flex-start;
+
 	&.Mui-expanded {
 		min-height: auto;
 	}
@@ -138,7 +139,7 @@ const StyledFormLabel = styled(FormLabel)`
 	align-items: center;
 	gap: 8px;
 	white-space: nowrap;
-	padding-top: 7px;
+	padding-block-start: 7px;
 `;
 
 const StyledTextField = styled(TextField)`

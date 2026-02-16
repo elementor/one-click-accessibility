@@ -26,7 +26,7 @@ const IconSelect = (props) => {
 				id="icon-select-radio-buttons-group-label"
 				color="secondary"
 			>
-				<Typography variant="subtitle2" marginBottom={1}>
+				<Typography variant="subtitle2" marginBlockEnd={1}>
 					{__('Icon', 'pojo-accessibility')}
 				</Typography>
 				<MediaUploader />

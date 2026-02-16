@@ -82,7 +82,11 @@ const UserFeedbackForm = () => {
 		>
 			<StyledBox>
 				<Header>
-					<Typography variant="subtitle1" color="text.primary" marginTop={1}>
+					<Typography
+						variant="subtitle1"
+						color="text.primary"
+						marginBlockStart={1}
+					>
 						{headerMessage?.[currentPage]}
 					</Typography>
 				</Header>
@@ -113,7 +117,7 @@ const Header = styled(Box)`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	margin-block-end: ${({ theme }) => theme.spacing(2)};
 `;
 
 const Footer = styled(Box, {
@@ -125,5 +129,5 @@ const Footer = styled(Box, {
 	align-items: center;
 	${({ currentPage, theme }) =>
 		currentPage !== 'feedback' &&
-		`border-top: 1px solid ${theme.palette.divider};`}
+		`border-block-start: 1px solid ${theme.palette.divider};`}
 `;

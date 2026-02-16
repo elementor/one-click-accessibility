@@ -58,8 +58,8 @@ export const ColorSetDisabled = ({ title, description }) => {
 					InputProps={{
 						sx: {
 							width: '75px',
-							paddingRight: '4px',
-							marginRight: '8px',
+							paddingInlineEnd: '4px',
+							marginInlineEnd: '8px',
 						},
 						endAdornment: (
 							<InputAdornment position="end">

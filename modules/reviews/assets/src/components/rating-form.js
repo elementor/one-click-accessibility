@@ -93,6 +93,6 @@ export default RatingForm;
 
 const StyledFormControlLabel = styled(FormControlLabel)`
 	justify-content: space-between;
-	margin-left: 0;
+	margin-inline-start: 0;
 	width: 100%;
 `;

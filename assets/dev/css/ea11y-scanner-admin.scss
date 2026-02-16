@@ -134,7 +134,7 @@
   &-n::after {
     right: 50%;
     bottom: 100%;
-    margin-bottom: 5px;
+    margin-block-end: 5px;
     transform: translateX(50%);
   }
 
@@ -142,8 +142,8 @@
     top: -5px;
     right: 50%;
     bottom: auto;
-    margin-right: -5px;
-    border-top-color: rgb(0 0 0 / 0.8);
+    margin-inline-end: -5px;
+    border-block-start-color: rgb(0 0 0 / 0.8);
   }
 
   &-hidden::before,

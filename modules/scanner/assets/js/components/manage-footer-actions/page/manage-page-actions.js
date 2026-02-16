@@ -74,7 +74,7 @@ const ManagePageActions = ({ item, isActive }) => {
 						variant="outlined"
 						disabled={activeRequest}
 						onClick={updateRemediation(true)}
-						sx={{ ml: 1 }}
+						sx={{ marginInlineStart: 1 }}
 					>
 						{__('Enable fix', 'pojo-accessibility')}
 					</Button>

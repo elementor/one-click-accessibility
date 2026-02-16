@@ -41,7 +41,7 @@ export const RemediationForm = ({ item }) => {
 								<InfotipBox>
 									<Typography
 										variant="subtitle1"
-										sx={{ mb: 1, textTransform: 'none' }}
+										sx={{ marginBlockEnd: 1, textTransform: 'none' }}
 									>
 										{__(
 											"What's the issue and why it matters?",

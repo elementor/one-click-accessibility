@@ -6,7 +6,7 @@ const StatsPieTooltip = (props) => {
 	const { itemData, series } = props;
 	const data = series.data[itemData.dataIndex];
 	return (
-		<Paper sx={{ p: 2, pb: 1 }}>
+		<Paper sx={{ p: 2, paddingBlockEnd: 1 }}>
 			<StyledStatsPieTooltipTitle
 				variant="body2"
 				color="text.tertiary"
@@ -25,7 +25,7 @@ const StyledStatsPieTooltipTitle = styled(Typography, {
 	shouldForwardProp: (prop) => prop !== 'itemColor',
 })`
 	position: relative;
-	padding-left: 18px;
+	padding-inline-start: 18px;
 	&:before {
 		content: '';
 		position: absolute;

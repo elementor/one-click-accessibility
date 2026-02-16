@@ -23,7 +23,12 @@ const DisableGlobalRemediationModal = ({
 			approveButtonColor="warning"
 			approveText={__('Disable everywhere', 'pojo-accessibility')}
 			cancelText={__('Not now', 'pojo-accessibility')}
-			logo={<AlertOctagonFilledIcon color="warning" sx={{ mt: '6px' }} />}
+			logo={
+				<AlertOctagonFilledIcon
+					color="warning"
+					sx={{ marginBlockStart: '6px' }}
+				/>
+			}
 			onApprove={onDisable}
 			showCloseButton
 			disablePortal

@@ -12,10 +12,13 @@ import {
 import { PopupMenu, QuotaBarGroup, QuotaIndicator } from '@ea11y/components';
 import { useSavedSettings, useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 
 const QuotaBar = () => {
 	const { openSidebar } = useSettings();
 	const { loading, isElementorOne } = useSavedSettings();
+	const { isRTL } = usePluginSettingsContext();
+	const TooltipPlacement = isRTL ? 'left' : 'right';
 
 	const quotaPopupMenuState = usePopupState({
 		variant: 'popover',
@@ -33,7 +36,10 @@ const QuotaBar = () => {
 	if (!openSidebar) {
 		return (
 			<StyledBox>
-				<Tooltip title={__('My account', 'site-mailer')} placement="right">
+				<Tooltip
+					title={__('My account', 'site-mailer')}
+					placement={TooltipPlacement}
+				>
 					<StyledIconButton {...bindTrigger(quotaPopupMenuState)}>
 						<CalendarDollarIcon sx={{ color: 'common.black' }} />
 						<QuotaIndicator />

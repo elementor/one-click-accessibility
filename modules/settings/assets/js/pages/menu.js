@@ -47,8 +47,7 @@ const StyledSettingsWrapper = styled(Box)`
 	grid-template-columns: repeat(2, 1fr);
 	gap: ${({ theme }) => theme.spacing(4)};
 	max-width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 `;
 
 const StyledPageTitle = styled(StyledTitle)`

@@ -166,7 +166,7 @@ const StatementGenerator = ({ open, close }) => {
 							<Typography
 								variant="body2"
 								color="text.secondary"
-								marginBottom={3}
+								marginBlockEnd={3}
 							>
 								{__(
 									'This will generate an accessibility statement that you can preview on the right.',
@@ -260,7 +260,7 @@ const StatementGenerator = ({ open, close }) => {
 							<Typography
 								variant="subtitle1"
 								color="text.primary"
-								marginBottom={6}
+								marginBlockEnd={6}
 							>
 								{__(
 									'Preview your accessibility statement',

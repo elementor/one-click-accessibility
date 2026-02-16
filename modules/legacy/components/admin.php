@@ -37,11 +37,8 @@ class Admin {
 		?>
 		<style>
 			.notice.a11y-notice {
-				border-left-color: #92003B !important;
+				border-inline-start-color: #92003B !important;
 				padding: 20px;
-			}
-			.rtl .notice.a11y-notice {
-				border-right-color: #92003B !important;
 			}
 			.notice.a11y-notice .a11y-notice-inner {
 				display: table;
@@ -83,11 +80,7 @@ class Admin {
 				text-transform: capitalize;
 			}
 			.notice.a11y-notice .a11y-install-now .a11y-install-button i {
-				padding-right: 5px;
-			}
-			.rtl .notice.a11y-notice .a11y-install-now .a11y-install-button i {
-				padding-right: 0;
-				padding-left: 5px;
+				padding-inline-end: 5px;
 			}
 			.notice.a11y-notice .a11y-install-now .a11y-install-button:hover {
 				background-color: #92003B;

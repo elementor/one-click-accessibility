@@ -20,11 +20,11 @@ body.pojo-a11y-readable-font {
 // Skip Link
 .pojo-skip-link {
 	position: absolute;
-	top: -1000em;
+	inset-block-start: -1000em;
 
 	&:focus {
-		left: 50px;
-		top: 50px;
+		inset-inline-start: 50px;
+		inset-block-start: 50px;
 		height: auto;
 		width: 200px;
 		display: block;
@@ -38,15 +38,6 @@ body.pojo-a11y-readable-font {
 		line-height: normal;
 		text-decoration: none;
 		box-shadow: 0 0 2px 2px rgb(0 0 0 / 0.6);
-	}
-}
-
-body.rtl {
-	.pojo-skip-link {
-		&:focus {
-			right: 50px;
-			left: auto;
-		}
 	}
 }
 
