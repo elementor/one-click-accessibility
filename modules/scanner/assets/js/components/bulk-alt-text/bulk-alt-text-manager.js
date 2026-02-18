@@ -231,7 +231,7 @@ const BulkAltTextManager = ({ open, close }) => {
 					<BulkGenerationProvider>
 						<Dialog
 							open={open}
-							aria-label={__('Bulk Alt Text Manager', 'pojo-accessibility')}
+							aria-labelledby="bulk-alt-text-manager-title"
 							disablePortal
 							maxWidth="lg"
 							fullWidth
@@ -242,7 +242,7 @@ const BulkAltTextManager = ({ open, close }) => {
 							}}
 						>
 							<DialogHeader onClose={handleClose} logo={<WandIcon />}>
-								<DialogTitle>
+								<DialogTitle id="bulk-alt-text-manager-title">
 									{__('Alt Text Manager', 'pojo-accessibility')}
 								</DialogTitle>
 							</DialogHeader>

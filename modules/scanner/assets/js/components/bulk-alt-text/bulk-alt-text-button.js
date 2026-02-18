@@ -59,6 +59,7 @@ const BulkAltTextButton = () => {
 				startIcon={<WandIcon />}
 				size="small"
 				onClick={handleBulkAltTextClick}
+				aria-label={__('Open bulk alt text manager', 'pojo-accessibility')}
 			>
 				{__('Bulk alt text', 'pojo-accessibility')}
 			</Button>
