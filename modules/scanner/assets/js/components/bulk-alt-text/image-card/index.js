@@ -5,7 +5,7 @@ import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
 import { speak } from '@wordpress/a11y';
 import { memo } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import AltTextInput from './alt-text-input';
 import CardSelectionIndicator from './card-selection-indicator';
 import DecorativeCheckbox from './decorative-checkbox';
@@ -62,6 +62,12 @@ const ImageCard = ({ item, current }) => {
 	};
 
 	const isLoading = loadingAiText || data?.[current]?.isGenerating;
+	const imageLabel = getImageLabel(item?.node);
+	const cardLabel = sprintf(
+		/* translators: %s: image file name or "Image" */
+		__('Alt text card for %s', 'pojo-accessibility'),
+		imageLabel,
+	);
 
 	return (
 		<StyledCard
@@ -72,6 +78,9 @@ const ImageCard = ({ item, current }) => {
 			hasValidAltText={data?.[current]?.hasValidAltText}
 			isDraft={data?.[current]?.isDraft}
 			isDecorative={data?.[current]?.makeDecorative}
+			tabIndex={0}
+			role="group"
+			aria-label={cardLabel}
 		>
 			<CardContent
 				sx={{
