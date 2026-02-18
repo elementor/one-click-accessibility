@@ -47,7 +47,11 @@ const AltTextInput = ({
 				disabled={isLoading}
 				InputProps={{
 					endAdornment: (
-						<AIGenerateButton onGenerate={onGenerate} disabled={isLoading} />
+						<AIGenerateButton
+							onGenerate={onGenerate}
+							disabled={isLoading}
+							isLoading={isLoading}
+						/>
 					),
 				}}
 			/>

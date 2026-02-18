@@ -2,6 +2,7 @@ import { mixpanelEvents } from '@ea11y-apps/global/services/mixpanel/mixpanel-ev
 import { mixpanelService } from '@ea11y-apps/global/services/mixpanel/mixpanel-service';
 import { useBulkGeneration } from '@ea11y-apps/scanner/context/bulk-generation-context';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import { speak } from '@wordpress/a11y';
 import { useEffect, useMemo } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -23,6 +24,7 @@ export const useProgressBarLogic = (onGeneratingChange) => {
 	const handleStopGenerating = () => {
 		mixpanelService.sendEvent(mixpanelEvents.stopButtonClicked);
 		stopBulkGeneration();
+		speak(__('Generation stopped', 'pojo-accessibility'), 'assertive');
 	};
 
 	useEffect(() => {
@@ -93,10 +95,12 @@ export const useProgressBarLogic = (onGeneratingChange) => {
 			...altTextData,
 			[type]: updatedData,
 		});
+		speak(__('Selection cleared', 'pojo-accessibility'), 'polite');
 	};
 
 	const handleMarkSelectedAsDecorative = () => {
 		const updatedData = [...(altTextData?.[type] || [])];
+		let count = 0;
 
 		altTextViolations.forEach((item, index) => {
 			if (
@@ -112,6 +116,7 @@ export const useProgressBarLogic = (onGeneratingChange) => {
 					apiId: null,
 					resolved: false,
 				};
+				count++;
 			}
 		});
 
@@ -119,6 +124,13 @@ export const useProgressBarLogic = (onGeneratingChange) => {
 			...altTextData,
 			[type]: updatedData,
 		});
+
+		const message = sprintf(
+			// Translators: %d number of images marked as decorative
+			__('%d images marked as decorative', 'pojo-accessibility'),
+			count,
+		);
+		speak(message, 'polite');
 	};
 
 	const handleToggleAllDecorative = () => {
@@ -154,6 +166,15 @@ export const useProgressBarLogic = (onGeneratingChange) => {
 			...altTextData,
 			[type]: updatedData,
 		});
+
+		const message = isMarking
+			? sprintf(
+					// Translators: %d number of images
+					__('All %d images marked as decorative', 'pojo-accessibility'),
+					totalImages,
+				)
+			: __('All images unmarked as decorative', 'pojo-accessibility');
+		speak(message, 'polite');
 	};
 
 	const handleGenerateAll = () => {
@@ -181,6 +202,12 @@ export const useProgressBarLogic = (onGeneratingChange) => {
 			}
 		});
 
+		const message = sprintf(
+			// Translators: %d number of images to generate
+			__('Generating alt text for %d images', 'pojo-accessibility'),
+			cardIndicesToProcess.length,
+		);
+		speak(message, 'polite');
 		startBulkGeneration(cardIndicesToProcess);
 	};
 

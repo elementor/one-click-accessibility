@@ -10,7 +10,7 @@ import { UpgradeContent } from '@ea11y-apps/scanner/components/upgrade-info-tip/
 import { AI_QUOTA_LIMIT, IS_PRO_PLAN } from '@ea11y-apps/scanner/constants';
 import { __ } from '@wordpress/i18n';
 
-const AIGenerateButton = ({ onGenerate, disabled }) => {
+const AIGenerateButton = ({ onGenerate, disabled, isLoading }) => {
 	const onUpgradeHover = () => {
 		mixpanelService.sendEvent(mixpanelEvents.upgradeSuggestionViewed, {
 			current_plan: window.ea11yScannerData?.planData?.plan?.name,
@@ -48,7 +48,16 @@ const AIGenerateButton = ({ onGenerate, disabled }) => {
 						},
 					}}
 				>
-					<IconButton size="small" onClick={onGenerate} disabled={disabled}>
+					<IconButton
+						size="small"
+						onClick={onGenerate}
+						disabled={disabled}
+						aria-label={
+							isLoading
+								? __('Generating alt text with AI', 'pojo-accessibility')
+								: __('Click to generate alt text with AI', 'pojo-accessibility')
+						}
+					>
 						<AIIcon color="info" />
 					</IconButton>
 				</Tooltip>

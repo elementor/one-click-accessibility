@@ -19,6 +19,7 @@ import { BulkGenerationProvider } from '@ea11y-apps/scanner/context/bulk-generat
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import WandIcon from '@ea11y-apps/scanner/icons/wand-icon';
 import { submitAltTextRemediation } from '@ea11y-apps/scanner/utils/submit-alt-text';
+import { speak } from '@wordpress/a11y';
 import { useState, useCallback, useRef, useMemo } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -167,37 +168,46 @@ const BulkAltTextManager = ({ open, close }) => {
 			}
 
 			if (successCount > 0 && errorCount === 0) {
-				success(
-					__('All selected items applied successfully!', 'pojo-accessibility'),
+				const message = __(
+					'All selected items applied successfully!',
+					'pojo-accessibility',
 				);
+				success(message);
+				speak(message, 'assertive');
 				setShowConfirmDialog(false);
 				close();
 			} else if (successCount > 0 && errorCount > 0) {
-				success(
-					sprintf(
-						// Translators: %1$d successful count, %2$d failed count
-						__(
-							'%1$d items applied successfully. %2$d items failed.',
-							'pojo-accessibility',
-						),
-						successCount,
-						errorCount,
+				const message = sprintf(
+					// Translators: %1$d successful count, %2$d failed count
+					__(
+						'%1$d items applied successfully. %2$d items failed.',
+						'pojo-accessibility',
 					),
+					successCount,
+					errorCount,
 				);
+				success(message);
+				speak(message, 'assertive');
 				if (closeAfter) {
 					setShowConfirmDialog(false);
 					close();
 				}
 			} else if (errorCount > 0) {
-				error(
-					__('Failed to apply items. Please try again.', 'pojo-accessibility'),
+				const message = __(
+					'Failed to apply items. Please try again.',
+					'pojo-accessibility',
 				);
+				error(message);
+				speak(message, 'assertive');
 			}
 		} catch (e) {
 			console.error(e);
-			error(
-				__('An error occurred while applying changes.', 'pojo-accessibility'),
+			const message = __(
+				'An error occurred while applying changes.',
+				'pojo-accessibility',
 			);
+			error(message);
+			speak(message, 'assertive');
 		} finally {
 			setLoading(false);
 		}

@@ -2,6 +2,7 @@ import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
 import CircularProgress from '@elementor/ui/CircularProgress';
 import Radio from '@elementor/ui/Radio';
 import PropTypes from 'prop-types';
+import { __ } from '@wordpress/i18n';
 
 const CardSelectionIndicator = ({
 	isLoading,
@@ -36,6 +37,10 @@ const CardSelectionIndicator = ({
 			}}
 			color={isSelected && hasValidAltText ? 'success' : 'info'}
 			onClick={onRadioClick}
+			aria-label={__(
+				'Add image to bulk alt text editing',
+				'pojo-accessibility',
+			)}
 		/>
 	);
 };

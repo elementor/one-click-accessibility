@@ -3,7 +3,9 @@ import Grid from '@elementor/ui/Grid';
 import PropTypes from 'prop-types';
 import { ImagePreview } from '@ea11y-apps/scanner/components/alt-text-form/image-preview';
 import { useAltTextForm } from '@ea11y-apps/scanner/hooks/use-alt-text-form';
+import { speak } from '@wordpress/a11y';
 import { memo } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import AltTextInput from './alt-text-input';
 import CardSelectionIndicator from './card-selection-indicator';
 import DecorativeCheckbox from './decorative-checkbox';
@@ -32,9 +34,15 @@ const ImageCard = ({ item, current }) => {
 			return;
 		}
 
+		const willBeSelected = !isCurrentlySelected;
 		updateData({
-			selected: !isCurrentlySelected,
+			selected: willBeSelected,
 		});
+
+		const message = willBeSelected
+			? __('Image selected', 'pojo-accessibility')
+			: __('Image deselected', 'pojo-accessibility');
+		speak(message, 'polite');
 	};
 
 	const isLoading = loadingAiText || data?.[current]?.isGenerating;

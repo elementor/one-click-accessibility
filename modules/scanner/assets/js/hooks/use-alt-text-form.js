@@ -13,6 +13,7 @@ import {
 	convertSvgToPngBase64,
 	svgNodeToPngBase64,
 } from '@ea11y-apps/scanner/utils/svg-to-png-base64';
+import { speak } from '@wordpress/a11y';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -165,6 +166,10 @@ export const useAltTextForm = ({ current, item }) => {
 						isGenerating: false,
 					});
 
+					speak(
+						__('Alt text generated successfully', 'pojo-accessibility'),
+						'polite',
+					);
 					sendMixpanelEvent(aiData.altText);
 					onCardComplete(true);
 				} catch (e) {
@@ -181,6 +186,7 @@ export const useAltTextForm = ({ current, item }) => {
 									'AI credits quota has been exceeded. Please upgrade your plan or wait for the next billing cycle.',
 									'pojo-accessibility',
 								);
+							speak(errorMessage, 'assertive');
 							setQuotaExceeded(errorMessage);
 							return; // Don't call onCardComplete
 						}
@@ -305,6 +311,7 @@ export const useAltTextForm = ({ current, item }) => {
 				isDraft: false,
 				selected: true,
 			});
+			speak(__('Image marked as decorative', 'pojo-accessibility'), 'polite');
 			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
 				category_name: BLOCKS.altText,
 				type: isBulkMode ? 'bulk' : 'single',
@@ -321,6 +328,7 @@ export const useAltTextForm = ({ current, item }) => {
 				isDraft: false,
 				selected: hasAltText,
 			});
+			speak(__('Image unmarked as decorative', 'pojo-accessibility'), 'polite');
 			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
 				category_name: BLOCKS.altText,
 				type: isBulkMode ? 'bulk' : 'single',
@@ -358,6 +366,7 @@ export const useAltTextForm = ({ current, item }) => {
 				isDraft: false,
 				selected: true,
 			});
+			speak(__('Alt text saved', 'pojo-accessibility'), 'polite');
 		}
 	};
 
@@ -371,6 +380,7 @@ export const useAltTextForm = ({ current, item }) => {
 				? true
 				: altTextData?.[type]?.[current]?.selected,
 		});
+		speak(__('Changes discarded', 'pojo-accessibility'), 'polite');
 	};
 
 	const handleSubmit = async () => {
@@ -472,6 +482,10 @@ export const useAltTextForm = ({ current, item }) => {
 				isDraft: false,
 				selected: true,
 			});
+			speak(
+				__('Alt text generated successfully', 'pojo-accessibility'),
+				'polite',
+			);
 			sendMixpanelEvent(aiData.altText);
 		} catch (e) {
 			console.log(e);
@@ -485,6 +499,7 @@ export const useAltTextForm = ({ current, item }) => {
 					)
 				: __('An error occurred.', 'pojo-accessibility');
 			error(errorMessage);
+			speak(errorMessage, 'assertive');
 		} finally {
 			setLoadingAiText(false);
 		}
@@ -504,6 +519,10 @@ export const useAltTextForm = ({ current, item }) => {
 				resolved: false,
 			});
 
+			speak(
+				__('Alternative suggestion loaded', 'pojo-accessibility'),
+				'polite',
+			);
 			sendMixpanelEvent(altTextData?.[type]?.[current]?.aiText[index]);
 		} else {
 			await getAiText();
