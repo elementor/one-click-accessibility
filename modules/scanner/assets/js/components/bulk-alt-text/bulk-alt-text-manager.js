@@ -260,14 +260,14 @@ const BulkAltTextManager = ({ open, close }) => {
 								<Button
 									onClick={handleClose}
 									color="secondary"
-									disabled={loading}
+									disabled={loading || isGenerating}
 								>
 									{__('Cancel', 'pojo-accessibility')}
 								</Button>
 								<Button
 									onClick={() => handleApply(false)}
 									variant="contained"
-									disabled={loading || selectedItemsCount === 0}
+									disabled={loading || selectedItemsCount === 0 || isGenerating}
 								>
 									{loading
 										? __('Applying…', 'pojo-accessibility')
