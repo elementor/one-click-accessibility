@@ -241,7 +241,10 @@ const BulkAltTextManager = ({ open, close }) => {
 								},
 							}}
 						>
-							<DialogHeader onClose={handleClose} logo={<WandIcon />}>
+							<DialogHeader
+								onClose={isGenerating ? false : handleClose}
+								logo={<WandIcon />}
+							>
 								<DialogTitle id="bulk-alt-text-manager-title">
 									{__('Alt Text Manager', 'pojo-accessibility')}
 								</DialogTitle>
