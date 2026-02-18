@@ -38,7 +38,11 @@ const DefaultProgress = ({
 					color="secondary"
 					variant="text"
 					startIcon={
-						!areAllMarkedAsDecorative ? <PencilTickIcon /> : <PencilUndoIcon />
+						!areAllMarkedAsDecorative ? (
+							<PencilTickIcon size="small" />
+						) : (
+							<PencilUndoIcon size="small" />
+						)
 					}
 					onClick={onToggleAllDecorative}
 				>
