@@ -9,7 +9,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import AltTextInput from './alt-text-input';
 import CardSelectionIndicator from './card-selection-indicator';
 import DecorativeCheckbox from './decorative-checkbox';
-import { StyledCard, PreviewWrapper } from './styled-components';
+import { StyledCard, StyledPreviewWrapper } from './styled-components';
 
 const getImageLabel = (node) => {
 	if (!node) {
@@ -18,11 +18,15 @@ const getImageLabel = (node) => {
 	if (node.src) {
 		try {
 			const pathname = new URL(node.src).pathname;
-			const encoded = pathname.split('/').pop();
-			const filename = encoded
-				? decodeURIComponent(encoded)
-				: __('Image', 'pojo-accessibility');
-			return filename || __('Image', 'pojo-accessibility');
+			const encodedFilename = pathname.split('/').pop();
+			if (!encodedFilename) {
+				return __('Image', 'pojo-accessibility');
+			}
+			try {
+				return decodeURIComponent(encodedFilename);
+			} catch {
+				return encodedFilename;
+			}
 		} catch {
 			return __('Image', 'pojo-accessibility');
 		}
@@ -101,9 +105,9 @@ const ImageCard = ({ item, current }) => {
 						hasValidAltText={data?.[current]?.hasValidAltText}
 						onRadioClick={handleRadioClick}
 					/>
-					<PreviewWrapper>
+					<StyledPreviewWrapper>
 						<ImagePreview element={item.node} />
-					</PreviewWrapper>
+					</StyledPreviewWrapper>
 				</Grid>
 				<Grid
 					padding={1.5}
