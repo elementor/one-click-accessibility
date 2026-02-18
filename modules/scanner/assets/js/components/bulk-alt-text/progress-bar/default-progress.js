@@ -18,7 +18,7 @@ const DefaultProgress = ({
 	generateButtonText,
 }) => {
 	return (
-		<StyledMainWrapperGrid container>
+		<StyledMainWrapperGrid bgcolor="background.paper" container>
 			<StyledActionsGrid>
 				{`${completedSelectedCount}/${totalImages}`}
 				<Typography variant="body2" color="text.secondary">

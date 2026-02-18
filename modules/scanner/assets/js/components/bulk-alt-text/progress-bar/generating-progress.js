@@ -1,5 +1,6 @@
 import Alert from '@elementor/ui/Alert';
 import AlertTitle from '@elementor/ui/AlertTitle';
+import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import LinearProgress from '@elementor/ui/LinearProgress';
 import Typography from '@elementor/ui/Typography';
@@ -16,7 +17,7 @@ const GeneratingProgress = ({ progress, onStop }) => {
 	);
 
 	return (
-		<>
+		<Box sx={{ position: 'sticky', top: 0, zIndex: 1000 }}>
 			<LinearProgress
 				value={
 					progress.total > 0 ? (progress.completed / progress.total) * 100 : 0
@@ -58,7 +59,7 @@ const GeneratingProgress = ({ progress, onStop }) => {
 					{__('Generating alt text for images…', 'pojo-accessibility')}
 				</AlertTitle>
 			</Alert>
-		</>
+		</Box>
 	);
 };
 

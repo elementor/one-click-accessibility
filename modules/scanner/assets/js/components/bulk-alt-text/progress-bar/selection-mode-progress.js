@@ -16,7 +16,7 @@ const SelectionModeProgress = ({
 	return (
 		<StyledMainWrapperGrid
 			container
-			bgcolor="divider"
+			bgcolor="#E0E0E0"
 			justifyContent="space-between"
 		>
 			<StyledActionsGrid>
