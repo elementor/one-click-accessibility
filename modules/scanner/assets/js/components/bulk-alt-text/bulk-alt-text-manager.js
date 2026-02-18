@@ -225,6 +225,11 @@ const BulkAltTextManager = ({ open, close }) => {
 							disablePortal
 							maxWidth="lg"
 							fullWidth
+							PaperProps={{
+								sx: {
+									borderRadius: 2,
+								},
+							}}
 						>
 							<DialogHeader onClose={handleClose} logo={<WandIcon />}>
 								<DialogTitle>
