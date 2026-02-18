@@ -41,7 +41,7 @@ export const AltTextLayout = () => {
 	};
 
 	return (
-		<StyledContent>
+		<StyledContent sx={{ padding: 0 }}>
 			<AltTextForm
 				item={item}
 				current={current}
