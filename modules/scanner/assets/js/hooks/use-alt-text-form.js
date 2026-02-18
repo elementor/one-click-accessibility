@@ -176,10 +176,7 @@ export const useAltTextForm = ({ current, item }) => {
 					updateData({ isGenerating: false });
 
 					if (!shouldAbort.current) {
-						// Check if the error is a quota exceeded error
-						const isQuotaError = e?.code === 'quota_exceeded';
-
-						if (isQuotaError) {
+						if (e?.code === 'quota_exceeded') {
 							const errorMessage =
 								e?.message ||
 								__(
@@ -188,6 +185,17 @@ export const useAltTextForm = ({ current, item }) => {
 								);
 							speak(errorMessage, 'assertive');
 							setQuotaExceeded(errorMessage);
+							return; // Don't call onCardComplete
+						}
+
+						if (e?.code === 'quota_api_error') {
+							const errorMessage =
+								e?.message ||
+								__(
+									'There was an error in generating Alt text using AI. Please try again after sometime.',
+									'pojo-accessibility',
+								);
+							speak(errorMessage, 'assertive');
 							return; // Don't call onCardComplete
 						}
 
@@ -489,15 +497,27 @@ export const useAltTextForm = ({ current, item }) => {
 			sendMixpanelEvent(aiData.altText);
 		} catch (e) {
 			console.log(e);
-			// Check if the error is a quota exceeded error
-			const isQuotaError = e?.code === 'quota_exceeded';
-			const errorMessage = isQuotaError
-				? e?.message ||
+
+			let errorMessage;
+
+			if (e?.code === 'quota_exceeded') {
+				errorMessage =
+					e?.message ||
 					__(
 						'AI credits quota has been exceeded. Please upgrade your plan or wait for the next billing cycle.',
 						'pojo-accessibility',
-					)
-				: __('An error occurred.', 'pojo-accessibility');
+					);
+			} else if (e?.code === 'quota_api_error') {
+				errorMessage =
+					e?.message ||
+					__(
+						'Quota API error. Try again after sometime.',
+						'pojo-accessibility',
+					);
+			} else {
+				errorMessage = __('An error occurred.', 'pojo-accessibility');
+			}
+
 			error(errorMessage);
 			speak(errorMessage, 'assertive');
 		} finally {

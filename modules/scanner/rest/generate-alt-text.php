@@ -7,6 +7,7 @@ use EA11y\Modules\Scanner\Classes\Utils;
 use EA11y\Classes\Utils as Global_Utils;
 use EA11y\Classes\Client\Client_Response;
 use EA11y\Classes\Exceptions\Quota_Exceeded_Error;
+use EA11y\Classes\Exceptions\Quota_API_Error;
 use Throwable;
 use WP_Error;
 use WP_REST_Response;
@@ -74,6 +75,11 @@ class Generate_Alt_Text extends Route_Base {
 			return $this->respond_error_json( [
 				'message' => 'AI credits quota has been exceeded.',
 				'code' => 'quota_exceeded',
+			] );
+		} catch ( Quota_API_Error $e ) {
+			return $this->respond_error_json( [
+				'message' => 'Quota API error. Try again after sometime.',
+				'code' => 'quota_api_error',
 			] );
 		} catch ( Throwable $t ) {
 			return $this->respond_error_json( [
