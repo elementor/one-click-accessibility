@@ -10,53 +10,57 @@ export const StyledCard = styled(Card, {
 		prop !== 'hasValidAltText' &&
 		prop !== 'isDraft' &&
 		prop !== 'isDecorative',
-})(({ theme, isLoading, isCurrentlySelected, hasValidAltText, isDraft }) => ({
-	borderRadius: theme.shape.borderRadius * 2,
-	height: 280,
-	'& .MuiCardContent-root:last-child': {
-		paddingBottom: 0,
-	},
-	...((isLoading || (isCurrentlySelected && !hasValidAltText)) &&
-		!isDraft && {
-			border: '2px solid',
-			borderColor: theme.palette.info.main,
-		}),
-}));
+})`
+	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
+	height: 280;
 
-export const PreviewWrapper = styled(Grid)(() => ({
-	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
+	& .MuiCardContent-root:last-child {
+		padding-bottom: 0;
+	}
 
-	'& .MuiPaper-root': {
-		backgroundColor: 'transparent',
-		width: 130,
-		height: 96,
-	},
+	${({ theme, isLoading, isCurrentlySelected, hasValidAltText, isDraft }) =>
+		(isLoading || (isCurrentlySelected && !hasValidAltText)) && !isDraft
+			? `border: 2px solid; border-color: ${theme.palette.info.main};`
+			: ''}
+`;
 
-	'& img': {
-		width: 130,
-		height: 96,
-		fontSize: 'auto',
-		objectFit: 'cover',
-		borderRadius: 8,
-	},
-}));
+export const StyledPreviewWrapper = styled(Grid)`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-export const StyledTextField = styled(TextField)(() => ({
-	'& .MuiInputBase-root': {
-		padding: '0',
-		fontSize: 14,
-	},
-	'& .MuiInputBase-input': {
-		padding: '8px 12px 8px 8px',
-	},
-	'& fieldset': {
-		borderColor: 'transparent',
-		overflow: 'auto',
+	& .MuiPaper-root {
+		background-color: transparent;
+		width: 130px;
+		height: 96px;
+	}
 
-		'&:selected': {
-			border: 'auto',
-		},
-	},
-}));
+	& img {
+		width: 130px;
+		height: 96px;
+		font-size: auto;
+		object-fit: cover;
+		border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
+	}
+`;
+
+export const StyledTextField = styled(TextField)`
+	& .MuiInputBase-root {
+		padding: 0;
+		font-size: 14px;
+	}
+
+	& .MuiInputBase-input {
+		padding: ${({ theme }) =>
+			`${theme.spacing(1)} ${theme.spacing(1.5)} ${theme.spacing(1)} ${theme.spacing(1)}`};
+	}
+
+	& fieldset {
+		border-color: transparent;
+		overflow: auto;
+
+		&:selected {
+			border: auto;
+		}
+	}
+`;
