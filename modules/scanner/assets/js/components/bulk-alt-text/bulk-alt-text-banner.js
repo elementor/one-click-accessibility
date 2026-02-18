@@ -55,9 +55,9 @@ export default BulkAltTextBanner;
 const StyledBannerGrid = styled(Grid)(({ theme }) => ({
 	justifyContent: 'space-between',
 	alignItems: 'center',
-	paddingInline: theme.spacing(2),
+	paddingInline: theme.spacing(3),
 	flexWrap: 'nowrap',
 	marginBottom: theme.spacing(2),
 	boxShadow: 'rgba(0, 0, 0, 0.12) 0px 10px 14px -8px',
-	padding: theme.spacing(2),
+	paddingBlock: theme.spacing(1.5),
 }));
