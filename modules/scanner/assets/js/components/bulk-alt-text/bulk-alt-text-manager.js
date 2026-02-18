@@ -234,6 +234,7 @@ const BulkAltTextManager = ({ open, close }) => {
 					<BulkGenerationProvider>
 						<Dialog
 							open={open}
+							onClose={isGenerating ? false : handleClose}
 							aria-labelledby="bulk-alt-text-manager-title"
 							disablePortal
 							maxWidth="lg"
