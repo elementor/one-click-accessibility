@@ -49,7 +49,7 @@ const CardSelectionIndicator = ({
 
 CardSelectionIndicator.propTypes = {
 	imageLabel: PropTypes.string,
-	isLoading: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool,
 	isSelected: PropTypes.bool.isRequired,
 	hasValidAltText: PropTypes.bool,
 	onRadioClick: PropTypes.func.isRequired,
