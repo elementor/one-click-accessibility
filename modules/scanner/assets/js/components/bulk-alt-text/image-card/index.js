@@ -18,7 +18,10 @@ const getImageLabel = (node) => {
 	if (node.src) {
 		try {
 			const pathname = new URL(node.src).pathname;
-			const filename = pathname.split('/').pop();
+			const encoded = pathname.split('/').pop();
+			const filename = encoded
+				? decodeURIComponent(encoded)
+				: __('Image', 'pojo-accessibility');
 			return filename || __('Image', 'pojo-accessibility');
 		} catch {
 			return __('Image', 'pojo-accessibility');
