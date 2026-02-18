@@ -244,6 +244,10 @@ const BulkAltTextManager = ({ open, close }) => {
 									borderRadius: 3,
 								},
 							}}
+							sx={{
+								maxWidth: '1200px',
+								margin: 'auto',
+							}}
 						>
 							<DialogHeader
 								onClose={isGenerating ? false : handleClose}
