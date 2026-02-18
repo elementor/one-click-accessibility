@@ -97,7 +97,7 @@ const ImageCard = ({ item, current }) => {
 					height: '100%',
 				}}
 			>
-				<Grid container padding={2} justifyContent="center" bgcolor="#EBEBEB">
+				<Grid container padding={2.5} justifyContent="center" bgcolor="#EBEBEB">
 					<CardSelectionIndicator
 						imageLabel={getImageLabel(item?.node)}
 						isLoading={isLoading}

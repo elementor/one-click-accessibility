@@ -21,12 +21,18 @@ const ImageGrid = () => {
 	const altTextViolations = sortedViolations.altText;
 
 	return (
-		<Grid container spacing={2} padding={4} rowGap={4}>
+		<Grid
+			container
+			padding={4}
+			columnGap={2}
+			rowGap={4}
+			justifyContent="center"
+		>
 			{altTextViolations.map((image, index) => {
 				const stableKey =
 					image.path?.dom || image.node?.src || `img-card-${index}`;
 				return (
-					<Grid item xs={3} key={stableKey}>
+					<Grid item key={stableKey}>
 						<ErrorBoundary fallback={<ImageCardErrorFallback />}>
 							<ImageCard item={image} current={index} />
 						</ErrorBoundary>

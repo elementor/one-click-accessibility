@@ -20,7 +20,7 @@ const SelectionModeProgress = ({
 			justifyContent="space-between"
 		>
 			<StyledActionsGrid>
-				<Typography variant="h6" color="text.secondary">
+				<Typography variant="h6" as="h2" color="text.secondary">
 					{sprintf(
 						// Translators: %d number of selected images
 						__('%d selected', 'pojo-accessibility'),

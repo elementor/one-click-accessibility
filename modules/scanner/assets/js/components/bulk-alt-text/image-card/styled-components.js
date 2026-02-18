@@ -12,7 +12,8 @@ export const StyledCard = styled(Card, {
 		prop !== 'isDecorative',
 })`
 	border-radius: ${({ theme }) => theme.shape.borderRadius * 2}px;
-	height: 280px;
+	height: 282px;
+	width: 248px;
 
 	& .MuiCardContent-root:last-child {
 		padding-bottom: 0;

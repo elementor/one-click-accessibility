@@ -58,7 +58,7 @@ const AIGenerateButton = ({ onGenerate, disabled, isLoading }) => {
 								: __('Click to generate alt text with AI', 'pojo-accessibility')
 						}
 					>
-						<AIIcon color="info" />
+						<AIIcon color="info" fontSize="small" />
 					</IconButton>
 				</Tooltip>
 			) : (

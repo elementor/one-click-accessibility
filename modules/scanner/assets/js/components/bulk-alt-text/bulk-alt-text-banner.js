@@ -59,5 +59,5 @@ const StyledBannerGrid = styled(Grid)(({ theme }) => ({
 	flexWrap: 'nowrap',
 	marginBottom: theme.spacing(2),
 	boxShadow: 'rgba(0, 0, 0, 0.12) 0px 10px 14px -8px',
-	paddingBlock: theme.spacing(1.5),
+	paddingBlock: theme.spacing(1.25),
 }));

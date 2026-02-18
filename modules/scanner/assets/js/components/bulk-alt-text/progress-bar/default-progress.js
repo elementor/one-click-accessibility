@@ -20,8 +20,8 @@ const DefaultProgress = ({
 	return (
 		<StyledMainWrapperGrid bgcolor="background.paper" container>
 			<StyledActionsGrid>
-				{`${completedSelectedCount}/${totalImages}`}
 				<Typography variant="body2" color="text.secondary">
+					{`${completedSelectedCount}/${totalImages}`}{' '}
 					{__('ready to apply', 'pojo-accessibility')}
 				</Typography>
 			</StyledActionsGrid>

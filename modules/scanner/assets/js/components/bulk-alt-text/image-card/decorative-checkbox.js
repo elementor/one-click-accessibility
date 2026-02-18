@@ -14,7 +14,7 @@ const DecorativeCheckbox = ({ checked, onChange }) => {
 				</Typography>
 			}
 			onChange={onChange}
-			sx={{ paddingInline: 1.5, paddingBlockEnd: 1.5 }}
+			sx={{ paddingInline: 1.7, paddingBlockEnd: 1.5 }}
 		/>
 	);
 };
