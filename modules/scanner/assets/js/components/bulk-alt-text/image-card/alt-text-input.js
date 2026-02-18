@@ -69,7 +69,7 @@ const AltTextInput = ({
 AltTextInput.propTypes = {
 	isDecorative: PropTypes.bool.isRequired,
 	altText: PropTypes.string,
-	isLoading: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool,
 	isDraft: PropTypes.bool.isRequired,
 	onChange: PropTypes.func.isRequired,
 	onGenerate: PropTypes.func.isRequired,
