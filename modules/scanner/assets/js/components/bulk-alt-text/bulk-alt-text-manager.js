@@ -17,6 +17,7 @@ import QuotaErrorAlert from '@ea11y-apps/scanner/components/bulk-alt-text/quota-
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
 import { BulkGenerationProvider } from '@ea11y-apps/scanner/context/bulk-generation-context';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
+import usePreventAriaHidden from '@ea11y-apps/scanner/hooks/use-prevent-aria-hidden';
 import WandIcon from '@ea11y-apps/scanner/icons/wand-icon';
 import { submitAltTextRemediation } from '@ea11y-apps/scanner/utils/submit-alt-text';
 import { speak } from '@wordpress/a11y';
@@ -24,6 +25,8 @@ import { useState, useCallback, useRef, useMemo } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 
 const BulkAltTextManager = ({ open, close }) => {
+	usePreventAriaHidden(open);
+
 	const { success, error } = useToastNotification();
 	const {
 		sortedViolations,
