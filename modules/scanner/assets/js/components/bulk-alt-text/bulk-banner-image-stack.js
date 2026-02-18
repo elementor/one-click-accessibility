@@ -9,7 +9,7 @@ const BulkBannerImageStack = ({ images, count }) => {
 				<Image
 					key={index}
 					src={images[index]}
-					alt={`Image ${index + 1}`}
+					alt=""
 					height={44}
 					sx={{
 						marginInlineStart: index > 0 ? -2 : 0,
