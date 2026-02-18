@@ -2,9 +2,10 @@ import CircleCheckFilledIcon from '@elementor/icons/CircleCheckFilledIcon';
 import CircularProgress from '@elementor/ui/CircularProgress';
 import Radio from '@elementor/ui/Radio';
 import PropTypes from 'prop-types';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 const CardSelectionIndicator = ({
+	imageLabel,
 	isLoading,
 	isSelected,
 	hasValidAltText,
@@ -24,6 +25,14 @@ const CardSelectionIndicator = ({
 		);
 	}
 
+	const label = imageLabel
+		? sprintf(
+				/* translators: %s: image file name or "Image" */
+				__('Add image %s to bulk alt text editing', 'pojo-accessibility'),
+				imageLabel,
+			)
+		: __('Add image to bulk alt text editing', 'pojo-accessibility');
+
 	return (
 		<Radio
 			checked={isSelected}
@@ -37,15 +46,14 @@ const CardSelectionIndicator = ({
 			}}
 			color={isSelected && hasValidAltText ? 'success' : 'info'}
 			onClick={onRadioClick}
-			aria-label={__(
-				'Add image to bulk alt text editing',
-				'pojo-accessibility',
-			)}
+			tabIndex={0}
+			aria-label={label}
 		/>
 	);
 };
 
 CardSelectionIndicator.propTypes = {
+	imageLabel: PropTypes.string,
 	isLoading: PropTypes.bool.isRequired,
 	isSelected: PropTypes.bool.isRequired,
 	hasValidAltText: PropTypes.bool,

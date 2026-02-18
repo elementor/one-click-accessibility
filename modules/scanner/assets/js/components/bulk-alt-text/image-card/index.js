@@ -11,6 +11,22 @@ import CardSelectionIndicator from './card-selection-indicator';
 import DecorativeCheckbox from './decorative-checkbox';
 import { StyledCard, PreviewWrapper } from './styled-components';
 
+const getImageLabel = (node) => {
+	if (!node) {
+		return __('Image', 'pojo-accessibility');
+	}
+	if (node.src) {
+		try {
+			const pathname = new URL(node.src).pathname;
+			const filename = pathname.split('/').pop();
+			return filename || __('Image', 'pojo-accessibility');
+		} catch {
+			return __('Image', 'pojo-accessibility');
+		}
+	}
+	return __('Image', 'pojo-accessibility');
+};
+
 const ImageCard = ({ item, current }) => {
 	const {
 		data,
@@ -67,6 +83,7 @@ const ImageCard = ({ item, current }) => {
 			>
 				<Grid container padding={2} justifyContent="center" bgcolor="#EBEBEB">
 					<CardSelectionIndicator
+						imageLabel={getImageLabel(item?.node)}
 						isLoading={isLoading}
 						isSelected={data?.[current]?.selected ?? false}
 						hasValidAltText={data?.[current]?.hasValidAltText}
