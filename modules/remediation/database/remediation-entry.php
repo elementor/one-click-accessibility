@@ -212,7 +212,11 @@ class Remediation_Entry extends Entry {
 				'operator' => '=',
 			],
 		];
-		$join = "LEFT JOIN $excluded_table ON $remediation_table.id = $excluded_table.remediation_id AND $excluded_table.page_url = '$url'";
+		// Use prepare() to safely bind the URL; never concatenate user input into SQL.
+		$join = Remediation_Table::db()->prepare(
+			"LEFT JOIN $excluded_table ON $remediation_table.id = $excluded_table.remediation_id AND $excluded_table.page_url = %s",
+			$url
+		);
 		return Remediation_Table::select( "$remediation_table.*, COALESCE($excluded_table.active, $remediation_table.active) AS active_for_page", $global_where, null, null, $join );
 	}
 
