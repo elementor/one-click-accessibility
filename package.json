@@ -3,7 +3,7 @@
 	"slug": "pojo-accessibility",
 	"homepage": "http://pojo.me/",
 	"description": "",
-	"version": "4.0.4",
+	"version": "4.1.0",
 	"scripts": {
 		"build": "NODE_ENV=production wp-scripts build",
 		"start": "NODE_ENV=development wp-scripts start",
