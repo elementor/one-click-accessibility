@@ -18,6 +18,7 @@ export const useSavedSettings = () => {
 		setAccessibilityStatementData,
 		setShowAccessibilityGeneratedInfotip,
 		setSkipToContentSettings,
+		setWidgetActivationSettings,
 		setDismissedQuotaNotices,
 	} = useSettings();
 
@@ -92,6 +93,7 @@ export const useSavedSettings = () => {
 					result.data.ea11y_accessibility_statement_data,
 				);
 			}
+
 			if (result?.data?.ea11y_show_accessibility_generated_page_infotip) {
 				setShowAccessibilityGeneratedInfotip(
 					result.data.ea11y_show_accessibility_generated_page_infotip,
@@ -100,6 +102,12 @@ export const useSavedSettings = () => {
 
 			if (result?.data?.ea11y_skip_to_content_settings) {
 				setSkipToContentSettings(result?.data?.ea11y_skip_to_content_settings);
+			}
+
+			if (result?.data?.ea11y_widget_activation_settings) {
+				setWidgetActivationSettings(
+					result?.data?.ea11y_widget_activation_settings,
+				);
 			}
 
 			if (result?.data?.ea11y_analytics_enabled) {

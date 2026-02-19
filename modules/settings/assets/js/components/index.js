@@ -1,4 +1,5 @@
-export { default as ConnectModal } from './connect-modal';
+// ConnectModal is lazy-loaded in app.js - do not export from barrel to prevent eager bundling
+// export { default as ConnectModal } from './connect-modal';
 export { default as MyAccountMenu } from './my-account-menu';
 export { default as PopupMenu } from './my-account-menu/popup-menu';
 export { default as HelpMenu } from './help-menu';
@@ -13,11 +14,13 @@ export { default as AlignmentMatrixControl } from './alignment-matrix-control';
 export { default as PositionControl } from './position-control';
 export { MenuItems } from '../components/sidebar-menu/menu';
 export { default as BottomBar } from './bottom-bar';
-export { default as PostConnectModal } from './post-connect-modal';
+// PostConnectModal is lazy-loaded in app.js - do not export from barrel to prevent eager bundling
+// export { default as PostConnectModal } from './post-connect-modal';
 export { default as StatementGenerator } from './statement-generator';
 export { default as AlertError } from './error';
 export { default as HtmlToTypography } from './html-to-typography';
 export { default as WidgetLoader } from './widget-loader';
+export { default as WidgetActivationSettings } from './widget-activation-settings';
 export { default as CopyLink } from './copy-link';
 export { default as EditLink } from './edit-link';
 export { default as GeneratedPageInfoTipCard } from './generated-page-infotip-card';
@@ -26,7 +29,8 @@ export { default as CapabilitiesItem } from './capabilities-item';
 export { default as ProItemInfotip } from './capabilities-item/pro-item-infotip';
 export { default as CustomSwitch } from './switch';
 export { default as ConfirmDialog } from '@ea11y-apps/global/components/confirm-dialog';
-export { default as UrlMismatchModal } from './url-mismatch-modal';
+// UrlMismatchModal is lazy-loaded in app.js - do not export from barrel to prevent eager bundling
+// export { default as UrlMismatchModal } from './url-mismatch-modal';
 export { default as WidgetIcon } from './widget-icon';
 export { default as CustomIcon } from './custom-icon';
 export { default as IconOptionWrapper } from './icon-option-wrapper';
@@ -35,5 +39,7 @@ export { default as QuotaBar } from './quota-bar';
 export { default as QuotaIndicator } from './quota-bar/quota-indicator';
 export { default as MenuItem } from './sidebar-menu/menu-item';
 export { default as QuotaBarGroup } from './quota-bar/quota-bar-group';
-export { default as OnboardingModal } from './onboarding-modal';
-export { default as GetStartedModal } from './help-menu/get-started-modal';
+// OnboardingModal is lazy-loaded in app.js - do not export from barrel to prevent eager bundling
+// export { default as OnboardingModal } from './onboarding-modal';
+// GetStartedModal is lazy-loaded in app.js - do not export from barrel to prevent eager bundling
+// export { default as GetStartedModal } from './help-menu/get-started-modal';

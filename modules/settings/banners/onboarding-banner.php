@@ -91,11 +91,6 @@ class Onboarding_Banner {
 		</div>
 
 		<style>
-			html[dir="rtl"] #ea11y-app,
-			html:not([dir="rtl"]) #ea11y-app {
-				height: calc(100vh - 32px - 80px);
-			}
-
 			.elementor-ea11y-banner {
 				overflow: hidden;
 				border-left-color: #2563EB;
@@ -177,7 +172,6 @@ class Onboarding_Banner {
 			document.addEventListener('DOMContentLoaded', function () {
 				const banner = document.querySelector('.elementor-ea11y-banner');
 				const button = document.querySelector('.elementor-ea11y-banner button');
-				const pageRoot = document.querySelector('#ea11y-app');
 
 				const requestData = {
 					action: "<?php echo esc_js( self::POINTER_ACTION ); ?>",
@@ -196,10 +190,6 @@ class Onboarding_Banner {
 								data: requestData,
 								success: () => {
 									banner.remove();
-
-									if (pageRoot) {
-										pageRoot.style.height = 'calc(100vh - 32px)';
-									}
 								},
 								error: (error) => console.error('Error:', error),
 							}

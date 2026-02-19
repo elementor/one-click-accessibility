@@ -17,15 +17,26 @@ body {
 }
 
 #ea11y-app {
-	position: relative;
+	position: fixed;
 	z-index: 1;
+	height: calc(100vh - 32px);
+	inset-block: 32px 0; /* 32px is for WP admin bar. */
+	inset-inline: 180px 0;
 	margin-inline-start: -20px;
 	background: #fff;
-	height: calc(100vh - 32px);
+}
+
+body.folded #ea11y-app {
+	inset-inline-start: 36px;
+	margin-inline-start: 0;
 }
 
 #ea11y-app * {
 	box-sizing: border-box;
+}
+
+#ea11y-app .wrap {
+	padding: 20px 40px 0;
 }
 
 .ea11y-textfield .MuiInputBase-input {

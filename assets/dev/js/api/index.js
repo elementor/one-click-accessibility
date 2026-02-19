@@ -24,16 +24,23 @@ class API {
 			}
 
 			if (!response.success) {
-				throw new APIError(response.data.message);
+				throw new APIError(
+					response.data.message,
+					response.data.code,
+					response.data,
+				);
 			}
 
 			return response.data;
 		} catch (e) {
 			if (e instanceof APIError) {
 				throw e;
-			} else {
-				throw new APIError(e.message);
 			}
+
+			// apiFetch throws an error with code and message at root level
+			// when WordPress REST API returns a WP_Error
+			// WordPress REST API error structure: { code, message, data }
+			throw new APIError(e.message, e.code, e.data);
 		}
 	}
 

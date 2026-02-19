@@ -3,7 +3,7 @@
 	"slug": "pojo-accessibility",
 	"homepage": "http://pojo.me/",
 	"description": "",
-	"version": "4.0.3",
+	"version": "4.1.0",
 	"scripts": {
 		"build": "NODE_ENV=production wp-scripts build",
 		"start": "NODE_ENV=development wp-scripts start",
@@ -15,7 +15,8 @@
 		"lint:js:fix": "wp-scripts lint-js --fix",
 		"lint:php": "composer run lint",
 		"lint:php:fix": "composer run lint:fix",
-		"prepare": "husky install",
+		"lint:php:report": "composer run lint:report",
+		"prepare": "husky",
 		"local:start": "wp-env start",
 		"local:stop": "wp-env stop",
 		"local:quick-run": "npx @wp-now/wp-now start",
@@ -41,7 +42,7 @@
 		"eslint-plugin-jsx-a11y": "^6.10.1",
 		"eslint-plugin-prettier": "^5.2.1",
 		"eslint-plugin-react": "^7.37.1",
-		"husky": "^9.1.6",
+		"husky": "^9.1.7",
 		"prettier": "^3.4.1"
 	},
 	"dependencies": {
@@ -68,7 +69,6 @@
 		"focus-trap-react": "^11.0.4",
 		"get-xpath": "^3.3.0",
 		"html-react-parser": "^5.2.2",
-		"husky": "^9.1.6",
 		"mixpanel-browser": "^2.58.0",
 		"postcss": "^8.5.6",
 		"prop-types": "^15.8.1",
