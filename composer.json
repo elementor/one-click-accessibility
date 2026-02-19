@@ -28,7 +28,6 @@
 		"lint:report": "vendor/bin/phpcs --report=summary --standard=./ruleset.xml ./**/*.php"
 	},
 	"require": {
-		"firebase/php-jwt": "^6.10",
 		"ext-json": "*",
 		"ext-fileinfo": "*",
 		"ext-curl": "*",
