@@ -245,7 +245,7 @@ const BulkAltTextManager = ({ open, close }) => {
 								},
 							}}
 							sx={{
-								maxWidth: '1178px',
+								maxWidth: '1200px',
 								margin: 'auto',
 							}}
 						>
