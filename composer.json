@@ -24,7 +24,8 @@
 	},
 	"scripts": {
 		"lint": "vendor/bin/phpcs --standard=./ruleset.xml ./**/*.php",
-		"lint:fix": "vendor/bin/phpcbf --standard=./ruleset.xml ./**/*.php "
+		"lint:fix": "vendor/bin/phpcbf --standard=./ruleset.xml ./**/*.php",
+		"lint:report": "vendor/bin/phpcs --report=summary --standard=./ruleset.xml ./**/*.php"
 	},
 	"require": {
 		"firebase/php-jwt": "^6.10",

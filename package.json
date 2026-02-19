@@ -15,6 +15,7 @@
 		"lint:js:fix": "wp-scripts lint-js --fix",
 		"lint:php": "composer run lint",
 		"lint:php:fix": "composer run lint:fix",
+		"lint:php:report": "composer run lint:report",
 		"prepare": "husky install",
 		"local:start": "wp-env start",
 		"local:stop": "wp-env stop",

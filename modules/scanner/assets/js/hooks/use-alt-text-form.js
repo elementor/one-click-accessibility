@@ -3,6 +3,7 @@ import { useToastNotification } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { APIScanner } from '@ea11y-apps/scanner/api/APIScanner';
 import { BLOCKS } from '@ea11y-apps/scanner/constants';
+import { useBulkGeneration } from '@ea11y-apps/scanner/context/bulk-generation-context';
 import { useScannerWizardContext } from '@ea11y-apps/scanner/context/scanner-wizard-context';
 import { scannerItem } from '@ea11y-apps/scanner/types/scanner-item';
 import { removeExistingFocus } from '@ea11y-apps/scanner/utils/focus-on-element';
@@ -12,8 +13,35 @@ import {
 	convertSvgToPngBase64,
 	svgNodeToPngBase64,
 } from '@ea11y-apps/scanner/utils/svg-to-png-base64';
+import { speak } from '@wordpress/a11y';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+
+export const getPayload = async (item) => {
+	if (item.node?.src) {
+		return item.node.src.toLowerCase().endsWith('.svg')
+			? { svg: await convertSvgToPngBase64(item.node.src) }
+			: { image: item.node.src };
+	}
+	return { svg: await svgNodeToPngBase64(item.node) };
+};
+
+export const generateAiAltText = async (item, signal = null) => {
+	const data = await getPayload(item);
+	const result = await APIScanner.generateAltText(data, signal);
+	const descriptions = splitDescriptions(result.data.response);
+
+	if (!descriptions[0]) {
+		throw new Error('No description generated');
+	}
+
+	return {
+		altText: descriptions[0],
+		aiText: descriptions,
+		apiId: result.data.apiId,
+		aiTextIndex: 0,
+	};
+};
 
 export const useAltTextForm = ({ current, item }) => {
 	const {
@@ -29,6 +57,12 @@ export const useAltTextForm = ({ current, item }) => {
 		setIsManageChanged,
 	} = useScannerWizardContext();
 	const { error } = useToastNotification();
+	const bulkGeneration = useBulkGeneration();
+
+	const currentGeneratingIndex = bulkGeneration?.currentGeneratingIndex;
+	const shouldAbort = bulkGeneration?.shouldAbort || { current: false };
+	const onCardComplete = bulkGeneration?.onCardComplete || (() => {});
+	const setQuotaExceeded = bulkGeneration?.setQuotaExceeded || (() => {});
 
 	const [loadingAiText, setLoadingAiText] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -39,14 +73,35 @@ export const useAltTextForm = ({ current, item }) => {
 		altTextData?.[type]?.[current]?.isGlobal || item.global || false;
 
 	const isGlobalRef = useRef(null);
+	const savedAltTextRef = useRef('');
+	const abortControllerRef = useRef(null);
+	const hasInitializedRef = useRef(false);
 
 	useEffect(() => {
 		if (item?.node) {
 			isGlobalRef.current = isGlobal;
+			if (altTextData?.[type]?.[current]?.hasValidAltText) {
+				savedAltTextRef.current = altTextData?.[type]?.[current]?.altText || '';
+			}
 		}
 	}, [current]);
 
 	useEffect(() => {
+		if (hasInitializedRef.current === current) {
+			return;
+		}
+
+		const hasExistingData =
+			altTextData?.[type]?.[current]?.hasValidAltText ||
+			altTextData?.[type]?.[current]?.altText ||
+			altTextData?.[type]?.[current]?.isGenerating ||
+			altTextData?.[type]?.[current]?.makeDecorative !== undefined;
+
+		if (hasExistingData) {
+			hasInitializedRef.current = current;
+			return;
+		}
+
 		if (isManage) {
 			updateData({
 				makeDecorative: item.data.attribute_name === 'role',
@@ -57,6 +112,8 @@ export const useAltTextForm = ({ current, item }) => {
 		} else {
 			updateData({ isGlobal });
 		}
+
+		hasInitializedRef.current = current;
 	}, [isManage, current]);
 
 	useEffect(() => {
@@ -67,6 +124,97 @@ export const useAltTextForm = ({ current, item }) => {
 		setFirstOpen(false);
 	}, [isResolved(BLOCKS.altText)]);
 
+	useEffect(() => {
+		const isMyTurn = currentGeneratingIndex === current;
+
+		if (!isMyTurn) {
+			return;
+		}
+
+		const itemData = altTextData?.[type]?.[current];
+		const hasValidAlt = itemData?.hasValidAltText;
+		const isDecorative = itemData?.makeDecorative;
+
+		const shouldGenerate = !hasValidAlt && !isDecorative;
+
+		if (shouldGenerate) {
+			const generateForCard = async () => {
+				if (shouldAbort.current) {
+					return;
+				}
+
+				updateData({ isGenerating: true });
+				abortControllerRef.current = new AbortController();
+
+				try {
+					const aiData = await generateAiAltText(
+						item,
+						abortControllerRef.current.signal,
+					);
+
+					if (shouldAbort.current) {
+						updateData({ isGenerating: false });
+						return;
+					}
+
+					updateData({
+						...aiData,
+						selected: true,
+						resolved: false,
+						hasValidAltText: true,
+						isDraft: false,
+						isGenerating: false,
+					});
+
+					speak(
+						__('Alt text generated successfully', 'pojo-accessibility'),
+						'polite',
+					);
+					sendMixpanelEvent(aiData.altText);
+					onCardComplete(true);
+				} catch (e) {
+					updateData({ isGenerating: false });
+
+					if (!shouldAbort.current) {
+						if (e?.code === 'quota_exceeded') {
+							const errorMessage =
+								e?.message ||
+								__(
+									'AI credits quota has been exceeded. Please upgrade your plan or wait for the next billing cycle.',
+									'pojo-accessibility',
+								);
+							speak(errorMessage, 'assertive');
+							setQuotaExceeded(errorMessage);
+							return; // Don't call onCardComplete
+						}
+
+						if (e?.code === 'quota_api_error') {
+							const errorMessage =
+								e?.message ||
+								__(
+									'There was an error in generating Alt text using AI. Please try again after sometime.',
+									'pojo-accessibility',
+								);
+							speak(errorMessage, 'assertive');
+							return; // Don't call onCardComplete
+						}
+
+						console.error(`Failed to generate AI text for card ${current}:`, e);
+						onCardComplete(false);
+					}
+				}
+			};
+
+			generateForCard();
+		}
+
+		return () => {
+			if (abortControllerRef.current) {
+				abortControllerRef.current.abort();
+			}
+		};
+	}, [currentGeneratingIndex]);
+
 	const setIsGlobal = (value) => {
 		updateData({
 			isGlobal: value,
@@ -74,17 +222,19 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const updateData = (data) => {
-		const updData = [...altTextData?.[type]];
-		if (altTextData?.[type]?.[current]?.resolved && !data.resolved) {
-			setResolved(resolved - 1);
-		}
-		updData[current] = {
-			...(altTextData?.[type]?.[current] || {}),
-			...data,
-		};
-		setAltTextData({
-			...altTextData,
-			[type]: updData,
+		setAltTextData((prevAltTextData) => {
+			const updData = [...(prevAltTextData?.[type] || [])];
+			if (prevAltTextData?.[type]?.[current]?.resolved && !data.resolved) {
+				setResolved((prev) => prev - 1);
+			}
+			updData[current] = {
+				...(prevAltTextData?.[type]?.[current] || {}),
+				...data,
+			};
+			return {
+				...prevAltTextData,
+				[type]: updData,
+			};
 		});
 	};
 
@@ -145,24 +295,100 @@ export const useAltTextForm = ({ current, item }) => {
 	};
 
 	const handleCheck = (e) => {
-		updateData({
-			makeDecorative: e.target.checked,
-			apiId: null,
-			resolved: false,
-		});
-		if (e.target.checked) {
+		const isChecking = e.target.checked;
+		const currentAltText = altTextData?.[type]?.[current]?.altText?.trim();
+
+		// Calculate the number of decorative images after this action
+		const currentDecorativeCount = (altTextData?.[type] || []).filter(
+			(itm) => itm?.makeDecorative === true,
+		).length;
+		const numOfImages = isChecking
+			? currentDecorativeCount + 1
+			: Math.max(0, currentDecorativeCount - 1);
+
+		// Determine if we're in bulk mode
+		const isBulkMode =
+			currentGeneratingIndex !== null && currentGeneratingIndex !== undefined;
+
+		if (isChecking) {
+			updateData({
+				makeDecorative: true,
+				apiId: null,
+				resolved: false,
+				hasValidAltText: true,
+				isDraft: false,
+				selected: true,
+			});
+			speak(__('Image marked as decorative', 'pojo-accessibility'), 'polite');
 			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
 				category_name: BLOCKS.altText,
+				type: isBulkMode ? 'bulk' : 'single',
+				num_of_images: numOfImages,
+				action_type: 'mark',
+			});
+		} else {
+			const hasAltText = !!currentAltText;
+			updateData({
+				makeDecorative: false,
+				apiId: null,
+				resolved: false,
+				hasValidAltText: hasAltText,
+				isDraft: false,
+				selected: hasAltText,
+			});
+			speak(__('Image unmarked as decorative', 'pojo-accessibility'), 'polite');
+			mixpanelService.sendEvent(mixpanelEvents.markAsDecorativeSelected, {
+				category_name: BLOCKS.altText,
+				type: isBulkMode ? 'bulk' : 'single',
+				num_of_images: numOfImages,
+				action_type: 'undo',
 			});
 		}
 	};
 
 	const handleChange = (e) => {
+		const wasValidBefore = altTextData?.[type]?.[current]?.hasValidAltText;
+
+		if (!altTextData?.[type]?.[current]?.isDraft) {
+			savedAltTextRef.current = altTextData?.[type]?.[current]?.altText || '';
+		}
+
 		updateData({
 			altText: e.target.value,
 			apiId: null,
 			resolved: false,
+			isDraft: true,
+			hasValidAltText: false,
+			selected: wasValidBefore
+				? false
+				: altTextData?.[type]?.[current]?.selected,
 		});
+	};
+
+	const handleSave = () => {
+		const altText = altTextData?.[type]?.[current]?.altText?.trim();
+		if (altText) {
+			savedAltTextRef.current = altText;
+			updateData({
+				hasValidAltText: true,
+				isDraft: false,
+				selected: true,
+			});
+			speak(__('Alt text saved', 'pojo-accessibility'), 'polite');
+		}
+	};
+
+	const handleCancel = () => {
+		const restoredHasValidAlt = !!savedAltTextRef.current;
+		updateData({
+			altText: savedAltTextRef.current,
+			isDraft: false,
+			hasValidAltText: restoredHasValidAlt,
+			selected: restoredHasValidAlt
+				? true
+				: altTextData?.[type]?.[current]?.selected,
+		});
+		speak(__('Changes discarded', 'pojo-accessibility'), 'polite');
 	};
 
 	const handleSubmit = async () => {
@@ -239,16 +465,9 @@ export const useAltTextForm = ({ current, item }) => {
 		}
 	};
 
-	const getPayload = async () => {
-		if (item.node?.src) {
-			return item.node.src.toLowerCase().endsWith('.svg')
-				? { svg: await convertSvgToPngBase64(item.node.src) }
-				: { image: item.node.src };
-		}
-		return { svg: await svgNodeToPngBase64(item.node) };
-	};
-
 	const sendMixpanelEvent = (text) => {
+		const isBulkMode =
+			currentGeneratingIndex !== null && currentGeneratingIndex !== undefined;
 		mixpanelService.sendEvent(mixpanelEvents.fixWithAiButtonClicked, {
 			issue_type: item.message,
 			rule_id: item.ruleId,
@@ -256,28 +475,51 @@ export const useAltTextForm = ({ current, item }) => {
 			category_name: BLOCKS.altText,
 			ai_text_response: text,
 			page_url: window.ea11yScannerData?.pageData?.url,
+			type: isBulkMode ? 'bulk' : 'single',
 		});
 	};
 
 	const getAiText = async () => {
 		setLoadingAiText(true);
-		const data = await getPayload();
 		try {
-			const result = await APIScanner.generateAltText(data);
-			const descriptions = splitDescriptions(result.data.response);
-			if (descriptions[0]) {
-				updateData({
-					altText: descriptions[0],
-					aiText: descriptions,
-					apiId: result.data.apiId,
-					aiTextIndex: 0,
-					resolved: false,
-				});
-				sendMixpanelEvent(descriptions[0]);
-			}
+			const aiData = await generateAiAltText(item);
+			updateData({
+				...aiData,
+				resolved: false,
+				hasValidAltText: true,
+				isDraft: false,
+				selected: true,
+			});
+			speak(
+				__('Alt text generated successfully', 'pojo-accessibility'),
+				'polite',
+			);
+			sendMixpanelEvent(aiData.altText);
 		} catch (e) {
 			console.log(e);
-			error(__('An error occurred.', 'pojo-accessibility'));
+
+			let errorMessage;
+
+			if (e?.code === 'quota_exceeded') {
+				errorMessage =
+					e?.message ||
+					__(
+						'AI credits quota has been exceeded. Please upgrade your plan or wait for the next billing cycle.',
+						'pojo-accessibility',
+					);
+			} else if (e?.code === 'quota_api_error') {
+				errorMessage =
+					e?.message ||
+					__(
+						'Quota API error. Try again after sometime.',
+						'pojo-accessibility',
+					);
+			} else {
+				errorMessage = __('An error occurred.', 'pojo-accessibility');
+			}
+
+			error(errorMessage);
+			speak(errorMessage, 'assertive');
 		} finally {
 			setLoadingAiText(false);
 		}
@@ -297,6 +539,10 @@ export const useAltTextForm = ({ current, item }) => {
 				resolved: false,
 			});
 
+			speak(
+				__('Alternative suggestion loaded', 'pojo-accessibility'),
+				'polite',
+			);
 			sendMixpanelEvent(altTextData?.[type]?.[current]?.aiText[index]);
 		} else {
 			await getAiText();
@@ -324,13 +570,79 @@ export const useAltTextForm = ({ current, item }) => {
 		loading,
 		handleCheck,
 		handleChange,
+		handleSave,
+		handleCancel,
 		handleSubmit,
 		handleUpdate,
 		generateAltText,
+		updateData,
 	};
 };
 
 useAltTextForm.propTypes = {
 	current: PropTypes.number.isRequired,
 	item: scannerItem.isRequired,
+};
+
+export const submitAltTextRemediation = async ({
+	item,
+	altText,
+	makeDecorative,
+	isGlobal,
+	apiId,
+	currentScanId,
+	updateRemediationList,
+}) => {
+	const makeAttributeData = () => {
+		if (makeDecorative) {
+			return {
+				attribute_name: 'role',
+				attribute_value: 'presentation',
+			};
+		}
+
+		if (item.node.tagName === 'svg') {
+			return {
+				attribute_name: 'aria-label',
+				attribute_value: altText,
+			};
+		}
+
+		return {
+			attribute_name: 'alt',
+			attribute_value: altText,
+		};
+	};
+
+	const match = item.node.className.toString().match(/wp-image-(\d+)/);
+	const finalAltText = !makeDecorative ? altText : '';
+	const find = item.snippet;
+
+	try {
+		if (match && item.node.tagName !== 'svg') {
+			void APIScanner.submitAltText(item.node.src, finalAltText);
+		}
+		const response = await APIScanner.submitRemediation({
+			url: window?.ea11yScannerData?.pageData.url,
+			remediation: {
+				...makeAttributeData(),
+				action: 'add',
+				xpath: item.path.dom,
+				find,
+				category: item.reasonCategory.match(/\((AAA?|AA?|A)\)/)?.[1] || '',
+				type: 'ATTRIBUTE',
+			},
+			global: isGlobal,
+			rule: item.ruleId,
+			group: BLOCKS.altText,
+			apiId,
+		});
+
+		await APIScanner.resolveIssue(currentScanId);
+		void updateRemediationList();
+		return response.remediation;
+	} catch (e) {
+		console.warn(e);
+		throw e;
+	}
 };

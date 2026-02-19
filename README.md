@@ -227,8 +227,9 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 ## Changelog
 
-### 4.0.4 – 2026-02-17
+### 4.1.0 – 2026-02-19
 
+* New: Added bulk remediation flow to generate AI alt text or mark multiple images as decorative
 * Tweak: Added the ability to disable the accessibility widget to prevent it from loading on your site
 * Fix: Display WordPress admin notices inside the settings page
 
