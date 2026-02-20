@@ -191,9 +191,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
-= 4.1.0 – 2026-02-19 =
+= 4.1.0 – 2026-02-23 =
 * New: Added bulk remediation flow to generate AI alt text or mark multiple images as decorative
 * Tweak: Added the ability to disable the accessibility widget to prevent it from loading on your site
+* Tweak: Security enhancement to prevent potential SQL injection
+* Tweak: Security enhancement to remove unsecure composer package
 * Fix: Display WordPress admin notices inside the settings page
 
 = 4.0.3 – 2026-01-28 =
