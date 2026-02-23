@@ -73,12 +73,16 @@ export class APIScanner extends API {
 		});
 	}
 
-	static async generateAltText(data) {
-		return APIScanner.request({
+	static async generateAltText(data, signal = null) {
+		const config = {
 			method: 'POST',
 			path: `${v1Prefix}/scanner/generate-alt-text`,
 			data,
-		});
+		};
+		if (signal) {
+			config.signal = signal;
+		}
+		return APIScanner.request(config);
 	}
 
 	static async resolveWithAI(data) {

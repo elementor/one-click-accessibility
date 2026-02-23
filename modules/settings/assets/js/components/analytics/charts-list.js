@@ -23,6 +23,7 @@ import {
 } from '@ea11y/components/analytics/skeleton';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { dateI18n } from '@wordpress/date';
+import { Suspense } from '@wordpress/element';
 import { __, sprintf } from '@wordpress/i18n';
 import { useAnalyticsContext } from '../../contexts/analytics-context';
 
@@ -152,10 +153,22 @@ export const ChartsList = () => {
 
 			<Grid container spacing={4}>
 				<Grid item xs={12} lg={6}>
-					{isLoading ? <LineChartSkeleton animated={loading} /> : <LineChart />}
+					{isLoading ? (
+						<LineChartSkeleton animated={loading} />
+					) : (
+						<Suspense fallback={<LineChartSkeleton animated={false} />}>
+							<LineChart />
+						</Suspense>
+					)}
 				</Grid>
 				<Grid item xs={12} lg={6}>
-					{isLoading ? <PieChartSkeleton animated={loading} /> : <PieChart />}
+					{isLoading ? (
+						<PieChartSkeleton animated={loading} />
+					) : (
+						<Suspense fallback={<PieChartSkeleton animated={false} />}>
+							<PieChart />
+						</Suspense>
+					)}
 				</Grid>
 				<Grid item xs={12}>
 					{isLoading ? (

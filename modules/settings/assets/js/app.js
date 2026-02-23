@@ -8,14 +8,6 @@ import DirectionProvider from '@elementor/ui/DirectionProvider';
 import Grid from '@elementor/ui/Grid';
 import { styled, ThemeProvider } from '@elementor/ui/styles';
 import {
-	ConnectModal,
-	GetStartedModal,
-	MenuItems,
-	OnboardingModal,
-	PostConnectModal,
-	UrlMismatchModal,
-} from '@ea11y/components';
-import {
 	useNotificationSettings,
 	useSavedSettings,
 	useSettings,
@@ -23,10 +15,43 @@ import {
 import { QuotaNotices, Sidebar } from '@ea11y/layouts';
 import Notifications from '@ea11y-apps/global/components/notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { useEffect } from '@wordpress/element';
+import { lazy, Suspense, useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { MenuItems } from './components/sidebar-menu/menu';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
 import PageContent from './page-content';
+
+// Lazy load modals - load them only when needed
+const ConnectModal = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "chunk-modal-connect" */ './components/connect-modal'
+		),
+);
+const PostConnectModal = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "chunk-modal-post-connect" */ './components/post-connect-modal'
+		),
+);
+const UrlMismatchModal = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "chunk-modal-url-mismatch" */ './components/url-mismatch-modal'
+		),
+);
+const OnboardingModal = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "chunk-modal-onboarding" */ './components/onboarding-modal'
+		),
+);
+const GetStartedModal = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "chunk-modal-get-started" */ './components/help-menu/get-started-modal'
+		),
+);
 
 const App = () => {
 	const { ea11ySettingsData } = window;
@@ -74,13 +99,15 @@ const App = () => {
 						onDisconnect={refreshPluginSettings}
 					/>
 
-					{isConnected !== undefined && !isUrlMismatch && !isConnected && (
-						<ConnectModal />
-					)}
-					{isConnected && !closePostConnectModal && <PostConnectModal />}
-					{isUrlMismatch && <UrlMismatchModal />}
-					<OnboardingModal />
-					<GetStartedModal />
+					<Suspense fallback={null}>
+						{isConnected !== undefined && !isUrlMismatch && !isConnected && (
+							<ConnectModal />
+						)}
+						{isConnected && !closePostConnectModal && <PostConnectModal />}
+						{isUrlMismatch && <UrlMismatchModal />}
+						<OnboardingModal />
+						<GetStartedModal />
+					</Suspense>
 
 					<StyledGrid>
 						<Sidebar />

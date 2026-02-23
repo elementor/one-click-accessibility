@@ -1,7 +1,7 @@
-import mixpanel from 'mixpanel-browser';
-
 const SHARE_USAGE_DATA = 'share_usage_data';
 const MIXPANEL_TOKEN = '150605b3b9f979922f2ac5a52e2dcfe9';
+
+let mixpanel = null;
 
 const init = async () => {
 	const { ea11ySettingsData, ea11yScannerData } = window;
@@ -16,6 +16,14 @@ const init = async () => {
 		return;
 	}
 
+	// Lazy load mixpanel
+	if (!mixpanel) {
+		const mixpanelModule = await import(
+			/* webpackChunkName: "chunk-mixpanel-browser" */ 'mixpanel-browser'
+		);
+		mixpanel = mixpanelModule.default;
+	}
+
 	const pluginEnv = ea11ySettingsData?.pluginEnv || ea11yScannerData?.pluginEnv;
 	const pluginVersion =
 		ea11ySettingsData?.pluginVersion || ea11yScannerData?.pluginVersion;
@@ -24,6 +32,8 @@ const init = async () => {
 		debug: pluginEnv === 'dev',
 		track_pageview: false,
 		persistence: 'localStorage',
+		record_sessions_percent: 2,
+		record_heatmap_data: true,
 	});
 
 	mixpanel.register({
@@ -51,7 +61,7 @@ const init = async () => {
 };
 
 const sendEvent = (name, event) => {
-	if (mixpanel.__loaded) {
+	if (mixpanel?.__loaded) {
 		mixpanel.track(name, event);
 	}
 };
