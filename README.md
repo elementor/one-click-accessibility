@@ -234,6 +234,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Tweak: Security enhancement to prevent potential SQL injection
 * Tweak: Security enhancement to remove unsecure composer package
 * Fix: Display WordPress admin notices inside the settings page
+* Fix: Resolved conflict in Beaver Builder by preventing remediation runner from executing during page builder sessions
 
 ### 4.0.3 – 2026-01-28
 
