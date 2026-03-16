@@ -19,7 +19,6 @@ class Module extends Module_Base {
 			'Pointers',
 			'Notices',
 			'Skip_Link',
-			'Renewal_Notice',
 			'Revert_To_Legacy',
 			'Svg',
 		];
