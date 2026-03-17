@@ -1,0 +1,171 @@
+:root {
+	--ea11y-notice-dismiss-icon: #1e1e1e;
+	--ea11y-notice-error: #dc2626;
+	--ea11y-notice-error-bg: #fde8ec;
+	--ea11y-notice-error-custom-border: #93003f;
+	--ea11y-notice-white: #fff;
+	--ea11y-notice-warning-bg: #fef8ee;
+	--ea11y-notice-warning-border: #f0b849;
+	--ea11y-notice-warning-btn: #bb5b1d;
+	--ea11y-notice-warning-btn-hover: rgb(187 91 29 / 0.08);
+	--ea11y-notice-success-bg: #eff9f1;
+	--ea11y-notice-success-border: #4ab866;
+	--ea11y-notice-info-bg: #f1f6fb;
+	--ea11y-notice-info-border: #0288d1;
+	--ea11y-notice-pink-border: #d8d8da;
+	--ea11y-notice-pink-accent: #ff7be5;
+	--ea11y-notice-pink-text: #444950;
+	--ea11y-notice-pink-link: #d004d4;
+	--ea11y-notice-pink-icon-bg: #fae8ff;
+	--ea11y-notice-heading: #0c0d0e;
+	--ea11y-notice-subheading: #6d7882;
+	--ea11y-notice-error-btn-hover: rgb(220 38 38 / 0.08);
+}
+
+.ea11y__notice {
+	padding: 12px;
+	border: none;
+}
+
+.ea11y__notice p {
+	margin: 0;
+}
+
+.ea11y__notice .notice-dismiss::before {
+	content: "\f335";
+	font-family: dashicons, sans-serif;
+	font-weight: 400;
+	font-size: 22px;
+	line-height: 24px;
+	color: var(--ea11y-notice-dismiss-icon);
+	width: 24px;
+}
+
+.ea11y__notice button:not(.notice-dismiss) {
+	display: block;
+	padding: 0;
+	background: none;
+	color: var(--ea11y-notice-error);
+	border: none;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1.5;
+	letter-spacing: -0.247px;
+	text-decoration-line: underline;
+	cursor: pointer;
+}
+
+.ea11y__notice--error {
+	background-color: var(--ea11y-notice-error-bg);
+	border-inline-start: 4px solid var(--ea11y-notice-error);
+}
+
+.ea11y__notice--error-custom {
+	background-color: var(--ea11y-notice-white);
+	border-inline-start: 4px solid var(--ea11y-notice-error-custom-border);
+}
+
+.ea11y__notice--warning {
+	background-color: var(--ea11y-notice-warning-bg);
+	border-inline-start: 4px solid var(--ea11y-notice-warning-border);
+}
+
+.ea11y__notice--success {
+	background-color: var(--ea11y-notice-success-bg);
+	border-inline-start: 4px solid var(--ea11y-notice-success-border);
+}
+
+.ea11y__notice--info {
+	background-color: var(--ea11y-notice-info-bg);
+	border-inline-start: 4px solid var(--ea11y-notice-info-border);
+}
+
+.ea11y__renewal-notice {
+	border-inline-start: none;
+}
+
+.ea11y__notice--pink {
+	padding-left: 54px;
+	position: relative;
+	background-color: var(--ea11y-notice-white);
+	border: 1px solid var(--ea11y-notice-pink-border);
+	border-inline-start: 4px solid var(--ea11y-notice-pink-accent);
+}
+
+.ea11y__notice--pink b {
+	font-weight: 500;
+	color: var(--ea11y-notice-pink-text);
+}
+
+.ea11y__notice--pink a {
+	font-weight: 500;
+	color: var(--ea11y-notice-pink-link);
+	margin-inline-start: 10px;
+	text-decoration: none;
+}
+
+.ea11y__notice--pink .ea11y__icon-block {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 48px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	background-color: var(--ea11y-notice-pink-icon-bg);
+}
+
+.ea11y__notice .primary-heading {
+	font-size: 17px;
+	color: var(--ea11y-notice-heading);
+	font-weight: 700;
+	margin-bottom: 8px;
+}
+
+.ea11y__notice .sub-heading {
+	font-size: 13px;
+	color: var(--ea11y-notice-subheading);
+	margin-top: 0;
+	margin-bottom: 12px;
+}
+
+/** Renewal notice styles **/
+
+.ea11y__content-block {
+	display: flex;
+	gap: 15px;
+}
+
+.ea11y__content-block .ea11y__notice-content {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+}
+
+.ea11y__renewal-notice-btn {
+	text-decoration: none;
+	padding: 4px 10px;
+	border-radius: 4px;
+	width: auto;
+}
+
+.ea11y__renewal-notice.ea11y__notice--warning .ea11y__renewal-notice-btn {
+	color: var(--ea11y-notice-warning-btn);
+	border: 1px solid var(--ea11y-notice-warning-btn);
+}
+
+.ea11y__renewal-notice.ea11y__notice--error .ea11y__renewal-notice-btn {
+	color: var(--ea11y-notice-error);
+	border: 1px solid var(--ea11y-notice-error);
+}
+
+.ea11y__renewal-notice.ea11y__notice--warning .ea11y__renewal-notice-btn:hover {
+	background: var(--ea11y-notice-warning-btn-hover);
+}
+
+.ea11y__renewal-notice.ea11y__notice--error .ea11y__renewal-notice-btn:hover {
+	background-color: var(--ea11y-notice-error-btn-hover);
+}
