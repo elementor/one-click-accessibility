@@ -23,8 +23,8 @@ class Quota_100 extends Notice_Base {
 	public function content(): string {
 		$plan = Settings::get( Settings::PLAN_DATA )->plan->name;
 
-		if ( $plan === 'Free' ) {
-			return sprintf( '<h3>%s</h3><p>%s</p><p><a class="button button-primary ea11y-dismiss-button" style="background-color: #93003F; border-color: #93003F;" href="%s">%s</a></p>',
+		if ( 'Free' === $plan ) {
+			return sprintf( '<h3>%s</h3><p>%s</p><p><a class="button button-primary ea11y-dismiss-button" style="background-color: #93003F; border-color: #93003F; color: #fff;" href="%s">%s</a></p>',
 				__( 'You’ve reached your free plan limit', 'pojo-accessibility' ),
 				__( 'Upgrade to scan more pages, unlock AI fixes, and access all accessibility features.', 'pojo-accessibility' ),
 				SettingsModule::get_upgrade_link( 'acc-100-quota' ),
@@ -32,7 +32,7 @@ class Quota_100 extends Notice_Base {
 			);
 		}
 
-		return sprintf( '<h3>%s</h3><p>%s</p><p><a class="button button-primary ea11y-dismiss-button" style="background-color: #93003F; border-color: #93003F;" href="%s">%s</a></p>',
+		return sprintf( '<h3>%s</h3><p>%s</p><p><a class="button button-primary ea11y-dismiss-button" style="background-color: #93003F; border-color: #93003F; color: #fff;" href="%s">%s</a></p>',
 			__( 'You’ve reached your monthly plan usage', 'pojo-accessibility' ),
 			__( 'Upgrade now to raise your limit and maintain complete access to all accessibility features.', 'pojo-accessibility' ),
 			SettingsModule::get_upgrade_link( 'acc-100-quota' ),
