@@ -157,8 +157,7 @@ class Notice_Base {
 	}
 
 	public function render() {
-		echo sprintf(
-			'<div class="notice_wrapper notice %1$s notice-%2$s %2$s %3$s" data-notice-id="%3$s" data-notice-action="%4$s" data-notice-nonce="%5$s" role="region" aria-label="%6$s">%7$s</div>',
+		echo sprintf( '<div class="notice_wrapper notice %1$s notice-%2$s %2$s %3$s" data-notice-id="%3$s" data-notice-action="%4$s" data-notice-nonce="%5$s" role="region" aria-label="%6$s">%7$s</div>',
 			$this->is_dismissible ? 'ea11y-dismiss is-dismissible' : '',
 			esc_attr( $this->type ),
 			esc_attr( $this->get_id() ),
