@@ -163,6 +163,7 @@ class Notice_Base {
 			esc_attr( $this->type ),
 			esc_attr( $this->get_id() ),
 			esc_attr( $this->get_action_name() ),
+			wp_create_nonce( $this->get_action_name() ),
 			esc_attr__( 'Notice', 'pojo-accessibility' ),
 			$this->content()
 		);
