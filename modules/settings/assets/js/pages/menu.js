@@ -1,6 +1,6 @@
 import Box from '@elementor/ui/Box';
 import { styled } from '@elementor/ui/styles';
-import { BottomBar } from '@ea11y/components';
+import { BottomBar, WidgetActivationSettings } from '@ea11y/components';
 import SkipToContentSettings from '@ea11y/components/skip-to-content-settings';
 import { MenuSettings, WidgetPreview } from '@ea11y/layouts';
 import {
@@ -32,6 +32,8 @@ const Menu = () => {
 				</StyledSettingsWrapper>
 
 				<SkipToContentSettings />
+
+				<WidgetActivationSettings />
 			</StyledWideBox>
 			<BottomBar />
 		</StyledBox>

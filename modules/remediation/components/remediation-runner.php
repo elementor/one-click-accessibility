@@ -140,7 +140,22 @@ class Remediation_Runner {
 		return false;
 	}
 
+	private function is_builders_view(): bool {
+		// Condition used instead of direct return for feature extend
+
+		// Beaver Builder
+		if ( isset( $_GET['fl_builder'] ) || isset( $_GET['fl_builder_ui'] ) ) {
+			return true;
+		}
+		return false;
+	}
+
 	private function should_run_remediation(): bool {
+		// Skip remediation for editors view
+		if ( $this->is_builders_view() ) {
+			return false;
+		}
+
 		// Skip remediation during template_redirect AJAX requests
 		if ( $this->is_template_redirect_ajax_request() ) {
 			return false;

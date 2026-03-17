@@ -149,6 +149,7 @@ class Module extends Module_Base {
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
 			'isElementorOne' => self::is_elementor_one(),
+			'widgetActivationSettings' => Settings::get( Settings::WIDGET_ACTIVATION ),
 		];
 	}
 
@@ -398,6 +399,10 @@ class Module extends Module_Base {
 			'anchor' => '#content',
 		];
 
+		$widget_activation = [
+			'enabled' => true,
+		];
+
 		switch ( $setting ) {
 			case 'widget_menu_settings':
 				return $widget_menu_settings;
@@ -405,6 +410,8 @@ class Module extends Module_Base {
 				return $widget_icon_settings;
 			case 'skip_to_content_settings':
 				return $skip_to_content_setting;
+			case 'widget_activation_settings':
+				return $widget_activation;
 			default:
 				return [];
 		}
@@ -426,6 +433,10 @@ class Module extends Module_Base {
 
 		if ( ! get_option( Settings::SKIP_TO_CONTENT ) ) {
 			update_option( Settings::SKIP_TO_CONTENT, self::get_default_settings( 'skip_to_content_settings' ) );
+		}
+
+		if ( ! get_option( Settings::WIDGET_ACTIVATION ) ) {
+			update_option( Settings::WIDGET_ACTIVATION, self::get_default_settings( 'widget_activation_settings' ) );
 		}
 	}
 
@@ -489,6 +500,15 @@ class Module extends Module_Base {
 				],
 			],
 			'skip_to_content_settings' => [
+				'type' => 'object',
+				'show_in_rest' => [
+					'schema' => [
+						'type' => 'object',
+						'additionalProperties' => true,
+					],
+				],
+			],
+			'widget_activation_settings' => [
 				'type' => 'object',
 				'show_in_rest' => [
 					'schema' => [
@@ -655,16 +675,6 @@ class Module extends Module_Base {
 	}
 
 	/**
-	 * Hide all admin notices on the settings page
-	 */
-	public function hide_admin_notices() {
-		if ( Utils::is_plugin_settings_page() ) {
-			remove_all_actions( 'admin_notices' );
-			remove_all_actions( 'all_admin_notices' );
-		}
-	}
-
-	/**
 	 * Module constructor.
 	 */
 	public function __construct() {
@@ -681,7 +691,6 @@ class Module extends Module_Base {
 		add_action( 'elementor_one/' . Config::APP_PREFIX . '_migration_run', [ $this, 'on_migration_run' ] );
 
 		add_action( 'current_screen', [ $this, 'check_plan_data' ] );
-		add_action( 'admin_head', [ $this, 'hide_admin_notices' ] );
 
 		// Register notices
 		add_action( 'ea11y_register_notices', [ $this, 'register_notices' ] );

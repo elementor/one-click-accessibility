@@ -101,6 +101,10 @@ export const SettingsProvider = ({ children }) => {
 		enabled: true,
 	});
 
+	const [widgetActivationSettings, setWidgetActivationSettings] = useState({
+		enabled: true,
+	});
+
 	const [planData, setPlanData] = useState(null);
 
 	// Track settings changes to enable/disable Save Changes button
@@ -196,6 +200,8 @@ export const SettingsProvider = ({ children }) => {
 				setWidgetMenuSettings,
 				skipToContentSettings,
 				setSkipToContentSettings,
+				widgetActivationSettings,
+				setWidgetActivationSettings,
 				skipToContentHasChanges,
 				setSkipToContentHasChanges,
 				hideMinimumOptionAlert,

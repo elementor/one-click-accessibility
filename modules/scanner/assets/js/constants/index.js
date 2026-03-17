@@ -23,6 +23,7 @@ export const RATIO_EXCLUDED = 1;
 export const UPGRADE_URL = 'https://go.elementor.com/acc-free-no-AI-scanner';
 export const UPGRADE_GLOBAL_URL =
 	'https://go.elementor.com/acc-global-remediation';
+export const BULK_UPGRADE_URL = 'https://go.elementor.com/acc-bulk-alt-text';
 export const COMPARE_PLAN_URL = 'https://go.elementor.com/acc-AI-limit-scanner';
 export const PAGE_LIMIT_URL = 'https://go.elementor.com/acc-URL-limit-scanner';
 
