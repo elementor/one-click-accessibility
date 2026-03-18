@@ -19,8 +19,6 @@ class Renewal_Notice extends Notice_Base {
 
 	const DISMISSED_AT_USER_META = 'ea11y_renewal_notice_dismissed_at';
 
-	const MS_IN_ONE_DAY = 86400000;
-
 	/**
 	 * @var bool
 	 */
@@ -157,7 +155,7 @@ class Renewal_Notice extends Notice_Base {
 		if ( ! $dismissed_at || ! is_numeric( $dismissed_at ) ) {
 			return false;
 		}
-		return ( time() * 1000 - (int) $dismissed_at ) < self::MS_IN_ONE_DAY;
+		return ( time() - (int) $dismissed_at ) < DAY_IN_SECONDS;
 	}
 
 	public function dismiss_per_user(): void {
@@ -165,7 +163,7 @@ class Renewal_Notice extends Notice_Base {
 		if ( ! $user_id ) {
 			wp_send_json_error( [ 'message' => 'Invalid user' ] );
 		}
-		update_user_meta( $user_id, self::DISMISSED_AT_USER_META, (string) ( time() * 1000 ) );
+		update_user_meta( $user_id, self::DISMISSED_AT_USER_META, (string) time() );
 	}
 
 	public function maybe_set_conditions() {
