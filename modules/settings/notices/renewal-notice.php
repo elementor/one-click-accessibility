@@ -82,7 +82,7 @@ class Renewal_Notice extends Notice_Base {
 	}
 
 	public function get_renewal_text(): array {
-		if ( 1 === 1 ) {
+		if ( $this->days_diff <= 30 && $this->days_diff > 0 ) {
 			return [
 				'title'       => esc_html__( 'Ally Subscription Ending Soon!', 'pojo-accessibility' ),
 				'description' => esc_html__( 'Renew now to keep access to Ally Assistant and continue improving your website\'s accessibility with guided fixes and scans.', 'pojo-accessibility' ),
