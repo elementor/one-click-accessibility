@@ -122,7 +122,7 @@ class Renewal_Notice extends Notice_Base {
 		$this->type = $text['type'];
 		$icon = $this->get_notice_icon( $text['type'] );
 		return sprintf(
-			'<div class="ea11y__notice-icon">%s</div><div class="ea11y__notice-content"><b>%s</b><span>%s</span><a class="ea11y__renewal-notice-btn" href="%s" target="_blank" rel="noopener noreferrer">%s</a></div>',
+			'<div class="ea11y__notice-icon" aria-hidden="true">%s</div><div class="ea11y__notice-content"><b>%s</b><span>%s</span><a class="ea11y__renewal-notice-btn" href="%s" target="_blank" rel="noopener noreferrer">%s</a></div>',
 			$icon,
 			$text['title'],
 			$text['description'],
@@ -138,7 +138,8 @@ class Renewal_Notice extends Notice_Base {
 		$text = ( null !== $this->days_diff ) ? $this->get_renewal_text() : [ 'type' => $this->type ];
 		$type_attr = isset( $text['type'] ) ? $text['type'] : $this->type;
 		printf(
-			'<div class="notice notice-info ea11y-dismiss is-dismissible ea11y__notice ea11y__notice--%1$s ea11y__renewal-notice" data-notice-id="%2$s" data-notice-action="%3$s" data-notice-nonce="%4$s"><div class="ea11y__content-block">%5$s</div></div>',
+			'<div role="region" aria-label="%1$s" class="notice notice-info ea11y-dismiss is-dismissible ea11y__notice ea11y__notice--%2$s ea11y__renewal-notice" data-notice-id="%3$s" data-notice-action="%4$s" data-notice-nonce="%5$s"><div class="ea11y__content-block">%6$s</div></div>',
+			esc_attr__( 'Notice', 'pojo-accessibility' ),
 			esc_attr( $type_attr ),
 			esc_attr( $this->get_id() ),
 			esc_attr( $this->get_action_name() ),

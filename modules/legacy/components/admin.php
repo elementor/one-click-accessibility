@@ -87,19 +87,19 @@ class Admin {
 			}
 		</style>
 		<div role="region" aria-label="<?php esc_attr_e( 'Notice', 'pojo-accessibility' ); ?>" class="notice is-dismissible a11y-notice a11y-install-elementor">
-				<div class="a11y-notice-icon">
+			<div class="a11y-notice-icon">
 				<svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M14.0035 3.98515e-07C8.34084 -0.00134594 3.23499 3.40874 1.06704 8.64C-1.10092 13.8713 0.0960255 19.8934 4.09968 23.898C8.10333 27.9026 14.1252 29.1009 19.3569 26.9342C24.5887 24.7675 28 19.6625 28 13.9998C28 6.26922 21.7341 0.00183839 14.0035 3.98515e-07Z" fill="#92003B"/>
-						<rect x="8.1687" y="8.16504" width="2.3333" height="11.6665" fill="white"/>
-						<rect x="12.8352" y="17.498" width="6.9999" height="2.3333" fill="white"/>
-						<rect x="12.8352" y="12.8315" width="6.9999" height="2.3333" fill="white"/>
-						<rect x="12.8352" y="8.16504" width="6.9999" height="2.3333" fill="white"/>
-					</svg>
-				</div>
-				<div class="a11y-notice-content">
-					<h3><?php esc_html_e( 'Do You Like One Click Accessibility? You\'ll Love Elementor!', 'pojo-accessibility' ); ?></h3>
-					<p><?php esc_html_e( 'Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design. The most advanced frontend drag & drop page builder.', 'pojo-accessibility' ); ?>
-						<a href="https://elementor.com/?utm_source=accessibility&utm_medium=wp-dash&utm_campaign=notice" target="_blank"><?php esc_html_e( 'Learn more about Elementor', 'pojo-accessibility' ); ?></a>.</p>
+					<path d="M14.0035 3.98515e-07C8.34084 -0.00134594 3.23499 3.40874 1.06704 8.64C-1.10092 13.8713 0.0960255 19.8934 4.09968 23.898C8.10333 27.9026 14.1252 29.1009 19.3569 26.9342C24.5887 24.7675 28 19.6625 28 13.9998C28 6.26922 21.7341 0.00183839 14.0035 3.98515e-07Z" fill="#92003B"/>
+					<rect x="8.1687" y="8.16504" width="2.3333" height="11.6665" fill="white"/>
+					<rect x="12.8352" y="17.498" width="6.9999" height="2.3333" fill="white"/>
+					<rect x="12.8352" y="12.8315" width="6.9999" height="2.3333" fill="white"/>
+					<rect x="12.8352" y="8.16504" width="6.9999" height="2.3333" fill="white"/>
+				</svg>
+			</div>
+			<div class="a11y-notice-content">
+				<h3><?php esc_html_e( 'Do You Like One Click Accessibility? You\'ll Love Elementor!', 'pojo-accessibility' ); ?></h3>
+				<p><?php esc_html_e( 'Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design. The most advanced frontend drag & drop page builder.', 'pojo-accessibility' ); ?>
+					<a href="https://elementor.com/?utm_source=accessibility&utm_medium=wp-dash&utm_campaign=notice" target="_blank"><?php esc_html_e( 'Learn more about Elementor', 'pojo-accessibility' ); ?></a>.</p>
 				<div class="a11y-install-now">
 					<a class="button a11y-install-button" href="<?php echo $install_url; ?>"><?php esc_html_e( 'Install Now For Free!', 'pojo-accessibility' ); ?></a>
 				</div>
