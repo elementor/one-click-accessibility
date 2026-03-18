@@ -1,0 +1,50 @@
+name: Update wp-one-package
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'New version of elementor/wp-one-package (e.g. 1.0.51)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source branch
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.CLOUD_DEVOPS_TOKEN }}
+
+      - name: Create branch
+        run: |
+          BRANCH_NAME="update/wp-one-package-${{ inputs.version }}"
+          git checkout -b "${BRANCH_NAME}"
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> $GITHUB_ENV
+
+      - name: Update wp-one-package version in composer.json
+        run: |
+          jq '.require["elementor/wp-one-package"] = "${{ inputs.version }}"' composer.json > composer.tmp && mv composer.tmp composer.json
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add composer.json
+          git commit -m "Update elementor/wp-one-package to ${{ inputs.version }}"
+          git push origin "${BRANCH_NAME}"
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.CLOUD_DEVOPS_TOKEN }}
+        run: |
+          gh pr create \
+            --base "${{ github.ref_name }}" \
+            --head "${BRANCH_NAME}" \
+            --title "Update elementor/wp-one-package to ${{ inputs.version }}" \
+            --body "Updates \`elementor/wp-one-package\` composer package to version \`${{ inputs.version }}\`."
