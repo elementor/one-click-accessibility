@@ -20,7 +20,7 @@ class Sticky_Deprecated_Nag extends Notice_Base {
 	public string $id = 'sticky-deprecated-nag';
 
 	public function content(): string {
-		return sprintf( '<h4>%s</h4><p>%s<a href="%s">%s</a></p><p><a class="button button-primary" href="%s">%s</a></p>',
+		return sprintf( '<h3>%s</h3><p>%s<a href="%s">%s</a></p><p><a class="button button-primary" href="%s">%s</a></p>',
             __( 'New accessibility plugin available!', 'pojo-accessibility' ),
 			__( 'Your current plugin is no longer supported. Switch to Ally - Web Accessibility now to access more customization, control, and tools for a more inclusive site.', 'pojo-accessibility' ),
 			Upgrade::get_learn_more_link( 'acc-notice-switch-oc' ), // link to learn more
