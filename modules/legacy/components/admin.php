@@ -113,7 +113,7 @@ class Admin {
 				}
 			}
 		</style>
-		<div class="notice updated is-dismissible a11y-notice a11y-install-elementor">
+		<div role="region" aria-label="<?php esc_attr_e( 'Notice', 'pojo-accessibility' ); ?>" class="notice updated is-dismissible a11y-notice a11y-install-elementor">
 			<div class="a11y-notice-inner">
 				<div class="a11y-notice-icon">
 					<svg width="50" height="50" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
