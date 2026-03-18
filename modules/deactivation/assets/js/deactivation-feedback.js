@@ -1,3 +1,4 @@
+import { __ } from '@wordpress/i18n';
 import '../css/style.css';
 
 const REASON_FIELDS = {
@@ -84,8 +85,8 @@ class Ea11yDeactivationHandler {
 		this.deactivationLink.addEventListener('click', (e) => {
 			e.preventDefault();
 			this.modal(
-				'QUICK FEEDBACK',
-				'#TB_inline?width=550&height=auto&inlineId=ea11y-deactivation-modal',
+				__('Quick feedback', 'pojo-accessibility'),
+				'#TB_inline?width=600&height=auto&inlineId=ea11y-deactivation-modal',
 				'ea11y-feedback-thickbox',
 			);
 		});

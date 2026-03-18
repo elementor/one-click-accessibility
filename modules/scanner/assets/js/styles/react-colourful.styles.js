@@ -15,7 +15,7 @@ export const ColorPickerStyles = css`
 		position: relative;
 		flex-grow: 1;
 		border-color: transparent; /* Fixes https://github.com/omgovich/react-colorful/issues/139 */
-		border-bottom: 12px solid #000;
+		border-block-end: 12px solid #000;
 		border-radius: 8px 8px 0 0;
 		background-image:
 			linear-gradient(to top, #000, rgb(0 0 0 / 0)),
@@ -26,10 +26,7 @@ export const ColorPickerStyles = css`
 	.react-colorful__alpha-gradient {
 		content: '';
 		position: absolute;
-		left: 0;
-		top: 0;
-		right: 0;
-		bottom: 0;
+		inset: 0;
 		pointer-events: none;
 		border-radius: inherit;
 	}
@@ -68,10 +65,7 @@ export const ColorPickerStyles = css`
 
 	.react-colorful__interactive {
 		position: absolute;
-		left: 0;
-		top: 0;
-		right: 0;
-		bottom: 0;
+		inset: 0;
 		border-radius: inherit;
 		outline: none;
 		/* Don't trigger the default scrolling behavior when the event is originating from this element */

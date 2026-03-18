@@ -101,7 +101,7 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 						<Typography variant="body1">
 							{__('Mark image as decorative', 'pojo-accessibility')}
 						</Typography>
-						<FormHelperText sx={{ mt: 0 }}>
+						<FormHelperText sx={{ marginBlockStart: 0 }}>
 							{__(
 								"(decorative images don't need description)",
 								'pojo-accessibility',

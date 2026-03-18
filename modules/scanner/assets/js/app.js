@@ -137,7 +137,7 @@ const App = () => {
 			<AppContainer elevation={6} ref={containerRef}>
 				<ErrorBoundary fallback={<ErrorMessage />}>
 					<AppHeader />
-					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+					<Box sx={{ borderBlockEnd: '1px solid rgb(0 0 0 / 0.12)' }}>
 						<AppsTabs
 							{...tabsProps}
 							aria-label={__(

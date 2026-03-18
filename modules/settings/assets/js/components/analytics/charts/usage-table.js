@@ -64,7 +64,9 @@ export const UsageTable = () => {
 								variant="head"
 								width="40%"
 								sx={
-									stats.elements.length === 0 ? { borderBottom: 'none' } : null
+									stats.elements.length === 0
+										? { borderBlockEnd: 'none' }
+										: null
 								}
 							>
 								{__('Features', 'pojo-accessibility')}
@@ -73,7 +75,9 @@ export const UsageTable = () => {
 								variant="head"
 								width="60%"
 								sx={
-									stats.elements.length === 0 ? { borderBottom: 'none' } : null
+									stats.elements.length === 0
+										? { borderBlockEnd: 'none' }
+										: null
 								}
 							>
 								{__('Times used', 'pojo-accessibility')}
@@ -109,7 +113,7 @@ export const UsageTable = () => {
 									page={currentPage}
 									rowsPerPage={TABLE_PER_PAGE}
 									rowsPerPageOptions={[]}
-									sx={{ borderBottom: 'none' }}
+									sx={{ borderBlockEnd: 'none' }}
 								/>
 							</TableRow>
 						</TableFooter>

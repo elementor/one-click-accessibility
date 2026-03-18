@@ -59,7 +59,7 @@ export const AnalyticsToggle = () => {
 						color="info"
 						checked={isAnalyticsEnabled}
 						onChange={handleToggleClick}
-						sx={{ ml: 2 }}
+						sx={{ marginInlineStart: 2 }}
 					/>
 				}
 				label={
@@ -83,7 +83,7 @@ export const AnalyticsToggle = () => {
 					</Box>
 				}
 				labelPlacement="start"
-				sx={{ ml: 0 }}
+				sx={{ marginInlineStart: 0 }}
 			/>
 			<Dialog
 				open={showConfirmPopup}

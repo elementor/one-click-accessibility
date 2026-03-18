@@ -7,8 +7,7 @@ import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 
 export const StyledAccordion = styled(Accordion)`
-	border-right: none;
-	border-left: none;
+	border-inline: none;
 `;
 
 export const StyledAccordionSummary = styled(AccordionSummary)`
@@ -33,7 +32,7 @@ export const StyledAccordionDetails = styled(AccordionDetails)`
 	display: flex;
 	flex-direction: column;
 	gap: ${({ theme }) => theme.spacing(2)};
-	padding-bottom: 0;
+	padding-block-end: 0;
 `;
 
 export const StyledSnippet = styled(Typography)`
@@ -49,20 +48,20 @@ export const InfotipBox = styled(Box)`
 export const InfotipImage = styled('img')`
 	max-width: 304px;
 	height: auto;
-	border-top-left-radius: ${({ theme }) => theme.spacing(0.5)};
-	border-top-right-radius: ${({ theme }) => theme.spacing(0.5)};
+	border-start-start-radius: ${({ theme }) => theme.spacing(0.5)};
+	border-start-end-radius: ${({ theme }) => theme.spacing(0.5)};
 `;
 
 export const InfotipFooter = styled(Box)`
 	display: flex;
 	justify-content: flex-end;
-	margin-top: ${({ theme }) => theme.spacing(2)};
+	margin-block-start: ${({ theme }) => theme.spacing(2)};
 `;
 
 export const ItemHeader = styled(Box)`
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
+	margin-block-end: ${({ theme }) => theme.spacing(1)};
 	min-height: ${({ theme }) => theme.spacing(4)};
 `;
 
@@ -82,6 +81,6 @@ export const TitleBox = styled(Box)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: ${({ theme }) => theme.spacing(0.5)};
+	margin-block-end: ${({ theme }) => theme.spacing(0.5)};
 	gap: ${({ theme }) => theme.spacing(0.5)};
 `;

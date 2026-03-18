@@ -200,7 +200,7 @@ const StyledCardContent = styled(CardContent)`
 	background-color: transparent;
 
 	:last-child {
-		padding-bottom: 0;
+		padding-block-end: 0;
 	}
 `;
 
