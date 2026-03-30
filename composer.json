@@ -1,8 +1,5 @@
 {
-	"name": "pojome/pojo-accessibility",
-	"description": "pojo accessibility",
-	"license": "gpl2",
-	"author": "Elementor",
+	"name": "pojo-accessibility",
 	"require-dev": {
 		"johnpbloch/wordpress-core": "^6.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
