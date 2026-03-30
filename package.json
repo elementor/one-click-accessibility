@@ -1,7 +1,7 @@
 {
 	"name": "pojo-accessibility",
 	"description": "",
-	"version": "4.1.0",
+	"version": "4.1.1",
 	"scripts": {
 		"build": "NODE_ENV=production wp-scripts build",
 		"start": "NODE_ENV=development wp-scripts start",
