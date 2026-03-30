@@ -1,5 +1,5 @@
 {
-	"name": "pojo-accessibility",
+	"name": "elementor/pojo-accessibility",
 	"require-dev": {
 		"johnpbloch/wordpress-core": "^6.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
