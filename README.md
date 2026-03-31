@@ -5,7 +5,7 @@
 **Requires at least:** 6.6 \
 **Tested up to:** 6.9 \
 **Requires PHP:** 7.4 \
-**Stable tag:** 4.1.0 \
+**Stable tag:** 4.1.1 \
 **License:** GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
@@ -226,6 +226,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 ## Changelog
+
+### 4.1.1 – 2026-03-31
+
+* Tweak: Improved WPML support
+* Tweak: WordPress 7.0 design compatibility
 
 ### 4.1.0 – 2026-02-23
 

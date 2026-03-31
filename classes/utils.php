@@ -15,7 +15,21 @@ class Utils {
 
 	public static function is_plugin_settings_page(): bool {
 		$current_screen = get_current_screen();
-		return str_contains( $current_screen->id, '_page_accessibility-settings' );
+		return $current_screen && str_contains( $current_screen->id, '_page_accessibility-settings' );
+	}
+
+	public static function is_wp_dashboard_page(): bool {
+		$current_screen = get_current_screen();
+		return $current_screen && 'dashboard' === $current_screen->id;
+	}
+
+	public static function is_wp_settings_page(): bool {
+		$current_screen = get_current_screen();
+		return $current_screen && 'options-general' === $current_screen->id;
+	}
+
+	public static function is_plugin_page(): bool {
+		return self::is_plugin_settings_page();
 	}
 
 	public static function is_elementor_installed() :bool {

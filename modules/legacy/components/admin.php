@@ -37,102 +37,71 @@ class Admin {
 		?>
 		<style>
 			.notice.a11y-notice {
-				border-left-color: #92003B !important;
-				padding: 20px;
-			}
-			.rtl .notice.a11y-notice {
-				border-right-color: #92003B !important;
-			}
-			.notice.a11y-notice .a11y-notice-inner {
-				display: table;
+				display: flex;
+				justify-content: flex-start;
+				box-sizing: border-box;
 				width: 100%;
-			}
-			.notice.a11y-notice .a11y-notice-inner .a11y-notice-icon,
-			.notice.a11y-notice .a11y-notice-inner .a11y-notice-content,
-			.notice.a11y-notice .a11y-notice-inner .a11y-install-now {
-				display: table-cell;
-				vertical-align: middle;
+				padding: 0;
+				box-shadow: 0 1px 4px #00000026;
+				border: 1px solid #ccd0d4;
+				border-inline-start:4px solid #92003B;
 			}
 			.notice.a11y-notice .a11y-notice-icon {
+				background-color: rgb(82 76 255 / 0.04);
+				width: 50px;
+				text-align: center;
+				padding-block-start: 15px;
+				flex-shrink: 0;
+			}
+			.notice.a11y-notice .a11y-notice-icon svg {
 				color: #92003B;
 				font-size: 50px;
-				width: 50px;
-				height: 50px;
+				width: 24px;
+				height: 24px;
 			}
 			.notice.a11y-notice .a11y-notice-content {
-				padding: 0 20px;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				padding: 20px;
 			}
-			.notice.a11y-notice p {
+			.notice.a11y-notice .a11y-notice-content h3,
+			.notice.a11y-notice .a11y-notice-content p {
 				padding: 0;
 				margin: 0;
-			}
-			.notice.a11y-notice h3 {
-				margin: 0 0 5px;
-			}
-			.notice.a11y-notice .a11y-install-now {
-				text-align: center;
 			}
 			.notice.a11y-notice .a11y-install-now .a11y-install-button {
 				background-color: #92003B;
 				color: #fff;
 				border-color: #92003B;
 				box-shadow: 0 1px 0 #92003B;
-				padding: 5px 30px;
-				height: auto;
-				line-height: 20px;
-				text-transform: capitalize;
 			}
 			.notice.a11y-notice .a11y-install-now .a11y-install-button i {
-				padding-right: 5px;
+				padding-inline-end: 5px;
 			}
-			.rtl .notice.a11y-notice .a11y-install-now .a11y-install-button i {
-				padding-right: 0;
-				padding-left: 5px;
-			}
-			.notice.a11y-notice .a11y-install-now .a11y-install-button:hover {
-				background-color: #92003B;
-			}
-			.notice.a11y-notice .a11y-install-now .a11y-install-button:active {
-				box-shadow: inset 0 1px 0 #92003B;
-				transform: translateY(1px);
-			}
-			@media (max-width: 767px) {
-				.notice.a11y-notice {
-					padding: 10px;
-				}
-				.notice.a11y-notice .a11y-notice-inner {
-					display: block;
-				}
-				.notice.a11y-notice .a11y-notice-inner .a11y-notice-content {
-					display: block;
-					padding: 0;
-				}
-				.notice.a11y-notice .a11y-notice-inner .a11y-notice-icon,
-				.notice.a11y-notice .a11y-notice-inner .a11y-install-now {
-					display: none;
-				}
+			.notice.a11y-notice .a11y-install-now .a11y-install-button:hover,
+			.notice.a11y-notice .a11y-install-now .a11y-install-button:focus {
+				background-color: #c60055;
+				border-color: #c60055;
+				box-shadow: 0 1px 0 #c60055;
 			}
 		</style>
-		<div class="notice updated is-dismissible a11y-notice a11y-install-elementor">
-			<div class="a11y-notice-inner">
-				<div class="a11y-notice-icon">
-					<svg width="50" height="50" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path d="M14.0035 3.98515e-07C8.34084 -0.00134594 3.23499 3.40874 1.06704 8.64C-1.10092 13.8713 0.0960255 19.8934 4.09968 23.898C8.10333 27.9026 14.1252 29.1009 19.3569 26.9342C24.5887 24.7675 28 19.6625 28 13.9998C28 6.26922 21.7341 0.00183839 14.0035 3.98515e-07Z" fill="#92003B"/>
-						<rect x="8.1687" y="8.16504" width="2.3333" height="11.6665" fill="white"/>
-						<rect x="12.8352" y="17.498" width="6.9999" height="2.3333" fill="white"/>
-						<rect x="12.8352" y="12.8315" width="6.9999" height="2.3333" fill="white"/>
-						<rect x="12.8352" y="8.16504" width="6.9999" height="2.3333" fill="white"/>
-					</svg>
-				</div>
-
-				<div class="a11y-notice-content">
-					<h3><?php esc_html_e( 'Do You Like One Click Accessibility? You\'ll Love Elementor!', 'pojo-accessibility' ); ?></h3>
-					<p><?php esc_html_e( 'Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design. The most advanced frontend drag & drop page builder.', 'pojo-accessibility' ); ?>
-						<a href="https://elementor.com/?utm_source=accessibility&utm_medium=wp-dash&utm_campaign=notice" target="_blank"><?php esc_html_e( 'Learn more about Elementor', 'pojo-accessibility' ); ?></a>.</p>
-				</div>
-
+		<div role="region" aria-label="<?php esc_attr_e( 'Notice', 'pojo-accessibility' ); ?>" class="notice is-dismissible a11y-notice a11y-install-elementor">
+			<div class="a11y-notice-icon">
+				<svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M14.0035 3.98515e-07C8.34084 -0.00134594 3.23499 3.40874 1.06704 8.64C-1.10092 13.8713 0.0960255 19.8934 4.09968 23.898C8.10333 27.9026 14.1252 29.1009 19.3569 26.9342C24.5887 24.7675 28 19.6625 28 13.9998C28 6.26922 21.7341 0.00183839 14.0035 3.98515e-07Z" fill="#92003B"/>
+					<rect x="8.1687" y="8.16504" width="2.3333" height="11.6665" fill="white"/>
+					<rect x="12.8352" y="17.498" width="6.9999" height="2.3333" fill="white"/>
+					<rect x="12.8352" y="12.8315" width="6.9999" height="2.3333" fill="white"/>
+					<rect x="12.8352" y="8.16504" width="6.9999" height="2.3333" fill="white"/>
+				</svg>
+			</div>
+			<div class="a11y-notice-content">
+				<h3><?php esc_html_e( 'Do You Like One Click Accessibility? You\'ll Love Elementor!', 'pojo-accessibility' ); ?></h3>
+				<p><?php esc_html_e( 'Create high-end, pixel perfect websites at record speeds. Any theme, any page, any design. The most advanced frontend drag & drop page builder.', 'pojo-accessibility' ); ?>
+					<a href="https://elementor.com/?utm_source=accessibility&utm_medium=wp-dash&utm_campaign=notice" target="_blank"><?php esc_html_e( 'Learn more about Elementor', 'pojo-accessibility' ); ?></a>.</p>
 				<div class="a11y-install-now">
-					<a class="button a11y-install-button" href="<?php echo $install_url; ?>"><i class="dashicons dashicons-download"></i><?php esc_html_e( 'Install Now For Free!', 'pojo-accessibility' ); ?></a>
+					<a class="button a11y-install-button" href="<?php echo $install_url; ?>"><?php esc_html_e( 'Install Now For Free!', 'pojo-accessibility' ); ?></a>
 				</div>
 			</div>
 		</div>

@@ -632,6 +632,7 @@ class Module extends Module_Base {
 		$notices = [
 			'Quota_80',
 			'Quota_100',
+			'Renewal_Notice',
 		];
 
 		foreach ( $notices as $notice ) {

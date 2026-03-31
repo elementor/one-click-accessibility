@@ -1,9 +1,7 @@
 {
 	"name": "pojo-accessibility",
-	"slug": "pojo-accessibility",
-	"homepage": "http://pojo.me/",
 	"description": "",
-	"version": "4.1.0",
+	"version": "4.1.1",
 	"scripts": {
 		"build": "NODE_ENV=production wp-scripts build",
 		"start": "NODE_ENV=development wp-scripts start",
@@ -47,7 +45,7 @@
 	},
 	"dependencies": {
 		"@elementor/design-tokens": "^1.1.4",
-		"@elementor/elementor-one-assets": "0.4.24",
+		"@elementor/elementor-one-assets": "0.4.32",
 		"@elementor/icons": "^1.65.0",
 		"@elementor/ui": "^1.37.3",
 		"@emotion/cache": "^11.14.0",
