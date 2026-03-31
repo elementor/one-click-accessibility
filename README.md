@@ -229,6 +229,7 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 ### 4.1.1 – 2026-03-31
 
+* Tweak: Improved WPML support
 * Tweak: WordPress 7.0 design compatibility
 
 ### 4.1.0 – 2026-02-23
