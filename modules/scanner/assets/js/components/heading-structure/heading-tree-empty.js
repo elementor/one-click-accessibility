@@ -10,7 +10,7 @@ const HeadingStructureHeadingTreeEmpty = () => {
 			<ErrorImage />
 
 			<Box sx={{ maxWidth: '300px' }}>
-				<Typography variant="h5" align="center" sx={{ mb: 2 }}>
+				<Typography variant="h5" align="center" sx={{ marginBlockEnd: 2 }}>
 					{__('No headings found', 'pojo-accessibility')}
 				</Typography>
 

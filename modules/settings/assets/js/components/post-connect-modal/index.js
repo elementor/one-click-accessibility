@@ -62,8 +62,8 @@ const PostConnectModal = () => {
 				<Typography
 					variant="h5"
 					color="text.primary"
-					marginTop={5}
-					marginBottom={1}
+					marginBlockStart={5}
+					marginBlockEnd={1}
 					id="post-connect-modal-title"
 				>
 					{__("You're all set", 'pojo-accessibility')}
@@ -73,7 +73,7 @@ const PostConnectModal = () => {
 					variant="body2"
 					sx={{ width: '500px', maxWidth: '100%' }}
 					color="text.primary"
-					marginBottom={5}
+					marginBlockEnd={5}
 					id="post-connect-modal-description"
 				>
 					{__(

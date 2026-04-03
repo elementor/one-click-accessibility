@@ -104,7 +104,7 @@ export const StyledAlert = styled(Alert)`
 	direction: ltr;
 	& .MuiAlert-icon,
 	& .MuiAlert-content {
-		padding-top: 0;
+		padding-block-start: 0;
 		display: flex;
 	}
 `;
@@ -132,8 +132,8 @@ export const StateContainer = styled(Box)`
 	align-items: center;
 	justify-content: center;
 	gap: ${({ theme }) => theme.spacing(2)};
-	padding-top: ${({ theme }) => theme.spacing(12)};
-	padding-bottom: ${({ theme }) => theme.spacing(6)};
+	padding-block-start: ${({ theme }) => theme.spacing(12)};
+	padding-block-end: ${({ theme }) => theme.spacing(6)};
 `;
 
 export const QuotaMessageContainer = styled(Box)`
@@ -142,14 +142,14 @@ export const QuotaMessageContainer = styled(Box)`
 	align-items: center;
 	justify-content: center;
 	gap: ${({ theme }) => theme.spacing(2)};
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	margin-block-end: ${({ theme }) => theme.spacing(2)};
 	padding-inline: ${({ theme }) => theme.spacing(2)};
 `;
 
 export const ReconnectDescription = styled(Typography)`
 	max-width: 250px;
 	text-align: center;
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	margin-block-end: ${({ theme }) => theme.spacing(2)};
 `;
 
 export const StyledButtonContainer = styled(Paper)`
@@ -181,7 +181,7 @@ export const ManageButtonWrap = styled(Box)`
 	gap: ${({ theme }) => theme.spacing(1.5)};
 	border: 1px solid ${({ theme }) => theme.palette.action.focus};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-	padding-right: ${({ theme }) => theme.spacing(1.5)};
+	padding-inline-end: ${({ theme }) => theme.spacing(1.5)};
 	&:hover,
 	&:focus .MuiPaper-root,
 	&:focus-visible .MuiPaper-root {
@@ -237,7 +237,7 @@ export const StyledBox = styled(Box)`
 export const ManageColorAlert = styled(Alert)`
 	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(1.5)};`};
 	& .MuiAlert-content {
-		padding-top: 0;
+		padding-block-start: 0;
 	}
 	& .MuiAlert-content > div {
 		display: block;
@@ -245,7 +245,7 @@ export const ManageColorAlert = styled(Alert)`
 `;
 
 export const StyledProChip = styled(Chip)`
-	margin-left: ${({ theme }) => theme.spacing(1)};
+	margin-inline-start: ${({ theme }) => theme.spacing(1)};
 	height: 26px;
 	width: 26px;
 

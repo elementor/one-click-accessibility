@@ -4,7 +4,7 @@
 
 .widget-settings-color-picker .react-colorful__saturation {
 	border-radius: 0;
-	border-bottom: none;
+	border-block-end: none;
 }
 
 .widget-settings-color-picker .react-colorful__hue {
@@ -15,7 +15,7 @@
 .widget-settings-color-picker .react-colorful__alpha {
 	height: 14px;
 	border-radius: 100px;
-	margin-top: 10px;
+	margin-block-start: 10px;
 }
 
 .widget-settings-color-picker .react-colorful__pointer {

@@ -52,7 +52,7 @@ AccessibilityAssistantStats.propTypes = {
 };
 
 const StyledStatsContainer = styled(Box)`
-	margin-top: ${({ theme }) => theme.spacing(3)};
+	margin-block-start: ${({ theme }) => theme.spacing(3)};
 
 	display: grid;
 	grid-template-columns: 1fr 1fr 2fr;

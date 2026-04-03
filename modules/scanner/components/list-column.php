@@ -31,7 +31,7 @@ class List_Column {
 	}
 
 	public function add_accessibility_column( $columns ) {
-		$columns['accessibility_status'] = '<a class="ea11y-tooltip ea11y-tooltip-n ea11y-tooltip-hidden" data-label="' . esc_attr__( 'Ally', 'pojo-accessibility' ) . '"><img src="' . esc_url( EA11Y_ASSETS_URL . 'images/logo.svg' ) . '" alt="" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;" /></a><span class="ea11y-column-title" title="' . esc_attr__( 'Ally', 'pojo-accessibility' ) . '">' . esc_html__( 'Ally', 'pojo-accessibility' ) . '</span>';
+		$columns['accessibility_status'] = '<a class="ea11y-tooltip ea11y-tooltip-n ea11y-tooltip-hidden" data-label="' . esc_attr__( 'Ally', 'pojo-accessibility' ) . '"><img src="' . esc_url( EA11Y_ASSETS_URL . 'images/logo.svg' ) . '" alt="" style="width:20px; height:20px; vertical-align:middle; margin-inline-end:8px;" /></a><span class="ea11y-column-title" title="' . esc_attr__( 'Ally', 'pojo-accessibility' ) . '">' . esc_html__( 'Ally', 'pojo-accessibility' ) . '</span>';
 		return $columns;
 	}
 

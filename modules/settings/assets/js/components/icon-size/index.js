@@ -26,7 +26,7 @@ const IconSize = (props) => {
 	return (
 		<FormControl>
 			<FormLabel id="icon-size-radio-buttons-group-label" color="secondary">
-				<Typography variant="subtitle2" marginBottom={1}>
+				<Typography variant="subtitle2" marginBlockEnd={1}>
 					{__('Size', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
