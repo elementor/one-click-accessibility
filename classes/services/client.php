@@ -51,7 +51,7 @@ class Client {
 			// Which language to return.
 			'site_lang' => get_bloginfo( 'language' ),
 			// site to connect
-			'site_url' => trailingslashit( home_url() ),
+			'site_url' => trailingslashit( site_url() ),
 			// current user
 			'local_id' => get_current_user_id(),
 			// User Agent
