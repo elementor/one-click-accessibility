@@ -1,10 +1,10 @@
 === Ally - Web Accessibility & Usability ===
 Contributors: elemntor
 Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
-Requires at least: 6.6
-Tested up to: 6.9
+Requires at least: 6.7
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 4.1.0
+Stable tag: 4.1.1
 License: GPLv2 or later
 
 Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
@@ -191,6 +191,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
+
+= 4.1.1 – 2026-03-31 =
+* Tweak: Improved WPML support
+* Tweak: WordPress 7.0 design compatibility
+
 = 4.1.0 – 2026-02-23 =
 * New: Added bulk remediation flow to generate AI alt text or mark multiple images as decorative
 * Tweak: Added the ability to disable the accessibility widget to prevent it from loading on your site

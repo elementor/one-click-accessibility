@@ -1,14 +1,5 @@
 {
-	"name": "pojome/pojo-accessibility",
-	"description": "pojo accessibility",
-	"minimum-stability": "dev",
-	"license": "gpl2",
-	"authors": [
-		{
-			"name": "Yakir Sitbon",
-			"email": "yakir@pojo.me"
-		}
-	],
+	"name": "elementor/pojo-accessibility",
 	"require-dev": {
 		"johnpbloch/wordpress-core": "^6.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
@@ -38,7 +29,7 @@
 		"ext-ctype": "*",
 		"ext-mbstring": "*",
 		"elementor/wp-notifications-package": "^1.2.0",
-		"elementor/wp-one-package": "1.0.54"
+		"elementor/wp-one-package": "1.0.59"
 	},
 	"config": {
 		"allow-plugins": {
