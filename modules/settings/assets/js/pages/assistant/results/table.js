@@ -223,7 +223,7 @@ AccessibilityAssistantResultsTable.propTypes = {
 };
 
 const StyledTableContainer = styled(TableContainer)`
-	margin-top: ${({ theme }) => theme.spacing(3)};
+	margin-block-start: ${({ theme }) => theme.spacing(3)};
 	padding: ${({ theme }) => theme.spacing(2)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;

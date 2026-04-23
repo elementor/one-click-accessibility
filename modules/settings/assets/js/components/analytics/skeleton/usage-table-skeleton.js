@@ -25,7 +25,7 @@ export const UsageTableSkeleton = ({ animated }) => (
 			}
 			sx={{ height: '60px', alignItems: 'start' }}
 		/>
-		<StyledCardContent sx={{ pt: 3 }}>
+		<StyledCardContent sx={{ paddingBlockStart: 3 }}>
 			<Stack spacing={1}>
 				{Array.from({ length: 10 }).map((_, index) => (
 					<Stack key={index} direction="row" alignItems="center" spacing={8}>
@@ -33,7 +33,7 @@ export const UsageTableSkeleton = ({ animated }) => (
 							width={230}
 							height={25}
 							animation={animated ? 'wave' : false}
-							sx={{ mr: 6 }}
+							sx={{ marginInlineEnd: 6 }}
 						/>
 						<Skeleton
 							width={120}

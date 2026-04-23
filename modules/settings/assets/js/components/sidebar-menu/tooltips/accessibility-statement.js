@@ -8,10 +8,13 @@ import Infotip from '@elementor/ui/Infotip';
 import Typography from '@elementor/ui/Typography';
 import { useSettings } from '@ea11y/hooks';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../../../contexts/plugin-settings';
 
 const AccessibilityStatementTooltip = () => {
 	const { selectedMenu, setSelectedMenu, accessibilityStatementData } =
 		useSettings();
+	const { isRTL } = usePluginSettingsContext();
+	const TooltipPlacement = isRTL ? 'left' : 'right';
 
 	if (accessibilityStatementData?.link) {
 		return null;
@@ -51,7 +54,7 @@ const AccessibilityStatementTooltip = () => {
 	);
 
 	return (
-		<Infotip placement="right" content={TooltipCard} tabIndex="0">
+		<Infotip placement={TooltipPlacement} content={TooltipCard} tabIndex="0">
 			<InfoCircleIcon color="info" sx={{ ml: 1 }} fontSize="small" />
 		</Infotip>
 	);

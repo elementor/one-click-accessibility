@@ -109,5 +109,5 @@ const StyledOuterWrapper = styled(Box)`
 	flex-direction: column;
 	gap: ${({ theme }) => theme.spacing(1)};
 	width: 100%;
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
+	margin-block-end: ${({ theme }) => theme.spacing(1)};
 `;

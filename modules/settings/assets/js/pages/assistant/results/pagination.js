@@ -1,5 +1,5 @@
 import TablePagination from '@elementor/ui/TablePagination';
-import { styled } from '@elementor/ui/styles';
+import { __ } from '@wordpress/i18n';
 import { useAccessibilityAssistantContext } from '../../../contexts/accessibility-assistant-context';
 
 const AccessibilityAssistantResultsPagination = () => {
@@ -25,18 +25,17 @@ const AccessibilityAssistantResultsPagination = () => {
 	};
 
 	return (
-		<StyledPagination
+		<TablePagination
 			count={scannerResults.length}
 			page={page}
 			onPageChange={onPageChange}
 			rowsPerPage={rowsPerPage}
+			labelRowsPerPage={__('Scanned URLs per page:', 'pojo-accessibility')}
 			onRowsPerPageChange={onRowsPerPageChange}
 			colSpan={6}
 			align="right"
 		/>
 	);
 };
-
-const StyledPagination = styled(TablePagination)``;
 
 export default AccessibilityAssistantResultsPagination;

@@ -37,13 +37,13 @@ const PositionSettingsMobile = () => {
 	};
 
 	const hideOnMobileLabel = (
-		<Typography variant="subtitle2" color="text.primary" marginRight={2}>
+		<Typography variant="subtitle2" color="text.primary" marginInlineEnd={2}>
 			{__('Hide on mobile', 'pojo-accessibility')}
 		</Typography>
 	);
 
 	const exactPositionLabel = (
-		<Typography variant="subtitle2" color="text.primary" marginRight={2}>
+		<Typography variant="subtitle2" color="text.primary" marginInlineEnd={2}>
 			{__('Exact position', 'pojo-accessibility')}
 		</Typography>
 	);
@@ -54,7 +54,7 @@ const PositionSettingsMobile = () => {
 				label={hideOnMobileLabel}
 				labelPlacement="start"
 				control={<Switch color="info" size="small" />}
-				sx={{ marginLeft: 2, marginBottom: 3 }}
+				sx={{ marginInlineStart: 2, marginBlockEnd: 3 }}
 				onChange={() => toggleVisibility('mobile')}
 				checked={iconPosition.mobile.hidden}
 			/>
@@ -66,14 +66,14 @@ const PositionSettingsMobile = () => {
 							label={exactPositionLabel}
 							labelPlacement="start"
 							control={<Switch color="info" size="small" />}
-							sx={{ marginLeft: 0 }}
+							sx={{ marginInlineStart: 0 }}
 							onChange={() => toggleExactPosition('mobile')}
 							checked={iconPosition.mobile?.enableExactPosition}
 						/>
 						<Typography
 							id="ea11y-mobile-position-settings"
 							variant="body2"
-							sx={{ marginTop: 2, marginBottom: 1 }}
+							sx={{ marginBlockStart: 2, marginBlockEnd: 1 }}
 						>
 							{__(
 								'Exact positioning, 5 – 500 px are permitted values:',

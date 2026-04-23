@@ -179,7 +179,7 @@ export const DropdownMenu = () => {
 					<MenuItemText>
 						{__('View subscription', 'pojo-accessibility')}
 					</MenuItemText>
-					<MenuItemIcon sx={{ ml: 5 }}>
+					<MenuItemIcon sx={{ marginInlineStart: 5 }}>
 						<ExternalLinkIcon />
 					</MenuItemIcon>
 				</MenuItem>

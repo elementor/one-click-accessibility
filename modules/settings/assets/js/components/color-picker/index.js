@@ -15,7 +15,7 @@ const StyledHexColorInput = styled(HexColorInput)`
 	width: 100%;
 	border: 1px solid rgb(0 0 0 / 0.12);
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-	padding-left: 10px;
+	padding-inline-start: 10px;
 `;
 
 const ColorPicker = () => {
@@ -30,7 +30,7 @@ const ColorPicker = () => {
 	return (
 		<FormControl fullWidth>
 			<FormLabel id="color-picker-label" color="secondary">
-				<Typography variant="subtitle2" marginBottom={1} color="text.primary">
+				<Typography variant="subtitle2" marginBlockEnd={1} color="text.primary">
 					{__('Color', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
@@ -45,12 +45,11 @@ const ColorPicker = () => {
 					className="widget-settings-color-picker"
 				/>
 
-				<Grid marginTop={2} display="flex">
+				<Grid marginBlockStart={2} display="flex">
 					<Box
 						padding={2}
-						sx={{ backgroundColor: iconDesign.color }}
+						sx={{ backgroundColor: iconDesign.color, marginInlineEnd: 1 }}
 						borderRadius={1}
-						marginRight={1}
 					/>
 
 					<StyledHexColorInput

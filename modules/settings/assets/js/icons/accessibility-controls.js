@@ -8,7 +8,7 @@ function AccessibilityControlsIcon({ size }, props) {
 		<SvgIcon
 			viewBox="0 0 22 22"
 			fill="none"
-			sx={{ marginRight: 0, fontSize: size, paddingRight: '1px' }}
+			sx={{ marginInlineEnd: 0, fontSize: size, paddingInlineEnd: '1px' }}
 			{...props}
 		>
 			<path

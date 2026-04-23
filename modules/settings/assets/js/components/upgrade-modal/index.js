@@ -40,7 +40,7 @@ const UpgradeModal = () => {
 								variant="h5"
 								id="upgrade-modal-title"
 								align="center"
-								sx={{ mb: 1 }}
+								sx={{ marginBlockEnd: 1 }}
 							>
 								{__(
 									'Discover how visitors use your widget',
