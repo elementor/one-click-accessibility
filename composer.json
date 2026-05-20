@@ -29,7 +29,7 @@
 		"ext-ctype": "*",
 		"ext-mbstring": "*",
 		"elementor/wp-notifications-package": "^1.2.0",
-		"elementor/wp-one-package": "1.0.59"
+		"elementor/wp-one-package": "1.0.62"
 	},
 	"config": {
 		"allow-plugins": {
