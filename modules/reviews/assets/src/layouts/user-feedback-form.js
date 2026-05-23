@@ -44,6 +44,9 @@ const UserFeedbackForm = () => {
 	}, [isOpened]);
 
 	const id = isOpened ? 'reviews-popover' : undefined;
+	const isRTL = Boolean(window.ea11yReviewData?.isRTL);
+	const horizontalOrigin = isRTL ? 'left' : 'right';
+	const anchorPositionOffset = '10';
 
 	const headerMessage = {
 		ratings: __('How would you rate Ally so far?', 'pojo-accessibility'),
@@ -57,11 +60,20 @@ const UserFeedbackForm = () => {
 	return (
 		<Popover
 			open={isOpened}
-			anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+			anchorOrigin={{
+				vertical: 'bottom',
+				horizontal: horizontalOrigin,
+			}}
 			anchorReference="anchorPosition"
 			anchorPosition={{
-				top: window.innerHeight - 10,
-				left: window.innerWidth - 10,
+				top: window.innerHeight - anchorPositionOffset,
+				left: isRTL
+					? anchorPositionOffset
+					: window.innerWidth - anchorPositionOffset,
+			}}
+			transformOrigin={{
+				vertical: 'bottom',
+				horizontal: horizontalOrigin,
 			}}
 			id={id}
 			onClose={handleClose}
