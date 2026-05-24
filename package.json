@@ -50,6 +50,7 @@
 		"@elementor/ui": "^1.37.3",
 		"@emotion/cache": "^11.14.0",
 		"@emotion/react": "^11.14.0",
+		"@mui/system": "^7.3.11",
 		"@mui/x-charts": "^7.27.0",
 		"@wordpress/a11y": "^4.25.0",
 		"@wordpress/api-fetch": "^7.10.0",
