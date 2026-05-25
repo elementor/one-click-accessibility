@@ -106,7 +106,6 @@ class Onboarding_Banner {
 				width: 100%;
 				display: flex;
 				justify-content: space-between;
-				direction: ltr;
 				height: 130px;
 				gap: 12px;
 			}
