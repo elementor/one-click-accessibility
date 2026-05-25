@@ -34,15 +34,16 @@ final class Plugin_Activation {
 	/**
 	 * Clear the entire Ally page-HTML cache.
 	 *
-	 * Wrapped in try/catch because the custom table may not exist yet on the
-	 * very first activation.
+	 * Short-circuits when the custom table does not yet exist (first activation),
+	 * and swallows any unexpected throwable so activation never aborts on a
+	 * cache-clear failure.
 	 */
 	private function clear_ally_cache(): void {
+		$this->require_cache_dependencies();
 		try {
-			$this->require_cache_dependencies();
 			\EA11y\Modules\Remediation\Database\Page_Entry::clear_all_cache();
 		} catch ( \Throwable $e ) {
-			Logger::info( $e->getMessage() );
+			unset( $e ); // intentional no-op; activation must never abort on cache-clear failure.
 		}
 	}
 
