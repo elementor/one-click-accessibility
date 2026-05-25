@@ -24,11 +24,11 @@ final class Plugin_Activation {
 	}
 
 	public function on_activate(): void {
-		$this->clear_ally_cache();
+		$this->run_silently( [ $this, 'clear_ally_cache' ] );
 	}
 
 	public function on_deactivate(): void {
-		$this->clear_ally_cache();
+		$this->run_silently( [ $this, 'clear_ally_cache' ] );
 	}
 
 	/**
@@ -40,10 +40,52 @@ final class Plugin_Activation {
 	 */
 	private function clear_ally_cache(): void {
 		$this->require_cache_dependencies();
+
+		if ( ! $this->ally_cache_table_exists() ) {
+			return;
+		}
+
 		try {
 			\EA11y\Modules\Remediation\Database\Page_Entry::clear_all_cache();
 		} catch ( \Throwable $e ) {
 			unset( $e ); // intentional no-op; activation must never abort on cache-clear failure.
+		}
+	}
+
+	private function ally_cache_table_exists(): bool {
+		global $wpdb;
+
+		$table = \EA11y\Modules\Remediation\Database\Page_Table::table_name();
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return (bool) $wpdb->get_var(
+			$wpdb->prepare( 'SHOW TABLES LIKE %s', $table )
+		);
+	}
+
+	/**
+	 * Run the callback with $wpdb error printing suppressed and any stray
+	 * output buffered and discarded. Prevents WP's "plugin generated N
+	 * characters of unexpected output during activation" warning.
+	 */
+	private function run_silently( callable $callback ): void {
+		global $wpdb;
+
+		$previous_show = isset( $wpdb ) ? $wpdb->show_errors : null;
+		if ( isset( $wpdb ) ) {
+			$wpdb->hide_errors();
+		}
+
+		ob_start();
+		try {
+			$callback();
+		} catch ( \Throwable $e ) {
+			unset( $e ); // intentional no-op; activation must never abort.
+		} finally {
+			ob_end_clean();
+			if ( isset( $wpdb ) && $previous_show ) {
+				$wpdb->show_errors();
+			}
 		}
 	}
 
