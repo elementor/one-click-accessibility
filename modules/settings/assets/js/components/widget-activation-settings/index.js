@@ -37,6 +37,7 @@ const WidgetActivationSettings = () => {
 			<StyledBox>
 				<StyledTypography
 					variant="subtitle1"
+					component="h2"
 					id="ea11y-widget-activation-toggle"
 				>
 					{__('Widget Activation', 'pojo-accessibility')}

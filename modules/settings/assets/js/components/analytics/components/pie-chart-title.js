@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 
 export const PieChartTitle = () => (
 	<Box display="flex" gap={1}>
-		<Typography variant="subtitle1">
+		<Typography variant="subtitle1" component="h2">
 			{__('Feature usage', 'pojo-accessibility')}
 		</Typography>
 		<Infotip

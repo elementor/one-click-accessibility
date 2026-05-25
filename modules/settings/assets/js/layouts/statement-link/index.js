@@ -139,6 +139,7 @@ const StatementLink = () => {
 		<Card elevation={0} variant="outlined" sx={{ marginTop: 1, width: '100%' }}>
 			<CardHeader
 				title={__('Statement link', 'pojo-accessibility')}
+				titleTypographyProps={{ component: 'h2' }}
 				subheader={__(
 					'Link your accessibility statement page to your accessibility widget.',
 					'pojo-accessibility',
@@ -151,7 +152,11 @@ const StatementLink = () => {
 					<Box display="flex" flexDirection="column">
 						<FormControl fullWidth sx={{ marginBottom: 2 }}>
 							<FormLabel sx={{ marginBottom: 1 }}>
-								<Typography variant="subtitle2" color="text.primary">
+								<Typography
+									variant="subtitle2"
+									component="span"
+									color="text.primary"
+								>
 									{__('Choose which page to link', 'pojo-accessibility')}
 								</Typography>
 							</FormLabel>
@@ -181,7 +186,11 @@ const StatementLink = () => {
 
 						<FormControl fullWidth>
 							<FormLabel sx={{ marginBottom: 2, marginTop: 2 }}>
-								<Typography variant="subtitle2" color="text.primary">
+								<Typography
+									variant="subtitle2"
+									component="span"
+									color="text.primary"
+								>
 									{__('Want to hide the link?', 'pojo-accessibility')}
 								</Typography>
 							</FormLabel>
@@ -204,7 +213,11 @@ const StatementLink = () => {
 					</Box>
 
 					<Box>
-						<Typography variant="subtitle2" color="text.primary">
+						<Typography
+							variant="subtitle2"
+							component="span"
+							color="text.primary"
+						>
 							{__('Preview link in widget', 'pojo-accessibility')}
 						</Typography>
 

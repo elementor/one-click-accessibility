@@ -1,5 +1,5 @@
+import Box from '@elementor/ui/Box';
 import FormControl from '@elementor/ui/FormControl';
-import FormLabel from '@elementor/ui/FormLabel';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
@@ -22,11 +22,13 @@ const IconSelect = (props) => {
 
 	return (
 		<FormControl>
-			<StyledFormLabel
-				id="icon-select-radio-buttons-group-label"
-				color="secondary"
-			>
-				<Typography variant="subtitle2" marginBottom={1}>
+			<StyledFormLabel>
+				<Typography
+					variant="subtitle2"
+					component="h3"
+					id="icon-select-radio-buttons-group-label"
+					marginBottom={1}
+				>
 					{__('Icon', 'pojo-accessibility')}
 				</Typography>
 				<MediaUploader />
@@ -61,7 +63,7 @@ const StyledRadioGroup = styled(RadioGroup)`
 	gap: ${({ theme }) => theme.spacing(2)};
 `;
 
-const StyledFormLabel = styled(FormLabel)`
+const StyledFormLabel = styled(Box)`
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;

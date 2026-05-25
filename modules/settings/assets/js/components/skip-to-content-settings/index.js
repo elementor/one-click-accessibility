@@ -78,6 +78,7 @@ const SkipToContentSettings = () => {
 			<StyledBox>
 				<StyledTypography
 					variant="subtitle1"
+					component="h2"
 					id="ea11y-skip-to-content-toggle"
 					aria-description={titleTooltipText}
 				>
