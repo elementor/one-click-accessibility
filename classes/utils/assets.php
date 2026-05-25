@@ -14,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Class Assets
  */
 class Assets {
+	private static ?array $chunks_manifest = null;
+
 	/**
 	 * enqueue_scripts
 	 *
@@ -116,10 +118,12 @@ class Assets {
 
 		// enqueue js
 		$script_asset = require $script_asset_path;
+		$chunk_handles = self::enqueue_vendor_chunks( $handle, $dir, $url, $script_asset['version'] );
+
 		wp_enqueue_script(
 			$handle,
 			$url . $handle . '.js',
-			array_merge( $script_asset['dependencies'], $dependencies ),
+			array_merge( $script_asset['dependencies'], $dependencies, $chunk_handles ),
 			$script_asset['version'],
 			true,
 		);
@@ -131,7 +135,7 @@ class Assets {
 			return;
 		}
 		// enqueue css
-		$css_file_name = 'style-' . $handle . '.css';
+		$css_file_name = $handle . '.css';
 		$css_version = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? filemtime( $dir . $css_file_name ) : \EA11Y_VERSION;
 		wp_enqueue_style(
 			$handle,
@@ -139,5 +143,61 @@ class Assets {
 			[ 'wp-components' ],
 			$css_version
 		);
+	}
+
+	private static function enqueue_vendor_chunks( string $entry_handle, string $dir, string $url, string $version ): array {
+		$manifest = self::load_chunks_manifest( $dir );
+
+		if ( empty( $manifest[ $entry_handle ] ) ) {
+			return [];
+		}
+
+		$entry_file = $entry_handle . '.js';
+		$chunk_handles = [];
+
+		foreach ( $manifest[ $entry_handle ] as $chunk_file ) {
+			if ( $chunk_file === $entry_file ) {
+				continue;
+			}
+
+			$slug = basename( $chunk_file, '.js' );
+			$chunk_handle = 'ea11y-' . $entry_handle . '-chunk-' . $slug;
+
+			if ( wp_script_is( $chunk_handle, 'enqueued' ) ) {
+				$chunk_handles[] = $chunk_handle;
+				continue;
+			}
+
+			$chunk_deps = [];
+			$chunk_asset_path = $dir . $slug . '.asset.php';
+			if ( file_exists( $chunk_asset_path ) ) {
+				$chunk_asset = require $chunk_asset_path;
+				$chunk_deps = $chunk_asset['dependencies'] ?? [];
+			}
+
+			wp_enqueue_script( $chunk_handle, $url . $chunk_file, $chunk_deps, $version, true );
+			$chunk_handles[] = $chunk_handle;
+		}
+
+		return $chunk_handles;
+	}
+
+	private static function load_chunks_manifest( string $dir ): array {
+		if ( null !== self::$chunks_manifest ) {
+			return self::$chunks_manifest;
+		}
+
+		$manifest_path = $dir . 'chunks-manifest.json';
+		if ( ! file_exists( $manifest_path ) ) {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'Ally: chunks-manifest.json not found in build directory. Run `npm run build`.' );
+			self::$chunks_manifest = [];
+			return self::$chunks_manifest;
+		}
+
+		$manifest = json_decode( (string) file_get_contents( $manifest_path ), true );
+		self::$chunks_manifest = is_array( $manifest ) ? $manifest : [];
+
+		return self::$chunks_manifest;
 	}
 }
