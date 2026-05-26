@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Elementor_Birthday_Banner {
-	const BANNER_POINTER_NAME = 'ea11y_one_million_installs_banner';
+	const BANNER_POINTER_NAME = 'ea11y_birthday_sale_banner';
 	const POINTER_ACTION = 'ea11y_pointer_dismissed';
 	const POINTER_NONCE_KEY = 'ea11y-pointer-dismissed';
 
@@ -40,9 +40,8 @@ class Elementor_Birthday_Banner {
 		$url = admin_url( 'admin-ajax.php' );
 		$nonce = wp_create_nonce( self::POINTER_NONCE_KEY );
 		?>
-
-		<div class="elementor-ea11y-banner" role="region" aria-label="<?php esc_attr_e( 'Elementor birthday sale banner', 'pojo-accessibility' ); ?>">
-			<div class="elementor-ea11y-banner-container">
+		<div class="elementor-birthday-banner" role="region" aria-label="<?php esc_attr_e( 'Elementor birthday sale', 'pojo-accessibility' ); ?>">
+			<div class="elementor-birthday-banner-container">
 				<p><?php esc_html_e( 'Celebrate Elementor’s 10th birthday', 'pojo-accessibility' ); ?> • <span><?php esc_html_e( 'Up to 30% off', 'pojo-accessibility' ); ?></span></p>
 
 				<a href="<?php echo esc_url( $link ); ?>" target="_blank">
@@ -51,17 +50,14 @@ class Elementor_Birthday_Banner {
 
 				<button aria-label="<?php esc_attr_e( 'Dismiss', 'pojo-accessibility' ); ?>">
 					<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd"
-									clip-rule="evenodd"
-									d="M13.2803 1.28033C13.5732 0.987437 13.5732 0.512563 13.2803 0.21967C12.9874 -0.0732233 12.5126 -0.0732233 12.2197 0.21967L6.75 5.68934L1.28033 0.21967C0.987437 -0.0732233 0.512563 -0.0732233 0.21967 0.21967C-0.0732233 0.512563 -0.0732233 0.987437 0.21967 1.28033L5.68934 6.75L0.21967 12.2197C-0.0732233 12.5126 -0.0732233 12.9874 0.21967 13.2803C0.512563 13.5732 0.987437 13.5732 1.28033 13.2803L6.75 7.81066L12.2197 13.2803C12.5126 13.5732 12.9874 13.5732 13.2803 13.2803C13.5732 12.9874 13.5732 12.5126 13.2803 12.2197L7.81066 6.75L13.2803 1.28033Z"
-									fill="#212121"/>
+						<path clip-rule="evenodd" fill-rule="evenodd" fill="#212121" d="M13.2803 1.28033C13.5732 0.987437 13.5732 0.512563 13.2803 0.21967C12.9874 -0.0732233 12.5126 -0.0732233 12.2197 0.21967L6.75 5.68934L1.28033 0.21967C0.987437 -0.0732233 0.512563 -0.0732233 0.21967 0.21967C-0.0732233 0.512563 -0.0732233 0.987437 0.21967 1.28033L5.68934 6.75L0.21967 12.2197C-0.0732233 12.5126 -0.0732233 12.9874 0.21967 13.2803C0.512563 13.5732 0.987437 13.5732 1.28033 13.2803L6.75 7.81066L12.2197 13.2803C12.5126 13.5732 12.9874 13.5732 13.2803 13.2803C13.5732 12.9874 13.5732 12.5126 13.2803 12.2197L7.81066 6.75L13.2803 1.28033Z"/>
 					</svg>
 				</button>
 			</div>
 		</div>
 
 		<style>
-			.elementor-ea11y-banner {
+			.elementor-birthday-banner {
 				min-height: 48px;
 				display: flex;
 				margin-inline-start: -20px;
@@ -72,7 +68,7 @@ class Elementor_Birthday_Banner {
 				background-repeat: no-repeat;
 			}
 
-			.elementor-ea11y-banner-container {
+			.elementor-birthday-banner-container {
 				max-width: 1200px;
 				margin: 0 auto;
 				display: flex;
@@ -81,7 +77,7 @@ class Elementor_Birthday_Banner {
 				gap: 20px;
 			}
 
-			.elementor-ea11y-banner p {
+			.elementor-birthday-banner p {
 				margin: 0;
 				color: #2A0624;
 				font-size: 16px;
@@ -91,12 +87,12 @@ class Elementor_Birthday_Banner {
 				line-height: 1.5;
 			}
 
-			.elementor-ea11y-banner p span {
+			.elementor-birthday-banner p span {
 				font-style: italic;
 				font-weight: 700;
 			}
 
-			.elementor-ea11y-banner a {
+			.elementor-birthday-banner a {
 				padding: 4px 16px;
 				border-radius: 6px;
 				background-color: #212121;
@@ -109,7 +105,7 @@ class Elementor_Birthday_Banner {
 				text-align: center;
 			}
 
-			.elementor-ea11y-banner button {
+			.elementor-birthday-banner button {
 				border: none;
 				background: none;
 				padding: 12px;
@@ -121,9 +117,8 @@ class Elementor_Birthday_Banner {
 
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
-				const banner = document.querySelector('.elementor-ea11y-banner');
-				const button = document.querySelector('.elementor-ea11y-banner button');
-				const pageRoot = document.querySelector('#ea11y-app');
+				const banner = document.querySelector('.elementor-birthday-banner');
+				const button = document.querySelector('.elementor-birthday-banner button');
 
 				const requestData = {
 					action: "<?php echo esc_js( self::POINTER_ACTION ); ?>",
@@ -140,13 +135,7 @@ class Elementor_Birthday_Banner {
 								url: '<?php echo esc_js( $url ); ?>',
 								method: 'POST',
 								data: requestData,
-								success: () => {
-									banner.remove();
-
-									if (pageRoot) {
-										pageRoot.style.height = 'calc(100vh - 32px)';
-									}
-								},
+								success: () => banner.remove(),
 								error: (error) => console.error('Error:', error),
 							}
 						);
