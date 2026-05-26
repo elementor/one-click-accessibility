@@ -306,6 +306,10 @@ class Remediation_Runner {
 	}
 
 	public function __construct() {
+		if ( is_admin() ) {
+			return;
+		}
+
 		if ( $this->should_run_remediation() ) {
 			add_action( 'template_redirect', [ $this, 'start' ], -9999 );
 		}
