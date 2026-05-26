@@ -306,16 +306,6 @@ class Remediation_Runner {
 	}
 
 	public function __construct() {
-		if ( is_admin() ) {
-			return;
-		}
-
-		// Never produce or serve a cached copy for logged-in users.
-		// Skipping at construct time avoids starting the output buffer entirely.
-		if ( is_user_logged_in() ) {
-			return;
-		}
-
 		if ( $this->should_run_remediation() ) {
 			add_action( 'template_redirect', [ $this, 'start' ], -9999 );
 		}
