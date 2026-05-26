@@ -66,7 +66,7 @@ class Elementor_Birthday_Banner {
 				display: flex;
 				margin-inline-start: -20px;
 				z-index: 2;
-				background-image: url(<?php echo esc_url( $img ); ?>);
+				background-image: url('<?php echo esc_url( $img ); ?>');
 				background-size: cover;
 				background-position: center;
 				background-repeat: no-repeat;
