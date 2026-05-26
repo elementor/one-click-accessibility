@@ -15,8 +15,8 @@ class Elementor_Birthday_Banner {
 	const POINTER_NONCE_KEY = 'ea11y-pointer-dismissed';
 
 	public static function is_sale_time(): bool {
-		$sale_start_time = gmmktime( 16, 0, 0, 6, 10, 2025 );
-		$sale_end_time = gmmktime( 23, 59, 59, 6, 17, 2025 );
+		$sale_start_time = gmmktime( 9, 30, 0, 6, 15, 2026 );
+		$sale_end_time = gmmktime( 6, 59, 59, 6, 18, 2026 );
 
 		$now_time = gmdate( 'U' );
 
@@ -41,12 +41,12 @@ class Elementor_Birthday_Banner {
 		$nonce = wp_create_nonce( self::POINTER_NONCE_KEY );
 		?>
 
-		<div class="elementor-ea11y-banner">
+		<div class="elementor-ea11y-banner" role="region" aria-label="<?php esc_attr_e( 'Elementor birthday sale banner', 'pojo-accessibility' ); ?>">
 			<div class="elementor-ea11y-banner-container">
-				<img src="<?php echo esc_url( $img ); ?>" alt="Elementor birthday banner">
+				<p><?php esc_html_e( 'Celebrate Elementor’s 10th birthday', 'pojo-accessibility' ); ?> • <span><?php esc_html_e( 'Up to 30% off', 'pojo-accessibility' ); ?></span></p>
 
 				<a href="<?php echo esc_url( $link ); ?>" target="_blank">
-					Get discount
+					<?php esc_html_e( 'Get discount', 'pojo-accessibility' ); ?>
 				</a>
 
 				<button>
@@ -54,79 +54,68 @@ class Elementor_Birthday_Banner {
 						<path fill-rule="evenodd"
 									clip-rule="evenodd"
 									d="M13.2803 1.28033C13.5732 0.987437 13.5732 0.512563 13.2803 0.21967C12.9874 -0.0732233 12.5126 -0.0732233 12.2197 0.21967L6.75 5.68934L1.28033 0.21967C0.987437 -0.0732233 0.512563 -0.0732233 0.21967 0.21967C-0.0732233 0.512563 -0.0732233 0.987437 0.21967 1.28033L5.68934 6.75L0.21967 12.2197C-0.0732233 12.5126 -0.0732233 12.9874 0.21967 13.2803C0.512563 13.5732 0.987437 13.5732 1.28033 13.2803L6.75 7.81066L12.2197 13.2803C12.5126 13.5732 12.9874 13.5732 13.2803 13.2803C13.5732 12.9874 13.5732 12.5126 13.2803 12.2197L7.81066 6.75L13.2803 1.28033Z"
-									fill="white"/>
+									fill="#212121"/>
 					</svg>
 				</button>
 			</div>
 		</div>
 
 		<style>
-			html[dir="rtl"] #ea11y-app,
-			html:not([dir="rtl"]) #ea11y-app {
-				height: calc(100vh - 32px - 80px);
-			}
-
 			.elementor-ea11y-banner {
-				overflow: hidden;
+				min-height: 48px;
+				display: flex;
 				margin-inline-start: -20px;
-				background: #FF7BE5;
+				z-index: 2;
+				background-image: url(<?php echo esc_url( $img ); ?>);
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
 			}
 
 			.elementor-ea11y-banner-container {
-				position: relative;
 				max-width: 1200px;
 				margin: 0 auto;
 				display: flex;
 				justify-content: end;
 				align-items: center;
-				direction: ltr;
-				height: 80px;
+				gap: 20px;
 			}
 
-			.elementor-ea11y-banner img {
-				position: absolute;
-				left: 0;
-				top: 50%;
-				transform: translateY(-50%);
-				width: 100%;
+			.elementor-ea11y-banner p {
+				margin: 0;
+				color: #2A0624;
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 400;
+				font-feature-settings: 'liga' off, 'clig' off;
+				line-height: 1.5;
+			}
+
+			.elementor-ea11y-banner p span {
+				font-style: italic;
+				font-weight: 700;
 			}
 
 			.elementor-ea11y-banner a {
-				position: relative;
-				display: inline-block;
-				padding: 12px 24px;
-				font-size: 18px;
+				padding: 4px 16px;
+				border-radius: 6px;
+				background-color: #212121;
 				color: #fff;
-				background-color: #000;
-				text-decoration: none;
-				z-index: 2;
+				font-size: 14px;
 				font-weight: 500;
-				line-height: 24px;
-				letter-spacing: -0.36px;
 				font-feature-settings: 'liga' off, 'clig' off;
+				line-height: 1.4;
+				text-decoration: none;
+				text-align: center;
 			}
 
 			.elementor-ea11y-banner button {
-				position: relative;
 				border: none;
 				background: none;
 				padding: 12px;
 				margin: 0 24px;
 				cursor: pointer;
 				z-index: 2;
-			}
-
-			@media (max-width: 1170px) {
-				.elementor-ea11y-banner a {
-					padding: 6px 12px;
-					font-size: 14px;
-				}
-			}
-
-			@media (max-width: 845px) {
-				.elementor-ea11y-banner button {
-					margin: 0 6px;
-				}
 			}
 		</style>
 
