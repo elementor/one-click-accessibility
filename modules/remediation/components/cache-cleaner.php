@@ -212,7 +212,7 @@ class Cache_Cleaner {
 
 		// Elementor editor saves don't always trigger save_post with publish status (autosaves, draft edits).
 		add_action( 'elementor/editor/after_save', [ self::class, 'clear_ally_cache' ] );
-		add_action( 'elementor/core/files/clear_cache', [ self::class, 'clear_ally_url_cache' ] );
+		add_action( 'elementor/core/files/clear_cache', [ self::class, 'clear_ally_cache' ] );
 
 		// Theme switch can change templates and structural markup site-wide.
 		add_action( 'switch_theme', [ self::class, 'clear_ally_cache' ] );
