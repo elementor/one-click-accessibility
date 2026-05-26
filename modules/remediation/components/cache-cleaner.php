@@ -217,5 +217,10 @@ class Cache_Cleaner {
 		// Theme switch can change templates and structural markup site-wide.
 		add_action( 'switch_theme', [ self::class, 'clear_ally_cache' ] );
 		add_action( 'after_switch_theme', [ self::class, 'clear_ally_cache' ] );
+
+		// Any other plugin being activated or deactivated can change site markup
+		// (e.g. a builder/header plugin) and invalidate the cached HTML.
+		add_action( 'activated_plugin', [ self::class, 'clear_ally_cache' ] );
+		add_action( 'deactivated_plugin', [ self::class, 'clear_ally_cache' ] );
 	}
 }
