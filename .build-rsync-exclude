@@ -29,6 +29,7 @@ jest.config.js
 wp-assets
 .wporg-assets
 README.md
+CONTRIBUTING.md
 
 .build-rsync-exclude
 one-click-accessibility/
