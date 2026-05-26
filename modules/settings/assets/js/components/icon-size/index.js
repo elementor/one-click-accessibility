@@ -1,4 +1,5 @@
 import FormControl from '@elementor/ui/FormControl';
+import FormLabel from '@elementor/ui/FormLabel';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import Typography from '@elementor/ui/Typography';
 import { IconOptionWrapper } from '@ea11y/components';
@@ -24,15 +25,11 @@ const IconSize = (props) => {
 
 	return (
 		<FormControl>
-			<Typography
-				variant="subtitle2"
-				component="h3"
-				id="icon-size-radio-buttons-group-label"
-				marginBottom={1}
-				color="secondary"
-			>
-				{__('Size', 'pojo-accessibility')}
-			</Typography>
+			<FormLabel id="icon-size-radio-buttons-group-label" color="secondary">
+				<Typography variant="subtitle2" component="h3" marginBottom={1}>
+					{__('Size', 'pojo-accessibility')}
+				</Typography>
+			</FormLabel>
 
 			<RadioGroup
 				{...props}

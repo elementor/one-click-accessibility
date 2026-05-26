@@ -1,6 +1,7 @@
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import FormControl from '@elementor/ui/FormControl';
+import FormLabel from '@elementor/ui/FormLabel';
 import InputAdornment from '@elementor/ui/InputAdornment';
 import Menu from '@elementor/ui/Menu';
 import MenuItem from '@elementor/ui/MenuItem';
@@ -128,15 +129,15 @@ const IconRadius = () => {
 			)}
 			aria-labelledby="icon-radius-controls-group-label"
 		>
-			<Typography
-				variant="subtitle2"
-				component="h3"
+			<FormLabel
 				id="icon-radius-controls-group-label"
-				marginBottom={1}
 				color="secondary"
+				aria-label={__('Widget icon radius control', 'pojo-accessibility')}
 			>
-				{__('Corner radius', 'pojo-accessibility')}
-			</Typography>
+				<Typography variant="subtitle2" component="h3" marginBottom={1}>
+					{__('Corner radius', 'pojo-accessibility')}
+				</Typography>
+			</FormLabel>
 
 			<StyledBox>
 				<StyledTextField
