@@ -29,13 +29,8 @@ const ColorPicker = () => {
 
 	return (
 		<FormControl fullWidth>
-			<FormLabel id="color-picker-label">
-				<Typography
-					variant="subtitle2"
-					component="div"
-					marginBottom={2}
-					color="text.secondary"
-				>
+			<FormLabel id="color-picker-label" color="secondary">
+				<Typography variant="subtitle2" component="div" marginBottom={2}>
 					{__('Color', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
