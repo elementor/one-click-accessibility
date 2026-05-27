@@ -46,18 +46,14 @@ class Elementor_Birthday_Banner {
 		?>
 		<div class="elementor-birthday-banner" role="region" aria-label="<?php esc_attr_e( 'Elementor birthday sale', 'pojo-accessibility' ); ?>">
 			<div class="elementor-birthday-banner-container">
-				<p><?php esc_html_e( 'Celebrate Elementor’s 10th birthday', 'pojo-accessibility' ); ?> • <span><?php esc_html_e( 'Up to 30% off', 'pojo-accessibility' ); ?></span></p>
-
-				<a href="<?php echo esc_url( $link ); ?>" target="_blank">
-					<?php esc_html_e( 'Get discount', 'pojo-accessibility' ); ?>
-				</a>
-
-				<button aria-label="<?php esc_attr_e( 'Dismiss', 'pojo-accessibility' ); ?>">
-					<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path clip-rule="evenodd" fill-rule="evenodd" fill="#212121" d="M13.2803 1.28033C13.5732 0.987437 13.5732 0.512563 13.2803 0.21967C12.9874 -0.0732233 12.5126 -0.0732233 12.2197 0.21967L6.75 5.68934L1.28033 0.21967C0.987437 -0.0732233 0.512563 -0.0732233 0.21967 0.21967C-0.0732233 0.512563 -0.0732233 0.987437 0.21967 1.28033L5.68934 6.75L0.21967 12.2197C-0.0732233 12.5126 -0.0732233 12.9874 0.21967 13.2803C0.512563 13.5732 0.987437 13.5732 1.28033 13.2803L6.75 7.81066L12.2197 13.2803C12.5126 13.5732 12.9874 13.5732 13.2803 13.2803C13.5732 12.9874 13.5732 12.5126 13.2803 12.2197L7.81066 6.75L13.2803 1.28033Z"/>
-					</svg>
-				</button>
+				<p><span><?php esc_html_e( 'Celebrate Elementor’s 10th birthday', 'pojo-accessibility' ); ?></span> | <?php esc_html_e( 'Up to 30% off', 'pojo-accessibility' ); ?></p>
+				<a href="<?php echo esc_url( $link ); ?>" target="_blank"><?php esc_html_e( 'Get discounts', 'pojo-accessibility' ); ?></a>
 			</div>
+			<button type="button" aria-label="<?php esc_attr_e( 'Dismiss', 'pojo-accessibility' ); ?>">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path clip-rule="evenodd" fill-rule="evenodd" fill="#212121" d="M13.2803 1.28033C13.5732 0.987437 13.5732 0.512563 13.2803 0.21967C12.9874 -0.0732233 12.5126 -0.0732233 12.2197 0.21967L6.75 5.68934L1.28033 0.21967C0.987437 -0.0732233 0.512563 -0.0732233 0.21967 0.21967C-0.0732233 0.512563 -0.0732233 0.987437 0.21967 1.28033L5.68934 6.75L0.21967 12.2197C-0.0732233 12.5126 -0.0732233 12.9874 0.21967 13.2803C0.512563 13.5732 0.987437 13.5732 1.28033 13.2803L6.75 7.81066L12.2197 13.2803C12.5126 13.5732 12.9874 13.5732 13.2803 13.2803C13.5732 12.9874 13.5732 12.5126 13.2803 12.2197L7.81066 6.75L13.2803 1.28033Z"/>
+				</svg>
+			</button>
 		</div>
 
 		<style>
@@ -76,7 +72,7 @@ class Elementor_Birthday_Banner {
 				max-width: 1200px;
 				margin: 0 auto;
 				display: flex;
-				justify-content: end;
+				justify-content: center;
 				align-items: center;
 				gap: 20px;
 			}
@@ -88,11 +84,10 @@ class Elementor_Birthday_Banner {
 				font-style: normal;
 				font-weight: 400;
 				font-feature-settings: 'liga' off, 'clig' off;
-				line-height: 1.5;
+				line-height: 1.4;
 			}
 
 			.elementor-birthday-banner p span {
-				font-style: italic;
 				font-weight: 700;
 			}
 
@@ -110,12 +105,13 @@ class Elementor_Birthday_Banner {
 			}
 
 			.elementor-birthday-banner button {
-				border: none;
 				background: none;
+				border: none;
 				padding: 12px;
 				margin: 0 24px;
 				cursor: pointer;
-				z-index: 2;
+				float: inline-end;
+				line-height: 0;
 			}
 		</style>
 
