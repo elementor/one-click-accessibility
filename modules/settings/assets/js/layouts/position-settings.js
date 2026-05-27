@@ -31,7 +31,7 @@ export const PositionSettings = (props) => {
 	return (
 		<StyledWrapper {...props}>
 			<Box marginBottom={2}>
-				<Typography variant="subtitle1">
+				<Typography variant="subtitle1" component="h2">
 					{__('Position', 'pojo-accessibility')}
 				</Typography>
 				<Typography variant="body2">

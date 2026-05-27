@@ -14,7 +14,7 @@ const IconDesignSettings = (props) => {
 	return (
 		<StyledWrapper {...props}>
 			<Box marginBottom={2}>
-				<Typography variant="subtitle1">
+				<Typography variant="subtitle1" component="h2">
 					{__('Style', 'pojo-accessibility')}
 				</Typography>
 

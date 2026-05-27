@@ -11,7 +11,7 @@ const StatsCounter = ({ stat, loading, title, tooltip }) => {
 	return (
 		<StyledStatsItem className="scanned-urls">
 			<StyledStatsItemContent>
-				<StyledStatsItemTitle variant="subtitle1" as="p">
+				<StyledStatsItemTitle variant="subtitle1" as="h2">
 					{title}
 
 					<AccessibilityAssistantTooltip content={tooltip} />
