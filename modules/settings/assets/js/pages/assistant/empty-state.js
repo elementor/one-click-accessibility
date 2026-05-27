@@ -107,14 +107,14 @@ const AccessibilityAssistantEmptyState = () => {
 };
 
 const StyledWrapper = styled(Box)`
-	margin-top: ${({ theme }) => theme.spacing(8)};
+	margin-block-start: ${({ theme }) => theme.spacing(8)};
 
 	text-align: center;
 `;
 
 const StyledTitle = styled(Typography)`
-	margin-top: ${({ theme }) => theme.spacing(2)};
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
+	margin-block-start: ${({ theme }) => theme.spacing(2)};
+	margin-block-end: ${({ theme }) => theme.spacing(1)};
 
 	font-size: 20px;
 	font-weight: 500;
@@ -125,7 +125,7 @@ const StyledTitle = styled(Typography)`
 
 const StyledSubtitle = styled(Typography)`
 	color: ${({ theme }) => theme.palette.text.secondary};
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	margin-block-end: ${({ theme }) => theme.spacing(2)};
 `;
 
 const StyledButton = styled(Button)`
@@ -135,11 +135,11 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledGuideContainer = styled(Box)`
-	margin-top: ${({ theme }) => theme.spacing(8)};
+	margin-block-start: ${({ theme }) => theme.spacing(8)};
 `;
 
 const StyledGuideTitle = styled(Typography)`
-	margin-bottom: ${({ theme }) => theme.spacing(2)};
+	margin-block-end: ${({ theme }) => theme.spacing(2)};
 
 	color: ${({ theme }) => theme.palette.text.secondary};
 	font-size: 16px;
@@ -178,7 +178,7 @@ const StyledGuideStepTitle = styled(Typography)`
 	align-items: center;
 
 	margin: 0;
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
+	margin-block-end: ${({ theme }) => theme.spacing(1)};
 
 	color: ${({ theme }) => theme.palette.text.secondary};
 	font-size: 14px;

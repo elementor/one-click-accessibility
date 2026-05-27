@@ -91,9 +91,11 @@ final class Pojo_Accessibility {
 	private function __construct() {
 		// Load Composer autoloader
 		require_once EA11Y_PATH . 'vendor/autoload.php';
+		require_once EA11Y_PATH . 'classes/plugin-activation.php';
 
 		// Init Plugin
 		add_action( 'plugins_loaded', [ $this, 'init' ] );
+		new \EA11y\Classes\Plugin_Activation( EA11Y_MAIN_FILE );
 	}
 
 }

@@ -64,7 +64,7 @@ export const UpgradeContent = ({
 	return (
 		<InfotipBox>
 			<UpgradeContentContainer>
-				<Typography variant="subtitle1" sx={{ mb: 3 }}>
+				<Typography variant="subtitle1" sx={{ marginBlockEnd: 3 }}>
 					{IS_PRO_PLAN
 						? __("You've reached the monthly limit", 'pojo-accessibility')
 						: __('Resolve issues automatically with AI', 'pojo-accessibility')}
@@ -74,13 +74,13 @@ export const UpgradeContent = ({
 						onClick={closeUpgrade}
 						size="small"
 						edge="end"
-						sx={{ mt: -1 }}
+						sx={{ marginBlockStart: -1 }}
 					>
 						<XIcon />
 					</IconButton>
 				)}
 			</UpgradeContentContainer>
-			<Typography variant="body2" color="secondary" sx={{ mb: 2 }}>
+			<Typography variant="body2" color="secondary" sx={{ marginBlockEnd: 2 }}>
 				{IS_PRO_PLAN
 					? __(
 							'To work more magic with AI, upgrade your plan or wait until next month.',

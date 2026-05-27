@@ -1,5 +1,6 @@
 import AppBar from '@elementor/ui/AppBar';
 import IconButton from '@elementor/ui/IconButton';
+import Rotate from '@elementor/ui/Rotate';
 import Toolbar from '@elementor/ui/Toolbar';
 import { useSettings } from '@ea11y/hooks';
 import { SquareRoundedChevronsLeft } from '@ea11y/icons';
@@ -20,11 +21,12 @@ const SidebarAppBar = () => {
 					onClick={() => setOpenSidebar(!openSidebar)}
 					size="small"
 				>
-					<SquareRoundedChevronsLeft
-						role="img"
-						aria-label={__('Toggle sidebar', 'pojo-accessibility')}
-						sx={{ rotate: !openSidebar ? '180deg' : '0' }}
-					/>
+					<Rotate in={!openSidebar}>
+						<SquareRoundedChevronsLeft
+							role="img"
+							aria-label={__('Toggle sidebar', 'pojo-accessibility')}
+						/>
+					</Rotate>
 				</IconButton>
 			</Toolbar>
 		</AppBar>

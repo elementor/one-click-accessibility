@@ -31,7 +31,12 @@ const DeletePageRemediationModal = ({
 					: __('Remove fix', 'pojo-accessibility')
 			}
 			cancelText={__('Not now', 'pojo-accessibility')}
-			logo={<AlertOctagonFilledIcon color="error" sx={{ mt: '6px' }} />}
+			logo={
+				<AlertOctagonFilledIcon
+					color="error"
+					sx={{ marginBlockStart: '6px' }}
+				/>
+			}
 			onApprove={onDelete}
 			showCloseButton
 			disablePortal

@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 
 export const UsageTableTitle = () => (
 	<Box display="flex" gap={1}>
-		<Typography variant="subtitle1">
+		<Typography variant="subtitle1" component="h2">
 			{__('Most used features', 'pojo-accessibility')}
 		</Typography>
 		<Infotip

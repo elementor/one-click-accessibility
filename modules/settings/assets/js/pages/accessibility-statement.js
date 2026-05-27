@@ -5,6 +5,7 @@ import FormLabel from '@elementor/ui/FormLabel';
 import Link from '@elementor/ui/Link';
 import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
+import Rotate from '@elementor/ui/Rotate';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { StatementGenerator } from '@ea11y/components';
@@ -26,6 +27,7 @@ import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { injectTemplateVars } from '@ea11y-apps/global/utils/inject-template-vars';
 import { useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
+import { usePluginSettingsContext } from '../contexts/plugin-settings';
 
 const AccessibilityStatement = () => {
 	const { accessibilityStatementData } = useSettings();
@@ -34,6 +36,7 @@ const AccessibilityStatement = () => {
 	// Store statement option - generate or existing
 	const [statementOption, setStatementOption] = useState('');
 	const [showStatementLink, setShowStatementLink] = useState(false);
+	const { isRTL } = usePluginSettingsContext();
 
 	useEffect(() => {
 		mixpanelService.sendEvent(mixpanelEvents.pageView, {
@@ -77,7 +80,7 @@ const AccessibilityStatement = () => {
 		<>
 			<StyledBox>
 				<StyledWideBox>
-					<StyledPageTitle variant="h5">
+					<StyledPageTitle variant="h5" component="h1">
 						{__('Accessibility statement', 'pojo-accessibility')}
 					</StyledPageTitle>
 
@@ -124,10 +127,11 @@ const AccessibilityStatement = () => {
 								>
 									<Typography
 										variant="h6"
+										component="h2"
 										color="text.primary"
 										align="center"
-										marginBottom="4px"
-										marginTop={4}
+										marginBlockEnd="4px"
+										marginBlockStart={4}
 									>
 										{__(
 											'Need an accessibility statement?',
@@ -138,7 +142,7 @@ const AccessibilityStatement = () => {
 									<Typography
 										variant="body2"
 										color="text.secondary"
-										marginBottom={3}
+										marginBlockEnd={3}
 										align="center"
 									>
 										{__(
@@ -175,7 +179,7 @@ const AccessibilityStatement = () => {
 									>
 										<AccessibilityStatementCreateIcon />
 
-										<Typography marginTop={1}>
+										<Typography marginBlockStart={1}>
 											{__('Yes, I need one', 'pojo-accessibility')}
 										</Typography>
 
@@ -199,7 +203,7 @@ const AccessibilityStatement = () => {
 									>
 										<AccessibilityStatementExistingIcon />
 
-										<Typography marginTop={1}>
+										<Typography marginBlockStart={1}>
 											{__('No, I already have one', 'pojo-accessibility')}
 										</Typography>
 
@@ -219,7 +223,11 @@ const AccessibilityStatement = () => {
 								<Button
 									size="large"
 									color="secondary"
-									startIcon={<ChevronLeftIcon fontSize="small" />}
+									startIcon={
+										<Rotate in={isRTL}>
+											<ChevronLeftIcon aria-hidden={true} fontSize="small" />
+										</Rotate>
+									}
 									onClick={handleBackButton}
 								>
 									{__('Back', 'pojo-accessibility')}
@@ -236,7 +244,7 @@ const AccessibilityStatement = () => {
 						justifyContent="end"
 						p={2}
 						width="100%"
-						borderTop="1px solid rgb(0 0 0 / 0.12)"
+						sx={{ borderBlockStart: '1px solid rgb(0 0 0 / 0.12)' }}
 					>
 						<Button
 							color="primary"

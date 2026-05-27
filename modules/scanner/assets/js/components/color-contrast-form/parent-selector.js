@@ -26,7 +26,7 @@ export const ParentSelector = ({
 
 	return (
 		<Box>
-			<Typography variant="body2" as="p" sx={{ mb: 2 }}>
+			<Typography variant="body2" as="p" sx={{ marginBlockEnd: 2 }}>
 				{__('Background area', 'pojo-accessibility')}
 			</Typography>
 			<Box display="flex" alignItems="center" gap={1}>

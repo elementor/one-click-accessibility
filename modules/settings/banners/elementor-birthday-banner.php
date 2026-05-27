@@ -32,7 +32,11 @@ class Elementor_Birthday_Banner {
 	 * @throws Throwable
 	 */
 	public static function get_banner( string $link ) {
-		if ( ! self::is_sale_time() || self::user_viewed_banner() ) {
+		if ( ! self::is_sale_time() ) {
+			return;
+		}
+
+		if ( self::user_viewed_banner() ) {
 			return;
 		}
 

@@ -80,7 +80,11 @@ const GetStartedModal = () => {
 					referrerPolicy="strict-origin-when-cross-origin"
 					allowfullscreen
 				></iframe>
-				<DialogContentText variant="h5" color="text.primary" marginTop={2}>
+				<DialogContentText
+					variant="h5"
+					color="text.primary"
+					marginBlockStart={2}
+				>
 					{__('Getting started with Ally', 'pojo-accessibility')}
 				</DialogContentText>
 				<DialogContentText variant="body1">

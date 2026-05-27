@@ -24,7 +24,7 @@ const Analytics = () => {
 	return (
 		<StyledBox sx={{ position: 'relative' }}>
 			<StyledWideBox>
-				<StyledPageTitle variant="h5">
+				<StyledPageTitle variant="h5" component="h1">
 					{__('Analytics', 'pojo-accessibility')}
 				</StyledPageTitle>
 				<ChartsList />
@@ -45,10 +45,7 @@ const StyledPageTitle = styled(StyledTitle)`
 
 const Blur = styled(Box)`
 	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+	inset: 0;
 	backdrop-filter: blur(5px);
 	z-index: 2;
 `;

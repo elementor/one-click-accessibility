@@ -35,6 +35,7 @@ const LogoSettings = () => {
 						)}
 					</>
 				}
+				titleTypographyProps={{ component: 'h2' }}
 				subheader={
 					<Typography variant="body2">
 						{__(

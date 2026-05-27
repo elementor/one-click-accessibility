@@ -13,8 +13,8 @@ import { __ } from '@wordpress/i18n';
 const IconDesignSettings = (props) => {
 	return (
 		<StyledWrapper {...props}>
-			<Box marginBottom={2}>
-				<Typography variant="subtitle1">
+			<Box marginBlockEnd={2}>
+				<Typography variant="subtitle1" component="h2">
 					{__('Style', 'pojo-accessibility')}
 				</Typography>
 
@@ -49,8 +49,7 @@ const StyledWrapper = styled(Box)`
 	padding: ${({ theme }) => theme.spacing(2)};
 	border: 1px solid ${({ theme }) => theme.palette.divider};
 	border-radius: ${({ theme }) => theme.shape.borderRadius}px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 	max-width: 1200px;
 `;
 

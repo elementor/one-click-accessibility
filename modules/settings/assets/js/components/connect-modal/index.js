@@ -66,8 +66,8 @@ const ConnectModal = () => {
 				<Typography
 					variant="h5"
 					color="text.primary"
-					marginTop={5}
-					marginBottom={1}
+					marginBlockStart={5}
+					marginBlockEnd={1}
 					id="connect-modal-title"
 				>
 					{__("Let's improve your site's accessibility", 'pojo-accessibility')}
@@ -124,7 +124,7 @@ const ConnectModal = () => {
 						size="large"
 						onClick={redirectToConnect}
 						fullWidth
-						sx={{ marginTop: 5 }}
+						sx={{ marginBlockStart: 5 }}
 					>
 						{__('Get started', 'pojo-accessibility')}
 					</Button>

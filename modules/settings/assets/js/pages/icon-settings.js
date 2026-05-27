@@ -20,11 +20,11 @@ const IconSettings = () => {
 	return (
 		<StyledBox>
 			<StyledWideBox>
-				<StyledPageTitle variant="h5">
+				<StyledPageTitle variant="h5" component="h1">
 					{__('Design', 'pojo-accessibility')}
 				</StyledPageTitle>
 
-				<IconDesignSettings marginBottom={4} />
+				<IconDesignSettings marginBlockEnd={4} />
 
 				<PositionSettings />
 			</StyledWideBox>

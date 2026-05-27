@@ -143,7 +143,7 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 				/>
 			)}
 			<Alert severity={colorData.passesAA ? 'success' : 'error'}>
-				<AlertTitle sx={{ mr: 1 }}>
+				<AlertTitle sx={{ marginInlineEnd: 1 }}>
 					{__('Contrast level:', 'pojo-accessibility')}
 				</AlertTitle>
 				{colorData.ratio}
@@ -170,7 +170,7 @@ export const ColorContrastForm = ({ item, current, setCurrent, setIsEdit }) => {
 						loading={loading}
 						disabled={isSubmitDisabled}
 						onClick={item.isEdit || resolved ? handleUpdate : handleSubmit}
-						sx={{ mt: isManage ? 0 : 1.5 }}
+						sx={{ marginBlockStart: isManage ? 0 : 1.5 }}
 						fullWidth={!isManage}
 					>
 						{isGlobal ? __('Apply to all', 'pojo-accessibility') : applyBtnText}

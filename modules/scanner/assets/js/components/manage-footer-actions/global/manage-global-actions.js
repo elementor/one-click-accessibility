@@ -54,7 +54,7 @@ const ManageGlobalActions = ({ item }) => {
 				disabled={activeRequest}
 				onClick={handleOpen}
 				ref={anchorEl}
-				sx={{ ml: 1 }}
+				sx={{ marginInlineStart: 1 }}
 			>
 				{isExcluded
 					? __('Enable fix', 'pojo-accessibility')

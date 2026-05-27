@@ -18,7 +18,7 @@ const AccessibilityAssistantHeading = ({
 
 	return (
 		<StyledHeadingContainer>
-			<StyledTitle variant="h5">
+			<StyledTitle variant="h5" component="h1">
 				{__('Accessibility scans', 'pojo-accessibility')}
 
 				<Chip

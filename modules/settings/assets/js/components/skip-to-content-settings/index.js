@@ -78,6 +78,7 @@ const SkipToContentSettings = () => {
 			<StyledBox>
 				<StyledTypography
 					variant="subtitle1"
+					component="h2"
 					id="ea11y-skip-to-content-toggle"
 					aria-description={titleTooltipText}
 				>
@@ -87,14 +88,14 @@ const SkipToContentSettings = () => {
 						tabIndex="0"
 						content={
 							<Box sx={{ p: 2, maxWidth: '250px' }}>
-								<Typography variant="subtitle2" sx={{ mb: 1 }}>
+								<Typography variant="subtitle2" sx={{ marginBlockEnd: 1 }}>
 									{__('Skip to main content', 'pojo-accessibility')}
 								</Typography>
 
 								<Typography variant="body2">{titleTooltipText}</Typography>
 							</Box>
 						}
-						placement="right"
+						placement="top"
 						arrow={true}
 					>
 						<InfoCircleIcon fontSize="small" />
@@ -130,14 +131,14 @@ const SkipToContentSettings = () => {
 						tabIndex="0"
 						content={
 							<Box sx={{ p: 2, maxWidth: '250px' }}>
-								<Typography variant="subtitle2" sx={{ mb: 1 }}>
+								<Typography variant="subtitle2" sx={{ marginBlockEnd: 1 }}>
 									{__('Skip to main content', 'pojo-accessibility')}
 								</Typography>
 
 								<Typography variant="body2">{idTooltipText}</Typography>
 							</Box>
 						}
-						placement="right"
+						placement="top"
 						arrow={true}
 					>
 						<InfoCircleIcon fontSize="small" />
@@ -161,7 +162,7 @@ const SkipToContentSettings = () => {
 							as="p"
 							variant="caption"
 							color="error"
-							sx={{ marginTop: '4px' }}
+							sx={{ marginBlockStart: '4px' }}
 						>
 							{__('Please enter valid ID!', 'pojo-accessibility')}
 						</Typography>
@@ -176,8 +177,7 @@ const StyledCard = styled(Card)`
 	padding: ${({ theme }) => theme.spacing(2)};
 	margin-block: ${({ theme }) => theme.spacing(4)};
 	max-width: 1200px;
-	margin-left: auto;
-	margin-right: auto;
+	margin-inline: auto;
 `;
 
 const StyledBox = styled(Box)`
@@ -198,7 +198,7 @@ const StyledFormItem = styled(Box)`
 	gap: 16px;
 	align-items: flex-start;
 	justify-content: start;
-	padding-top: 16px;
+	padding-block-start: 16px;
 `;
 
 const StyledFormLabel = styled(FormLabel)`
@@ -206,7 +206,7 @@ const StyledFormLabel = styled(FormLabel)`
 	align-items: center;
 	gap: 8px;
 	white-space: nowrap;
-	padding-top: 7px;
+	padding-block-start: 7px;
 `;
 
 const StyledTextField = styled(TextField)`

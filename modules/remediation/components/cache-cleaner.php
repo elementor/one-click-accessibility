@@ -17,6 +17,13 @@ class Cache_Cleaner {
 
 	const EA11Y_CLEAR_POST_CACHE_HOOK = 'ea11y_clear_post_cache';
 
+	const ELEMENTOR_TEMPLATE_POST_TYPES = [
+		'elementor_library',
+		'e-landing-page',
+		'elementor-hf',
+		'e-floating-buttons',
+	];
+
 	public static function clear_ally_cache(): void {
 		Page_Entry::clear_all_cache();
 	}
@@ -171,10 +178,20 @@ class Cache_Cleaner {
 	}
 
 	public function clean_post_cache( $post_ID, $post, $update ) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		// Elementor templates (headers/footers/popups/theme parts) can affect many or all pages,
+		// so purge the entire cache rather than only the template's own permalink.
+		if ( in_array( $post->post_type, self::ELEMENTOR_TEMPLATE_POST_TYPES, true ) ) {
+			self::clear_ally_cache();
+			return;
+		}
+
 		// Only on publish post for public post type
 		$post_type_object = get_post_type_object( $post->post_type );
 		if (
-			( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ||
 			( ! $post_type_object || ! $post_type_object->public ) ||
 			'publish' !== $post->post_status
 		) {
@@ -192,5 +209,18 @@ class Cache_Cleaner {
 		add_action( 'created_term', [ $this, 'clean_taxonomy_cache' ], 10, 3 );
 		add_action( 'edited_term', [ $this, 'clean_taxonomy_cache' ], 10, 3 );
 		add_action( 'save_post', [ $this, 'clean_post_cache' ], 10, 3 );
+
+		// Elementor editor saves don't always trigger save_post with publish status (autosaves, draft edits).
+		add_action( 'elementor/editor/after_save', [ self::class, 'clear_ally_cache' ] );
+		add_action( 'elementor/core/files/clear_cache', [ self::class, 'clear_ally_cache' ] );
+
+		// Theme switch can change templates and structural markup site-wide.
+		add_action( 'switch_theme', [ self::class, 'clear_ally_cache' ] );
+		add_action( 'after_switch_theme', [ self::class, 'clear_ally_cache' ] );
+
+		// Any other plugin being activated or deactivated can change site markup
+		// (e.g. a builder/header plugin) and invalidate the cached HTML.
+		add_action( 'activated_plugin', [ self::class, 'clear_ally_cache' ] );
+		add_action( 'deactivated_plugin', [ self::class, 'clear_ally_cache' ] );
 	}
 }
