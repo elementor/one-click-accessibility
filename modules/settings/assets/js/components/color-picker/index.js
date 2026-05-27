@@ -1,5 +1,6 @@
 import Box from '@elementor/ui/Box';
 import FormControl from '@elementor/ui/FormControl';
+import FormLabel from '@elementor/ui/FormLabel';
 import Grid from '@elementor/ui/Grid';
 import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
@@ -28,15 +29,16 @@ const ColorPicker = () => {
 
 	return (
 		<FormControl fullWidth>
-			<Typography
-				variant="subtitle2"
-				component="h3"
-				id="color-picker-label"
-				marginBottom={1}
-				color="text.primary"
-			>
-				{__('Color', 'pojo-accessibility')}
-			</Typography>
+			<FormLabel id="color-picker-label">
+				<Typography
+					variant="subtitle2"
+					component="div"
+					marginBottom={2}
+					color="text.secondary"
+				>
+					{__('Color', 'pojo-accessibility')}
+				</Typography>
+			</FormLabel>
 
 			<Grid padding={1} border={1} borderColor="divider" borderRadius={1}>
 				<HexColorPicker

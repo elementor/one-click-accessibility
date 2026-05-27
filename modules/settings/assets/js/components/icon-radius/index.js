@@ -134,7 +134,7 @@ const IconRadius = () => {
 				color="secondary"
 				aria-label={__('Widget icon radius control', 'pojo-accessibility')}
 			>
-				<Typography variant="subtitle2" component="h3" marginBottom={1}>
+				<Typography variant="subtitle2" component="div" marginBottom={1}>
 					{__('Corner radius', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>
