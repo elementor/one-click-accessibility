@@ -229,7 +229,7 @@ export const AltTextForm = ({ item, current, setCurrent, setIsEdit }) => {
 							onClick={
 								isManage || data?.[current]?.resolved ? onUpdate : onSubmit
 							}
-							sx={{ mt: isManage ? 0 : 1.5 }}
+							sx={{ marginBlockStart: isManage ? 0 : 1.5 }}
 						>
 							{isGlobal
 								? __('Apply to all', 'pojo-accessibility')

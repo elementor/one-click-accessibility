@@ -46,7 +46,7 @@ const UserFeedbackForm = () => {
 	const id = isOpened ? 'reviews-popover' : undefined;
 	const isRTL = Boolean(window.ea11yReviewData?.isRTL);
 	const horizontalOrigin = isRTL ? 'left' : 'right';
-	const anchorPositionOffset = '10';
+	const anchorPositionOffset = 10;
 
 	const headerMessage = {
 		ratings: __('How would you rate Ally so far?', 'pojo-accessibility'),

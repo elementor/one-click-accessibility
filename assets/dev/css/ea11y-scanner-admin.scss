@@ -133,15 +133,15 @@
 
   &-n::after {
     right: 50%;
-    bottom: 100%;
+    inset-block-end: 100%;
     margin-block-end: 5px;
     transform: translateX(50%);
   }
 
   &-n::before {
-    top: -5px;
     right: 50%;
-    bottom: auto;
+    inset-block-start: -5px;
+    inset-block-end: auto;
     margin-inline-end: -5px;
     border-block-start-color: rgb(0 0 0 / 0.8);
   }
