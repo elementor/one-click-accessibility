@@ -40,49 +40,50 @@ const PieChart = ({
 			sx={{
 				width: 120,
 				height: 120,
-				display: 'flex',
-				justifyContent: 'center',
-				alignItems: 'center',
-				position: 'relative',
+				display: 'grid',
+				placeItems: 'center',
 			}}
 		>
-			<MuiPieChart
-				series={[
-					{
-						data: pieData,
-						innerRadius: 40,
-						outerRadius: 52,
-						cx: 60,
-						cy: 60,
-					},
-				]}
-				slots={{
-					itemContent: StatsPieTooltip,
-				}}
-				width={120}
-				height={120}
-				slotProps={{
-					legend: { hidden: true },
-				}}
-				sx={{
-					position: 'absolute',
-					top: '50%',
-					left: '50%',
-					transform: 'translate(-50%, -50%)',
-					[`& .${pieArcLabelClasses.root}`]: {
-						display: 'none',
-					},
-				}}
-			/>
 			<Box
 				sx={{
-					position: 'absolute',
-					top: '55%',
-					left: '53%',
-					transform: 'translate(-50%, -50%)',
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
+					gridArea: '1 / 1',
+					width: 120,
+					height: 120,
+				}}
+			>
+				<MuiPieChart
+					series={[
+						{
+							data: pieData,
+							innerRadius: 40,
+							outerRadius: 52,
+							cx: 60,
+							cy: 60,
+						},
+					]}
+					slots={{
+						itemContent: StatsPieTooltip,
+					}}
+					width={120}
+					height={120}
+					margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
+					slotProps={{
+						legend: { hidden: true },
+					}}
+					sx={{
+						[`& .${pieArcLabelClasses.root}`]: {
+							display: 'none',
+						},
+					}}
+				/>
+			</Box>
+			<Box
+				sx={{
+					gridArea: '1 / 1',
+					width: 120,
+					height: 120,
+					display: 'grid',
+					placeItems: 'center',
 				}}
 			>
 				<Typography variant="h4" as="span">

@@ -90,11 +90,11 @@ const UrlMismatchModal = () => {
 
 					<StyledGridContainerContent>
 						<StyledCard>
-							<StyledCardTitle variant="h6" marginBottom={3}>
+							<StyledCardTitle variant="h6" marginBlockEnd={3}>
 								{__('Update the connected URL', 'pojo-accessibility')}
 							</StyledCardTitle>
 
-							<StyledCardSubtitle variant="body1" marginBottom={3}>
+							<StyledCardSubtitle variant="body1" marginBlockEnd={3}>
 								{__(
 									'For cases where you’re moving the same site from staging to production or changing from HTTP to HTTPs.',
 									'pojo-accessibility',
@@ -111,11 +111,11 @@ const UrlMismatchModal = () => {
 						</StyledCard>
 
 						<StyledCard>
-							<StyledCardTitle variant="h6" marginBottom={3}>
+							<StyledCardTitle variant="h6" marginBlockEnd={3}>
 								{__('Connect the URL as a new site', 'pojo-accessibility')}
 							</StyledCardTitle>
 
-							<StyledCardSubtitle variant="body1" marginBottom={3}>
+							<StyledCardSubtitle variant="body1" marginBlockEnd={3}>
 								{__(
 									'For when you want to connect the plugin to a new site entirely—deleting the previous history.',
 									'pojo-accessibility',
@@ -177,7 +177,7 @@ const StyledCard = styled(Box)`
 	}
 
 	& span {
-		margin-right: 24px;
+		margin-inline-end: 24px;
 	}
 `;
 
@@ -196,33 +196,31 @@ const StyledGridContainer = styled(Grid)`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding-left: ${({ theme }) => theme.spacing(8)};
-	padding-right: ${({ theme }) => theme.spacing(8)};
+	padding-inline: ${({ theme }) => theme.spacing(8)};
 `;
 
 const StyledGridContainerContent = styled(Grid)`
 	justify-content: space-between;
 	display: flex;
-	margin-top: 80px;
-	margin-bottom: 80px;
+	margin-block: 80px;
 `;
 
 const StyledTitle = styled(Typography)`
 	color: ${({ theme }) => theme.palette.text.primary};
-	margin-top: ${({ theme }) => theme.spacing(5)};
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
+	margin-block-start: ${({ theme }) => theme.spacing(5)};
+	margin-block-end: ${({ theme }) => theme.spacing(1)};
 `;
 
 const StyledSubtitle = styled(Typography)`
 	color: ${({ theme }) => theme.palette.text.secondary};
-	margin-bottom: ${({ theme }) => theme.spacing(1)};
+	margin-block-end: ${({ theme }) => theme.spacing(1)};
 	text-align: center;
 	width: 70%;
 `;
 
 const StyledConfirmDialog = styled(ConfirmDialog)`
-	margin-left: 10%;
+	margin-inline-start: 10%;
 	& .MuiDialogContent-dividers {
-		border-bottom: none;
+		border-block-end: none;
 	}
 `;

@@ -24,7 +24,7 @@ const IconSettings = () => {
 					{__('Design', 'pojo-accessibility')}
 				</StyledPageTitle>
 
-				<IconDesignSettings marginBottom={4} />
+				<IconDesignSettings marginBlockEnd={4} />
 
 				<PositionSettings />
 			</StyledWideBox>

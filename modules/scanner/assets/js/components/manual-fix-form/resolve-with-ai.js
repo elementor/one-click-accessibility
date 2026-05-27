@@ -116,7 +116,7 @@ export const ResolveWithAi = ({ item, current }) => {
 	return aiSuggestion?.snippet ? (
 		<Box>
 			<Card variant="outlined" sx={{ overflow: 'visible' }}>
-				<CardContent sx={{ pt: 1.5, pb: 0 }}>
+				<CardContent sx={{ paddingBlockStart: 1.5, paddingBlockEnd: 0 }}>
 					<ItemHeader>
 						<ItemTitle>
 							<AIIcon />
@@ -133,7 +133,7 @@ export const ResolveWithAi = ({ item, current }) => {
 										<InfotipBox>
 											<Typography
 												variant="subtitle1"
-												sx={{ mb: 1, textTransform: 'none' }}
+												sx={{ marginBlockEnd: 1, textTransform: 'none' }}
 											>
 												{__('How AI resolves this?', 'pojo-accessibility')}
 											</Typography>

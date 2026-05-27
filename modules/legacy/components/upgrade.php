@@ -268,8 +268,8 @@ class Upgrade {
 				}
 				.video-wrapper {
 					position: relative;
-					padding-bottom: 56.25%;
-					padding-top: 9px;
+					padding-block-end: 56.25%;
+					padding-block-start: 9px;
 					height: 0;
 					overflow: hidden;
 				}
@@ -277,7 +277,7 @@ class Upgrade {
 					padding: 1px 9px;
 				}
 				.intro-title {
-					margin-top: 16px;
+					margin-block-start: 16px;
 					font-family: Roboto, sans-serif;
 					font-size: 24px;
 					font-style: normal;
@@ -286,8 +286,8 @@ class Upgrade {
 				}
 				.intro-description{
 					padding: 0 !important;
-					margin-top: 24px;
-					margin-bottom: 24px;
+					margin-block-start: 24px;
+					margin-block-end: 24px;
 					color: #69727D;
 				}
 				.benefits {
@@ -298,7 +298,7 @@ class Upgrade {
 					background-image: url(data:image/svg+xml;base64,Cjxzdmcgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB2aWV3Qm94PSIwIDAgMjAgMjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGlkPSJDaXJjbGVDaGVja0ZpbGxlZCI+CjxwYXRoIGlkPSJWZWN0b3IiIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMTAgMS44NzVDOC45MzMwMSAxLjg3NSA3Ljg3NjQ3IDIuMDg1MTYgNi44OTA3IDIuNDkzNDhDNS45MDQ5MyAyLjkwMTggNS4wMDkyMyAzLjUwMDI4IDQuMjU0NzYgNC4yNTQ3NkMzLjUwMDI4IDUuMDA5MjMgMi45MDE4IDUuOTA0OTMgMi40OTM0OCA2Ljg5MDdDMi4wODUxNiA3Ljg3NjQ3IDEuODc1IDguOTMzMDEgMS44NzUgMTBDMS44NzUgMTEuMDY3IDIuMDg1MTYgMTIuMTIzNSAyLjQ5MzQ4IDEzLjEwOTNDMi45MDE4IDE0LjA5NTEgMy41MDAyOCAxNC45OTA4IDQuMjU0NzYgMTUuNzQ1MkM1LjAwOTIzIDE2LjQ5OTcgNS45MDQ5MyAxNy4wOTgyIDYuODkwNyAxNy41MDY1QzcuODc2NDcgMTcuOTE0OCA4LjkzMzAxIDE4LjEyNSAxMCAxOC4xMjVDMTEuMDY3IDE4LjEyNSAxMi4xMjM1IDE3LjkxNDggMTMuMTA5MyAxNy41MDY1QzE0LjA5NTEgMTcuMDk4MiAxNC45OTA4IDE2LjQ5OTcgMTUuNzQ1MiAxNS43NDUyQzE2LjQ5OTcgMTQuOTkwOCAxNy4wOTgyIDE0LjA5NTEgMTcuNTA2NSAxMy4xMDkzQzE3LjkxNDggMTIuMTIzNSAxOC4xMjUgMTEuMDY3IDE4LjEyNSAxMEMxOC4xMjUgOC45MzMwMSAxNy45MTQ4IDcuODc2NDcgMTcuNTA2NSA2Ljg5MDdDMTcuMDk4MiA1LjkwNDkzIDE2LjQ5OTcgNS4wMDkyMyAxNS43NDUyIDQuMjU0NzZDMTQuOTkwOCAzLjUwMDI4IDE0LjA5NTEgMi45MDE4IDEzLjEwOTMgMi40OTM0OEMxMi4xMjM1IDIuMDg1MTYgMTEuMDY3IDEuODc1IDEwIDEuODc1Wk0xMy41MzQ2IDguMzgwMjRDMTMuNzc4NyA4LjEzNjE2IDEzLjc3ODcgNy43NDA0MyAxMy41MzQ2IDcuNDk2MzVDMTMuMjkwNSA3LjI1MjI4IDEyLjg5NDggNy4yNTIyOCAxMi42NTA3IDcuNDk2MzVMOC45NjkyNSAxMS4xNzc4TDcuMzQ5NDkgOS41NTgwNUM3LjEwNTQyIDkuMzEzOTggNi43MDk2OSA5LjMxMzk4IDYuNDY1NjEgOS41NTgwNUM2LjIyMTUzIDkuODAyMTMgNi4yMjE1MyAxMC4xOTc5IDYuNDY1NjEgMTAuNDQxOUw4LjUyNzMxIDEyLjUwMzZDOC42NDQ1MiAxMi42MjA4IDguODAzNDkgMTIuNjg2NyA4Ljk2OTI1IDEyLjY4NjdDOS4xMzUwMSAxMi42ODY3IDkuMjkzOTggMTIuNjIwOCA5LjQxMTE5IDEyLjUwMzZMMTMuNTM0NiA4LjM4MDI0WiIgZmlsbD0iIzI1NjNFQiIvPgo8L2c+Cjwvc3ZnPgo=);
 					background-repeat: no-repeat;
 					padding: 0 0 0 25px;
-					margin-bottom: 8px;
+					margin-block-end: 8px;
 				}
 				li::marker{
 					font-size: 1.5em;
@@ -316,7 +316,7 @@ class Upgrade {
 					justify-content: end;
 					align-items: center;
 					padding: 16px 0 1px 0;
-					margin-top: 32px;
+					margin-block-start: 32px;
 				}
 				.close-button {
 					font-family: Roboto, sans-serif;
@@ -465,7 +465,7 @@ class Upgrade {
 					font-weight: 700;
 					line-height: 133.4%;
 					margin-block: 1px;
-					margin-bottom: 9px
+					margin-block-end: 9px
 				}
 				.confirmation-description{
 					font-family: Roboto, sans-serif;
@@ -492,7 +492,7 @@ class Upgrade {
 					justify-content: end;
 					align-items: center;
 					width: 100%;
-					margin-top: 16px;
+					margin-block-start: 16px;
 				}
 				.upgrade-now {
 					background: #2563EB !important;

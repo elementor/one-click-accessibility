@@ -1,5 +1,6 @@
 import Card from '@elementor/ui/Card';
 import CardHeader from '@elementor/ui/CardHeader';
+import RtlProvider from '@mui/system/RtlProvider';
 import { legendClasses } from '@mui/x-charts/ChartsLegend';
 import {
 	PieChart as MuiPieChart,
@@ -11,9 +12,14 @@ import { PieTooltip } from '@ea11y/components/analytics/components/pie-tooltip';
 import { useEffect, useRef, useState } from '@wordpress/element';
 import { FEATURE_MAPPER, CHARTS_COLORS } from '../../../constants';
 import { useAnalyticsContext } from '../../../contexts/analytics-context';
+import { usePluginSettingsContext } from '../../../contexts/plugin-settings';
+
+const ConditionalRtl = ({ enabled, children }) =>
+	enabled ? <RtlProvider value>{children}</RtlProvider> : children;
 
 export const PieChart = () => {
 	const { stats } = useAnalyticsContext();
+	const { isRTL = false } = usePluginSettingsContext();
 	const containerRef = useRef(null);
 	const [chartWidth, setChartWidth] = useState(null);
 
@@ -52,6 +58,17 @@ export const PieChart = () => {
 	}
 
 	const totalSum = topItems.reduce((sum, item) => sum + Number(item.total), 0);
+
+	// cx is measured inside the drawing area (drawingWidth = container - margin.left - margin.right).
+	// LTR margins: { left: 5, right: 100 }; RTL margins: { left: 100, right: 5 }. Both sum to 105.
+	// Mirror cx against drawingWidth in RTL to place the pie on the visual right.
+	const containerWidth = containerRef.current?.offsetWidth ?? 0;
+	const drawingWidth = Math.max(containerWidth - 105, 0);
+	const pieCenterX =
+		isRTL && drawingWidth > 0
+			? drawingWidth - (chartWidth + 48)
+			: chartWidth + 48;
+
 	const formatted = topItems.map((item, index) => {
 		const percent = parseFloat(((item.total / totalSum) * 100).toFixed(2));
 		return {
@@ -67,52 +84,54 @@ export const PieChart = () => {
 
 	return (
 		<Card variant="outlined" sx={{ height: '100%' }} ref={containerRef}>
-			<CardHeader title={<PieChartTitle />} sx={{ pb: 0 }} />
+			<CardHeader title={<PieChartTitle />} sx={{ paddingBlockEnd: 0 }} />
 			{showChart && (
-				<MuiPieChart
-					series={[
-						{
-							data: formatted,
-							innerRadius: chartWidth < 100 ? chartWidth - 15 : 85,
-							outerRadius: chartWidth < 100 ? chartWidth : 100,
-							paddingAngle: 0,
-							cornerRadius: 0,
-							startAngle: 0,
-							endAngle: 360,
-							cx: chartWidth + 48,
-							cy: 150,
-						},
-					]}
-					sx={{
-						[`& .${pieArcLabelClasses.root}`]: {
-							fontSize: '2.875rem',
-							lineHeight: 1.43,
-							letterSpacing: '0.01071em',
-						},
-						[`& .${legendClasses.mark}`]: {
-							ry: 10,
-						},
-					}}
-					slots={{
-						itemContent: PieTooltip,
-					}}
-					slotProps={{
-						legend: {
-							itemMarkWidth: 10,
-							itemMarkHeight: 10,
-							markGap: 8,
-							itemGap: 12,
-							padding: 32,
-							labelStyle: {
-								fontWeight: 400,
-								fontSize: '0.875rem',
+				<ConditionalRtl enabled={isRTL}>
+					<MuiPieChart
+						series={[
+							{
+								data: formatted,
+								innerRadius: chartWidth < 100 ? chartWidth - 15 : 85,
+								outerRadius: chartWidth < 100 ? chartWidth : 100,
+								paddingAngle: 0,
+								cornerRadius: 0,
+								startAngle: 0,
+								endAngle: 360,
+								cx: pieCenterX,
+								cy: 150,
+							},
+						]}
+						sx={{
+							[`& .${pieArcLabelClasses.root}`]: {
+								fontSize: '2.875rem',
 								lineHeight: 1.43,
 								letterSpacing: '0.01071em',
 							},
-						},
-					}}
-					height={300}
-				/>
+							[`& .${legendClasses.mark}`]: {
+								ry: 10,
+							},
+						}}
+						slots={{
+							itemContent: PieTooltip,
+						}}
+						slotProps={{
+							legend: {
+								itemMarkWidth: 10,
+								itemMarkHeight: 10,
+								markGap: 8,
+								itemGap: 12,
+								padding: 32,
+								labelStyle: {
+									fontWeight: 400,
+									fontSize: '0.875rem',
+									lineHeight: 1.43,
+									letterSpacing: '0.01071em',
+								},
+							},
+						}}
+						height={300}
+					/>
+				</ConditionalRtl>
 			)}
 			{stats.elements.length === 0 && <NoData />}
 		</Card>

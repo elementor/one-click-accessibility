@@ -97,7 +97,7 @@ const StyledIssueLevel = styled(Box, {
 	margin-inline-start: ${({ theme }) => theme.spacing(0.5)};
 
 	&:not(:last-of-type) {
-		margin-bottom: ${({ theme }) => theme.spacing(1)};
+		margin-block-end: ${({ theme }) => theme.spacing(1)};
 	}
 
 	&::before {
@@ -131,7 +131,7 @@ const StyledIssuesCount = styled(Typography)`
 	line-height: 130%;
 	letter-spacing: 0.1px;
 	min-width: 50px;
-	text-align: left;
+	text-align: start;
 `;
 
 export default IssueList;

@@ -15,8 +15,8 @@ export const StyledDescription = styled(Typography)`
 	letter-spacing: 0.15px;
 
 	&:first-of-type {
-		margin-top: ${({ theme }) => theme.spacing(2)};
-		margin-bottom: ${({ theme }) => theme.spacing(1)};
+		margin-block-start: ${({ theme }) => theme.spacing(2)};
+		margin-block-end: ${({ theme }) => theme.spacing(1)};
 	}
 
 	&:last-of-type {
@@ -77,7 +77,7 @@ export const StyledTreeListItem = styled('li', {
 	justify-content: center;
 	align-items: flex-start;
 
-	margin-bottom: ${({ theme }) => theme.spacing(1.25)};
+	margin-block-end: ${({ theme }) => theme.spacing(1.25)};
 	box-shadow: ${({ isExpanded, theme }) =>
 		isExpanded
 			? `0 0 0 2px ${theme.palette.action.active}`
@@ -133,7 +133,7 @@ export const StyledListItemDetails = styled(Box)`
 	max-height: 500px;
 
 	padding: ${({ theme }) => theme.spacing(1)};
-	padding-top: 0;
+	padding-block-start: 0;
 `;
 
 export const StyledListItemLevelBox = styled(Box, {
@@ -171,14 +171,14 @@ export const StyledListItemContent = styled(Typography, {
 `;
 
 export const StyledListItemAlert = styled(Alert)`
-	margin-top: ${({ theme }) => theme.spacing(1.5)};
+	margin-block-start: ${({ theme }) => theme.spacing(1.5)};
 	padding: ${({ theme }) => `${theme.spacing(1)} ${theme.spacing(1.5)}`};
 `;
 
 export const StyledListItemBottomWrapper = styled(Box)`
 	width: 100%;
 
-	margin-top: ${({ theme }) => theme.spacing(2)};
+	margin-block-start: ${({ theme }) => theme.spacing(2)};
 `;
 
 export const StyledListItemSelect = styled(Select)`
@@ -195,7 +195,7 @@ export const StyledListItemActionsWrapper = styled(Box)`
 	display: flex;
 	align-items: center;
 
-	margin-top: ${({ theme }) => theme.spacing(2)};
+	margin-block-start: ${({ theme }) => theme.spacing(2)};
 
 	.MuiButton-text {
 		margin-inline-start: auto;
@@ -204,7 +204,7 @@ export const StyledListItemActionsWrapper = styled(Box)`
 `;
 
 export const StyledListItemDismissLabel = styled(FormControlLabel)`
-	margin-left: -7px;
+	margin-inline-start: -7px;
 
 	.MuiTypography-root {
 		font-size: 14px;

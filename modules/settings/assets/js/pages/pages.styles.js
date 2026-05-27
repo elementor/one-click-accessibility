@@ -70,17 +70,15 @@ export const StyledStatementContainer = styled(Container)`
 	max-height: 100%;
 	max-width: 1200px;
 	width: 100%;
-	margin-right: auto;
-	margin-left: auto;
+	margin-inline: auto;
 
 	@media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
-		padding-left: 0;
-		padding-right: 0;
+		padding-inline: 0;
 	}
 `;
 
 export const StyledCardContent = styled(CardContent)`
 	&:last-child {
-		padding-bottom: 16px;
+		padding-block-end: 16px;
 	}
 `;

@@ -32,7 +32,7 @@ export const LineChartSkeleton = ({ animated }) => (
 			}
 			sx={{ height: animated ? '100px' : 'auto', alignItems: 'start' }}
 		/>
-		<StyledCardContent sx={{ pt: 3, pr: 4 }}>
+		<StyledCardContent sx={{ paddingBlockStart: 3, paddingInlineEnd: 4 }}>
 			<ChartSkeleton width="489" height="194" />
 		</StyledCardContent>
 	</Card>

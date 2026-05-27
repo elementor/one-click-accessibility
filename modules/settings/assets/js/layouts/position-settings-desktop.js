@@ -42,7 +42,7 @@ const PositionSettingsDesktop = () => {
 		<Typography
 			variant="subtitle2"
 			component="span"
-			marginRight={2}
+			marginInlineEnd={2}
 			color="text.primary"
 		>
 			{__('Hide on desktop', 'pojo-accessibility')}
@@ -54,7 +54,7 @@ const PositionSettingsDesktop = () => {
 			variant="subtitle2"
 			component="span"
 			color="text.primary"
-			marginRight={2}
+			marginInlineEnd={2}
 		>
 			{__('Exact position', 'pojo-accessibility')}
 		</Typography>
@@ -66,7 +66,7 @@ const PositionSettingsDesktop = () => {
 				label={hideOnDesktopLabel}
 				labelPlacement="start"
 				control={<Switch color="info" size="small" />}
-				sx={{ marginLeft: 2, marginBottom: 3 }}
+				sx={{ marginInlineStart: 2, marginBlockEnd: 3 }}
 				onChange={() => toggleVisibility('desktop')}
 				checked={iconPosition.desktop.hidden}
 			/>
@@ -79,7 +79,7 @@ const PositionSettingsDesktop = () => {
 							label={exactPositionLabel}
 							labelPlacement="start"
 							control={<Switch color="info" size="small" />}
-							sx={{ marginLeft: 0 }}
+							sx={{ marginInlineStart: 0 }}
 							onChange={() => toggleExactPosition('desktop')}
 							checked={iconPosition.desktop?.enableExactPosition}
 						/>
@@ -87,7 +87,7 @@ const PositionSettingsDesktop = () => {
 						<Typography
 							id="ea11y-desktop-position-settings"
 							variant="body2"
-							sx={{ marginTop: 2, marginBottom: 1 }}
+							sx={{ marginBlockStart: 2, marginBlockEnd: 1 }}
 						>
 							{__(
 								'Exact positioning, 5 – 500 px are permitted values:',
