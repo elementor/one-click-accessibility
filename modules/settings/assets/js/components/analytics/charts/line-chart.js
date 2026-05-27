@@ -25,7 +25,7 @@ export const LineChart = () => {
 				title={<LineChartTitle />}
 				subheader={
 					totalOpen > 0 ? (
-						<Typography variant="h3" sx={{ height: '50px' }}>
+						<Typography variant="h3" component="p" sx={{ height: '50px' }}>
 							{totalOpen.toString()}
 						</Typography>
 					) : null

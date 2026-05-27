@@ -13,8 +13,8 @@ import { __ } from '@wordpress/i18n';
 const IconDesignSettings = (props) => {
 	return (
 		<StyledWrapper {...props}>
-			<Box sx={{ marginBlockEnd: 2 }}>
-				<Typography variant="subtitle1">
+			<Box marginBlockEnd={2}>
+				<Typography variant="subtitle1" component="h2">
 					{__('Style', 'pojo-accessibility')}
 				</Typography>
 

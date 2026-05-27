@@ -1,6 +1,32 @@
+const fs = require('fs');
 const path = require('path');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+
+class ChunksManifestPlugin {
+	apply(compiler) {
+		compiler.hooks.afterEmit.tapAsync(
+			'ChunksManifestPlugin',
+			(compilation, callback) => {
+				const manifest = {};
+				compilation.entrypoints.forEach((entrypoint, name) => {
+					manifest[name] = entrypoint
+						.getFiles()
+						.filter((file) => file.endsWith('.js'));
+				});
+				try {
+					fs.writeFileSync(
+						path.join(compilation.outputOptions.path, 'chunks-manifest.json'),
+						JSON.stringify(manifest, null, 2),
+					);
+					callback();
+				} catch (err) {
+					callback(err);
+				}
+			},
+		);
+	}
+}
 
 // add your entry points here
 const entryPoints = {
@@ -39,6 +65,15 @@ const entryPoints = {
 		'reviews.js',
 	),
 };
+
+const modulesExcludedFromSplitChunks = [
+	'scanner',
+	'gutenberg-custom-link',
+	'reviews',
+	'deactivation-ally',
+];
+
+const maxFileSize = 1024 * 244; // 244 KB
 
 // React JSX Runtime Polyfill
 const reactJSXRuntimePolyfill = {
@@ -110,6 +145,36 @@ module.exports = [
 				...defaultConfig.optimization.minimizer,
 				new CssMinimizerPlugin(), // Minimize CSS
 			],
+			splitChunks: {
+				chunks: (chunk) => !modulesExcludedFromSplitChunks.includes(chunk.name),
+				cacheGroups: {
+					defaultVendors: {
+						test: /[\\/]node_modules[\\/]/,
+						maxSize: maxFileSize,
+						name(module) {
+							const pkg = module.context.match(
+								/[\\/]node_modules[\\/](@[^\\/]+[\\/][^\\/]+|[^\\/]+)/,
+							);
+							return pkg
+								? `lib-${pkg[1].replace('@', '').replace('/', '-')}`
+								: 'lib';
+						},
+						priority: -10,
+						reuseExistingChunk: true,
+					},
+					default: {
+						minChunks: 2,
+						priority: -20,
+						reuseExistingChunk: true,
+					},
+				},
+			},
+		},
+		plugins: [...(defaultConfig.plugins || []), new ChunksManifestPlugin()],
+		performance: {
+			hints: 'warning',
+			maxAssetSize: maxFileSize,
+			maxEntrypointSize: maxFileSize,
 		},
 	},
 

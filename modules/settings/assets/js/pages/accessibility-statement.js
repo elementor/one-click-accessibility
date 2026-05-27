@@ -80,7 +80,7 @@ const AccessibilityStatement = () => {
 		<>
 			<StyledBox>
 				<StyledWideBox>
-					<StyledPageTitle variant="h5">
+					<StyledPageTitle variant="h5" component="h1">
 						{__('Accessibility statement', 'pojo-accessibility')}
 					</StyledPageTitle>
 
@@ -127,6 +127,7 @@ const AccessibilityStatement = () => {
 								>
 									<Typography
 										variant="h6"
+										component="h2"
 										color="text.primary"
 										align="center"
 										marginBlockEnd="4px"

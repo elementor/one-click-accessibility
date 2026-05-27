@@ -72,6 +72,7 @@ const MenuSettings = () => {
 			<Card variant="outlined">
 				<CardHeader
 					title={__('Feature Menu', 'pojo-accessibility')}
+					titleTypographyProps={{ component: 'h2' }}
 					subheader={
 						<Typography variant="body2">
 							{__(
@@ -99,7 +100,7 @@ const MenuSettings = () => {
 								<Box key={parentKey}>
 									<ListItem as="div" disableGutters>
 										<ListItemText sx={{ textAlign: 'start' }}>
-											<Typography variant="subtitle2">
+											<Typography variant="subtitle2" component="h3">
 												{parentItem.title}
 											</Typography>
 										</ListItemText>

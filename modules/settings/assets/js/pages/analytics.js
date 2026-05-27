@@ -24,7 +24,7 @@ const Analytics = () => {
 	return (
 		<StyledBox sx={{ position: 'relative' }}>
 			<StyledWideBox>
-				<StyledPageTitle variant="h5">
+				<StyledPageTitle variant="h5" component="h1">
 					{__('Analytics', 'pojo-accessibility')}
 				</StyledPageTitle>
 				<ChartsList />

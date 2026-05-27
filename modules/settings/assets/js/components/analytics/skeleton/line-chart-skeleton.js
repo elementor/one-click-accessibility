@@ -11,7 +11,7 @@ export const LineChartSkeleton = ({ animated }) => (
 		<CardHeader
 			title={
 				animated ? (
-					<Typography variant="subtitle1">
+					<Typography variant="subtitle1" component="h2">
 						<Skeleton
 							width={150}
 							sx={{ p: 2 }}
@@ -25,7 +25,7 @@ export const LineChartSkeleton = ({ animated }) => (
 			}
 			subheader={
 				!animated ? (
-					<Typography variant="h3" sx={{ height: '50px' }}>
+					<Typography variant="h3" component="p" sx={{ height: '50px' }}>
 						--
 					</Typography>
 				) : null

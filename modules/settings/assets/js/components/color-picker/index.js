@@ -30,7 +30,7 @@ const ColorPicker = () => {
 	return (
 		<FormControl fullWidth>
 			<FormLabel id="color-picker-label" color="secondary">
-				<Typography variant="subtitle2" marginBlockEnd={1} color="text.primary">
+				<Typography variant="subtitle2" component="div" marginBlockEnd={2}>
 					{__('Color', 'pojo-accessibility')}
 				</Typography>
 			</FormLabel>

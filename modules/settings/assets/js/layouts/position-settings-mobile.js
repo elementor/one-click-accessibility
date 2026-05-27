@@ -37,13 +37,23 @@ const PositionSettingsMobile = () => {
 	};
 
 	const hideOnMobileLabel = (
-		<Typography variant="subtitle2" color="text.primary" marginInlineEnd={2}>
+		<Typography
+			variant="subtitle2"
+			component="span"
+			color="text.primary"
+			marginInlineEnd={2}
+		>
 			{__('Hide on mobile', 'pojo-accessibility')}
 		</Typography>
 	);
 
 	const exactPositionLabel = (
-		<Typography variant="subtitle2" color="text.primary" marginInlineEnd={2}>
+		<Typography
+			variant="subtitle2"
+			component="span"
+			color="text.primary"
+			marginInlineEnd={2}
+		>
 			{__('Exact position', 'pojo-accessibility')}
 		</Typography>
 	);

@@ -26,7 +26,7 @@ export const PieChartSkeleton = ({ animated }) => {
 			<CardHeader
 				title={
 					animated ? (
-						<Typography variant="subtitle1">
+						<Typography variant="subtitle1" component="h2">
 							<Skeleton
 								width={150}
 								sx={{ p: 2 }}
