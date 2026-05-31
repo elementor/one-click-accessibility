@@ -66,7 +66,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 	const [inputValue, setInputValue] = useState(
 		iconPosition[mode]?.exactPosition[type]?.value,
 	);
-	const [isValid, setIsValid] = useState(inputValue >= 5 && inputValue <= 550);
+	const [isValid, setIsValid] = useState(inputValue >= 0 && inputValue <= 550);
 	const popupState = usePopupState({
 		variant: 'popover',
 		popupId: 'position-settings',
@@ -98,7 +98,7 @@ const PositionControl = ({ type, disabled, mode }) => {
 
 	const handlePositionChange = (event) => {
 		const value = parseInt(event.target.value, 10) || 0;
-		const valueIsValid = value >= 5 && value <= 550;
+		const valueIsValid = value >= 0 && value <= 550;
 
 		setInputValue(event.target.value);
 		setIsValid(valueIsValid);

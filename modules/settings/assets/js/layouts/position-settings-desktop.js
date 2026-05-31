@@ -90,7 +90,7 @@ const PositionSettingsDesktop = () => {
 							sx={{ marginBlockStart: 2, marginBlockEnd: 1 }}
 						>
 							{__(
-								'Exact positioning, 5 – 500 px are permitted values:',
+								'Exact positioning, 0 – 550 px are permitted values:',
 								'pojo-accessibility',
 							)}
 						</Typography>
