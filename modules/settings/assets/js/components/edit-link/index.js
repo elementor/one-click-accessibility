@@ -43,7 +43,7 @@ const EditLink = () => {
 		>
 			<IconButton
 				onClick={handleEdit}
-				sx={{ marginLeft: 1 }}
+				sx={{ marginInlineStart: 1 }}
 				aria-label="Edit accessibility statement page"
 			>
 				<EditIcon />

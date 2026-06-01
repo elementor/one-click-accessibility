@@ -87,7 +87,7 @@ const initApp = () => {
 		rootNode.setAttribute('dir', 'rtl');
 	}
 
-	document.body.style[isRTL ? 'marginLeft' : 'marginRight'] = '425px';
+	document.body.style.marginInlineEnd = '425px';
 	document.body.appendChild(rootNode);
 
 	const shadowContainer = rootNode.attachShadow({ mode: 'open' });

@@ -10,9 +10,8 @@ import { WIDGET_PREVIEW_ID } from '../../constants';
 import WidgetPreviewSkeleton from './preview-skeleton';
 
 const StyledPreview = styled(CardContent)`
-	margin-right: auto;
-	margin-left: auto;
-	margin-top: ${({ theme }) => theme.spacing(4)};
+	margin-inline: auto;
+	margin-block-start: ${({ theme }) => theme.spacing(4)};
 	padding: 0 24px;
 
 	overflow: auto;
@@ -47,6 +46,7 @@ const WidgetPreview = () => {
 			<Card variant="outlined">
 				<CardHeader
 					title={__('Preview', 'pojo-accessibility')}
+					titleTypographyProps={{ component: 'h2' }}
 					subheader={
 						<Typography variant="body2">
 							{__(
@@ -55,7 +55,7 @@ const WidgetPreview = () => {
 							)}
 						</Typography>
 					}
-					sx={{ paddingBottom: 0 }}
+					sx={{ paddingBlockEnd: 0 }}
 				/>
 
 				<StyledPreview id={WIDGET_PREVIEW_ID}>

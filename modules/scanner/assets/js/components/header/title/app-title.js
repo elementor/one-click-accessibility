@@ -15,7 +15,7 @@ const AppTitle = () => {
 					size="small"
 					variant="filled"
 					color="default"
-					sx={{ ml: 1 }}
+					sx={{ marginInlineStart: 1 }}
 					label={__('Beta', 'pojo-accessibility')}
 				/>
 			</StyledTitle>

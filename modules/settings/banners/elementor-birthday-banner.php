@@ -10,13 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Elementor_Birthday_Banner {
-	const BANNER_POINTER_NAME = 'ea11y_one_million_installs_banner';
+	const BANNER_POINTER_NAME = 'ea11y_birthday_sale_banner';
 	const POINTER_ACTION = 'ea11y_pointer_dismissed';
 	const POINTER_NONCE_KEY = 'ea11y-pointer-dismissed';
 
 	public static function is_sale_time(): bool {
-		$sale_start_time = gmmktime( 16, 0, 0, 6, 10, 2025 );
-		$sale_end_time = gmmktime( 23, 59, 59, 6, 17, 2025 );
+		$sale_start_time = gmmktime( 9, 30, 0, 6, 15, 2026 );
+		$sale_end_time = gmmktime( 6, 59, 59, 6, 18, 2026 );
 
 		$now_time = gmdate( 'U' );
 
@@ -32,7 +32,11 @@ class Elementor_Birthday_Banner {
 	 * @throws Throwable
 	 */
 	public static function get_banner( string $link ) {
-		if ( ! self::is_sale_time() || self::user_viewed_banner() ) {
+		if ( ! self::is_sale_time() ) {
+			return;
+		}
+
+		if ( self::user_viewed_banner() ) {
 			return;
 		}
 
@@ -40,101 +44,81 @@ class Elementor_Birthday_Banner {
 		$url = admin_url( 'admin-ajax.php' );
 		$nonce = wp_create_nonce( self::POINTER_NONCE_KEY );
 		?>
-
-		<div class="elementor-ea11y-banner">
-			<div class="elementor-ea11y-banner-container">
-				<img src="<?php echo esc_url( $img ); ?>" alt="Elementor birthday banner">
-
-				<a href="<?php echo esc_url( $link ); ?>" target="_blank">
-					Get discount
-				</a>
-
-				<button>
-					<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path fill-rule="evenodd"
-									clip-rule="evenodd"
-									d="M13.2803 1.28033C13.5732 0.987437 13.5732 0.512563 13.2803 0.21967C12.9874 -0.0732233 12.5126 -0.0732233 12.2197 0.21967L6.75 5.68934L1.28033 0.21967C0.987437 -0.0732233 0.512563 -0.0732233 0.21967 0.21967C-0.0732233 0.512563 -0.0732233 0.987437 0.21967 1.28033L5.68934 6.75L0.21967 12.2197C-0.0732233 12.5126 -0.0732233 12.9874 0.21967 13.2803C0.512563 13.5732 0.987437 13.5732 1.28033 13.2803L6.75 7.81066L12.2197 13.2803C12.5126 13.5732 12.9874 13.5732 13.2803 13.2803C13.5732 12.9874 13.5732 12.5126 13.2803 12.2197L7.81066 6.75L13.2803 1.28033Z"
-									fill="white"/>
-					</svg>
-				</button>
+		<div class="elementor-birthday-banner" role="region" aria-label="<?php esc_attr_e( 'Elementor birthday sale', 'pojo-accessibility' ); ?>">
+			<div class="elementor-birthday-banner-container">
+				<p><span><?php esc_html_e( 'Celebrate Elementor’s 10th birthday', 'pojo-accessibility' ); ?></span> | <?php esc_html_e( 'Up to 30% off', 'pojo-accessibility' ); ?></p>
+				<a href="<?php echo esc_url( $link ); ?>" target="_blank"><?php esc_html_e( 'Get discounts', 'pojo-accessibility' ); ?></a>
 			</div>
+			<button type="button" aria-label="<?php esc_attr_e( 'Dismiss', 'pojo-accessibility' ); ?>">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path clip-rule="evenodd" fill-rule="evenodd" fill="#212121" d="M13.2803 1.28033C13.5732 0.987437 13.5732 0.512563 13.2803 0.21967C12.9874 -0.0732233 12.5126 -0.0732233 12.2197 0.21967L6.75 5.68934L1.28033 0.21967C0.987437 -0.0732233 0.512563 -0.0732233 0.21967 0.21967C-0.0732233 0.512563 -0.0732233 0.987437 0.21967 1.28033L5.68934 6.75L0.21967 12.2197C-0.0732233 12.5126 -0.0732233 12.9874 0.21967 13.2803C0.512563 13.5732 0.987437 13.5732 1.28033 13.2803L6.75 7.81066L12.2197 13.2803C12.5126 13.5732 12.9874 13.5732 13.2803 13.2803C13.5732 12.9874 13.5732 12.5126 13.2803 12.2197L7.81066 6.75L13.2803 1.28033Z"/>
+				</svg>
+			</button>
 		</div>
 
 		<style>
-			html[dir="rtl"] #ea11y-app,
-			html:not([dir="rtl"]) #ea11y-app {
-				height: calc(100vh - 32px - 80px);
-			}
-
-			.elementor-ea11y-banner {
-				overflow: hidden;
+			.elementor-birthday-banner {
+				min-height: 48px;
+				display: flex;
 				margin-inline-start: -20px;
-				background: #FF7BE5;
+				z-index: 2;
+				background-image: url('<?php echo esc_url( $img ); ?>');
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
 			}
 
-			.elementor-ea11y-banner-container {
-				position: relative;
+			.elementor-birthday-banner-container {
 				max-width: 1200px;
 				margin: 0 auto;
 				display: flex;
-				justify-content: end;
+				justify-content: center;
 				align-items: center;
-				direction: ltr;
-				height: 80px;
+				gap: 20px;
 			}
 
-			.elementor-ea11y-banner img {
-				position: absolute;
-				left: 0;
-				top: 50%;
-				transform: translateY(-50%);
-				width: 100%;
-			}
-
-			.elementor-ea11y-banner a {
-				position: relative;
-				display: inline-block;
-				padding: 12px 24px;
-				font-size: 18px;
-				color: #fff;
-				background-color: #000;
-				text-decoration: none;
-				z-index: 2;
-				font-weight: 500;
-				line-height: 24px;
-				letter-spacing: -0.36px;
+			.elementor-birthday-banner p {
+				margin: 0;
+				color: #2A0624;
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 400;
 				font-feature-settings: 'liga' off, 'clig' off;
+				line-height: 1.4;
 			}
 
-			.elementor-ea11y-banner button {
-				position: relative;
-				border: none;
+			.elementor-birthday-banner p span {
+				font-weight: 700;
+			}
+
+			.elementor-birthday-banner a {
+				padding: 4px 16px;
+				border-radius: 6px;
+				background-color: #212121;
+				color: #fff;
+				font-size: 14px;
+				font-weight: 500;
+				font-feature-settings: 'liga' off, 'clig' off;
+				line-height: 1.4;
+				text-decoration: none;
+				text-align: center;
+			}
+
+			.elementor-birthday-banner button {
 				background: none;
+				border: none;
 				padding: 12px;
 				margin: 0 24px;
 				cursor: pointer;
-				z-index: 2;
-			}
-
-			@media (max-width: 1170px) {
-				.elementor-ea11y-banner a {
-					padding: 6px 12px;
-					font-size: 14px;
-				}
-			}
-
-			@media (max-width: 845px) {
-				.elementor-ea11y-banner button {
-					margin: 0 6px;
-				}
+				float: inline-end;
+				line-height: 0;
 			}
 		</style>
 
 		<script>
 			document.addEventListener('DOMContentLoaded', function () {
-				const banner = document.querySelector('.elementor-ea11y-banner');
-				const button = document.querySelector('.elementor-ea11y-banner button');
-				const pageRoot = document.querySelector('#ea11y-app');
+				const banner = document.querySelector('.elementor-birthday-banner');
+				const button = document.querySelector('.elementor-birthday-banner button');
 
 				const requestData = {
 					action: "<?php echo esc_js( self::POINTER_ACTION ); ?>",
@@ -151,13 +135,7 @@ class Elementor_Birthday_Banner {
 								url: '<?php echo esc_js( $url ); ?>',
 								method: 'POST',
 								data: requestData,
-								success: () => {
-									banner.remove();
-
-									if (pageRoot) {
-										pageRoot.style.height = 'calc(100vh - 32px)';
-									}
-								},
+								success: () => banner.remove(),
 								error: (error) => console.error('Error:', error),
 							}
 						);

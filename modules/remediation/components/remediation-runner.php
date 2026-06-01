@@ -150,6 +150,27 @@ class Remediation_Runner {
 		return false;
 	}
 
+	/**
+	 * Dynamic WooCommerce pages (cart, checkout, my account, order endpoints)
+	 * contain per-user data and must never be cached.
+	 */
+	private function is_woocommerce_dynamic_page(): bool {
+		if ( function_exists( 'is_cart' ) && is_cart() ) {
+			return true;
+		}
+		if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+			return true;
+		}
+		if ( function_exists( 'is_account_page' ) && is_account_page() ) {
+			return true;
+		}
+		if ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url() ) {
+			return true;
+		}
+
+		return false;
+	}
+
 	private function should_run_remediation(): bool {
 		// Skip remediation for editors view
 		if ( $this->is_builders_view() ) {
@@ -198,13 +219,15 @@ class Remediation_Runner {
 
 	public function run_remediations( $buffer ): string {
 		$is_params_empty = empty( $_POST ) && empty( $_GET );
-		if ( ! is_user_logged_in() && $this->page_html && $this->page->is_valid_hash() && $is_params_empty ) {
+		$is_cacheable = ! is_user_logged_in() && ! $this->is_woocommerce_dynamic_page();
+
+		if ( $is_cacheable && $this->page_html && $this->page->is_valid_hash() && $is_params_empty ) {
 			return $this->page_html;
 		}
 
 		$dom = $this->generate_remediation_dom( $buffer );
 
-		if ( ! is_user_logged_in() && $is_params_empty ) {
+		if ( $is_cacheable && $is_params_empty ) {
 			$this->page->update_html( $dom );
 		}
 		return $dom;

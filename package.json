@@ -1,7 +1,7 @@
 {
 	"name": "pojo-accessibility",
 	"description": "",
-	"version": "4.1.1",
+	"version": "4.1.2",
 	"scripts": {
 		"build": "NODE_ENV=production wp-scripts build",
 		"start": "NODE_ENV=development wp-scripts start",
@@ -45,11 +45,12 @@
 	},
 	"dependencies": {
 		"@elementor/design-tokens": "^1.1.4",
-		"@elementor/elementor-one-assets": "0.4.32",
+		"@elementor/elementor-one-assets": "0.4.35",
 		"@elementor/icons": "^1.65.0",
 		"@elementor/ui": "^1.37.3",
 		"@emotion/cache": "^11.14.0",
 		"@emotion/react": "^11.14.0",
+		"@mui/system": "^7.3.11",
 		"@mui/x-charts": "^7.27.0",
 		"@wordpress/a11y": "^4.25.0",
 		"@wordpress/api-fetch": "^7.10.0",

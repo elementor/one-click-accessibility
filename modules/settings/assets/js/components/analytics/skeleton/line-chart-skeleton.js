@@ -11,7 +11,7 @@ export const LineChartSkeleton = ({ animated }) => (
 		<CardHeader
 			title={
 				animated ? (
-					<Typography variant="subtitle1">
+					<Typography variant="subtitle1" component="h2">
 						<Skeleton
 							width={150}
 							sx={{ p: 2 }}
@@ -25,14 +25,14 @@ export const LineChartSkeleton = ({ animated }) => (
 			}
 			subheader={
 				!animated ? (
-					<Typography variant="h3" sx={{ height: '50px' }}>
+					<Typography variant="h3" component="p" sx={{ height: '50px' }}>
 						--
 					</Typography>
 				) : null
 			}
 			sx={{ height: animated ? '100px' : 'auto', alignItems: 'start' }}
 		/>
-		<StyledCardContent sx={{ pt: 3, pr: 4 }}>
+		<StyledCardContent sx={{ paddingBlockStart: 3, paddingInlineEnd: 4 }}>
 			<ChartSkeleton width="489" height="194" />
 		</StyledCardContent>
 	</Card>

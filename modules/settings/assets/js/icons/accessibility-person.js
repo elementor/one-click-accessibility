@@ -9,7 +9,7 @@ function AccessibilityPersonIcon({ size }, props) {
 		<SvgIcon
 			viewBox="0 0 19 25"
 			fill="none"
-			sx={{ marginRight: 0, fontSize: size, paddingRight: '1px' }}
+			sx={{ marginInlineEnd: 0, fontSize: size, paddingInlineEnd: '1px' }}
 			{...props}
 		>
 			<path

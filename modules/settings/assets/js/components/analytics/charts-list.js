@@ -4,11 +4,12 @@ import Alert from '@elementor/ui/Alert';
 import AlertTitle from '@elementor/ui/AlertTitle';
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
+import FormControl from '@elementor/ui/FormControl';
 import Grid from '@elementor/ui/Grid';
+import InputLabel from '@elementor/ui/InputLabel';
 import MenuItem from '@elementor/ui/MenuItem';
 import Select from '@elementor/ui/Select';
 import SvgIcon from '@elementor/ui/SvgIcon';
-import Typography from '@elementor/ui/Typography';
 import { styled } from '@elementor/ui/styles';
 import { AnalyticsToggle } from '@ea11y/components/analytics';
 import {
@@ -119,11 +120,12 @@ export const ChartsList = () => {
 
 			<Box display="flex" justifyContent="space-between" gap={2} width="100%">
 				<AnalyticsToggle />
-				<Box display="flex" alignItems="center" gap={2}>
-					<Typography variant="subtitle1">
+				<StyledPeriodFormControl size="small" variant="outlined">
+					<StyledPeriodLabel id="ea11y-analytics-period-label">
 						{__('Display data from', 'pojo-accessibility')}
-					</Typography>
+					</StyledPeriodLabel>
 					<Select
+						labelId="ea11y-analytics-period-label"
 						name={__('Period', 'pojo-accessibility')}
 						onChange={changePeriod}
 						value={period}
@@ -148,7 +150,7 @@ export const ChartsList = () => {
 							{__('Last 30 days', 'pojo-accessibility')}
 						</MenuItem>
 					</Select>
-				</Box>
+				</StyledPeriodFormControl>
 			</Box>
 
 			<Grid container spacing={4}>
@@ -181,6 +183,22 @@ export const ChartsList = () => {
 		</StyledBox>
 	);
 };
+
+const StyledPeriodFormControl = styled(FormControl)`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: ${({ theme }) => theme.spacing(2)};
+`;
+
+const StyledPeriodLabel = styled(InputLabel)`
+	position: static;
+	transform: none;
+	max-width: none;
+	pointer-events: none;
+	font-weight: 500;
+	color: ${({ theme }) => theme.palette.common.black};
+`;
 
 const StyledIcon = styled(SvgIcon)`
 	position: absolute;

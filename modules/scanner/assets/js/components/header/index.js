@@ -49,7 +49,7 @@ const Header = () => {
 			<StyledStatsBlock>
 				<TitleBox
 					sx={{
-						mb: isConnected && !isError ? 2 : 0,
+						marginBlockEnd: isConnected && !isError ? 2 : 0,
 					}}
 				>
 					<Typography variant="subtitle1" as="h3" color="text.primary">
