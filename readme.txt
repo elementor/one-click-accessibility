@@ -191,9 +191,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
-= 4.1.2 – 2026-05-27 =
+= 4.1.2 – 2026-06-01 =
 * Tweak: Improved admin screens in RTL view
 * Tweak: Reduce bundle size for faster loading
+* Tweak: Improved Internal caching purge
+* Tweak: Added support for setups where `home_url` is different than `site_url`
 
 = 4.1.1 – 2026-03-31 =
 * Tweak: Improved WPML support
