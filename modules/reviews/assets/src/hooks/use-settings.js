@@ -87,17 +87,19 @@ const SettingsProvider = ({ children }) => {
 				});
 			}
 
-			if (!response?.success && parseInt(ratingToSubmit) < 4) {
-				/**
-				 * Show success message if the feedback was already submitted.
-				 */
-				successNotification(
-					__('Feedback already submitted', 'pojo-accessibility'),
-				);
-			} else if (response?.success && parseInt(ratingToSubmit) < 4) {
-				successNotification(
-					__('Thank you for your feedback!', 'pojo-accessibility'),
-				);
+			if (!avoidClosing) {
+				if (!response?.success && parseInt(ratingToSubmit) < 4) {
+					/**
+					 * Show success message if the feedback was already submitted.
+					 */
+					successNotification(
+						__('Feedback already submitted', 'pojo-accessibility'),
+					);
+				} else if (response?.success && parseInt(ratingToSubmit) < 4) {
+					successNotification(
+						__('Thank you for your feedback!', 'pojo-accessibility'),
+					);
+				}
 			}
 
 			if (!avoidClosing) {

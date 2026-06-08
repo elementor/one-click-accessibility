@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
 import DismissButton from '../components/dismiss-button';
 import FeedbackForm from '../components/feedback-form';
 import RatingForm from '../components/rating-form';
-import ReviewForm from '../components/review-form';
+import ThanksForm from '../components/thanks-form';
 import { useSettings } from '../hooks/use-settings';
 
 const UserFeedbackForm = () => {
@@ -23,17 +23,15 @@ const UserFeedbackForm = () => {
 	} = useSettings();
 
 	useEffect(() => {
-		/**
-		 * Show the popover if the user has not submitted repo feedback.
-		 */
-		if (
-			window?.ea11yReviewData?.reviewData?.rating > 3 &&
-			!window?.ea11yReviewData?.reviewData?.repo_review_clicked
-		) {
-			setCurrentPage('review');
-			setRating(window?.ea11yReviewData?.reviewData?.rating); // re-add the saved rating
+		const reviewData = window?.ea11yReviewData?.reviewData;
+
+		if (!reviewData?.submitted || reviewData?.repo_review_clicked) {
+			return;
 		}
-	}, []);
+
+		setRating(reviewData.rating);
+		setCurrentPage('thanks');
+	}, [setCurrentPage, setRating]);
 
 	useEffect(() => {
 		if (isOpened) {
@@ -50,11 +48,8 @@ const UserFeedbackForm = () => {
 
 	const headerMessage = {
 		ratings: __('How would you rate Ally so far?', 'pojo-accessibility'),
-		feedback: __(
-			'We’re thrilled to hear that! What would make it even better?',
-			'pojo-accessibility',
-		),
-		review: null,
+		feedback: __('What could we do better?', 'pojo-accessibility'),
+		thanks: null,
 	};
 
 	return (
@@ -104,7 +99,7 @@ const UserFeedbackForm = () => {
 				</Header>
 				{'ratings' === currentPage && <RatingForm />}
 				{'feedback' === currentPage && <FeedbackForm />}
-				{'review' === currentPage && <ReviewForm />}
+				{'thanks' === currentPage && <ThanksForm />}
 			</StyledBox>
 			<Footer currentPage={currentPage}>
 				<DismissButton

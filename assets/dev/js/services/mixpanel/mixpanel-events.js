@@ -71,6 +71,8 @@ export const mixpanelEvents = {
 		starSelected: 'review_star_selected',
 		feedbackSubmitted: 'review_feedback_submitted',
 		publicRedirectClicked: 'review_public_redirect_clicked',
+		callPromptDismissed: 'review_feedback_call_prompt_dismissed',
+		callScheduleClicked: 'review_feedback_call_schedule_clicked',
 	},
 
 	// Heading Structure

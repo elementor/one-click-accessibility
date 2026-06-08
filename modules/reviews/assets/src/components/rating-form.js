@@ -59,7 +59,7 @@ const RatingForm = () => {
 			const submitted = await handleSubmit(handleClose, true, ratingValue);
 
 			if (submitted) {
-				setCurrentPage('review');
+				setCurrentPage('thanks');
 			}
 		}
 	};
