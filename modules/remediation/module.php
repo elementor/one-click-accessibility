@@ -3,11 +3,12 @@
 namespace EA11y\Modules\Remediation;
 
 use EA11y\Classes\Module_Base;
+use EA11y\Classes\Utils;
 use EA11y\Modules\Connect\Module as Connect;
+use EA11y\Modules\Legacy\Module as LegacyModule;
 use EA11y\Modules\Remediation\Database\Global_Remediation_Relationship_Table;
 use EA11y\Modules\Remediation\Database\Page_Table;
 use EA11y\Modules\Remediation\Database\Remediation_Table;
-use EA11y\Modules\Legacy\Module as LegacyModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -24,7 +25,7 @@ class Module extends Module_Base {
 		if ( LegacyModule::is_active() ) {
 			return false;
 		}
-		
+
 		return Connect::is_connected();
 	}
 
@@ -57,9 +58,23 @@ class Module extends Module_Base {
 		Global_Remediation_Relationship_Table::install();
 	}
 
+	/**
+	 * Enqueue Scripts
+	 */
+	public function enqueue_assets() : void {
+		if ( is_admin() ) {
+			return;
+		}
+
+		Utils\Assets::enqueue_app_assets( 'remediation-module', false );
+	}
+
 	public function __construct() {
 		$this->run_migrations();
 		$this->register_routes();
 		$this->register_components();
+
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+
 	}
 }
