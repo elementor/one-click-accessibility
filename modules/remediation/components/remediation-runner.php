@@ -218,6 +218,10 @@ class Remediation_Runner {
 	}
 
 	public function run_remediations( $buffer ): string {
+		if ( ! $buffer ) {
+			return $buffer;
+		}
+
 		$is_params_empty = empty( $_POST ) && empty( $_GET );
 		$is_cacheable = ! is_user_logged_in() && ! $this->is_woocommerce_dynamic_page();
 
