@@ -4,8 +4,8 @@ export const WORDPRESS_REVIEW_LINK =
 export const SCHEDULING_LINK =
 	'https://calendly.com/d/ctsm-7rx-3nc/ally-user-feedback-call';
 
-export const PAGE_IDS = {
+export const PAGE_IDS = Object.freeze({
 	RATINGS: 'ratings',
 	FEEDBACK: 'feedback',
 	THANKS: 'thanks',
-};
+});

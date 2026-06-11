@@ -8,7 +8,7 @@ const ThanksForm = () => {
 	return (
 		<StyledFormControl fullWidth>
 			<StyledMoodHappy />
-			<Typography variant="h6" marginBlockEnd={1}>
+			<Typography variant="h6" marginBlockEnd={1} component="h6">
 				{__('Thanks for letting us know', 'pojo-accessibility')}
 			</Typography>
 			<Typography
