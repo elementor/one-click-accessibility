@@ -9,6 +9,7 @@ import DismissButton from '../components/dismiss-button';
 import FeedbackForm from '../components/feedback-form';
 import RatingForm from '../components/rating-form';
 import ThanksForm from '../components/thanks-form';
+import { PAGE_IDS } from '../constants';
 import { useSettings } from '../hooks/use-settings';
 
 const UserFeedbackForm = () => {
@@ -30,7 +31,7 @@ const UserFeedbackForm = () => {
 		}
 
 		setRating(reviewData.rating);
-		setCurrentPage('thanks');
+		setCurrentPage(PAGE_IDS.THANKS);
 	}, [setCurrentPage, setRating]);
 
 	useEffect(() => {
@@ -47,9 +48,12 @@ const UserFeedbackForm = () => {
 	const anchorPositionOffset = 10;
 
 	const headerMessage = {
-		ratings: __('How would you rate Ally so far?', 'pojo-accessibility'),
-		feedback: __('What could we do better?', 'pojo-accessibility'),
-		thanks: null,
+		[PAGE_IDS.RATINGS]: __(
+			'How would you rate Ally so far?',
+			'pojo-accessibility',
+		),
+		[PAGE_IDS.FEEDBACK]: __('What could we do better?', 'pojo-accessibility'),
+		[PAGE_IDS.THANKS]: null,
 	};
 
 	return (
@@ -97,9 +101,9 @@ const UserFeedbackForm = () => {
 						{headerMessage?.[currentPage]}
 					</Typography>
 				</Header>
-				{'ratings' === currentPage && <RatingForm />}
-				{'feedback' === currentPage && <FeedbackForm />}
-				{'thanks' === currentPage && <ThanksForm />}
+				{PAGE_IDS.RATINGS === currentPage && <RatingForm />}
+				{PAGE_IDS.FEEDBACK === currentPage && <FeedbackForm />}
+				{PAGE_IDS.THANKS === currentPage && <ThanksForm />}
 			</StyledBox>
 			<Footer currentPage={currentPage}>
 				<DismissButton
@@ -135,6 +139,6 @@ const Footer = styled(Box, {
 	justify-content: space-between;
 	align-items: center;
 	${({ currentPage, theme }) =>
-		currentPage !== 'feedback' &&
+		currentPage !== PAGE_IDS.FEEDBACK &&
 		`border-block-start: 1px solid ${theme.palette.divider};`}
 `;
