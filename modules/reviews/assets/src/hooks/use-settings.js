@@ -4,6 +4,7 @@ import { useState, createContext, useContext } from '@wordpress/element';
 import { escapeHTML } from '@wordpress/escape-html';
 import { __ } from '@wordpress/i18n';
 import APIReview from '../api';
+import { PAGE_IDS } from '../constants';
 
 /**
  * Context Component.
@@ -17,7 +18,7 @@ export function useSettings() {
 const SettingsProvider = ({ children }) => {
 	const [rating, setRating] = useState(0);
 	const [feedback, setFeedback] = useState('');
-	const [currentPage, setCurrentPage] = useState('ratings');
+	const [currentPage, setCurrentPage] = useState(PAGE_IDS.RATINGS);
 	const [isOpened, setIsOpened] = useState(true);
 	const { save, get } = useStorage();
 
