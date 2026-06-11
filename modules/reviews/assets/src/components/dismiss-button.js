@@ -1,11 +1,12 @@
 import Box from '@elementor/ui/Box';
 import Button from '@elementor/ui/Button';
 import CloseButton from '@elementor/ui/CloseButton';
+import { styled } from '@elementor/ui/styles';
 import { useStorage } from '@ea11y-apps/global/hooks';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
 import { date } from '@wordpress/date';
 import { __ } from '@wordpress/i18n';
-import { SCHEDULING_LINK } from '../constants';
+import { PAGE_IDS, SCHEDULING_LINK } from '../constants';
 import { useSettings } from '../hooks/use-settings';
 
 const DismissButton = ({ variant = 'icon' }) => {
@@ -62,7 +63,7 @@ const DismissButton = ({ variant = 'icon' }) => {
 		const submitted = await handleSubmit(handleClose, true);
 
 		if (submitted) {
-			setCurrentPage('thanks');
+			setCurrentPage(PAGE_IDS.THANKS);
 		}
 	};
 
@@ -93,7 +94,7 @@ const DismissButton = ({ variant = 'icon' }) => {
 	);
 
 	const renderFooterButtons = () => {
-		if (currentPage === 'thanks') {
+		if (currentPage === PAGE_IDS.THANKS) {
 			return renderCallSchedulingButtons();
 		}
 
@@ -102,14 +103,14 @@ const DismissButton = ({ variant = 'icon' }) => {
 				<Button
 					color="secondary"
 					variant="text"
-					fullWidth={currentPage !== 'feedback'}
-					sx={{ p: currentPage === 'feedback' ? 0.5 : 2 }}
+					fullWidth={currentPage !== PAGE_IDS.FEEDBACK}
+					sx={{ p: currentPage === PAGE_IDS.FEEDBACK ? 0.5 : 2 }}
 					onClick={handleDismiss}
 					size="small"
 				>
 					{__('Not now', 'pojo-accessibility')}
 				</Button>
-				{currentPage === 'feedback' && (
+				{currentPage === PAGE_IDS.FEEDBACK && (
 					<Button
 						color="secondary"
 						variant="contained"
@@ -125,21 +126,26 @@ const DismissButton = ({ variant = 'icon' }) => {
 
 	if ('button' === variant) {
 		const isTwoButtonLayout =
-			currentPage === 'feedback' || currentPage === 'thanks';
+			currentPage === PAGE_IDS.FEEDBACK || currentPage === PAGE_IDS.THANKS;
 
 		return (
-			<Box
-				display="flex"
-				flexDirection="row"
-				gap={1}
-				p={isTwoButtonLayout ? 2 : 0}
-				width="100%"
-				justifyContent="end"
-			>
+			<StyledButtonContainer isTwoButtonLayout={isTwoButtonLayout}>
 				{renderFooterButtons()}
-			</Box>
+			</StyledButtonContainer>
 		);
 	}
 };
 
 export default DismissButton;
+
+const StyledButtonContainer = styled(Box, {
+	shouldForwardProp: (prop) => prop !== 'isTwoButtonLayout',
+})`
+	display: flex;
+	flex-direction: row;
+	gap: ${({ theme }) => theme.spacing(1)};
+	padding: ${({ isTwoButtonLayout, theme }) =>
+		isTwoButtonLayout ? theme.spacing(2) : 0};
+	width: 100%;
+	justify-content: end;
+`;
