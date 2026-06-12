@@ -59,6 +59,14 @@ const DismissButton = ({ variant = 'icon' }) => {
 		window.open(SCHEDULING_LINK, '_blank');
 	};
 
+	const handleNotNowOnFeedback = async () => {
+		const submitted = await handleSubmit(handleClose, true);
+
+		if (submitted) {
+			setCurrentPage(PAGE_IDS.THANKS);
+		}
+	};
+
 	const handleFeedbackSubmit = async () => {
 		const submitted = await handleSubmit(handleClose, true);
 
@@ -105,7 +113,11 @@ const DismissButton = ({ variant = 'icon' }) => {
 					variant="text"
 					fullWidth={currentPage !== PAGE_IDS.FEEDBACK}
 					sx={{ p: currentPage === PAGE_IDS.FEEDBACK ? 0.5 : 2 }}
-					onClick={handleDismiss}
+					onClick={
+						currentPage === PAGE_IDS.FEEDBACK
+							? handleNotNowOnFeedback
+							: handleDismiss
+					}
 					size="small"
 				>
 					{__('Not now', 'pojo-accessibility')}
