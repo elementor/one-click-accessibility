@@ -6,6 +6,7 @@ import Radio from '@elementor/ui/Radio';
 import RadioGroup from '@elementor/ui/RadioGroup';
 import { styled } from '@elementor/ui/styles';
 import { __ } from '@wordpress/i18n';
+import { PAGE_IDS } from '../constants';
 import { useSettings } from '../hooks/use-settings';
 import {
 	MoodEmpty,
@@ -54,12 +55,12 @@ const RatingForm = () => {
 
 	const handleNextButton = async (ratingValue) => {
 		if (ratingValue < 4) {
-			setCurrentPage('feedback');
+			setCurrentPage(PAGE_IDS.FEEDBACK);
 		} else {
 			const submitted = await handleSubmit(handleClose, true, ratingValue);
 
 			if (submitted) {
-				setCurrentPage('review');
+				setCurrentPage(PAGE_IDS.THANKS);
 			}
 		}
 	};
