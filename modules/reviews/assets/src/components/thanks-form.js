@@ -12,11 +12,18 @@ const ThanksForm = () => {
 	return (
 		<StyledFormControl fullWidth>
 			{isPositiveRating ? <StyledMoodHappy /> : <StyledMoodSad />}
-			<Typography variant="subtitle1" marginBlockEnd={1} marginBlockStart={1}>
+
+			<Typography
+				variant="subtitle1"
+				component="h2"
+				marginBlockEnd={1}
+				marginBlockStart={1}
+			>
 				{isPositiveRating
 					? __("Thanks, that's great to hear!", 'pojo-accessibility')
 					: __('Thanks for letting us know', 'pojo-accessibility')}
 			</Typography>
+
 			<Typography
 				variant="body1"
 				color="secondary"
