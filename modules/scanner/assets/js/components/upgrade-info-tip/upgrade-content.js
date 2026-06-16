@@ -87,7 +87,7 @@ export const UpgradeContent = ({
 							'pojo-accessibility',
 						)
 					: __(
-							"Upgrade your plan to skip the manual work and have Ally's AI auto-resolve accessibility issues for you.",
+							"Upgrade your plan to skip the manual work and have Web Accessibility's AI auto-resolve accessibility issues for you.",
 							'pojo-accessibility',
 						)}
 			</Typography>

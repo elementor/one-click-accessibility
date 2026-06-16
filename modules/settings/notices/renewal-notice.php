@@ -84,8 +84,8 @@ class Renewal_Notice extends Notice_Base {
 	public function get_renewal_text(): array {
 		if ( $this->days_diff <= 30 && $this->days_diff > 0 ) {
 			return [
-				'title'       => esc_html__( 'Ally Subscription Ending Soon!', 'pojo-accessibility' ),
-				'description' => esc_html__( 'Renew now to keep access to Ally Assistant and continue improving your website\'s accessibility with guided fixes and scans.', 'pojo-accessibility' ),
+				'title'       => esc_html__( 'Web Accessibility Subscription Ending Soon!', 'pojo-accessibility' ),
+				'description' => esc_html__( 'Renew now to keep access to Accessibility Assistant and continue improving your website\'s accessibility with guided fixes and scans.', 'pojo-accessibility' ),
 				'btn'         => esc_html__( 'Enable Auto-Renew', 'pojo-accessibility' ),
 				'link'        => esc_url( SettingsModule::get_upgrade_link( 'acc-renew-30' ) ),
 				'type'        => 'warning',
@@ -93,16 +93,16 @@ class Renewal_Notice extends Notice_Base {
 		}
 		if ( $this->days_diff <= 0 && $this->days_diff > -7 ) {
 			return [
-				'title'       => esc_html__( 'Your Ally subscription has expired', 'pojo-accessibility' ),
-				'description' => esc_html__( 'Ally Assistant is no longer active. Renew now to resume accessibility scans and step by step fixes for your site.', 'pojo-accessibility' ),
+				'title'       => esc_html__( 'Your Web Accessibility subscription has expired', 'pojo-accessibility' ),
+				'description' => esc_html__( 'Accessibility Assistant is no longer active. Renew now to resume accessibility scans and step by step fixes for your site.', 'pojo-accessibility' ),
 				'btn'         => esc_html__( 'Renew Now', 'pojo-accessibility' ),
 				'link'        => esc_url( SettingsModule::get_upgrade_link( 'acc-renew-expire' ) ),
 				'type'        => 'error',
 			];
 		}
 		return [
-			'title'       => esc_html__( "It's not too late - renew Ally", 'pojo-accessibility' ),
-			'description' => esc_html__( "Reactivate your subscription to restore Ally Assistant and continue improving your website's accessibility.", 'pojo-accessibility' ),
+			'title'       => esc_html__( "It's not too late - renew Web Accessibility", 'pojo-accessibility' ),
+			'description' => esc_html__( "Reactivate your subscription to restore Accessibility Assistant and continue improving your website's accessibility.", 'pojo-accessibility' ),
 			'btn'         => esc_html__( 'Reactivate Now', 'pojo-accessibility' ),
 			'link'        => esc_url( SettingsModule::get_upgrade_link( 'acc-renew-post-expire' ) ),
 			'type'        => 'error',

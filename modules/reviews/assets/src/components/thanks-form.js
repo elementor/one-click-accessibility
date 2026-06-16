@@ -32,11 +32,11 @@ const ThanksForm = () => {
 			>
 				{isPositiveRating
 					? __(
-							'Help us make Ally even better. Open to a quick call?',
+							'Help us make Web Accessibility even better. Open to a quick call?',
 							'pojo-accessibility',
 						)
 					: __(
-							'We regularly chat with Ally users to learn and improve. Open to a quick call?',
+							'We regularly chat with Web Accessibility users to learn and improve. Open to a quick call?',
 							'pojo-accessibility',
 						)}
 			</Typography>

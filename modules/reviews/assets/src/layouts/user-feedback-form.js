@@ -49,7 +49,7 @@ const UserFeedbackForm = () => {
 
 	const headerMessage = {
 		[PAGE_IDS.RATINGS]: __(
-			'How would you rate Ally so far?',
+			'How would you rate Web Accessibility so far?',
 			'pojo-accessibility',
 		),
 		[PAGE_IDS.FEEDBACK]: __('What could we do better?', 'pojo-accessibility'),

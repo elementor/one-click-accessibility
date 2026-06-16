@@ -24,7 +24,7 @@ const LogoSettings = () => {
 			<CardHeader
 				title={
 					<>
-						{__('Ally by Elementor logo', 'pojo-accessibility')}
+						{__('Web Accessibility by Elementor logo', 'pojo-accessibility')}
 						{!isProEnabled() && (
 							<ProItemInfotip
 								childKey={PRO_FEATURES.REMOVE_BRANDING}

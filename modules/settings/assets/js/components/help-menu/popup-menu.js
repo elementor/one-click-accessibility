@@ -14,7 +14,7 @@ export const HelpPopupMenu = ({ closeAction, ...menuProps }) => {
 	const handleGetStartedClick = () => {
 		mixpanelService.sendEvent(mixpanelEvents.popupButtonClicked, {
 			popupType: 'get_started_with_ally',
-			buttonName: 'Get started with Ally',
+			buttonName: 'Get started with Web Accessibility',
 		});
 		setIsGetStartedModalOpen(true);
 
@@ -51,7 +51,7 @@ export const HelpPopupMenu = ({ closeAction, ...menuProps }) => {
 		>
 			<StyledMenuItem dense onClick={handleGetStartedClick}>
 				<StyledTypography>
-					{__('Get started with Ally', 'pojo-accessibility')}
+					{__('Get started with Web Accessibility', 'pojo-accessibility')}
 				</StyledTypography>
 			</StyledMenuItem>
 

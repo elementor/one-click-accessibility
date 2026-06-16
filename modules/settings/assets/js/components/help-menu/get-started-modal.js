@@ -52,7 +52,7 @@ const GetStartedModal = () => {
 
 		mixpanelService
 			.sendEvent(mixpanelEvents.menuButtonClicked, {
-				buttonName: 'Get started with Ally - Modal Closed',
+				buttonName: 'Get started with Web Accessibility - Modal Closed',
 			})
 			.catch((error) => {
 				console.error('Failed to send mixpanel event:', error);
@@ -85,11 +85,11 @@ const GetStartedModal = () => {
 					color="text.primary"
 					marginBlockStart={2}
 				>
-					{__('Getting started with Ally', 'pojo-accessibility')}
+					{__('Getting started with Web Accessibility', 'pojo-accessibility')}
 				</DialogContentText>
 				<DialogContentText variant="body1">
 					{__(
-						'Watch this quick video to see how Ally helps you find, understand, and fix accessibility issues across your site with ease.',
+						'Watch this quick video to see how Web Accessibility helps you find, understand, and fix accessibility issues across your site with ease.',
 						'pojo-accessibility',
 					)}
 				</DialogContentText>
