@@ -77,7 +77,7 @@ const UrlMismatchModal = () => {
 				<StyledGridContainer>
 					<StyledTitle variant="h4">
 						{__(
-							'Choose how to reconnect Ally to your site',
+							'Choose how to reconnect Web Accessibility to your site',
 							'pojo-accessibility',
 						)}
 					</StyledTitle>

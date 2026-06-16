@@ -60,7 +60,7 @@ const OnboardingModal = () => {
 		>
 			<DialogHeader logo={false} onClose={onClose}>
 				<DialogTitle>
-					{__('Ally Accessibility', 'pojo-accessibility')}
+					{__('Web Accessibility', 'pojo-accessibility')}
 				</DialogTitle>
 			</DialogHeader>
 
@@ -79,7 +79,10 @@ const OnboardingModal = () => {
 					color="text.primary"
 					marginBlockStart={2}
 				>
-					{__('See Ally’s new assistant in action', 'pojo-accessibility')}
+					{__(
+						'See Web Accessibility’s new assistant in action',
+						'pojo-accessibility',
+					)}
 				</DialogContentText>
 				<DialogContentText>
 					{__(

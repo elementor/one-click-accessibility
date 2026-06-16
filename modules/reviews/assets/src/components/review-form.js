@@ -57,7 +57,10 @@ const ReviewForm = () => {
 				marginBlockEnd={3}
 				width="55%"
 			>
-				{__('Help others discover Ally on WordPress', 'pojo-accessibility')}
+				{__(
+					'Help others discover Web Accessibility on WordPress',
+					'pojo-accessibility',
+				)}
 			</Typography>
 			<Rating
 				emptyIcon={<StarFilledIcon fontSize="large" />}

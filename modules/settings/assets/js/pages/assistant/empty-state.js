@@ -80,7 +80,7 @@ const AccessibilityAssistantEmptyState = () => {
 
 						<Typography variant="body2">
 							{__(
-								'Resolve them with Ally, AI, or manually.',
+								'Resolve them with Web Accessibility, AI, or manually.',
 								'pojo-accessibility',
 							)}
 						</Typography>

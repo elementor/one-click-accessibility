@@ -61,7 +61,7 @@ class Module extends Module_Base {
 	public function register_page(): void {
 		add_submenu_page(
 			'elementor-home',
-			__( 'Ally - Web Accessibility', 'pojo-accessibility' ),
+			__( 'Web Accessibility', 'pojo-accessibility' ),
 			__( 'Accessibility', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,

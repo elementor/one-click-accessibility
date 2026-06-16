@@ -75,7 +75,7 @@ class Module extends Module_Base {
 		<div id="ea11y-deactivation-modal" class="ea11y-deactivation-modal">
 			<div class="ea11y-deactivation-content">
 				<h4>
-					<?php esc_html_e( 'If you have a moment, please share why you are deactivating Ally:', 'pojo-accessibility' ); ?>
+					<?php esc_html_e( 'If you have a moment, please share why you are deactivating Web Accessibility:', 'pojo-accessibility' ); ?>
 				</h4>
 
 				<div class="ea11y-feedback-options">

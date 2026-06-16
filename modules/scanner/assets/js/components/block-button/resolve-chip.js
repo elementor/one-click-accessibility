@@ -9,7 +9,7 @@ export const ResolveChip = ({ block }) =>
 			size="small"
 			color="info"
 			variant="standard"
-			label={__('Resolve with Ally', 'pojo-accessibility')}
+			label={__('Resolve with Web Accessibility', 'pojo-accessibility')}
 		/>
 	) : (
 		<Chip

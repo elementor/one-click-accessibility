@@ -14,7 +14,7 @@ const FeedbackForm = () => {
 				minRows={5}
 				multiline
 				placeholder={__(
-					'Share your thoughts on how we can improve Ally …',
+					'Share your thoughts on how we can improve Web Accessibility …',
 					'pojo-accessibility',
 				)}
 				value={feedback}

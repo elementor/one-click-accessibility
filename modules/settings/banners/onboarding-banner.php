@@ -68,7 +68,7 @@ class Onboarding_Banner {
 				</div>
 					<div class="elementor-ea11y-banner-content-text">
 						<h2>
-							<?php _e( 'New in Ally: Accessibility Assistant', 'pojo-accessibility' ); ?>
+							<?php _e( 'New in Web Accessibility: Accessibility Assistant', 'pojo-accessibility' ); ?>
 						</h2>
 						<p>
 							<?php _e( 'Scan your site for accessibility issues and start fixing them with ease. It\'s already part of your plan.', 'pojo-accessibility' ); ?>

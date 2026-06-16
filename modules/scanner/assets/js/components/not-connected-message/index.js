@@ -19,7 +19,7 @@ export const NotConnectedMessage = () => {
 			</Typography>
 			<ReconnectDescription variant="body2" color="text.secondary">
 				{__(
-					"Check that you're using the right Ally account or reconnect now.",
+					"Check that you're using the right Web Accessibility account or reconnect now.",
 					'pojo-accessibility',
 				)}
 			</ReconnectDescription>
