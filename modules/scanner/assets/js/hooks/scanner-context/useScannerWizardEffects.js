@@ -5,6 +5,10 @@ import {
 	removeExistingFocus,
 } from '@ea11y-apps/scanner/utils/focus-on-element';
 import { getElementByXPath } from '@ea11y-apps/scanner/utils/get-element-by-xpath';
+import {
+	fetchPublicDocument,
+	normalizeToPublicDom,
+} from '@ea11y-apps/scanner/utils/public-dom-normalizer';
 import { useEffect } from '@wordpress/element';
 
 export default function useScannerWizardEffects(state, actions) {
@@ -67,16 +71,25 @@ export default function useScannerWizardEffects(state, actions) {
 	// initial load and scannerWizard logic
 	useEffect(() => {
 		if (window.ea11yScannerData?.isConnected) {
-			setTimeout(() => {
-				scannerWizard
-					.load()
-					.then(() => {
-						void actions.getResults();
-					})
-					.catch(() => {
-						setIsError(true);
-						setLoading(false);
-					});
+			setTimeout(async () => {
+				try {
+					const publicDoc = await fetchPublicDocument(
+						window.ea11yScannerData?.pageData?.url,
+					);
+					if (publicDoc) {
+						normalizeToPublicDom(publicDoc);
+					}
+
+					// Re-run remediations against the normalized DOM so
+					// fixes are reflected before the scanner inspects it.
+					window.AllyRemediations?.initialize?.();
+
+					await scannerWizard.load();
+					void actions.getResults();
+				} catch {
+					setIsError(true);
+					setLoading(false);
+				}
 			}, 500);
 			void actions.updateRemediationList();
 		} else {
