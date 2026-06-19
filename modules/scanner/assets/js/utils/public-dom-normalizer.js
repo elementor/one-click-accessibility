@@ -87,11 +87,24 @@ export const normalizeToPublicDom = (publicDoc) => {
 		Array.from(publicDoc.body.children).map(buildSignature),
 	);
 
+	const nonMarkupTags = new Set([
+		'style',
+		'script',
+		'link',
+		'noscript',
+		'meta',
+		'template',
+	]);
+
 	const captured = [];
 	const liveChildren = Array.from(document.body.children);
 
 	for (const child of liveChildren) {
 		if (child.id === ROOT_ID) {
+			continue;
+		}
+
+		if (nonMarkupTags.has(child.tagName.toLowerCase())) {
 			continue;
 		}
 
