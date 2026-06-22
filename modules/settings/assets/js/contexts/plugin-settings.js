@@ -57,6 +57,18 @@ export const PluginSettingsProvider = ({ children }) => {
 					settings.isElementorOne = Boolean(settings.isElementorOne);
 				}
 
+				if ('hasElementorOneSubscription' in settings) {
+					settings.hasElementorOneSubscription = Boolean(
+						settings.hasElementorOneSubscription,
+					);
+				}
+
+				if ('isMigrationPopupDismissed' in settings) {
+					settings.isMigrationPopupDismissed = Boolean(
+						settings.isMigrationPopupDismissed,
+					);
+				}
+
 				setPluginSettings(settings);
 				setLoaded(true);
 			})
