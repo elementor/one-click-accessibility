@@ -65,6 +65,10 @@ export const mixpanelEvents = {
 	introductionBannerShowed: 'banner_showed',
 	introductionBannerClosed: 'banner_dismissed',
 
+	// One migration
+	oneMigrationPopupDisplayed: 'one_migration_popup_displayed',
+	oneMigrationButtonClicked: 'one_migration_button_clicked',
+
 	review: {
 		promptShown: 'review_prompt_shown',
 		dismissClicked: 'review_dismiss_clicked',

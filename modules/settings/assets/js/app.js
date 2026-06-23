@@ -96,6 +96,16 @@ const App = () => {
 		}
 	}, [ea11ySettingsData?.planData?.user?.id]);
 
+	useEffect(() => {
+		if (!shouldShowMigrationPopup) {
+			return;
+		}
+
+		mixpanelService.init().then(() => {
+			mixpanelService.oneMigration.trackPopupDisplayed();
+		});
+	}, [shouldShowMigrationPopup]);
+
 	const selectedParent = MenuItems[selectedMenu?.parent];
 	const selectedChild = selectedMenu?.child
 		? selectedParent?.children[selectedMenu?.child]

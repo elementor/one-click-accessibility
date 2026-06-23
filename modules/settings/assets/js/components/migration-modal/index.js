@@ -14,6 +14,7 @@ import { styled } from '@elementor/ui/styles';
 import { useStorage } from '@ea11y/hooks';
 import { TOOL_MANAGER_URL } from '@ea11y-apps/global/constants';
 import { useToastNotification } from '@ea11y-apps/global/hooks';
+import { mixpanelService } from '@ea11y-apps/global/services';
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import APISettings from '../../api';
@@ -29,12 +30,27 @@ const MigrationModal = ({ onClose }) => {
 		});
 	};
 
+	const trackButtonClick = (
+		button,
+		interactionResult,
+		status = null,
+		error,
+	) => {
+		mixpanelService.oneMigration.trackButtonClicked(
+			button,
+			interactionResult,
+			status,
+			error,
+		);
+	};
+
 	const handleMoveToOne = async () => {
 		setIsLoading(true);
 		try {
 			const response = await APISettings.migrateToOne();
 
 			if (response?.isMigrated) {
+				trackButtonClick('move_to_one', 'migration_success', 'success');
 				onClose();
 				toast.success(
 					__(
@@ -47,6 +63,7 @@ const MigrationModal = ({ onClose }) => {
 				}, 1500);
 			} else {
 				setIsLoading(false);
+				trackButtonClick('move_to_one', 'migration_failed', 'failed');
 				toast.error(
 					__(
 						'Web Accessibility could not move to your One subscription. Please try again.',
@@ -58,6 +75,12 @@ const MigrationModal = ({ onClose }) => {
 			setIsLoading(false);
 			const errorMessage =
 				err?.message ?? __('Unknown error', 'pojo-accessibility');
+			trackButtonClick(
+				'move_to_one',
+				'migration_failed',
+				'failed',
+				err?.code ?? errorMessage,
+			);
 			toast.error(
 				`${__('Web Accessibility could not move to your One subscription.', 'pojo-accessibility')} ${__('Error:', 'pojo-accessibility')} ${errorMessage}`,
 			);
@@ -65,6 +88,7 @@ const MigrationModal = ({ onClose }) => {
 	};
 
 	const handleNotNow = async () => {
+		trackButtonClick('not_now', 'migration_dismissed', null);
 		await persistDismissed();
 		onClose();
 		toast.hint(
