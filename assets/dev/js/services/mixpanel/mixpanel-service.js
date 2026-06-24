@@ -1,3 +1,5 @@
+import { createOneMigrationTracking } from './mixpanel-props/migration';
+
 const SHARE_USAGE_DATA = 'share_usage_data';
 const MIXPANEL_TOKEN = '150605b3b9f979922f2ac5a52e2dcfe9';
 const MIXPANEL_HOST = 'https://api-eu.mixpanel.com';
@@ -68,7 +70,10 @@ const sendEvent = (name, event) => {
 	}
 };
 
+const oneMigration = createOneMigrationTracking(sendEvent);
+
 export const mixpanelService = {
 	init,
 	sendEvent,
+	oneMigration,
 };
