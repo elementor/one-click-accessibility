@@ -86,7 +86,7 @@ const MigrationModal = ({ onClose }) => {
 	};
 
 	const handleNotNow = async () => {
-		trackButtonClick('not_now', 'migration_dismissed', null);
+		trackButtonClick('not_now', 'skip_migration', null);
 		await persistDismissed();
 		onClose();
 		toast.hint(
