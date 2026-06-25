@@ -1,10 +1,8 @@
-import XIcon from '@elementor/icons/XIcon';
 import Button from '@elementor/ui/Button';
 import Dialog from '@elementor/ui/Dialog';
 import DialogActions from '@elementor/ui/DialogActions';
 import DialogContent from '@elementor/ui/DialogContent';
 import DialogHeader from '@elementor/ui/DialogHeader';
-import IconButton from '@elementor/ui/IconButton';
 import Link from '@elementor/ui/Link';
 import List from '@elementor/ui/List';
 import ListItem from '@elementor/ui/ListItem';
@@ -88,7 +86,7 @@ const MigrationModal = ({ onClose }) => {
 	};
 
 	const handleNotNow = async () => {
-		trackButtonClick('not_now', 'migration_dismissed', null);
+		trackButtonClick('not_now', 'skip_migration', null);
 		await persistDismissed();
 		onClose();
 		toast.hint(
@@ -122,13 +120,6 @@ const MigrationModal = ({ onClose }) => {
 				>
 					{__('Move Web Accessibility to Elementor One', 'pojo-accessibility')}
 				</StyledTitle>
-				<StyledCloseButton
-					size="small"
-					onClick={handleNotNow}
-					aria-label={__('Close', 'pojo-accessibility')}
-				>
-					<XIcon />
-				</StyledCloseButton>
 			</StyledDialogHeader>
 
 			<DialogContent>
@@ -200,12 +191,6 @@ const StyledDialogHeader = styled(DialogHeader)`
 
 const StyledTitle = styled(Typography)`
 	line-height: 1.5;
-`;
-
-const StyledCloseButton = styled(IconButton)`
-	position: absolute;
-	right: ${({ theme }) => theme.spacing(1)};
-	top: ${({ theme }) => theme.spacing(1)};
 `;
 
 const StyledList = styled(List)`

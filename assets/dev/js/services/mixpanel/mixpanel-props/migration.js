@@ -16,11 +16,16 @@ const ONE_MIGRATION_POPUP_DISPLAYED_PROPS = {
 	metadata: [`app_name: ${MIGRATION_APP_NAME}`],
 };
 
+const MIGRATION_TARGET_NAMES = {
+	move_to_one: 'move to one',
+	not_now: 'not now',
+};
+
 /**
- * @param {'move_to_one' | 'not_now'}                                        button
- * @param {'migration_success' | 'migration_failed' | 'migration_dismissed'} interactionResult
- * @param {'success' | 'failed' | null}                                      [status]
- * @param {string}                                                           [error]
+ * @param {'move_to_one' | 'not_now'}                                   button
+ * @param {'migration_success' | 'migration_failed' | 'skip_migration'} interactionResult
+ * @param {'success' | 'failed' | null}                                 [status]
+ * @param {string}                                                      [error]
  */
 const buildOneMigrationButtonClickedProps = (
 	button,
@@ -28,7 +33,7 @@ const buildOneMigrationButtonClickedProps = (
 	status = null,
 	error,
 ) => {
-	const metadata = [`button: ${button}`, `status: ${status}`];
+	const metadata = [`status: ${status}`];
 
 	if (error) {
 		metadata.push(`error: ${error}`);
@@ -39,7 +44,7 @@ const buildOneMigrationButtonClickedProps = (
 		window_name: 'app_shell',
 		interaction_type: 'click',
 		target_type: 'button',
-		target_name: 'one_migration_action',
+		target_name: MIGRATION_TARGET_NAMES[button],
 		interaction_result: interactionResult,
 		target_location: 'one_migration_popup',
 		interaction_desc:
@@ -60,10 +65,10 @@ export const createOneMigrationTracking = (sendEvent) => ({
 	},
 
 	/**
-	 * @param {'move_to_one' | 'not_now'}                                        button
-	 * @param {'migration_success' | 'migration_failed' | 'migration_dismissed'} interactionResult
-	 * @param {'success' | 'failed' | null}                                      [status]
-	 * @param {string}                                                           [error]
+	 * @param {'move_to_one' | 'not_now'}                                   button
+	 * @param {'migration_success' | 'migration_failed' | 'skip_migration'} interactionResult
+	 * @param {'success' | 'failed' | null}                                 [status]
+	 * @param {string}                                                      [error]
 	 */
 	trackButtonClicked: (button, interactionResult, status = null, error) => {
 		sendEvent(
