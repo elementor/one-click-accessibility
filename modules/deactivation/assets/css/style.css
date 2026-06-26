@@ -9,8 +9,7 @@
 
 #TB_window.ea11y-feedback-thickbox {
     height: auto !important;
-    max-height: 90vh;
-    overflow: auto;
+    overflow: visible;
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
@@ -22,7 +21,12 @@
 
 .ea11y-feedback-thickbox #TB_ajaxContent {
     overflow: visible;
+    height: auto !important;
     padding: 0;
+}
+
+.ea11y-deactivation-content > h4 {
+    margin-block-start: 0;
 }
 
 .ea11y-feedback-thickbox #TB_title {
@@ -30,6 +34,7 @@
     display: flex;
     flex-direction: row;
     text-align: start;
+    border-radius: 8px 8px 0 0;
 }
 
 .ea11y-feedback-thickbox #TB_closeWindowButton {
@@ -66,23 +71,26 @@
 
 .ea11y-feedback-option {
     margin-block-end: 15px;
+    cursor: pointer;
 }
 
 .ea11y-feedback-option > label {
     display: flex;
     align-items: center;
+    width: 100%;
     cursor: pointer;
     color: #23282d;
     margin-block-end: 8px;
 }
 
-.ea11y-feedback-option input[type="radio"] {
-    margin-inline-end: 8px;
-}
-
 .ea11y-feedback-text-field {
+    cursor: default;
     margin-inline-start: 24px;
     margin-block-start: 8px;
+}
+
+.ea11y-feedback-option input[type="radio"] {
+    margin-inline-end: 8px;
 }
 
 .ea11y-feedback-text-field label {
