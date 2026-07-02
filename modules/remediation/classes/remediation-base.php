@@ -35,6 +35,18 @@ class Remediation_Base {
 	}
 
 	/**
+	 * Check if the element exists using XPath with a snippet-based fallback.
+	 *
+	 * @return boolean
+	 */
+	public function exists_with_fallback(): bool {
+		return $this->get_element_by_xpath_with_snippet_fallback(
+			$this->data['xpath'] ?? null,
+			$this->data['find'] ?? null
+		) instanceof DOMElement;
+	}
+
+	/**
 	 * get_element_by_xpath
 	 * @param $xpath
 	 *
@@ -60,18 +72,20 @@ class Remediation_Base {
 	 * @return DOMElement|null
 	 */
 	public function get_element_by_xpath_with_snippet_fallback( ?string $xpath, ?string $snippet ): ?DOMElement {
-		if ( ! $xpath ) {
-			return null;
+		$element = $xpath ? $this->get_element_by_xpath( $xpath ) : null;
+
+		// Without a snippet we can't validate or fall back, so return whatever XPath found.
+		if ( null === $snippet || '' === $snippet ) {
+			return $element instanceof DOMElement ? $element : null;
 		}
 
-		$element  = $this->get_element_by_xpath( $xpath );
-		if ( $element && ! $this->element_contains_snippet( $element, $snippet ) ) {
-			// XPath result doesn't contain the snippet
+		// If XPath found an element but its outer HTML doesn't contain the snippet, discard it.
+		if ( $element instanceof DOMElement && ! $this->element_contains_snippet( $element, $snippet ) ) {
 			$element = null;
 		}
 
-		// Fallback to snippet-based search
-		if ( ! $element ) {
+		// Fallback to snippet-based search.
+		if ( ! $element instanceof DOMElement ) {
 			$element = $this->get_element_by_snippet( $snippet );
 		}
 
@@ -161,8 +175,9 @@ class Remediation_Base {
 	public function __construct( DOMDocument $dom, $data ) {
 		$this->dom = $dom;
 		$this->data = $data;
-		// if it's not global and not styles and element does not exist, move the remediation to the Frontend
-		if ( 'STYLES' !== $this->data['type'] && ! $this->data['global'] && ! $this->exists() ) {
+		// If it's not styles and the element can't be found by XPath or the snippet fallback,
+		// move the remediation to the Frontend so a later DOM state can pick it up.
+		if ( 'STYLES' !== $this->data['type'] && ! $this->exists_with_fallback() ) {
 			$this->use_frontend = true;
 			return;
 		}
