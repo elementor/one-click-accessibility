@@ -72,18 +72,20 @@ class Remediation_Base {
 	 * @return DOMElement|null
 	 */
 	public function get_element_by_xpath_with_snippet_fallback( ?string $xpath, ?string $snippet ): ?DOMElement {
-		if ( ! $xpath ) {
-			return null;
+		$element = $xpath ? $this->get_element_by_xpath( $xpath ) : null;
+
+		// Without a snippet we can't validate or fall back, so return whatever XPath found.
+		if ( null === $snippet || '' === $snippet ) {
+			return $element instanceof DOMElement ? $element : null;
 		}
 
-		$element  = $this->get_element_by_xpath( $xpath );
-		if ( $element && ! $this->element_contains_snippet( $element, $snippet ) ) {
-			// XPath result doesn't contain the snippet
+		// If XPath found an element but its outer HTML doesn't contain the snippet, discard it.
+		if ( $element instanceof DOMElement && ! $this->element_contains_snippet( $element, $snippet ) ) {
 			$element = null;
 		}
 
-		// Fallback to snippet-based search
-		if ( ! $element ) {
+		// Fallback to snippet-based search.
+		if ( ! $element instanceof DOMElement ) {
 			$element = $this->get_element_by_snippet( $snippet );
 		}
 
