@@ -8,14 +8,11 @@ export class AttributeRemediation extends RemediationBase {
 			action,
 			attribute_name: attributeName,
 			attribute_value: attributeValue,
-			global: isGlobal,
+			find,
 		} = this.data;
 
 		const xpath = originXpath.replace('svg', "*[name()='svg']");
-		const el =
-			isGlobal === '1'
-				? this.getElementByXPathFallbackSnippet(find, xpath)
-				: this.getElementByXPath(xpath);
+		const el = this.getElementByXPathFallbackSnippet(find, xpath);
 		if (!el) {
 			return false;
 		}

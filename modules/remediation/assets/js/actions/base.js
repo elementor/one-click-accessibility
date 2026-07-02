@@ -37,35 +37,36 @@ export class RemediationBase {
 	}
 
 	getElementByXPathFallbackSnippet(snippet, xpath = null) {
-		// Try XPath first
-		if (xpath) {
-			const element = this.getElementByXPath(xpath);
-			if (element) {
-				// Pick the one whose outerHTML best matches the snippet
-				const normalizedSnippet = snippet
-					.replace(/\s+/g, ' ')
-					.trim()
-					.toLowerCase();
-				const html = element.outerHTML
-					.replace(/\s+/g, ' ')
-					.trim()
-					.toLowerCase();
-				if (html.includes(normalizedSnippet)) {
-					return element;
-				}
+		const xpathElement = xpath ? this.getElementByXPath(xpath) : null;
+		const hasSnippet = typeof snippet === 'string' && snippet.trim() !== '';
+
+		if (xpathElement && hasSnippet) {
+			const normalizedSnippet = snippet
+				.replace(/\s+/g, ' ')
+				.trim()
+				.toLowerCase();
+			const html = xpathElement.outerHTML
+				.replace(/\s+/g, ' ')
+				.trim()
+				.toLowerCase();
+			if (html.includes(normalizedSnippet)) {
+				return xpathElement;
 			}
+		}
+
+		if (!hasSnippet) {
+			return xpathElement || null;
 		}
 
 		const parser = new DOMParser();
 		const doc = parser.parseFromString(snippet.trim(), 'text/html');
 		const parsed = doc.body.firstElementChild;
 		if (!parsed) {
-			return null;
+			return xpathElement || null;
 		}
 
 		const selectorParts = [parsed.tagName.toLowerCase()];
 
-		// Add id and class if present
 		if (parsed.id) {
 			selectorParts.push(`#${parsed.id}`);
 		}
@@ -75,8 +76,7 @@ export class RemediationBase {
 
 		const selector = selectorParts.join('');
 
-		// Try to find it in the document
-		return document.querySelector(selector);
+		return document.querySelector(selector) || xpathElement || null;
 	}
 
 	createElement(tag, attributes = [], content = '') {
