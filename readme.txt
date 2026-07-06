@@ -188,6 +188,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 = 4.1.3 – 2026-06-29 =
+* Tweak: Widget button custom position alignment
+* Tweak: Ally AI fixes improvments
+* Tweak: Assets renaming
+* Fix: Accessibility in deactivation modal
+* Fix: WordPress Dahsboard stats not updating
 
 = 4.1.2 – 2026-06-01 =
 * Tweak: Improved admin screens in RTL view
