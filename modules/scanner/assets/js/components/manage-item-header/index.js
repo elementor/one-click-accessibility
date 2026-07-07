@@ -39,7 +39,7 @@ export const ManageItemHeader = ({ isActive, openEdit, global }) => {
 					<Tooltip
 						placement="top"
 						title={__(
-							"You can't edit cross-scan fixes with Ally",
+							"You can't edit cross-scan fixes with Web Accessibility",
 							'pojo-accessibility',
 						)}
 						PopperProps={{

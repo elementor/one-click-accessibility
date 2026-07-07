@@ -15,7 +15,7 @@ import {
 import { QuotaNotices, Sidebar } from '@ea11y/layouts';
 import Notifications from '@ea11y-apps/global/components/notifications';
 import { mixpanelEvents, mixpanelService } from '@ea11y-apps/global/services';
-import { lazy, Suspense, useEffect } from '@wordpress/element';
+import { lazy, Suspense, useEffect, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { MenuItems } from './components/sidebar-menu/menu';
 import { usePluginSettingsContext } from './contexts/plugin-settings';
@@ -52,6 +52,12 @@ const GetStartedModal = lazy(
 			/* webpackChunkName: "chunk-modal-get-started" */ './components/help-menu/get-started-modal'
 		),
 );
+const MigrationModal = lazy(
+	() =>
+		import(
+			/* webpackChunkName: "chunk-modal-migration" */ './components/migration-modal'
+		),
+);
 
 const App = () => {
 	const { ea11ySettingsData } = window;
@@ -62,10 +68,23 @@ const App = () => {
 		isRTL,
 		closePostConnectModal,
 		isUrlMismatch,
+		isElementorOne,
+		hasElementorOneSubscription,
+		isMigrationPopupDismissed,
 		refreshPluginSettings,
 	} = usePluginSettingsContext();
 	const { notificationMessage, notificationType } = useNotificationSettings();
 	const { selectedMenu } = useSettings();
+	const [isMigrationPopupClosed, setIsMigrationPopupClosed] = useState(false);
+
+	const shouldShowMigrationPopup =
+		isConnected &&
+		!isElementorOne &&
+		hasElementorOneSubscription &&
+		closePostConnectModal &&
+		!isMigrationPopupDismissed &&
+		!isMigrationPopupClosed &&
+		!isUrlMismatch;
 
 	useEffect(() => {
 		if (ea11ySettingsData?.planData?.user?.id) {
@@ -76,6 +95,16 @@ const App = () => {
 			});
 		}
 	}, [ea11ySettingsData?.planData?.user?.id]);
+
+	useEffect(() => {
+		if (!shouldShowMigrationPopup) {
+			return;
+		}
+
+		mixpanelService.init().then(() => {
+			mixpanelService.oneMigration.trackPopupDisplayed();
+		});
+	}, [shouldShowMigrationPopup]);
 
 	const selectedParent = MenuItems[selectedMenu?.parent];
 	const selectedChild = selectedMenu?.child
@@ -105,6 +134,9 @@ const App = () => {
 						)}
 						{isConnected && !closePostConnectModal && <PostConnectModal />}
 						{isUrlMismatch && <UrlMismatchModal />}
+						{shouldShowMigrationPopup && (
+							<MigrationModal onClose={() => setIsMigrationPopupClosed(true)} />
+						)}
 						<OnboardingModal />
 						<GetStartedModal />
 					</Suspense>

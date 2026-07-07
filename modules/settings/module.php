@@ -61,7 +61,7 @@ class Module extends Module_Base {
 	public function register_page(): void {
 		add_submenu_page(
 			'elementor-home',
-			__( 'Ally - Web Accessibility', 'pojo-accessibility' ),
+			__( 'Web Accessibility', 'pojo-accessibility' ),
 			__( 'Accessibility', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
@@ -149,6 +149,8 @@ class Module extends Module_Base {
 			'unfilteredUploads' => Svg::are_unfiltered_uploads_enabled(),
 			'homeUrl' => home_url(),
 			'isElementorOne' => self::is_elementor_one(),
+			'hasElementorOneSubscription' => self::has_elementor_one_subscription(),
+			'isMigrationPopupDismissed' => Settings::get( Settings::MIGRATION_POPUP_DISMISSED ),
 			'widgetActivationSettings' => Settings::get( Settings::WIDGET_ACTIVATION ),
 		];
 	}
@@ -170,6 +172,15 @@ class Module extends Module_Base {
 	 */
 	public static function is_elementor_one(): bool {
 		return Connect::get_connect()->get_config( 'app_type' ) !== Config::APP_TYPE;
+	}
+
+	/**
+	 * Check if user generally has an active Elementor One subscription.
+	 * @return bool
+	 */
+	public static function has_elementor_one_subscription(): bool {
+		$one_facade = \ElementorOne\Admin\Helpers\Utils::get_one_connect();
+		return $one_facade && $one_facade->utils()->is_connected();
 	}
 
 	/**
@@ -554,6 +565,9 @@ class Module extends Module_Base {
 				'type' => 'boolean',
 			],
 			'close_get_started_modal' => [
+				'type' => 'boolean',
+			],
+			'migration_popup_dismissed' => [
 				'type' => 'boolean',
 			],
 			'dismissed_quota_notices' => [

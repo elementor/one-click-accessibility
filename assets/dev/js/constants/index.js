@@ -22,6 +22,9 @@ export const ELEMENTOR_URL = 'https://my.elementor.com';
 export const ONE_MISMATCH_URL =
 	'/wp-admin/admin.php?page=elementor-home#/home/url-mismatch';
 
+export const TOOL_MANAGER_URL =
+	'/wp-admin/admin.php?page=elementor-home#/home/tool-manager';
+
 export const BLOCK_TITLES = {
 	altText: __('Alternative text', 'pojo-accessibility'),
 	dynamicContent: __('Dynamic Content & ARIA', 'pojo-accessibility'),

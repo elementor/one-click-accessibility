@@ -101,7 +101,7 @@ export const AnalyticsToggle = () => {
 				>
 					<DialogContentText id="confirm-enable-analytics-description">
 						{__(
-							'This allows Ally to record how visitors open and use your accessibility widget, unlocking real‑time analytics.',
+							'This allows Web Accessibility to record how visitors open and use your accessibility widget, unlocking real‑time analytics.',
 							'pojo-accessibility',
 						)}
 					</DialogContentText>

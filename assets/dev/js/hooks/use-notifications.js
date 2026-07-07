@@ -43,8 +43,15 @@ export const useToastNotification = () => {
 		setShowNotification(true);
 	};
 
+	const hint = (message) => {
+		setNotificationMessage(message);
+		setNotificationType('hint');
+		setShowNotification(true);
+	};
+
 	return {
 		success,
 		error,
+		hint,
 	};
 };

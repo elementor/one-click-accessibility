@@ -2,9 +2,9 @@ import { __ } from '@wordpress/i18n';
 import '../css/style.css';
 
 const REASON_FIELDS = {
-	unclear_how_to_use: ['text_field_unclear', 'unclear_details'],
-	switched_solution: ['text_field_switched', 'switched_details'],
-	other: ['text_field_other', 'other_details'],
+	unclear_how_to_use: ['ea11y_text_field_unclear', 'ea11y_unclear_details'],
+	switched_solution: ['ea11y_text_field_switched', 'ea11y_switched_details'],
+	other: ['ea11y_text_field_other', 'ea11y_other_details'],
 };
 
 class Ea11yDeactivationHandler {
@@ -30,6 +30,15 @@ class Ea11yDeactivationHandler {
 		);
 	}
 
+	resetModal() {
+		this.hideFields();
+		document
+			.querySelectorAll('input[name="ea11y_deactivation_reason"]')
+			.forEach((radio) => {
+				radio.checked = false;
+			});
+	}
+
 	hideFields() {
 		document
 			.querySelectorAll('.ea11y-feedback-text-field')
@@ -38,10 +47,32 @@ class Ea11yDeactivationHandler {
 
 	toggleField(reason) {
 		this.hideFields();
+
 		const fieldId = REASON_FIELDS[reason]?.[0];
+
 		if (fieldId) {
 			document.getElementById(fieldId).style.display = 'block';
 		}
+	}
+
+	handleOptionClick(e) {
+		const option = e.target.closest('.ea11y-feedback-option');
+
+		if (!option || e.target.closest('.ea11y-feedback-text-field')) {
+			return;
+		}
+
+		const radio = option.querySelector(
+			'input[type="radio"][name="ea11y_deactivation_reason"]',
+		);
+
+		if (!radio) {
+			return;
+		}
+
+		radio.checked = true;
+
+		this.toggleField(radio.value);
 	}
 
 	sendRequest(data, done) {
@@ -84,6 +115,7 @@ class Ea11yDeactivationHandler {
 	init() {
 		this.deactivationLink.addEventListener('click', (e) => {
 			e.preventDefault();
+			this.resetModal();
 			this.modal(
 				__('Quick feedback', 'pojo-accessibility'),
 				'#TB_inline?width=600&height=auto&inlineId=ea11y-deactivation-modal',
@@ -101,11 +133,17 @@ class Ea11yDeactivationHandler {
 			if (e.target?.id === 'ea11y-submit-deactivate') {
 				e.preventDefault();
 				this.handleSubmit();
+
+				return;
 			}
 			if (e.target?.id === 'ea11y-skip-deactivate') {
 				e.preventDefault();
 				this.deactivate();
+
+				return;
 			}
+
+			this.handleOptionClick(e);
 		});
 	}
 }

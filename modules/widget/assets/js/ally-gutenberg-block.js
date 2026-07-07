@@ -30,13 +30,13 @@ const Save = ({ attributes }) => {
 
 registerBlockType('ally/custom-link', {
 	apiVersion: 3,
-	title: __('Ally Widget Trigger', 'pojo-accessibility'),
+	title: __('Web Accessibility Widget Trigger', 'pojo-accessibility'),
 	icon: 'admin-links',
 	category: 'widgets',
 	attributes: {
 		linkText: {
 			type: 'string',
-			default: __('Open Ally Widget', 'pojo-accessibility'),
+			default: __('Open Web Accessibility Widget', 'pojo-accessibility'),
 		},
 	},
 	edit: Edit,

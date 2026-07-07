@@ -65,12 +65,18 @@ export const mixpanelEvents = {
 	introductionBannerShowed: 'banner_showed',
 	introductionBannerClosed: 'banner_dismissed',
 
+	// One migration
+	oneMigrationPopupDisplayed: 'one_migration_popup_displayed',
+	oneMigrationButtonClicked: 'one_migration_button_clicked',
+
 	review: {
 		promptShown: 'review_prompt_shown',
 		dismissClicked: 'review_dismiss_clicked',
 		starSelected: 'review_star_selected',
 		feedbackSubmitted: 'review_feedback_submitted',
 		publicRedirectClicked: 'review_public_redirect_clicked',
+		callPromptDismissed: 'review_feedback_call_prompt_dismissed',
+		callScheduleClicked: 'review_feedback_call_schedule_clicked',
 	},
 
 	// Heading Structure

@@ -75,68 +75,68 @@ class Module extends Module_Base {
 		<div id="ea11y-deactivation-modal" class="ea11y-deactivation-modal">
 			<div class="ea11y-deactivation-content">
 				<h4>
-					<?php esc_html_e( 'If you have a moment, please share why you are deactivating Ally:', 'pojo-accessibility' ); ?>
+					<?php esc_html_e( 'If you have a moment, please share why you are deactivating Web Accessibility:', 'pojo-accessibility' ); ?>
 				</h4>
 
 				<div class="ea11y-feedback-options">
 					<div class="ea11y-feedback-option">
-						<label for="reason_no_longer_needed">
-							<input type="radio" name="ea11y_deactivation_reason" value="no_longer_needed" id="reason_no_longer_needed">
+						<label>
+							<input type="radio" name="ea11y_deactivation_reason" value="no_longer_needed" id="ea11y_reason_no_longer_needed">
 							<?php esc_html_e( 'I no longer need this plugin', 'pojo-accessibility' ); ?>
 						</label>
 					</div>
 
 					<div class="ea11y-feedback-option">
-						<label for="reason_too_expensive">
-							<input type="radio" name="ea11y_deactivation_reason" value="too_expensive" id="reason_too_expensive">
+						<label>
+							<input type="radio" name="ea11y_deactivation_reason" value="too_expensive" id="ea11y_reason_too_expensive">
 							<?php esc_html_e( 'It\'s too expensive', 'pojo-accessibility' ); ?>
 						</label>
 					</div>
 
 					<div class="ea11y-feedback-option">
-						<label for="reason_no_results">
-							<input type="radio" name="ea11y_deactivation_reason" value="no_results" id="reason_no_results">
+						<label>
+							<input type="radio" name="ea11y_deactivation_reason" value="no_results" id="ea11y_reason_no_results">
 							<?php esc_html_e( 'The plugin didn\'t provide the results I was hoping for', 'pojo-accessibility' ); ?>
 						</label>
 					</div>
 
 					<div class="ea11y-feedback-option">
-						<label for="reason_unclear">
-							<input type="radio" name="ea11y_deactivation_reason" value="unclear_how_to_use" id="reason_unclear">
+						<label>
+							<input type="radio" name="ea11y_deactivation_reason" value="unclear_how_to_use" id="ea11y_reason_unclear">
 							<?php esc_html_e( 'I wasn\'t sure how to use the plugin', 'pojo-accessibility' ); ?>
 						</label>
-						<div class="ea11y-feedback-text-field" id="text_field_unclear" style="display: none;">
-							<label for="unclear_details"><?php esc_html_e( 'Optional: Was anything unclear or confusing?', 'pojo-accessibility' ); ?></label>
-							<textarea id="unclear_details" name="unclear_details" rows="3" placeholder="<?php esc_attr_e( 'Please share details...', 'pojo-accessibility' ); ?>"></textarea>
+						<div class="ea11y-feedback-text-field" id="ea11y_text_field_unclear" style="display: none;">
+							<label for="ea11y_unclear_details"><?php esc_html_e( 'Optional: Was anything unclear or confusing?', 'pojo-accessibility' ); ?></label>
+							<textarea id="ea11y_unclear_details" name="ea11y_unclear_details" rows="3" placeholder="<?php esc_attr_e( 'Please share details...', 'pojo-accessibility' ); ?>"></textarea>
 						</div>
 					</div>
 
 					<div class="ea11y-feedback-option">
-						<label for="reason_technical">
-							<input type="radio" name="ea11y_deactivation_reason" value="technical_issues" id="reason_technical">
+						<label>
+							<input type="radio" name="ea11y_deactivation_reason" value="technical_issues" id="ea11y_reason_technical">
 							<?php esc_html_e( 'I had technical issues or conflicts with my site', 'pojo-accessibility' ); ?>
 						</label>
 					</div>
 
 					<div class="ea11y-feedback-option">
-						<label for="reason_switched">
-							<input type="radio" name="ea11y_deactivation_reason" value="switched_solution" id="reason_switched">
+						<label>
+							<input type="radio" name="ea11y_deactivation_reason" value="switched_solution" id="ea11y_reason_switched">
 							<?php esc_html_e( 'I switched to a different solution', 'pojo-accessibility' ); ?>
 						</label>
-						<div class="ea11y-feedback-text-field" id="text_field_switched" style="display: none;">
-							<label for="switched_details"><?php esc_html_e( 'Optional: Please share which solution:', 'pojo-accessibility' ); ?></label>
-							<input type="text" id="switched_details" name="switched_details" placeholder="<?php esc_attr_e( 'Solution name...', 'pojo-accessibility' ); ?>">
+						<div class="ea11y-feedback-text-field" id="ea11y_text_field_switched" style="display: none;">
+							<label for="ea11y_switched_details"><?php esc_html_e( 'Optional: Please share which solution:', 'pojo-accessibility' ); ?></label>
+							<input type="text" id="ea11y_switched_details" name="ea11y_switched_details" placeholder="<?php esc_attr_e( 'Solution name...', 'pojo-accessibility' ); ?>">
 						</div>
 					</div>
 
 					<div class="ea11y-feedback-option">
-						<label for="reason_other">
-							<input type="radio" name="ea11y_deactivation_reason" value="other" id="reason_other">
+						<label>
+							<input type="radio" name="ea11y_deactivation_reason" value="other" id="ea11y_reason_other">
 							<?php esc_html_e( 'Other', 'pojo-accessibility' ); ?>
 						</label>
-						<div class="ea11y-feedback-text-field" id="text_field_other" style="display: none;">
-							<label for="other_details"><?php esc_html_e( 'Optional: Please share the reason:', 'pojo-accessibility' ); ?></label>
-							<textarea id="other_details" name="other_details" rows="3" placeholder="<?php esc_attr_e( 'Please explain...', 'pojo-accessibility' ); ?>"></textarea>
+						<div class="ea11y-feedback-text-field" id="ea11y_text_field_other" style="display: none;">
+							<label for="ea11y_other_details"><?php esc_html_e( 'Optional: Please share the reason:', 'pojo-accessibility' ); ?></label>
+							<textarea id="ea11y_other_details" name="ea11y_other_details" rows="3" placeholder="<?php esc_attr_e( 'Please explain...', 'pojo-accessibility' ); ?>"></textarea>
 						</div>
 					</div>
 				</div>

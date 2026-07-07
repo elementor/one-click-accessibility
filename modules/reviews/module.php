@@ -177,13 +177,8 @@ class Module extends Module_Base {
 
 			$review_data = $this->get_review_data();
 
-			// Don't show if user has already submitted feedback when rating is less than 4.
-			if ( isset( $review_data['rating'] ) && (int) $review_data['rating'] < 4 ) {
-				return false;
-			}
-
-			// Hide if rating is submitted but repo review is not clicked.
-			if ( (int) $review_data['rating'] > 3 && $review_data['repo_review_clicked'] ) {
+			// Hide once the user has completed the call scheduling prompt.
+			if ( ! empty( $review_data['repo_review_clicked'] ) ) {
 				return false;
 			}
 

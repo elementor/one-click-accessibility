@@ -116,6 +116,10 @@ if (
 		}
 	}
 
+	// Expose so external callers (e.g. the scanner after DOM normalization)
+	// can re-run pending remediations against the updated DOM.
+	window.AllyRemediations.initialize = initializeRemediations;
+
 	// Run on DOMContentLoaded with timeout
 	window.addEventListener('DOMContentLoaded', function () {
 		setTimeout(() => {

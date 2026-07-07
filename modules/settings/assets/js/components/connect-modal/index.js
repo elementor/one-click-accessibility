@@ -80,7 +80,7 @@ const ConnectModal = () => {
 					id="connect-modal-description"
 				>
 					{__(
-						'Make your site more inclusive with Ally - Web Accessibility.',
+						'Make your site more inclusive with Web Accessibility.',
 						'pojo-accessibility',
 					)}
 				</Typography>

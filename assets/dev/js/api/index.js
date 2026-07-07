@@ -3,6 +3,7 @@ import { addQueryArgs } from '@wordpress/url';
 import APIError from './exceptions/APIError';
 
 const wpV2Prefix = '/wp/v2';
+const elementorOneV1Prefix = '/elementor-one/v1';
 const v1Prefix = '/ea11y/v1';
 
 class API {
@@ -19,7 +20,10 @@ class API {
 				headers,
 			});
 
-			if (path.startsWith(wpV2Prefix)) {
+			if (
+				path.startsWith(wpV2Prefix) ||
+				path.startsWith(elementorOneV1Prefix)
+			) {
 				return response;
 			}
 

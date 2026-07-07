@@ -1,19 +1,19 @@
 <?php
 /**
- * Plugin Name: Ally - Web Accessibility & Usability
+ * Plugin Name: Web Accessibility - WCAG Scanning, Guided Fixes, Usability Widget
  * Plugin URI: https://elementor.com/
  * Description: Improve your website’s accessibility with ease. Customize capabilities such as text resizing, contrast modes, link highlights, and easily generate an accessibility statement to demonstrate your commitment to inclusivity.
  * Author: Elementor.com
  * Author URI: https://elementor.com/
- * Version: 4.1.2
+ * Version: 4.1.3
  * Text Domain: pojo-accessibility
  *
- * Ally is free software: you can redistribute it and/or modify
+ * Web Accessibility is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * any later version.
  *
- * Ally is distributed in the hope that it will be useful,
+ * Web Accessibility is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Legacy
 define( 'POJO_A11Y_CUSTOMIZER_OPTIONS', 'pojo_a11y_customizer_options' );
-define( 'EA11Y_VERSION', '4.1.2' );
+define( 'EA11Y_VERSION', '4.1.3' );
 define( 'EA11Y_MAIN_FILE', __FILE__ );
 define( 'EA11Y_BASE', plugin_basename( EA11Y_MAIN_FILE ) );
 define( 'EA11Y_PATH', plugin_dir_path( __FILE__ ) );

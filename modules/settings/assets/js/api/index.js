@@ -121,6 +121,13 @@ class APISettings extends API {
 			path: `${v1Prefix}/scanner/results`,
 		});
 	}
+
+	static async migrateToOne() {
+		return APISettings.request({
+			path: '/elementor-one/v1/plugins/pojo-accessibility/migration/run',
+			method: 'POST',
+		});
+	}
 }
 
 export default APISettings;

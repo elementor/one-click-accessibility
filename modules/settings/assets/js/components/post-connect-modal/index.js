@@ -77,7 +77,7 @@ const PostConnectModal = () => {
 					id="post-connect-modal-description"
 				>
 					{__(
-						'Ally - Web Accessibility is now connected and ready to use on your site.',
+						'Web Accessibility is now connected and ready to use on your site.',
 						'pojo-accessibility',
 					)}
 				</Typography>

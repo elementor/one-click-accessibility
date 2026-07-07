@@ -19,3 +19,4 @@ coverage/
 .env
 *.zip
 .qodo
+.playwright-mcp/

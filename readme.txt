@@ -1,45 +1,44 @@
-=== Ally - Web Accessibility & Usability ===
+=== Web Accessibility (formally known as Ally) - WCAG Scanning, Guided Fixes, Usability Widget ===
 Contributors: elemntor
 Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 4.1.2
+Stable tag: 4.1.3
 License: GPLv2 or later
 
-Ally: Make your site more inclusive by scanning for accessibility violations, fixing them easily, and adding a usability widget and accessibility statement.
+Web Accessibility (formally known as Ally) is a free, powerful, and user-friendly plugin that helps WordPress creators build more accessible websites with ease.
 
 == Description ==
 
 https://www.youtube.com/watch?v=-2ig5D348vo
 
-Ally (formerly One Click Accessibility) is a free, powerful, and user-friendly plugin that helps WordPress creators build more accessible websites with ease.
+Web Accessibility (formally known as Ally) is a free, powerful, and user-friendly plugin that helps WordPress creators build more accessible websites with ease.
 It simplifies accessibility with three essential tools:
 
-- **Ally Assistant** – Scan your pages, detect accessibility violations, and follow guided steps to fix them. Make manual adjustments or apply AI-powered suggestions, and track your progress.
+- **Accessibility Assistant** – Scan your pages, detect accessibility violations, and follow guided steps to fix them. Make manual adjustments or apply AI-powered suggestions, and track your progress.
 - **Usability widget** – Let visitors personalize their browsing experience with a floating accessibility menu. Features include font resizing, color contrast, image hiding, animation pausing, language selection, screen reader support, and more.
 - **Accessibility statement generator** – Create a fully customized accessibility statement and publish it automatically on your site, helping meet WCAG and legal requirements.
 
-**No expertise required** -just activate, configure, and start making your site more inclusive today.Built by Elementor. Designed for every WordPress site. Ally is web accessibility—simplified.
-
+**No expertise required** - Just activate, configure, and start making your site more inclusive today. Built by Elementor and designed for every WordPress site.
 
 === Why does web accessibility matter?
-- **Who Needs It?** Every website owner—businesses, creators, and agencies.
-- **Who is Responsible?** Website owners are legally and ethically responsible for accessibility. The web creator—who designs and builds the site—must implement and adjust accessibility features to ensure compliance with WCAG guidelines and provide an inclusive experience for all users.
+- **Who Needs It?** Every website owner, for businesses, creators, and agencies.
+- **Who is Responsible?** Website owners are legally and ethically responsible for accessibility. The web creator who designs and builds the site must implement and adjust accessibility features to ensure compliance with WCAG guidelines and provide an inclusive experience for all users.
 - **Why Now?** Rising legal requirements (WCAG, EAA) and better user experience.
-- **Why Should You Care?**  An accessible website isn't just ethical; it's good business. By prioritizing inclusivity, you improve user experience for everyone, boost your search engine rankings, and attract a wider audience.
+- **Why Should You Care?** An accessible website isn't just ethical; it's good business. By prioritizing inclusivity, you improve user experience for everyone, boost your search engine rankings, and attract a wider audience.
 
-=== It’s the Law
+=== It's the Law
 
-As accessibility standards continue to evolve and become mandatory, it’s important to start making website adjustments to comply with fast-approaching global regulations. Among its other capabilities, this plugin lets you instantly generate your website's Accessibility Statement, which is now mandatory in most locales.
+As accessibility standards continue to evolve and become mandatory, it's important to start making website adjustments to comply with fast-approaching global regulations. Among its other capabilities, this plugin lets you instantly generate your website's Accessibility Statement, which is now mandatory in most locales.
 
-The Ally plugin is not a substitute for a thorough accessibility audit and is NOT intended to completely make your website legally compliant. However, with it, you’re one step closer to making your website inclusive to more visitors, including those with visual, auditory or cognitive challenges.
+The Web Accessibility plugin is not a substitute for a thorough accessibility audit and is NOT intended to completely make your website legally compliant. However, with it, you're one step closer to making your website inclusive to more visitors, including those with visual, auditory, or cognitive challenges.
 
 Ensuring that your website complies with all applicable accessibility requirements is your responsibility. We recommend working with qualified accessibility professionals to help achieve full compliance.
 
 == Key Features & Benefits ==
 
-= Ally Assistant =
+= Accessibility Assistant =
 
 * Scan any URL on demand to detect accessibility gaps
 * Launch directly from WordPress or Elementor
@@ -50,8 +49,7 @@ Ensuring that your website complies with all applicable accessibility requiremen
 
 = How It Works =
 
-Ally Assistant scans individual URLs for accessibility violations, categorizes them by type and severity, and provides actionable insights. You can apply manual fixes manually or use AI suggestions while tracking your progress over time.
-Ally Assistant helps you:
+Accessibility Assistant scans individual URLs for accessibility violations, categorizes them by type and severity, and provides actionable insights. You can apply manual fixes manually or use AI suggestions while tracking your progress over time. Accessibility Assistant helps you:
 
 * Detect missing alternative text
 * Label dynamic content & ARIA landmarks
@@ -63,7 +61,7 @@ Ally Assistant helps you:
 * And detect 180+ other common accessibility violations based on WCAG 2.1 AA
 
 = Accessibility Statement Generator =
-* Auto-generate a complete  accessibility statement
+* Auto-generate a complete accessibility statement
 * Customize and publish to a dedicated page
 * Link it using the widget
 
@@ -87,9 +85,8 @@ Premium widget features are also available within paid plans, including:
 * Language selector directly in the widget
 * Usage analytics to gain actionable insights from visitor interactions
 
-
 = Widget customization options for web creators =
-Tailor the widget’s look and behavior with options like:
+Tailor the widget's look and behavior with options like:
 
 * Show/hide widget icon on mobile or desktop
 * Select icon type and size
@@ -100,15 +97,15 @@ Tailor the widget’s look and behavior with options like:
 
 
 === Get Started Today ===
-== Make your site more accessible with Ally! ==
-Need help? Visit our [help center](https://go.elementor.com/acc-wp-repo-learn-more) or [contact Supoprt](https://go.elementor.com/wp-repo-wp-dash-sm-contact-us/).
+== Create a better user experience for all with Web Accessibility ==
+Need help? Visit our [help center](https://go.elementor.com/acc-wp-repo-learn-more) or [contact Support](https://go.elementor.com/wp-repo-wp-dash-sm-contact-us/).
 
-This plugin requires a connection to an active Elementor account in order to identify the user and provide the user with the purchased service. This connection is initiated manually by the user via the plugin’s settings panel. Learn more about our [terms and conditions](https://go.elementor.com/acc-wp-repo-term-and-conditions). This plugin uses a 3rd party service operated by Elementor.
+This plugin requires a connection to an active Elementor account to identify the user and provide the purchased service. This connection is initiated manually by the user via the plugin's settings panel. Learn more about our [terms and conditions](https://go.elementor.com/acc-wp-repo-term-and-conditions). This plugin uses a 3rd party service operated by Elementor.
 
 More accessibility features are on the way, so stay tuned!
 
 == Related Plugins ==
-* [Site Mailer](https://wordpress.org/plugins/site-mailer/): Manage transactional emails with ease with Site Mailer. High deliverability, detailed logs and statistics, and no SMTP plugins needed.
+* [Email Deliverability](https://wordpress.org/plugins/site-mailer/): Manage transactional emails with ease. High deliverability, detailed logs and statistics, and no SMTP plugins needed.
 * [Image Optimizer](https://wordpress.org/plugins/image-optimization/): Compress and optimize your images, giving you leaner, faster websites. Automatically optimize any new image you upload or run a bulk optimization process for existing uploads.
 
 
@@ -130,51 +127,50 @@ More accessibility features are on the way, so stay tuned!
 
 == Frequently Asked Questions ==
 
-= What is the Ally plugin? =
+= What is the Web Accessibility plugin? =
 
-Ally is an accessibility plugin for WordPress websites. It helps web creators build more inclusive websites using a customizable widget, on-demand accessibility scans, AI-powered issue remediation, and a centralized dashboard to track progress.
+Web Accessibility is an accessibility plugin for WordPress websites. It helps web creators build more inclusive websites using a customizable widget, on-demand accessibility scans, AI-powered issue remediation, and a centralized dashboard to track progress.
 
-= Who is Ally for? =
+= Who is Web Accessibility for? =
 
-Ally is ideal for freelancers, agencies, and DIY website owners who want to improve accessibility and align with WCAG standards
+Web Accessibility is ideal for freelancers, agencies, and DIY website owners who want to improve accessibility and align with WCAG standards
 
-= Is Ally GDPR compliant? =
+= Is Web Accessibility GDPR compliant? =
 
-Yes, Ally is GDPR compliant. To meet your privacy obligations, you must list Elementor as a sub-processor in your privacy notice. Our [Data Processing Agreement (DPA)](https://elementor.com/terms/plugins-dpa) outlines all privacy-related requirements.
+Yes, Web Accessibility is GDPR compliant. To meet your privacy obligations, you must list Elementor as a sub-processor in your privacy notice. Our [Data Processing Agreement (DPA)](https://elementor.com/terms/plugins-dpa) outlines all privacy-related requirements.
 
-= Can Ally guarantee that my site is fully accessible? =
+= Can Web Accessibility guarantee that my site is fully accessible? =
 
-No automated tool can promise full accessibility. Ally helps you detect and fix the most common violations, but achieving full compliance requires human testing and judgment. Think of Ally as a powerful assistant-not a complete substitute for manual review.
+No automated tool can promise full accessibility. Web Accessibility helps you detect and fix the most common violations, but achieving full compliance requires human testing and judgment. Think of Web Accessibility as a powerful assistant-not a complete substitute for manual review.
 
 = What is an accessibility statement, and how do I create one? =
 
-An accessibility statement is a public declaration of your commitment to inclusive digital experiences. Ally helps you easily generate and publish one as a dedicated page on your website.
+An accessibility statement is a public declaration of your commitment to inclusive digital experiences. Web Accessibility helps you easily generate and publish one as a dedicated page on your website.
 
-= Why do I need an Elementor account to use Ally? =
+= Why do I need an Elementor account to use Web Accessibility? =
 
-An Elementor account lets you manage your Ally settings, track usage, and unlock advanced features like the Assistant and AI fixes.
+An Elementor account lets you manage your Web Accessibility settings, track usage, and unlock advanced features like the Assistant and AI fixes.
 
-= Can I customize the widget’s appearance? =
+= Can I customize the widget's appearance? =
 
-Yes. You can personalize the widget’s icon, colors, size, position, and which features are shown on mobile or desktop.
+Yes. You can personalize the widget's icon, colors, size, position, and which features are shown on mobile or desktop.
 
 = Can visitors hide the widget? =
-Yes. Visitors can choose to temporarily dismiss the widget-for a session, 24 hours, or one week.
+Yes. Visitors can choose to temporarily dismiss the widget for a session, 24 hours, or one week.
 
 = Does the widget support multiple languages? =
-Yes, it automatically adjusts to your site’s language settings.
+Yes, it automatically adjusts to your site's language settings.
 
 
 = What is the Accessibility Assistant? =
 The Accessibility Assistant is a tool that scans individual URLs for accessibility violations, organizes them into categories, and guides you to fix them manually or with AI suggestions
-
 
 = Can I scan the same URL more than once? =
 Yes. You can rescan a URL as often as needed. Results update each time based on the current version of your content.
 
 
 = What are AI fixes? =
-These are smart suggestions generated by Ally to help you resolve issues more efficiently-like automatically suggesting alternative text for images. AI fixes are available only on paid plans and use credits.
+These are smart suggestions generated by Web Accessibility to help you resolve issues more efficiently-like automatically suggesting alternative text for images. AI fixes are available only on paid plans and use credits.
 
 = How can I report security bugs? =
 You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability](https://patchstack.com/database/wordpress/plugin/pojo-accessibility/vdp).
@@ -188,9 +184,16 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 4. Accessibility Assistant: Scan any page to instantly detect over 180 common accessibility issues and get clear, guided steps for remediation inside your site editor.
 5. Scan results: View issues highlighted in context and grouped by type such as alt text, ARIA, page structure, and more. Expand any item for step-by-step guidance and optional AI-powered suggestions.
 6. Color contrast: Fine tune text and background colors with live checks that validate contrast ratios.
-7. Scanner dashboard: Track your site’s accessibility scans, monitor open issues, and follow progress over time.
+7. Scanner dashboard: Track your site's accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
+= 4.1.3 – 2026-06-29 =
+* Tweak: Widget button custom position alignment
+* Tweak: Ally AI fixes improvments
+* Tweak: Assets renaming
+* Fix: Accessibility in deactivation modal
+* Fix: WordPress Dahsboard stats not updating
+
 = 4.1.2 – 2026-06-01 =
 * Tweak: Improved admin screens in RTL view
 * Tweak: Reduce bundle size for faster loading
@@ -340,10 +343,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 * Fix: Fixed favicon missing on some sites
 
 = 3.0.0  2025-02-18 =
-* 🚀 Introducing Ally Web Accessibility! One Click Accessibility is now Ally Web Accessibility! Discover the new experience: Learn More.
+* Introducing Ally Web Accessibility! One Click Accessibility is now Ally Web Accessibility! Discover the new experience: Learn More.
 * New: Brand-New Interface – Redesigned for seamless touch-screen and mobile support.
 * New: Revamped Infrastructure – Overhauled backend to support new and future capabilities.
-* New: Page Structure Overview – Navigate your page’s structure for better accessibility.
+* New: Page Structure Overview – Navigate your page's structure for better accessibility.
 * New: Image Hiding Option – Hides all images on the page to reduce distractions and make the page more readable.
 * New: Pause animations option – Stops animations running on the page option, helping users focus on content.
 * New: Reading Mask option- helps users focus on specific text, reducing distractions and improving readability.
