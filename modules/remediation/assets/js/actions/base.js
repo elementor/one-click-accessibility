@@ -65,18 +65,45 @@ export class RemediationBase {
 			return xpathElement || null;
 		}
 
-		const selectorParts = [parsed.tagName.toLowerCase()];
+		const tag = parsed.tagName.toLowerCase();
 
-		if (parsed.id) {
-			selectorParts.push(`#${parsed.id}`);
+		// With an id/class we have a specific enough selector to trust directly.
+		if (parsed.id || parsed.classList.length) {
+			const selectorParts = [tag];
+			if (parsed.id) {
+				selectorParts.push(`#${parsed.id}`);
+			}
+			if (parsed.classList.length) {
+				selectorParts.push(`.${Array.from(parsed.classList).join('.')}`);
+			}
+			const selector = selectorParts.join('');
+
+			return document.querySelector(selector) || xpathElement || null;
 		}
-		if (parsed.classList.length) {
-			selectorParts.push(`.${Array.from(parsed.classList).join('.')}`);
+
+		// No id/class to disambiguate (common for dynamically generated markup,
+		// e.g. inline SVGs rendered by animation libraries). Scan every element
+		// with a matching tag instead of blindly grabbing the first one in the document.
+		return (
+			this.findBestMatchingElementByTag(tag, snippet) || xpathElement || null
+		);
+	}
+
+	findBestMatchingElementByTag(tag, snippet) {
+		const normalizedSnippet = snippet.replace(/\s+/g, ' ').trim().toLowerCase();
+		const candidates = document.getElementsByTagName(tag);
+
+		for (const candidate of candidates) {
+			const html = candidate.outerHTML
+				.replace(/\s+/g, ' ')
+				.trim()
+				.toLowerCase();
+			if (html.includes(normalizedSnippet)) {
+				return candidate;
+			}
 		}
 
-		const selector = selectorParts.join('');
-
-		return document.querySelector(selector) || xpathElement || null;
+		return candidates[0] || null;
 	}
 
 	createElement(tag, attributes = [], content = '') {

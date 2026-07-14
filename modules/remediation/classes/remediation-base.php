@@ -145,9 +145,40 @@ class Remediation_Base {
 
 		if ( $conditions ) {
 			$query .= '[' . implode( ' and ', $conditions ) . ']';
+			return $this->get_element_by_xpath( $query );
 		}
 
-		return $this->get_element_by_xpath( $query );
+		// No id/class to disambiguate (common for dynamically generated markup,
+		// e.g. inline SVGs rendered by animation libraries). Scan every element
+		// with a matching tag instead of blindly grabbing the first one in the document.
+		return $this->find_best_matching_element_by_tag( $tag, $snippet );
+	}
+
+	/**
+	 * Among all elements with the given tag, find the one whose outer HTML actually
+	 * contains the snippet. Falls back to the first element with that tag if none
+	 * match, preserving previous best-effort behavior.
+	 *
+	 * @param string $tag
+	 * @param string $snippet
+	 * @return DOMElement|null
+	 */
+	public function find_best_matching_element_by_tag( string $tag, string $snippet ): ?DOMElement {
+		$xpath = new DOMXPath( $this->dom );
+		$candidates = $xpath->query( '//' . $tag );
+
+		if ( 0 === $candidates->length ) {
+			return null;
+		}
+
+		foreach ( $candidates as $candidate ) {
+			if ( $candidate instanceof DOMElement && $this->element_contains_snippet( $candidate, $snippet ) ) {
+				return $candidate;
+			}
+		}
+
+		$first = $candidates->item( 0 );
+		return $first instanceof DOMElement ? $first : null;
 	}
 
 
