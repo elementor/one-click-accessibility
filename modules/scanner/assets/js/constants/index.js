@@ -238,4 +238,10 @@ export const VIOLATION_TYPES = {
 	],
 };
 
-export const EXCLUDE_FROM_AI = ['aria_content_in_landmark'];
+export const EXCLUDE_FROM_AI = [
+	'aria_content_in_landmark',
+	'label_content_exists',
+	'form_label_unique',
+	'input_label_after',
+	'input_label_before',
+];

@@ -21,14 +21,15 @@ class Element extends Remediation_Base {
 	 */
 	public function run() : ?DOMDocument {
 
-		$element_node = null;
 		$child = null;
 
-		if ( isset( $this->data['xpath'] ) ) {
-			$element_node = $this->get_element_by_xpath( $this->data['xpath'] );
-		}
+		$element_node = $this->get_element_by_xpath_with_snippet_fallback(
+			$this->data['xpath'] ?? null,
+			$this->data['find'] ?? null
+		);
 
-		if ( ! $element_node ) {
+		if ( ! $element_node instanceof \DOMElement ) {
+			$this->use_frontend = true;
 			return null;
 		}
 

@@ -3,8 +3,8 @@ import { RemediationBase } from './base';
 
 export class ElementRemediation extends RemediationBase {
 	run() {
-		const { xpath, action, content, child } = this.data;
-		const el = this.getElementByXPath(xpath);
+		const { xpath, action, content, child, find } = this.data;
+		const el = this.getElementByXPathFallbackSnippet(find, xpath);
 		if (!el) {
 			return false;
 		}
