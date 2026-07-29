@@ -238,8 +238,17 @@ class Remediation_Runner {
 	}
 
 	private function generate_remediation_dom( $buffer ): string {
+		// Inline <script> and <style> blocks are not round-trip safe through
+		// DOMDocument::loadHTML()/saveHTML(): libxml entity-encodes characters
+		// such as `<`, `>`, and `&` inside them, which corrupts inline
+		// JavaScript (e.g. WooCommerce archive scripts) and surfaces as a
+		// console syntax error that breaks the page layout. Stash them as
+		// placeholder comments before parsing and restore the original markup
+		// verbatim after serialization.
+		[ $protected_buffer, $placeholders ] = $this->stash_inline_assets( $buffer );
+
 		$dom = new DOMDocument( '1.0', 'UTF-8' );
-		$dom->loadHTML( $buffer, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR );
+		$dom->loadHTML( $protected_buffer, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD | LIBXML_NOERROR );
 
 		//Remove admin-bar for correct replace
 		$admin_bar = $dom->getElementById( 'wpadminbar' );
@@ -302,7 +311,58 @@ class Remediation_Runner {
 				$head->appendChild( $module_script );
 			}
 		}
-		return $dom->saveHTML();
+		return $this->restore_inline_assets( $dom->saveHTML(), $placeholders );
+	}
+
+	/**
+	 * Replace inline <script> and <style> blocks with placeholder comments
+	 * so their contents survive the DOMDocument load/save round-trip intact.
+	 *
+	 * @param string $buffer Raw page HTML.
+	 * @return array{0:string,1:array<string,string>} Protected buffer and map of placeholder keys to original blocks.
+	 */
+	private function stash_inline_assets( string $buffer ): array {
+		$placeholders = [];
+		$pattern       = '/<(script|style)\b[^>]*>.*?<\/\1>/is';
+
+		$protected = preg_replace_callback(
+			$pattern,
+			static function ( $matches ) use ( &$placeholders ) {
+				$key                 = 'EA11YPROTECT' . count( $placeholders );
+				$placeholders[ $key ] = $matches[0];
+				return '<!--' . $key . '-->';
+			},
+			$buffer
+		);
+
+		return [ null === $protected ? $buffer : (string) $protected, $placeholders ];
+	}
+
+	/**
+	 * Restore the original inline <script> and <style> blocks that were
+	 * replaced with placeholder comments by stash_inline_assets().
+	 *
+	 * @param string                $html         Serialized HTML from DOMDocument::saveHTML().
+	 * @param array<string,string>  $placeholders Map of placeholder keys to original blocks.
+	 * @return string
+	 */
+	private function restore_inline_assets( string $html, array $placeholders ): string {
+		foreach ( $placeholders as $key => $original ) {
+			$pattern  = '/<!--\s*' . preg_quote( $key, '/' ) . '\s*-->/';
+			$replaced = preg_replace_callback(
+				$pattern,
+				static function () use ( $original ) {
+					return $original;
+				},
+				$html,
+				1
+			);
+			if ( null !== $replaced ) {
+				$html = (string) $replaced;
+			}
+		}
+
+		return $html;
 	}
 
 	private function add_frontend_remediation( $remediation ) {
