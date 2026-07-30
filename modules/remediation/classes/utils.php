@@ -136,10 +136,6 @@ class Utils {
 		return 'unknown';
 	}
 
-	public static function get_hash( $text ) : string {
-		return md5( $text );
-	}
-
 	/**
 	 * Version salt for the rendered-HTML cache (Page_Entry::FULL_HTML).
 	 *
