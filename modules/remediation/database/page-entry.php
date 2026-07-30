@@ -54,7 +54,7 @@ class Page_Entry extends Entry {
 			return null;
 		}
 
-		$this->entry_data[ Page_Table::HASH ] = Utils::get_hash( $this->entry_data[ Page_Table::UPDATED_AT ] );
+		$this->entry_data[ Page_Table::HASH ] = Utils::get_cache_hash( $this->entry_data[ Page_Table::UPDATED_AT ] );
 		$this->entry_data[ Page_Table::FULL_HTML ] = $html;
 
 		$this->save();
@@ -121,7 +121,7 @@ class Page_Entry extends Entry {
 	 * @return bool
 	 */
 	public function is_valid_hash() : bool {
-		$current_hash = Utils::get_hash( $this->entry_data[ Page_Table::UPDATED_AT ] );
+		$current_hash = Utils::get_cache_hash( $this->entry_data[ Page_Table::UPDATED_AT ] );
 		return ! empty( $this->entry_data[ Page_Table::HASH ] ) && $this->entry_data[ Page_Table::HASH ] === $current_hash;
 	}
 
