@@ -50,6 +50,7 @@ export default function useScannerWizardActions(state) {
 			setGlobalRemediations(items.data.global);
 			setSortedGlobalRemediation(sortedGlobal);
 		} catch (error) {
+			console.log(error);
 			setIsError(true);
 		}
 	};
@@ -86,6 +87,7 @@ export default function useScannerWizardActions(state) {
 			setAltTextData({ manage: [], main: [] });
 			setManualData(structuredClone(MANUAL_GROUPS));
 		} catch (e) {
+			console.log(e);
 			if (e?.message === 'Quota exceeded') {
 				setQuotaExceeded(true);
 			}
@@ -106,7 +108,7 @@ export default function useScannerWizardActions(state) {
 
 			setCurrentScanId(response.scanId);
 		} catch (e) {
-			console.error(e);
+			console.log(e);
 			setIsError(true);
 		}
 	};
@@ -165,6 +167,7 @@ export default function useScannerWizardActions(state) {
 
 			return data.summary;
 		} catch (error) {
+			console.log(error);
 			setIsError(true);
 		} finally {
 			setLoading(false);
