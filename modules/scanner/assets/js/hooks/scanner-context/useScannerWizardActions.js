@@ -154,6 +154,8 @@ export default function useScannerWizardActions(state) {
 					).length;
 			}
 
+			console.log(allResults);
+
 			const sorted = sortViolations(allResults);
 
 			await registerPage(data, sorted);
