@@ -54,7 +54,7 @@ const missingH1Check = {
 					dom: '/html[1]',
 					aria: '/document[1]',
 				},
-				node: headings[0],
+				node: headings[0] || document.documentElement,
 				ruleTime: 0,
 				message:
 					'No h1 tag found. Add a main heading (h1) to establish the page structure.',

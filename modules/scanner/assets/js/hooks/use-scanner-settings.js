@@ -20,7 +20,6 @@ const ScannerSettings = z.object({
 		z.tuple([]),
 	]),
 	pageData: z.object({
-		entry_id: z.string(),
 		object_id: z.int(),
 		object_type: z.string(),
 		object_type_name: z.string(),
