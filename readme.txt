@@ -187,6 +187,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Scanner dashboard: Track your site's accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
+= 4.1.4 – Unreleased =
+* Fix: Prevented the remediation runner from corrupting inline `<script>` and `<style>` blocks (e.g. WooCommerce archive scripts with multibyte characters) during the DOMDocument round-trip, which caused console syntax errors and broken page layouts
+* Tweak: Versioned the rendered-HTML cache so previously cached (potentially corrupted) HTML is regenerated after the rendering pipeline changes
+
 = 4.1.3 – 2026-06-29 =
 * Tweak: Widget button custom position alignment
 * Tweak: Ally AI fixes improvments

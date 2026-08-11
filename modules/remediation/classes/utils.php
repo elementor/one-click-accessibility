@@ -136,8 +136,23 @@ class Utils {
 		return 'unknown';
 	}
 
-	public static function get_hash( $text ) : string {
-		return md5( $text );
+	/**
+	 * Version salt for the rendered-HTML cache (Page_Entry::FULL_HTML).
+	 *
+	 * Bump this whenever the remediation rendering pipeline changes so that
+	 * previously cached HTML is treated as stale and regenerated on the next
+	 * request instead of being served as-is.
+	 */
+	const HTML_CACHE_VERSION = '2';
+
+	/**
+	 * Versioned hash used to validate cached rendered HTML.
+	 *
+	 * @param string $text
+	 * @return string
+	 */
+	public static function get_cache_hash( $text ) : string {
+		return md5( self::HTML_CACHE_VERSION . $text );
 	}
 
 	public static function trigger_save_for_clean_cache( $entry_id, $entry_type ): void {
