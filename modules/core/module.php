@@ -25,9 +25,13 @@ class Module extends Module_Base {
 		];
 	}
 
-	public function add_plugin_links( $links, $plugin_file_name ) : array {
+	public function add_plugin_links( $links, $plugin_file_name ) {
+		if ( ! is_array( $links ) ) {
+			return $links;
+		}
+
 		if ( ! str_ends_with( $plugin_file_name, '/pojo-accessibility.php' ) ) {
-			return (array) $links;
+			return $links;
 		}
 
 		$custom_links = [
