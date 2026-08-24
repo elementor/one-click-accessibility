@@ -188,9 +188,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 = 4.1.4 – 2026-08-xx =
+* Tweak: Versioned the rendered-HTML cache so previously cached (potentially corrupted) HTML is regenerated after the rendering pipeline changes
 * Fix: Prevented the remediation runner from corrupting inline `<script>` and `<style>` blocks (e.g. WooCommerce archive scripts with multibyte characters) during the DOMDocument round-trip, which caused console syntax errors and broken page layouts
 * Fix: Scanner error on pages with no headings
-* Tweak: Versioned the rendered-HTML cache so previously cached (potentially corrupted) HTML is regenerated after the rendering pipeline changes
+* Fix: Plugin row links throws errors on Jetpack cron
 
 = 4.1.3 – 2026-06-29 =
 * Tweak: Widget button custom position alignment
