@@ -4,7 +4,7 @@ Tags: Web Accessibility, Accessibility, A11Y, WCAG, Accessibility Statement
 Requires at least: 6.7
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 4.1.3
+Stable tag: 4.1.4
 License: GPLv2 or later
 
 Web Accessibility (formally known as Ally) is a free, powerful, and user-friendly plugin that helps WordPress creators build more accessible websites with ease.
@@ -187,9 +187,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 7. Scanner dashboard: Track your site's accessibility scans, monitor open issues, and follow progress over time.
 
 == Changelog ==
-= 4.1.4 – Unreleased =
-* Fix: Prevented the remediation runner from corrupting inline `<script>` and `<style>` blocks (e.g. WooCommerce archive scripts with multibyte characters) during the DOMDocument round-trip, which caused console syntax errors and broken page layouts
+= 4.1.4 – 2026-08-xx =
 * Tweak: Versioned the rendered-HTML cache so previously cached (potentially corrupted) HTML is regenerated after the rendering pipeline changes
+* Fix: Prevented the remediation runner from corrupting inline `<script>` and `<style>` blocks (e.g. WooCommerce archive scripts with multibyte characters) during the DOMDocument round-trip, which caused console syntax errors and broken page layouts
+* Fix: Scanner error on pages with no headings
+* Fix: Plugin row links throws errors on Jetpack cron
 
 = 4.1.3 – 2026-06-29 =
 * Tweak: Widget button custom position alignment
