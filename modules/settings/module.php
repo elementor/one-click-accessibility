@@ -68,9 +68,6 @@ class Module extends Module_Base {
 			self::get_menu_icon(),
 			58
 		);
-
-		// Defensive: ensure no submenu is ever registered under this slug, so Ally stays a plain top-level link with no flyout.
-		remove_submenu_page( self::SETTING_BASE_SLUG, self::SETTING_BASE_SLUG );
 	}
 
 	/**
@@ -79,10 +76,6 @@ class Module extends Module_Base {
 	 */
 	public static function get_menu_icon(): string {
 		$svg_path = EA11Y_ASSETS_PATH . 'images/admin-menu-icon.svg';
-
-		if ( ! file_exists( $svg_path ) ) {
-			return 'dashicons-universal-access-alt';
-		}
 
 		$svg_content = file_get_contents( $svg_path );
 

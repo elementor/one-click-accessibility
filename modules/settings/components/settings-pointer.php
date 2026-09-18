@@ -63,7 +63,7 @@ class Settings_Pointer {
 			}
 
 			jQuery( document ).ready( function( $ ) {
-				$( <?php echo wp_json_encode( '#toplevel_page_' . SettingsModule::SETTING_BASE_SLUG ); ?> ).pointer( {
+				$( '#toplevel_page_elementor-home' ).pointer( {
 					content: '<?php echo wp_kses( $pointer_content, $allowed_tags ); ?>',
 					pointerClass: 'ea11y-settings-pointer',
 					position: {
