@@ -59,15 +59,27 @@ class Module extends Module_Base {
 	}
 
 	public function register_page(): void {
-		add_submenu_page(
-			'elementor-home',
+		add_menu_page(
 			__( 'Web Accessibility', 'pojo-accessibility' ),
-			__( 'Accessibility', 'pojo-accessibility' ),
+			__( 'Ally', 'pojo-accessibility' ),
 			self::SETTING_CAPABILITY,
 			self::SETTING_BASE_SLUG,
 			[ $this, 'render_app' ],
-			55
+			self::get_menu_icon(),
+			58
 		);
+	}
+
+	/**
+	 * Get the base64-encoded SVG data URI used for the Ally top-level admin menu icon.
+	 * @return string
+	 */
+	public static function get_menu_icon(): string {
+		$svg_path = EA11Y_ASSETS_PATH . 'images/admin-menu-icon.svg';
+
+		$svg_content = file_get_contents( $svg_path );
+
+		return 'data:image/svg+xml;base64,' . base64_encode( $svg_content );
 	}
 
 	/**
