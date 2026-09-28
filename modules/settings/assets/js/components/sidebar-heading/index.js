@@ -18,7 +18,7 @@ const SidebarHeading = () => {
 			</StyledIconBox>
 			{openSidebar && (
 				<Typography variant="subtitle1" as="div">
-					{__('Accessibility', 'pojo-accessibility')}
+					{__('Ally', 'pojo-accessibility')}
 				</Typography>
 			)}
 		</StyledHeader>
