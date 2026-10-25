@@ -20,3 +20,8 @@ coverage/
 *.zip
 .qodo
 .playwright-mcp/
+
+# eppen output
+eppen-output/
+eppen-results/
+.wp-env.json

@@ -1,0 +1,40 @@
+name: "Web Accessibility - WCAG Scanning, Guided Fixes, Usability Widget"
+
+ajaxActions:
+  - ea11y_admin_notice_dismiss
+  - ea11y_upgrade
+  - ea11y_revert
+  - ea11y_pointer_dismissed
+  - ea11y_deactivation_feedback
+  - a11y_install_elementor_set_admin_notice_viewed
+
+restRoutes:
+  - ea11y/v1/analytics/events
+  - ea11y/v1/analytics/statistic
+  - ea11y/v1/remediation/items
+  - ea11y/v1/remediation/item
+  - ea11y/v1/remediation/page-status
+  - ea11y/v1/remediation/register
+  - ea11y/v1/remediation/set-alt-text
+  - ea11y/v1/remediation/trigger-save
+  - ea11y/v1/remediation/heading-level
+  - ea11y/v1/remediation/dismiss-heading-issue
+  - ea11y/v1/remediation/global-items
+  - ea11y/v1/remediation/global-items-group
+  - ea11y/v1/remediation/global-item
+  - ea11y/v1/remediation/clear-cache
+  - ea11y/v1/scanner/results
+  - ea11y/v1/scanner/stats
+  - ea11y/v1/scanner/scan-results
+  - ea11y/v1/scanner/post-types
+  - ea11y/v1/scanner/resolve-issue
+  - ea11y/v1/scanner/resolve-with-ai
+  - ea11y/v1/scanner/generate-alt-text
+  - ea11y/v1/settings/get-settings
+  - ea11y/v1/settings/get-media
+  - ea11y/v1/reviews/review
+
+adminPages:
+  - accessibility-settings
+
+suppressions: []

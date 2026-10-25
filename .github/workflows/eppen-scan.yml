@@ -1,0 +1,86 @@
+# Copy into the plugin repository as .github/workflows/eppen-scan.yml
+# If the plugin is not the git root, change the scan working-directory
+# from plugin to the directory that contains eppen.yml.
+
+name: eppen Security Scan
+
+on:
+  pull_request:
+  push:
+    branches: [main, master, develop]
+  workflow_dispatch:
+    inputs:
+      pr-comment:
+        description: 'Post PR comment with scan results'
+        type: boolean
+        default: true
+
+jobs:
+  security-scan:
+    name: WordPress Plugin Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
+      id-token: write
+
+    steps:
+      - name: Checkout plugin
+        uses: actions/checkout@v4
+        with:
+          path: plugin
+
+      - name: Authenticate to Google Artifact Registry
+        id: gar-auth
+        uses: elementor/devops-global-actions/.github/actions/authenticate-to-gar@master
+        with:
+          scope: apps
+          environment: prod
+          cloud_platform_envs: ${{ vars.CLOUD_PLATFORM_ENVS }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: https://us-npm.pkg.dev/elementor-infra/elementor-npm-repository/
+          scope: "@elementor"
+
+      - name: Clear stale wp-env config
+        working-directory: plugin
+        run: rm -f .wp-env.json
+
+      - name: Run eppen scan
+        working-directory: plugin
+        run: npx @elementor/eppen scan . --output "${GITHUB_WORKSPACE}/eppen-results"
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.gar-auth.outputs.access_token }}
+          NPM_GAR_TOKEN: ${{ steps.gar-auth.outputs.access_token }}
+          EPPEN_WP_PHP_VERSION: "8.2"
+          EPPEN_PR_COMMENT: ${{ inputs.pr-comment || vars.EPPEN_PR_COMMENT }}
+        continue-on-error: true
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eppen-security-reports
+          path: eppen-results/
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: eppen-results/findings.sarif
+          category: eppen
+        continue-on-error: true
+
+      - name: Post PR comment
+        if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && hashFiles('eppen-results/pr-comment.md') != ''
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: eppen-scan-summary
+          path: eppen-results/pr-comment.md
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
