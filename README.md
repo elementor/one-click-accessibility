@@ -5,7 +5,7 @@
 **Requires at least:** 6.7 \
 **Tested up to:** 7.0 \
 **Requires PHP:** 7.4 \
-**Stable tag:** 4.1.4 \
+**Stable tag:** 4.1.5 \
 **License:** GPLv2 or later
 
 Web Accessibility (formally known as Ally) is a free, powerful, and user-friendly plugin that helps WordPress creators build more accessible websites with ease.
@@ -222,6 +222,12 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 ## Changelog
+
+### 4.1.5 – 2026-11-xx
+
+* Tweak: Moved the Ally menu to the main WordPress sidebar
+* Tweak: Renamed the sidebar menu title to Ally
+* Fix: Removed duplicated scripts
 
 ### 4.1.4 – 2026-08-xx
 
